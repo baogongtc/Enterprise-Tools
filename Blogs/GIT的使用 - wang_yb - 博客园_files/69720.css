@@ -1,0 +1,59 @@
+h1{
+    background: #99FFCC;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: white;
+    font-family: "微软雅黑", "宋体", "黑体",Arial;
+    font-size: 16px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px 0 !important;
+    padding: 5px 0 5px 20px;
+    text-shadow: 2px 2px 3px #222;
+}
+
+h2{
+    background: #99FFFF;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: white;
+    font-family: "微软雅黑", "宋体", "黑体",Arial;
+    font-size: 16px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    margin: 10px 0 !important;
+    padding: 5px 0 5px 20px;
+    text-shadow: 2px 2px 3px #222;
+}
+
+h3{
+    background: #2B6695;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: white;
+    font-family: "微软雅黑", "宋体", "黑体",Arial;
+    font-size: 14px;
+    font-weight: bold;
+    height: 18px;
+    line-height: 18px;
+    margin: 10px 0 !important;
+    padding: 5px 0 5px 20px;
+    text-shadow: 2px 2px 3px #222;
+}
+
+h4{
+    background: #006666;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: white;
+    font-family: "微软雅黑", "宋体", "黑体",Arial;
+    font-size: 12px;
+    font-weight: bold;
+    height: 15px;
+    line-height: 20px;
+    margin: 10px 0 !important;
+    padding: 5px 0 5px 10px;
+    text-shadow: 2px 2px 3px #222;
+}
