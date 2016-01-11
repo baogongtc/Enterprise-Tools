@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>Git忽略规则及.gitignore规则不生效的解决办法 – 梧桐树下</title>
+<link rel="stylesheet" id="mt-shcore-style-css" href="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/shCore.css" type="text/css" media="all">
+<link rel="stylesheet" id="mt-theme-style-css" href="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/shThemeDefault.css" type="text/css" media="all">
+<script type="text/javascript" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/shCore.js"></script>
+<script type="text/javascript" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/shAutoloader.js"></script>
+<link rel="prev" title="转载：Git常用命令" href="http://www.pfeng.org/archives/838">
+<link rel="next" title="PHP安装redis扩展" href="http://www.pfeng.org/archives/843">
+<link rel="canonical" href="http://www.pfeng.org/archives/840">
+<link rel="shortlink" href="http://www.pfeng.org/?p=840">
+<meta name="keywords" content="git, Share">
+<meta name="description" content="在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如： # 此为注释 – 将被 Git 忽略  *.a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 忽略所有 .a 结尾的文件 !lib.a&nbsp;&nbsp;&nbsp; # 但 lib.a 除外 /TODO&nbsp;&nbsp;&nbsp;&nbsp; # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO build/&nbsp;&nbsp;..">
+<link rel="stylesheet" href="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/style.css" media="all">
+<!--[if lt IE 9]><script src="http://www.pfeng.org/wp-content/themes/d-simple/js/html5.js"></script><![endif]-->
+<script src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/jquery.js"></script>
+<script src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/logger.js"></script><link type="text/css" rel="stylesheet" href="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/bdsstyle.css"></head>
+<body class="single single-post postid-840 single-format-standard"><iframe style="display: none;" frameborder="0"></iframe><div style="display: block;" id="bdshare_s"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div style="display: none;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+<header class="header">
+	<div class="central">
+		<a class="logo" href="http://www.pfeng.org/" title="梧桐树下 - 生活感悟，技术分享">梧桐树下</a>
+		<ul class="nav">
+			<li id="menu-item-577" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-577"><a href="http://www.pfeng.org/">首页</a></li>
+<li id="menu-item-578" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-578"><a href="http://www.pfeng.org/archives/category/opensource">OpenSoruce</a></li>
+<li id="menu-item-579" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-579"><a href="http://www.pfeng.org/archives/category/life">感悟随笔</a></li>
+		</ul>
+		<ul class="header-menu">
+			<li class="menu-follow">
+				<a class="btn btn-arrow btn-headermenu" href="javascript:;">订阅关注<i class="arrow"></i></a>
+				<span style="display: none;" class="popup-arrow"><i></i></span>
+				<div style="display: none;" class="popup-layer">
+					<div class="popup">
+						<ul class="popup-follow-weibo">
+							<li><a class="btn btn-mini" target="_blank" href="http://t.qq.com/Peng_Feng">腾讯微博</a></li>
+							<li><a class="btn btn-mini" target="_blank" href="http://weibo.com/Peng_Feng">新浪微博</a></li>
+						</ul>
+						<div class="popup-follow-feed">
+							<h4>订阅到：</h4>
+							<a target="_blank" href="http://fusion.google.com/add?feedurl=http://www.pfeng.org/feed">Google Reader</a>
+							<a target="_blank" href="http://mail.qq.com/cgi-bin/feed?u=http://www.pfeng.org/feed">QQ邮箱</a>
+							<a target="_blank" href="http://www.xianguo.com/subscribe.php?url=http://www.pfeng.org/feed">鲜果</a>
+							<a target="_blank" href="http://www.zhuaxia.com/add_channel.php?url=http://www.pfeng.org/feed">抓虾</a>
+							<h4>订阅地址：</h4>
+							<input class="ipt" readonly="readonly" value="http://www.pfeng.org/feed" type="text">
+						</div>
+						<div class="popup-follow-mail">
+							<h4>邮件订阅：</h4>
+							<form action="http://list.qq.com/cgi-bin/qf_compose_send" target="_blank" method="post">
+								<input name="t" value="qf_booked_feedback" type="hidden">
+								<input name="id" value="725070a0558d500d03207f769779c8d9674eb1468e81b5e1" type="hidden">
+								<input id="to" placeholder="输入邮箱 订阅本站" name="to" class="ipt" type="text"><input class="btn btn-primary" value="邮件订阅" type="submit">
+							</form>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="menu-profile">
+				
+				<a class="btn btn-arrow btn-headermenu" href="javascript:;">用户登陆<i class="arrow"></i></a>
+				<span style="display: none;" class="popup-arrow"><i></i></span>
+				<div style="display: none;" class="popup-layer">
+					<div class="popup">
+						<form class="popup-signin" name="loginform" action="http://www.pfeng.org/wp-login.php" method="post">
+							<h4>用户名：</h4>
+							<input class="ipt" name="log" size="20" type="text">
+							<h4>密码：</h4>
+							<input class="ipt" name="pwd" value="" size="20" type="password">
+							<input class="btn btn-primary" name="submit" value="立即登录" type="submit">
+							<p><a class="btn btn-mini" href="http://www.pfeng.org/wp-login.php?action=register">注册</a><a class="btn btn-mini" href="http://www.pfeng.org/wp-login.php?action=lostpassword">找回密码</a></p>
+		                    <input name="redirect_to" value="/archives/840" type="hidden">
+		                </form>
+	           		</div>
+           		</div>
+							</li>
+		</ul>
+		<form method="get" class="search-form" action="http://www.pfeng.org/">
+			<input class="search-input" name="s" placeholder="输入关键字搜索" autofocus="" x-webkit-speech="" type="text"><input class="btn btn-primary search-submit" value="搜索" type="submit">
+		</form>
+	</div>
+</header>
+<section class="focus">
+	<div class="central">
+		<div class="toptip"> </div>
+	</div>
+</section>
+<section class="central container"><div class="content-wrap">
+	<div class="content">
+				<article class="article">
+			<header class="article-header">
+				<h1 class="article-title"><a href="http://www.pfeng.org/archives/840" title="Git忽略规则及.gitignore规则不生效的解决办法 - 梧桐树下">Git忽略规则及.gitignore规则不生效的解决办法</a></h1>
+				<div class="share"><div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"><span class="share-tit">分享到：</span><a href="#" title="分享到QQ空间" class="bds_qzone"></a><a href="#" title="分享到腾讯微博" class="bds_tqq"></a><a href="#" title="分享到新浪微博" class="bds_tsina"></a><a href="#" title="分享到人人网" class="bds_renren"></a><a href="#" title="分享到开心网" class="bds_kaixin001"></a><a href="#" title="分享到腾讯朋友" class="bds_tqf"></a><span class="bds_more">更多</span><a title="累计分享3次" href="#" class="shareCount">3</a></div></div>				<p class="article-meta">
+					2015-02-12 &nbsp;&nbsp; 分类：<a href="http://www.pfeng.org/archives/category/share" rel="category tag">Share</a><a class="comm" href="http://www.pfeng.org/archives/840#comments" title="查看 Git忽略规则及.gitignore规则不生效的解决办法 的评论">0人评论</a><span class="view"><span id="wppvp_tv_840">7,307</span> 次人浏览</span> 				</p>
+			</header>
+
+						
+			<div class="article-entry">
+				<p>在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：</p>
+<div><div id="highlighter_19955" class="syntaxhighlighter  shell"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="shell comments"># 此为注释 – 将被 Git 忽略</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="shell plain">*.a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="shell comments"># 忽略所有 .a 结尾的文件</code></div><div class="line number4 index3 alt1"><code class="shell plain">!lib.a&nbsp;&nbsp;&nbsp; </code><code class="shell comments"># 但 lib.a 除外</code></div><div class="line number5 index4 alt2"><code class="shell plain">/TODO</code>&nbsp;&nbsp;&nbsp;&nbsp; <code class="shell comments"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</code></div><div class="line number6 index5 alt1"><code class="shell plain">build/&nbsp;&nbsp;&nbsp; </code><code class="shell comments"># 忽略 build/ 目录下的所有文件</code></div><div class="line number7 index6 alt2"><code class="shell plain">doc/*.txt </code><code class="shell comments"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</code></div></div></td></tr></tbody></table></div></div>
+<p>规则很简单，不做过多解释，但是有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因
+是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方
+法就是先把本地缓存删除（改变成未track状态），然后再提交：</p>
+<div><div id="highlighter_823440" class="syntaxhighlighter  shell"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="shell plain">git&nbsp;</code><code class="shell functions">rm</code>&nbsp;<code class="shell plain">-r&nbsp;--cached&nbsp;.</code></div><div class="line number2 index1 alt1"><code class="shell plain">git&nbsp;add&nbsp;.</code></div><div class="line number3 index2 alt2"><code class="shell plain">git&nbsp;commit&nbsp;-m&nbsp;</code><code class="shell string">'update&nbsp;.gitignore'</code></div></div></td></tr></tbody></table></div></div>
+<p>转载请注明：<a href="http://www.pfeng.org/">梧桐树下</a> » <a href="http://www.pfeng.org/archives/840">Git忽略规则及.gitignore规则不生效的解决办法</a></p>			</div>
+
+			<footer class="article-footer">
+				<div class="share"><div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"><span class="share-tit">分享到：</span><a href="#" title="分享到QQ空间" class="bds_qzone"></a><a href="#" title="分享到腾讯微博" class="bds_tqq"></a><a href="#" title="分享到新浪微博" class="bds_tsina"></a><a href="#" title="分享到人人网" class="bds_renren"></a><a href="#" title="分享到开心网" class="bds_kaixin001"></a><a href="#" title="分享到腾讯朋友" class="bds_tqf"></a><span class="bds_more">更多</span><a title="累计分享3次" href="#" class="shareCount">3</a></div></div>				<div class="article-tags">继续浏览有关<a href="http://www.pfeng.org/archives/tag/git" rel="tag">git</a>的文章</div>
+			</footer>
+
+			<div class="article-author">
+				<img class="avatar" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/default.png" height="36" width="36">
+				<h4>本文作者：<a href="http://www.pfeng.org/archives/author/pfeng" title="查看pfeng所有文章">pfeng</a></h4>
+				<p>2014，我们需要的是改变！Change your life!</p>
+			</div>
+		</article>
+
+		<h3 class="base-tit">与本文相关文章</h3>
+		<div class="post-related">
+<ul>
+<li><a href="http://www.pfeng.org/archives/838"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/Git-Logo-2Color-770x321-180x160-140x98.jpg" alt="转载：Git常用命令" height="98" width="140">转载：Git常用命令</a></li><li><a href="http://www.pfeng.org/archives/786"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/sourcetree-1024x545.png" alt="功能强大的免费Git客户端：SourceTree" height="98" width="140">功能强大的免费Git客户端：SourceTree</a></li><li><a href="http://www.pfeng.org/archives/757"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/Git-Logo-2Color-770x321-180x160-140x98.jpg" alt="CentOS安装配置Git服务器(gitosis)" height="98" width="140">CentOS安装配置Git服务器(gitosis)</a></li><li><a href="http://www.pfeng.org/archives/832"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/osc-140x75.png" alt="2014年OSC推荐的200个开源项目" height="98" width="140">2014年OSC推荐的200个开源项目</a></li><li><a href="http://www.pfeng.org/archives/828"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/20300000241358134880284041912-140x98.jpg" alt="转载：《告诉你一个真实的中国互联网：精英与草根》" height="98" width="140">转载：《告诉你一个真实的中国互联网：精英与草根》</a></li></ul>
+</div>
+		
+		<div id="respond" class="no_webshot">
+		<form action="http://www.pfeng.org/wp-comments-post.php" method="post" id="commentform">
+		<h3 class="base-tit">发表我的评论</h3>
+		<div class="comt">
+			<a id="cancel-comment-reply-link" href="javascript:;">取消评论</a>
+													<div class="comt-avatar">
+								<img class="avatar" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/default.png" height="36" width="36">
+			</div>
+
+			<div class="comt-box">
+				<textarea class="comt-area" name="w" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea><textarea name="comment" cols="100%" rows="4" style="display:none"></textarea>
+				<div class="comt-ctrl">
+					<a class="comt-addsmilies" href="javascript:;">表情</a>
+					<a class="comt-addcode" href="javascript:SIMPALED.Editor.code()">插代码</a>
+					<div class="comt-smilies"><a title="mrgreen" href="javascript:grin(':mrgreen:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_mrgreen.gif"></a><a title="razz" href="javascript:grin(':razz:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_razz.gif"></a><a title="sad" href="javascript:grin(':sad:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_sad.gif"></a><a title="smile" href="javascript:grin(':smile:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_smile.gif"></a><a title="oops" href="javascript:grin(':oops:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_redface.gif"></a><a title="grin" href="javascript:grin(':grin:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_biggrin.gif"></a><a title="eek" href="javascript:grin(':eek:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_surprised.gif"></a><a title="???" href="javascript:grin(':???:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_confused.gif"></a><a title="cool" href="javascript:grin(':cool:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_cool.gif"></a><a title="lol" href="javascript:grin(':lol:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_lol.gif"></a><a title="mad" href="javascript:grin(':mad:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_mad.gif"></a><a title="twisted" href="javascript:grin(':twisted:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_twisted.gif"></a><a title="roll" href="javascript:grin(':roll:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_rolleyes.gif"></a><a title="wink" href="javascript:grin(':wink:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_wink.gif"></a><a title="idea" href="javascript:grin(':idea:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_idea.gif"></a><a title="arrow" href="javascript:grin(':arrow:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_arrow.gif"></a><a title="neutral" href="javascript:grin(':neutral:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_neutral.gif"></a><a title="cry" href="javascript:grin(':cry:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_cry.gif"></a><a title="?" href="javascript:grin(':?:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_question.gif"></a><a title="evil" href="javascript:grin(':evil:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_evil.gif"></a><a title="shock" href="javascript:grin(':shock:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_eek.gif"></a><a title="!" href="javascript:grin(':!:')"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/icon_exclaim.gif"></a></div>
+					<input class="comt-submit" name="submit" id="submit" tabindex="5" value="发布评论" type="submit">
+					<div class="comt-tips">
+						<input name="comment_post_ID" value="840" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="921372a538" type="hidden"></p><label for="comment_mail_notify"><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" type="checkbox">有人回复时邮件通知我</label><p style="display: none;"></p>					<div style="display: none;" class="comt-tip comt-loading">正在提交, 请稍候...</div><div style="display: none;" class="comt-tip comt-error">#</div></div>
+				</div>
+			</div>
+
+												<div class="comt-comterinfo" id="comment-author-info">
+						<h4>Hi，您需要填写昵称和邮箱！</h4>
+						<ul>
+							<li><label for="author">昵称</label><input class="ipt" name="author" id="author" size="28" tabindex="2" type="text"><span>必填项</span></li>
+							<li><label for="email">邮箱</label><input class="ipt" name="email" id="email" size="28" tabindex="3" type="mail"><span>必填项</span></li>
+							<li class="comt-comterinfo-url"><label for="url">网址</label><input class="ipt" name="url" id="url" size="42" tabindex="4" type="url"></li>
+						</ul>
+					</div>
+									</div>
+
+		
+	<input id="ak_js" name="ak_js" value="1452483143630" type="hidden"></form>
+	</div>
+
+		
+			</div>
+</div>
+<aside class="sidebar">	
+	<div class="widget widget_categories"><h3 class="widget_tit">博客分类</h3>		<ul>
+	<li class="cat-item cat-item-82"><a href="http://www.pfeng.org/archives/category/appdev" title="android、ios...">Android/IOS</a> (4)
+</li>
+	<li class="cat-item cat-item-98"><a href="http://www.pfeng.org/archives/category/cpp" title="C++、Qt等相关技术知识">C++/Qt</a> (7)
+</li>
+	<li class="cat-item cat-item-78"><a href="http://www.pfeng.org/archives/category/database" title="Oracle、SQLServer、MySQL、SQLite...">Database</a> (4)
+</li>
+	<li class="cat-item cat-item-77"><a href="http://www.pfeng.org/archives/category/delphi-tech">Delphi</a> (25)
+</li>
+	<li class="cat-item cat-item-90"><a href="http://www.pfeng.org/archives/category/%e6%9c%8d%e5%8a%a1%e5%99%a8">Linux</a> (5)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.pfeng.org/archives/category/opensource" title="开源社区资源推荐以及自己做的一些小软件分享">OpenSoruce</a> (22)
+</li>
+	<li class="cat-item cat-item-124"><a href="http://www.pfeng.org/archives/category/share" title="一些优秀软件、技术的推荐和分享">Share</a> (4)
+</li>
+	<li class="cat-item cat-item-79"><a href="http://www.pfeng.org/archives/category/webdev" title="PHP、Java、JQuery、Bootstrap...">Web</a> (18)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://www.pfeng.org/archives/category/life" title="生活中的点点滴滴">感悟随笔</a> (3)
+</li>
+	<li class="cat-item cat-item-83"><a href="http://www.pfeng.org/archives/category/avr" title="51、Arduino...">树莓派/Arduino</a> (3)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://www.pfeng.org/archives/category/photo" title="爱车，爱旅游，爱摄影。">骑行日志</a> (2)
+</li>
+		</ul>
+</div><div class="widget widget_d_sticky"><h3 class="widget_tit">置顶推荐</h3><ul><li><a href="http://www.pfeng.org/archives/852">Windows下Oracle数据库定时云备份Python脚本</a></li><li><a href="http://www.pfeng.org/archives/843">PHP安装redis扩展</a></li><li><a href="http://www.pfeng.org/archives/840">Git忽略规则及.gitignore规则不生效的解决办法</a></li><li><a href="http://www.pfeng.org/archives/838">转载：Git常用命令</a></li><li><a href="http://www.pfeng.org/archives/832">2014年OSC推荐的200个开源项目</a></li><li><a href="http://www.pfeng.org/archives/828">转载：《告诉你一个真实的中国互联网：精英与草根》</a></li><li><a href="http://www.pfeng.org/archives/815">CentOS 64-bit安装WPS</a></li><li><a href="http://www.pfeng.org/archives/810">CentOS桌面环境FireFox安装Flash-plug</a></li><li><a href="http://www.pfeng.org/archives/808">Qt打开外部程序和文件夹需要注意的细节</a></li><li><a href="http://www.pfeng.org/archives/801">首个树莓派应用项目分享——视频门禁系统</a></li></ul></div></aside>﻿</section>
+<footer class="footer">
+	<div class="central">
+		<div class="trackcode">
+					</div>
+		<div class="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nd/3.0/cn/"><img alt="知识共享许可协议" style="border-width:0" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/80x15.png"></a>  <script src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/stat.php" language="JavaScript"></script><script src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=2112823" target="_blank" title="站长统计"><img src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/pic2.gif" border="0" hspace="0" vspace="0"></a><br>除非特别声明，本站作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nd/3.0/cn/">知识共享署名-禁止演绎 3.0 中国大陆许可协议</a>进行许可。<br> � 2016 <a href="http://www.pfeng.org/">梧桐树下</a>   豫ICP备11001959号-1</div>
+	</div>
+</footer>
+<div style="display: none;" class="rollto"><a class="ico ico-totop" title="回顶部"></a><a href="#respond" class="ico ico-torespond" title="发评论"></a></div>
+<script type="text/javascript" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var MTBrushParams = {"baseUrl":"http:\/\/www.pfeng.org\/wp-content\/plugins\/syntax-highlighter-mt"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/brushTypes.js"></script>
+<script>var asr_1 = 0,asr_2 = 0;</script><script src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/post.js"></script><script src="Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99%E5%8F%8A.gitignore%E8%A7%84%E5%88%99%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%20%E2%80%93%20%E6%A2%A7%E6%A1%90%E6%A0%91%E4%B8%8B_files/bds_s_v2.js" id="bdshare_js" data="type=tools&amp;uid=123"></script><script>document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();</script>
+</body></html>

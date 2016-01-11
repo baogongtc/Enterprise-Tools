@@ -1,0 +1,6 @@
+
+
+Git忽略规则及.gitignore规则不生效的解决办法
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'

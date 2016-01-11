@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>git tags 使用 远程创建git tags 删除（小抄版） - 夜鸣猪的Ruby On Rails 空间 - ITeye技术网站</title>
+    <meta name="description" content="Reference update 0.5 获取远程tag   #my_abc是tag号  git clone http://git.abc.net/git/abc.git  git checkout my_abc OR git checkout -b new_branch my_abc      update v2  获取远程tag or branch  code=&quot;java&quot;] ...">
+    <meta name="keywords" content="git, tag, tags, rails, release git tags 使用 远程创建git tags 删除（小抄版）">
+    <link rel="shortcut icon" href="http://hlee.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://hlee.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://hlee.iteye.com/rss" rel="alternate" title="夜鸣猪的Ruby On Rails 空间" type="application/rss+xml">
+    <link href="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/green.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/ga.js" async="" type="text/javascript"></script><script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/ga.js" async="" type="text/javascript"></script><script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/hotkey.js" type="text/javascript"></script>
+  <script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/code_favorites.js" type="text/javascript"></script>
+<script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/weiboshare.js" type="text/javascript"></script>
+  <style type="text/css">.dp-rb .symbol { color: #a70; }.dp-rb .variable { color: #a70; font-weight: bold; }</style><style type="text/css">.dp-rb .symbol { color: #a70; }.dp-rb .variable { color: #a70; font-weight: bold; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-rb .symbol { color: #a70; }.dp-rb .variable { color: #a70; font-weight: bold; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://hlee.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://hlee.iteye.com/login">登录</a>
+    <a href="http://hlee.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://hlee.iteye.com/">夜鸣猪的Ruby On Rails 空间</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://hlee.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://hlee.iteye.com/weibo">微博</a></li>
+            <li><a href="http://hlee.iteye.com/album">相册</a></li>
+            <li><a href="http://hlee.iteye.com/link">收藏</a></li>
+            <li><a href="http://hlee.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://hlee.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text">
+              <input class="submit_search" value="" type="submit">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://hlee.iteye.com/" class="p-author" target="_blank">夜鸣猪</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="http://hlee.iteye.com/blog/1616461">git tags 使用 远程创建git tags 删除（小抄版）</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://hlee.iteye.com/category/187544">Ruby On Rails</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/git">git</a><a href="http://www.iteye.com/blogs/tag/tag">tag</a><a href="http://www.iteye.com/blogs/tag/tags">tags</a><a href="http://www.iteye.com/blogs/tag/rails">rails</a><a href="http://www.iteye.com/blogs/tag/release">release</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <a target="_blank" href="http://hlee.iteye.com/blog/669831">Reference</a>
+<br>
+<br>
+<br>update
+<br>0.5 获取远程tag
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Ruby代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=%23my_abc%E6%98%AFtag%E5%8F%B7%0Agit%20clone%20http%3A%2F%2Fgit.abc.net%2Fgit%2Fabc.git%0Agit%20checkout%20my_abc%20OR%20git%20checkout%20-b%20new_branch%20my_abc%0A%0A%0Aupdate%20v2%0A%E8%8E%B7%E5%8F%96%E8%BF%9C%E7%A8%8Btag%20or%20branch%0Acode%3D%22java%22%5D%24%20git%20ls-remote%20--heads%20origin" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-rb" start="1"><li><span><span class="comment">#my_abc是tag号</span><span>&nbsp;&nbsp;</span></span></li><li><span>git&nbsp;clone&nbsp;http://git.abc.net/git/abc.git&nbsp;&nbsp;</span></li><li><span>git&nbsp;checkout&nbsp;my_abc&nbsp;OR&nbsp;git&nbsp;checkout&nbsp;-b&nbsp;new_branch&nbsp;my_abc&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>update&nbsp;v2&nbsp;&nbsp;</span></li><li><span>获取远程tag&nbsp;<span class="keyword">or</span><span>&nbsp;branch&nbsp;&nbsp;</span></span></li><li><span>code=<span class="string">"java"</span><span>]$&nbsp;git&nbsp;ls-remote&nbsp;--heads&nbsp;origin&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="0" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="ruby" name="code">#my_abc是tag号
+git clone http://git.abc.net/git/abc.git
+git checkout my_abc OR git checkout -b new_branch my_abc
+
+
+update v2
+获取远程tag or branch
+code="java"]$ git ls-remote --heads origin</pre>
+<br><div class="quote_title">引用</div><div class="quote_div">5b3f7563ae1b4a7160fda7fe34240d40c5777dcd&nbsp; refs/heads/1-2-stable
+<br>71926912a127da29530520d435c83c48778ac2b2&nbsp; refs/heads/2-0-stable
+<br>2b158543247a150e8ec568becf360e7376f8ab84&nbsp; refs/heads/2-1-stable
+<br>b0792a3e7be88e3060af19bab01cd3d26d347e4c&nbsp; refs/heads/2-2-stable
+<br>d6b9f8410c990b3d68d1970f1461a1d385d098d7&nbsp; refs/heads/3-0-unstable
+<br>f04346d8b999476113d5e5a30661e07899e3ff80&nbsp; refs/tags/v0.13.3</div>
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Ruby代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20pull%20origin%20refs%2Ftags%2Fv0.13.3%0Agit%20pull%20origin%20refs%2Fheads%2F2-2-stable%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-rb" start="1"><li><span><span>git&nbsp;pull&nbsp;origin&nbsp;refs/tags/v0.13.3&nbsp;&nbsp;</span></span></li><li><span>git&nbsp;pull&nbsp;origin&nbsp;refs/heads/2-2-stable&nbsp;&nbsp;</span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="1" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="ruby" name="code">git pull origin refs/tags/v0.13.3
+git pull origin refs/heads/2-2-stable
+</pre>
+<br>
+<br>创建
+<br>1. 本地创建tags
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20tag%20-a%20v1.1%20-m%20%22new%20release%22" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>git&nbsp;tag&nbsp;-a&nbsp;v1.</span><span class="number">1</span><span>&nbsp;-m&nbsp;</span><span class="string">"new&nbsp;release"</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="2" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">git tag -a v1.1 -m "new release"</pre>
+<br>
+<br>1.5 查看本地tags
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20tag%20-l" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>git&nbsp;tag&nbsp;-l&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="3" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">git tag -l</pre>
+<br>
+<br>2. push到服务器端
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20push%20--tags" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>git&nbsp;push&nbsp;--tags&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="4" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">git push --tags</pre>
+<br>
+<br>2.2.1 创建和删除远程branch
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Ruby代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20push%20origin%20head%3Anewbranch_name%20%0Agit%20push%20origin%20head%3Afeature%2Fnewbranch_name%20%20%20%0A%0A%23%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%EF%BC%8C%E5%85%B6%E5%AE%83%E5%BC%80%E5%8F%91%E8%80%85%E8%A6%81git%20branch%20%EF%BC%8Dd%20%EF%BC%8Dr%20%E5%88%86%E6%94%AF%20%20%0Agit%20push%20origin%20%3Anewbranch_name%20%20%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-rb" start="1"><li><span><span>git&nbsp;push&nbsp;origin&nbsp;head</span><span class="symbol">:newbranch_name</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>git&nbsp;push&nbsp;origin&nbsp;head<span class="symbol">:feature</span><span>/newbranch_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">#删除远程分支，其它开发者要git&nbsp;branch&nbsp;－d&nbsp;－r&nbsp;分支&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li><span>git&nbsp;push&nbsp;origin&nbsp;<span class="symbol">:newbranch_name</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="5" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="ruby" name="code">git push origin head:newbranch_name 
+git push origin head:feature/newbranch_name   
+
+#删除远程分支，其它开发者要git branch －d －r 分支  
+git push origin :newbranch_name  
+</pre>
+<br>
+<br>2.3 删除本地tag
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20tag%20-d%20v1.1" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>git&nbsp;tag&nbsp;-d&nbsp;v1.</span><span class="number">1</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="6" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">git tag -d v1.1</pre>
+<br>
+<br>3. 删除服务器端远程tag
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=git%20push%20origin%20%3Arefs%2Ftags%2Fv1.1" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>git&nbsp;push&nbsp;origin&nbsp;:refs/tags/v1.</span><span class="number">1</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="7" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">git push origin :refs/tags/v1.1</pre>
+<br>
+<br>4. 查看远程服务器端
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=%24%20git%20remote%20show%20origin" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>$&nbsp;git&nbsp;remote&nbsp;show&nbsp;origin&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="8" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">$ git remote show origin</pre>
+<br><div class="quote_title">引用</div><div class="quote_div">* remote origin
+<br>&nbsp; URL: git://github.com/rails/rails.git
+<br>&nbsp; Remote branch merged with 'git pull' while on branch master
+<br>&nbsp;&nbsp;&nbsp; master
+<br>&nbsp; Tracked remote branches
+<br>&nbsp;&nbsp;&nbsp; 1-2-stable 2-0-stable 2-1-stable 2-2-stable 3-0-unstable master</div>
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=%24%20git%20ls-remote%20--heads%20origin" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>$&nbsp;git&nbsp;ls-remote&nbsp;--heads&nbsp;origin&nbsp;&nbsp;</span></span></li></ol></div><pre title="git tags 使用 远程创建git tags 删除（小抄版）" pre_index="9" source_url="http://hlee.iteye.com/blog/1616461" codeable_type="Blog" codeable_id="1616461" style="display: none;" class="java" name="code">$ git ls-remote --heads origin</pre>
+<br><div class="quote_title">引用</div><div class="quote_div">5b3f7563ae1b4a7160fda7fe34240d40c5777dcd&nbsp; refs/heads/1-2-stable
+<br>71926912a127da29530520d435c83c48778ac2b2&nbsp; refs/heads/2-0-stable
+<br>2b158543247a150e8ec568becf360e7376f8ab84&nbsp; refs/heads/2-1-stable
+<br>b0792a3e7be88e3060af19bab01cd3d26d347e4c&nbsp; refs/heads/2-2-stable
+<br>d6b9f8410c990b3d68d1970f1461a1d385d098d7&nbsp; refs/heads/3-0-unstable
+<br>f04346d8b999476113d5e5a30661e07899e3ff80&nbsp; refs/heads/master</div>
+<br>
+<br>
+<br>给同行个<a target="_blank" href="http://blog.ashchan.com/archive/2008/06/30/tags-on-git/">链接</a>
+  </div>
+
+  
+
+  
+  
+  <iframe src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/794.htm" scrolling="no" frameborder="0" height="90" width="680"></iframe>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://hlee.iteye.com/blog/1616865" class="next" title="Ruby的try 方法">Ruby的try 方法</a>
+      |
+      <a href="http://hlee.iteye.com/blog/1613174" class="pre" title="标准coffeescript 调用ajax">标准coffeescript 调用ajax</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2012-08-01 21:13</li>
+      <li>浏览 6256</li>
+      <li><a href="#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1616461" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://hlee.iteye.com/login" style="background-color:white;"> <img src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://hlee.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1616461;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'git tags 使用 远程创建git tags 删除（小抄版）');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'git tags 使用 远程创建git tags 删除（小抄版）');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://hlee.iteye.com/"><img alt="夜鸣猪的博客" class="logo" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/bc4c8145-28bf-33d0-8fa9-fe07225b61c3.gif" title="夜鸣猪的博客: 夜鸣猪的Ruby On Rails 空间" width=""></a></div>
+  <div id="blog_owner_name">夜鸣猪</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 1233597 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: NYC</li>
+              <li><img src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://hlee.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://folish-audi.iteye.com/" target="_blank"><img alt="Folish_Audi的博客" class="logo" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="Folish_Audi的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://folish-audi.iteye.com/" target="_blank" title="Folish_Audi">Folish_Audi</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://zk2293812702.iteye.com/" target="_blank"><img alt="zk2293812702的博客" class="logo" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="zk2293812702的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://zk2293812702.iteye.com/" target="_blank" title="zk2293812702">zk2293812702</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://ab0809.iteye.com/" target="_blank"><img alt="ab0809的博客" class="logo" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="ab0809的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://ab0809.iteye.com/" target="_blank" title="ab0809">ab0809</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://jacky9881201601075109.iteye.com/" target="_blank"><img alt="黄伟9881的博客" class="logo" src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="黄伟9881的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://jacky9881201601075109.iteye.com/" target="_blank" title="黄伟9881">黄伟9881</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://hlee.iteye.com/">全部博客 (628)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/54339">Linux (53)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/54340">RubyOnRails (294)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/54341">HTML (8)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/54342">手册指南 (5)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/57477">Mysql (14)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/58642">PHP (3)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/58661">Rails 汇总 (13)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/59151">读书 (22)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/62142">plugin 插件介绍与应用 (12)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/63628">Flex (2)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/71590">Ruby技巧 (7)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/71591">Gem包介绍 (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/82600">javascript Jquery ext prototype (21)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/118291">IT生活 (6)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/119116">小工具 (4)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/167510">PHP 部署 drupal (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/170644">javascript Jquery  sort plugin 插件 (2)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/182874">iphone siri ios (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/187544">Ruby On Rails (106)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/190392">编程概念 (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/190411">Unit Test (4)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/190524">Ruby 1.9 (24)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/192047">rake (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/249232">Postgresql (6)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/259842">ruby (5)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/259843">respond_to? (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/259844">method_missing (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/266919">git (8)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/267071">Rspec (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/269613">ios (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/274587">jquery (1)</a></li>
+                
+                  <li><a href="http://hlee.iteye.com/category/279819">Sinatra (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://hlee.iteye.com/blog/news">我的资讯</a> (5)</li>
+                <li>
+                  <a href="http://hlee.iteye.com/blog/post">我的论坛</a> (39)
+                </li>
+                <li><a href="http://hlee.iteye.com/blog/answered_problems">我的问答</a> (192)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://hlee.iteye.com/blog/monthblog/2013-07">2013-07</a> (3)</li>
+                
+                  <li><a href="http://hlee.iteye.com/blog/monthblog/2013-06">2013-06</a> (3)</li>
+                
+                  <li><a href="http://hlee.iteye.com/blog/monthblog/2013-05">2013-05</a> (6)</li>
+                
+                <li><a href="http://hlee.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://dadadada2x.iteye.com/" target="_blank" title="dadadada2x">dadadada2x</a>： 
+                  user模型里加上&nbsp; protected&nbsp; def email ...<br>
+                  <a href="http://hlee.iteye.com/blog/673386#bc2370065">流行的权限管理 gem devise的定制</a>
+                </li>
+                
+                <li>
+                  <a href="http://jyao.iteye.com/" target="_blank" title="Sev7en_jun">Sev7en_jun</a>： 
+                  shrekting 写道var pattern = /^(0| ...<br>
+                  <a href="http://hlee.iteye.com/blog/327993#bc2366894">强悍的ip格式 正则表达式验证</a>
+                </li>
+                
+                <li>
+                  <a href="http://jiasanshou.iteye.com/" target="_blank" title="jiasanshou">jiasanshou</a>： 
+                  好文章！！！<br>
+                  <a href="http://hlee.iteye.com/blog/343499#bc2365197">RPM包rpmbuild SPEC文件深度说明</a>
+                </li>
+                
+                <li>
+                  <a href="http://dayudodo-gmail-com.iteye.com/" target="_blank" title="寻得乐中乐">寻得乐中乐</a>： 
+                  link_to其实就是个a标签，使用css控制，添加一个参数: ...<br>
+                  <a href="http://hlee.iteye.com/blog/1465589#bc2333335">Rails在link_to中加参数</a>
+                </li>
+                
+                <li>
+                  <a href="http://aiafei0001.iteye.com/" target="_blank" title="aiafei0001">aiafei0001</a>： 
+                  完全看不懂,不知所然.能表达清楚一点?<br>
+                  <a href="http://hlee.iteye.com/blog/711520#bc2331470">"$ is not defined" 的问题怎么办</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2016 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/a.gif" height="0" width="0">
+
+<script src="git%20tags%20%E4%BD%BF%E7%94%A8%20%E8%BF%9C%E7%A8%8B%E5%88%9B%E5%BB%BAgit%20tags%20%E5%88%A0%E9%99%A4%EF%BC%88%E5%B0%8F%E6%8A%84%E7%89%88%EF%BC%89%20-%20%E5%A4%9C%E9%B8%A3%E7%8C%AA%E7%9A%84Ruby%20On%20Rails%20%E7%A9%BA%E9%97%B4%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/tracking.js" type="text/javascript"></script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7766408-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+      
+    
+  
+
+</body></html>
