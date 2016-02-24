@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+<meta http-equiv="content-type" content="text/html; charset=gbk">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="content-script-type" content="text/javascript">
+<meta http-equiv="x-ua-compatible" content="ie=emulateie7">
+<title>关于AlertDialog的自定义样式 -  网易博客</title>
+<meta name="author" content="wbj05791467,peculiar">
+<meta name="keywords" content="关于AlertDialog的自定义样式,日志,peculiar,art of devil ,网易博客,网易,blog">
+<meta name="description" content="关于AlertDialog的自定义样式,peculiar的网易博客,独立之精神，自由之思想,">
+<meta name="description" content="">
+
+    <link type="text/css" rel="stylesheet" href="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/c.css">
+    <link type="text/css" rel="stylesheet" href="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/m-160.css">
+<style>
+#blog-163-com {padding-top:0;}
+</style>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var visitorName='';
+var isNewBlogCenter=false
+location.dwr = 'http://api.blog.163.com/dwr';
+//--><!]]>
+document.domain = '163.com';
+</script>
+</head>
+<body id="blog-163-com" class="nb-body nb-hom">
+<noscript>请使用支持脚本的浏览器！</noscript>
+<div class="nb-layer" id="blog-163-com-layer">
+</div>
+<div class="body m-160">
+    <div class="g-hdwrap">
+        <div class="g-hd">
+            <div class="g-hdc">
+                <h1 class="m-logo"><a href="http://www.lofter.com/">LOFTER-网易轻博</a></h1>
+            </div>
+        </div>
+        <div class="joinin">
+            <a class="logo" href="http://www.lofter.com/?act=qbbkss_20151027_08" hidefocus="true">LOFTER-网易轻博 logo</a>
+            <a id="joinbtn" href="#guidearea" class="joinbtn">加入LOFTER 免费冲印20张照片&gt;</a>
+        </div>
+    </div>
+    
+    <div class="g-bd12">
+        <div class="g-bdc">
+            <div id="cntarea" class="m-cntarea">
+    <div class="m-post m-post-text">
+        <div class="cnt expand-all">
+        
+            <div class="userinfo">
+                <a class="ava" href="http://wbj05791467.blog.163.com/blog/static/12032969720121071553666"><img src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava.jpg"></a>
+                <a class="nick" href="http://wbj05791467.blog.163.com/blog/static/12032969720121071553666">peculiar</a>
+            </div>
+           
+            <h2 class="ttl">关于AlertDialog的自定义样式</h2>
+            <div class="txt txt-digest">&nbsp; &nbsp; &nbsp; &nbsp;最近两周真是闲得慌，项目上都没我啥事，最多就是改改字符串这种没技术含量活儿。还好我知道空闲的时候该干什么，那就是继续编写我的音乐播放器。<wbr><div>&nbsp;
+ &nbsp; &nbsp; 
+&nbsp;我是仿造天天动听来编写自己的播放器的，当然功能远没有它的完善。最近想实现天天动听上的一个功能：在歌曲列表中的item添加一个按钮，点
+击此按钮弹出一个AlertDialog，该AlertDialog中有一个TextView，下面是一个ListView。Textview用来显示该
+item所对应的歌曲的名称，ListView则是一些选项（歌曲信息，移除，设为铃声什么的）：</div><div><br></div><div><div></div></div></div>
+            <div class="txt txt-all">&nbsp; &nbsp; &nbsp; &nbsp;最近两周真是闲得慌，项目上都没我啥事，最多就是改改字符串这种没技术含量活儿。还好我知道空闲的时候该干什么，那就是继续编写我的音乐播放器。<wbr><div>&nbsp;
+ &nbsp; &nbsp; 
+&nbsp;我是仿造天天动听来编写自己的播放器的，当然功能远没有它的完善。最近想实现天天动听上的一个功能：在歌曲列表中的item添加一个按钮，点
+击此按钮弹出一个AlertDialog，该AlertDialog中有一个TextView，下面是一个ListView。Textview用来显示该
+item所对应的歌曲的名称，ListView则是一些选项（歌曲信息，移除，设为铃声什么的）：</div><div><br></div><div><div><img title="关于AlertDialog的自定义样式 - peculiar - art of devil " alt="关于AlertDialog的自定义样式 - peculiar - art of devil " style="margin:0 10px 0 0;" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/6598267134818933466.jpg"></div>&nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp;好吧，刚刚用hierarchyviewer看了以下天天动听的布局，发现是个PopupWindow。</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp;我用的是自定义的一个AlertDialog。但是从昨天开始直到现在，我才获得了自己想要的效果。</div><div>&nbsp; &nbsp; &nbsp; &nbsp;关于如何将ListView绑定到AlertDialog上，可以用以下几种方法实现：</div><div>&nbsp; &nbsp; &nbsp; &nbsp;一、<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog.class%E2%98%83AlertDialog">AlertDialog</a>.<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog$Builder.class%E2%98%83Builder">Builder</a>.setItems(<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog$Builder.class%E2%98%83Builder%7EsetItems%7E%5C%E2%98%83Ljava.lang.CharSequence;%7ELandroid.content.DialogInterface$OnClickListener;%E2%98%82CharSequence">CharSequence</a>[] items, <a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog$Builder.class%E2%98%83Builder%7EsetItems%7E%5C%E2%98%83Ljava.lang.CharSequence;%7ELandroid.content.DialogInterface$OnClickListener;%E2%98%82OnClickListener">OnClickListener</a> listener)。items就是你想要添加到AlertDialog的一个list，listener是为list设置的监听器，你只需在里面添加自己想要的动作即可。该方法比较简单。</div><div>&nbsp; &nbsp; &nbsp; &nbsp;二、<span><a rel="nofollow" href="http://developer.android.com/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a>.</span><span>setAdapter</span>       <span>(<a rel="nofollow" href="http://developer.android.com/reference/android/widget/ListAdapter.html">ListAdapter</a> adapter, <a rel="nofollow" href="http://developer.android.com/reference/android/content/DialogInterface.OnClickListener.html">DialogInterface.OnClickListener</a> listener)。这里你需要先定义一个ListAdapter，Adapter可以说是将数据绑定到UI的桥梁，功能很强大，listener与第一种方法里的一样。而且对于我这种菜鸟来说掌握它的用法与比较难。</span></div><div><span>&nbsp; &nbsp; &nbsp; &nbsp;关于如何自定义AlertDialog样式：</span></div><div><span>&nbsp; &nbsp; &nbsp; &nbsp;一、</span><a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog.class%E2%98%83AlertDialog">AlertDialog</a>.<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog$Builder.class%E2%98%83Builder">Builder</a>.setView(<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.app%28AlertDialog$Builder.class%E2%98%83Builder%7EsetView%7ELandroid.view.View;%E2%98%82View">View</a> view)。这个view是事先从定义好的XML文件里获取的，关于如何获取可以用下面代码实现：</div><pre class="prettyprint"><p>LayoutInflater inflater = LayoutInflater.from(Context context);<br>View view = inflater.inflate(R.layout.alertdialog, null);//这里的R.layout.alertdialog即为你自定义的布局文件</p></pre>&nbsp; &nbsp; &nbsp; &nbsp;二、view.<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.view%28Window.class%E2%98%83Window">Window</a>.setContentView(<a rel="nofollow" href="eclipse-javadoc:%E2%98%82=MusicPlayer/%5C/home%5C/franco%5C/android-sdks%5C/platforms%5C/android-16%5C/android.jar%3Candroid.view%28Window.class%E2%98%83Window%7EsetContentView%7ELandroid.view.View;%E2%98%82View">View</a> view)。主要代码如下：<div><pre class="prettyprint"><p>AlertDialog mAlertDialog = builder.create();<br>mAlertDialog.show();<br>mAlertDialog.getWindow().setContentView(view);</p></pre>&nbsp; &nbsp; &nbsp; 关于两者的区别，大家可以看这个链接：<a target="_blank" rel="nofollow" href="http://www.x2x1.com/show/6040883.aspx">http://www.x2x1.com/show/6040883.aspx</a><span style="line-height: 21px;">。</span></div><div><span style="line-height: 22px;">&nbsp; &nbsp; &nbsp; 大致就是</span><span style="line-height: 22px;">setView()只会覆盖</span><span style="font-family: monospace; line-height: 22px; white-space: pre;">AlertDialog的Title与</span><span style="font-family: monospace; line-height: 22px; white-space: pre;">Button之间的那部分</span><span style="line-height: 22px;">，</span><span style="line-height: 22px;">而</span><span style="line-height: 22px;">setContentView()则会覆盖全部。但是否真的是这样呢？还有待验证。</span></div><div><span style="line-height: 22px;">&nbsp; &nbsp; &nbsp; 还有一点要注意的是：</span><span style="font-family: monospace; line-height: 22px; white-space: pre;">setContentView()必须放在</span><span style="font-family: monospace; line-height: 22px; white-space: pre;">show()的后面，不然会报错。如果你要在代码里修改AlertDialog的大小，可以用以下代码实现：</span></div><div><pre class="prettyprint"><p>mAlertDialog.getWindow().setLayout(150, 320);</p></pre>&nbsp; &nbsp; &nbsp; 但是这段代码同样需要放在<span style="font-family: monospace; line-height: 21px; white-space: pre;">show()的后面，不然你的改动会没有效果。</span></div><div><div><br></div></div><div>&nbsp; &nbsp; &nbsp; 如果可以成功地完成上述步骤，你差不多就可以自定义一个自己想要的AlertDialog了。但遗憾的是，我始终不知道怎么自定义AlertDialog的Title。最后我在<a target="_blank" rel="nofollow" href="http://blog.csdn.net/chuekup/article/details/8018513">http://blog.csdn.net/chuekup/article/details/8018513</a>找到了一些思路：</div><div>&nbsp; &nbsp; &nbsp; 1. 先自定义一个AlertDialog布局alertdialog.xml，包括两部分：一个textView 用来显示Title；一个ListView显示相关的选项:</div><div><pre class="prettyprint"><p>&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"<br>       android:id="@+id/alertdialog"<br>       android:layout_width="match_parent"<br>       android:layout_height="40dp"<br>       android:orientation="vertical" &gt;<br>       &lt;TextView<br>                android:id="@+id/titleView"<br>                android:layout_width="match_parent"<br>                android:layout_height="40dp"<br>                android:background="#006600"<br>                android:gravity="center"<br>                android:singleLine="true"<br>                android:ellipsize="marquee"<br>                android:marqueeRepeatLimit="marquee_forever" <br>                android:focusable="true"  <br>                android:selectAllOnFocus="true"  /&gt;<br>        &lt;ListView<br>                android:id="@id/android:list"<br>                android:layout_width="match_parent"</p><p>                android:layout_height="wrap_content"<br>                android:background="#666633"<br>                android:gravity="center" /&gt;<br>&lt;/LinearLayout&gt;</p></pre></div><div>&nbsp; &nbsp; &nbsp; 2.定义一个item.xml，这是ListView中每一项的布局：</div><div><pre class="prettyprint"><p>&lt;TextView <br>         xmlns:android="http://schemas.android.com/apk/res/android"<br>         android:id="@+id/text2"      <br>         android:layout_width="150dip"<br>         android:layout_height="40dip"<br>         android:layout_gravity="right"<br>         android:textSize="18dip"<br>         android:textColor="#000000"<br>         android:background="#b0556B2F"<br>         android:gravity="center_vertical" /&gt; </p></pre></div><div>&nbsp; &nbsp; &nbsp; 3.在java代码中：</div><div><pre class="prettyprint"><p>private void showAlertDialog() {<br>        String[] itemList = {"设为铃声", "移除", "歌曲信息", "添加到..."};<br>        ListAdapter mAdapter = new ArrayAdapter(context, R.layout.item, itemList);<br>        LayoutInflater inflater = LayoutInflater.from(context);  <br>        View view = inflater.inflate(R.layout.alertdialog, null);  <br>    <br>        TextView titleView = (TextView)view.findViewById(R.id.titleView);<br>        String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE));<br>        titleView.setText(title);<br>    <br>        ListView listview = (ListView)view.findViewById(android.R.id.list);<br>        listview.setAdapter(mAdapter);<br>        listview.setOnItemClickListener(listener);<br>    <br>        AlertDialog.Builder builder = new AlertDialog.Builder(context); <br>        AlertDialog mAlertDialog = builder.create();<br>        mAlertDialog.show();<br>        mAlertDialog.getWindow().setContentView(view);</p><p>        mAlertDialog.getWindow().setLayout(150, 320);<br>}</p></pre>&nbsp; &nbsp; &nbsp; &nbsp; 最后效果：</div><div><img title="关于AlertDialog的自定义样式 - peculiar - art of devil " alt="关于AlertDialog的自定义样式 - peculiar - art of devil " style="margin:0 10px 0 0;" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/6597675597563365274.jpg"></div><div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 当然还有很多地方有待优化，比如说，控制AlertDialog显示的位。</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 不得不说这UI做的还是蛮丑的，自己审美观问题吧。但至少不是系统自带的样式了。</div></div>
+                <a style="display: none;" class="open">展开全文</a>
+            
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="guidearea" class="m-guidearea">
+        <div class="imgwrap">
+            <img src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/6630084802305445703.jpg">
+            <img class="code2d code2d-1" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/code2d4blog.jpg">
+            <img class="code2d code2d-2" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/code2d4blog.jpg">
+            <img class="code2d code2d-3" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/code2d4blog.jpg">
+        </div>
+    </div>
+    
+</div>
+
+
+
+    <script type="text/javascript" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/nts.js"></script>
+    <script type="text/javascript" src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/em.js"></script><iframe src="%E5%85%B3%E4%BA%8EAlertDialog%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/crossdomain.htm" id="api.blog.163.com" name="api.blog.163.com" onload="J.a('api.blog.163.com');" style="display:none;" height="0" width="0"></iframe>
+
+
+</body></html>

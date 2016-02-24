@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://gold.xitu.io/entry/56a82eec128fe100517517c2 -->
+<html xmlns:wb="http://open.weibo.com/wb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>稀土掘金：Android 最佳实践（一）</title><link ref="shortcut icon" type="image/x-icon" href="http://gold.xitu.io/favicon.ico"><meta name="keywords" content="稀土掘金,掘金,移动开发,Android开发,iOS开发,前端开发,后端开发,资源下载,React.js,vue.js,node.js,编程,程序员,开发者,Hacker News,ECMAScript,开源,Github"><meta name="description" content="掘金是中国质量最高的技术分享社区，邀请稀土用户作为 Co-Editor 来分享优质的技术干货，从前端到后端开发，从设计到产品，让每一个掘金用户都能挖掘到有价值的干货。"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><meta property="wb:webmaster" content="592d5aa78e3ec93b"><meta name="apple-itunes-app" content="app-id=987739104"><meta charset="utf-8"><link href="./稀土掘金：Android 最佳实践（一）_files/index.css" rel="stylesheet"></head><body><header><div class="container"><ul class="actions"><a href="http://gold.xitu.io/" class="action"><img src="./稀土掘金：Android 最佳实践（一）_files/logo.svg" class="inline"><span class="text-blue">掘金</span></a></ul><ul class="actions secondary"><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.daimajia.gold" target="_blank" style="display: block;" class="action"><span style="font-size: .7em" class="text-muted"><span> Android高手都在看</span><i class="ion-arrow-right-c"></i></span><button style="color: #fff; margin-left: .5em;" class="inline">下载</button></a></ul></div></header><div class="main"><div class="container entry-view"><div style="background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, 0)), url(http://ac-mhke0kuv.clouddn.com/b5e907d1b3dae5d25db6.jpg?imageView/2/w/800/h/600/q/80/format/png), url(http://ac-mhke0kuv.clouddn.com/b5e907d1b3dae5d25db6.jpg?imageView/2/w/80/h/60/q/80/format/png)" class="entry-hero"></div><a href="http://segmentfault.com/a/1190000004357190" rel="nofollow"><h2 class="entry-title">Android 最佳实践（一）</h2></a><p><small class="entry-meta"><a href="http://gold.xitu.io/#/user/561c771260b22ed7aa580496" class="action"><img src="./稀土掘金：Android 最佳实践（一）_files/0" class="avatar inline"><span>SegmentFault</span></a><span class="action">阅读 2571</span><span class="action">收藏 102</span><span class="action">2016-1-27</span><a href="http://segmentfault.com/a/1190000004357190" target="_blank" class="action entry-original-url">查看原文</a></small></p><div class="entry-content"><div><div>
+                    
+
+<p>感谢<a href="http://segmentfault.com/u/xixicat">@xixicat</a>给的灵感，希望这次专题能认真的走下去，其他翻译CodePath Android会同步进行。</p>
+<p>该专题的目的：学习Android studio的特性和技巧，学习Gradle的黑魔法，学习Android的最热框架，学习Android5.0以上的新特性。</p>
+<p>该专题的行文顺序：从Android studio的特性和相关技巧以及在工作和学习中使用到的贴心插件和相关小魔法会一一介绍给大家，再根据项目的搭建，介绍给大家gradle的黑魔法，如何加速build过程，如何简单高效的使用gradle。之后，会根据项目的搭建，会向大家介绍Android的相关框架以及使用指南。</p>
+<p>该专题的机器配置：Mac pro 13,注意使用win的用户，Android studio的配置和gradle的配置大同小异，所以无需多虑。</p>
+<p>话那么多，那我们开始吧！</p>
+<h3>Android studio的安装</h3>
+<p>在此，我相信大家都安装了Android studio，那么我依然简单的介绍下安装过程。</p>
+<p>这是链接：</p>
+<p><a href="http://developer.android.com/intl/zh-cn/sdk/index.html">http://developer.android.com/intl/zh-cn/sdk/index.html</a></p>
+<p><img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwu68n0hj20go0apmyg.jpg"></p>
+<p>在安装之前，你需要安装jdk,那么如何安装jdk，也不在本篇博文的涉猎范围。相信使用mac的童鞋都能够很方便的安装。</p>
+<h3>Android studio的使用</h3>
+<p>在这里，我不会为大家介绍,如何使用Android studio新建项目，如何查看log等。</p>
+<p>安装完Android studio，我相信大部分用户都是从eclipse转过来的，所以必然你已经熟悉了eclipse的快捷键，那么，你需要设置以下内容，快捷键cmd+,打开设置，选择key map：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwvkgezkj20dq04ijrg.jpg">
+<p>同样，你需要设置主题，字体等，在此就不一一介绍了。</p>
+<p>你还需要设置显示行号，代码提示快捷键，xml提示快捷键，变量加m,s，自动导包等。</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwvrq9rvj20go04h3yx.jpg">
+<h3>Android studio的插件</h3>
+<p>注意到，Android studio会默认给我们安装较多插件，而有一些插件，我们并不需要使用，那么如何提高Android studio的速度，大家可以去除掉一些不必要的插件，就像这样，在此，我去掉了google服务的相关插件，同时，因为Android studio的模拟器运行太慢，我们可以安装Genymotion模拟器，该模拟器在as中有对应的插件，大家可以安装感受下，模拟器带来的便利（至于为什么需要使用模拟器，因为在使用到sqlite的时候，你不必因为你的手机是国产手机无法查看sqlite文件而苦恼，在模拟器上，只需要安装root project，就可快速查看SQLite文件了）：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dww84gw9j20go0fogmp.jpg">
+<p>既然，这是第一篇博文，就尽量写的详细点吧（么么哒）</p>
+<p>关于安装Genymotion插件，打开设置，选择plugins，选择：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwwfqhdvj20go02a3yj.jpg">
+<p>输入Genymotion，选择安装，重启Android studio就可以看到：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwwrb7d7j201q01k741.jpg">
+<p>在此，我再介绍一个插件给大家，ADB ldea,如何安装，和Genymotion是一样的，输入其对应的名称就可以了。</p>
+<p>该插件的用途：使用快捷键cmd+shift+A，调用:</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwwy03twj20go08vjsc.jpg">
+<p>是的，没错，你可以利用快捷键控制该项目对应的app，你可以卸载应用，安装应用，删除文件等操作，是不是很方便。</p>
+<h3>Android studio概览</h3>
+<p>因为属于第一篇博文，所以我们还是来看看Android studio的相关功能。</p>
+<p>类似eclipse,在Android studio中，你可以不同的形式展开项目，通常你会用到这两个project和Android，具体来看看区别，在project中：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwx6mv61j20a00godh0.jpg">
+<p>你会发现，好乱啊，看着心累，project会将你的项目中的所有文件都展示出来，所以在查看相关文件和创建文件方面还是有一定的优势的。</p>
+<p>那么Android视图来了：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/9b5c8bd8jw1f0dwxcjx00j20go0e9abl.jpg">
+<p>找gradle文件，是不是很简单，是不是很干净，针对每一个module。</p>
+<p>二者切换，点击视图<img src="http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0dwxmcw7vj20go00zmx2.jpg"></p>
+<img src="http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0dx2js9xdj20ec06kaaf.jpg">
+
+<p>有人会问了，我点击视图了，和你的不一样啊，不要着急，因为我的Android studio的版本是2.0的，所以。。。</p>
+<p>那么又有人问了，为啥你给我的链接，我下载了最新的是1.5.1的呢，2.0还是预览版。。。那么如何升级到2.0：</p>
+<p>check update,具体操作流程和对应版本的相关区别，请google，唯一能说的是：2.0的速度相比1.5还是有所提升的，而且在我的使用情况下，并没有发现bug。。。是不是太菜。但是大家注意下，如果你选择升级2.0,意味着你的升级是不可逆的，即你无法回到1.5了，所以考虑下吧。</p>
+<p>接下来，你会频繁的和它们打交道：</p>
+<p>这个当你修改了build.grade文件的时候使用：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/loading.png" data-src="http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0dx2v78goj201u01ggld.jpg">
+<p>这个用于运行app或test，旁边的是debug:</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/loading.png" data-src="http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0dx32ee0qj206k01qmx0.jpg">
+<p>这个用于命令行模式：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/loading.png" data-src="http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0dwyp2pfej20dg04k3yp.jpg">
+<p>这个是log日志和相关内存查看：</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/loading.png" data-src="http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0dwyw1xxij20go02pwey.jpg">
+<p>这个是gradle的所有tasks:</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/loading.png" data-src="http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0dwz4bztsj208g0bydgl.jpg">
+<h3>Android studio 有用的快捷键</h3>
+<p>那么多快捷键，我怎么可能记得住，但是记几个有用的，是很有必要的：</p>
+<p>shift+esc 在后期，你会发现，你需要从模拟器切换到as工作模式，而当你运行app时候，as会自动为你打开log，那么问题来了，难道我每次都要去手动关闭这玩意？</p>
+<img src="./稀土掘金：Android 最佳实践（一）_files/loading.png" data-src="http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0dwza4hoyj203g01eq2p.jpg">
+<p>/** + enter 快速生成javadoc注释</p>
+<p>cmd + 触摸板 查看源码</p>
+<p>其他的快捷键，会在项目的搭建过程中，一一为大家介绍。</p>
+
+                </div>
+                                
+                
+                </div></div><p class="tags cloud"><a href="http://gold.xitu.io/#/tag/Android" class="tag">Android</a><a href="http://gold.xitu.io/#/tag/gradle" class="tag">gradle</a><a href="http://gold.xitu.io/#/tag/Android%20Studio" class="tag">Android Studio</a></p><ul class="box-list recommended-entries"><div style="margin-bottom: 1em;" class="text-bold text-center">相关热门文章</div><li class="half"><a href="http://gold.xitu.io/entry/56cbe9b77db2a20051a8b363"><div class="box-content"><div class="box-title text-left">[持续更新] 如何评价支付宝 Android 版隐私门 - 支付宝已回应</div></div></a></li><li class="half"><a href="http://gold.xitu.io/entry/56cbde8ea3413100540bb7ef"><div class="box-content"><div class="box-title text-left">[译] 5 个顶级 Android 开源库</div></div></a></li><li class="half"><a href="http://gold.xitu.io/entry/56cd4cf5128fe14247165337"><div class="box-content"><div class="box-title text-left">从 Android 静音看正确的查 bug 的姿势？</div></div></a></li><li class="half"><a href="http://gold.xitu.io/entry/56cbf38771cfe40054eb3a34"><div class="box-content"><div class="box-title text-left">[译] MVVM 模式介绍</div></div></a></li></ul><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.daimajia.gold" target="_blank" style="display: block;"><p class="text-center"><img src="./稀土掘金：Android 最佳实践（一）_files/yingyongbao.png" style="width: 8em;" class="entry-photo"></p><p style="font-size: 1.2em;" class="text-center"><img src="./稀土掘金：Android 最佳实践（一）_files/logo(1).svg" class="inline"><span>下载掘金 APP</span><br><small class="text-muted">挖掘最优质的互联网技术</small></p></a></div></div><script async="" src="./稀土掘金：Android 最佳实践（一）_files/analytics.js"></script><script src="./稀土掘金：Android 最佳实践（一）_files/entry-content.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-57015356-3', 'auto');
+ga('send', 'pageview');</script></body></html>

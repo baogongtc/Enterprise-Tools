@@ -1,0 +1,12 @@
+ctrl+H
+
+ctrl+alt+o
+
+ctrl+j
+
+alt+enter
+
+alt+/
+
+ctrl+alt+l
+

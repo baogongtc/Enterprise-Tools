@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!-->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="RecyclerView是Android兼容包V21中新推出的列表类，它的自定义化强的优点足以让它能够取代GridView和ListView，本文将结合SwipeRefreshLayout与RecyclerView讲解如何实现下拉刷新和自动加载的代码需要的依赖compil...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/4feb0c16d1b5">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/321646">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="RecyclerView 实现下拉刷新和自动加载" property="twitter:title">
+  <meta content="RecyclerView是Android兼容包V21中新推出的列表类，它的自定义化强的优点足以让它能够取代GridView和ListView，本文将结合SwipeRefreshLayout与RecyclerView讲解如何实现下拉刷新和自动加载的代码需要的依赖compil..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/4feb0c16d1b5" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="RecyclerView 实现下拉刷新和自动加载">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/4feb0c16d1b5">
+  <meta property="og:description" content="RecyclerView是Android兼容包V21中新推出的列表类，它的自定义化强的优点足以让它能够取代GridView和ListView，本文将结合SwipeRefreshLayout与Re...">
+
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/98641-34b975f19380733a.png">
+    <meta property="og:image:width" content="572">
+    <meta property="og:image:height" content="1385">
+    <meta property="og:image:type" content="image/png">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/321646">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/321646">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>RecyclerView 实现下拉刷新和自动加载 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="H093P6RMFiLd3qGZWDPDODxdOO9iBQ7Xva98C5EKCqKf4Q6NOdVXiWnGhSlrtq/MSAxWAcGuOZ1eWZG8kUyrVw==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/base-238f8c63cbd10f22d8e9a83c04291235.css">
+
+    <link rel="stylesheet" media="all" href="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/reading-note-477afdea41063058ed8d2309d56cc801.css">
+  <link rel="stylesheet" media="all" href="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/base-read-mode-fed239ce355de33c73dca2655a418148.css">
+  <script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/ga.js" async="" type="text/javascript"></script><script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/modernizr-8310b02f56277a1101d09f83069a465d.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/scaffolding/for_ie-c6182786e742ff7467a374a2af472828.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/scaffolding/for_ie-c6182786e742ff7467a374a2af472828.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/57-7597f1cff93b0f41cd16ca7641e477eb.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/72-e02c647005f01e2d24778ac8e7f9dc45.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/76-4788ffdcd445555b5b93bfb4d1f4747c.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/114-e89d888a7bce6222606e46082dcab634.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/120-c7cdad6dd50db5a93175a6e015d6dc08.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/152-21fa4ed7968f6503816524e90dcb3d91.png" sizes="152x152">
+  <script>
+    var _czc = _czc || [];
+    _czc.push(["_setAccount", "1253183112"]);
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn win mozilla reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+  
+  <div style="" class="navbar navbar-jianshu shrink hide-wrap-btn">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a data-toggle="tooltip" data-placement="right" data-original-title="下载手机应用" data-container="body" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>  </div>
+  <div class="nav-user">
+      <a href="#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top" href="#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a data-original-title="写篇文章" class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title=""><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div class="imagebubble-container imagebubble-mode-off" id="show-note-container">
+    
+
+<div class="post-bg" id="flag">
+  <div style="top: -1px;" class="wrap-btn hide-wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/b99b0edd4e77">
+              <img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/f2bf08f51676.jpg" alt="F2bf08f51676">
+</a>            <span class="label">作者</span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/b99b0edd4e77">
+              <span>BlackSwift</span>
+</a>              <span data-toggle="tooltip" data-original-title="最后编辑于 2015.03.20 11:13">2014.11.05 22:04*</span>
+            <div>
+              <span>写了69493字</span>，<span>被493人关注</span>，<span>获得了785个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">RecyclerView 实现下拉刷新和自动加载</h1>
+          <div class="meta-top">
+            <span class="wordage">字数604</span>
+            <span class="views-count">阅读19435</span>
+            <span class="comments-count">评论4</span>
+            <span class="likes-count">喜欢49</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share">  
+    <a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-bookmark-o"></i><span>收藏文章</span>
+</a>
+  <span>
+    <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a>
+    <ul class="dropdown-menu arrow-top">
+        <li><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/321646/weibo/image_d85df250632e.jpg',%20'%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/4feb0c16d1b5','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/weibo.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;title='+e('RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/douban.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&amp;p[url]='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;p[title]='+e('RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6%E7%A4%BE')+'&amp;p[summary]='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/4feb0c16d1b5'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;description='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B')+'&amp;title='+e('RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/renren.png"></a></li>
+    </ul>
+  </span>
+</div>
+          <!-- -->
+
+          <div class="show-content"><h6>RecyclerView是 Android 兼容包V21中新推出的列表类，它的自定义化强的优点足以让它能够取代GridView和ListView，本文将结合SwipeRefreshLayout与RecyclerView讲解如何实现下拉刷新和自动加载的代码</h6>
+<hr>
+<h3>需要的依赖</h3>
+<pre class="hljs bash"><code class="bash">compile <span class="hljs-string">'com.android.support:appcompat-v7:21.0.0'</span>
+compile <span class="hljs-string">'com.android.support:recyclerview-v7:21.0.0'</span>
+compile <span class="hljs-string">'com.android.support:cardview-v7:21.0.0'</span>
+compile <span class="hljs-string">'com.android.support:support-v4:21.0.0'</span></code></pre>
+<h3>需要解决的问题</h3>
+<ul>
+<li>[x] 下拉刷新</li>
+<li>[x] 自动加载</li>
+<li>[x] 网络请求异步加载</li>
+</ul>
+<h3>技术处理</h3>
+<h6>下拉刷新</h6>
+<p>采用 <code>android.support.v4.widget.SwipeRefreshLayout</code> 来实现<br>具体可以搜索这个class，我们按照官方文档，布局如下</p>
+<pre class="hljs scala"><code class="scala">&lt;view xmlns:android=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+android:id=<span class="hljs-string">"@+id/swipeRefreshLayout"</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span>=</span><span class="hljs-string">"android.support.v4.widget.SwipeRefreshLayout"</span>
+android:layout_width=<span class="hljs-string">"match_parent"</span>
+android:layout_height=<span class="hljs-string">"match_parent"</span>&gt;
+
+    &lt;view xmlns:android=<span class="hljs-string">"http://schemas.android.com/apk/res/android"</span>
+        android:id=<span class="hljs-string">"@+id/recylerView"</span>
+        <span class="hljs-class"><span class="hljs-keyword">class</span>=</span><span class="hljs-string">"android.support.v7.widget.RecyclerView"</span>
+        android:layout_width=<span class="hljs-string">"wrap_content"</span>
+        android:layout_height=<span class="hljs-string">"wrap_content"</span>&gt;&lt;/view&gt;
+&lt;/view&gt;</code></pre>
+<p>然后对 <code>swipeRefreshLayout</code> 设置监听即可</p>
+<pre class="hljs java"><code class="java">swipeRefreshLayout.setOnRefreshListener(<span class="hljs-keyword">new</span> SwipeRefreshLayout.OnRefreshListener() {
+        <span class="hljs-annotation">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRefresh</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">if</span>(isrefreshing){
+                Log.d(TAG,<span class="hljs-string">"ignore manually update!"</span>)；
+            } <span class="hljs-keyword">else</span>{
+                 loadPage();
+            }
+        }
+    });</code></pre>
+<h6>自动加载</h6>
+<p>RecyclerView是一个新兴事物，伸手党们还找不到 <code>endless-RecyclerView</code> 这样的开源神器，只好自己找方法了，同ListView一样，还是重写 <code>OnScrollListener</code> 这个方法</p>
+<pre class="hljs java"><code class="java">recyclerView.setOnScrollListener(<span class="hljs-keyword">new</span> RecyclerView.OnScrollListener() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onScrolled</span><span class="hljs-params">(RecyclerView recyclerView, <span class="hljs-keyword">int</span> dx, <span class="hljs-keyword">int</span> dy)</span> </span>{
+                <span class="hljs-keyword">super</span>.onScrolled(recyclerView, dx, dy);
+                <span class="hljs-keyword">int</span> lastVisibleItem = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
+                <span class="hljs-keyword">int</span> totalItemCount = mLayoutManager.getItemCount();
+                <span class="hljs-comment">//lastVisibleItem &gt;= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择</span>
+                <span class="hljs-comment">// dy&gt;0 表示向下滑动</span>
+                <span class="hljs-keyword">if</span> (lastVisibleItem &gt;= totalItemCount - <span class="hljs-number">4</span> &amp;&amp; dy &gt; <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">if</span>(isLoadingMore){
+                         Log.d(TAG,<span class="hljs-string">"ignore manually update!"</span>);
+                    } <span class="hljs-keyword">else</span>{
+                         loadPage();<span class="hljs-comment">//这里多线程也要手动控制isLoadingMore</span>
+                        isLoadingMore = <span class="hljs-keyword">false</span>;
+                    }
+                }
+            }
+        });</code></pre>
+<p>如果想用GridView，可以试试这个，注意例子里的span_count =2 </p>
+<pre class="hljs cpp"><code class="cpp">      @<span class="hljs-function">Override
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onScrolled</span><span class="hljs-params">(RecyclerView recyclerView, <span class="hljs-keyword">int</span> dx, <span class="hljs-keyword">int</span> dy)</span> </span>{
+        super.onScrolled(recyclerView, dx, dy);
+        <span class="hljs-keyword">int</span>[] visibleItems = mLayoutManager.findLastVisibleItemPositions(null);
+        <span class="hljs-keyword">int</span> lastitem = Math.max(visibleItems[<span class="hljs-number">0</span>],visibleItems[<span class="hljs-number">1</span>]);
+        Log.d(TAG,<span class="hljs-string">"visibleItems ="</span> + visibleItems);
+        Log.d(TAG,<span class="hljs-string">"lastitem ="</span> + lastitem);
+        Log.d(TAG,<span class="hljs-string">"adapter.getItemCount() ="</span> + adapter.getItemCount());
+        <span class="hljs-keyword">if</span> (dy &gt; <span class="hljs-number">0</span> &amp;&amp; lastitem &gt; adapter.getItemCount() - <span class="hljs-number">5</span> &amp;&amp; !isLoadingMore) {
+          Log.d(TAG,<span class="hljs-string">"will loadNewFeeds"</span>);
+        }
+      }</code></pre>
+<h6>网络请求异步加载</h6>
+<p>我这里的 <code>loadPage</code> 是基于 <a href="http://www.jianshu.com/p/87c36d8dabce" target="_blank">Retrofit</a> 构建的，输入参数是一个Map,它的回调功能非常实用,可以直接控制UI更新,流程图如下,大家可以参考一下设计</p>
+<div widget="ImageBubble" class="image-package imagebubble">
+<img class="imagebubble-image" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/98641-34b975f19380733a_002.png" alt="loadPage 流程图" data-original-src="http://upload-images.jianshu.io/upload_images/98641-34b975f19380733a.png"><br><div class="image-caption">loadPage 流程图</div>
+</div>
+<h5>参考文献</h5>
+<ul>
+<li><a href="http://habrahabr.ru/company/surfingbird/blog/244387/" target="_blank">俄国佬代码</a></li>
+<li><a href="https://github.com/baoyongzhang/android-PullRefreshLayout" target="_blank">ListView祖传代码</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>如果此文章节约了您的时间，
+如果你愿意为原创文章提供捐助，
+那么不妨打赏一下吧~</p>
+            <a class="btn btn-pay" data-toggle="modal" href="#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list">
+</div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span data-original-title="查看所有喜欢的用户" id="likes-count" data-toggle="tooltip" data-placement="right" title="">49</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/321646/weibo/image_d85df250632e.jpg',%20'%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/4feb0c16d1b5','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/321646/weibo/image_d85df250632e.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="tweibo"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png">分享到腾讯微博</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="qzone"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png">分享到QQ空间</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="twitter"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png">分享到Twitter</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&amp;p[url]='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;p[title]='+e('RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6%E7%A4%BE')+'&amp;p[summary]='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="facebook"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png">分享到Facebook</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/4feb0c16d1b5'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="google_plus"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png">分享到Google+</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;description='+e('%E6%8E%A8%E8%8D%90%20BlackSwift%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8ARecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E3%80%8B')+'&amp;title='+e('RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="renren"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/renren.png">分享到人人网</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/4feb0c16d1b5')+'&amp;title='+e('RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" data-name="douban"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/douban.png">分享到豆瓣</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div title="http://www.jianshu.com/p/4feb0c16d1b5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin" class="modal-body">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas style="display: none;" height="170" width="170"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users"><li data-user-id="263889">
+  <a class="avatar" href="http://www.jianshu.com/users/3af699d9863e"><img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/0aa9a7b82a87.png" alt="0aa9a7b82a87"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/3af699d9863e">发条柚子</a>
+  <span class="time">2015.12.09 10:27</span>
+</li>
+<li data-user-id="1076184">
+  <a class="avatar" href="http://www.jianshu.com/users/05f91a24b9c3"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/30.jpg" alt="30"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/05f91a24b9c3">05f91a24b9c3</a>
+  <span class="time">2015.12.02 23:22</span>
+</li>
+<li data-user-id="704659">
+  <a class="avatar" href="http://www.jianshu.com/users/fdb2c33b32ea"><img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/03c347dfcde3.jpg" alt="03c347dfcde3"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/fdb2c33b32ea">ctmd</a>
+  <span class="time">2015.11.25 02:53</span>
+</li>
+<li data-user-id="1219356">
+  <a class="avatar" href="http://www.jianshu.com/users/2d51d9b4a0c6"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/100_003.jpg" alt="100"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/2d51d9b4a0c6">女骑士的马</a>
+  <span class="time">2015.11.19 17:51</span>
+</li>
+<li data-user-id="1063434">
+  <a class="avatar" href="http://www.jianshu.com/users/46f4ba2e9817"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/1.jpg" alt="1"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/46f4ba2e9817">耳后烟雨</a>
+  <span class="time">2015.11.15 17:43</span>
+</li>
+<li data-user-id="690888">
+  <a class="avatar" href="http://www.jianshu.com/users/b288140c65b8"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/1_003.jpg" alt="1"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/b288140c65b8">b288140c65b8</a>
+  <span class="time">2015.11.13 14:52</span>
+</li>
+<li data-user-id="311048">
+  <a class="avatar" href="http://www.jianshu.com/users/0197bbe09ffd"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-096ab0985b6e5ddd65660c1b30a8fe30.png" alt="Default avatar"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/0197bbe09ffd">book4j</a>
+  <span class="time">2015.11.11 23:18</span>
+</li>
+<li data-user-id="1153598">
+  <a class="avatar" href="http://www.jianshu.com/users/96df9a57b943"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/1_002.jpg" alt="1"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/96df9a57b943">迟夏天</a>
+  <span class="time">2015.11.05 00:45</span>
+</li>
+<li data-user-id="1131704">
+  <a class="avatar" href="http://www.jianshu.com/users/7cfc7246c714"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-096ab0985b6e5ddd65660c1b30a8fe30.png" alt="Default avatar"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/7cfc7246c714">Arison</a>
+  <span class="time">2015.10.30 18:03</span>
+</li>
+<li data-user-id="743271">
+  <a class="avatar" href="http://www.jianshu.com/users/b23da16b7288"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-096ab0985b6e5ddd65660c1b30a8fe30.png" alt="Default avatar"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/b23da16b7288">nurmemet</a>
+  <span class="time">2015.10.12 01:51</span>
+</li>
+<li data-user-id="963216">
+  <a class="avatar" href="http://www.jianshu.com/users/373fbd2e1281"><img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/11ff3f7a70db.jpg" alt="11ff3f7a70db"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/373fbd2e1281">skyfin</a>
+  <span class="time">2015.10.02 00:30</span>
+</li>
+<li data-user-id="255261">
+  <a class="avatar" href="http://www.jianshu.com/users/8d9458ca28c2"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-096ab0985b6e5ddd65660c1b30a8fe30.png" alt="Default avatar"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/8d9458ca28c2">czzhengkw</a>
+  <span class="time">2015.09.27 01:45</span>
+</li>
+<li data-user-id="790285">
+  <a class="avatar" href="http://www.jianshu.com/users/2d6d79abd184"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/100.jpg" alt="100"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/2d6d79abd184">JoDis</a>
+  <span class="time">2015.09.21 01:18</span>
+</li>
+<li data-user-id="266949">
+  <a class="avatar" href="http://www.jianshu.com/users/78552b4c87e8"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/30_002.jpg" alt="30"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/78552b4c87e8">马琳</a>
+  <span class="time">2015.09.10 10:22</span>
+</li>
+<li data-user-id="683625">
+  <a class="avatar" href="http://www.jianshu.com/users/cfd532bd5f35"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-096ab0985b6e5ddd65660c1b30a8fe30.png" alt="Default avatar"></a>
+  <a class="blue-link" href="http://www.jianshu.com/users/cfd532bd5f35">偶尔听听雨</a>
+  <span class="time">2015.09.07 13:19</span>
+</li>
+
+  <a class="more hidden" data-max-id="6605783" href="javascript:void(null);"><i class="fa fa-ellipsis-h"></i></a>
+</ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          4条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[{"id":81165,"children_count":0,"likes_count":0},{"id":217449,"children_count":0,"likes_count":0},{"id":227052,"children_count":0,"likes_count":0},{"id":227351,"children_count":0,"likes_count":0}]}
+</script>
+
+
+<div class="note-comment clearfix" id="comment-81165">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/711170a83af8">
+          <img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/23fb419839cd.jpg" alt="23fb419839cd">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/711170a83af8">睡着的大提琴</a>
+        </p>
+        <span class="reply-time">
+          <small>2 楼 · </small>
+          <a href="http://www.jianshu.com/p/4feb0c16d1b5/comments/81165#comment-81165">2014.11.18 22:39</a></span>
+      </div>
+      <p>这个专题不错，加油写哟^_^</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="81165" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="81165" data-nickname="睡着的大提琴" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-217449">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/e0642e542932">
+          <img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/1_004.jpg" alt="1">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/e0642e542932">ZefanXie</a>
+        </p>
+        <span class="reply-time">
+          <small>3 楼 · </small>
+          <a href="http://www.jianshu.com/p/4feb0c16d1b5/comments/217449#comment-217449">2015.03.26 10:45</a></span>
+      </div>
+      <p>Hi, 我看了你的代码, 如果在滑动到底部, 不判断是否已经读取了全部数据的情况下, 会不断获取最后一页的数据哟. <br><br>小小修改了下代码, 就可以解决这个问题<br><br>&lt;code&gt;<br>int position = linearLayoutManager.findLastVisibleItemPosition();<br>int count = linearLayoutManager.getItemCount();<br>int currentDataCount = friendShip.size();<br>if (!isLoadingData &amp;&amp; totalDataCount &gt; currentDataCount &amp;&amp; dy &gt; 0 &amp;&amp; count &lt; position + 5) {<br>loadMoreData();<br>}<br>&lt;/code&gt;</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="217449" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="217449" data-nickname="ZefanXie" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-227052">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/2edad21a23da">
+          <img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/100_002.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/2edad21a23da">小灰马</a>
+        </p>
+        <span class="reply-time">
+          <small>4 楼 · </small>
+          <a href="http://www.jianshu.com/p/4feb0c16d1b5/comments/227052#comment-227052">2015.03.30 23:45</a></span>
+      </div>
+      <p> int totalItemCount = mLayoutManager.getItemCount();这样的取法是有误的，返回的是第一次加载的固定值。应该从adater.getItemCount()取才对。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="227052" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="227052" data-nickname="小灰马" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-227351">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/b99b0edd4e77">
+          <img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/f2bf08f51676.jpg" alt="F2bf08f51676">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>
+        </p>
+        <span class="reply-time">
+          <small>5 楼 · </small>
+          <a href="http://www.jianshu.com/p/4feb0c16d1b5/comments/227351#comment-227351">2015.03.31 09:00</a></span>
+      </div>
+      <p> <a href="http://www.jianshu.com/users/2edad21a23da" class="maleskine-author" target="_blank" data-user-slug="2edad21a23da">@小灰马</a> 非常感谢，我考虑进一步优化</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="227351" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="227351" data-nickname="BlackSwift" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":321646,"abbr":"RecyclerView是Android兼容包V21中新推出的列表类，它的自定义化强的优点足以让它能够取代GridView和ListView，本文将结合SwipeRefreshLayout与RecyclerView讲解如何实现下拉刷新和自动加载的代码需要的依赖compil...","slug":"4feb0c16d1b5","url":"http://www.jianshu.com/p/4feb0c16d1b5","image_url":"http://cwb.assets.jianshu.io/notes/images/321646/weibo/image_d85df250632e.jpg","wordage":604,"has_further_readings":false,"views_count":19435,"likes_count":49,"comments_count":4,"rewards_total_count":0}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"f04486d0-820e-0133-97c2-525400918cd7"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":98641,"nickname":"BlackSwift","slug":"b99b0edd4e77","public_notes_count":61,"followers_count":493,"total_likes_count":785,"is_current_user":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/3fde3b545a35"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/android.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/3fde3b545a35">Android知识</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>9.1K</span>
+  </div>
+
+                <p class="description">android开发技巧，原理解析等等</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/3fde3b545a35">325篇文章</a> · 9140人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/5139d555c94d"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/41919715_640_640.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/5139d555c94d">Android开发经验谈</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>4.2K</span>
+  </div>
+
+                <p class="description">Android老鸟给新人的建议、资源。</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/5139d555c94d">301篇文章</a> · 4254人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/06bbfc49e803"><img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/materialdesign_principles_metaphor.png" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/06bbfc49e803">Android材料设计</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>1.7K</span>
+  </div>
+
+                <p class="description">Android开发中的材料设计系列文章，投稿请注意原创性。</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/06bbfc49e803">47篇文章</a> · 1725人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="/notes/321646/rewards" accept-charset="UTF-8" method="post"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="H093P6RMFiLd3qGZWDPDODxdOO9iBQ7Xva98C5EKCqKf4Q6NOdVXiWnGhSlrtq/MSAxWAcGuOZ1eWZG8kUyrVw==" type="hidden">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/b99b0edd4e77">
+        <div class="avatar"><img thumbnail="90x90" quality="100" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/f2bf08f51676.jpg" alt="F2bf08f51676"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>如果此文章节约了您的时间，
+如果你愿意为原创文章提供捐助，
+那么不妨打赏一下吧~<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="2.00" name="reward[amount_in_yuan]" id="reward_amount_in_yuan" type="text">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div style="position: relative;" class="iradio_minimal checked"><input style="position: absolute; opacity: 0;" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" type="radio"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div style="position: relative;" class="iradio_minimal"><input style="position: absolute; opacity: 0;" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" type="radio"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/complete-pay-42a51932f3a745f4f2f7a81b04d6fb02.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  <div style="z-index: 1000;" class="imagebubble-backmask image-package"><div class="image-caption">loadPage 流程图</div><img style="top: 2385.7px; left: 363.483px; width: 572px; height: 1385px;" src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/98641-34b975f19380733a.png" class="imagebubble-ghost"></div></div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/base-c39afd602844983c1c2211b338c37b91.js"></script>
+  
+  <script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/reading-base-c5eca841a1d41ace6c804ced6b033edd.js"></script>
+  <script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/note_show-9bc4dbe88efca06c25faf51bc32d5951.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<div style="display:none">
+<script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/z_stat.php" language="JavaScript"></script><script src="RecyclerView%20%E5%AE%9E%E7%8E%B0%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%20-%20%E7%AE%80%E4%B9%A6_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1253183112" target="_blank" title="站长统计">站长统计</a>
+</div>
+
+
+</body></html>

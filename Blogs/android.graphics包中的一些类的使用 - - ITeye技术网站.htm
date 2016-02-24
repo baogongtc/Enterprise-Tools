@@ -1,0 +1,1050 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>android.graphics包中的一些类的使用 -  - ITeye技术网站</title>
+    <meta name="description" content="游戏编程相关参考 Matrix学习系列： http://www.moandroid.com/?p=1781 Android画图学习总结系列： http://www.moandroid.com/?p=764 游戏开发系列（opengl es基础知识）： http: ...">
+    <meta name="keywords" content="Canvas, Region, Path, SurfaceView, android game android.graphics包中的一些类的使用">
+    <link rel="shortcut icon" href="http://yuanzhifei89.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://yuanzhifei89.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://yuanzhifei89.iteye.com/rss" rel="alternate" title="" type="application/rss+xml">
+    <link href="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/ga.js" async="" type="text/javascript"></script><script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/hotkey.js" type="text/javascript"></script>
+  <script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/code_favorites.js" type="text/javascript"></script>
+<script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/weiboshare.js" type="text/javascript"></script>
+  <style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-default .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://yuanzhifei89.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://yuanzhifei89.iteye.com/login">登录</a>
+    <a href="http://yuanzhifei89.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://yuanzhifei89.iteye.com/">yuanzhifei89</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://yuanzhifei89.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://yuanzhifei89.iteye.com/weibo">微博</a></li>
+            <li><a href="http://yuanzhifei89.iteye.com/album">相册</a></li>
+            <li><a href="http://yuanzhifei89.iteye.com/link">收藏</a></li>
+            <li><a href="http://yuanzhifei89.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://yuanzhifei89.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text">
+              <input class="submit_search" value="" type="submit">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://yuanzhifei89.iteye.com/" class="p-author" target="_blank">yuanzhifei89</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="http://yuanzhifei89.iteye.com/blog/1136651">android.graphics包中的一些类的使用</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://yuanzhifei89.iteye.com/category/163513">android</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/Canvas">Canvas</a><a href="http://www.iteye.com/blogs/tag/Region">Region</a><a href="http://www.iteye.com/blogs/tag/Path">Path</a><a href="http://www.iteye.com/blogs/tag/SurfaceView">SurfaceView</a><a href="http://www.iteye.com/blogs/tag/android%20game">android game</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <strong><span style="font-size: medium;">游戏编程相关参考</span></strong>
+<br>Matrix学习系列：
+<br><a href="http://www.moandroid.com/?p=1781" target="_blank">http://www.moandroid.com/?p=1781</a>
+<br>Android画图学习总结系列：
+<br><a href="http://www.moandroid.com/?p=764" target="_blank">http://www.moandroid.com/?p=764</a>
+<br>游戏开发系列（opengl es基础知识）：
+<br><a href="http://www.moandroid.com/?p=1730" target="_blank">http://www.moandroid.com/?p=1730</a>
+<br>线性代数（包含矩阵的相关知识）：
+<br><a href="http://dl.iteye.com/topics/download/b56a388a-3408-3179-972b-3a72bdbaaa28" target="_blank">http://dl.iteye.com/topics/download/b56a388a-3408-3179-972b-3a72bdbaaa28</a>
+<br>俄罗斯方块的实现(c# silverlignth实现)：
+<br><a href="http://www.cnblogs.com/crazy-dave/archive/2011/05/20/Silverlight_Tetris1.html" target="_blank">http://www.cnblogs.com/crazy-dave/archive/2011/05/20/Silverlight_Tetris1.html</a>
+<br>SurfaceView使用的参考：
+<br><a href="http://kb.cnblogs.com/page/80095/" target="_blank">http://kb.cnblogs.com/page/80095/</a>
+<br><a href="http://blog.csdn.net/hellogv/article/details/5986835" target="_blank">http://blog.csdn.net/hellogv/article/details/5986835</a>
+<br><a href="http://www.cnblogs.com/xuling/archive/2011/06/06/android.html" target="_blank">http://www.cnblogs.com/xuling/archive/2011/06/06/android.html</a>
+<br>
+<br><strong><span style="font-size: medium;">2d游戏编程学习</span></strong>
+<br>从俄罗斯方块开始：
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/ecb03259-a1d5-34e8-9983-9622b3b5174e.png" width="700" height="341">
+<br>还待完善的地方：
+<br>1. 仅在320x480的屏幕上画面正常，还没有去兼容多屏幕
+<br>2. 使用View进行绘制了，应该使用SurfaceView来绘制
+<br>3. 功能还比较简陋，仅实现了主要内容
+<br>4. 移动时会出现跳帧现象，主要是重绘是由view自己执行的，而没有在onKey中移动了就重绘，这样就可能导致移了两下而只绘了一次，就出现跳帧了
+<br>...
+<br>源码（俄罗斯方块的代码在game.tetris包下，其它包的内容都是学习的测试代码）：<a href="http://dl.iteye.com/topics/download/4f8ef46f-e5fb-3724-9561-480179a8651c" target="_blank">http://dl.iteye.com/topics/download/4f8ef46f-e5fb-3724-9561-480179a8651c</a>
+<br>
+<br>
+<br><strong><span style="font-size: medium;">Region：表示一块区域</span></strong>
+<br>和Rect不同的是，它表示的是一个不规则的样子，可以是椭圆、多边形等等，而Rect仅仅是矩形。
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=Region%20region%20%3D%20new%20Region()%3B%0Aregion.isEmpty()%3B%0A%0A%2F%2F%20width%3A%20100%2C%20height%3A%2050%E7%9A%84%E7%9F%A9%E5%BD%A2%0Aregion.set(100%2C%20100%2C%20200%2C%20150)%3B%0ARect%20bounds%20%3D%20region.getBounds()%3B%0A%0A%2F%2F%20%E7%9F%A9%E5%BD%A2%E5%8C%BA%E5%9F%9F%E6%98%AF%E5%90%A6%E5%9C%A8%E5%85%B6%E5%86%85%E9%83%A8%0Aboolean%20contains%20%3D%20region.quickContains(120%2C%20120%2C%20170%2C%20150)%3B%0A%0A%2F%2F%20%E7%9F%A9%E5%BD%A2%E5%8C%BA%E5%9F%9F%E6%98%AF%E5%90%A6%E4%B8%8D%E5%9C%A8%E5%85%B6%E5%86%85%E9%83%A8%0Aboolean%20reject%20%3D%20region.quickReject(0%2C%200%2C%2050%2C%2050)%3B%0A%0A%2F%2F%20INTERSECT%20%E5%8F%96%E4%B8%A4%E8%80%85%E4%BA%A4%E9%9B%86%0ARegion%20r2%20%3D%20new%20Region(region)%3B%0Ar2.op(0%2C%200%2C%20150%2C%20120%2C%20Region.Op.INTERSECT)%3B%0A%0A%2F%2F%20DIFFERENCE%20%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%B8%8D%E5%90%8C%E4%BA%8E%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%9A%84%E9%83%A8%E5%88%86%E6%98%BE%E7%A4%BA%E5%87%BA%E6%9D%A5%0Ar2%20%3D%20new%20Region(region)%3B%0Ar2.op(0%2C%200%2C%20150%2C%20120%2C%20Region.Op.DIFFERENCE)%3B%0A%0A%2F%2F%20REPLACE%20%E6%98%BE%E7%A4%BA%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%9A%84%0Ar2%20%3D%20new%20Region(region)%3B%0Ar2.op(0%2C%200%2C%20150%2C%20120%2C%20Region.Op.REPLACE)%3B%0A%0A%2F%2F%20REVERSE_DIFFERENCE%20%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%B8%8D%E5%90%8C%E4%BA%8E%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%9A%84%E9%83%A8%E5%88%86%E6%98%BE%E7%A4%BA%0Ar2%20%3D%20new%20Region(region)%3B%0Ar2.op(0%2C%200%2C%20150%2C%20120%2C%20Region.Op.REVERSE_DIFFERENCE)%3B%0A%0A%2F%2F%20UNION%20%E5%8F%96%E5%85%A8%E9%9B%86%0Ar2%20%3D%20new%20Region(region)%3B%0Ar2.op(0%2C%200%2C%20150%2C%20120%2C%20Region.Op.UNION)%3B%0A%0A%2F%2F%20XOR%20%E8%A1%A5%E9%9B%86%EF%BC%8C%E5%B0%B1%E6%98%AF%E5%85%A8%E9%9B%86%E7%9A%84%E5%87%8F%E5%8E%BB%E4%BA%A4%E9%9B%86%E7%9A%84%E5%89%A9%E4%BD%99%E9%83%A8%E5%88%86%E6%98%BE%E7%A4%BA%0Ar2%20%3D%20new%20Region(region)%3B%0Ar2.op(0%2C%200%2C%20150%2C%20120%2C%20Region.Op.XOR)%3B%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>Region&nbsp;region&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;Region();&nbsp;&nbsp;</span></span></li><li><span>region.isEmpty();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;width:&nbsp;100,&nbsp;height:&nbsp;50的矩形</span><span>&nbsp;&nbsp;</span></span></li><li><span>region.set(<span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">200</span><span>,&nbsp;</span><span class="number">150</span><span>);&nbsp;&nbsp;</span></span></li><li><span>Rect&nbsp;bounds&nbsp;=&nbsp;region.getBounds();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;矩形区域是否在其内部</span><span>&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">boolean</span><span>&nbsp;contains&nbsp;=&nbsp;region.quickContains(</span><span class="number">120</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;</span><span class="number">170</span><span>,&nbsp;</span><span class="number">150</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;矩形区域是否不在其内部</span><span>&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">boolean</span><span>&nbsp;reject&nbsp;=&nbsp;region.quickReject(</span><span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;</span><span class="number">50</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;INTERSECT&nbsp;取两者交集</span><span>&nbsp;&nbsp;</span></span></li><li><span>Region&nbsp;r2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Region(region);&nbsp;&nbsp;</span></span></li><li><span>r2.op(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;Region.Op.INTERSECT);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;DIFFERENCE&nbsp;第一次不同于第二次的部分显示出来</span><span>&nbsp;&nbsp;</span></span></li><li><span>r2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Region(region);&nbsp;&nbsp;</span></span></li><li><span>r2.op(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;Region.Op.DIFFERENCE);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;REPLACE&nbsp;显示第二次的</span><span>&nbsp;&nbsp;</span></span></li><li><span>r2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Region(region);&nbsp;&nbsp;</span></span></li><li><span>r2.op(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;Region.Op.REPLACE);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;REVERSE_DIFFERENCE&nbsp;第二次不同于第一次的部分显示</span><span>&nbsp;&nbsp;</span></span></li><li><span>r2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Region(region);&nbsp;&nbsp;</span></span></li><li><span>r2.op(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;Region.Op.REVERSE_DIFFERENCE);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;UNION&nbsp;取全集</span><span>&nbsp;&nbsp;</span></span></li><li><span>r2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Region(region);&nbsp;&nbsp;</span></span></li><li><span>r2.op(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;Region.Op.UNION);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;XOR&nbsp;补集，就是全集的减去交集的剩余部分显示</span><span>&nbsp;&nbsp;</span></span></li><li><span>r2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Region(region);&nbsp;&nbsp;</span></span></li><li><span>r2.op(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">120</span><span>,&nbsp;Region.Op.XOR);&nbsp;&nbsp;</span></span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="0" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">Region region = new Region();
+region.isEmpty();
+
+// width: 100, height: 50的矩形
+region.set(100, 100, 200, 150);
+Rect bounds = region.getBounds();
+
+// 矩形区域是否在其内部
+boolean contains = region.quickContains(120, 120, 170, 150);
+
+// 矩形区域是否不在其内部
+boolean reject = region.quickReject(0, 0, 50, 50);
+
+// INTERSECT 取两者交集
+Region r2 = new Region(region);
+r2.op(0, 0, 150, 120, Region.Op.INTERSECT);
+
+// DIFFERENCE 第一次不同于第二次的部分显示出来
+r2 = new Region(region);
+r2.op(0, 0, 150, 120, Region.Op.DIFFERENCE);
+
+// REPLACE 显示第二次的
+r2 = new Region(region);
+r2.op(0, 0, 150, 120, Region.Op.REPLACE);
+
+// REVERSE_DIFFERENCE 第二次不同于第一次的部分显示
+r2 = new Region(region);
+r2.op(0, 0, 150, 120, Region.Op.REVERSE_DIFFERENCE);
+
+// UNION 取全集
+r2 = new Region(region);
+r2.op(0, 0, 150, 120, Region.Op.UNION);
+
+// XOR 补集，就是全集的减去交集的剩余部分显示
+r2 = new Region(region);
+r2.op(0, 0, 150, 120, Region.Op.XOR);
+</pre>
+<br><strong>示意图</strong>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/5c2f673e-3029-341d-b70d-0b2bc6ac72e9.png" width="700" height="292">
+<br>
+<br>
+<br><strong><span style="font-size: medium;">Path</span></strong>
+<br>path可以看作是一个点集，将它内部的点集按顺序连接起来时可以组成任意边型。一般多边形就是用Path来画。
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=%2F%2F%20%E5%85%AC%E5%85%B1%E4%BB%A3%E7%A0%81%0APath%20pathToDraw%20%3D%20new%20Path()%3B%0A%2F%2F%20%E7%A7%BB%E5%88%B0%E6%9F%90%E7%82%B9%E5%A4%84%E4%BD%9C%E4%B8%BA%E8%B5%B7%E7%82%B9%0ApathToDraw.moveTo(50%2C%2050)%3B%0ApathToDraw.lineTo(100%2C%2050)%3B%0ApathToDraw.lineTo(150%2C%20100)%3B%0ApathToDraw.lineTo(50%2C%20100)%3B%0A%0A%2F%2F%20%E5%A4%9A%E8%BE%B9%E5%BD%A2%0ApathToDraw.lineTo(100%2C%2075)%3B%0ApathToDraw.close()%3B%0A%0A%2F%2F%20%E4%B8%8D%E9%97%AD%E5%90%88%EF%BC%8C%E9%80%86%E6%97%B6%E9%92%88%0ApathToDraw.addCircle(50%2C%20100%2C%2030%2C%20Path.Direction.CCW)%3B%0A%2F%2F%20%E4%B8%8D%E9%97%AD%E5%90%88%EF%BC%8C%E9%A1%BA%E6%97%B6%E9%92%88%0ApathToDraw.addCircle(50%2C%20100%2C%2030%2C%20Path.Direction.CW)%3B%0A%2F%2F%20%E9%97%AD%E5%90%88%EF%BC%8C%E9%80%86%E6%97%B6%E9%92%88%0ApathToDraw.addCircle(50%2C%20100%2C%2030%2C%20Path.Direction.CCW)%3B%0ApathToDraw.close()%3B%0A%2F%2F%20%E9%97%AD%E5%90%88%EF%BC%8C%E9%80%86%E6%97%B6%E9%92%88%0ApathToDraw.addCircle(50%2C%20100%2C%2030%2C%20Path.Direction.CW)%3B%0ApathToDraw.close()%3B%0A%2F%2F%20%E4%B8%8A%E9%9D%A2%E5%9B%9B%E4%B8%AA%E7%94%BB%E5%87%BA%E6%9D%A5%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%0A%0A%2F%2F%20%E6%B7%BB%E5%8A%A0%E5%BC%A7%E7%BA%BF%EF%BC%8C%E5%BC%A7%E7%BA%BF%E6%98%AF%E7%94%B1%E7%9F%A9%E5%BD%A2%E6%9D%A5%E6%8E%A7%E5%88%B6%E7%9A%84%EF%BC%8C%E6%AD%A3%E6%96%B9%E5%BD%A2%E6%97%B6%E6%98%AF%E5%9C%86%E5%BC%A7%EF%BC%8C%E7%9F%A9%E5%BD%A2%E6%97%B6%E5%B0%B1%E6%98%AF%E6%A4%AD%E5%9C%86%E5%BC%A7%E4%BA%86%0ApathToDraw.addArc(new%20RectF(25%2C%2075%2C%2055%2C%20155)%2C%200%2C%20270)%3B%0A%0A%2F%2F%20%E5%9C%A8%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%82%B9%E5%A4%84%E6%B7%BB%E5%8A%A0%E5%BC%A7%E7%BA%BF%EF%BC%8C%E5%A6%82%E6%9E%9Crectf%E4%B8%AD%E6%8C%87%E5%AE%9A%E7%9A%84%E7%82%B9%E4%B8%8E%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%82%B9%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%88%99%E9%A6%96%E5%85%88%E4%BC%9A%E5%B0%86%E5%85%B6%E5%85%88lineTo%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%82%B9%EF%BC%88%E5%9B%BE%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%EF%BC%8C%E4%B8%8E%E4%B8%8A%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%80%E7%94%BB%E7%9A%84%E5%9B%BE%E7%9A%84%E5%8C%BA%E5%88%AB%E5%B0%B1%E6%98%AF%E5%A4%9A%E4%BA%86%E4%B8%AA%E8%BF%9E%E6%8E%A5%E7%BA%BF%E6%AE%B5%EF%BC%89%0ApathToDraw.arcTo(new%20RectF(25%2C%2075%2C%2055%2C%20155)%2C%200%2C%20270)%3B%0A%0A%2F%2F%20%E6%B7%BB%E5%8A%A0%E4%BA%8C%E6%AC%A1%E6%9B%B2%E7%BA%BF%EF%BC%8C%E4%B8%A4%E4%B8%AA%E6%8E%A7%E5%88%B6%E7%82%B9(25%2C%20125)%2C%20(75%2C%20175)%0ApathToDraw.cubicTo(25%2C%20125%2C%2075%2C%20175%2C%2030%2C%20200)%3B%0A%0A%2F%2F%20%E6%B7%BB%E5%8A%A0%E4%B8%89%E6%AC%A1%E6%9B%B2%E7%BA%BF%EF%BC%8C%E4%B8%89%E4%B8%AA%E6%8E%A7%E5%88%B6%E7%82%B9(25%2C%20125)%2C%20(75%2C%20175)%2C%20(30%2C%20200)%0ApathToDraw.cubicTo(25%2C%20125%2C%2075%2C%20175%2C%2030%2C%20200)%3B%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span class="comment">//&nbsp;公共代码</span><span>&nbsp;&nbsp;</span></span></li><li><span>Path&nbsp;pathToDraw&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Path();&nbsp;&nbsp;</span></span></li><li><span><span class="comment">//&nbsp;移到某点处作为起点</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.moveTo(<span class="number">50</span><span>,&nbsp;</span><span class="number">50</span><span>);&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.lineTo(<span class="number">100</span><span>,&nbsp;</span><span class="number">50</span><span>);&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.lineTo(<span class="number">150</span><span>,&nbsp;</span><span class="number">100</span><span>);&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.lineTo(<span class="number">50</span><span>,&nbsp;</span><span class="number">100</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;多边形</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.lineTo(<span class="number">100</span><span>,&nbsp;</span><span class="number">75</span><span>);&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.close();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;不闭合，逆时针</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.addCircle(<span class="number">50</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">30</span><span>,&nbsp;Path.Direction.CCW);&nbsp;&nbsp;</span></span></li><li><span><span class="comment">//&nbsp;不闭合，顺时针</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.addCircle(<span class="number">50</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">30</span><span>,&nbsp;Path.Direction.CW);&nbsp;&nbsp;</span></span></li><li><span><span class="comment">//&nbsp;闭合，逆时针</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.addCircle(<span class="number">50</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">30</span><span>,&nbsp;Path.Direction.CCW);&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.close();&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;闭合，逆时针</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.addCircle(<span class="number">50</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">30</span><span>,&nbsp;Path.Direction.CW);&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.close();&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;上面四个画出来是一样的</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;添加弧线，弧线是由矩形来控制的，正方形时是圆弧，矩形时就是椭圆弧了</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.addArc(<span class="keyword">new</span><span>&nbsp;RectF(</span><span class="number">25</span><span>,&nbsp;</span><span class="number">75</span><span>,&nbsp;</span><span class="number">55</span><span>,&nbsp;</span><span class="number">155</span><span>),&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">270</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;在最后一个点处添加弧线，如果rectf中指定的点与最后一个点不同，则首先会将其先lineTo最后一个点（图中可以看到，与上面的代码所画的图的区别就是多了个连接线段）</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.arcTo(<span class="keyword">new</span><span>&nbsp;RectF(</span><span class="number">25</span><span>,&nbsp;</span><span class="number">75</span><span>,&nbsp;</span><span class="number">55</span><span>,&nbsp;</span><span class="number">155</span><span>),&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">270</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;添加二次曲线，两个控制点(25,&nbsp;125),&nbsp;(75,&nbsp;175)</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.cubicTo(<span class="number">25</span><span>,&nbsp;</span><span class="number">125</span><span>,&nbsp;</span><span class="number">75</span><span>,&nbsp;</span><span class="number">175</span><span>,&nbsp;</span><span class="number">30</span><span>,&nbsp;</span><span class="number">200</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;添加三次曲线，三个控制点(25,&nbsp;125),&nbsp;(75,&nbsp;175),&nbsp;(30,&nbsp;200)</span><span>&nbsp;&nbsp;</span></span></li><li><span>pathToDraw.cubicTo(<span class="number">25</span><span>,&nbsp;</span><span class="number">125</span><span>,&nbsp;</span><span class="number">75</span><span>,&nbsp;</span><span class="number">175</span><span>,&nbsp;</span><span class="number">30</span><span>,&nbsp;</span><span class="number">200</span><span>);&nbsp;&nbsp;</span></span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="1" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">// 公共代码
+Path pathToDraw = new Path();
+// 移到某点处作为起点
+pathToDraw.moveTo(50, 50);
+pathToDraw.lineTo(100, 50);
+pathToDraw.lineTo(150, 100);
+pathToDraw.lineTo(50, 100);
+
+// 多边形
+pathToDraw.lineTo(100, 75);
+pathToDraw.close();
+
+// 不闭合，逆时针
+pathToDraw.addCircle(50, 100, 30, Path.Direction.CCW);
+// 不闭合，顺时针
+pathToDraw.addCircle(50, 100, 30, Path.Direction.CW);
+// 闭合，逆时针
+pathToDraw.addCircle(50, 100, 30, Path.Direction.CCW);
+pathToDraw.close();
+// 闭合，逆时针
+pathToDraw.addCircle(50, 100, 30, Path.Direction.CW);
+pathToDraw.close();
+// 上面四个画出来是一样的
+
+// 添加弧线，弧线是由矩形来控制的，正方形时是圆弧，矩形时就是椭圆弧了
+pathToDraw.addArc(new RectF(25, 75, 55, 155), 0, 270);
+
+// 在最后一个点处添加弧线，如果rectf中指定的点与最后一个点不同，则首先会将其先lineTo最后一个点（图中可以看到，与上面的代码所画的图的区别就是多了个连接线段）
+pathToDraw.arcTo(new RectF(25, 75, 55, 155), 0, 270);
+
+// 添加二次曲线，两个控制点(25, 125), (75, 175)
+pathToDraw.cubicTo(25, 125, 75, 175, 30, 200);
+
+// 添加三次曲线，三个控制点(25, 125), (75, 175), (30, 200)
+pathToDraw.cubicTo(25, 125, 75, 175, 30, 200);
+</pre>
+<br>Path.FillType路劲的填充类型还不是很理解，主要是文档没有对其做任何解释，api demo只有代码，也不懂啥意思。网上找了也没有解释的很清楚的。可以看下这个连接：<a href="http://www.imobilebbs.com/wordpress/?p=1589" target="_blank">http://www.imobilebbs.com/wordpress/?p=1589</a>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/51dd5215-d0a2-3ae8-b4e2-f5ad7d336e5a.png" width="700" height="255">
+<br>
+<br>
+<br><strong><span style="font-size: medium;">Bitmap</span></strong>
+<br>Bitmap的density参数的使用
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=%2F%2F%20%E5%B0%86%E5%AE%8C%E6%95%B4%E7%9A%84%E5%9B%BE%E7%89%87%E7%BB%98%E5%88%B6%E5%88%B0(0%2C%200)%E5%A4%84%0Acanvas.drawBitmap(mBmp%2C%200%2C%200%2C%20null)%3B%0A%0A%2F%2F%20240(hdpi)%E7%9A%84%E5%9B%BE%E7%89%87%E6%94%BE%E5%88%B0160%E4%B8%8A%E6%97%B6%EF%BC%8C%E5%B0%B1%E4%BC%9A%E5%8F%98%E5%B0%8F1.5%E5%80%8D%0AmBmp.setDensity(240)%3B%0A%2F%2F%20%E5%B0%86%E5%AE%8C%E6%95%B4%E7%9A%84%E5%9B%BE%E7%89%87%E7%BB%98%E5%88%B6%E5%88%B0(100%2C%200)%E5%A4%84%0Acanvas.drawBitmap(mBmp%2C%20100%2C%200%2C%20null)%3B%0A%0A%2F%2F%20%E5%B0%86%E5%AE%8C%E6%95%B4%E7%9A%84%E6%BA%90%E5%9B%BE%E7%89%87%E7%BB%98%E5%88%B6%E5%88%B0%E8%B5%B7%E7%82%B9%E4%B8%BA(0%2C%20100)%EF%BC%8C%E5%AE%BD100%E3%80%81%E9%AB%98100%E7%9A%84%E7%9F%A9%E5%BD%A2%E8%8C%83%E5%9B%B4%E5%86%85%0Acanvas.drawBitmap(mBmp%2C%20null%2C%20new%20Rect(0%2C%20100%2C%20100%2C%20200)%2C%20null)%3B%0A%0A%2F%2F%20%E5%B0%86%E6%BA%90%E5%9B%BE%E7%89%87%E7%9A%84(0%2C%200)%E5%BC%80%E5%A7%8B%E5%AE%BD100%E3%80%81%E9%AB%98100%E9%83%A8%E5%88%86%E7%BB%98%E5%88%B6%E5%88%B0%E8%B5%B7%E7%82%B9%E4%B8%BA(100%2C%20100)%E5%AE%BD100%2C%20%E9%AB%9850%E7%9A%84%E7%9F%A9%E5%BD%A2%E8%8C%83%E5%9B%B4%E5%86%85%0Acanvas.drawBitmap(mBmp%2C%20new%20Rect(0%2C%200%2C%20100%2C%2050)%2C%20new%20Rect(100%2C%20100%2C%20200%2C%20150)%2C%20null)%3B%0A%0A%2F%2F%20%E5%B0%86%E6%BA%90%E5%9B%BE%E7%89%87%E7%9A%84(0%2C%200)%E5%BC%80%E5%A7%8B%E5%AE%BD100%E3%80%81%E9%AB%98100%E9%83%A8%E5%88%86%E7%BB%98%E5%88%B6%E5%88%B0%E8%B5%B7%E7%82%B9%E4%B8%BA(200%2C%20100)%E5%AE%BD50%2C%2025%E7%9A%84%E7%9F%A9%E5%BD%A2%E8%8C%83%E5%9B%B4%E5%86%85%0Acanvas.drawBitmap(mBmp%2C%20new%20Rect(0%2C%200%2C%20100%2C%2050)%2C%20new%20Rect(200%2C%20100%2C%20250%2C%20125)%2C%20null)%3B%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span class="comment">//&nbsp;将完整的图片绘制到(0,&nbsp;0)处</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(mBmp,&nbsp;<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;240(hdpi)的图片放到160上时，就会变小1.5倍</span><span>&nbsp;&nbsp;</span></span></li><li><span>mBmp.setDensity(<span class="number">240</span><span>);&nbsp;&nbsp;</span></span></li><li><span><span class="comment">//&nbsp;将完整的图片绘制到(100,&nbsp;0)处</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(mBmp,&nbsp;<span class="number">100</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;将完整的源图片绘制到起点为(0,&nbsp;100)，宽100、高100的矩形范围内</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(mBmp,&nbsp;<span class="keyword">null</span><span>,&nbsp;</span><span class="keyword">new</span><span>&nbsp;Rect(</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">200</span><span>),&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;将源图片的(0,&nbsp;0)开始宽100、高100部分绘制到起点为(100,&nbsp;100)宽100,&nbsp;高50的矩形范围内</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(mBmp,&nbsp;<span class="keyword">new</span><span>&nbsp;Rect(</span><span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">50</span><span>),&nbsp;</span><span class="keyword">new</span><span>&nbsp;Rect(</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">200</span><span>,&nbsp;</span><span class="number">150</span><span>),&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;将源图片的(0,&nbsp;0)开始宽100、高100部分绘制到起点为(200,&nbsp;100)宽50,&nbsp;25的矩形范围内</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(mBmp,&nbsp;<span class="keyword">new</span><span>&nbsp;Rect(</span><span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">50</span><span>),&nbsp;</span><span class="keyword">new</span><span>&nbsp;Rect(</span><span class="number">200</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">250</span><span>,&nbsp;</span><span class="number">125</span><span>),&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="2" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">// 将完整的图片绘制到(0, 0)处
+canvas.drawBitmap(mBmp, 0, 0, null);
+
+// 240(hdpi)的图片放到160上时，就会变小1.5倍
+mBmp.setDensity(240);
+// 将完整的图片绘制到(100, 0)处
+canvas.drawBitmap(mBmp, 100, 0, null);
+
+// 将完整的源图片绘制到起点为(0, 100)，宽100、高100的矩形范围内
+canvas.drawBitmap(mBmp, null, new Rect(0, 100, 100, 200), null);
+
+// 将源图片的(0, 0)开始宽100、高100部分绘制到起点为(100, 100)宽100, 高50的矩形范围内
+canvas.drawBitmap(mBmp, new Rect(0, 0, 100, 50), new Rect(100, 100, 200, 150), null);
+
+// 将源图片的(0, 0)开始宽100、高100部分绘制到起点为(200, 100)宽50, 25的矩形范围内
+canvas.drawBitmap(mBmp, new Rect(0, 0, 100, 50), new Rect(200, 100, 250, 125), null);
+</pre>
+<br>效果：
+<br><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/e331abc9-0496-33ea-8cfa-1e2d276465be.png">
+<br>最终得出的结论：bitmap.setDensity并不影响源图片，只是在绘制的时候，canvas会根据该density对图片进行缩放绘制。
+<br>
+<br>
+<br><strong><span style="font-size: medium;">Paint介绍</span></strong>
+<br>Paint即画笔，在绘图过程中起到了极其重要的作用，画笔主要保存了颜色，
+<br>样式等绘制信息，指定了如何绘制文本和图形，画笔对象有很多设置方法，
+<br>大体上可以分为两类，一类与图形绘制相关，一类与文本绘制相关。
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Text代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=%20%0A1.%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6%20%0AsetARGB(int%20a%2Cint%20r%2Cint%20g%2Cint%20b)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E7%9A%84%E9%A2%9C%E8%89%B2%EF%BC%8Ca%E4%BB%A3%E8%A1%A8%E9%80%8F%E6%98%8E%E5%BA%A6%EF%BC%8Cr%EF%BC%8Cg%EF%BC%8Cb%E4%BB%A3%E8%A1%A8%E9%A2%9C%E8%89%B2%E5%80%BC%E3%80%82%20%0A%20%0AsetAlpha(int%20a)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E5%9B%BE%E5%BD%A2%E7%9A%84%E9%80%8F%E6%98%8E%E5%BA%A6%E3%80%82%20%0A%20%0AsetColor(int%20color)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E7%9A%84%E9%A2%9C%E8%89%B2%EF%BC%8C%E4%BD%BF%E7%94%A8%E9%A2%9C%E8%89%B2%E5%80%BC%E6%9D%A5%E8%A1%A8%E7%A4%BA%EF%BC%8C%E8%AF%A5%E9%A2%9C%E8%89%B2%E5%80%BC%E5%8C%85%E6%8B%AC%E9%80%8F%E6%98%8E%E5%BA%A6%E5%92%8CRGB%E9%A2%9C%E8%89%B2%E3%80%82%20%0A%20%0AsetAntiAlias(boolean%20aa)%3B%20%0A%E8%AE%BE%E7%BD%AE%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E6%8A%97%E9%94%AF%E9%BD%BF%E5%8A%9F%E8%83%BD%EF%BC%8C%E4%BC%9A%E6%B6%88%E8%80%97%E8%BE%83%E5%A4%A7%E8%B5%84%E6%BA%90%EF%BC%8C%E7%BB%98%E5%88%B6%E5%9B%BE%E5%BD%A2%E9%80%9F%E5%BA%A6%E4%BC%9A%E5%8F%98%E6%85%A2%E3%80%82%20%0A%20%0AsetDither(boolean%20dither)%3B%20%0A%E8%AE%BE%E5%AE%9A%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%83%8F%E6%8A%96%E5%8A%A8%E5%A4%84%E7%90%86%EF%BC%8C%E4%BC%9A%E4%BD%BF%E7%BB%98%E5%88%B6%E5%87%BA%E6%9D%A5%E7%9A%84%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E6%9B%B4%E5%8A%A0%E5%B9%B3%E6%BB%91%E5%92%8C%E9%A5%B1%E6%BB%A1%EF%BC%8C%E5%9B%BE%E5%83%8F%E6%9B%B4%E5%8A%A0%E6%B8%85%E6%99%B0%20%0A%20%0AsetFilterBitmap(boolean%20filter)%3B%20%0A%E5%A6%82%E6%9E%9C%E8%AF%A5%E9%A1%B9%E8%AE%BE%E7%BD%AE%E4%B8%BAtrue%EF%BC%8C%E5%88%99%E5%9B%BE%E5%83%8F%E5%9C%A8%E5%8A%A8%E7%94%BB%E8%BF%9B%E8%A1%8C%E4%B8%AD%E4%BC%9A%E6%BB%A4%E6%8E%89%E5%AF%B9Bitmap%E5%9B%BE%E5%83%8F%E7%9A%84%E4%BC%98%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%8A%A0%E5%BF%AB%E6%98%BE%E7%A4%BA%20%0A%E9%80%9F%E5%BA%A6%EF%BC%8C%E6%9C%AC%E8%AE%BE%E7%BD%AE%E9%A1%B9%E4%BE%9D%E8%B5%96%E4%BA%8Edither%E5%92%8Cxfermode%E7%9A%84%E8%AE%BE%E7%BD%AE%20%0A%20%0AsetMaskFilter(MaskFilter%20maskfilter)%3B%20%0A%E8%AE%BE%E7%BD%AEMaskFilter%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8%E4%B8%8D%E5%90%8C%E7%9A%84MaskFilter%E5%AE%9E%E7%8E%B0%E6%BB%A4%E9%95%9C%E7%9A%84%E6%95%88%E6%9E%9C%EF%BC%8C%E5%A6%82%E6%BB%A4%E5%8C%96%EF%BC%8C%E7%AB%8B%E4%BD%93%E7%AD%89%20%0A%20%0AsetColorFilter(ColorFilter%20colorfilter)%3B%20%0A%E8%AE%BE%E7%BD%AE%E9%A2%9C%E8%89%B2%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E7%BB%98%E5%88%B6%E9%A2%9C%E8%89%B2%E6%97%B6%E5%AE%9E%E7%8E%B0%E4%B8%8D%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84%E5%8F%98%E6%8D%A2%E6%95%88%E6%9E%9C%20%0A%20%0AsetPathEffect(PathEffect%20effect)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%88%E6%9E%9C%EF%BC%8C%E5%A6%82%E7%82%B9%E7%94%BB%E7%BA%BF%E7%AD%89%20%0A%20%0AsetShader(Shader%20shader)%3B%20%0A%E8%AE%BE%E7%BD%AE%E5%9B%BE%E5%83%8F%E6%95%88%E6%9E%9C%EF%BC%8C%E4%BD%BF%E7%94%A8Shader%E5%8F%AF%E4%BB%A5%E7%BB%98%E5%88%B6%E5%87%BA%E5%90%84%E7%A7%8D%E6%B8%90%E5%8F%98%E6%95%88%E6%9E%9C%20%0A%20%0AsetShadowLayer(float%20radius%20%2Cfloat%20dx%2Cfloat%20dy%2Cint%20color)%3B%20%0A%E5%9C%A8%E5%9B%BE%E5%BD%A2%E4%B8%8B%E9%9D%A2%E8%AE%BE%E7%BD%AE%E9%98%B4%E5%BD%B1%E5%B1%82%EF%BC%8C%E4%BA%A7%E7%94%9F%E9%98%B4%E5%BD%B1%E6%95%88%E6%9E%9C%EF%BC%8Cradius%E4%B8%BA%E9%98%B4%E5%BD%B1%E7%9A%84%E8%A7%92%E5%BA%A6%EF%BC%8Cdx%E5%92%8Cdy%E4%B8%BA%E9%98%B4%E5%BD%B1%E5%9C%A8x%E8%BD%B4%E5%92%8Cy%E8%BD%B4%E4%B8%8A%E7%9A%84%E8%B7%9D%E7%A6%BB%EF%BC%8Ccolor%E4%B8%BA%E9%98%B4%E5%BD%B1%E7%9A%84%E9%A2%9C%E8%89%B2%20%0A%20%0AsetStyle(Paint.Style%20style)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%94%BB%E7%AC%94%E7%9A%84%E6%A0%B7%E5%BC%8F%EF%BC%8C%E4%B8%BAFILL%EF%BC%8CFILL_OR_STROKE%EF%BC%8C%E6%88%96STROKE%20%0A%20%0AsetStrokeCap(Paint.Cap%20cap)%3B%20%0A%E5%BD%93%E7%94%BB%E7%AC%94%E6%A0%B7%E5%BC%8F%E4%B8%BASTROKE%E6%88%96FILL_OR_STROKE%E6%97%B6%EF%BC%8C%E8%AE%BE%E7%BD%AE%E7%AC%94%E5%88%B7%E7%9A%84%E5%9B%BE%E5%BD%A2%E6%A0%B7%E5%BC%8F%EF%BC%8C%E5%A6%82%E5%9C%86%E5%BD%A2%E6%A0%B7%E5%BC%8F%20%0ACap.ROUND%2C%E6%88%96%E6%96%B9%E5%BD%A2%E6%A0%B7%E5%BC%8FCap.SQUARE%20%0A%20%0AsetSrokeJoin(Paint.Join%20join)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E6%97%B6%E5%90%84%E5%9B%BE%E5%BD%A2%E7%9A%84%E7%BB%93%E5%90%88%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%A6%82%E5%B9%B3%E6%BB%91%E6%95%88%E6%9E%9C%E7%AD%89%20%0A%20%0AsetStrokeWidth(float%20width)%3B%20%0A%E5%BD%93%E7%94%BB%E7%AC%94%E6%A0%B7%E5%BC%8F%E4%B8%BASTROKE%E6%88%96FILL_OR_STROKE%E6%97%B6%EF%BC%8C%E8%AE%BE%E7%BD%AE%E7%AC%94%E5%88%B7%E7%9A%84%E7%B2%97%E7%BB%86%E5%BA%A6%20%0A%20%0AsetXfermode(Xfermode%20xfermode)%3B%20%0A%E8%AE%BE%E7%BD%AE%E5%9B%BE%E5%BD%A2%E9%87%8D%E5%8F%A0%E6%97%B6%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%A6%82%E5%90%88%E5%B9%B6%EF%BC%8C%E5%8F%96%E4%BA%A4%E9%9B%86%E6%88%96%E5%B9%B6%E9%9B%86%EF%BC%8C%E7%BB%8F%E5%B8%B8%E7%94%A8%E6%9D%A5%E5%88%B6%E4%BD%9C%E6%A9%A1%E7%9A%AE%E7%9A%84%E6%93%A6%E9%99%A4%E6%95%88%E6%9E%9C%20%0A%20%0A2.%E6%96%87%E6%9C%AC%E7%BB%98%E5%88%B6%20%0AsetFakeBoldText(boolean%20fakeBoldText)%3B%20%0A%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0%E7%B2%97%E4%BD%93%E6%96%87%E5%AD%97%EF%BC%8C%E8%AE%BE%E7%BD%AE%E5%9C%A8%E5%B0%8F%E5%AD%97%E4%BD%93%E4%B8%8A%E6%95%88%E6%9E%9C%E4%BC%9A%E9%9D%9E%E5%B8%B8%E5%B7%AE%20%0A%20%0AsetSubpixelText(boolean%20subpixelText)%3B%20%0A%E8%AE%BE%E7%BD%AE%E8%AF%A5%E9%A1%B9%E4%B8%BAtrue%EF%BC%8C%E5%B0%86%E6%9C%89%E5%8A%A9%E4%BA%8E%E6%96%87%E6%9C%AC%E5%9C%A8LCD%E5%B1%8F%E5%B9%95%E4%B8%8A%E7%9A%84%E6%98%BE%E7%A4%BA%E6%95%88%E6%9E%9C%20%0A%20%0AsetTextAlign(Paint.Align%20align)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E6%96%87%E5%AD%97%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%90%91%20%0A%20%0AsetTextScaleX(float%20scaleX)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E6%96%87%E5%AD%97x%E8%BD%B4%E7%9A%84%E7%BC%A9%E6%94%BE%E6%AF%94%E4%BE%8B%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E6%96%87%E5%AD%97%E7%9A%84%E6%8B%89%E4%BC%B8%E7%9A%84%E6%95%88%E6%9E%9C%20%0A%20%0AsetTextSize(float%20textSize)%3B%20%0A%E8%AE%BE%E7%BD%AE%E7%BB%98%E5%88%B6%E6%96%87%E5%AD%97%E7%9A%84%E5%AD%97%E5%8F%B7%E5%A4%A7%E5%B0%8F%20%0A%20%0AsetTextSkewX(float%20skewX)%3B%20%0A%E8%AE%BE%E7%BD%AE%E6%96%9C%E4%BD%93%E6%96%87%E5%AD%97%EF%BC%8CskewX%E4%B8%BA%E5%80%BE%E6%96%9C%E5%BC%A7%E5%BA%A6%20%0A%20%0AsetTypeface(Typeface%20typeface)%3B%20%0A%E8%AE%BE%E7%BD%AETypeface%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%8D%B3%E5%AD%97%E4%BD%93%E9%A3%8E%E6%A0%BC%EF%BC%8C%E5%8C%85%E6%8B%AC%E7%B2%97%E4%BD%93%EF%BC%8C%E6%96%9C%E4%BD%93%E4%BB%A5%E5%8F%8A%E8%A1%AC%E7%BA%BF%E4%BD%93%EF%BC%8C%E9%9D%9E%E8%A1%AC%E7%BA%BF%E4%BD%93%E7%AD%89%20%0A%20%0AsetUnderlineText(boolean%20underlineText)%3B%20%0A%E8%AE%BE%E7%BD%AE%E5%B8%A6%E6%9C%89%E4%B8%8B%E5%88%92%E7%BA%BF%E7%9A%84%E6%96%87%E5%AD%97%E6%95%88%E6%9E%9C%20%0A%20%0AsetStrikeThruText(boolean%20strikeThruText)%3B%20%0A%E8%AE%BE%E7%BD%AE%E5%B8%A6%E6%9C%89%E5%88%A0%E9%99%A4%E7%BA%BF%E7%9A%84%E6%95%88%E6%9E%9C%20%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-default" start="1"><li><span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span><span class="number">1</span><span>.图形绘制&nbsp;&nbsp;&nbsp;</span></span></li><li><span>setARGB(int&nbsp;a,int&nbsp;r,int&nbsp;g,int&nbsp;b);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制的颜色，a代表透明度，r，g，b代表颜色值。&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setAlpha(int&nbsp;a);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制图形的透明度。&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setColor(int&nbsp;color);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制的颜色，使用颜色值来表示，该颜色值包括透明度和RGB颜色。&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setAntiAlias(boolean&nbsp;aa);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置是否使用抗锯齿功能，会消耗较大资源，绘制图形速度会变慢。&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setDither(boolean&nbsp;dither);&nbsp;&nbsp;&nbsp;</span></li><li><span>设定是否使用图像抖动处理，会使绘制出来的图片颜色更加平滑和饱满，图像更加清晰&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setFilterBitmap(boolean&nbsp;filter);&nbsp;&nbsp;&nbsp;</span></li><li><span>如果该项设置为true，则图像在动画进行中会滤掉对Bitmap图像的优化操作，加快显示&nbsp;&nbsp;&nbsp;</span></li><li><span>速度，本设置项依赖于dither和xfermode的设置&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setMaskFilter(MaskFilter&nbsp;maskfilter);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置MaskFilter，可以用不同的MaskFilter实现滤镜的效果，如滤化，立体等&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setColorFilter(ColorFilter&nbsp;colorfilter);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置颜色过滤器，可以在绘制颜色时实现不用颜色的变换效果&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setPathEffect(PathEffect&nbsp;effect);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制路径的效果，如点画线等&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setShader(Shader&nbsp;shader);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置图像效果，使用Shader可以绘制出各种渐变效果&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setShadowLayer(float&nbsp;radius&nbsp;,float&nbsp;dx,float&nbsp;dy,int&nbsp;color);&nbsp;&nbsp;&nbsp;</span></li><li><span>在图形下面设置阴影层，产生阴影效果，radius为阴影的角度，dx和dy为阴影在x轴和y轴上的距离，color为阴影的颜色&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setStyle(Paint.Style&nbsp;style);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置画笔的样式，为FILL，FILL_OR_STROKE，或STROKE&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setStrokeCap(Paint.Cap&nbsp;cap);&nbsp;&nbsp;&nbsp;</span></li><li><span>当画笔样式为STROKE或FILL_OR_STROKE时，设置笔刷的图形样式，如圆形样式&nbsp;&nbsp;&nbsp;</span></li><li><span>Cap.ROUND,或方形样式Cap.SQUARE&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setSrokeJoin(Paint.Join&nbsp;join);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制时各图形的结合方式，如平滑效果等&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setStrokeWidth(float&nbsp;width);&nbsp;&nbsp;&nbsp;</span></li><li><span>当画笔样式为STROKE或FILL_OR_STROKE时，设置笔刷的粗细度&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setXfermode(Xfermode&nbsp;xfermode);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置图形重叠时的处理方式，如合并，取交集或并集，经常用来制作橡皮的擦除效果&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="number">2</span><span>.文本绘制&nbsp;&nbsp;&nbsp;</span></span></li><li><span>setFakeBoldText(boolean&nbsp;fakeBoldText);&nbsp;&nbsp;&nbsp;</span></li><li><span>模拟实现粗体文字，设置在小字体上效果会非常差&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setSubpixelText(boolean&nbsp;subpixelText);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置该项为true，将有助于文本在LCD屏幕上的显示效果&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setTextAlign(Paint.Align&nbsp;align);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制文字的对齐方向&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setTextScaleX(float&nbsp;scaleX);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制文字x轴的缩放比例，可以实现文字的拉伸的效果&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setTextSize(float&nbsp;textSize);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置绘制文字的字号大小&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setTextSkewX(float&nbsp;skewX);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置斜体文字，skewX为倾斜弧度&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setTypeface(Typeface&nbsp;typeface);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置Typeface对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setUnderlineText(boolean&nbsp;underlineText);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置带有下划线的文字效果&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>setStrikeThruText(boolean&nbsp;strikeThruText);&nbsp;&nbsp;&nbsp;</span></li><li><span>设置带有删除线的效果&nbsp;&nbsp;&nbsp;</span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="3" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="text" name="code"> 
+1.图形绘制 
+setARGB(int a,int r,int g,int b); 
+设置绘制的颜色，a代表透明度，r，g，b代表颜色值。 
+ 
+setAlpha(int a); 
+设置绘制图形的透明度。 
+ 
+setColor(int color); 
+设置绘制的颜色，使用颜色值来表示，该颜色值包括透明度和RGB颜色。 
+ 
+setAntiAlias(boolean aa); 
+设置是否使用抗锯齿功能，会消耗较大资源，绘制图形速度会变慢。 
+ 
+setDither(boolean dither); 
+设定是否使用图像抖动处理，会使绘制出来的图片颜色更加平滑和饱满，图像更加清晰 
+ 
+setFilterBitmap(boolean filter); 
+如果该项设置为true，则图像在动画进行中会滤掉对Bitmap图像的优化操作，加快显示 
+速度，本设置项依赖于dither和xfermode的设置 
+ 
+setMaskFilter(MaskFilter maskfilter); 
+设置MaskFilter，可以用不同的MaskFilter实现滤镜的效果，如滤化，立体等 
+ 
+setColorFilter(ColorFilter colorfilter); 
+设置颜色过滤器，可以在绘制颜色时实现不用颜色的变换效果 
+ 
+setPathEffect(PathEffect effect); 
+设置绘制路径的效果，如点画线等 
+ 
+setShader(Shader shader); 
+设置图像效果，使用Shader可以绘制出各种渐变效果 
+ 
+setShadowLayer(float radius ,float dx,float dy,int color); 
+在图形下面设置阴影层，产生阴影效果，radius为阴影的角度，dx和dy为阴影在x轴和y轴上的距离，color为阴影的颜色 
+ 
+setStyle(Paint.Style style); 
+设置画笔的样式，为FILL，FILL_OR_STROKE，或STROKE 
+ 
+setStrokeCap(Paint.Cap cap); 
+当画笔样式为STROKE或FILL_OR_STROKE时，设置笔刷的图形样式，如圆形样式 
+Cap.ROUND,或方形样式Cap.SQUARE 
+ 
+setSrokeJoin(Paint.Join join); 
+设置绘制时各图形的结合方式，如平滑效果等 
+ 
+setStrokeWidth(float width); 
+当画笔样式为STROKE或FILL_OR_STROKE时，设置笔刷的粗细度 
+ 
+setXfermode(Xfermode xfermode); 
+设置图形重叠时的处理方式，如合并，取交集或并集，经常用来制作橡皮的擦除效果 
+ 
+2.文本绘制 
+setFakeBoldText(boolean fakeBoldText); 
+模拟实现粗体文字，设置在小字体上效果会非常差 
+ 
+setSubpixelText(boolean subpixelText); 
+设置该项为true，将有助于文本在LCD屏幕上的显示效果 
+ 
+setTextAlign(Paint.Align align); 
+设置绘制文字的对齐方向 
+ 
+setTextScaleX(float scaleX); 
+设置绘制文字x轴的缩放比例，可以实现文字的拉伸的效果 
+ 
+setTextSize(float textSize); 
+设置绘制文字的字号大小 
+ 
+setTextSkewX(float skewX); 
+设置斜体文字，skewX为倾斜弧度 
+ 
+setTypeface(Typeface typeface); 
+设置Typeface对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等 
+ 
+setUnderlineText(boolean underlineText); 
+设置带有下划线的文字效果 
+ 
+setStrikeThruText(boolean strikeThruText); 
+设置带有删除线的效果 
+</pre>
+<br>
+<br>Paint类涉及的几个枚举：（从msdn抄过来的，msdn的文档果然比android文档详细n倍：http://msdn.microsoft.com/en-us/library/cc294944.aspx）
+<br>Paint.Cap 如何结束笔触的枚举
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/7748eded-4c36-36bf-bdf7-60a8ef396c50.png" width="700" height="139">
+<br>
+<br>Paint.Join path的拐角处如何绘制
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/75108c52-718d-3a4c-a392-5087547ca850.png" width="700" height="109">
+<br>
+<br>
+<br><strong><span style="font-size: medium;">Canvas的基本使用</span></strong>
+<br>抗锯齿相关参考：<a href="http://www.iteye.com/topic/794505" target="_blank">http://www.iteye.com/topic/794505</a>
+<br>填充颜色，一般清屏时会用这里的方法
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=switch%20(keyUpCount)%20%7B%0Acase%200%3A%0A%09canvas.drawARGB(100%2C%20255%2C%200%2C%200)%3B%0A%09break%3B%0A%0Acase%201%3A%0A%09canvas.drawColor(Color.argb(100%2C%200%2C%20255%2C%200))%3B%0A%09break%3B%0A%0Acase%202%3A%0A%09%2F%2F%20%E6%8C%87%E5%AE%9APorterDuff%20mode%E6%96%B9%E5%BC%8F%E7%BB%98%E5%88%B6%E9%A2%9C%E8%89%B2%0A%09canvas.drawColor(Color.argb(100%2C%200%2C%200%2C%20255)%2C%20Mode.SRC)%3B%0A%09break%3B%0A%09%0Acase%203%3A%0A%09%2F%2F%20paint%E6%96%B9%E5%BC%8F%E7%9A%84%E7%BB%98%E5%88%B6%E9%A2%9C%E8%89%B2%0A%09Paint%20paint%20%3D%20new%20Paint()%3B%0A%09paint.setARGB(100%2C%200xEE%2C%200xEE%2C%200xEE)%3B%0A%09canvas.drawPaint(paint)%3B%0A%09break%3B%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span class="keyword">switch</span><span>&nbsp;(keyUpCount)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">0</span><span>:&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawARGB(<span class="number">100</span><span>,&nbsp;</span><span class="number">255</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">1</span><span>:&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawColor(Color.argb(<span class="number">100</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">255</span><span>,&nbsp;</span><span class="number">0</span><span>));&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">2</span><span>:&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;指定PorterDuff&nbsp;mode方式绘制颜色</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawColor(Color.argb(<span class="number">100</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">255</span><span>),&nbsp;Mode.SRC);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">3</span><span>:&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;paint方式的绘制颜色</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Paint&nbsp;paint&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Paint();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setARGB(<span class="number">100</span><span>,&nbsp;</span><span class="number">0xEE</span><span>,&nbsp;</span><span class="number">0xEE</span><span>,&nbsp;</span><span class="number">0xEE</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawPaint(paint);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="4" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">switch (keyUpCount) {
+case 0:
+	canvas.drawARGB(100, 255, 0, 0);
+	break;
+
+case 1:
+	canvas.drawColor(Color.argb(100, 0, 255, 0));
+	break;
+
+case 2:
+	// 指定PorterDuff mode方式绘制颜色
+	canvas.drawColor(Color.argb(100, 0, 0, 255), Mode.SRC);
+	break;
+	
+case 3:
+	// paint方式的绘制颜色
+	Paint paint = new Paint();
+	paint.setARGB(100, 0xEE, 0xEE, 0xEE);
+	canvas.drawPaint(paint);
+	break;
+}
+</pre>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/19e504cc-ff7f-34a8-a564-40e7aa30d345.png" width="700" height="163">
+<br>
+<br>绘制Bitmap
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=switch%20(keyUpCount)%20%7B%0Acase%200%3A%20%2F%2F%20%E5%9C%A8(x%2C%20y)%E9%99%A4%E7%BB%98%E5%88%B6bitmap%0A%09canvas.drawBitmap(chameleonBmp%2C%2020%2C%2020%2C%20null)%3B%0A%09break%3B%0A%09%0Acase%201%3A%20%2F%2F%20%E5%88%A9%E7%94%A8%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5%E7%BB%98%E5%88%B6bimap%0A%09Matrix%20matrix%20%3D%20new%20Matrix()%3B%0A%09matrix.setRotate(10)%3B%0A%09matrix.preTranslate(50%2C%2050)%3B%0A%09canvas.drawBitmap(chameleonBmp%2C%20matrix%2C%20null)%3B%0A%09break%3B%0A%09%0Acase%202%3A%0A%09%2F%2F%20%E5%B0%86%E5%9B%BE%E7%89%87%E7%9A%84(0%2C%200%2C%20100%2C%20184)%E5%8C%BA%E5%9F%9F%E6%8B%89%E4%BC%B8%E6%88%96%E7%BC%A9%E6%94%BE%E5%88%B0canvas%E7%9A%84%0A%09%2F%2F%20(50%2C%2050%2C%20250%2C%20418)%E5%8C%BA%E5%9F%9F%E8%BF%9B%E8%A1%8C%E7%BB%98%E5%88%B6%0A%09Rect%20src%20%3D%20new%20Rect()%3B%0A%09src.set(0%2C%200%2C%20100%2C%20184)%3B%0A%09Rect%20dst%20%3D%20new%20Rect()%3B%0A%09dst.set(50%2C%2050%2C%20250%2C%20418)%3B%0A%09canvas.drawBitmap(chameleonBmp%2C%20src%2C%20dst%2C%20null)%3B%0A%09%2F%2F%20canvas.drawBitmap(Bitmap%2C%20Rect%2C%20RectF%2C%20Paint)%3B%20%E4%B8%8E%E4%B8%8A%E9%9D%A2%E7%B1%BB%E4%BC%BC%0A%09%2F%2F%20%E5%B0%B1%E6%98%AFRectF%E6%98%AFRect%E7%9A%84float%E7%89%88%E6%9C%AC%0A%09break%3B%0A%09%0Acase%203%3A%0A%09%2F%2F%20%E8%87%AA%E5%B7%B1%E6%9E%84%E5%BB%BAbitmap%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%83%8F%E7%B4%A0%E7%82%B9%EF%BC%8C%E5%B9%B6%E5%B0%86%E5%85%B6%E7%BB%98%E5%88%B6%E5%88%B0canvas%E4%B8%8A%0A%09%2F%2F%20%E4%B9%9F%E5%B0%B1%E6%98%AF%E8%AF%B4200x200%E7%9A%84bitmap%EF%BC%8C%E9%9C%80%E8%A6%81%E8%87%AA%E5%B7%B1%E6%9E%84%E5%BB%BA40000%E4%B8%AA%E5%83%8F%E7%B4%A0%E7%82%B9%0A%09int%5B%5D%20bmpPixels%20%3D%20new%20int%5B%5D%20%7B%0A%09%09%09Color.RED%2C%20Color.RED%2C%20Color.RED%2C%20Color.RED%2C%20Color.RED%2C%0A%09%09%09Color.RED%2C%20Color.RED%2C%20Color.RED%2C%20Color.RED%2C%20Color.RED%2C%0A%09%09%09Color.RED%2C%20Color.RED%2C%20Color.RED%2C%20Color.RED%2C%20Color.RED%2C%0A%0A%09%09%09Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%0A%09%09%09Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%0A%09%09%09Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%20Color.GREEN%2C%0A%0A%09%09%09Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%0A%09%09%09Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%0A%09%09%09Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%2C%20Color.BLUE%0A%09%7D%3B%0A%09canvas.drawBitmap(bmpPixels%2C%200%2C%2015%2C%2020%2C%2020%2C%2015%2C%203%2C%20false%2C%20null)%3B%0A%09break%3B%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span class="keyword">switch</span><span>&nbsp;(keyUpCount)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">0</span><span>:&nbsp;</span><span class="comment">//&nbsp;在(x,&nbsp;y)除绘制bitmap</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawBitmap(chameleonBmp,&nbsp;<span class="number">20</span><span>,&nbsp;</span><span class="number">20</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">1</span><span>:&nbsp;</span><span class="comment">//&nbsp;利用变换矩阵绘制bimap</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Matrix&nbsp;matrix&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Matrix();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;matrix.setRotate(<span class="number">10</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;matrix.preTranslate(<span class="number">50</span><span>,&nbsp;</span><span class="number">50</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawBitmap(chameleonBmp,&nbsp;matrix,&nbsp;<span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">2</span><span>:&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;将图片的(0,&nbsp;0,&nbsp;100,&nbsp;184)区域拉伸或缩放到canvas的</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;(50,&nbsp;50,&nbsp;250,&nbsp;418)区域进行绘制</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Rect&nbsp;src&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Rect();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;src.set(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">184</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Rect&nbsp;dst&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Rect();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;dst.set(<span class="number">50</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;</span><span class="number">250</span><span>,&nbsp;</span><span class="number">418</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawBitmap(chameleonBmp,&nbsp;src,&nbsp;dst,&nbsp;<span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;canvas.drawBitmap(Bitmap,&nbsp;Rect,&nbsp;RectF,&nbsp;Paint);&nbsp;与上面类似</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;就是RectF是Rect的float版本</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">3</span><span>:&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;自己构建bitmap的每个像素点，并将其绘制到canvas上</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;也就是说200x200的bitmap，需要自己构建40000个像素点</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>[]&nbsp;bmpPixels&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;</span><span class="keyword">int</span><span>[]&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;Color.RED,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;Color.GREEN,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE,&nbsp;Color.BLUE&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawBitmap(bmpPixels,&nbsp;<span class="number">0</span><span>,&nbsp;</span><span class="number">15</span><span>,&nbsp;</span><span class="number">20</span><span>,&nbsp;</span><span class="number">20</span><span>,&nbsp;</span><span class="number">15</span><span>,&nbsp;</span><span class="number">3</span><span>,&nbsp;</span><span class="keyword">false</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="5" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">switch (keyUpCount) {
+case 0: // 在(x, y)除绘制bitmap
+	canvas.drawBitmap(chameleonBmp, 20, 20, null);
+	break;
+	
+case 1: // 利用变换矩阵绘制bimap
+	Matrix matrix = new Matrix();
+	matrix.setRotate(10);
+	matrix.preTranslate(50, 50);
+	canvas.drawBitmap(chameleonBmp, matrix, null);
+	break;
+	
+case 2:
+	// 将图片的(0, 0, 100, 184)区域拉伸或缩放到canvas的
+	// (50, 50, 250, 418)区域进行绘制
+	Rect src = new Rect();
+	src.set(0, 0, 100, 184);
+	Rect dst = new Rect();
+	dst.set(50, 50, 250, 418);
+	canvas.drawBitmap(chameleonBmp, src, dst, null);
+	// canvas.drawBitmap(Bitmap, Rect, RectF, Paint); 与上面类似
+	// 就是RectF是Rect的float版本
+	break;
+	
+case 3:
+	// 自己构建bitmap的每个像素点，并将其绘制到canvas上
+	// 也就是说200x200的bitmap，需要自己构建40000个像素点
+	int[] bmpPixels = new int[] {
+			Color.RED, Color.RED, Color.RED, Color.RED, Color.RED,
+			Color.RED, Color.RED, Color.RED, Color.RED, Color.RED,
+			Color.RED, Color.RED, Color.RED, Color.RED, Color.RED,
+
+			Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN,
+			Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN,
+			Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN,
+
+			Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE,
+			Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE,
+			Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE
+	};
+	canvas.drawBitmap(bmpPixels, 0, 15, 20, 20, 15, 3, false, null);
+	break;
+}
+</pre>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/9b5b0999-1258-317d-90db-fd721f2fca04.png" width="700" height="235">
+<br>
+<br>绘制基本的几何图形（绘制几何图形时，必须使用画笔paint）
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=Paint%20paint%20%3D%20new%20Paint()%3B%0Apaint.setColor(Color.RED)%3B%20%2F%2F%20%E7%94%BB%E7%AC%94%E9%A2%9C%E8%89%B2%0Apaint.setAntiAlias(true)%3B%20%2F%2F%20%E5%8F%8D%E9%94%AF%E9%BD%BF%0Apaint.setStyle(Paint.Style.STROKE)%3B%20%2F%2F%20%E7%AC%94%E8%A7%A6%E7%BB%98%E5%88%B6%0Apaint.setStrokeWidth(3)%3B%20%2F%2F%20%E7%AC%94%E8%A7%A6%E5%AE%BD%E5%BA%A6%0A%0Aswitch%20(keyUpCount)%20%7B%0Acase%200%3A%20%2F%2F%20%E7%82%B9%0A%09for%20(int%20i%20%3D%201%3B%20i%20%3C%3D%2010%3B%20i%2B%2B)%20%7B%0A%09%09canvas.drawPoint(i%20*%2010%2C%2020%2C%20paint)%3B%0A%09%7D%0A%09break%3B%0A%09%0Acase%201%3A%20%2F%2F%20%E7%9B%B4%E7%BA%BF%0A%09for%20(int%20i%20%3D%201%3B%20i%20%3C%2010%3B%20i%2B%2B)%20%7B%0A%09%09canvas.drawLine(10%2C%20i%20*%2010%2C%20200%2C%20i%20*%2010%2C%20paint)%3B%0A%09%7D%0A%09break%3B%0A%09%0Acase%202%3A%20%2F%2F%20%E5%9C%86%0A%09canvas.drawCircle(100%2C%20100%2C%2090%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%203%3A%20%2F%2F%20%E5%BC%A7%E7%BA%BF%E5%92%8C%E7%9F%A9%E5%BD%A2%0A%09RectF%20outRect%20%3D%20new%20RectF(10%2C%2010%2C%20110%2C%20110)%3B%0A%09canvas.drawRect(outRect%2C%20paint)%3B%0A%09float%20startAngle%20%3D%2070%3B%0A%09float%20sweepAngle%20%3D%20180%3B%0A%09canvas.drawArc(outRect%2C%20startAngle%2C%20sweepAngle%2C%20false%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%204%3A%20%2F%2F%20%E6%A4%AD%E5%9C%86%0A%09canvas.drawOval(new%20RectF(10%2C%2010%2C%20110%2C%2060)%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%205%3A%20%2F%2F%20%E8%B7%AF%E5%BE%84(%E4%BB%BB%E6%84%8F%E8%BE%B9%E5%9E%8B)%0A%09Path%20path%20%3D%20new%20Path()%3B%0A%09path.moveTo(10%2C%2010)%3B%0A%09path.lineTo(200%2C%2010)%3B%0A%09path.lineTo(140%2C%2060)%3B%0A%09path.lineTo(120%2C%2030)%3B%0A%09canvas.drawPath(path%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%206%3A%20%2F%2F%20%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2%0A%09RectF%20rect%20%3D%20new%20RectF(10%2C%2010%2C%20100%2C%20100)%3B%0A%09canvas.drawRoundRect(rect%2C%2020%2C%2040%2C%20paint)%3B%0A%09break%3B%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>Paint&nbsp;paint&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;Paint();&nbsp;&nbsp;</span></span></li><li><span>paint.setColor(Color.RED);&nbsp;<span class="comment">//&nbsp;画笔颜色</span><span>&nbsp;&nbsp;</span></span></li><li><span>paint.setAntiAlias(<span class="keyword">true</span><span>);&nbsp;</span><span class="comment">//&nbsp;反锯齿</span><span>&nbsp;&nbsp;</span></span></li><li><span>paint.setStyle(Paint.Style.STROKE);&nbsp;<span class="comment">//&nbsp;笔触绘制</span><span>&nbsp;&nbsp;</span></span></li><li><span>paint.setStrokeWidth(<span class="number">3</span><span>);&nbsp;</span><span class="comment">//&nbsp;笔触宽度</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="keyword">switch</span><span>&nbsp;(keyUpCount)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">0</span><span>:&nbsp;</span><span class="comment">//&nbsp;点</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="keyword">int</span><span>&nbsp;i&nbsp;=&nbsp;</span><span class="number">1</span><span>;&nbsp;i&nbsp;&lt;=&nbsp;</span><span class="number">10</span><span>;&nbsp;i++)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawPoint(i&nbsp;*&nbsp;<span class="number">10</span><span>,&nbsp;</span><span class="number">20</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">1</span><span>:&nbsp;</span><span class="comment">//&nbsp;直线</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="keyword">int</span><span>&nbsp;i&nbsp;=&nbsp;</span><span class="number">1</span><span>;&nbsp;i&nbsp;&lt;&nbsp;</span><span class="number">10</span><span>;&nbsp;i++)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawLine(<span class="number">10</span><span>,&nbsp;i&nbsp;*&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">200</span><span>,&nbsp;i&nbsp;*&nbsp;</span><span class="number">10</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">2</span><span>:&nbsp;</span><span class="comment">//&nbsp;圆</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawCircle(<span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">90</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">3</span><span>:&nbsp;</span><span class="comment">//&nbsp;弧线和矩形</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;RectF&nbsp;outRect&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;RectF(</span><span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">110</span><span>,&nbsp;</span><span class="number">110</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(outRect,&nbsp;paint);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">float</span><span>&nbsp;startAngle&nbsp;=&nbsp;</span><span class="number">70</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">float</span><span>&nbsp;sweepAngle&nbsp;=&nbsp;</span><span class="number">180</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawArc(outRect,&nbsp;startAngle,&nbsp;sweepAngle,&nbsp;<span class="keyword">false</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">4</span><span>:&nbsp;</span><span class="comment">//&nbsp;椭圆</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawOval(<span class="keyword">new</span><span>&nbsp;RectF(</span><span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">110</span><span>,&nbsp;</span><span class="number">60</span><span>),&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">5</span><span>:&nbsp;</span><span class="comment">//&nbsp;路径(任意边型)</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Path&nbsp;path&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Path();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;path.moveTo(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;path.lineTo(<span class="number">200</span><span>,&nbsp;</span><span class="number">10</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;path.lineTo(<span class="number">140</span><span>,&nbsp;</span><span class="number">60</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;path.lineTo(<span class="number">120</span><span>,&nbsp;</span><span class="number">30</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawPath(path,&nbsp;paint);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">6</span><span>:&nbsp;</span><span class="comment">//&nbsp;圆角矩形</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;RectF&nbsp;rect&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;RectF(</span><span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRoundRect(rect,&nbsp;<span class="number">20</span><span>,&nbsp;</span><span class="number">40</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="6" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">Paint paint = new Paint();
+paint.setColor(Color.RED); // 画笔颜色
+paint.setAntiAlias(true); // 反锯齿
+paint.setStyle(Paint.Style.STROKE); // 笔触绘制
+paint.setStrokeWidth(3); // 笔触宽度
+
+switch (keyUpCount) {
+case 0: // 点
+	for (int i = 1; i &lt;= 10; i++) {
+		canvas.drawPoint(i * 10, 20, paint);
+	}
+	break;
+	
+case 1: // 直线
+	for (int i = 1; i &lt; 10; i++) {
+		canvas.drawLine(10, i * 10, 200, i * 10, paint);
+	}
+	break;
+	
+case 2: // 圆
+	canvas.drawCircle(100, 100, 90, paint);
+	break;
+	
+case 3: // 弧线和矩形
+	RectF outRect = new RectF(10, 10, 110, 110);
+	canvas.drawRect(outRect, paint);
+	float startAngle = 70;
+	float sweepAngle = 180;
+	canvas.drawArc(outRect, startAngle, sweepAngle, false, paint);
+	break;
+	
+case 4: // 椭圆
+	canvas.drawOval(new RectF(10, 10, 110, 60), paint);
+	break;
+	
+case 5: // 路径(任意边型)
+	Path path = new Path();
+	path.moveTo(10, 10);
+	path.lineTo(200, 10);
+	path.lineTo(140, 60);
+	path.lineTo(120, 30);
+	canvas.drawPath(path, paint);
+	break;
+	
+case 6: // 圆角矩形
+	RectF rect = new RectF(10, 10, 100, 100);
+	canvas.drawRoundRect(rect, 20, 40, paint);
+	break;
+}
+</pre>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/075687e8-b743-3da8-a18d-e5ae8f9ad6a2.png" width="700" height="123">
+<br>
+<br>
+<br><strong><span style="font-size: medium;">canvas的一些效果</span></strong>
+<br>翻转效果，这样在使用图片时，左和右的图片就可以重用了。
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=Bitmap%20bmp%20%3D%20BitmapFactory.decodeResource(res%2C%20R.drawable.image830)%3B%0A%0Acanvas.drawColor(Color.WHITE)%3B%0Acanvas.drawBitmap(bmp%2C%20100%2C%20160%2C%20null)%3B%0A%2F%2F%20%E6%B0%B4%E5%B9%B3%E7%BF%BB%E8%BD%AC%0Acanvas.save()%3B%0Acanvas.scale(-1%2C%201%2C%20240%2C%20160)%3B%0Acanvas.drawBitmap(bmp%2C%20240%2C%20160%2C%20null)%3B%0Acanvas.restore()%3B%0A%0A%2F%2F%20%E5%9E%82%E7%9B%B4%E7%BF%BB%E8%BD%AC%0Acanvas.save()%3B%0Acanvas.scale(1%2C%20-1%2C%20300%2C%20160)%3B%0Acanvas.drawBitmap(bmp%2C%20300%2C%20160%2C%20null)%3B%0Acanvas.restore()%3B%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>Bitmap&nbsp;bmp&nbsp;=&nbsp;BitmapFactory.decodeResource(res,&nbsp;R.drawable.image830);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>canvas.drawColor(Color.WHITE);&nbsp;&nbsp;</span></li><li><span>canvas.drawBitmap(bmp,&nbsp;<span class="number">100</span><span>,&nbsp;</span><span class="number">160</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span><span class="comment">//&nbsp;水平翻转</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.save();&nbsp;&nbsp;</span></li><li><span>canvas.scale(-<span class="number">1</span><span>,&nbsp;</span><span class="number">1</span><span>,&nbsp;</span><span class="number">240</span><span>,&nbsp;</span><span class="number">160</span><span>);&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(bmp,&nbsp;<span class="number">240</span><span>,&nbsp;</span><span class="number">160</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>canvas.restore();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//&nbsp;垂直翻转</span><span>&nbsp;&nbsp;</span></span></li><li><span>canvas.save();&nbsp;&nbsp;</span></li><li><span>canvas.scale(<span class="number">1</span><span>,&nbsp;-</span><span class="number">1</span><span>,&nbsp;</span><span class="number">300</span><span>,&nbsp;</span><span class="number">160</span><span>);&nbsp;&nbsp;</span></span></li><li><span>canvas.drawBitmap(bmp,&nbsp;<span class="number">300</span><span>,&nbsp;</span><span class="number">160</span><span>,&nbsp;</span><span class="keyword">null</span><span>);&nbsp;&nbsp;</span></span></li><li><span>canvas.restore();&nbsp;&nbsp;</span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="7" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">Bitmap bmp = BitmapFactory.decodeResource(res, R.drawable.image830);
+
+canvas.drawColor(Color.WHITE);
+canvas.drawBitmap(bmp, 100, 160, null);
+// 水平翻转
+canvas.save();
+canvas.scale(-1, 1, 240, 160);
+canvas.drawBitmap(bmp, 240, 160, null);
+canvas.restore();
+
+// 垂直翻转
+canvas.save();
+canvas.scale(1, -1, 300, 160);
+canvas.drawBitmap(bmp, 300, 160, null);
+canvas.restore();
+</pre>
+<br><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/1c161110-5542-3aff-b5c3-2d2f1530131a.png">
+<br>
+<br>
+<br><strong><span style="font-size: medium;">绘制文本</span></strong>
+<br>Paint.Align 文本如何对其(x, y)绘制
+<br><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/1f337001-667c-3f2e-b959-622dbd29a420.png">
+<br>第一个是(x, y)位于文本左侧；第二个是(x, y)位于文本中间的；第三个是(x, y)位于文本的右侧。但他们都是canvas.drawText("...", x, y, paint); 仅仅是paint设置的不同了哦。
+<br>
+<br>Paint.FontMetrics：字体元数据
+<br>下图是对该部分涉及的排版术语的图形描述：
+<br><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/d5c93e6e-40dd-343e-af2d-8300ab2925e4.png">
+<br>Paint.FontMetrics.top：某种字体中，基线以上的最大距离（就是ascent的最大值）
+<br>Paint.FontMetrics.bottom：某种字体中，基线以下的最大距离（就是descent的最小值）
+<br>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=Paint%20paint%20%3D%20new%20Paint()%3B%0Apaint.setColor(Color.RED)%3B%20%2F%2F%20%E7%94%BB%E7%AC%94%E9%A2%9C%E8%89%B2%0Apaint.setAntiAlias(true)%3B%20%2F%2F%20%E6%8A%97%E9%94%AF%E9%BD%BF%0Apaint.setStyle(Style.STROKE)%3B%20%2F%2F%20%E7%AC%94%E8%A7%A6%E7%BB%98%E5%88%B6%0Apaint.setTextSize(30)%3B%20%2F%2F%20%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%0A%0Aswitch%20(keyUpCount)%20%7B%0Acase%200%3A%20%2F%2F%20%E4%B8%8B%E5%88%92%E7%BA%BF%E6%96%87%E6%9C%AC%0A%09Paint%20paint0%20%3D%20new%20Paint(paint)%3B%0A%09paint0.setUnderlineText(true)%3B%0A%09canvas.drawText(%22underline%20text%22%2C%2010%2C%2050%2C%20paint0)%3B%0A%09break%3B%0A%09%0Acase%201%3A%20%2F%2F%20x%E6%96%B9%E5%90%91%E5%80%BE%E6%96%9C%E6%96%87%E6%9C%AC%0A%09Paint%20paint1%20%3D%20new%20Paint(paint)%3B%0A%09paint1.setTextSkewX(-0.3F)%3B%0A%09char%5B%5D%20chars%20%3D%20%22text%20skew%20x%22.toCharArray()%3B%0A%09canvas.drawText(chars%2C%200%2C%20chars.length%2C%2010%2C%2050%2C%20paint1)%3B%0A%09break%3B%0A%09%0Acase%202%3A%20%2F%2F%20%E7%BC%A9%E6%94%BE%E6%96%87%E6%9C%AC%0A%09Paint%20paint2%20%3D%20new%20Paint(paint)%3B%0A%09paint2.setTextScaleX(3.0F)%3B%0A%09paint2.setTextSize(15)%3B%0A%09canvas.drawText(%22text%20scale%20x%22%2C%200%2C%2012%2C%2010%2C%2050%2C%20paint2)%3B%0A%09break%3B%0A%09%0Acase%203%3A%20%2F%2F%20%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93%E7%9A%84%E6%96%87%E6%9C%AC%0A%09Paint%20paint3%20%3D%20new%20Paint(paint)%3B%0A%09paint3.setTextSize(45)%3B%0A%09paint3.setColor(Color.BLUE)%3B%0A%09Typeface%20shift%20%3D%20Typeface.createFromAsset(getAssets()%2C%20%22fonts%2FShift.ttf%22)%3B%0A%09paint3.setTypeface(shift)%3B%0A%09canvas.drawText(%22Shift.ttf%22%2C%200%2C%209%2C%2010%2C%2050%2C%20paint3)%3B%0A%09%0A%09%2F*%20font%20attributes%0A%09Paint.FontMetrics%20fontMetrics%20%3D%20paint3.getFontMetrics()%3B%0A%09fontMetrics.ascent%3B%0A%09paint3.ascent()%3B%0A%09fontMetrics.descent%3B%0A%09paint3.descent()%3B%0A%09fontMetrics.leading%3B%0A%09fontMetrics.top%3B%0A%09fontMetrics.bottom%3B%0A%09*%2F%0A%09break%3B%0A%09%0Acase%204%3A%20%2F%2F%20%E8%B7%AF%E5%BE%84%E6%96%87%E6%9C%AC%0A%09String%20text%20%3D%20%22abcdefghijklmnOPQRST12345%22%3B%0A%09Paint%20paint4%20%3D%20new%20Paint()%3B%0A%09paint4.setColor(Color.BLUE)%3B%0A%09paint4.setStyle(Style.STROKE)%3B%0A%09%2F%2F%20draw%20path%0A%09Path%20path%20%3D%20new%20Path()%3B%0A%09path.moveTo(10%2C%20100)%3B%0A%09path.cubicTo(110%2C%20200%2C%20210%2C%200%2C%20310%2C%20100)%3B%0A%09canvas.drawPath(path%2C%20paint4)%3B%0A%09%2F%2F%20draw%20text%0A%09paint.setTextSize(20)%3B%0A%09canvas.drawTextOnPath(text%2C%20path%2C%2020.0F%2C%205.0F%2C%20paint)%3B%0A%09break%3B%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>Paint&nbsp;paint&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;Paint();&nbsp;&nbsp;</span></span></li><li><span>paint.setColor(Color.RED);&nbsp;<span class="comment">//&nbsp;画笔颜色</span><span>&nbsp;&nbsp;</span></span></li><li><span>paint.setAntiAlias(<span class="keyword">true</span><span>);&nbsp;</span><span class="comment">//&nbsp;抗锯齿</span><span>&nbsp;&nbsp;</span></span></li><li><span>paint.setStyle(Style.STROKE);&nbsp;<span class="comment">//&nbsp;笔触绘制</span><span>&nbsp;&nbsp;</span></span></li><li><span>paint.setTextSize(<span class="number">30</span><span>);&nbsp;</span><span class="comment">//&nbsp;字体大小</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="keyword">switch</span><span>&nbsp;(keyUpCount)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">0</span><span>:&nbsp;</span><span class="comment">//&nbsp;下划线文本</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Paint&nbsp;paint0&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Paint(paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint0.setUnderlineText(<span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawText(<span class="string">"underline&nbsp;text"</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;paint0);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">1</span><span>:&nbsp;</span><span class="comment">//&nbsp;x方向倾斜文本</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Paint&nbsp;paint1&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Paint(paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint1.setTextSkewX(-<span class="number">0</span><span>.3F);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">char</span><span>[]&nbsp;chars&nbsp;=&nbsp;</span><span class="string">"text&nbsp;skew&nbsp;x"</span><span>.toCharArray();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawText(chars,&nbsp;<span class="number">0</span><span>,&nbsp;chars.length,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;paint1);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">2</span><span>:&nbsp;</span><span class="comment">//&nbsp;缩放文本</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Paint&nbsp;paint2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Paint(paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint2.setTextScaleX(<span class="number">3</span><span>.0F);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint2.setTextSize(<span class="number">15</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawText(<span class="string">"text&nbsp;scale&nbsp;x"</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">12</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;paint2);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">3</span><span>:&nbsp;</span><span class="comment">//&nbsp;使用自定义字体的文本</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Paint&nbsp;paint3&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Paint(paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint3.setTextSize(<span class="number">45</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint3.setColor(Color.BLUE);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Typeface&nbsp;shift&nbsp;=&nbsp;Typeface.createFromAsset(getAssets(),&nbsp;<span class="string">"fonts/Shift.ttf"</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint3.setTypeface(shift);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawText(<span class="string">"Shift.ttf"</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">9</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;paint3);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*&nbsp;font&nbsp;attributes</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;Paint.FontMetrics&nbsp;fontMetrics&nbsp;=&nbsp;paint3.getFontMetrics();</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;fontMetrics.ascent;</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;paint3.ascent();</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;fontMetrics.descent;</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;paint3.descent();</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;fontMetrics.leading;</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;fontMetrics.top;</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;fontMetrics.bottom;</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">4</span><span>:&nbsp;</span><span class="comment">//&nbsp;路径文本</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;text&nbsp;=&nbsp;<span class="string">"abcdefghijklmnOPQRST12345"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Paint&nbsp;paint4&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Paint();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint4.setColor(Color.BLUE);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint4.setStyle(Style.STROKE);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;draw&nbsp;path</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;Path&nbsp;path&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Path();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;path.moveTo(<span class="number">10</span><span>,&nbsp;</span><span class="number">100</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;path.cubicTo(<span class="number">110</span><span>,&nbsp;</span><span class="number">200</span><span>,&nbsp;</span><span class="number">210</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">310</span><span>,&nbsp;</span><span class="number">100</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawPath(path,&nbsp;paint4);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;draw&nbsp;text</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setTextSize(<span class="number">20</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawTextOnPath(text,&nbsp;path,&nbsp;<span class="number">20</span><span>.0F,&nbsp;</span><span class="number">5</span><span>.0F,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="8" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">Paint paint = new Paint();
+paint.setColor(Color.RED); // 画笔颜色
+paint.setAntiAlias(true); // 抗锯齿
+paint.setStyle(Style.STROKE); // 笔触绘制
+paint.setTextSize(30); // 字体大小
+
+switch (keyUpCount) {
+case 0: // 下划线文本
+	Paint paint0 = new Paint(paint);
+	paint0.setUnderlineText(true);
+	canvas.drawText("underline text", 10, 50, paint0);
+	break;
+	
+case 1: // x方向倾斜文本
+	Paint paint1 = new Paint(paint);
+	paint1.setTextSkewX(-0.3F);
+	char[] chars = "text skew x".toCharArray();
+	canvas.drawText(chars, 0, chars.length, 10, 50, paint1);
+	break;
+	
+case 2: // 缩放文本
+	Paint paint2 = new Paint(paint);
+	paint2.setTextScaleX(3.0F);
+	paint2.setTextSize(15);
+	canvas.drawText("text scale x", 0, 12, 10, 50, paint2);
+	break;
+	
+case 3: // 使用自定义字体的文本
+	Paint paint3 = new Paint(paint);
+	paint3.setTextSize(45);
+	paint3.setColor(Color.BLUE);
+	Typeface shift = Typeface.createFromAsset(getAssets(), "fonts/Shift.ttf");
+	paint3.setTypeface(shift);
+	canvas.drawText("Shift.ttf", 0, 9, 10, 50, paint3);
+	
+	/* font attributes
+	Paint.FontMetrics fontMetrics = paint3.getFontMetrics();
+	fontMetrics.ascent;
+	paint3.ascent();
+	fontMetrics.descent;
+	paint3.descent();
+	fontMetrics.leading;
+	fontMetrics.top;
+	fontMetrics.bottom;
+	*/
+	break;
+	
+case 4: // 路径文本
+	String text = "abcdefghijklmnOPQRST12345";
+	Paint paint4 = new Paint();
+	paint4.setColor(Color.BLUE);
+	paint4.setStyle(Style.STROKE);
+	// draw path
+	Path path = new Path();
+	path.moveTo(10, 100);
+	path.cubicTo(110, 200, 210, 0, 310, 100);
+	canvas.drawPath(path, paint4);
+	// draw text
+	paint.setTextSize(20);
+	canvas.drawTextOnPath(text, path, 20.0F, 5.0F, paint);
+	break;
+</pre>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/5abc89ee-165d-34b4-8938-1bf9b47c89ff.png" width="699" height="208">
+<br>
+<br>
+<br><strong><span style="font-size: medium;">canvas变换，save, restore, layer的使用</span></strong>
+<br>layer其实就相当于photoshop中图层的概念，对当前图层的操作是不影响其它图层的。
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/clipboard_new.swf" flashvars="clipboard=Paint%20paint%20%3D%20new%20Paint()%3B%0Apaint.setColor(Color.RED)%3B%0Apaint.setAntiAlias(true)%3B%0Apaint.setStyle(Paint.Style.STROKE)%3B%0Apaint.setStrokeWidth(3)%3B%0A%0Aswitch%20(keyUpCount)%20%7B%0Acase%200%3A%20%2F%2F%20rotate%E6%97%8B%E8%BD%AC%0A%09canvas.rotate(20)%3B%0A%09canvas.drawRect(10%2C%2010%2C%20300%2C%20210%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%201%3A%20%2F%2F%20translate%E7%A7%BB%E5%8A%A8%0A%09canvas.translate(100%2C%200)%3B%0A%09canvas.drawRect(10%2C%2010%2C%20300%2C%20210%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%202%3A%20%2F%2F%20skew%E5%80%BE%E6%96%9C%0A%09canvas.skew(0.2F%2C%200)%3B%0A%09canvas.drawRect(10%2C%2010%2C%20300%2C%20210%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%203%3A%20%2F%2F%20%E7%BC%A9%E6%94%BE%0A%09canvas.scale(0.5F%2C%201)%3B%0A%09canvas.drawRect(10%2C%2010%2C%20300%2C%20210%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%204%3A%20%2F%2F%20%E6%B2%A1%E7%94%A8save%2C%20restore%0A%09canvas.rotate(20)%3B%0A%09canvas.drawRect(10%2C%2010%2C%2060%2C%2060%2C%20paint)%3B%0A%09canvas.translate(50%2C%200)%3B%0A%09canvas.drawRect(10%2C%2010%2C%2070%2C%2070%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%205%3A%20%2F%2F%20%E7%94%A8%E4%BA%86save%2C%20restore%0A%09int%20saveCount%20%3D%20canvas.save()%3B%0A%09%2F%2F%20%E5%B0%86%E7%94%BB%E5%B8%83%E6%97%8B%E8%BD%AC20%E5%BA%A6%EF%BC%8C%E7%84%B6%E5%90%8E%E5%90%8E%E9%9D%A2%E7%9A%84%E7%BB%98%E5%88%B6%E4%B9%9F%E9%83%BD%E6%98%AF%E6%97%8B%E8%BD%AC20%E5%BA%A6%E7%9A%84%0A%09canvas.rotate(20)%3B%0A%09canvas.drawRect(10%2C%2010%2C%2060%2C%2060%2C%20paint)%3B%0A%09%2F%2F%20%E5%B0%86canvas%E8%BF%98%E5%8E%9F%E5%88%B0%E6%B2%A1rotate%E5%89%8D%0A%09canvas.restoreToCount(saveCount)%3B%0A%09canvas.translate(50%2C%200)%3B%0A%09canvas.drawRect(10%2C%2010%2C%2070%2C%2070%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%206%3A%20%2F%2F%20%E6%B2%A1%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%B1%82%0A%09paint.setStyle(Paint.Style.FILL)%3B%0A%09paint.setXfermode(new%20PorterDuffXfermode(PorterDuff.Mode.LIGHTEN))%3B%0A%09canvas.drawRect(0%2C%200%2C%20100%2C%20100%2C%20paint)%3B%0A%09canvas.drawRect(100%2C%20100%2C%20200%2C%20200%2C%20paint)%3B%0A%09paint.setColor(Color.BLUE)%3B%0A%09canvas.drawRect(50%2C%2050%2C%20150%2C%20150%2C%20paint)%3B%0A%09break%3B%0A%09%0Acase%207%3A%20%2F%2F%20%E4%BD%BF%E7%94%A8%E4%BA%86%E5%9B%BE%E5%B1%82layer%0A%09paint.setStyle(Paint.Style.FILL)%3B%0A%09paint.setXfermode(new%20PorterDuffXfermode(PorterDuff.Mode.LIGHTEN))%3B%0A%09canvas.drawRect(0%2C%200%2C%20100%2C%20100%2C%20paint)%3B%0A%09%2F%2F%20%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9B%BE%E5%B1%82%0A%09int%20layerSC%20%3D%20canvas.saveLayer(null%2C%20null%2C%0A%09%09%09Canvas.MATRIX_SAVE_FLAG%20%7C%20%2F%2F%20%E5%90%88%E5%B9%B6%E5%9B%BE%E5%B1%82%E6%97%B6%EF%BC%8Crestore%E5%BA%94%E7%94%A8%E4%BA%8E%E5%9B%BE%E5%B1%82%E7%9A%84%E5%8F%98%E6%8D%A2%0A%09%09%09Canvas.HAS_ALPHA_LAYER_SAVE_FLAG%20%7C%0A%09%09%09Canvas.FULL_COLOR_LAYER_SAVE_FLAG)%3B%0A%09canvas.translate(100%2C%20100)%3B%0A%09canvas.drawRect(0%2C%200%2C%20100%2C%20100%2C%20paint)%3B%0A%09paint.setColor(Color.BLUE)%3B%0A%09canvas.translate(-50%2C%20-50)%3B%0A%09canvas.drawRect(0%2C%200%2C%20100%2C%20100%2C%20paint)%3B%0A%09canvas.restoreToCount(layerSC)%3B%20%2F%2F%20%E5%90%88%E5%B9%B6%E5%9B%BE%E5%B1%82%0A%09break%3B%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="14" height="15">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_star.png" alt="收藏代码"><img class="spinner" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/spinner.gif" style="display:none"></a></div></div><ol class="dp-j" start="1"><li><span><span>Paint&nbsp;paint&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;Paint();&nbsp;&nbsp;</span></span></li><li><span>paint.setColor(Color.RED);&nbsp;&nbsp;</span></li><li><span>paint.setAntiAlias(<span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li><span>paint.setStyle(Paint.Style.STROKE);&nbsp;&nbsp;</span></li><li><span>paint.setStrokeWidth(<span class="number">3</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="keyword">switch</span><span>&nbsp;(keyUpCount)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">0</span><span>:&nbsp;</span><span class="comment">//&nbsp;rotate旋转</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.rotate(<span class="number">20</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">300</span><span>,&nbsp;</span><span class="number">210</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">1</span><span>:&nbsp;</span><span class="comment">//&nbsp;translate移动</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.translate(<span class="number">100</span><span>,&nbsp;</span><span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">300</span><span>,&nbsp;</span><span class="number">210</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">2</span><span>:&nbsp;</span><span class="comment">//&nbsp;skew倾斜</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.skew(<span class="number">0</span><span>.2F,&nbsp;</span><span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">300</span><span>,&nbsp;</span><span class="number">210</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">3</span><span>:&nbsp;</span><span class="comment">//&nbsp;缩放</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.scale(<span class="number">0</span><span>.5F,&nbsp;</span><span class="number">1</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">300</span><span>,&nbsp;</span><span class="number">210</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">4</span><span>:&nbsp;</span><span class="comment">//&nbsp;没用save,&nbsp;restore</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.rotate(<span class="number">20</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">60</span><span>,&nbsp;</span><span class="number">60</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.translate(<span class="number">50</span><span>,&nbsp;</span><span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">70</span><span>,&nbsp;</span><span class="number">70</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">5</span><span>:&nbsp;</span><span class="comment">//&nbsp;用了save,&nbsp;restore</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;saveCount&nbsp;=&nbsp;canvas.save();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;将画布旋转20度，然后后面的绘制也都是旋转20度的</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.rotate(<span class="number">20</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">60</span><span>,&nbsp;</span><span class="number">60</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;将canvas还原到没rotate前</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.restoreToCount(saveCount);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.translate(<span class="number">50</span><span>,&nbsp;</span><span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">10</span><span>,&nbsp;</span><span class="number">10</span><span>,&nbsp;</span><span class="number">70</span><span>,&nbsp;</span><span class="number">70</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">6</span><span>:&nbsp;</span><span class="comment">//&nbsp;没使用图层</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setStyle(Paint.Style.FILL);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setXfermode(<span class="keyword">new</span><span>&nbsp;PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">200</span><span>,&nbsp;</span><span class="number">200</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setColor(Color.BLUE);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">50</span><span>,&nbsp;</span><span class="number">50</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;</span><span class="number">150</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span><span class="keyword">case</span><span>&nbsp;</span><span class="number">7</span><span>:&nbsp;</span><span class="comment">//&nbsp;使用了图层layer</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setStyle(Paint.Style.FILL);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setXfermode(<span class="keyword">new</span><span>&nbsp;PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;创建一个图层</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;layerSC&nbsp;=&nbsp;canvas.saveLayer(</span><span class="keyword">null</span><span>,&nbsp;</span><span class="keyword">null</span><span>,&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Canvas.MATRIX_SAVE_FLAG&nbsp;|&nbsp;<span class="comment">//&nbsp;合并图层时，restore应用于图层的变换</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Canvas.HAS_ALPHA_LAYER_SAVE_FLAG&nbsp;|&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Canvas.FULL_COLOR_LAYER_SAVE_FLAG);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.translate(<span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;paint.setColor(Color.BLUE);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.translate(-<span class="number">50</span><span>,&nbsp;-</span><span class="number">50</span><span>);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.drawRect(<span class="number">0</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;</span><span class="number">100</span><span>,&nbsp;paint);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;canvas.restoreToCount(layerSC);&nbsp;<span class="comment">//&nbsp;合并图层</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li></ol></div><pre title="android.graphics包中的一些类的使用" pre_index="9" source_url="http://yuanzhifei89.iteye.com/blog/1136651" codeable_type="Blog" codeable_id="1136651" style="display: none;" class="java" name="code">Paint paint = new Paint();
+paint.setColor(Color.RED);
+paint.setAntiAlias(true);
+paint.setStyle(Paint.Style.STROKE);
+paint.setStrokeWidth(3);
+
+switch (keyUpCount) {
+case 0: // rotate旋转
+	canvas.rotate(20);
+	canvas.drawRect(10, 10, 300, 210, paint);
+	break;
+	
+case 1: // translate移动
+	canvas.translate(100, 0);
+	canvas.drawRect(10, 10, 300, 210, paint);
+	break;
+	
+case 2: // skew倾斜
+	canvas.skew(0.2F, 0);
+	canvas.drawRect(10, 10, 300, 210, paint);
+	break;
+	
+case 3: // 缩放
+	canvas.scale(0.5F, 1);
+	canvas.drawRect(10, 10, 300, 210, paint);
+	break;
+	
+case 4: // 没用save, restore
+	canvas.rotate(20);
+	canvas.drawRect(10, 10, 60, 60, paint);
+	canvas.translate(50, 0);
+	canvas.drawRect(10, 10, 70, 70, paint);
+	break;
+	
+case 5: // 用了save, restore
+	int saveCount = canvas.save();
+	// 将画布旋转20度，然后后面的绘制也都是旋转20度的
+	canvas.rotate(20);
+	canvas.drawRect(10, 10, 60, 60, paint);
+	// 将canvas还原到没rotate前
+	canvas.restoreToCount(saveCount);
+	canvas.translate(50, 0);
+	canvas.drawRect(10, 10, 70, 70, paint);
+	break;
+	
+case 6: // 没使用图层
+	paint.setStyle(Paint.Style.FILL);
+	paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
+	canvas.drawRect(0, 0, 100, 100, paint);
+	canvas.drawRect(100, 100, 200, 200, paint);
+	paint.setColor(Color.BLUE);
+	canvas.drawRect(50, 50, 150, 150, paint);
+	break;
+	
+case 7: // 使用了图层layer
+	paint.setStyle(Paint.Style.FILL);
+	paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
+	canvas.drawRect(0, 0, 100, 100, paint);
+	// 创建一个图层
+	int layerSC = canvas.saveLayer(null, null,
+			Canvas.MATRIX_SAVE_FLAG | // 合并图层时，restore应用于图层的变换
+			Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
+			Canvas.FULL_COLOR_LAYER_SAVE_FLAG);
+	canvas.translate(100, 100);
+	canvas.drawRect(0, 0, 100, 100, paint);
+	paint.setColor(Color.BLUE);
+	canvas.translate(-50, -50);
+	canvas.drawRect(0, 0, 100, 100, paint);
+	canvas.restoreToCount(layerSC); // 合并图层
+	break;
+</pre>
+<br><img class="magplus" title="点击查看原始大小图片" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/5a43b1e7-762d-3499-b8b9-994caf21da42.png" width="699" height="128">
+<br>
+  </div>
+
+  
+  <div class="attachments">
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0052/7491/5c2f673e-3029-341d-b70d-0b2bc6ac72e9.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/5c2f673e-3029-341d-b70d-0b2bc6ac72e9-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 7.5 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0052/7833/51dd5215-d0a2-3ae8-b4e2-f5ad7d336e5a.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/51dd5215-d0a2-3ae8-b4e2-f5ad7d336e5a-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 6.6 KB</li>
+        </ul>
+      
+    
+      
+        <ul>
+          <li><a href="http://dl.iteye.com/topics/download/b56a388a-3408-3179-972b-3a72bdbaaa28">线性代数清华第二版.pdf</a> (4.2 MB)</li>
+          
+          <li>下载次数: 68</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/8725/ecb03259-a1d5-34e8-9983-9622b3b5174e.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/ecb03259-a1d5-34e8-9983-9622b3b5174e-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 124.1 KB</li>
+        </ul>
+      
+    
+      
+        <ul>
+          <li><a href="http://dl.iteye.com/topics/download/4f8ef46f-e5fb-3724-9561-480179a8651c">demo_game.rar</a> (397.6 KB)</li>
+          
+          <li>下载次数: 103</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9008/075687e8-b743-3da8-a18d-e5ae8f9ad6a2.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/075687e8-b743-3da8-a18d-e5ae8f9ad6a2-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 10.3 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9025/19e504cc-ff7f-34a8-a564-40e7aa30d345.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/19e504cc-ff7f-34a8-a564-40e7aa30d345-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 3.9 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9027/9b5b0999-1258-317d-90db-fd721f2fca04.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/9b5b0999-1258-317d-90db-fd721f2fca04-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 57.8 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9093/1f337001-667c-3f2e-b959-622dbd29a420.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/1f337001-667c-3f2e-b959-622dbd29a420-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 3.6 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9095/75108c52-718d-3a4c-a392-5087547ca850.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/75108c52-718d-3a4c-a392-5087547ca850-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 3.7 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9097/7748eded-4c36-36bf-bdf7-60a8ef396c50.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/7748eded-4c36-36bf-bdf7-60a8ef396c50-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 7.6 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9107/d5c93e6e-40dd-343e-af2d-8300ab2925e4.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/d5c93e6e-40dd-343e-af2d-8300ab2925e4-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 10.4 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9482/5abc89ee-165d-34b4-8938-1bf9b47c89ff.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/5abc89ee-165d-34b4-8938-1bf9b47c89ff-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 19.9 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0054/9528/5a43b1e7-762d-3499-b8b9-994caf21da42.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/5a43b1e7-762d-3499-b8b9-994caf21da42-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 29.7 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0055/0907/e331abc9-0496-33ea-8cfa-1e2d276465be.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/e331abc9-0496-33ea-8cfa-1e2d276465be-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 35.4 KB</li>
+        </ul>
+      
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0057/1512/1c161110-5542-3aff-b5c3-2d2f1530131a.png" target="_blank"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/1c161110-5542-3aff-b5c3-2d2f1530131a-thumb.png" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 5.7 KB</li>
+        </ul>
+      
+    
+    
+      <ul>
+        <li><a href="#" onclick="$$('div.attachments ul').invoke('show');$(this).up(1).hide();return false;">查看图片附件</a></li>
+      </ul>
+    
+  </div>
+
+
+  
+  
+  <iframe src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/187.htm" scrolling="no" width="680" frameborder="0" height="90"></iframe>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://yuanzhifei89.iteye.com/blog/1141385" class="next" title="android json解析">android json解析</a>
+      |
+      <a href="http://yuanzhifei89.iteye.com/blog/1131523" class="pre" title="AlarmManager的使用">AlarmManager的使用</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2011-07-31 14:30</li>
+      <li>浏览 5871</li>
+      <li><a href="#comments">评论(1)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/mobile">移动开发</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1136651" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2306798">
+  <div class="comment_title">
+    1 楼
+    <a href="http://leonplion.iteye.com/" target="_blank" title="leonplion">leonplion</a>
+    2013-04-08&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">写得很详细，学习了！</div>
+</div>
+
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://yuanzhifei89.iteye.com/login" style="background-color:white;"> <img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://yuanzhifei89.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1136651;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'android.graphics包中的一些类的使用');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'android.graphics包中的一些类的使用');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://yuanzhifei89.iteye.com/"><img alt="yuanzhifei89的博客" class="logo" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/209c1a13-c246-391a-9200-fcb09352a593.png" title="yuanzhifei89的博客: " width=""></a></div>
+  <div id="blog_owner_name">yuanzhifei89</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 374254 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 苏州</li>
+              <li><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://yuanzhifei89.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://faith789510.iteye.com/" target="_blank"><img alt="faith789510的博客" class="logo" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="faith789510的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://faith789510.iteye.com/" target="_blank" title="faith789510">faith789510</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://roading71.iteye.com/" target="_blank"><img alt="roading71的博客" class="logo" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="roading71的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://roading71.iteye.com/" target="_blank" title="roading71">roading71</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://ikaten.iteye.com/" target="_blank"><img alt="ikaten的博客" class="logo" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="ikaten的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://ikaten.iteye.com/" target="_blank" title="ikaten">ikaten</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://liten24.iteye.com/" target="_blank"><img alt="liten24的博客" class="logo" src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/user-logo-thumb.gif" title="liten24的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://liten24.iteye.com/" target="_blank" title="liten24">liten24</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://yuanzhifei89.iteye.com/">全部博客 (72)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/163513">android (33)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/163976">eclipse (4)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/167961">设计模式 (0)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/170601">java (7)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/174459">android ui (1)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/177326">swing (0)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/177790">ide (0)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/178391">编程基础 (1)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/178485">其它 (2)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/190352">ndk (2)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/294333">jni (3)</a></li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/category/296332">c++ (11)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://yuanzhifei89.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://yuanzhifei89.iteye.com/blog/post">我的论坛</a> (2)
+                </li>
+                <li><a href="http://yuanzhifei89.iteye.com/blog/answered_problems">我的问答</a> (5)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/blog/monthblog/2014-03">2014-03</a> (1)</li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/blog/monthblog/2014-02">2014-02</a> (2)</li>
+                
+                  <li><a href="http://yuanzhifei89.iteye.com/blog/monthblog/2013-11">2013-11</a> (15)</li>
+                
+                <li><a href="http://yuanzhifei89.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://hujunxiang.iteye.com/" target="_blank" title="hujunxiang">hujunxiang</a>： 
+                  好全好全~~~<br>
+                  <a href="http://yuanzhifei89.iteye.com/blog/974082#bc2384595">Eclipse设置、调优、使用</a>
+                </li>
+                
+                <li>
+                  <a href="http://bugyun.iteye.com/" target="_blank" title="bugyun">bugyun</a>： 
+                  楼主辛苦了<br>
+                  <a href="http://yuanzhifei89.iteye.com/blog/974082#bc2384549">Eclipse设置、调优、使用</a>
+                </li>
+                
+                <li>
+                  <a href="http://li346985170.iteye.com/" target="_blank" title="li346985170">li346985170</a>： 
+                  收藏啦&nbsp;<br>
+                  <a href="http://yuanzhifei89.iteye.com/blog/974082#bc2367168">Eclipse设置、调优、使用</a>
+                </li>
+                
+                <li>
+                  <a href="http://xs-cctv.iteye.com/" target="_blank" title="xs.cctv">xs.cctv</a>： 
+                  学习了！！！！<br>
+                  <a href="http://yuanzhifei89.iteye.com/blog/974082#bc2361867">Eclipse设置、调优、使用</a>
+                </li>
+                
+                <li>
+                  <a href="http://1621378852-qq-com.iteye.com/" target="_blank" title="Qiweiweiw">Qiweiweiw</a>： 
+                  今天写代码的时候不小心按出来了双编辑窗口："Ctrl ...<br>
+                  <a href="http://yuanzhifei89.iteye.com/blog/974082#bc2359544">Eclipse设置、调优、使用</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2016 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/a.gif" width="0" height="0">
+
+<script src="android.graphics%E5%8C%85%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%20-%20-%20ITeye%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99_files/tracking.js" type="text/javascript"></script>
+
+    
+    
+  
+
+</body></html>

@@ -1,0 +1,23 @@
+
+从李华明 游戏入门里的一些读写笔记：
+
+一：学习方法：
+	1、学习每个知识点，去网上看相关知识点总结的文章。
+有针对性翻阅API文档
+	2、多写些小项目练手。
+	3、解决问题中学习。
+	
+二、游戏基础知识点
+	1、刷屏 ----（问题：过度绘制情况怎么处理？）
+	2、游戏开发中常用三种视图：View，SurfaceView, GLSurfaceView
+	3、SurfaceView：
+		---SurfaceHolder
+		---Callback    //通过holder addCallback
+		
+		Canvas canvas = mHolder.lockCanvas();
+		canvas.drawText("Game", 250, 250, mTextPaint);
+		mHolder.unlockCanvasAndPost(canvas);
+		
+	4、Canvas
+	5、Paint
+	6、Bitmap

@@ -1,0 +1,21 @@
+
+
+Git忽略规则及.gitignore规则不生效的解决办法
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+
+
+git tag # 在控制台打印出当前仓库的所有标签
+git tag -a v0.1.2 -m “0.1.2版本”
+git tag   查看当前分支下的标签. 与切换分支命令相同，用git checkout [tagname]
+用git show命令可以查看标签的版本信息
+git tag -d v0.1.2 # 删除标签
+ 
+标签发布 git push origin v0.1.2 # 
+ git push origin –-tags # 将本地所有标签一次性提交到git服务器
+
+
+
+
+
