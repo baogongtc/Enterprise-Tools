@@ -1,0 +1,3 @@
+
+//有点像Java8新特性
+groovy -e "new File('.').eachFileRecurse{println it}"

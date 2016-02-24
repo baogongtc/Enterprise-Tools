@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="198px" height="198px" viewBox="0 0 198 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>juejin_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path id="path-1" d="M60.9528157,197.546171 C38.5839014,197.546171 25.722601,197.546171 12.8613005,184.665216 C0,171.784262 0,158.903307 0,136.499108 L0,61.0459609 C0,38.6417616 0,25.761909 12.8613005,12.8809545 C25.722601,0 38.5839014,0 60.9528157,0 L136.291935,0 C158.66195,0 171.52215,0 184.38345,12.8809545 C197.244751,25.761909 197.244751,38.6417616 197.244751,61.0459609 L197.244751,136.499108 C197.244751,158.903307 197.244751,171.784262 184.38345,184.665216 C171.52215,197.546171 158.66195,197.546171 136.291935,197.546171 L60.9528157,197.546171"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="juejin_icon" sketch:type="MSLayerGroup" transform="translate(0.019034, 0.000000)">
+            <mask id="mask-2" sketch:name="Mask" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#006CFF" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+            <g id="Rectangle-199-+-Fill-1-Copy" mask="url(#mask-2)" sketch:type="MSShapeGroup">
+                <rect id="Rectangle-199" fill="#007FFF" x="0" y="0" width="197.244751" height="197.546171"></rect>
+                <path d="M110.861005,54.9898593 L98.6353749,45.3353029 L85.8621344,55.4224704 L85.2000455,55.9567333 L98.6353749,66.6857255 L112.112011,55.9567333 L110.861005,54.9898593 Z M157.189524,92.4308152 L98.5999691,138.700111 L40.04582,92.4591831 L31.3973578,99.416421 L98.5999691,152.486931 L165.839166,99.3880531 L157.189524,92.4308152 Z M98.5999691,96.1848396 L66.717026,71.0071087 L58.0673836,77.9643466 L98.5999691,109.972842 L139.16678,77.9359787 L130.517138,70.9787408 L98.5999691,96.1848396 Z" id="Fill-1-Copy" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
