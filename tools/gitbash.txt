@@ -103,6 +103,8 @@ git grep -e '#define' --and -e SORT_DIRENT
 git gc
 git fsck
 
+°æ±¾»ØÍË£ºgit reset --hard HEAD~numbuter
+git reflog
 
 
 
