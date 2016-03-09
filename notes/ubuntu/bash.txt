@@ -1,0 +1,109 @@
+1、查看操作系统位数（32/64）
+
+	getconf LONG_BIT
+	
+2、查看操作系统信息
+
+	lsb_release -a
+
+3、配置java环境变量
+
+	方法1：修改/etc/profile 文件
+	所有用户的 shell都有权使用这些环境变量
+		<1>在 shell终端执行命令：vi /etc/profile
+		<2>在 profile文件末尾加入：
+			JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.15
+			PATH=$JAVA_HOME/bin:$PATH
+			CLASSPATH=.:$JAVA_HOME/lib/dt.jar: $JAVA_HOME/lib/tools.jar
+			export JAVA_HOME,PATH,CLASSPATH
+		<3>重启系统
+		
+	方法2：修改.bashrc文件
+	如果你需要给某个用户权限使用这些环境变量，你只需要修改其个人用户主目录下的.bashrc就可以了,而不像第一种方法给所有用户权限。
+		<1>在 shell终端执行命令：vi /home/username/.bashrc
+		<2>在.bashrc文件末尾加入：
+			set JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.15
+			export JAVA_HOME
+			set PATH=$JAVA_HOME/bin:$PATH
+			export PATH
+			set CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+			export CLASSPATH
+		<3>重新登录
+		方法3：直接在shell下修改
+		用于在Shell下临时使用，换个Shell即无效
+			export JAVA_HOME=/opt/jdk1.5.0_02
+			export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+			export PATH=$JAVA_HOME/bin:$PATH
+		注意：Linux使用:(冒号)而不是;(分号)来分隔路径
+
+
+4、zip命令可以用来将文件压缩成为常用的zip格式。unzip命令则用来解压缩zip文件。
+
+	1. 我想把一个文件abc.txt和一个目录dir1压缩成为yasuo.zip：
+
+	＃ zip -r yasuo.zip abc.txt dir1
+
+	2.我下载了一个yasuo.zip文件，想解压缩：
+
+	# unzip yasuo.zip
+
+	3.我当前目录下有abc1.zip，abc2.zip和abc3.zip，我想一起解压缩它们：
+
+	＃ unzip abc\?.zip
+
+	注释：?表示一个字符，如果用*表示任意多个字符。
+
+	4.我有一个很大的压缩文件large.zip，我不想解压缩，只想看看它里面有什么：
+
+	# unzip -v large.zip
+
+	5.我下载了一个压缩文件large.zip，想验证一下这个压缩文件是否下载完全了
+
+	# unzip -t large.zip
+
+	6.我用-v选项发现music.zip压缩文件里面有很多目录和子目录，并且子目录中其实都是歌曲mp3文件，我想把这些文件都下载到第一级目录，而不是一层一层建目录：
+
+	# unzip -j music.zip
+	
+	
+5、挂载ntfs硬盘
+
+	官方网址：http://www.tuxera.com/，
+	文档手册：http://www.tuxera.com/community/ntfs-3g-manual/
+	下载地址：http://www.tuxera.com/community/ntfs-3g-download/
+
+
+	步骤一：解压安装NTFS-3G。
+	　　
+		tar -xvzf ntfs-3g_ntfsprogs-2012.1.15.tgz
+		　　
+		cd ntfs-3g_ntfsprogs-2012.1.15
+
+		执行安装过程如下所示:
+		　　./configure 
+		　　make 
+		　　make install 
+		　　之后系统会提示安装成功，下面就可以用ntfs-3g来实现对NTFS分区的读写了
+
+	步骤二:配置挂载NTFS格式的移动硬盘	 
+
+		1. 首先得到NTFS分区的信息 
+		　　sudo fdisk -l | grep NTFS
+
+		[root@DB-Server klb]# sudo fdisk -l | grep NTFS 
+		/dev/sdc1 * 1 244 1955776+ 7 HPFS/NTFS 
+		　　
+		2. 设置挂载点，用如下命令实现挂载 
+		　　mount -t ntfs-3g <NTFS Partition> <Mount Point> 
+		　　
+		例如得到的NTFS分区信息为/dev/sdc1，挂载点设置在/mnt/usb下，可以用 
+		　　mount -t ntfs-3g /dev/sdc1 /mnt/usb 
+		　　或者直接用 
+		　　ntfs-3g ntfs-3g /dev/sdc1 /mnt/usb 
+
+		3. 如果想实现开机自动挂载，可以在/etc/fstab里面添加如下格式语句 
+		　　<NTFS Partition> <Mount Point> ntfs-3g silent,umask=0,locale=zh_CN.utf8 0 0 
+		　　这样可以实现NTFS分区里中文文件名的显示。 
+		　　
+		4. 卸载分区可以用umount实现，用 
+		　　umount <NTFS Partition> 

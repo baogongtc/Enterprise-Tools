@@ -1,0 +1,944 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0050)http://www.cnblogs.com/skywang12345/p/3158310.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/ca-pub-4210569241504288.js"></script>
+
+<title>Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/bundle-blue.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/skywang12345/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/skywang12345/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/skywang12345/wlwmanifest.xml">
+<script async="" src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/encoder.js"></script><script src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'skywang12345', cb_enable_mathjax=false;</script>
+<script src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div class="pagelayout">
+    
+<div class="header">
+	<div>
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/skywang12345/">skywang12345</a>
+	</div>
+	<div>
+		
+	</div>
+</div>
+    <div id="leftmenu" class="leftcolumn">
+        
+            
+<h1 class="listtitle">导航</h1>
+<ul class="list">
+			<li class="listitem"><a id="MyLinks1_HomeLink" class="listitem" href="http://www.cnblogs.com/">博客园</a></li>
+			<li class="listitem"><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/skywang12345/">首页</a>
+			</li><li class="listitem"><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>
+			</li><li class="listitem"><a id="MyLinks1_ContactLink" accesskey="9" class="listitem" rel="nofollow" href="http://msg.cnblogs.com/send/%E5%A6%82%E6%9E%9C%E5%A4%A9%E7%A9%BA%E4%B8%8D%E6%AD%BB">联系</a></li>
+			<li class="listitem"><a id="MyLinks1_Syndication" class="listitem" href="http://www.cnblogs.com/skywang12345/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/skywang12345/rss"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/xml.gif" alt="订阅"></a>
+			</li><li class="listitem"><a id="MyLinks1_Admin" class="listitem" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+            <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/02/01&#39;);return false;">&lt;</a></td><td align="center">2016年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalTodayDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+            
+<div class="listtitle">统计</div>
+	<ul class="list">
+		<li class="listitem">随笔 - 278
+		</li><li class="listitem">文章 - 0
+		</li><li class="listitem">评论 - 513
+		</li><li class="listitem">引用 - 0
+	</li>
+</ul>
+            
+            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/skywang12345/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/skywang12345/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/skywang12345/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/skywang12345/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/skywang12345/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_categories">
+		<h1 class="listtitle">随笔分类<span style="font-size:11px;font-weight:normal">(275)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/skywang12345/category/493848.html">Android(7)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/skywang12345/category/482610.html">Android NDK编程(9)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/skywang12345/category/490118.html">Android 系统层(5)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/skywang12345/category/455318.html">Android 应用层(46)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/skywang12345/category/476579.html">Computer Culture(2)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/skywang12345/category/455711.html">Java(111)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/skywang12345/category/481789.html">Linux/Ubuntu(5)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/skywang12345/category/548620.html">UML(5)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/skywang12345/category/540303.html">Windows(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/skywang12345/category/548777.html">设计模式(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/skywang12345/category/508186.html">数据结构_算法(79)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_11" class="listitem" href="http://www.cnblogs.com/skywang12345/category/489072.html">索引(4)</a>  </li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3308833.html#3375060">1. Re:Java 集合系列06之 Vector详细介绍(源码解析)和使用示例</a></li>
+    <li class="recent_comment_body">在JDK1.6u45（Java(TM) SE Runtime Environment (build 1.6.0_45-b06)）下执行多次，基本都是这个结果：iteratorThroughRandom......</li>
+    <li class="recent_comment_author">--小关部落</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3311275.html#3374771">2. Re:Java 集合系列18之 Iterator和Enumeration比较</a></li>
+    <li class="recent_comment_body">你好，在这篇文章中一句话我个人理解似乎不是特别正确，说iterator迭代器支持fail-fast机制，而后者则不支持，在我的理解看来，fail-fast应该只是一种机制，直白的理解就是快速错误，就是......</li>
+    <li class="recent_comment_author">--HCoderr</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3480016.html#3372532">3. Re:Java多线程系列--“基础篇”11之 生产消费者问题</a></li>
+    <li class="recent_comment_body">@leoric xulz代码用的是while(left)应该就是解决这个问题...</li>
+    <li class="recent_comment_author">--mrshen</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3576328.html#3371851">4. Re:二叉查找树(一)之 图文解析 和 C语言的实现</a></li>
+    <li class="recent_comment_body">跪了XD 大神回俺了 感動!!感謝開導 了解了想問一下 看到大神有在別篇提過紅黑樹和鏈表在 linux kernel 的具體應用想請問一下大大:(1) 除上述二者 可以順帶提點一下 其它的有在......</li>
+    <li class="recent_comment_author">--eric5420</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3509954.html#3371804">5. Re:Java多线程系列--“JUC线程池”03之 线程池原理(二)</a></li>
+    <li class="recent_comment_body">赞</li>
+    <li class="recent_comment_author">--lovebingheji</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/skywang12345/p/3154150.html">1. Android 布局之GridLayout(18096)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/java_threads_category.html">2. Java多线程系列目录(共43篇)(16826)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/3603935.html">3. 数据结构与算法系列 目录(15325)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/3245399.html">4. 红黑树(一)之 原理和算法详细介绍(13860)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/3310835.html">5. Java 集合系列10之 HashMap详细介绍(源码解析)和使用示例(13258)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+        
+        <div class="spacer">
+            &nbsp;</div>
+    </div>
+    <div class="centercolumn">
+        
+<div id="post_detail">
+<div class="singlepost">
+	<div class="posttitle">
+		<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/skywang12345/p/3158310.html">Android 之窗口小部件详解--App Widget</a>
+	</div>
+    <div class="postbody">
+	<div id="cnblogs_post_body"><p><span style="font-size: 18pt;"><strong><span style="background-color: #ff0000;">Android 之窗口小部件详解--App Widget</span></strong></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table border="2">
+<tbody>
+<tr>
+<td><span style="color: #ff0000;"><strong>&nbsp;版本号</strong></span></td>
+<td><span style="color: #ff0000;"><strong>说明</strong></span></td>
+<td><span style="color: #ff0000;"><strong>作者</strong></span></td>
+<td><span style="color: #ff0000;"><strong>日期&nbsp;</strong></span></td>
+</tr>
+<tr>
+<td><span>1.0&nbsp;</span></td>
+<td><span>添加App Widge介绍和示例&nbsp;</span></td>
+<td><a href="http://www.cnblogs.com/skywang12345/"><span style="color: #0000ff;">Sky Wang</span></a></td>
+<td><span>2013/06/27&nbsp;</span></td>
+</tr>
+<tr>
+<td><span>&nbsp;</span></td>
+<td><span>&nbsp;</span></td>
+<td><span>&nbsp;</span></td>
+<td><span>&nbsp;<br><br></span></td>
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+</table>
+<h1>&nbsp;</h1>
+<hr>
+<h1><span style="color: #ff0000;">1 App Widget简介</span></h1>
+<p><span style="font-size: 14px;">App Widget是应用程序窗口小部件（Widget）是微型的应用程序视图，它可以被嵌入到其它应用程序中（比如桌面）并接收周期性的更新。你可以通过一个App Widget Provider来发布一个Widget。</span></p>
+<p><span style="font-size: 14px;">本文参考<a href="http://developer.android.com/guide/topics/appwidgets/index.html"><span style="color: #0000ff;">Android官方文本</span></a>，先介绍App Widget的主要组件，然后再以示例来详细说明。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr>
+<h1><span style="color: #ff0000;">2 App Widget主要的相关类介绍</span></h1>
+<h2><span style="color: #ff0000;">2.1 AppWidgetProvider</span></h2>
+<p><span style="font-size: 14px;"><a href="http://developer.android.com/reference/android/appwidget/AppWidgetProvider.html"><span style="color: #0000ff;">AppWidgetProvider</span></a> 继承自 BroadcastReceiver，它能接收 widget 相关的广播，例如 widget 的更新、删除、开启和禁用等。 </span><br><br><span style="font-size: 14px;">AppWidgetProvider中的广播处理函数如下：</span></p>
+<p><strong><span style="font-size: 14px; color: #008000;">onUpdate()</span></strong><br><span style="font-size: 14px;">&nbsp; 当 widget 更新时被执行。</span><br><span style="font-size: 14px;">&nbsp; 同样，当用户首次添加 widget 时，onUpdate() 也会被调用，这样 widget 就能进行必要的设置工作(如果需要的话) 。但是，如果定义了 widget 的 configure属性(即android:config，后面会介绍)，那么当用户首次添加 widget 时，onUpdate()不会被调用；之后更新 widget 时，onUpdate才会被调用。</span></p>
+<p><strong><span style="font-size: 14px; color: #008000;">onAppWidgetOptionsChanged()</span></strong><br><span style="font-size: 14px;">&nbsp; 当 widget 被初次添加 或者 当 widget 的大小被改变时，执行onAppWidgetOptionsChanged()。你可以在该函数中，根据 widget 的大小来显示/隐藏某些内容。可以通过 getAppWidgetOptions() 来返回 Bundle 对象以读取 widget 的大小信息，Bundle中包括以下信息：</span><br><span style="font-size: 14px;">&nbsp; <strong><em>OPTION_APPWIDGET_MIN_WIDTH</em></strong>  -- 包含 widget 当前宽度的下限，以dp为单位。</span><br><span style="font-size: 14px;">&nbsp; <strong><em>OPTION_APPWIDGET_MIN_HEIGHT</em></strong> -- 包含 widget 当前高度的下限，以dp为单位。</span><br><span style="font-size: 14px;">&nbsp; <strong><em>OPTION_APPWIDGET_MAX_WIDTH</em></strong>  -- 包含 widget 当前宽度的上限，以dp为单位。</span><br><span style="font-size: 14px;">&nbsp; <strong><em>OPTION_APPWIDGET_MAX_HEIGHT</em></strong> -- 包含 widget 当前高度的上限，以dp为单位。</span></p>
+<p><span style="font-size: 14px;">onAppWidgetOptionsChanged() 是 Android 4.1 引入的。 </span></p>
+<p><strong><span style="font-size: 14px; color: #008000;">onDeleted(Context, int[])</span></strong><br><span style="font-size: 14px;">&nbsp; 当 widget 被删除时被触发。</span></p>
+<p><strong><span style="font-size: 14px; color: #008000;">onEnabled(Context)</span></strong><br><span style="font-size: 14px;">&nbsp; 当第1个 widget 的实例被创建时触发。也就是说，如果用户对同一个 widget 增加了两次（两个实例），那么onEnabled()只会在第一次增加widget时触发。</span></p>
+<p><span style="color: #008000;"><strong><span style="font-size: 14px;">onDisabled(Context)</span></strong></span><br><span style="font-size: 14px;">&nbsp; 当最后1个 widget 的实例被删除时触发。</span></p>
+<p><strong><span style="font-size: 14px; color: #008000;">onReceive(Context, Intent)</span></strong><br><span style="font-size: 14px;">&nbsp; 接收到任意广播时触发，并且会在上述的方法之前被调用。</span></p>
+<p><span style="font-size: 14px;">&nbsp; <strong>总结</strong>，AppWidgetProvider 继承于 BroadcastReceiver。实际上，App Widge中的onUpdate()、onEnabled()、onDisabled()等方法都是在 onReceive()中调用的；是onReceive()对特定事情的响应函数。参考android源码frameworks/base/core/java/android/appwidget/AppWidgetProvider.java中onReceive()的定义：</span></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;9d235aa9-ee57-4777-a1aa-40f466df9792&#39;)"><img id="code_img_closed_9d235aa9-ee57-4777-a1aa-40f466df9792" class="code_img_closed" src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_9d235aa9-ee57-4777-a1aa-40f466df9792" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;9d235aa9-ee57-4777-a1aa-40f466df9792&#39;,event)" src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_9d235aa9-ee57-4777-a1aa-40f466df9792" class="cnblogs_code_hide">
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onReceive(Context context, Intent intent) {
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> Protect against rogue update broadcasts (not really a security issue,
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> just filter bad broacasts out so subclasses are less likely to crash).</span>
+    String action =<span style="color: #000000;"> intent.getAction();
+    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
+        Bundle extras </span>=<span style="color: #000000;"> intent.getExtras();
+        </span><span style="color: #0000ff;">if</span> (extras != <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">int</span>[] appWidgetIds =<span style="color: #000000;"> extras.getIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+            </span><span style="color: #0000ff;">if</span> (appWidgetIds != <span style="color: #0000ff;">null</span> &amp;&amp; appWidgetIds.length &gt; 0<span style="color: #000000;">) {
+                </span><span style="color: #0000ff;">this</span><span style="color: #000000;">.onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds);
+            }   
+        }   
+    }   
+    </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span><span style="color: #000000;"> (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(action)) {
+        Bundle extras </span>=<span style="color: #000000;"> intent.getExtras();
+        </span><span style="color: #0000ff;">if</span> (extras != <span style="color: #0000ff;">null</span> &amp;&amp;<span style="color: #000000;"> extras.containsKey(AppWidgetManager.EXTRA_APPWIDGET_ID)) {
+            </span><span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> appWidgetId =<span style="color: #000000;"> extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+            </span><span style="color: #0000ff;">this</span>.onDeleted(context, <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[] { appWidgetId }); 
+        }   
+    }   
+    </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span><span style="color: #000000;"> (AppWidgetManager.ACTION_APPWIDGET_OPTIONS_CHANGED.equals(action)) {
+        Bundle extras </span>=<span style="color: #000000;"> intent.getExtras();
+        </span><span style="color: #0000ff;">if</span> (extras != <span style="color: #0000ff;">null</span> &amp;&amp;<span style="color: #000000;"> extras.containsKey(AppWidgetManager.EXTRA_APPWIDGET_ID)
+                </span>&amp;&amp;<span style="color: #000000;"> extras.containsKey(AppWidgetManager.EXTRA_APPWIDGET_OPTIONS)) {
+            </span><span style="color: #0000ff;">int</span> appWidgetId =<span style="color: #000000;"> extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+            Bundle widgetExtras </span>=<span style="color: #000000;"> extras.getBundle(AppWidgetManager.EXTRA_APPWIDGET_OPTIONS);
+            </span><span style="color: #0000ff;">this</span><span style="color: #000000;">.onAppWidgetOptionsChanged(context, AppWidgetManager.getInstance(context),
+                    appWidgetId, widgetExtras);
+        }   
+    }   
+    </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span><span style="color: #000000;"> (AppWidgetManager.ACTION_APPWIDGET_ENABLED.equals(action)) {
+        </span><span style="color: #0000ff;">this</span><span style="color: #000000;">.onEnabled(context);
+    }   
+    </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span><span style="color: #000000;"> (AppWidgetManager.ACTION_APPWIDGET_DISABLED.equals(action)) {
+        </span><span style="color: #0000ff;">this</span><span style="color: #000000;">.onDisabled(context);
+    }   
+}</span></pre>
+</div>
+<span class="cnblogs_code_collapse">View Code </span></div>
+<p>&nbsp;</p>
+<h2><span style="color: #ff0000;">2.2 AppWidgetProviderInfo</span></h2>
+<p><span style="font-size: 14px;"><a href="http://developer.android.com/reference/android/appwidget/AppWidgetProviderInfo.html"><span style="color: #008000;">AppWidgetProviderInfo</span></a>描述一个App Widget元数据，比如App Widget的布局，更新频率，以及AppWidgetProvider 类。这个应该在XML里定义。下面以XML示例来对AppWidgetProviderInfo中常用的类型进行说明。</span></p>
+<p><span style="font-size: 14px;"><strong>示例XML</strong>：</span><br><span style="font-size: 14px; color: #ff0000;">&lt;appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:minWidth="40dp"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:minHeight="40dp"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:updatePeriodMillis="86400000"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:previewImage="@drawable/preview"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:initialLayout="@layout/example_appwidget"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:configure="com.example.android.ExampleAppWidgetConfigure" </span><br><span style="font-size: 14px; color: #ff0000;">    　　android:resizeMode="horizontal|vertical"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:widgetCategory="home_screen|keyguard"</span><br><span style="font-size: 14px; color: #ff0000;">    　　android:initialKeyguardLayout="@layout/example_keyguard"&gt;</span><br><span style="font-size: 14px; color: #ff0000;">&lt;/appwidget-provider&gt;</span></p>
+<p><br><span style="font-size: 14px;"><strong>示例说明</strong>：</span><br><span style="font-size: 14px; color: #008000;"><strong>minWidth 和minHeight</strong> </span><br><span style="font-size: 14px;">&nbsp; 它们指定了App Widget布局需要的最小区域。</span><br><span style="font-size: 14px;">&nbsp; 缺省的App Widgets所在窗口的桌面位置基于有确定高度和宽度的单元网格中。如果App Widget的最小长度或宽度和这些网格单元的尺寸不匹配，那么这个App Widget将上舍入（上舍入即取比该值大的最接近的整数——译者注）到最接近的单元尺寸。</span><br><span style="font-size: 14px;">&nbsp; <span style="color: #ff0000;">注意：app widget的最小尺寸，不建议比 “4x4” 个单元格要大。关于app widget的尺寸，后面在详细说明。</span></span></p>
+<p><span style="font-size: 14px; color: #008000;"><strong>minResizeWidth 和 minResizeHeight</strong> </span><br><span style="font-size: 14px;">&nbsp; 它们属性指定了 widget 的最小绝对尺寸。也就是说，如果 widget 小于该尺寸，便会因为变得模糊、看不清或不可用。 使用这两个属性，可以允许用户重新调整 widget 的大小，使 widget 的大小可以小于 minWidth 和 minHeight。</span><br><span style="font-size: 14px;">&nbsp; 注意：<span style="color: #ff0000;">(01) 当 minResizeWidth 的值比 minWidth 大时，minResizeWidth 无效；当 resizeMode 的取值不包括 horizontal 时，minResizeWidth 无效。</span></span><br><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">(02) 当 minResizeHeight 的值比 minHeight 大时，minResizeHeight 无效；当 resizeMode 的取值不包括 vertical 时，minResizeHeight 无效。</span></span></p>
+<p><span style="font-size: 14px; color: #008000;"><strong>updatePeriodMillis</strong> </span><br><span style="font-size: 14px;">&nbsp; 它定义了 widget 的更新频率。实际的更新时机不一定是精确的按照这个时间发生的。建议更新尽量不要太频繁，最好是低于1小时一次。 或者可以在配置 Activity 里面供用户对更新频率进行配置。 <span style="color: #ff0000;">实际上，当updatePeriodMillis的值小于30分钟时，系统会自动将更新频率设为30分钟！关于这部分，后面会详细介绍。</span></span><br><span style="font-size: 14px;">&nbsp; 注意: 当更新时机到达时，如果设备正在休眠，那么设备将会被唤醒以执行更新。如果更新频率不超过1小时一次，那么对电池寿命应该不会造成多大的影响。 如果你需要比较频繁的更新，或者你不希望在设备休眠的时候执行更新，那么可以使用基于 alarm 的更新来替代 widget 自身的刷新机制。将 alarm 类型设置为 ELAPSED_REALTIME 或 RTC，将不会唤醒休眠的设备，同时请将 updatePeriodMillis 设为 0。</span></p>
+<p><span style="font-size: 14px; color: #008000;"><strong>initialLayout</strong> </span><br><span style="font-size: 14px;">&nbsp; 指向 widget 的布局资源文件</span></p>
+<p><span style="color: #008000;"><strong><span style="font-size: 14px;">configure</span></strong></span><br><span style="font-size: 14px;">&nbsp; 可选属性，定义了 widget 的配置 Activity。如果定义了该项，那么当 widget 创建时，会自动启动该 Activity。</span></p>
+<p><span style="color: #008000;"><strong><span style="font-size: 14px;">previewImage</span></strong></span><br><span style="font-size: 14px;">&nbsp; 指定预览图，该预览图在用户选择 widget 时出现，如果没有提供，则会显示应用的图标。该字段对应在 AndroidManifest.xml 中 receiver 的 android:previewImage 字段。由 Android 3.0 引入。</span></p>
+<p><span style="font-size: 14px; color: #008000;"><strong>autoAdvanceViewId</strong> </span><br><span style="font-size: 14px;">&nbsp; 指定一个子view ID，表明该子 view 会自动更新。在 Android 3.0 中引入。</span></p>
+<p><span style="font-size: 14px; color: #008000;"><strong>resizeMode</strong> </span><br><span style="font-size: 14px;">&nbsp; 指定了 widget 的调整尺寸的规则。可取的值有: "horizontal", "vertical", "none"。"horizontal"意味着widget可以水平拉伸，“vertical”意味着widget可以竖值拉伸，“none”意味着widget不能拉伸；默认值是"none"。Android 3.1 引入。</span></p>
+<p><span style="font-size: 14px; color: #008000;"><strong>widgetCategory</strong> </span><br><span style="font-size: 14px;">&nbsp; 指定了 widget 能显示的地方：能否显示在 home Screen 或 lock screen 或 两者都可以。它的取值包括："home_screen" 和 "keyguard"。Android 4.2 引入。</span></p>
+<p><strong><span style="font-size: 14px;"><span style="color: #008000;">initialKeyguardLayout</span> </span></strong><br><span style="font-size: 14px;">&nbsp; 指向 widget 位于 lockscreen 中的布局资源文件。Android 4.2 引入。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr>
+<p><span class="Apple-style-span" style="color: #ff0000; font-size: 28px; font-weight: bold; line-height: 42px;">3 App Widget布局说明</span></p>
+<h2><span style="color: #ff0000;">3.1 添加 widget 到lock screen中</span></h2>
+<p><span style="font-size: 14px;">&nbsp; 默认情况下(即不设置android:widgetCategory属性)，Android是将widget添加到 home screen 中。</span><br><span style="font-size: 14px;">&nbsp; 但在Android 4.2中，若用户希望 widget 可以被添加到lock screen中，可以通过设置 widget 的 android:widgetCategory 属性包含keyguard来完成。</span></p>
+<p><span style="font-size: 14px;">&nbsp; 当你把 widget 添加到lock screen中时，你可能对它进行定制化操作，以区别于添加到home screen中的情况。 你能够通过 getAppWidgetOptions() 来进行判断 widget 是被添加到lock screen中，还是home screen中。通过 getApplicationOptions() 获取 Bundle对象，然后读取 Bundle 的OPTION_APPWIDGET_HOST_CATEGORY值：若值为 WIDGET_CATEGORY_HOME_SCREEN， 则表示该 widget 被添加到home screen中； 若值为 WIDGET_CATEGORY_KEYGUARD，则表示该 widget 被添加到lock screen中。</span></p>
+<p><span style="font-size: 14px;">&nbsp; 另外，你应该为添加到lock screen中的 widget 单独使用一个layout，可以通过 android:initialKeyguardLayout 来指定。而 widget 添加到home screen中的layout则可以通过 android:initialLayout 来指定。</span></p>
+<h2><br><span style="color: #ff0000;">3.2 <a href="http://developer.android.com/guide/practices/ui_guidelines/widget_design.html#anatomy_determining_size">布局</a></span></h2>
+<h3><span style="color: #ff0000;">一 Widget窗口组件</span></h3>
+<p><span style="font-size: 14px;"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/27112807-4094e0f578b7464c852d4897fdcf7f69.png" alt=""></span></p>
+<p><span style="font-size: 14px;">&nbsp; 如上图所示，典型的App Widget有三个主要组件：一个边界框(<span style="color: #0000ff;">A bounding box</span>)，一个框架(<span style="color: #0000ff;">a Frame</span>)，和控件的图形控件(<span style="color: #0000ff;">Widget Controls</span>)和其他元素。App Widget并不支持全部的视图窗口，它只是支持视图窗口的一个子集，后面会详细说明支持哪些视图窗口。</span><br><span style="font-size: 14px;">&nbsp; 要设计美观的App Widget，建议在“边界框和框架之间(<span style="color: #0000ff;">Widget Margins</span>)”以及“框架和控件(<span style="color: #0000ff;">Widget Padding</span>)”之间填留有空隙。在Android4.0以上的版本，系统为自动的保留这些空隙。</span></p>
+<p>&nbsp;</p>
+<h3><span style="color: #ff0000;">二 Widget窗口大小</span></h3>
+<p><span style="font-size: 14px;">&nbsp; 在AppWidgetProviderInfo中已经介绍了，minWidth 和minHeight 用来指定了App Widget布局需要的最小区域。缺省的App Widgets所在窗口的桌面位置基于有确定高度和宽度的单元网格中。如果App Widget的最小长度或宽度和这些网格单元的尺寸不匹配，那么这个App Widget将上舍入（上舍入即取比该值大的最接近的整数——译者注）到最接近的单元尺寸。</span><br><span style="font-size: 14px;">&nbsp; 例如，很多手机提供4x4网格，平板电脑能提供8x7网格。当widget被添加到时，在满足minWidth和minHeight约束的前提下，它将被占领的最小数目的细胞。</span></p>
+<p><span style="font-size: 14px;"><span style="color: #008000;"><strong>粗略计算minWidth和minHeight</strong></span>，可以参考下面表格：</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table id="cellstable">
+<thead>
+<tr><th>单元格个数<br><small>(行 / 列)</small></th><th>对应的设置大小 (dp)<br><small>(<code>minWidth</code>&nbsp;/&nbsp;<code>minHeight</code>)</small></th>
+    </tr>
+
+
+
+
+
+
+  </thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>40dp</td>
+
+
+
+
+
+
+    </tr>
+<tr>
+<td>2</td>
+<td>110dp</td>
+
+
+
+
+
+
+    </tr>
+<tr>
+<td>3</td>
+<td>180dp</td>
+
+
+
+
+
+
+    </tr>
+<tr>
+<td>4</td>
+<td>250dp</td>
+
+
+
+
+
+
+    </tr>
+<tr>
+<td>…</td>
+<td>…</td>
+
+
+
+
+
+
+    </tr>
+<tr>
+<td><em>n</em></td>
+<td>70 × <em>n</em> − 30</td>
+
+
+
+
+
+</tr>
+
+
+
+
+
+</tbody>
+
+
+
+
+</table>
+<p><br><br></p>
+<p><span style="font-size: 14px;"><span style="color: #008000;"><strong>详细计算minWidth和minHeight</strong></span>，要计算各个区域的大小。以下图为例：</span></p>
+<p><span style="font-size: 14px;"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/27113216-5d43ead257aa4cfca55bb4dcad178551.png" alt=""></span></p>
+<p><span style="font-size: 14px;"><strong>计算结果</strong>：</span><br><span style="font-size: 14px;">minWidth = 144dp + (2 × 8dp) + (2 × 56dp) = 272dp</span><br><span style="font-size: 14px;">minHeight = 48dp + (2 × 4dp) = 56dp</span></p>
+<h2><br><span style="color: #ff0000;">3.3 App Widget支持的布局和控件</span></h2>
+<p><span style="font-size: 14px;">Widget并不支持所有的布局和控件，而仅仅只是支持Android布局和控件的一个子集。</span><br><span style="font-size: 14px;">(01) App Widget支持的布局：</span><br><span style="font-size: 14px; color: #ff0000;">    　　FrameLayout</span><br><span style="font-size: 14px; color: #ff0000;">    　　LinearLayout</span><br><span style="font-size: 14px; color: #ff0000;">    　　RelativeLayout</span><br><span style="font-size: 14px; color: #ff0000;">    　　GridLayout</span><br><span style="font-size: 14px;">(02) App Widget支持的控件：</span><br><span style="font-size: 14px; color: #ff0000;">    　　AnalogClock</span><br><span style="font-size: 14px; color: #ff0000;">    　　Button</span><br><span style="font-size: 14px; color: #ff0000;">    　　Chronometer</span><br><span style="font-size: 14px; color: #ff0000;">    　　ImageButton</span><br><span style="font-size: 14px; color: #ff0000;">    　　ImageView</span><br><span style="font-size: 14px; color: #ff0000;">    　　ProgressBar</span><br><span style="font-size: 14px; color: #ff0000;">    　　TextView</span><br><span style="font-size: 14px; color: #ff0000;">    　　ViewFlipper</span><br><span style="font-size: 14px; color: #ff0000;">    　　ListView</span><br><span style="font-size: 14px; color: #ff0000;">    　　GridView</span><br><span style="font-size: 14px; color: #ff0000;">    　　StackView</span><br><span style="font-size: 14px; color: #ff0000;">    　　AdapterViewFlipper</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr>
+<p><span class="Apple-style-span" style="color: #ff0000; font-size: 28px; font-weight: bold; line-height: 42px;">4 App Widget应用实例</span></p>
+<p><span style="font-size: 14px;">&nbsp; 应用实例需求：建立一个Widget示例，要求Widget能被添加到主屏中，widget包含3个成分：文本、按钮和图片。文本要求：显示提示信息；按钮要求：点击按钮，弹出一个Toast提示框；图片要求：每个5秒随机更新一张图片。</span></p>
+<p><span style="font-size: 18px;"><strong><span style="background-color: #ff0000;">第1步 新建Android工程</span></strong></span><br><span style="font-size: 14px;">新建空白的Android工程，即不需要在建立Activity子类。</span></p>
+<p><span style="background-color: #ff0000; font-size: 18px;"><strong>第2步 编辑manifest</strong></span><br><span style="font-size: 14px;">修改<span style="color: #339966;"><strong>AndroidManifest.xml</strong></span>，代码如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version="1.0" encoding="utf-8"</span><span style="color: #0000ff;">?&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">manifest </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">="http://schemas.android.com/apk/res/android"</span><span style="color: #ff0000;">
+    package</span><span style="color: #0000ff;">="com.skywang.widget"</span><span style="color: #ff0000;">
+    android:versionCode</span><span style="color: #0000ff;">="1"</span><span style="color: #ff0000;">
+    android:versionName</span><span style="color: #0000ff;">="1.0"</span> <span style="color: #0000ff;">&gt;</span>
+
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">uses-sdk
+        </span><span style="color: #ff0000;">android:minSdkVersion</span><span style="color: #0000ff;">="14"</span><span style="color: #ff0000;">
+        android:targetSdkVersion</span><span style="color: #0000ff;">="17"</span> <span style="color: #0000ff;">/&gt;</span>
+
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">application
+        </span><span style="color: #ff0000;">android:allowBackup</span><span style="color: #0000ff;">="true"</span><span style="color: #ff0000;">
+        android:icon</span><span style="color: #0000ff;">="@drawable/ic_launcher"</span><span style="color: #ff0000;">
+        android:label</span><span style="color: #0000ff;">="@string/app_name"</span><span style="color: #ff0000;">
+        android:theme</span><span style="color: #0000ff;">="@style/AppTheme"</span> <span style="color: #0000ff;">&gt;</span>
+        
+        <span style="color: #008000;">&lt;!--</span><span style="color: #008000;"> 声明widget对应的AppWidgetProvider </span><span style="color: #008000;">--&gt;</span>
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">receiver </span><span style="color: #ff0000;">android:name</span><span style="color: #0000ff;">=".ExampleAppWidgetProvider"</span> <span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">intent-filter</span><span style="color: #0000ff;">&gt;</span>
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">action </span><span style="color: #ff0000;">android:name</span><span style="color: #0000ff;">="android.appwidget.action.APPWIDGET_UPDATE"</span> <span style="color: #0000ff;">/&gt;</span>
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">action </span><span style="color: #ff0000;">android:name</span><span style="color: #0000ff;">="com.skywang.widget.UPDATE_ALL"</span><span style="color: #0000ff;">/&gt;</span>
+            <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">intent-filter</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">meta-data </span><span style="color: #ff0000;">android:name</span><span style="color: #0000ff;">="android.appwidget.provider"</span><span style="color: #ff0000;">
+                android:resource</span><span style="color: #0000ff;">="@xml/example_appwidget_info"</span> <span style="color: #0000ff;">/&gt;</span>
+        <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">receiver</span><span style="color: #0000ff;">&gt;</span>
+        
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">service </span><span style="color: #ff0000;">android:name</span><span style="color: #0000ff;">=".ExampleAppWidgetService"</span> <span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">intent-filter</span><span style="color: #0000ff;">&gt;</span>
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">action </span><span style="color: #ff0000;">android:name</span><span style="color: #0000ff;">="android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE"</span> <span style="color: #0000ff;">/&gt;</span>
+            <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">intent-filter</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">service</span><span style="color: #0000ff;">&gt;</span>
+        
+    <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">application</span><span style="color: #0000ff;">&gt;</span>
+
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">manifest</span><span style="color: #0000ff;">&gt;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;"><strong>说明</strong>：</span><br><span style="font-size: 14px;">(01) <span style="color: #339966;">ExampleAppWidgetProvider</span>是继承于的AppWidgetProvider类，用来响应widget的添加、删除、更新等操作。</span><br><span style="font-size: 14px;">(02) <span style="color: #339966;">android.appwidget.action.APPWIDGET_UPDATE</span>，必须要显示声明的action！因为所有的widget的广播都是通过它来发送的；要接收widget的添加、删除等广播，就必须包含它。</span><br><span style="font-size: 14px;">(03) <span style="color: #339966;">action android:name="com.skywang.widget.UPDATE_ALL</span>，这是我自己添加了，是为了接收服务所发送的更新图片的广播。</span><br><span style="font-size: 14px;">(04) <span style="color: #339966;">&lt;meta-data&gt;</span> 指定了 AppWidgetProviderInfo 对应的资源文件</span><br><span style="font-size: 14px;">&nbsp; &nbsp; <em>android:name</em> -- 指定metadata名，通过android.appwidget.provider来辨别data。</span><br><span style="font-size: 14px;">&nbsp; &nbsp; <em>android:resource</em> -- 指定 AppWidgetProviderInfo 对应的资源路径。即，xml/example_appwidget_info.xml。</span><br><span style="font-size: 14px;">(05) <span style="color: #339966;">ExampleAppWidgetService&nbsp;</span>是用于更新widget中的图片的服务。</span><br><span style="font-size: 14px;">(06) <span style="color: #339966;">android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE&nbsp;</span>用于启动服务的action。</span></p>
+<p><br><span style="font-size: 18px;"><strong><span style="background-color: #ff0000;">第3步 编辑AppWidgetProviderInfo对应的资源文件</span></strong></span><br><span style="font-size: 14px;">在当前工程下新建xml目录(若xml目录不存在的话)；并在xml目录下新建example_appwidget_info.xml文件。xml文件内容如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">appwidget-provider </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">="http://schemas.android.com/apk/res/android"</span><span style="color: #ff0000;">
+    android:minWidth</span><span style="color: #0000ff;">="180dp"</span><span style="color: #ff0000;">
+    android:minHeight</span><span style="color: #0000ff;">="180dp"</span><span style="color: #ff0000;">
+    android:previewImage</span><span style="color: #0000ff;">="@drawable/preview"</span><span style="color: #ff0000;">
+    android:initialLayout</span><span style="color: #0000ff;">="@layout/example_appwidget"</span><span style="color: #ff0000;">
+    android:resizeMode</span><span style="color: #0000ff;">="horizontal|vertical"</span><span style="color: #ff0000;">
+    android:widgetCategory</span><span style="color: #0000ff;">="home_screen|keyguard"</span><span style="color: #0000ff;">&gt;</span>
+    
+    <span style="color: #008000;">&lt;!--</span><span style="color: #008000;">
+    android:minWidth : 最小宽度
+    android:minHeight ： 最小高度
+    android:updatePeriodMillis ： 更新widget的时间间隔(ms)，"86400000"为1个小时
+    android:previewImage ： 预览图片
+    android:initialLayout ： 加载到桌面时对应的布局文件
+    android:resizeMode ： widget可以被拉伸的方向。horizontal表示可以水平拉伸，vertical表示可以竖直拉伸
+    android:widgetCategory ： widget可以被显示的位置。home_screen表示可以将widget添加到桌面，keyguard表示widget可以被添加到锁屏界面。
+    android:initialKeyguardLayout ： 加载到锁屏界面时对应的布局文件
+     </span><span style="color: #008000;">--&gt;</span>
+    
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">appwidget-provider</span><span style="color: #0000ff;">&gt;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;">说明：</span><br><span style="font-size: 14px;">(01) <span style="color: #339966;">android:previewImage</span>，用于指定预览图片。即搜索到widget时，查看到的图片。若没有设置的话，系统为指定一张默认图片。</span><br><span style="font-size: 14px;">(02) <span style="color: #339966;">android:updatePeriodMillis</span> 更新widget的时间间隔(ms)。在实际测试中，发现设置android:updatePeriodMillis的值为5秒时，不管用！跟踪android源代码，发现：</span><br><span style="font-size: 14px;">  当android:updatePeriodMillis的值小于30分钟时，会被设置为30分钟。也就意味着，即使将它的值设为5秒，实际上也是30分钟之后才更新。因此，我们若向动态的更新widget的某组件，最好通过service、AlarmManager、Timer等方式；本文采用的是service。</span></p>
+<p><span style="font-size: 14px;">  android源码中widget服务文件：frameworks/base/services/java/com/android/server/AppWidgetService.java</span><br><span style="font-size: 14px;">  与 android:updatePeriodMillis相关代码如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">    ...
+</span><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> MIN_UPDATE_PERIOD = 30 * 60 * 1000; <span style="color: #008000;">//</span><span style="color: #008000;"> 30 minutes</span>
+<span style="color: #000000;">    ...
+
+</span><span style="color: #0000ff;">void</span> registerForBroadcastsLocked(Provider p, <span style="color: #0000ff;">int</span><span style="color: #000000;">[] appWidgetIds) {
+
+    ...
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 获取updatePeriodMillis的值</span>
+    <span style="color: #0000ff;">long</span> period =<span style="color: #000000;"> p.info.updatePeriodMillis;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 当updatePeriodMillis小于30分钟时，设为它为30分钟</span>
+    <span style="color: #0000ff;">if</span> (period &lt;<span style="color: #000000;"> MIN_UPDATE_PERIOD) {
+        period </span>=<span style="color: #000000;"> MIN_UPDATE_PERIOD;
+    }    
+    mAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime() </span>+<span style="color: #000000;"> period, period, p.broadcast);
+   ...
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><br><span style="background-color: #ff0000; font-size: 18px;"><strong>第4步 编辑example_appwidget.xml等资源文件</strong></span><br><span style="font-size: 14px;">新建<strong>layout/example_appwidget.xml</strong>，代码如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version="1.0" encoding="utf-8"</span><span style="color: #0000ff;">?&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">="http://schemas.android.com/apk/res/android"</span><span style="color: #ff0000;">
+    android:layout_width</span><span style="color: #0000ff;">="match_parent"</span><span style="color: #ff0000;">
+    android:layout_height</span><span style="color: #0000ff;">="match_parent"</span><span style="color: #ff0000;">
+    android:orientation</span><span style="color: #0000ff;">="vertical"</span> <span style="color: #0000ff;">&gt;</span>
+  
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">LinearLayout 
+        </span><span style="color: #ff0000;">android:layout_width</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">  
+        android:layout_height</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">
+        android:layout_gravity</span><span style="color: #0000ff;">="center"</span><span style="color: #ff0000;"> 
+        android:orientation</span><span style="color: #0000ff;">="horizontal"</span> <span style="color: #0000ff;">&gt;</span>
+        
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">TextView  
+            </span><span style="color: #ff0000;">android:layout_width</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">  
+            android:layout_height</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">  
+            android:text</span><span style="color: #0000ff;">="HomeScreen Widget"</span> <span style="color: #0000ff;">/&gt;</span>    
+        
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">Button
+            </span><span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">="@+id/btn_show"</span><span style="color: #ff0000;">
+            android:layout_width</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">  
+            android:layout_height</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">  
+            android:text</span><span style="color: #0000ff;">="Show"</span> <span style="color: #0000ff;">/&gt;</span>
+    <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">LinearLayout</span><span style="color: #0000ff;">&gt;</span> 
+        
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">ImageView
+        </span><span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">="@+id/iv_show"</span><span style="color: #ff0000;">
+        android:layout_width</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;">  
+        android:layout_height</span><span style="color: #0000ff;">="wrap_content"</span><span style="color: #ff0000;"> 
+        android:layout_gravity</span><span style="color: #0000ff;">="center"</span><span style="color: #0000ff;">/&gt;</span> 
+        
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">LinearLayout</span><span style="color: #0000ff;">&gt;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;"><strong>说明</strong>:</span></p>
+<p><span style="font-size: 14px;">(01) <span style="color: #339966;">example_appwidget</span>布局中，包含了“1个文本，1个按钮和1个图片控件”。</span></p>
+<p><span style="font-size: 14px;">点击下载：<a href="http://files.cnblogs.com/skywang12345/drawable-hdpi.zip"><strong><span style="color: #0000ff;">本工程中需要用到的图片</span></strong></a></span><br><span style="font-size: 14px;">将所有的图片放到drawable目录中。这里的drawable广义的，指工程实际用到的图片所在目录；例如，我自己的是放在drawabld-hdmi中。</span></p>
+<p><br><span style="background-color: #ff0000; font-size: 18px;"><strong>第5步 编辑ExampleAppWidgetProvider.java</strong></span><br><span style="font-size: 14px;">在当前工程下，新建<strong>ExampleAppWidgetProvider.java</strong>，代码如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> com.skywang.widget;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.app.PendingIntent;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.appwidget.AppWidgetManager;  
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.appwidget.AppWidgetProvider;  
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Context;  
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Intent;  
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.os.Bundle;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.net.Uri;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.widget.RemoteViews;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.widget.Toast;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.Set;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.HashSet;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.Iterator;
+
+</span><span style="color: #008000;">/*</span><span style="color: #008000;">
+ * @author : skywang &lt;wangkuiwu@gmail.com&gt;
+ * description : 提供App Widget
+ </span><span style="color: #008000;">*/</span>
+
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> ExampleAppWidgetProvider <span style="color: #0000ff;">extends</span><span style="color: #000000;"> AppWidgetProvider {
+    </span><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG = "ExampleAppWidgetProvider"<span style="color: #000000;">;
+
+    </span><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">boolean</span> DEBUG = <span style="color: #0000ff;">false</span><span style="color: #000000;">; 
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 启动ExampleAppWidgetService服务对应的action</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">final</span> Intent EXAMPLE_SERVICE_INTENT = 
+            <span style="color: #0000ff;">new</span> Intent("android.appwidget.action.EXAMPLE_APP_WIDGET_SERVICE"<span style="color: #000000;">);
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 更新 widget 的广播对应的action</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">final</span> String ACTION_UPDATE_ALL = "com.skywang.widget.UPDATE_ALL"<span style="color: #000000;">;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 保存 widget 的id的HashSet，每新建一个 widget 都会为该 widget 分配一个 id。</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> Set idsSet = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HashSet();
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 按钮信息</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> BUTTON_SHOW = 1<span style="color: #000000;">;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 图片数组</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span>[] ARR_IMAGES =<span style="color: #000000;"> { 
+        R.drawable.sample_0, 
+        R.drawable.sample_1, 
+        R.drawable.sample_2, 
+        R.drawable.sample_3, 
+        R.drawable.sample_4, 
+        R.drawable.sample_5,
+        R.drawable.sample_6,
+        R.drawable.sample_7,
+    };
+    
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> onUpdate() 在更新 widget 时，被执行，</span>
+<span style="color: #000000;">    @Override
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onUpdate(Context context, AppWidgetManager appWidgetManager, <span style="color: #0000ff;">int</span><span style="color: #000000;">[] appWidgetIds) {
+        Log.d(TAG, </span>"onUpdate(): appWidgetIds.length="+<span style="color: #000000;">appWidgetIds.length);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 每次 widget 被创建时，对应的将widget的id添加到set中</span>
+        <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span><span style="color: #000000;"> appWidgetId : appWidgetIds) {
+            idsSet.add(Integer.valueOf(appWidgetId));
+        }
+        prtSet();
+    }
+    
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 当 widget 被初次添加 或者 当 widget 的大小被改变时，被调用 </span>
+<span style="color: #000000;">    @Override  
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onAppWidgetOptionsChanged(Context context,  
+            AppWidgetManager appWidgetManager, </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> appWidgetId,  
+            Bundle newOptions) {
+        Log.d(TAG, </span>"onAppWidgetOptionsChanged"<span style="color: #000000;">);
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId,  
+                newOptions);  
+    }  
+    
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> widget被删除时调用  </span>
+<span style="color: #000000;">    @Override  
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> onDeleted(Context context, <span style="color: #0000ff;">int</span><span style="color: #000000;">[] appWidgetIds) {  
+        Log.d(TAG, </span>"onDeleted(): appWidgetIds.length="+<span style="color: #000000;">appWidgetIds.length);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 当 widget 被删除时，对应的删除set中保存的widget的id</span>
+        <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span><span style="color: #000000;"> appWidgetId : appWidgetIds) {
+            idsSet.remove(Integer.valueOf(appWidgetId));
+        }
+        prtSet();
+        
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onDeleted(context, appWidgetIds);  
+    }
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 第一个widget被创建时调用  </span>
+<span style="color: #000000;">    @Override  
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onEnabled(Context context) {  
+        Log.d(TAG, </span>"onEnabled"<span style="color: #000000;">);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 在第一个 widget 被创建时，开启服务</span>
+<span style="color: #000000;">        context.startService(EXAMPLE_SERVICE_INTENT);
+        
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onEnabled(context);  
+    }  
+    
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 最后一个widget被删除时调用  </span>
+<span style="color: #000000;">    @Override  
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onDisabled(Context context) {  
+        Log.d(TAG, </span>"onDisabled"<span style="color: #000000;">);
+
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 在最后一个 widget 被删除时，终止服务</span>
+<span style="color: #000000;">        context.stopService(EXAMPLE_SERVICE_INTENT);
+
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onDisabled(context);  
+    }
+    
+    
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 接收广播的回调函数</span>
+<span style="color: #000000;">    @Override  
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onReceive(Context context, Intent intent) {  
+
+        </span><span style="color: #0000ff;">final</span> String action =<span style="color: #000000;"> intent.getAction();
+        Log.d(TAG, </span>"OnReceive:Action: " +<span style="color: #000000;"> action);
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (ACTION_UPDATE_ALL.equals(action)) {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> “更新”广播</span>
+<span style="color: #000000;">            updateAllAppWidgets(context, AppWidgetManager.getInstance(context), idsSet);
+        } </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span><span style="color: #000000;"> (intent.hasCategory(Intent.CATEGORY_ALTERNATIVE)) {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> “按钮点击”广播</span>
+            Uri data =<span style="color: #000000;"> intent.getData();
+            </span><span style="color: #0000ff;">int</span> buttonId =<span style="color: #000000;"> Integer.parseInt(data.getSchemeSpecificPart());
+            </span><span style="color: #0000ff;">if</span> (buttonId ==<span style="color: #000000;"> BUTTON_SHOW) {
+                Log.d(TAG, </span>"Button wifi clicked"<span style="color: #000000;">);
+                Toast.makeText(context, </span>"Button Clicked"<span style="color: #000000;">, Toast.LENGTH_SHORT).show();
+            }
+        }
+        
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onReceive(context, intent);  
+    }  
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 更新所有的 widget </span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> updateAllAppWidgets(Context context, AppWidgetManager appWidgetManager, Set set) {
+
+        Log.d(TAG, </span>"updateAllAppWidgets(): size="+<span style="color: #000000;">set.size());
+        
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> widget 的id</span>
+        <span style="color: #0000ff;">int</span><span style="color: #000000;"> appID;
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 迭代器，用于遍历所有保存的widget的id</span>
+        Iterator it =<span style="color: #000000;"> set.iterator();
+
+        </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (it.hasNext()) {
+            appID </span>=<span style="color: #000000;"> ((Integer)it.next()).intValue();    
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 随机获取一张图片</span>
+            <span style="color: #0000ff;">int</span> index = (<span style="color: #0000ff;">new</span><span style="color: #000000;"> java.util.Random().nextInt(ARR_IMAGES.length));
+            
+            </span><span style="color: #0000ff;">if</span> (DEBUG) Log.d(TAG, "onUpdate(): index="+<span style="color: #000000;">index);            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 获取 example_appwidget.xml 对应的RemoteViews            </span>
+            RemoteViews remoteView = <span style="color: #0000ff;">new</span><span style="color: #000000;"> RemoteViews(context.getPackageName(), R.layout.example_appwidget);
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 设置显示图片</span>
+<span style="color: #000000;">            remoteView.setImageViewResource(R.id.iv_show, ARR_IMAGES[index]);
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 设置点击按钮对应的PendingIntent：即点击按钮时，发送广播。</span>
+<span style="color: #000000;">            remoteView.setOnClickPendingIntent(R.id.btn_show, getPendingIntent(context,
+                    BUTTON_SHOW));
+
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 更新 widget</span>
+<span style="color: #000000;">            appWidgetManager.updateAppWidget(appID, remoteView);        
+        }        
+    }
+
+    </span><span style="color: #0000ff;">private</span> PendingIntent getPendingIntent(Context context, <span style="color: #0000ff;">int</span><span style="color: #000000;"> buttonId) {
+        Intent intent </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> Intent();
+        intent.setClass(context, ExampleAppWidgetProvider.</span><span style="color: #0000ff;">class</span><span style="color: #000000;">);
+        intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
+        intent.setData(Uri.parse(</span>"custom:" +<span style="color: #000000;"> buttonId));
+        PendingIntent pi </span>= PendingIntent.getBroadcast(context, 0, intent, 0<span style="color: #000000;"> );
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> pi;
+    }
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 调试用：遍历set</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> prtSet() {
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (DEBUG) {
+            </span><span style="color: #0000ff;">int</span> index = 0<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">int</span> size =<span style="color: #000000;"> idsSet.size();
+            Iterator it </span>=<span style="color: #000000;"> idsSet.iterator();
+            Log.d(TAG, </span>"total:"+<span style="color: #000000;">size);
+            </span><span style="color: #0000ff;">while</span><span style="color: #000000;"> (it.hasNext()) {
+                Log.d(TAG, index </span>+ " -- " +<span style="color: #000000;"> ((Integer)it.next()).intValue());
+            }
+        }
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;"><strong>说明</strong>：</span><br><span style="font-size: 14px;">(01) 当我们创建第一个widget到桌面时，会执行onEnabled()。在onEnabled()中通过 context.startService(EXAMPLE_SERVICE_INTENT) 启动服务ExampleAppWidgetService。服务的作用就是每隔5秒发送一个ACTION_UPDATE_ALL广播给我们，用于更新widget中的图片。</span><br><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;<strong>仅仅当我们创建第一个widget时才会启动服务，因为onEnabled()只会在第一个widget被创建时才执行。</strong></span><br><span style="font-size: 14px;">(02) 当我们删除最后一个widget到桌面时，会执行onDisabled()。在onDisabled()中通过 context.stopService(EXAMPLE_SERVICE_INTENT) 终止服务ExampleAppWidgetService。</span><br><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;<strong>仅仅当我们删除最后一个widget时才会终止服务，因为onDisabled()只会在最后一个widget被删除时才执行。</strong></span><br><span style="font-size: 14px;">(03) 本工程中，每添加一个widget都会执行onUpdate()。例外情况：在定义android:configure的前提下，第一次添加widget时不会执行onUpdate()，而是执行android:configure中定义的activity。</span><br><span style="font-size: 14px;">(04) onReceive()中，处理两个广播：更新桌面的widget 以及 响应按钮点击广播。</span><br><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;<strong>当收到ACTION_UPDATE_ALL广播时</strong>，调用updateAllAppWidgets()来更新所有的widget。 </span><br><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;<strong>当收到的广播的categery为Intent.CATEGORY_ALTERNATIVE，并且scheme为BUTTON_SHOW时</strong>，对应是按钮点击事件。按钮的监听是在updateAllAppWidgets()中注册的。</span></p>
+<p><span style="font-size: 14px;">&nbsp;</span></p>
+<p><span style="background-color: #ff0000; font-size: 18px;"><strong>第6步 编辑ExampleAppWidgetService.java</strong></span><br><span style="font-size: 14px;">在当前工程下，新建ExampleAppWidgetService.java，代码如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> com.skywang.widget;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.app.Service;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Context;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Intent;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.os.Bundle;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.os.IBinder;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+
+</span><span style="color: #008000;">/*</span><span style="color: #008000;">
+ * @author : skywang &lt;wangkuiwu@gmail.com&gt;
+ * description : 周期性更新AppWidget的服务
+ </span><span style="color: #008000;">*/</span>
+
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> ExampleAppWidgetService <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Service {
+    
+    </span><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG="ExampleAppWidgetService"<span style="color: #000000;">; 
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 更新 widget 的广播对应的action</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">final</span> String ACTION_UPDATE_ALL = "com.skywang.widget.UPDATE_ALL"<span style="color: #000000;">;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 周期性更新 widget 的周期</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> <span style="color: #0000ff;">int</span> UPDATE_TIME = 5000<span style="color: #000000;">;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 周期性更新 widget 的线程</span>
+    <span style="color: #0000ff;">private</span><span style="color: #000000;"> UpdateThread mUpdateThread;
+    </span><span style="color: #0000ff;">private</span><span style="color: #000000;"> Context mContext;
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 更新周期的计数</span>
+    <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> count=0<span style="color: #000000;">;      
+
+    @Override
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate() {
+        
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 创建并开启线程UpdateThread</span>
+        mUpdateThread = <span style="color: #0000ff;">new</span><span style="color: #000000;"> UpdateThread();
+        mUpdateThread.start();
+        
+        mContext </span>= <span style="color: #0000ff;">this</span><span style="color: #000000;">.getApplicationContext();
+
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate();
+    }
+    
+    @Override
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onDestroy(){
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 中断线程，即结束线程。</span>
+        <span style="color: #0000ff;">if</span> (mUpdateThread != <span style="color: #0000ff;">null</span><span style="color: #000000;">) {
+            mUpdateThread.interrupt();
+        }
+        
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onDestroy();
+    }
+    
+    @Override
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> IBinder onBind(Intent intent) {
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+    }
+
+    </span><span style="color: #008000;">/*</span><span style="color: #008000;">
+     * 服务开始时，即调用startService()时，onStartCommand()被执行。
+     </span><span style="color: #008000;">*/</span><span style="color: #000000;">
+    @Override
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> onStartCommand(Intent intent, <span style="color: #0000ff;">int</span> flags, <span style="color: #0000ff;">int</span><span style="color: #000000;"> startId) {
+        Log.d(TAG, </span>"onStartCommand"<span style="color: #000000;">);        
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onStartCommand(intent, flags, startId);
+        
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> START_STICKY;
+    }
+    
+    </span><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">class</span> UpdateThread <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Thread {
+
+        @Override
+        </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {
+            </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.run();
+
+            </span><span style="color: #0000ff;">try</span><span style="color: #000000;"> {
+                count </span>= 0<span style="color: #000000;">;
+                </span><span style="color: #0000ff;">while</span> (<span style="color: #0000ff;">true</span><span style="color: #000000;">) {
+                    Log.d(TAG, </span>"run ... count:"+<span style="color: #000000;">count);
+                    count</span>++<span style="color: #000000;">;
+
+                    Intent updateIntent</span>=<span style="color: #0000ff;">new</span><span style="color: #000000;"> Intent(ACTION_UPDATE_ALL);
+                    mContext.sendBroadcast(updateIntent);
+                    
+                    Thread.sleep(UPDATE_TIME);
+                } 
+            } </span><span style="color: #0000ff;">catch</span><span style="color: #000000;"> (InterruptedException e) {
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 将 InterruptedException 定义在while循环之外，意味着抛出 InterruptedException 异常时，终止线程。</span>
+<span style="color: #000000;">                e.printStackTrace();
+            }
+        }
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 14px;"><strong>说明</strong>：</span></p>
+<p><span style="font-size: 14px;">(01) onCreate() 在创建服务时被执行。它的作用是创建并启动线程UpdateThread()。</span><br><span style="font-size: 14px;">(02) onDestroy() 在销毁服务时被执行。它的作用是注销线程UpdateThread()。</span><br><span style="font-size: 14px;">(03) 服务UpdateThread 每隔5秒，发送1个广播ACTION_UPDATE_ALL。广播ACTION_UPDATE_ALL在ExampleAppWidgetProvider被处理：用来更新widget中的图片。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 14px;"><strong>点击下载</strong>：<a href="http://files.cnblogs.com/skywang12345/AppWidgetsTest.zip"><span style="font-size: 18pt;"><strong><span style="color: #0000ff;">源代码</span></strong></span></a></span></p>
+<p><span style="font-size: 14px;"><strong>点击查看</strong>：<a href="http://www.cnblogs.com/skywang12345/archive/2013/06/14/index.html"><span style="font-size: 18pt;"><strong><span style="color: #0000ff;">skywang博客索引</span></strong></span></a></span></p>
+<p><span style="font-size: 14px;"><strong>widget在添加到桌面前的效果图</strong>：</span></p>
+<p><span style="font-size: 14px;"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/27114352-75db1874406c489c9ed3c2d3a4b10f69.png" alt=""></span></p>
+<p><span style="font-size: 14px;"><strong>widget在添加到桌面后的效果图</strong>：</span></p>
+<p><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/27114409-e24cd2ff1d5140409eeb572d4890ea6a.jpg" alt=""></p>
+<p>&nbsp;</p>
+<hr>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"><table><tbody><tr><td><img style="width: 80px; height:80px;" src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/t_f1.jpg" alt="img"></td><td style="FONT-WEIGHT: normal; FONT-SIZE: 14pt; LINE-HEIGHT: 100%; FONT-STYLE: normal; FONT-VARIANT: normal; color:#FF0000"><font style="LINE-HEIGHT: 250%; FONT-SIZE:14pt; color:#610B21">生活的悲欢离合永远在地平线以外，而眺望是一种青春的姿态...</font><br>PS.文章是笔者分享的学习笔记，若你觉得可以、还行、过得去、甚至不太差的话，可以“推荐”一下的哦。就此谢过!</td></tr></tbody></table></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/skywang12345/category/455318.html">Android 应用层</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/skywang12345/tag/android/">android</a>, <a href="http://www.cnblogs.com/skywang12345/tag/widget/">widget</a>, <a href="http://www.cnblogs.com/skywang12345/tag/app%20widget/">app widget</a>, <a href="http://www.cnblogs.com/skywang12345/tag/onAppWidgetOptionsChanged/">onAppWidgetOptionsChanged</a>, <a href="http://www.cnblogs.com/skywang12345/tag/onEnabled/">onEnabled</a>, <a href="http://www.cnblogs.com/skywang12345/tag/onDisabled/">onDisabled</a>, <a href="http://www.cnblogs.com/skywang12345/tag/AppWidgetProvider/">AppWidgetProvider</a>, <a href="http://www.cnblogs.com/skywang12345/tag/AppWidgetProviderInfo/">AppWidgetProviderInfo</a>, <a href="http://www.cnblogs.com/skywang12345/tag/updatePeriodMillis/">updatePeriodMillis</a>, <a href="http://www.cnblogs.com/skywang12345/tag/initialKeyguardLayout/">initialKeyguardLayout</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3158310,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/%E5%A6%82%E6%9E%9C%E5%A4%A9%E7%A9%BA%E4%B8%8D%E6%AD%BB" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/skywang12345/" target="_blank"><img src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/20131015182802.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/skywang12345/">如果天空不死</a><br>
+<a href="http://home.cnblogs.com/u/skywang12345/followees">关注 - 9</a><br>
+<a href="http://home.cnblogs.com/u/skywang12345/followers">粉丝 - 622</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(3158310,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">5</span>
+    </div>
+	<div class="buryit" onclick="votePost(3158310,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/skywang12345/p/3154474.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/skywang12345/p/3154474.html" title="发布于2013-06-25 14:43">Java引用总结--StrongReference、SoftReference、WeakReference、PhantomReference</a><br><a href="http://www.cnblogs.com/skywang12345/p/3165445.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/skywang12345/p/3165445.html" title="发布于2013-07-01 19:55">Android控件之ImageSwticher</a><br></div>
+</div>
+
+
+    </div>
+	<div class="itemdesc">
+		posted on <span id="post-date">2013-06-27 12:04</span> <a href="http://www.cnblogs.com/skywang12345/">如果天空不死</a> 阅读(<span id="post_view_count">11191</span>) 评论(<span id="post_comment_count">4</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=3158310" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/skywang12345/p/3158310.html#" onclick="AddToWz(3158310);return false;">收藏</a>
+	</div>
+</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=142383,cb_entryId=3158310,cb_blogApp=currentBlogApp,cb_blogUserGuid='529b107b-d87b-e211-aa8f-842b2b196315',cb_entryCreatedDate='2013/6/27 12:04:00';loadViewCount(cb_entryId);</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="评论"></a>
+<div class="moreinfo">
+	<div class="moreinfotitle">
+		Comments
+	</div>
+		
+	
+			<ul class="morelist">
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/skywang12345/p/3158310.html#2846469" class="layer">#1楼</a><a name="2846469" id="comment_anchor_2846469"></a>
+				</div>
+				<a id="a_comment_author_2846469" href="http://home.cnblogs.com/u/520016/" target="_blank">wt461290528</a> <a href="http://msg.cnblogs.com/send/wt461290528" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2013-12-28 16:44</span><br>
+				<div id="comment_body_2846469" class="blog_comment_body">楼主有木有源码，把源码贡献一下吧，非常急需，谢了哈！<br>另外ViewFlipper<br>　　ListView<br>　　GridView<br>　　StackView<br>　　AdapterViewFlipper ，android2.1版本支持么</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2846469,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2846469,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/skywang12345/p/3158310.html#2846473" class="layer">#2楼</a><a name="2846473" id="comment_anchor_2846473"></a>
+				</div>
+				<a id="a_comment_author_2846473" href="http://home.cnblogs.com/u/520016/" target="_blank">wt461290528</a> <a href="http://msg.cnblogs.com/send/wt461290528" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2013-12-28 16:54</span><br>
+				<div id="comment_body_2846473" class="blog_comment_body">找到源码了恩，感谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2846473,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2846473,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/skywang12345/p/3158310.html#2987706" class="layer">#3楼</a><a name="2987706" id="comment_anchor_2987706"></a>
+				</div>
+				<a id="a_comment_author_2987706" href="http://home.cnblogs.com/u/651571/" target="_blank">迪灬迪</a> <a href="http://msg.cnblogs.com/send/%E8%BF%AA%E7%81%AC%E8%BF%AA" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2014-07-17 09:45</span><br>
+				<div id="comment_body_2987706" class="blog_comment_body"><a href="http://www.cnblogs.com/skywang12345/p/3158310.html#2846473" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2846473);">@</a>wt461290528<br>亲，你哪里找到的源码？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2987706,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2987706,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/skywang12345/p/3158310.html#3038363" class="layer">#4楼</a><a name="3038363" id="comment_anchor_3038363"></a><span id="comment-maxId" style="display:none;">3038363</span><span id="comment-maxDate" style="display:none;">2014/10/2 16:26:31</span>
+				</div>
+				<a id="a_comment_author_3038363" href="http://www.cnblogs.com/wangyuwei/" target="_blank">JeasonWong</a> <a href="http://msg.cnblogs.com/send/JeasonWong" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2014-10-02 16:26</span><br>
+				<div id="comment_body_3038363" class="blog_comment_body">不错</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3038363,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3038363,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			</ul>
+		
+</div>
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/skywang12345/p/3158310.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/skywang12345/p/3158310.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－专注为 App 开发者提供IM云服务</a><br><a href="http://www.ucloud.cn/site/active/new_gift.html?utm_source=cost&amp;utm_campaign=bokeyuan1&amp;utm_medium=display&amp;utm_content=3yuecu" target="_blank">【推荐】UCloud开年大礼，充5000返1000；买云主机送CDN，详情点击</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block">     <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-4210569241504288" data-ad-slot="5457903683" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/540592/" target="_blank">微软加盟Eclipse基金会：为社区带来更多工具</a><br> ·  <a href="http://news.cnblogs.com/n/540591/" target="_blank">三星等厂商推送升级 Android 6.0份额大幅上升</a><br> ·  <a href="http://news.cnblogs.com/n/540590/" target="_blank">“锲而不舍” - 男子与女友分手后索回交往时送的iPhone</a><br> ·  <a href="http://news.cnblogs.com/n/540589/" target="_blank">看微软如何庆祝三八妇女节</a><br> ·  <a href="http://news.cnblogs.com/n/540588/" target="_blank">纽约取消历史建筑之旅 原因是无法阻止游客在Instagram分享照片</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jpush.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./Android 之窗口小部件详解--App Widget - 如果天空不死 - 博客园_files/24442-20160307140747632-1210035054.jpg" alt="极光推送20160307" title="极光推送20160307"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/538249/" target="_blank">谷歌背后的数学</a><br> ·  <a href="http://kb.cnblogs.com/page/533808/" target="_blank">Medium开发团队谈架构设计</a><br> ·  <a href="http://kb.cnblogs.com/page/539274/" target="_blank">理解“渐进增强(Progressive Enhancement)”</a><br> ·  <a href="http://kb.cnblogs.com/page/534571/" target="_blank">为什么说DOM操作很慢</a><br> ·  <a href="http://kb.cnblogs.com/page/527518/" target="_blank">为什么你应该尝试全栈</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+        <div class="spacer">
+            &nbsp;</div>
+    </div>
+    
+<div class="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 如果天空不死
+</div>
+</div>
+
+
+
+</body></html>

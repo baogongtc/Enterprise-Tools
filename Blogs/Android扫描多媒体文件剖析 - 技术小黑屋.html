@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)http://droidyue.com/blog/2014/07/12/scan-media-files-in-android-chinese-edition/index.html -->
+<html class="js video maskImage placeholder" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/ca-pub-9462722060870271.js"></script><script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/shares.php" charset="utf-8"></script><script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/id.php" charset="utf-8"></script>
+  <meta charset="utf-8">
+  <title>Android扫描多媒体文件剖析 - 技术小黑屋</title>
+  <meta name="author" content="androidyue">
+  
+  <meta name="keywords" content="Java,Android,Linux,Python,内存泄露，性能优化，最键实践">
+  <meta name="ujianVerification" content="13e7551f5af04296bb891d33b010bf6b">
+  
+  <meta name="description" content="Android扫描多媒体文件剖析 Jul 12th, 2014 这篇文章从系统源代码分析，讲述如何将程序创建的多媒体文件加入系统的媒体库，如何从媒体库删除，以及大多数程序开发者经常遇到的无法添加到媒体库的问题等。本人将通过对源代码的分析，一一解释这些问题。 Android中的多媒体文件扫描机制 …">
+  
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+  <link rel="apple-touch-icon" href="http://7jpolu.com1.z0.glb.clouddn.com/touch_icon.png">
+  
+  <link rel="canonical" href="http://droidyue.com/blog/2014/07/12/scan-media-files-in-android-chinese-edition">
+  <link href="http://7jpolu.com1.z0.glb.clouddn.com/favicon.png" rel="icon">
+  <link href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://droidyue.com/atom.xml" rel="alternate" title="技术小黑屋" type="application/atom+xml">
+  <script async="" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/analytics.js"></script><script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/ad.js"></script>
+  <script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/modernizr-2.0.js"></script>
+  <script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+      function setCookie(name,value,days) {
+          if (days) {
+              var date = new Date();
+              date.setTime(date.getTime()+(days*24*60*60*1000));
+              var expires = "; expires="+date.toGMTString();
+          }
+          else var expires = "";
+          document.cookie = name+"="+value+expires+"; path=/";
+      }
+
+      function eraseCookie(name) {
+          setCookie(name,"",-1);
+      }
+
+
+      function readCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for(var i=0;i < ca.length;i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') c = c.substring(1,c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+          }
+          return null;
+      }
+
+      function loadJsNormally(jsUrl) {
+          document.write('<script type="text/javascript" charset="utf-8" src="'+ jsUrl +'"></scr'+'ipt>');
+      }
+
+      function loadJsWithoutCache(jsUrl) {
+          jsUrl = jsUrl + '?v=' + +Math.random();
+          loadJsNormally(jsUrl);
+      }
+
+      
+      var droidyueNoCacheLoading = 'droidyue.no-cache';
+
+      function isNoCacheLoadingEnabled() {
+          return readCookie(droidyueNoCacheLoading) != null;
+      }
+
+      var noCacheLoading = isNoCacheLoadingEnabled();
+
+      function enableNoCacheLoading() {
+          setCookie(droidyueNoCacheLoading, 1, 365);
+      }
+
+      function disableNoCacheLoading() {
+          eraseCookie(droidyueNoCacheLoading);
+      }
+
+
+      function loadJs(jsUrl) {
+          if (noCacheLoading) {
+              loadJsWithoutCache(jsUrl);
+          } else {
+              loadJsNormally(jsUrl);
+          }
+      }
+      loadJs('http://7xr25o.com1.z0.glb.clouddn.com/blogutils.js');
+  </script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/blogutils.js"></script>
+  <script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/book_rec_base.js" charset="utf-8"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/pt_serif.css" rel="stylesheet" type="text/css">
+<link href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/PT_Sans.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/trackurl_maker.js" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+      loadJs("http://7xr25o.com1.z0.glb.clouddn.com/remote_head.js");
+      loadJs("http://7xr25o.com1.z0.glb.clouddn.com/best_posts_data_source.js");
+      loadJs("http://7xr25o.com1.z0.glb.clouddn.com/common_book_data_source.js");
+      loadJs("http://7xr25o.com1.z0.glb.clouddn.com/program_book_data_source.js");
+      loadJs("http://7xr25o.com1.z0.glb.clouddn.com/android_book_data.js");
+      loadJs("http://7xr25o.com1.z0.glb.clouddn.com/java_book_data.js");
+  </script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/remote_head.js"></script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/best_posts_data_source.js"></script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/common_book_data_source.js"></script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/program_book_data_source.js"></script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/android_book_data.js"></script><script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/java_book_data.js"></script>
+<script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/version.js"></script><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/cookie"></script><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/cyrU6w9cI"></script><link rel="stylesheet" type="text/css" href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/reward.css"><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/event"></script><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/sea.v2.2.0.js"></script><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/app-build.js"></script><link rel="stylesheet" type="text/css" href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/upload-img.css"><style id="changyanCss">#SOHUCS{clear:both;min-height:320;_height:320px;overflow:visible;}#SOHUCS iframe{width:100%;min-height:320px;_height:320px;}</style><link charset="utf-8" rel="stylesheet" href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/changyan2.css"><link charset="utf-8" rel="stylesheet" href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/default.css"><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/main.js"></script><script type="text/javascript" charset="UTF-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/render-pc.js"></script></head>
+
+<body><link href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/jiathis_counter.css" rel="stylesheet" type="text/css"><link href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/jiathis_share.css" rel="stylesheet" type="text/css"><iframe frameborder="0" style="position: absolute; display: none; opacity: 0;"></iframe><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;"></div><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; overflow: auto;"></div><iframe frameborder="0" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/jiathis_utility.html" style="display: none;"></iframe>
+  <header role="banner"><hgroup>
+  <h1><a href="http://droidyue.com/">技术小黑屋</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+<form action="http://google.com/search" method="get" target="_blank">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:droidyue.com">
+    <input class="search" type="text" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="domains" value="droidyue.com">
+    <input type="hidden" name="sitesearch" value="droidyue.com">
+  </fieldset>
+</form>
+  
+<fieldset class="mobile-nav"><select><option value="">Navigate…</option><option value="http://droidyue.com/">» 首页</option><option value="http://droidyue.com/ninki">» 干货铺子</option><option value="http://droidyue.com/blog/archives">» 存档</option><option value="http://droidyue.com/about/">» 关于</option><option value="http://droidyue.com/cooperate">» 合作</option><option value="http://droidyue.com/jijizhazha/">» 叽叽喳喳</option><option value="http://droidyue.com/donate/">» Donate</option><option value="http://droidyue.com/subscribe/">» RSS</option></select></fieldset><ul class="main-navigation">
+  <li><a href="http://droidyue.com/">首页</a></li>
+  <li><a href="http://droidyue.com/ninki">干货铺子</a></li>
+  <li><a href="http://droidyue.com/blog/archives">存档</a></li>
+  <li><a href="http://droidyue.com/about/">关于</a></li>
+  <li><a href="http://droidyue.com/cooperate">合作</a></li>
+  <li><a href="http://droidyue.com/jijizhazha/">叽叽喳喳</a></li>
+  <li><a href="http://droidyue.com/donate/">Donate</a></li>
+  <li><a href="http://droidyue.com/subscribe/">RSS</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Android扫描多媒体文件剖析</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-12T19:59:00+08:00" pubdate="" data-updated="true">Jul 12<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>这篇文章从系统源代码分析，讲述如何将程序创建的多媒体文件加入系统的媒体库，如何从媒体库删除，以及大多数程序开发者经常遇到的无法添加到媒体库的问题等。本人将通过对源代码的分析，一一解释这些问题。</p>
+
+<!--more-->
+
+
+<h2>Android中的多媒体文件扫描机制</h2>
+
+<p>Android提供了一个很棒的程序来处理将多媒体文件加入的媒体库中。这个程序就是MediaProvider，现在我们简单看以下这个程序。首先看一下它的Receiver</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="xml"><span class="line">    <span class="nt">&lt;receiver</span> <span class="na">android:name=</span><span class="s">"MediaScannerReceiver"</span><span class="nt">&gt;</span>
+</span><span class="line">        <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class="line">            <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.BOOT_COMPLETED"</span> <span class="nt">/&gt;</span>
+</span><span class="line">        <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class="line">        <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class="line">            <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.MEDIA_MOUNTED"</span> <span class="nt">/&gt;</span>
+</span><span class="line">            <span class="nt">&lt;data</span> <span class="na">android:scheme=</span><span class="s">"file"</span> <span class="nt">/&gt;</span>
+</span><span class="line">        <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class="line">        <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class="line">            <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.MEDIA_UNMOUNTED"</span> <span class="nt">/&gt;</span>
+</span><span class="line">            <span class="nt">&lt;data</span> <span class="na">android:scheme=</span><span class="s">"file"</span> <span class="nt">/&gt;</span>
+</span><span class="line">        <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class="line">        <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class="line">            <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.MEDIA_SCANNER_SCAN_FILE"</span> <span class="nt">/&gt;</span>
+</span><span class="line">            <span class="nt">&lt;data</span> <span class="na">android:scheme=</span><span class="s">"file"</span> <span class="nt">/&gt;</span>
+</span><span class="line">        <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/receiver&gt;</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>MediaScannerReceiver只接收符合action和数据规则正确的intent。</p>
+
+<h3>MediaScannerReciever如何处理Intent</h3>
+
+<ul>
+<li>当且仅当接收到<strong>action android.intent.action.BOOT_COMPLETED</strong>才扫描内部存储（非内置和外置sdcard）</li>
+<li>除了action为<strong>android.intent.action.BOOT_COMPLETED</strong> 的以外的intent都必须要有数据传递。</li>
+<li>当收到 <strong>Intent.ACTION_MEDIA_MOUNTED</strong> intent，扫描Sdcard</li>
+<li>当收到 <strong>Intent.ACTION_MEDIA_SCANNER_SCAN_FILE</strong> intent，检测没有问题，将扫描单个文件。</li>
+</ul>
+
+
+<h3>MediaScannerService如何工作</h3>
+
+<p>实际上MediaScannerReceiver并不是真正处理扫描工作，它会启动一个叫做MediaScannerService的服务。我们继续看MediaProvider的manifest中关于service的部分。</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="xml"><span class="line">   <span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">"MediaScannerService"</span> <span class="na">android:exported=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+</span><span class="line">        <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class="line">            <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.media.IMediaScannerService"</span> <span class="nt">/&gt;</span>
+</span><span class="line">        <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class="line">    <span class="nt">&lt;/service&gt;</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<h3>MediaScannerService中的scanFile方法</h3>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">private</span> <span class="n">Uri</span> <span class="nf">scanFile</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">,</span> <span class="n">String</span> <span class="n">mimeType</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="n">String</span> <span class="n">volumeName</span> <span class="o">=</span> <span class="n">MediaProvider</span><span class="o">.</span><span class="na">EXTERNAL_VOLUME</span><span class="o">;</span>
+</span><span class="line">    <span class="n">openDatabase</span><span class="o">(</span><span class="n">volumeName</span><span class="o">);</span>
+</span><span class="line">    <span class="n">MediaScanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="n">createMediaScanner</span><span class="o">();</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">scanner</span><span class="o">.</span><span class="na">scanSingleFile</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">volumeName</span><span class="o">,</span> <span class="n">mimeType</span><span class="o">);</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<h3>MediaScannerService中的scan方法</h3>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">scan</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">directories</span><span class="o">,</span> <span class="n">String</span> <span class="n">volumeName</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="c1">// don't sleep while scanning</span>
+</span><span class="line">    <span class="n">mWakeLock</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">ContentValues</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ContentValues</span><span class="o">();</span>
+</span><span class="line">    <span class="n">values</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">MEDIA_SCANNER_VOLUME</span><span class="o">,</span> <span class="n">volumeName</span><span class="o">);</span>
+</span><span class="line">    <span class="n">Uri</span> <span class="n">scanUri</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">insert</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">getMediaScannerUri</span><span class="o">(),</span> <span class="n">values</span><span class="o">);</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"file://"</span> <span class="o">+</span> <span class="n">directories</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+</span><span class="line">    <span class="n">sendBroadcast</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MEDIA_SCANNER_STARTED</span><span class="o">,</span> <span class="n">uri</span><span class="o">));</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">try</span> <span class="o">{</span>
+</span><span class="line">        <span class="k">if</span> <span class="o">(</span><span class="n">volumeName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">MediaProvider</span><span class="o">.</span><span class="na">EXTERNAL_VOLUME</span><span class="o">))</span> <span class="o">{</span>
+</span><span class="line">            <span class="n">openDatabase</span><span class="o">(</span><span class="n">volumeName</span><span class="o">);</span>
+</span><span class="line">        <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">MediaScanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="n">createMediaScanner</span><span class="o">();</span>
+</span><span class="line">        <span class="n">scanner</span><span class="o">.</span><span class="na">scanDirectories</span><span class="o">(</span><span class="n">directories</span><span class="o">,</span> <span class="n">volumeName</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"exception in MediaScanner.scan()"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">getContentResolver</span><span class="o">().</span><span class="na">delete</span><span class="o">(</span><span class="n">scanUri</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">sendBroadcast</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MEDIA_SCANNER_FINISHED</span><span class="o">,</span> <span class="n">uri</span><span class="o">));</span>
+</span><span class="line">    <span class="n">mWakeLock</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<h3>MediaScannerService中的createMediaScanner方法</h3>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">private</span> <span class="n">MediaScanner</span> <span class="nf">createMediaScanner</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">MediaScanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MediaScanner</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class="line">        <span class="n">Locale</span> <span class="n">locale</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getConfiguration</span><span class="o">().</span><span class="na">locale</span><span class="o">;</span>
+</span><span class="line">        <span class="k">if</span> <span class="o">(</span><span class="n">locale</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">            <span class="n">String</span> <span class="n">language</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="na">getLanguage</span><span class="o">();</span>
+</span><span class="line">            <span class="n">String</span> <span class="n">country</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="na">getCountry</span><span class="o">();</span>
+</span><span class="line">            <span class="n">String</span> <span class="n">localeString</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">            <span class="k">if</span> <span class="o">(</span><span class="n">language</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">                <span class="k">if</span> <span class="o">(</span><span class="n">country</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">                    <span class="n">scanner</span><span class="o">.</span><span class="na">setLocale</span><span class="o">(</span><span class="n">language</span> <span class="o">+</span> <span class="s">"_"</span> <span class="o">+</span> <span class="n">country</span><span class="o">);</span>
+</span><span class="line">                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class="line">                    <span class="n">scanner</span><span class="o">.</span><span class="na">setLocale</span><span class="o">(</span><span class="n">language</span><span class="o">);</span>
+</span><span class="line">                <span class="o">}</span>
+</span><span class="line">            <span class="o">}</span>
+</span><span class="line">        <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">        <span class="k">return</span> <span class="n">scanner</span><span class="o">;</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>从上面可以发现，真正工作的其实是<a href="https://android.googlesource.com/platform/frameworks/base/+/cd92588/media/java/android/media/MediaScanner.java" target="_blank">android.media.MediaScanner.java</a> 具体扫描过程就请点击左侧链接查看。</p>
+
+<h2>如何扫描一个刚创建的文件</h2>
+
+<p>这里介绍两种方式来实现将新创建的文件加入媒体库。</p>
+
+<h3>最简单的方式</h3>
+
+<p>只需要发送一个正确的intent广播到MediaScannerReceiver即可。</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">String</span> <span class="n">saveAs</span> <span class="o">=</span> <span class="s">"Your_Created_File_Path"</span>
+</span><span class="line"><span class="n">Uri</span> <span class="n">contentUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">fromFile</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">saveAs</span><span class="o">));</span>
+</span><span class="line"><span class="n">Intent</span> <span class="n">mediaScanIntent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MEDIA_SCANNER_SCAN_FILE</span><span class="o">,</span><span class="n">contentUri</span><span class="o">);</span>
+</span><span class="line"><span class="n">getContext</span><span class="o">().</span><span class="na">sendBroadcast</span><span class="o">(</span><span class="n">mediaScanIntent</span><span class="o">);</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>上面的极简方法大多数情况下正常工作，但是有些情况下是不会工作的，稍后的部分会介绍。即使你使用上述方法成功了，还是建议你继续阅读稍后的为什么发广播不成功的部分。</p>
+
+<h3>使用MediaScannerConnection</h3>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">mediaScan</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="n">MediaScannerConnection</span><span class="o">.</span><span class="na">scanFile</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span>
+</span><span class="line">            <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="n">file</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">()</span> <span class="o">},</span> <span class="kc">null</span><span class="o">,</span>
+</span><span class="line">            <span class="k">new</span> <span class="nf">OnScanCompletedListener</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">                <span class="nd">@Override</span>
+</span><span class="line">                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onScanCompleted</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">,</span> <span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">                    <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">"MediaScanWork"</span><span class="o">,</span> <span class="s">"file "</span> <span class="o">+</span> <span class="n">path</span>
+</span><span class="line">                            <span class="o">+</span> <span class="s">" was scanned seccessfully: "</span> <span class="o">+</span> <span class="n">uri</span><span class="o">);</span>
+</span><span class="line">                <span class="o">}</span>
+</span><span class="line">            <span class="o">});</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>MediaScannerConnection的scanFile方法从2.2（API 8）开始引入。</p>
+
+<h3>创建一个MediaScannerConnection对象然后调用scanFile方法</h3>
+
+<p>很简单，参考<a href="http://developer.android.com/reference/android/media/MediaScannerConnection.html" target="_blank"></a><a href="http://developer.android.com/reference/android/media/MediaScannerConnection.html" target="_blank">http://developer.android.com/reference/android/media/MediaScannerConnection.html</a></p>
+
+<h3>如何扫描多个文件</h3>
+
+<ul>
+<li>发送多个Intent.ACTION_MEDIA_SCANNER_SCAN_FILE广播</li>
+<li>使用MediaScannerConnection，传入要加入的路径的数组。</li>
+</ul>
+
+
+<h2>为什么发送MEDIA_SCANNER_SCAN_FILE广播不生效</h2>
+
+<p>关于为什么有些设备上不生效，很多人认为是API原因，其实不是的，这其实和你传入的文件路径有关系。看一下接收者Receiver的onReceive代码。</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+</span><span class="line">    <span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+</span><span class="line">    <span class="k">if</span> <span class="o">(</span><span class="n">action</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_BOOT_COMPLETED</span><span class="o">))</span> <span class="o">{</span>
+</span><span class="line">        <span class="c1">// scan internal storage</span>
+</span><span class="line">        <span class="n">scan</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MediaProvider</span><span class="o">.</span><span class="na">INTERNAL_VOLUME</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class="line">        <span class="k">if</span> <span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="na">getScheme</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"file"</span><span class="o">))</span> <span class="o">{</span>
+</span><span class="line">            <span class="c1">// handle intents related to external storage</span>
+</span><span class="line">            <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="na">getPath</span><span class="o">();</span>
+</span><span class="line">            <span class="n">String</span> <span class="n">externalStoragePath</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStorageDirectory</span><span class="o">().</span><span class="na">getPath</span><span class="o">();</span>
+</span><span class="line">
+</span><span class="line">            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"action: "</span> <span class="o">+</span> <span class="n">action</span> <span class="o">+</span> <span class="s">" path: "</span> <span class="o">+</span> <span class="n">path</span><span class="o">);</span>
+</span><span class="line">            <span class="k">if</span> <span class="o">(</span><span class="n">action</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MEDIA_MOUNTED</span><span class="o">))</span> <span class="o">{</span>
+</span><span class="line">                <span class="c1">// scan whenever any volume is mounted</span>
+</span><span class="line">                <span class="n">scan</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">MediaProvider</span><span class="o">.</span><span class="na">EXTERNAL_VOLUME</span><span class="o">);</span>
+</span><span class="line">            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">action</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MEDIA_SCANNER_SCAN_FILE</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+</span><span class="line">                    <span class="n">path</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">path</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="n">externalStoragePath</span> <span class="o">+</span> <span class="s">"/"</span><span class="o">))</span> <span class="o">{</span>
+</span><span class="line">                <span class="n">scanFile</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
+</span><span class="line">            <span class="o">}</span>
+</span><span class="line">        <span class="o">}</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>所有的部分都正确除了传入的路径。因为你可能硬编码了文件路径。因为有一个这样的判断<code>path.startsWith(externalStoragePath + "/")</code>,这里我举一个简单的小例子。</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">final</span> <span class="n">String</span> <span class="n">saveAs</span> <span class="o">=</span> <span class="s">"/sdcard/"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="s">"_add.png"</span><span class="o">;</span>
+</span><span class="line"><span class="n">Uri</span> <span class="n">contentUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">fromFile</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">saveAs</span><span class="o">));</span>
+</span><span class="line"><span class="n">Intent</span> <span class="n">mediaScanIntent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_MEDIA_SCANNER_SCAN_FILE</span><span class="o">,</span><span class="n">contentUri</span><span class="o">);</span>
+</span><span class="line"><span class="n">getContext</span><span class="o">().</span><span class="na">sendBroadcast</span><span class="o">(</span><span class="n">mediaScanIntent</span><span class="o">);</span>
+</span><span class="line"><span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">mediaScanIntent</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+</span><span class="line"><span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="na">getPath</span><span class="o">();</span>
+</span><span class="line"><span class="n">String</span> <span class="n">externalStoragePath</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStorageDirectory</span><span class="o">().</span><span class="na">getPath</span><span class="o">();</span>
+</span><span class="line"><span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"LOGTAG"</span><span class="o">,</span> <span class="s">"Androidyue onReceive intent= "</span> <span class="o">+</span> <span class="n">mediaScanIntent</span>
+</span><span class="line">                        <span class="o">+</span> <span class="s">";path="</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s">";externalStoragePath="</span> <span class="o">+</span>
+</span><span class="line">                        <span class="n">externalStoragePath</span><span class="o">);</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>我们看一下输出日志，分析原因。</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">LOGTAG Androidyue onReceive <span class="nv">intent</span><span class="o">=</span> Intent <span class="o">{</span> <span class="nv">act</span><span class="o">=</span>android.intent.action.MEDIA_SCANNER_SCAN_FILE <span class="nv">dat</span><span class="o">=</span>file:///sdcard/1390136305831_add.png <span class="o">}</span>;<span class="nv">path</span><span class="o">=</span>/sdcard/1390136305831_add.png;externalStoragePath<span class="o">=</span>/mnt/sdcard
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>上述输出分析，你发送的广播，action是正确的，数据规则也是正确的，而且你的文件路径也是存在的，<strong>但是</strong>，文件的路径<strong>/sdcard/1390136305831_add.png</strong>并不是以外部存储根路径<strong>/mnt/sdcard/</strong>开头。所以扫描操作没有开始，导致文件没有加入到媒体库。所以，请检查文件的路径。</p>
+
+<h2>如何从多媒体库中移除</h2>
+
+<p>如果我们删除一个多媒体文件的话，也就意味我们还需要将这个文件从媒体库中删除掉。</p>
+
+<h3>能不能简简单单发广播？</h3>
+
+<p>仅仅发一个广播能解决问题么？我倒是希望可以，但是实际上是不工作的，查看如下代码即可明白。</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="c1">// this function is used to scan a single file</span>
+</span><span class="line"><span class="kd">public</span> <span class="n">Uri</span> <span class="nf">scanSingleFile</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">,</span> <span class="n">String</span> <span class="n">volumeName</span><span class="o">,</span> <span class="n">String</span> <span class="n">mimeType</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="k">try</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">initialize</span><span class="o">(</span><span class="n">volumeName</span><span class="o">);</span>
+</span><span class="line">        <span class="n">prescan</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+</span><span class="line">        <span class="k">if</span> <span class="o">(!</span><span class="n">file</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+</span><span class="line">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">        <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">        <span class="c1">// lastModified is in milliseconds on Files.</span>
+</span><span class="line">        <span class="kt">long</span> <span class="n">lastModifiedSeconds</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">lastModified</span><span class="o">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">        <span class="c1">// always scan the file, so we can return the content://media Uri for existing files</span>
+</span><span class="line">        <span class="k">return</span> <span class="n">mClient</span><span class="o">.</span><span class="na">doScanFile</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">mimeType</span><span class="o">,</span> <span class="n">lastModifiedSeconds</span><span class="o">,</span> <span class="n">file</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span>
+</span><span class="line">                <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">MediaScanner</span><span class="o">.</span><span class="na">isNoMediaPath</span><span class="o">(</span><span class="n">path</span><span class="o">));</span>
+</span><span class="line">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"RemoteException in MediaScanner.scanFile()"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class="line">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>正如上述代码，会对文件是否存在进行检查，如果文件不存在，直接停止向下执行。所以这样是不行的。那怎么办呢？</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDeleteFile</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">    <span class="n">String</span> <span class="n">existingFilePath</span> <span class="o">=</span> <span class="s">"/mnt/sdcard/1390116362913_add.png"</span><span class="o">;</span>
+</span><span class="line">    <span class="n">File</span>  <span class="n">existingFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">existingFilePath</span><span class="o">);</span>
+</span><span class="line">    <span class="n">existingFile</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+</span><span class="line">    <span class="n">ContentResolver</span> <span class="n">resolver</span> <span class="o">=</span> <span class="n">getActivity</span><span class="o">().</span><span class="na">getContentResolver</span><span class="o">();</span>
+</span><span class="line">    <span class="n">resolver</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">EXTERNAL_CONTENT_URI</span><span class="o">,</span> <span class="n">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">+</span> <span class="s">"=?"</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="n">existingFilePath</span><span class="o">});</span>
+</span><span class="line">
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>上述代码是可以工作的，直接从MediaProvider删除即可。
+具体的删除代码请参考<a href="http://droidyue.com/blog/2014/02/09/code-snippet-for-media-on-android/" target="_self">Code Snippet for Media on Android</a></p>
+
+<h2>One More Thing</h2>
+
+<ul>
+<li>你可以通过查看/data/data/com.android.providers.media/databases/external.db(不同系统略有不同)文件可以了解更多的信息。</li>
+</ul>
+
+
+<h3>Others</h3>
+
+<ul>
+<li><a href="http://www.amazon.cn/gp/product/B009OLU8EE/ref=as_li_tf_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B009OLU8EE&amp;linkCode=as2&amp;tag=droidyue-23" target="_blank">Android系统源代码情景分析</a><img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/ir" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></li>
+</ul>
+
+</div>
+
+
+  <div id="cyReward" role="cylabs" data-use="reward" align="middle"><div id="cy-reward-click" class="cy-reward-btn cy-reward-btn-red"></div>    <div id="cy-reward-pop">        <div node-type="cy-close-btn" class="cy-close-btn"></div>        <img class="cy-avatar" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/pARXtuW_png">        <div class="cy-reward-title">感谢你的支持，我会继续努力！</div>        <div node-type="cy-reward-code" class="cy-reward-code">                                             <img node-type="weichat-code" style="display:block;" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/pAUa2ga_png">                                   </div>        <div class="cy-reward-txt">扫码打赏，建议金额1-10元</div>                                          <div node-type="platform-choice" class="platform-choice clearfix">                    <div class="platform-item platform-item-single">                       <span node-type="check-platform" data-id="weichat" class="platform-radio-box platform-checked"></span>                       <span class="platform-logo weichat"></span>                    </div>               </div>                           <p class="power-cy">            <a href="http://changyan.kuaizhan.com/" style="text-decoration:none;color:#d1d1d1;" target="_blank">Powered By 畅言</a><br>            提醒：打赏金额将直接进入对方账号，无法退款，请您谨慎操作。        </p>    </div></div>
+  <script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/vote_tips.js" charset="utf-8"></script>
+  <div id="post_rec"><br><br><a class="kouzhao_ref" href="http://www.amazon.cn/b/ref=as_li_ss_tl?_encoding=UTF8&amp;camp=536&amp;creative=3132&amp;field-enc-merchantbin=A1AJ19PSB66TGU&amp;ie=UTF8&amp;linkCode=ur2&amp;node=1784460071&amp;tag=droidyue-23" target="_blank"><img class="no_boarder_class" style="max-Width:100%" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/FEB100-30200-80._CB296995286_SX1500_SY300_.jpg"></a></div>
+  
+  <script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/random_recommend.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var randomRecommendPosts = makeRecommendPost(makeBestPostsDataSource());
+    displaySection(showDisplayRandomRecommend(), isRandomRecommendInDebug(), randomRecommendPosts, makeRandomRecommendPrefix(), makeRandomRecommendSuffix(), sDroidRandomRecommendClass);
+</script><h2>猜你喜欢：</h2><ul><li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DIe2KCnjGZ6QcQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67tXsOb8H8HAoP5bxJy%2F%2Fu7jM3gYQjCL89vSdxyvKgR5IYpon8UCVSYb15Y5fs5g2zdENWbkrNyRR8HCcyE72ILjwDUY1SQg1X8YOae24fhW0&amp;pvid=10_114.66.9.98_355_1453872876185" target="_blank" class="droid_random_recommend_class">[图书]算法</a></li><li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DRrTBukAQFFAcQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67uo8eYHvUtSyPkWZNjOK2CPM3gYQjCL89vSdxyvKgR5IYpon8UCVSYZ0GNrqi8kpijO6srjmTjLELRhqCZigODfqOVDOt%2BmH%2F8YOae24fhW0&amp;pvid=10_14.130.193.128_436_1453904412738" target="_blank" class="droid_random_recommend_class">[图书]岛上书店</a></li><li><a href="http://droidyue.com/blog/2015/07/18/anr-in-android/" target="_self" class="droid_random_recommend_class">说说Android中的ANR</a></li><li><a href="http://droidyue.com/ninki/" target="_self" class="droid_random_recommend_class">精选优质文章列表</a></li><li><a href="http://droidyue.com/blog/2015/08/22/where-has-the-java-permgen-gone/" target="_self" class="droid_random_recommend_class">Java永久代去哪儿了</a></li><li><a href="http://droidyue.com/blog/2015/07/04/six-books-every-programer-must-read/" target="_self" class="droid_random_recommend_class">程序员必读的六本书</a></li><li><a href="http://droidyue.com/blog/2014/11/08/bad-smell-of-asynctask-in-android/" target="_self" class="droid_random_recommend_class">Android中糟糕的AsyncTask</a></li><li><a href="http://droidyue.com/blog/2014/11/30/java-programmer-must-read-these-9-books/" target="_self" class="droid_random_recommend_class">Java程序员必读的9本书</a></li><li><a href="http://droidyue.com/blog/2014/10/02/the-private-modifier-in-java/" target="_self" class="droid_random_recommend_class">”失效”的private修饰符</a></li><li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DMwNURKwd6tQcQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67mP4sinE%2FkfRDOz%2BQ0BmwbzM3gYQjCL89vSdxyvKgR5IYpon8UCVSYZ0GNrqi8kpij7GGOspgKdHknUnebSXVYE6svWkNC8CMXEqY%2Bakgpmw&amp;pvid=10_114.66.9.98_327_1453870012370" target="_blank" class="droid_random_recommend_class">[图书]Android开发艺术探索</a></li><li><a href="http://droidyue.com/blog/2014/10/15/speed-up-your-git/" target="_self" class="droid_random_recommend_class">人生苦短，让你的Git飞起来吧</a></li><li><a href="http://droidyue.com/blog/2015/06/05/how-garbage-collector-handles-circular-references/" target="_self" class="droid_random_recommend_class">垃圾回收器如何处理循环引用</a></li><li><a href="http://droidyue.com/blog/2015/09/05/android-process-and-thread-schedule-nice/" target="_self" class="droid_random_recommend_class">剖析Android中进程与线程调度之nice</a></li><li><a href="http://droidyue.com/blog/2015/07/25/use-android-lint-to-find-higher-api-usage/" target="_self" class="droid_random_recommend_class">使用Android lint发现并解决高版本API问题</a></li><li><a href="http://droidyue.com/blog/2014/08/26/write-emails-using-markdown-in-browsers/" target="_self" class="droid_random_recommend_class">工作利器：终于可以使用Markdown写邮件啦</a></li><li><a href="http://droidyue.com/blog/2014/06/15/what-will-be-removed-if-you-click-clear-data-button-in-system-application-item/" target="_self" class="droid_random_recommend_class">Android设置中的清除数据究竟移除哪些数据</a></li></ul>
+
+  
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">androidyue</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-12T19:59:00+08:00" pubdate="" data-updated="true">Jul 12<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class="category" href="http://droidyue.com/blog/categories/android/">Android</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="http://droidyue.com/blog/2014/07/12/check-main-thread-in-android-chinese-edition/" title="Previous Post: Android中检测当前是否为主线程">« Android中检测当前是否为主线程</a>
+      
+      
+        <a class="basic-alignment right" href="http://droidyue.com/blog/2014/07/12/ding-bu-dai-jin-du-tiao-de-webview/" title="Next Post: 顶部带进度条的Webview">顶部带进度条的Webview »</a>
+        
+    </p>
+
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_weixin" title="分享到微信"><span class="jiathis_txt jtico jtico_weixin"></span></a>
+	<a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+	<a class="jiathis_button_douban" title="分享到豆瓣"><span class="jiathis_txt jtico jtico_douban"></span></a>
+	<a class="jiathis_button_fb" title="分享到Facebook"><span class="jiathis_txt jtico jtico_fb"></span></a>
+	<a class="jiathis_button_googleplus" title="分享到Google+"><span class="jiathis_txt jtico jtico_googleplus"></span></a>
+	<a class="jiathis_button_twitter" title="分享到Twitter"><span class="jiathis_txt jtico jtico_twitter"></span></a>
+	<a class="jiathis_button_ydnote" title="分享到有道云笔记"><span class="jiathis_txt jtico jtico_ydnote"></span></a>
+	<a href="http://www.jiathis.com/share?uid=1728662" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_42" title="累计分享0次">0</span></a>
+</div>
+<script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/jia.js" charset="utf-8"></script><script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/plugin.client.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+
+
+<script type="text/javascript" charset="utf-8">
+$.getScript('http://7xr25o.com1.z0.glb.clouddn.com/post_end_rec_changable.js?v=' + Date.now());
+</script>
+  </footer>
+  </article>
+
+
+  <section>
+   
+<!--高速版-->
+<div id="SOHUCS" sid="/blog/2014/07/12/scan-media-files-in-android-chinese-edition" style="width: 100%; height: auto;"><div id="SOHU_MAIN"><div id="SOHU-comment-main" class="sohu-comment-wrapper"><div id="article_info_sohu">        <div class="reset-g clear-g section-title-w  section-title-logoutStyle">
+            <div class="title-join-w">
+                <div class="join-wrap-w join-wrap-b"><strong class="wrap-name-w wrap-name-b">评论</strong><span class="wrap-join-w wrap-join-b">(<em class="join-strong-gw join-strong-bg">1</em><span node-type="involved">人参与</span><i class="gap-b">，</i><em class="join-strong-gw join-strong-bg">1</em><span node-type="comments">条评论</span>)</span></div>
+            </div>
+            <div class="title-user-w">
+                <div node-type="sohu-pact" class="title-link-w" style="display: none;"><a href="http://zt.pinglun.sohu.com/s2014/sljyhgy/index.shtml" target="_blank">搜狐“我来说两句”用户公约</a></div>
+            </div>
+        </div>
+        </div><div id="login_sohu"></div><div id="comment_sohu"><div node-type="cbox-wrapper" class="reset-g section-cbox-w"><div style="width:1px;height:1px;overflow:hidden;"><img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/vcode.jpg" style="visibility:hidden;width:1px;height:1px;"></div><div class="clear-g cbox-block-w">
+            <div class="block-head-w">
+                <div class="head-img-w">
+                                        <a node-type="user-avatar" href="javascript:void(0)" target="_self"><img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/pic42_null.gif" onerror="SOHUCS.isImgErr(this)" width="42" height="42" alt=""></a>
+                    </div>
+                <!--
+                -->
+            </div>
+        <div class="block-post-w block-post-default-e"><div class="post-wrap-w post-wrap-b"><div class="wrap-area-w"><div class="area-textarea-w" style="position:relative;zoom:1;z-index:9;"><textarea name="" class="textarea-fw textarea-bf">来说两句吧...</textarea></div></div><div class="clear-g wrap-action-w wrap-action-b"><div class="action-function-w action-function-b relative-z-w"><ul class="clear-g"><li class="function-face-w"><a href="javascript:void(0)" class="effect-w" title="表情"><i class="face-b"></i></a></li><li class="function-uploadimg-w"><a href="javascript:void(0)" class="effect-w" title="上传图片"><i class="uploadimg-b"></i></a><div class="uploadimg-file-w"><input class="file-fw" id="img_upload" name="file" type="file" accept="image/*"></div><div class="img-btn-cover" style="width:40px;height:40px;margin-top:-40px;z-index:-1;position: relative;"></div></li>                    <li node-type="rich-sbtn" data-key="bold" title="评论加粗" class="function-bold-w function-disable-w">
+                        <a class="effect-w" href="javascript:void(0)"><i class="bold-w"></i></a>
+                        </li>
+                    <li node-type="rich-sbtn" data-key="color" title="炫彩评论" class="function-color-w function-disable-w">
+                        <a class="effect-w" href="javascript:void(0)"><i class="color-w"></i></a>
+                        </li>
+                    <!--<li class="function-at-w"><a href="javascript:void(0)" class="effect-w"><i class="at-b"></i></a></li>--></ul></div><div class="clear-g action-issue-w"><div class="issue-btn-w"><a href="javascript:void(0)"><button class="btn-fw btn-bf btn-fw-main">发布</button></a></div></div></div></div>
+                                    <div node-type="login-list" class="post-login-w">
+                <ul class="clear-g">
+                                                            <li style="display:block">
+                        <div class="login-wrap-w login-wrap-b">
+                            <a data-key="sina" target="_self" href="javascript:;" title="新浪微博" alt="新浪微博">
+                                <span class="wrap-icon-w icon30-sina-b"></span><span class="wrap-name-w wrap-name-b">微博登录</span>
+                            </a>
+                        </div>
+                    </li>
+                                        <li style="display:block">
+                        <div class="login-wrap-w login-wrap-b">
+                            <a data-key="qq" target="_self" href="javascript:;" title="QQ" alt="QQ">
+                                <span class="wrap-icon-w icon30-qq-b"></span><span class="wrap-name-w wrap-name-b">QQ登录</span>
+                            </a>
+                        </div>
+                    </li>
+                                        <li>
+                        <div class="login-wrap-w login-wrap-b login-wrap-phone-b">
+                            <a data-key="phone" target="_self" href="javascript:void(0)">
+                                <span class="wrap-icon-w icon30-phone-b"></span><span class="wrap-name-w wrap-name-b">手机登录</span>
+                            </a>
+                        </div>
+                    </li>
+                    </ul>
+            </div>
+            </div></div><div node-type="prompt-no-privilege" class="cbox-prompt-w" style="display: none;">
+            <span class="prompt-empty-w prompt-empty-b">等级不够，发表评论升至指定级别才能获得该特权。详情请参见<a node-type="privilege-intro" href="javascript:;">等级说明</a>。</span>
+        </div></div></div><div id="list_sort_sohu"></div><div id="list_sohu" topicid="695735590">        <div class="reset-g section-list-w">                                                            <div class="list-block-gw list-newest-w list-newest-b">                <div class="block-title-gw">                    <ul class="clear-g">                        <li><strong class="title-name-gw title-name-bg">最新评论</strong></li>                    </ul>                </div>                                <div class="clear-g block-cont-gw block-cont-bg" datatype="time" cmtnum="0" cmtid="769101692">                    <div class="cont-head-gw">                        <div class="head-img-gw"><a href="javascript:void(0)" commhref="http://t.qq.com/blaket"><img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/pic42_null.gif" onerror="SOHUCS.isImgErr(this)" width="42" height="42" alt="" uid="0"></a></div>                    </div>                    <div class="cont-msg-gw">                        <div class="msg-wrap-gw">                            <div class="wrap-user-gw global-clear-spacing">                                <span class="user-time-gw user-time-bg evt-time">2015年3月17日 17:18</span>                                                                                                                                    <span class="user-name-gw" title="鸡翅膀"><a href="javascript:void(0)" commhref="http://t.qq.com/blaket" uid="0">鸡翅膀</a></span>                                                                <!-- 管理员、铭牌图标 -->                                                                                                    <span uid="-594465783" node-type="privilege-intro" level="1" score="0" class="user-level-gw user-1-4-gw user-1-gw" title="等级1"><i>潜水</i></span>                                                                <!-- 管理员、铭牌图标 END -->                                                                                            </div>                                                                                    <div class="wrap-issue-gw">                                <p class="issue-wrap-gw">                                    <span class="wrap-word-bg ">讲得很赞，解决了我的问题，3ks</span>                                </p>                            </div>                                                        <div class="clear-g wrap-action-gw">                                <div class="action-click-gw">                                    <i class="gap-gw"></i>                                    <span class="click-ding-gw"><a href="javascript:void(0)" title="顶" class="evt-support"><i class="icon-gw icon-ding-bg"></i><em class="icon-name-bg"></em></a></span><i class="gap-gw"></i><span class="click-cai-gw"><a href="javascript:void(0)" title="踩" class="evt-opposed"><i class="icon-gw icon-cai-bg"></i><em class="icon-name-bg"></em></a></span><i class="gap-gw"></i><span class="click-reply-gw click-reply-eg"><a href="javascript:void(0)" class="evt-reply">回复</a></span><i class="gap-gw"></i><span class="click-share-gw click-reply-eg"><a href="javascript:void(0)" class="evt-share">分享</a></span>                                </div>                                <div class="action-from-gw action-from-bg"></div>                            </div>                            <div class="wrap-reply-gw"></div>                        </div>                    </div>                </div>                        </div>                    </div></div><div id="list_hot"></div><div id="page_sohu"></div><div id="more_list_sohu"></div><div id="powerby_sohu">        <div class="reset-g section-service-w">
+            <div class="service-wrap-w service-wrap-b"><a node-type="powered-by" href="http://changyan.sohu.com/?from=changyan" target="_blank">技术小黑屋正在使用畅言</a></div>
+        </div></div></div></div></div>
+<script charset="utf-8" type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/changyan.js"></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: 'cyrU6w9cI',
+        conf: 'prod_0d366f76b04261efa2b407c3b62edd9f'
+    });
+</script>       
+<script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/saved_resource"></script>
+
+  </section>
+
+
+<link href="./Android扫描多媒体文件剖析 - 技术小黑屋_files/remote.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" charset="utf-8" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/post_end_attentions.js"></script>
+	<script async="" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/adsbygoogle.js"></script>
+<!-- post_banner_bottom -->
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-9462722060870271" data-ad-slot="1769413343" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:899px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:899px;background-color:transparent"><iframe width="899" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+	
+</div>
+
+<aside class="sidebar thirds">
+  
+    
+	<h4 align="center">公众号:Android开发精选</h4>
+	<img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/AndroidPush.jpg">
+	<p align="center" style="font-size:55%;">该公众号由技术小黑屋合作伙伴运营</p>
+
+<h4 align="center">赞助商广告</h4>
+<a href="https://mart.coding.net/?utm_source=droidyue.com&amp;utm_medium=banner&amp;utm_campaign=mart" target="_self"><img class="no_boarder_class" style="border: 0;" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/coding_market.gif" width="280"></a><a href="http://mojing.ppdai.com/" target="_blank"><img class="no_boarder_class" style="border: 0;" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/daidaipai.jpg"></a><a href="http://www.liepin.com/event/landingpage/it_rd.shtml?mscid=js_xh_01" target="_blank"><img class="no_boarder_class" style="border: 0;" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/liepin_right.jpg"></a>
+
+<script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/notice.js" charset="utf-8"></script>
+<script type="text/javascript">
+	displaySection(shouldDisplayNotice(), isNoticeInDebug(), makeNoticeDataSource(), makeNoticePrefix(), makeNoticeSuffix(), 'notice');
+</script>
+<section class="first odd">
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2016/02/28/an-easy-tool-to-upload-file-to-qiniu-especially-for-octopress/">一个简易小工具，七牛Uploader for Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2016/02/21/thinking-of-getting-the-current-activity-in-android/">关于获取当前Activity的一些思考</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2016/01/31/my-first-chrome-extension/">我的首个Chrome扩展发布了</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2016/01/17/understanding-marshmallow-runtime-permission/">聊一聊Android 6.0的运行时权限</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2016/01/10/android-navigation-bar-popupwindow-issue/">修复Android中Navigation Bar遮挡PopupWindow的问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/12/29/bye-2015-hi-2016/">技术小黑屋的2015年</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/12/20/worker-thread-in-android/">关于Android中工作者线程的思考</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/12/13/android-sqlite-tuning/">Android 中 SQLite 性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/12/06/practise-about-crash-in-android/">Android处理崩溃的一些实践</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/11/28/article-java-8-lambdas-a-peek-under-the-hood/">深入探索Java 8 Lambda表达式</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/11/15/funny-programmer-finale/">程序员的逗比瞬间 最终番</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/11/08/make-use-of-handlerthread/">详解 Android 中的 HandlerThread</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/11/01/thinking-about-android-log/">关于Android Log的一些思考</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/10/24/great-english-programming-blog/">优秀的英文技术博客</a>
+      </li>
+    
+      <li class="post">
+        <a href="http://droidyue.com/blog/2015/10/17/funny-programmer-season-three/">程序员的逗比瞬间(第三季)</a>
+      </li>
+    
+  </ul>
+</section>
+<script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/blogroll_data_source.js" charset="utf-8"></script>
+<script type="text/javascript">
+	displaySection(shouldDisplayBlogRoll() && onlyForDesktop(), isBlogRollInDebug(), makeBlogRollDataSource(), makeBlogRollPrefix(), makeBlogRollSuffix(), sDroidBlogRollClass);
+</script><section class="even"><h1>Blogrolls</h1><ul><li><a href="http://droidyue.com/links/" target="_self" class="droid_blogroll_class">友情链接</a></li><li><a href="http://droidyue.com/buy/" target="_self" class="droid_blogroll_class">技术小黑屋血拼</a></li><li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3Dw1gM%2F0jziq8cQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XLjf2vlNIV67vBvn1DNBijIP9LlJoUu0c7M3gYQjCL89vSdxyvKgR5IYpon8UCVSYYlgUYtDAYC5tdn%2FynGeduACFIsh0pu9ZHWc2yMe80FKMYOae24fhW0&amp;pvid=10_114.66.9.98_4328_1456224291183" target="_blank" class="droid_blogroll_class">极客学院全套视频下载</a></li><li><a href="http://zh.airbnb.com/c/awallace36?s=8" target="_blank" class="droid_blogroll_class">说走就走的Airbnb旅行基金</a></li><li><a href="http://www.xbext.com/" target="_blank" class="droid_blogroll_class">XBrowser-极简快速的浏览器</a></li><li><a href="http://www.xinnet.com/virtualhost/virtualhost2.html?rebatecode=RPYPO4B28A4U" target="_blank" class="droid_blogroll_class">新网虚拟云主机，6折优惠</a></li><li><a href="http://www.pgfastss.org/in/aqjkzq9mw3" target="_blank" class="droid_blogroll_class">网络加速器，用来做啥你懂得</a></li><li><a href="https://www.youmi.net/account/register?r=OTU2Ng==" target="_blank" class="droid_blogroll_class">零散时间写个应用，够付房租了</a></li><li><a href="http://t.cn/R40yLwL" target="_blank" class="droid_blogroll_class">「新浪云福利」1000云豆免费领！低成本、免运维、灵活、安全稳定</a></li></ul></section>
+<script type="text/javascript">
+	displaySection(shouldDisplayCommonBook() && onlyForDesktop(), isCommonBookInDebug(), makeCommonBookDataSource(), makeCommonBookPrefix(), makeCommonBookSuffix(), sDroidCommonBookClass);
+</script>
+<script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/friend_links.js" charset="utf-8"></script><section class="odd"><h1>友情链接</h1><ul><li><a href="http://www.maiziedu.com/group/" target="_blank" class="friendlinks_class">麦子学院</a></li><li><a href="http://www.iswifting.com/" target="_blank" class="friendlinks_class">程序员头条</a></li><li><a href="http://wangxinghe.me/" target="_blank" class="friendlinks_class">某学姐的技术成长之路</a></li><li><a href="http://www.superqq.com/" target="_blank" class="friendlinks_class">刚刚在线-分享iOS开发技术经验的自媒体网站</a></li></ul></section>
+<script type="text/javascript">
+displaySection(shouldDisplayProgramBook() && onlyForDesktop(), isPrgoramBookInDebug(), makeProgramBookDataSource(), makeProgramBookPrefix(), makeProgramBookSuffix(), sDroidProgramBookClass);
+</script>
+<script type="text/javascript" charset="utf-8">
+	displayJavaBook();
+	displayAndroidBook();
+</script>
+<script type="text/javascript">
+	var bestPosts = makeBestPostsDataSource();
+	
+	if (getRandomBoolean()) {
+		bestPosts = shuffleJsonObject(bestPosts);
+	}
+	
+	if (shouldLimitBestPosts()) {
+		var limit = getBestPostsLimitSize();
+		bestPosts = splitJSONObject(bestPosts, limit);
+	}
+	displaySection(shouldDisplayBestPosts(), isBestPostsInDebug(), bestPosts, makeBestPostsPrefix(), makeBestPostsSuffix(), sDroidBestPostsClass);
+</script><section class="first even"><h1>人气文章</h1><ul><li><a href="http://droidyue.com/blog/2015/07/04/six-books-every-programer-must-read/" target="_self" class="droid_best_posts_class">程序员必读的六本书</a></li><li><a href="http://droidyue.com/blog/2014/11/30/java-programmer-must-read-these-9-books/" target="_self" class="droid_best_posts_class">Java程序员必读的9本书</a></li><li><a href="http://droidyue.com/blog/2014/07/27/think-twice-when-coding/" target="_self" class="droid_best_posts_class">纠结才能写出好代码</a></li><li><a href="http://droidyue.com/blog/2015/08/08/funny-programmer-season-one/" target="_self" class="droid_best_posts_class">程序员的逗比瞬间（第一季）</a></li><li><a href="http://droidyue.com/blog/2015/08/01/dive-into-android-large-heap/" target="_self" class="droid_best_posts_class">探究android:largeHeap</a></li><li><a href="http://droidyue.com/blog/2015/06/27/desgign-pattern-observer/" target="_self" class="droid_best_posts_class">这就是观察者模式</a></li><li><a href="http://droidyue.com/blog/2015/06/13/talk-show-about-dependency-injection/" target="_self" class="droid_best_posts_class">说说依赖注入</a></li><li><a href="http://droidyue.com/blog/2014/09/20/interaction-between-java-and-javascript-in-android/" target="_self" class="droid_best_posts_class">Android中Java和JavaScript交互最详细的文章</a></li><li><a href="http://droidyue.com/blog/2015/02/28/my-android-work-akoi/" target="_self" class="droid_best_posts_class">士别三年，我的最新个人作品</a></li><li><a href="http://droidyue.com/blog/2014/09/08/learn-sqlite-in-a-very-fast-way/" target="_self" class="droid_best_posts_class">十分钟掌握SQLite操作</a></li><li><a href="http://droidyue.com/blog/2014/08/26/write-emails-using-markdown-in-browsers/" target="_self" class="droid_best_posts_class">工作利器：终于可以使用Markdown写邮件啦</a></li><li><a href="http://droidyue.com/blog/2015/05/30/android-http-clients/" target="_self" class="droid_best_posts_class">Android中HTTP相关的API</a></li><li><a href="http://droidyue.com/blog/2014/12/28/in-android-handler-classes-should-be-static-or-leaks-might-occur/" target="_self" class="droid_best_posts_class">Android中Handler引起的内存泄露</a></li><li><a href="http://droidyue.com/blog/2014/11/08/bad-smell-of-asynctask-in-android/" target="_self" class="droid_best_posts_class">Android中糟糕的AsyncTask</a></li><li><a href="http://droidyue.com/blog/2014/10/15/speed-up-your-git/" target="_self" class="droid_best_posts_class">人生苦短，让你的Git飞起来吧</a></li><li><a href="http://droidyue.com/blog/2015/01/11/looking-into-singleton/" target="_self" class="droid_best_posts_class">单例这种设计模式</a></li><li><a href="http://droidyue.com/blog/2015/03/08/sockets-programming-in-java/" target="_self" class="droid_best_posts_class">读懂Java中的Socket编程</a></li><li><a href="http://droidyue.com/blog/2014/10/12/understanding-weakreference-in-java/" target="_self" class="droid_best_posts_class">理解Java中的弱引用</a></li><li><a href="http://droidyue.com/blog/2014/11/02/note-for-google-io-memory-management-for-android-chinese-edition/" target="_self" class="droid_best_posts_class">Google IO：Android内存管理主题演讲记录</a></li><li><a href="http://droidyue.com/blog/2014/10/02/the-private-modifier-in-java/" target="_self" class="droid_best_posts_class">”失效”的private修饰符</a></li><li><a href="http://droidyue.com/blog/2014/07/14/look-inside-android-package-stop-state-since-honeycomb-mr1/" target="_self" class="droid_best_posts_class">你造么,Android中程序的停止状态</a></li><li><a href="http://droidyue.com/blog/2014/12/07/differences-between-stack-and-heap-in-java/" target="_self" class="droid_best_posts_class">Java中的堆和栈的区别</a></li><li><a href="http://droidyue.com/blog/2014/07/12/scan-media-files-in-android-chinese-edition/" target="_self" class="droid_best_posts_class">Android扫描多媒体文件剖析</a></li><li><a href="http://droidyue.com/blog/2014/12/14/substring-memory-issue-in-java/" target="_self" class="droid_best_posts_class">Java中的substring真的会引起内存泄露么</a></li><li><a href="http://droidyue.com/blog/2014/11/23/block-web-resource-in-webview/" target="_self" class="droid_best_posts_class">Android中WebView拦截替换网络请求数据</a></li><li><a href="http://droidyue.com/blog/2014/08/03/great-web-tools-for-android-development/" target="_self" class="droid_best_posts_class">快速提高Android开发效率的Web工具</a></li><li><a href="http://droidyue.com/blog/2014/06/15/what-will-be-removed-if-you-click-clear-data-button-in-system-application-item/" target="_self" class="droid_best_posts_class">Android设置中的清除数据究竟移除哪些数据</a></li><li><a href="http://droidyue.com/blog/2014/07/04/attentions-when-adding-permission-for-android-application/" target="_self" class="droid_best_posts_class">注意:在为Android程序申请权限时</a></li><li><a href="http://droidyue.com/blog/2015/07/18/anr-in-android/" target="_self" class="droid_best_posts_class">说说Android中的ANR</a></li><li><a href="http://droidyue.com/blog/2014/12/28/static-biding-and-dynamic-binding-in-java/" target="_self" class="droid_best_posts_class">Java中的静态绑定和动态绑定</a></li><li><a href="http://droidyue.com/blog/2015/04/12/avoid-memory-leaks-on-context-in-android/" target="_self" class="droid_best_posts_class">避免Android中Context引起的内存泄露</a></li><li><a href="http://droidyue.com/blog/2014/11/29/why-onsharedpreferencechangelistener-was-not-called/" target="_self" class="droid_best_posts_class">Google为何这样设计OnSharedPreferenceChangeListener</a></li><li><a href="http://droidyue.com/blog/2015/05/11/google-play-tuiguang/" target="_self" class="droid_best_posts_class">Google Play商店推广那些事</a></li><li><a href="http://droidyue.com/blog/2015/04/07/autoboxing-and-autounboxing-in-java/" target="_self" class="droid_best_posts_class">Java中的自动装箱与拆箱</a></li><li><a href="http://droidyue.com/blog/2014/08/30/java-details-string-concatenation/" target="_self" class="droid_best_posts_class">Java细节：字符串的拼接</a></li><li><a href="http://droidyue.com/blog/2014/07/12/check-main-thread-in-android-chinese-edition/" target="_self" class="droid_best_posts_class">Android中如何检测当前线程为主线程</a></li><li><a href="http://droidyue.com/blog/2014/07/13/set-preferred-application-in-android-chinese-edition/" target="_self" class="droid_best_posts_class">Android如何设置默认程序</a></li><li><a href="http://droidyue.com/blog/2014/10/01/great-markdown-viewer-as-a-chrome-extension/" target="_self" class="droid_best_posts_class">实时预览Markdown利器</a></li><li><a href="http://droidyue.com/blog/2015/08/29/funny-programmer-season-two/" target="_self" class="droid_best_posts_class">程序员的逗比瞬间（第二季）</a></li><li><a href="http://droidyue.com/blog/2015/06/05/how-garbage-collector-handles-circular-references/" target="_self" class="droid_best_posts_class">垃圾回收器如何处理循环引用</a></li><li><a href="http://droidyue.com/blog/2014/12/21/java-runtime-data-areas/" target="_self" class="droid_best_posts_class">JVM运行时的数据区</a></li><li><a href="http://droidyue.com/blog/2014/12/21/string-literal-pool-in-java/" target="_self" class="droid_best_posts_class">Java中的字符串常量池</a></li><li><a href="http://droidyue.com/blog/2015/07/25/use-android-lint-to-find-higher-api-usage/" target="_self" class="droid_best_posts_class">使用Android lint发现并解决高版本API问题</a></li><li><a href="http://droidyue.com/blog/2015/08/22/where-has-the-java-permgen-gone/" target="_self" class="droid_best_posts_class">Java永久代去哪儿了</a></li><li><a href="http://droidyue.com/blog/2015/09/05/android-process-and-thread-schedule-nice/" target="_self" class="droid_best_posts_class">剖析Android中进程与线程调度之nice</a></li><li><a href="http://droidyue.com/blog/2014/08/05/detect-android-device-type-by-sniffing-user-agent/" target="_self" class="droid_best_posts_class">从UA中分辨出Android设备类型</a></li><li><a href="http://droidyue.com/blog/2014/11/18/six-ways-to-run-shell-in-ruby/" target="_self" class="droid_best_posts_class">Ruby执行shell命令的六种方法</a></li><li><a href="http://droidyue.com/blog/2015/09/12/is-your-java-code-jit-friendly/" target="_self" class="droid_best_posts_class">你的Java代码对JIT编译友好么？</a></li><li><a href="http://droidyue.com/blog/2015/09/17/android-process-and-thread-schedule-cgroups/" target="_self" class="droid_best_posts_class">Android进程线程调度之cgroups</a></li><li><a href="http://droidyue.com/blog/2015/09/26/android-tuning-tool-strictmode/" target="_self" class="droid_best_posts_class">Android性能调优利器StrictMode</a></li><li><a href="http://droidyue.com/blog/2015/11/01/thinking-about-android-log/" target="_self" class="droid_best_posts_class">关于Android Log的一些思考</a></li><li><a href="http://droidyue.com/blog/2015/10/17/funny-programmer-season-three/" target="_self" class="droid_best_posts_class">程序员的逗比瞬间(第三季)</a></li><li><a href="http://droidyue.com/blog/2015/11/15/funny-programmer-finale/" target="_self" class="droid_best_posts_class">程序员的逗比瞬间 最终番</a></li><li><a href="http://droidyue.com/blog/2015/11/28/article-java-8-lambdas-a-peek-under-the-hood/" target="_self" class="droid_best_posts_class">深入探索Java 8 Lambda表达式</a></li><li><a href="http://droidyue.com/blog/2015/12/06/practise-about-crash-in-android/" target="_self" class="droid_best_posts_class">Android处理崩溃的一些实践</a></li><li><a href="http://droidyue.com/blog/2015/12/13/android-sqlite-tuning/" target="_self" class="droid_best_posts_class">Android 中 SQLite 性能优化</a></li><li><a href="http://droidyue.com/blog/2015/12/20/worker-thread-in-android/" target="_self" class="droid_best_posts_class">关于Android中工作者线程的思考</a></li><li><a href="http://droidyue.com/blog/2015/12/29/bye-2015-hi-2016/" target="_self" class="droid_best_posts_class">技术小黑屋的2015年</a></li><li><a href="http://droidyue.com/blog/2016/01/17/understanding-marshmallow-runtime-permission/" target="_self" class="droid_best_posts_class">聊一聊Android 6.0的运行时权限</a></li><li><a href="http://droidyue.com/blog/2016/01/31/my-first-chrome-extension/" target="_self" class="droid_best_posts_class">我的首个Chrome扩展发布了</a></li><li><a href="http://droidyue.com/blog/2016/02/21/thinking-of-getting-the-current-activity-in-android/" target="_self" class="droid_best_posts_class">关于获取当前Activity的一些思考</a></li></ul></section>
+
+
+  
+</aside>
+
+
+    <span class="toggle-sidebar"></span></div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright © 2016 - androidyue -
+  <span class="credit">Powered by <a href="http://octopress.org/" target="_blank">Octopress</a> 云存储提供方： 
+	  <a href="http://www.qiniu.com/" target="_blank">
+	      <img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/qiniu_bottom_real.jpg" alt="qiniu">
+	  </a>
+	  
+	  <a href="https://www.upyun.com/" target="_blank">
+	      <img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/upaiyun.png" alt="UPYUN">
+	  
+	  </a>
+  </span>
+</p>
+
+<div id="includedContentRefEnd"></div>
+<script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/baidu_analytics.js" charset="utf-8"> </script> 
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/arrow38.js"></script>
+<noscript>Not seeing a &lt;a href="http://www.scrolltotop.com/"&gt;Scroll to Top Button&lt;/a&gt;? Go to our FAQ page for more info.</noscript>
+
+
+
+
+<div id="topcontrol" title="Scroll to Top" style="position: fixed; bottom: 5px; right: 5px; opacity: 1; cursor: pointer;"><img src="./Android扫描多媒体文件剖析 - 技术小黑屋_files/arrow37.png"></div></body></html>
