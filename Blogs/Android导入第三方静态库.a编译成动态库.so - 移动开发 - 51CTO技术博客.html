@@ -1,0 +1,1390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0046)http://ikinglai.blog.51cto.com/6220785/1324985 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<script async="" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/analytics.js"></script><script type="text/javascript" async="" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/acom"></script><script id="allmobilize" charset="utf-8" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/allmobilize.min.js"></script><style type="text/css"></style><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://ikinglai.blog.51cto.com/#">
+
+
+<title>Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客</title>
+<meta name="description" content="在Android开发的时候，经常会使用到用c或c++编写的第三方的静态库。如果有源码的话，可以直接跟你自己的代码一去编译成动态库so，但是如果没有源码的话，你就必须在自己的动态库so里面将别人生成好的静态库导入进..">
+<meta name="keywords" content="Android静态库,Android动态库,NDK编译,Android动态库导入静态库">
+<meta http-equiv="Cache-Control" content="private">
+<!--<base href="http://ikinglai.blog.51cto.com/">--><base href=".">
+<script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/def.js"></script>
+<script language="javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/message.js" type="text/javascript"></script>
+<script language="javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/user_comment.js" type="text/javascript"></script>
+<script language="javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/base2.js" type="text/javascript"></script>
+<script language="javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/dialog_utf8.js" type="text/javascript"></script>
+<link href="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/30.css" rel="stylesheet" type="text/css">
+<link rel="alternate" href="http://ikinglai.blog.51cto.com/rss.php?uid=6220785" type="application/rss+xml" title="RSS 2.0">
+<link rel="edituri" type="application/rsd+xml" title="rsd" href="http://ikinglai.blog.51cto.com/xmlrpc.php?rsd=1">
+<link href="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/header_master_top.css" rel="stylesheet" type="text/css">
+<link href="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/base.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	.mainNav li a{display:inline-block}
+</style>
+<script>
+var myid = "";
+function add_flink(){
+	if(myid==""){
+
+        var refurlk = "http://ikinglai.blog.51cto.com/6220785/1324985";
+
+				//commentSubmit("",refurlk);
+				location.href="http://home.51cto.com/index.php?reback="+encodeURIComponent(encodeURIComponent(refurlk));
+				
+				return false;
+	}else{
+		var mtk = "ba6d0cb38d0290c05f60bdb6a8d5bf1e";
+      		var url='/mod/edit_flink.php?type=addflink&uid=6220785&flink=http://ikinglai.blog.51cto.com&mtk='+mtk;
+		var ajax = InitAjax1();
+		ajax.open("GET", url, true);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				/*if(myid == 5290427){
+					alert(ajax.responseText);
+				}*/
+				if(ajax.responseText==""){
+					alert("添加成功。");
+				}
+				if(ajax.responseText=="1"){
+				alert("链接指向自己。");
+				}
+				if(ajax.responseText=="2"){
+				alert("友情链接已存在。")
+				}
+				if(ajax.responseText=="4"){
+					alert("验证已过期。")
+					}
+			}
+		}
+		ajax.send(null);
+	}
+
+
+
+}
+function sendmessage(){
+
+	var refurlk = "http://ikinglai.blog.51cto.com/6220785/1324985";
+
+	if(myid){
+		return true;
+	}else{
+		commentSubmit("",refurlk);
+		return false;
+	}
+}
+function copylink(ourl){
+	if(!ourl){
+		var clipBoardContent = "http://ikinglai.blog.51cto.com";
+	}else{
+		var clipBoardContent = ourl;
+	}
+	window.clipboardData.setData("Text",clipBoardContent);
+	alert("复制成功!");
+	return false;
+}
+function correctPNG() {
+if (document.getElementById('blog_touxian'))
+{
+var img = document.getElementById('blog_touxian');
+      var imgName = img.src.toUpperCase()
+      var imgID = (img.id) ? "id='" + img.id + "' " : ""
+      var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+      var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+      var imgStyle = "display:inline-block;" + img.style.cssText
+      if (img.align == "left") imgStyle = "float:left;" + imgStyle
+      if (img.align == "right") imgStyle = "float:right;" + imgStyle
+      if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+      var strNewHTML = "<span " + imgID + imgClass + imgTitle
+         + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+         + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+         + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>" ;
+      img.outerHTML = strNewHTML;
+}
+}
+//window.attachEvent("onload", correctPNG);
+window.onload=correctPNG;
+
+function copy(){
+var text=document.getElementById("txtUser").value;
+if(copy2Clipboard(text)!=false){ 
+alert("复制成功了！ "); 
+} 
+}
+function copy2Clipboard(txt){ 
+if(window.clipboardData){ 
+window.clipboardData.clearData(); 
+window.clipboardData.setData("Text",txt); 
+}else if(navigator.userAgent.indexOf("Opera")!=-1){ 
+window.location=txt; 
+}else if(window.netscape){ 
+try{ 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch(e){ 
+alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。"); 
+return false; 
+} 
+var clip=Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+if(!clip)return; 
+var trans=Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+if(!trans)return; 
+trans.addDataFlavor('text/unicode'); 
+var str=new Object(); 
+var len=new Object(); 
+var str=Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+var copytext=txt;str.data=copytext; 
+trans.setTransferData("text/unicode",str,copytext.length*2); 
+var clipid=Components.interfaces.nsIClipboard; 
+if(!clip)return false; 
+clip.setData(trans,null,clipid.kGlobalClipboard); 
+return true;
+} 
+}
+
+function mod_close(){
+  document.getElementById('mod_tg').style.display="none";
+}
+
+function match_invite(uid) {
+    var url='/mod/match_invite.php';
+	var ajax = InitAjax();
+    var re = 'uid=' + uid;
+	ajax.open("POST", url, true);
+    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax.send(re);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if(ajax.responseText == 1){
+                alert("邀请信息已经发送成功。");
+            } else if(ajax.responseText=="-1"){
+                alert("邀请失败，请稍候再试。");
+            } else if(ajax.responseText=="2"){
+                alert("该用户已经报名了。")
+            }
+        }
+    }
+}
+
+</script>
+<style type="text/css">
+/*
+.artContent img {max-width:450px !important;}
+.showContent img{max-width:650px!important;}
+*/
+
+.artContent img{max-width: 450px; width:expression(this.width > 450 ? "450px" : this.width)}
+/*
+.showContent img{max-width: 450px; width:expression(this.width > 650 ? "650px" : this.width)}
+*/
+
+
+</style>
+<script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/share.js"></script></head>
+
+<body>
+
+<div id="home_top">
+<div class="top_nav" style="width:990px;">
+<div class="left" style="margin-top:10px; width:440px;"><a href="http://blog.51cto.com/" target="_blank"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/head_blog_sibebar_logo.gif" align="absmiddle" style="margin-top:-4px;"></a><a target="_blank" href="http://www.51cto.com/">51CTO首页</a><img height="25" align="absmiddle" width="16" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;"><a href="http://blog.51cto.com/" target="_blank">51CTO博客</a><img height="25" align="absmiddle" width="16" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;"><a href="http://home.51cto.com/?reback=http%253A%252F%252Fikinglai.blog.51cto.com%252F6220785%252F1324985">我的博客</a><img height="25" align="absmiddle" width="16" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;">
+
+<a target="_blank" href="http://blog.51cto.com/search.php">搜索</a>
+<a href="javascript:void(0);" style="color:#FF0000; text-decoration:underline; display:none" id="showMessagerDim">每日博报</a>
+</div>
+
+<div class="right" style="width:550px;">
+<div class="more"><img height="16" align="absmiddle" width="27" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/top_shequ.gif"><a target="_blank" style="color:#C00" href="http://gaozhao.51cto.com/">招聘</a><a target="_blank" href="http://edu.51cto.com/">学院</a><a target="_blank" href="http://bbs.51cto.com/">论坛</a><a target="_blank" href="http://blog.51cto.com/">博客</a><a target="_blank" href="http://down.51cto.com/">下载</a><a href="javascript:viod(0);" onmouseout="popupClose()" onmouseover="show(3,this)">更多<img align="absmiddle" style="padding-left: 4px;" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/nav_ico1.gif"></a>            </div>            <span id="login_status"><div class="login" id="login_status"></div>    </span>                </div>    </div></div>
+
+
+
+<div class="subMenu3" id="s3" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://edu.51cto.com/" target="_blank">学院</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://t.51cto.com/" style="color:red;" target="_blank">题库</a></li>
+<li><a href="http://gaozhao.51cto.com/" target="_blank">招聘</a></li>
+</ul>
+</div>
+<!--简导航end-->
+
+
+
+<div class="headerBox">
+<div class="header">
+<div class="header_l">
+<div class="logo_blogname">
+
+
+
+<div class="blogName">
+<a href="http://ikinglai.blog.51cto.com/"><h1>移动开发</h1></a>
+</div>
+</div><!--logo_blogname end-->
+<div class="blogLink">
+
+<a href="http://ikinglai.blog.51cto.com/">http://ikinglai.blog.51cto.com</a> <input id="txtUser" type="hidden" size="32" value="http://ikinglai.blog.51cto.com">   <a href="javascript:void(0);" onclick="copy();">【复制】</a> <a href="http://ikinglai.blog.51cto.com/rss.php?uid=6220785" target="_blank"></a><a href="http://ikinglai.blog.51cto.com/rss.php?uid=6220785" target="_blank">【订阅】</a>
+
+</div>
+
+
+
+</div><!--header_l end-->
+<div class="header_r">
+<div class="blogInfo"><span><a href="http://ikinglai.blog.51cto.com/6220785/o" title="察看iKingLai所有原创文章">原创</a>:90</span><span><a href="http://ikinglai.blog.51cto.com/6220785/t" title="察看iKingLai所有翻译文章">翻译</a>:0</span><span><a href="http://ikinglai.blog.51cto.com/6220785/c" title="察看iKingLai所有转载文章">转载</a>:0</span></div>
+<div class="blogNav"><a href="http://ikinglai.blog.51cto.com/">博 客</a>|<a href="http://home.51cto.com/apps/photo/index.php?s=/Index/photos/uid/6220785">图库</a>|<a href="http://ikinglai.blog.51cto.com/addblog.php">写博文</a>|<a href="http://51ctoblog.blog.51cto.com/all/26414/4" target="_blank">帮 助</a></div>
+</div>
+</div>
+<!--header end-->
+</div><!--headerBox end-->
+<div class="mainNav">
+<span class="mainNavT"></span>
+<ul>
+<li><a href="http://ikinglai.blog.51cto.com/">首页</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-1">cocos2d</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-2">Android</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-3">iOS</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-4">objective-c</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-5">Java</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-6">c/c++</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-7">Linux</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-8">git</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-9">jni</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-10">hmm</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-11">语音</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-12">sphinx4</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-13">pocketsphinx</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-14">HTK</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-15">设计模式</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-16">数据结构</a></li>|<li><a href="http://ikinglai.blog.51cto.com/6220785/d-17">算法导论</a></li>
+</ul>
+<span class="mainNavB"></span>
+</div>
+<!--mainNav end-->
+
+<style>
+.wrap_box{width:750px;float:left;}
+.box1{width:368px;background: #fff; border: 0px solid #626262;float:left;height: 162px;}
+.mr10{margin-right:10px;}
+</style>
+<script type="text/javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/jquery-1.7.1.min.js"></script>
+<!--[if IE 6]>
+  <script type="text/javascript" src="http://images.watchstor.com/newhomes/png.js"></script>
+  <script>
+    DD_belatedPNG.fix('img,input,ul,li, .get-box, div, .add, .sub, .ui-slider-handle, .footer-chopper');
+  </script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/fck_editorarea.css">
+<script type="text/javascript" charset="gbk" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/shCores.js"></script>
+<link rel="stylesheet" type="text/css" href="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/shCoreDefault.css">
+<script type="text/javascript" charset="gbk" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/uparse.js"></script>
+<script type="text/javascript">
+	uParse('.showContent');
+	$(function(){
+		//SyntaxHighlighter.config.clipboardSwf = 'http://bbs.51cto.com/plugins/syntaxhighlighter/scripts/clipboard.swf'; 
+		//为了在编辑器之外能展示高亮代码
+		SyntaxHighlighter.highlight();
+	}); 
+</script>
+<script type="text/javascript">
+/**
+ * 回复评论需要用的js
+ * 2012-5-14
+ * by:chengtao
+ */
+ jQuery(function(){
+	blogpost.init();//初始化博客回复功能
+ })
+ /**
+  * 处理博文评论功能优化
+  */
+ blogpost={
+	abstruct_list:null,
+	init:function(){
+		blogpost.bind();//绑定一些时间
+		this.abstruct_list=new Array();//初始化保存评论信息的数组
+	},
+	/**
+	 * 博客回复需要绑定的一些事件
+	 */
+	bind:function(){
+		/**
+		 * 点击回复的事件
+		 */
+		jQuery('.repost').live('click',function(){
+			blogpost.repost(jQuery(this).attr('user_name'),jQuery(this).attr('parentid'));
+			return false;
+		});
+		/**
+		 * 点击楼层进行翻页且找到锚点
+		 */
+		jQuery('.anchor_page').live('click',function(){
+			var parentid = $(this).attr('parentid');
+			var tid=$(this).attr('tid');
+			$.get('/comments.php?tid='+tid+'&parentid='+parentid,function(data){
+				$('#artcomment').html(data);
+				window.location.hash=''+parentid;
+			})
+			return false;
+		}),
+		jQuery('.anchor_page').live('mouseover',function(){
+			var parentid = $(this).attr('parentid');
+			if(!blogpost.abstruct_list[parentid]){
+				var this_t = $(this);
+				$.get('/comments.php?cid='+parentid,function(data,textStatus){
+					blogpost.abstruct_list[parentid]=data;
+					this_t.attr('title',this_t.text()+':'+ blogpost.abstruct_list[parentid]);
+				});
+			}else{
+				$(this).attr('title',$(this).text()+':'+blogpost.abstruct_list[parentid]);
+			}
+		})
+	},
+	/**
+	 * @param user_name 用户名
+	 * @param parentid  父评论id
+	 */
+	repost:function(user_name,parentid){
+		window.location.hash='comment';
+		jQuery('#parentid').val(parentid);
+		jQuery('#commentcontent').val('回复 '+user_name+":\n").focus();
+		if(!$.browser.mozilla){
+			var elem = jQuery('#commentcontent')[0];		
+			var caretPos = elem.value.length;
+			if (elem.createTextRange) {
+				var range = elem.createTextRange();
+				range.move('character', caretPos);
+				range.select();
+			}else{
+				elem.setSelectionRange(caretPos, caretPos);	
+			}
+		}
+	},
+	/**
+	 * 发送完毕之后清理表单数据 不是ajax可能用不到
+	 */
+	clean:function(){
+		
+	}
+ }
+</script>
+<script type="text/javascript">
+jQuery(function(){
+	var anchor = document.location.hash;
+	var comment_id=anchor.split('#')[1];
+	if(!isNaN(parseInt(comment_id))){//是整形
+		jQuery.get('/comments.php?tid=1324985&parentid='+comment_id,function(data){
+			jQuery('#artcomment').html(data);
+			window.location.hash=''+comment_id;
+		})
+	}
+});
+</script>
+
+
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#favourdiv').mouseover(function(){
+		if(jQuery(this).attr('className') == 'support01')
+		{
+			jQuery(this).attr('className', "support02");
+			jQuery(this).html('+1人');
+			jQuery(this).attr('title', "赞一个，我支持TA");
+		}
+		else if(jQuery(this).attr('className') == 'support03')
+		{
+			jQuery(this).attr('title', "你已经赞了这篇博文！");
+		}
+		
+	});
+	jQuery('#favourdiv').mouseout(function(){
+		if(jQuery(this).attr('className') == 'support02')
+		{
+			jQuery(this).attr('className', "support01");
+			jQuery(this).html("2人");
+		}
+	});
+	jQuery('.blog_match_yq').click(function(){
+		var wind_uid = '';
+		if(!wind_uid){
+			alert("请先登录！");
+			return false;
+		}
+		jQuery.ajax({
+			   type: "POST",
+			   url:"/contest2012/index.php?mod=sendmsg",
+			   dataType: "html",
+			   data: "vuid=" + 6220785,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("查无此人！");
+						return false;
+					}else if(data == 1){
+						alert("请先登录！");
+						return false;
+					}else if(data == 2){
+						alert("不能邀请自己！");
+						return false;
+					}else if(data == 22){  
+						alert("邀请信息已发出！");
+						return false;
+					}
+			   }
+		  });
+	});
+	jQuery('#favourdiv').click(function(){
+			jQuery.ajax({
+			   type: "POST",
+			   url:"/mod/favour.php",
+			   dataType: "html",
+			   data: "tid=" + 1324985,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("您还未登录或者已过期，请重新登录");
+						location.href = "http://home.51cto.com/index.php?reback=http%253A%252F%252Fikinglai.blog.51cto.com%252F6220785%252F1324985";
+						return false;
+					}
+					else if(data == '-1')
+					{
+						alert("参数传递错误！");
+						return false;
+					}
+					else if(data == '-2')
+					{
+						alert("该博文已被删除或者不存在！");
+						return false;
+					}
+					else if(data == '-3')
+					{
+						alert("您已经赞过了！");
+						return false;
+					}
+					else if(data == '-4')
+					{
+						alert("赞操作失败！");
+						return false;
+					}
+					else
+					{  
+						//alert("操作成功，你已经赞了这篇博文！");
+						jQuery('#favourdiv').attr('className', "support03");
+
+						var num = 2 + 1 + "人";
+						jQuery('#favourdiv').html(num);
+						jQuery('#favourer').html(data);
+						return false;
+					}
+			   }
+		  });
+	});
+	//Jaydar http://blog.51cto.com/js/header.php?uid=blogdb[uid]&tid=tid
+	jQuery.post('/js/header.php',{uid:6220785,tid:1324985},function(data){
+		jQuery('#readNum').html(data[0]);
+		jQuery('#cmtNum').html(data[1]);
+	},'json');
+	
+
+})
+
+jQuery(function(){
+	jQuery('#darid').bind('click',function(){
+		if(confirm("你确定删除此篇文章？")){
+			jQuery.ajax({
+				'type':'post',
+				'url':'user_index.php?action=delarticle',
+				'data':{'job':'del', 'selid':'1324985', 'mhash':''},
+				'dataType':'html',
+				'success':function(res){
+					if('ok' == res){
+						location.href="http://.blog.51cto.com";
+					}
+				
+				}
+			});
+		}
+	});
+});
+</script>
+
+
+
+
+<style type="text/css">
+.m_sharelinks{ 
+	line-height:30px; 
+	text-align:left; 
+	padding-left:20px; 
+	//background:url(http://img1.51cto.com/images/share/ico_lb.gif) no-repeat left center;
+	float:left; 
+	width:600px; 
+	height:30px;
+}
+.m_sharelinks a{ margin-left:10px;}
+.m_sharebtn{ height:50px; width:726px; margin:0 auto;}
+.m_sharebtn01{width:520px; float:left;}
+.weibo_51cto{ background:url(http://img1.51cto.com/images/share/ico_mweibo.gif) no-repeat center center; display:block; width:33px; height:33px; float:left; margin:3px 3px 0 0;cursor:pointer;}
+.shareMored {
+    line-height: 30px;
+	float:right; 
+	text-align:right; 
+	width:100px; 
+	height:30px;
+}
+
+.showContent {
+	margin:20px 15px 8px;
+}
+.userImage img {
+    text-align: center;
+	border:0;
+	padding:0;
+}
+.photo_links{ line-height:30px; padding-top:5px; font-size:13px;width:170px; margin:0 auto;}
+.photo_links_blue{ text-align:center;}
+.photo_links_blue a:link,.photo_links_blue a:visited,.photo_links_blue a:hover,.photo_links_blue a:active{ color:#015F91; text-decoration: underline;}
+.photo_links_red{ text-align:left;}
+.photo_links_red a:link,.photo_links_red a:visited,.photo_links_red a:hover,.photo_links_red a:active{ color:#fc4343; text-decoration:underline;}
+.photo_links_red02{ text-align:center;}
+
+.vlist{ margin:10px 10px; height:65px;}
+.vlist img{ float:left; margin-right:10px;}
+.vlist dl{ text-align:left;}
+.vlist dl dt{ height:40px;line-height: 20px; overflow:hidden; padding-top:5px;}
+.vlist dl dt,.vlist dl dt a{ color:#262626;}
+.vlist dl dd,.vlist dl dd a{ color:#777;}
+
+.video-icon{
+    position: relative;
+}
+.video-icon a.i_video {
+    background: url("http://www.51cto.com/images/homepage/Images/eduplay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 25px;
+    left:31px;
+    position: absolute;
+    top:22px;
+    width: 25px;
+    z-index: 10;
+}
+
+.ipadFload{ position:fixed; width:136px; height:194px; background:url("http://bbs.51cto.com/images/IPad-bg.png") left top no-repeat #fff; font-family:"微软雅黑"; padding-left:18px;}
+.ipadClose{ text-align:right; font-size:14px; line-height:20px;}
+.ipadImg{ padding-top:38px;}
+.ipadImg img{ width:105px; height:105px;}
+.iPadair2{ font-size:12px;}
+.iPadair2 a{ color:#659b01; text-decoration:none; background:url("http://bbs.51cto.com/images/51CTO-IPAD-BOTTOM.png") right center no-repeat; display:block; line-height:30px;}
+
+</style>
+<div id="add_sys_type_div" style="width:600px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+<div id="add_sys_type_dvs" style="width:550px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+	
+
+
+
+<div class="blogMain">
+<div class="blogLeft">
+
+
+<div class="box moduleUser">
+<div class="title">
+<h2><strong>iKingLai</strong> 的BLOG  </h2>
+</div>
+<div class="modCon">
+
+<div class="userImage" style="margin: 10px auto 5px;text-align: center;width: 130px;border: 1px solid #D4D4D4;">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td valign="middle" align="center" height="130"><script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/userface.php"></script><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar.php" id="userface"></td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="photo_links">
+</div>
+
+
+
+
+
+
+
+
+
+<div class="crumbs">
+<a href="http://home.51cto.com/index.php?s=/space/6220785#message" class="writeMessage" target="_blank">写留言</a><a href="http://edu.51cto.com/" class="inCircle" target="_blank">去学院学习</a><a href="http://home.51cto.com/index.php?s=/Notify/write/uid/6220785" class="message" target="_blank">发消息</a>
+ <a href="http://ikinglai.blog.51cto.com/" onclick="add_flink(6220785);return false" class="joinLinks">加友情链接</a><a href="http://home.51cto.com/index.php?s=/space/6220785" class="joinFriends" target="_blank">进家园 加好友</a>
+</div>
+
+<div style="width:239px;height:64px;display:none;">
+
+
+<div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">2012年度IT博客大赛<br><a target="_blank" href="http://blog.51cto.com/contest2012/#top10000" style="color:#F00; text-decoration:underline;">十大杰出IT博客诞生</a></p></div>
+<div style="float:right;"><a target="_blank" href="http://blog.51cto.com/contest2012/"><img width="57" height="27" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/blog_match_endlook.jpg" style="margin:23px 20px 0 0;"></a></div>
+<!-- <div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">星光评委正在评选<br><a target="_blank" href="http://blog.51cto.com/contest2012/index.php?mod=userlist_sec" style="color:#F00; text-decoration:underline;">2012年度IT博客大赛50强</a></p></div>
+<div style="float:right;"><img class="blog_match_yq" width="57" height="27" src="http://img1.51cto.com/images/blog_match_invite.jpg" style="margin:23px 20px 0 0;"></div> -->
+
+
+
+<div class="clear"></div>
+</div>
+
+
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+<div class="title">
+<h2>博客统计信息</h2>
+</div>
+<div class="modCon">
+<p>
+<span class="infoListHead"></span>
+用户名：iKingLai<br>
+文章数：90<br>
+评论数：31<br>
+访问量：133913<br>
+<a href="http://home.51cto.com/index.php?s=/Account/credit" target="_blank">无忧币</a>：1641<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客积分</a>：1060<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客等级</a>：5<br>
+注册日期：2012-11-17<br>
+</p>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+	<div class="title">
+		<h2 class="fl">热门专题</h2>
+		<a target="_blank" class="fr" href="http://blog.51cto.com/zt">更多&gt;&gt;</a>
+	</div>
+	<div class="modCon" style="height: 348px;">
+
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/688" target="_blank"><img width="63" height="63" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/wKioL1ZdX2GAIQ3gAAAc0cDSZ_w591.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/688" target="_blank" title="Microsoft Dynamics CRM系统自学教程">Microsoft Dynamics CRM系统自学教程</a></dt>
+		<dd>阅读量：24883</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/14" target="_blank"><img width="63" height="63" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/1304672337_index.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/14" target="_blank" title="从菜鸟到老鸟-教你玩转Mac操作系统">从菜鸟到老鸟-教你玩转Mac操作系统</a></dt>
+		<dd>阅读量：238827</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/20" target="_blank"><img width="63" height="63" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/1306310178_index.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/20" target="_blank" title="QT学习之路：从入门到精通">QT学习之路：从入门到精通</a></dt>
+		<dd>阅读量：982503</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/80" target="_blank"><img width="63" height="63" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/1322811762_index.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/80" target="_blank" title="从零开始学 Android 开发">从零开始学 Android 开发</a></dt>
+		<dd>阅读量：141585</dd>
+		</dl>
+		</div>
+		
+		
+	</div>
+	<span class="modBot"></span>
+</div>
+
+
+<div class="hotArt box">
+<div class="title">
+<h2>热门文章</h2>
+</div>
+<div class="modCon">
+<ul>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1225069">Android中使用javah生成j..</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1215819">NDK官方开发指南翻译之 A..</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1324985">Android导入第三方静态库..</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1243083">iOS平台判断2G，3G，wifi..</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1228730">Android下使用lamemp3库..</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1272238">iOS侧滑菜单实现</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1225309">Android下使用SoundTouch..</a></li>
+<li><a href="http://ikinglai.blog.51cto.com/6220785/1228309">iOS下使用lamemp3库将PCM..</a></li>
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+<div class="search box">
+<div class="title"><h2>搜索BLOG文章</h2></div>
+<div class="modCon">
+<form method="post" action="http://ikinglai.blog.51cto.com/search.php?" tabindex="99">
+<input type="hidden" name="step" value="2">
+<input type="hidden" name="authorid" value="6220785">
+<input type="hidden" name="sch_area" value="S">
+<input type="text" value="" name="keyword" class="searchInput">
+<input type="submit" value="搜 索" class="searchBtn">
+</form>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="box recentGuests">
+<div class="title">
+<h2>最近访客</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://11182423.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(1).php"></a>
+<p><a href="http://11182423.blog.51cto.com/">Easyr..</a></p>
+
+</li><li><a href="http://tcdcr.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(2).php"></a>
+<p><a href="http://tcdcr.blog.51cto.com/">tcdcr</a></p>
+
+</li><li><a href="http://4682478.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(3).php"></a>
+<p><a href="http://4682478.blog.51cto.com/">ljl_f..</a></p>
+
+</li><li><a href="http://51686.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(4).php"></a>
+<p><a href="http://51686.blog.51cto.com/">cheny..</a></p>
+
+</li><li><a href="http://10193176.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(5).php"></a>
+<p><a href="http://10193176.blog.51cto.com/">78529852</a></p>
+
+</li><li><a href="http://6420903.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(6).php"></a>
+<p><a href="http://6420903.blog.51cto.com/">lvchunlc</a></p>
+
+</li><li><a href="http://7942989.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(7).php"></a>
+<p><a href="http://7942989.blog.51cto.com/">小_掰</a></p>
+
+</li><li><a href="http://xuyongzhe.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(8).php"></a>
+<p><a href="http://xuyongzhe.blog.51cto.com/">雷静尔</a></p>
+
+</li><li><a href="http://muluhe.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(9).php"></a>
+<p><a href="http://muluhe.blog.51cto.com/">木鲁禾</a></p>
+
+</li><li><a href="http://3351197.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(10).php"></a>
+<p><a href="http://3351197.blog.51cto.com/">tuima..</a></p>
+
+</li><li><a href="http://1380751.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(11).php"></a>
+<p><a href="http://1380751.blog.51cto.com/">lc190..</a></p>
+
+</li><li><a href="http://9467180.blog.51cto.com/"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/avatar(12).php"></a>
+<p><a href="http://9467180.blog.51cto.com/">真黄源</a></p>
+
+</li></ul>
+<span class="clear"></span>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="newComments box">
+<div class="title">
+<h2>最新评论 
+
+</h2>
+
+
+
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://hnraysir.blog.51cto.com/" class="operlink" target="_blank"><b>hnraysir</b></a>：<a href="http://ikinglai.blog.51cto.com/6220785/1324985" target="_blank"> 谢谢你的分享!对我有帮助！</a></li>
+
+<li><a href="http://hnraysir.blog.51cto.com/" class="operlink" target="_blank"><b>hnraysir</b></a>：<a href="http://ikinglai.blog.51cto.com/6220785/1228730" target="_blank">支持你！</a></li>
+
+<li><a href="http://6846272.blog.51cto.com/" class="operlink" target="_blank"><b>dgfcjy584520</b></a>：<a href="http://ikinglai.blog.51cto.com/6220785/1228309" target="_blank">你好，请问一下，你转成MP3之后的那..</a></li>
+
+<li><a href="http://8334799.blog.51cto.com/" class="operlink" target="_blank"><b>獠牙000</b></a>：<a href="http://ikinglai.blog.51cto.com/6220785/1225309" target="_blank">我用了你的demo,但我不知道到怎么将..</a></li>
+
+<li><a href="http://7955268.blog.51cto.com/" class="operlink" target="_blank"><b>屌丝程序员</b></a>：<a href="http://ikinglai.blog.51cto.com/6220785/1224919" target="_blank">怎样改成正常语音  不要tom猫 的</a></li>
+
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotBlogArt box">
+<div class="title">
+  <h2 class="fl">51CTO推荐博文</h2>
+  <a href="http://blog.51cto.com/artcommend" class="fr">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+<li><a href="http://vmcloud.blog.51cto.com/3499815/1732701" title="雾里散步——这次聊聊自已" target="_blank">雾里散步——这次聊聊自已</a></li>
+<li><a href="http://gaozhao.blog.51cto.com/10590028/1727601" title="【产品日记】V1.2版本发版——顺便暴几个小管" target="_blank">【产品日记】V1.2版本发版——顺..</a></li>
+<li><a href="http://10401926.blog.51cto.com/10391926/1665054" title="欢迎加入51CTO官方博客QQ群112163514" target="_blank">欢迎加入51CTO官方博客QQ群112163514</a></li>
+<li><a href="http://sunyingfighting.blog.51cto.com/8627055/1663756" title="转变--------大数据的抉择之路" target="_blank">转变--------大数据的抉择之路</a></li>
+<li><a href="http://delxu.blog.51cto.com/975660/1637375" title="关于密码那些事（一）" target="_blank">关于密码那些事（一）</a></li>
+<li><a href="http://ixdba.blog.51cto.com/2895551/1607323" title="不懂技术的人请不要对懂技术的人说这很容易" target="_blank">不懂技术的人请不要对懂技术的人..</a></li>
+<li><a href="http://543925535.blog.51cto.com/639838/1603927" title="北京，一个让屌丝望而却步的城市" target="_blank">北京，一个让屌丝望而却步的城市</a></li>
+<li><a href="http://vmcloud.blog.51cto.com/3499815/1598821" title="追随你心 —— 聊聊VMCloud" target="_blank">追随你心 —— 聊聊VMC..</a></li>
+<li><a href="http://rdsrv.blog.51cto.com/2996778/1597636" title="中小企业的服务器虚拟化探讨" target="_blank">中小企业的服务器虚拟化探讨</a></li>
+<li><a href="http://ixdba.blog.51cto.com/2895551/1590080" title="是什么浪费了我工作的时间" target="_blank">是什么浪费了我工作的时间</a></li>
+<li><a href="http://suntongle.blog.51cto.com/1129224/1585613" title="三十而立之年献给自己的礼物——17年IT坎坷路之忆当年 上半部" target="_blank">三十而立之年献给自己的礼物——1..</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="friendLink box">
+<div class="title">
+  <h2>友情链接</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://edu.51cto.com/" title="IT精品课程" target="_blank">IT精品课程</a></li>
+
+<li><a href="http://51ctoblog.blog.51cto.com/" title="51CTO博客开发" target="_blank">51CTO博客开发</a></li>
+
+<li><a href="http://gaozhao.51cto.com/" title="技术人才招聘" target="_blank">技术人才招聘 </a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+
+</div>
+<!--left end-->
+
+<script type="text/javascript">
+    var favor_url = "http://ikinglai.blog.51cto.com/6220785/1324985";
+    var favor_title = "Android导入第三方静态库.a编译成动态库.so";
+    var favor_fuid = "6220785";
+</script>
+<script type="text/javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/favorbox.js"></script>
+
+
+<div class="blogRight" rel="6220785######Android静态库 Android动态库 NDK编译 Android动态库导入静态库" id="article_edu_void">
+<input type="hidden" value="12" id="edu_jia">
+			
+	<p style="clear:both;" class="edu_insert"></p>
+	<style type="text/css">
+.vlist {
+    float: left;
+    padding: 2px 0 0 10px;
+    width: 218px;
+	
+}
+.vlist img {
+    float: left;
+    margin-right: 10px;
+}
+.vlist dl {
+    float: left;
+    text-align: left;
+    width: 122px;
+}
+.vlist dl dt {
+    height: 44px;
+    overflow: hidden;
+    padding-top: 5px;
+}
+.vlist dl dt, .vlist dl dt a {
+    color: #262626;
+}
+.vlist dl dd, .vlist dl dd a {
+    color: #777777;
+}
+.vbox_tit {
+    border-bottom: 1px solid #B3D0E6;
+    color: #666666;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+}
+.video-icon {
+    position: relative;
+}
+.video-icon a.i_video {
+    background: url("http://www.51cto.com/images/homepage/Images/eduplay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 25px;
+    left: 41px;
+    position: absolute;
+    top: 22px;
+    width: 25px;
+    z-index: 10;
+}
+.vbox2 .vlist1{margin:0;}
+.edu-col-a{ float:left;margin-right:6px;}
+.edu-col-b{ float:left;}
+	</style><!--modCon end-->
+	<div class="artShow box" style="margin-top:5px;">
+   	  <div class="share" id="share">
+
+    <div class="shareItem">
+		<div class="m_sharelinks"><a target="_blank" href="" style="color:red;"></a><a target="_blank" href="" style="color:blue;"></a><a target="_blank" href="" style="color:blue;"></a></div>
+		<p class="shareMored"><a href="http://ikinglai.blog.51cto.com/all/6220785">博主的更多文章&gt;&gt;</a></p>
+	</div>
+      </div>
+       <div class="modCon">
+   	  <div class="showBox" style="margin:0 0 10px;">
+      <div class="line_hd_r"></div>
+      <div class="art_tj">
+
+      </div>
+
+ 
+    		<div class="showHead">
+    		  <div class="showTitleBOx" style="text-align:center">
+              <div class="showTitle">
+
+             <img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/artType01.jpg">
+
+
+    		    Android导入第三方静态库.a编译成动态库.so
+                </div>
+  		    </div>
+   		    <span class="artTime">2013-11-14 20:04:25</span></div><!--showHead end-->
+    <div class="showTags">标签：<a href="http://blog.51cto.com/tag-Android%E9%9D%99%E6%80%81%E5%BA%93.html" target="_blank" class="operlink">Android静态库</a> <a href="http://blog.51cto.com/tag-Android%E5%8A%A8%E6%80%81%E5%BA%93.html" target="_blank" class="operlink">Android动态库</a> <a href="http://blog.51cto.com/tag-NDK%E7%BC%96%E8%AF%91.html" target="_blank" class="operlink">NDK编译</a> <a href="http://blog.51cto.com/tag-Android%E5%8A%A8%E6%80%81%E5%BA%93%E5%AF%BC%E5%85%A5%E9%9D%99%E6%80%81%E5%BA%93.html" target="_blank" class="operlink">Android动态库导入静态库</a>
+
+	</div>
+
+			<div class="CopyrightStatement lh22">
+            原创作品，允许转载，转载时请务必以超链接形式标明文章 <a href="http://ikinglai.blog.51cto.com/6220785/1324985" target="_blank" style="text-decoration:underline">原始出处</a> 、作者信息和本声明。否则将追究法律责任。<a href="http://ikinglai.blog.51cto.com/6220785/1324985">http://ikinglai.blog.51cto.com/6220785/1324985</a>
+            </div>
+
+
+            <!--正文 begin-->
+    		<div class="showContent">
+    		  <p>在Android开发的时候，经常会使用到用c或c++编写的第三方的静态库。如果有源码的话，可以直接跟你自己的代码一去编译成动态库so，但是如果没有源码的话，你就必须在自己的动态库so里面将别人生成好的静态库导入进来一起编译了。我在编译的时候遇到了不少问题，我觉得有必要进行总结一下。</p><p><br></p><p>下面我以一个简单的实际例子来讲解如何在动态库中导入静态库。</p><p><br></p><p>静态库中的源代码有两个文件：static.h, static.c，有一个add方法</p><p><br></p><p>static.h</p><pre class="brush:cpp;toolbar:false;">#include &lt;stdio.h&gt;
+int add(int x, int y);</pre><p><br></p><p>static.c</p><pre class="brush:cpp;toolbar:false;">#include "static.h"
+int add(int x, int y)
+{
+    return x + y;
+}</pre><p><br></p><p>将它编译成静态库，Android.mk如下：</p><p><br></p><pre class="brush:as3;toolbar:false;">LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE    := static_add
+LOCAL_SRC_FILES := static.c
+include $(BUILD_STATIC_LIBRARY)</pre><p><br></p><p>注意编译静态库的时候，必须有一个Application.mk文件：</p><p><br></p><pre class="brush:as3;toolbar:false;">APP_MODULES:=static_add</pre><p><br></p><p>APP_MODULES的值应该和Android.mk中的<span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;">LOCAL_MODULE的值保持一样。</span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;"><br></span></p><p>然后调用ndk-build进行编译生成libstatic_add.a静态库。</p><p><br></p><p>hejinlai_iMac:jni hejinlai$ ndk-build</p><p>Prebuilt  : libstatic_add.a &lt;= jni/</p><p><br></p><p>生成静态库后，然后编写动态库中的源代码: share.h share.c</p><p>share.h</p><pre class="brush:as3;toolbar:false;">#include &lt;stdio.h&gt;
+int test_add(int x, int y);</pre><p>share.c</p><pre class="brush:as3;toolbar:false;">#include "share.h"
+#include "static.h"
+int test_add(int x, int y)
+{
+    // 调用static里面的方法
+    return add(x, y);
+}</pre><p><br></p><p>编写导入静态库的Android.mk：</p><p><br></p><pre class="brush:as3;toolbar:false;">LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE    := static_add
+LOCAL_SRC_FILES := libstatic_add.a
+include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_MODULE    := share_add
+LOCAL_STATIC_LIBRARIES := static_add
+LOCAL_SRC_FILES := share.c
+include $(BUILD_SHARED_LIBRARY)</pre><p><br></p><p>注意上面生成的<span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;">libstatic_add.a必须跟Android.mk放在同一目录下，否则需要填写相应的路径，然后进行编译：</span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;"></span></p><p>hejinlai_iMac:jni hejinlai$ ndk-build</p><p>Compile thumb : share_add &lt;= share.c</p><p>Prebuilt  : libstatic_add.a &lt;= jni/</p><p>SharedLibrary : libshare_add.so</p><p>Install  : libshare_add.so =&gt; libs/armeabi/libshare_add.so</p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;"><br></span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;">提示so编译成功。</span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;"><br></span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;">需要注意的是我这边share.c和static.c放在同一目录下，如果放在不同的目录下，需要指定</span><br></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;">LOCAL_C_INCLUDES链接到相应的路径。</span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;"><br></span></p><p><span style="font-family:consolas, &#39;bitstream vera sans mono&#39;, &#39;courier new&#39;, courier, monospace;line-height:17.59375px;background-color:#ffffff;"><br></span></p><p>本文出自 “<a href="http://ikinglai.blog.51cto.com/">移动开发</a>” 博客，请务必保留此出处<a href="http://ikinglai.blog.51cto.com/6220785/1324985">http://ikinglai.blog.51cto.com/6220785/1324985</a></p>
+    		</div><!--正文 end-->
+<script type="text/javascript">
+	var kevent = 'onabort|onblur|onchange|onclick|ondblclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload';
+	var aevent = kevent.split('|');
+
+	jQuery('.showContent img').each(function(){
+		var nimg = this;
+		jQuery.each(aevent, function(i, n){
+			if (n!='onload') {
+				jQuery(nimg).attr(n, '');
+			} else {
+				if (jQuery(nimg).attr(n) != 'if(this.width>650) this.width=650;') {
+					jQuery(nimg).attr(n, '');
+				}
+			}
+		});
+	});
+</script>
+<script type="text/javascript" charset="utf-8">
+var encodetitle = encodeURI('一篇很棒的博文分享给大家：《Android导入第三方静态库.a编译成动态库.so》');
+
+function show51share(){
+
+	window.open('http://t.51cto.com/index.php?m=share&url=http://ikinglai.blog.51cto.com/6220785/1324985&type=l&count=&relateUid=&appkey=3843950324&title=' + encodetitle);
+}
+</script>		
+<div class="m_sharebtn clear">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tbody><tr>
+		<td width="11%" height="43" align="center" valign="middle"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/ssk.png" alt="分享至"></td>
+		<td width="77%" align="left" valign="top">
+<!-- 			
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+<script>
+var bds_config = {'wbUid':1706976420};
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false, 'bdPic':'http://blog.51cto.com/attachment/201305/173413310.jpg',"bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+ -->
+
+<div class="bdsharebuttonbox"><a href="http://ikinglai.blog.51cto.com/#" class="bds_more" data-cmd="more"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="http://ikinglai.blog.51cto.com/#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2065779340"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"http://blog.51cto.com/img/blog_down0731.jpg","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+	<!-- Baidu Button END --></td>
+		<td width="12%" align="right" valign="middle"><a href="javascript:favorBox(&#39;open&#39;);" title="一键收藏，随时查看，分享好友！"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/favorite_add_small.gif" border="0" alt="一键收藏，随时查看，分享好友！"></a></td>
+	  </tr>
+	</tbody></table>
+
+</div>			
+    		<div class="showBottom">
+            <!--<div class="reviews"><span class="fl" style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">懒小米、hnraysir</a>
+
+            </span><div id="favourdiv" class="support01">2人</div>
+              <span class="fl">了这篇文章</span></div>-->
+              <table width="720" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td align="right"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/icon01.png" width="15" height="16"> <span style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">懒小米、hnraysir</a></span></td>
+    <td width="70" align="left"><div style="line-height:28px;" id="favourdiv" class="support01">2人</div></td>
+    <td width="60" align="left">了这篇文章</td>
+  </tr>
+</tbody></table>
+
+
+
+
+            <div class="showType">类别：<a href="http://ikinglai.blog.51cto.com/6220785/d-2" class="operlink">Android</a>┆阅读(<span id="readNum">0</span>)┆评论(<span id="cmtNum">0</span>)
+
+┆
+<a href="http://ikinglai.blog.51cto.com/">返回博主首页</a>┆<a href="http://blog.51cto.com/">返回博客首页</a></div>
+            <div class="prevNext">
+
+			上一篇 <a href="http://ikinglai.blog.51cto.com/6220785/1324936" class="operlink" title="Mac OS X 编译Android内核源代码">Mac OS X 编译Android内核源代码</a>
+
+
+			下一篇 <a href="http://ikinglai.blog.51cto.com/6220785/1383996" class="operlink" title="算法导论第2章代码">算法导论第2章代码</a>
+
+
+            </div>
+
+            </div>
+
+	  </div><!--showBottom end-->
+      </div><!--modCon-->
+    <span class="modBot"></span>
+    </div><!--artShow end-->
+    <span class="blank"></span>
+	
+	<div class="relatedArt box">
+<a href="http://www.huodongxing.com/event/3323249171400?tt" target="_blank"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/wKioL1beSp-wJmNLAACiOmIlZWc710.jpg"></a>
+</div>
+
+<div class="artComm " style="height:170px;">
+   <div class="relatedArt box1 mr10">
+    <div class="title" name="zhuanti" id="zhuanti"><h2>相关文章</h2></div>
+    <div class="modCon">
+<ul>
+
+
+<li><a href="http://xiaominghimi.blog.51cto.com/2614927/969986" title="【Cocos2d-X(2.x) 游戏开发系列之二】cocos2dx最新2.0.1版本跨平台整合NDK+Xcode编译到Android" target="_blank">【Cocos2d-X(2.x) 游戏开发系列之二】cocos2..</a></li>
+
+
+
+
+
+
+</ul>
+
+
+
+<span class="blank6"></span>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+<!--相关文章 end-->
+        <div class="relatedArt box1">
+    <div class="title" name="zhuanti" id="zhuanti"><h2>职位推荐</h2></div>
+    <div class="modCon">
+
+<ul>
+
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-983.html" target="_blank">UI设计</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-1812.html" target="_blank">IOS工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-1145.html" target="_blank">IOS工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-1454.html" target="_blank">iOS开发工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-1132.html" target="_blank">iOS高级工程师</a></li>
+
+
+
+</ul>
+
+
+
+
+<span class="blank6"></span>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div><!--职位推荐 end-->
+
+</div>
+
+
+<div class="artComm box">
+    <div class="title"><a name="replay"></a><h2>文章评论</h2></div>
+    <div class="modCon" id="artcomment">
+		<div>  &nbsp;</div><a name="636136"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid0"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[1楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://hnraysir.blog.51cto.com/" class="operlink" ref="nofollow"><b>hnraysir</b></a></label><label style="float:right">&nbsp;<a href="http://ikinglai.blog.51cto.com/#" class="repost operlink" user_name="hnraysir" parentid="636136">回复</a></label></div></div><div align="right">2015-04-14 09:59:23</div><div class="commentcontent"><br>谢谢你的分享!对我有帮助！</div></div><br><div>  &nbsp;</div>
+    </div><!--modCon-->
+        <span class="modBot"></span>
+</div><!--commBox end-->
+<a href="" id="com_top_top"></a>
+<div class="artComm box" style="750px;height:90px">
+<script type="text/javascript">
+    var cpro_id = "u2386995";
+</script>
+<script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/c.js" type="text/javascript"></script><div id="BAIDU_UNION__wrapper_u2386995_0"><iframe id="iframeu2386995_0" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/acom.html" width="750" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div>
+</div><form action="http://ikinglai.blog.51cto.com/comment.php?" method="post" name="form1" id="form1" onsubmit="return commentSubmit(this,&quot;&quot;);">
+<span class="blank1"></span>
+<div class="box writeComm" style="min-height:30px;">
+<a name="comment"></a>
+<input type="hidden" name="action" value="comment">
+<input id="commenttid" type="hidden" name="tid" value="1324985">
+<input type="hidden" name="com_count_ajax" id="com_count_ajax" value="1">
+
+ <div class="title">
+	<h2 class="fl">发表评论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+	<span class="fl" id="messageTj">
+<script type="text/javascript"><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg2.51cto.com/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=460");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><script type="text/javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/ajs.php"></script><a href="http://gg2.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=1090__zoneid=460__cb=9cd837975d__oadest=http%3A%2F%2Fgaozhao.51cto.com%2Fjob%2Fview%2Fid-1372.html%3Fblog1" target="_blank"><font color="red" style="text-decoration:underline"> 【领导直招】深圳云财经15k招募运维工程师
+</font></a><div id="beacon_9cd837975d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+
+</span>
+	<style type="text/css">
+		a.mred:link{ color:#ff0000; text-decoration:underline;}
+		a.mred:visited{color:#ff0000;}
+		a.mred:hover{color:#ff0000;}
+		a.mred:active{color:#ff0000;}
+	</style>
+</div>
+<div style="display:none" rel="51CTO电子期刊改版意见大征集，提你所需，建你所想！" id="ggBox">
+<script type="text/javascript"><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg2.51cto.com/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=460");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><script type="text/javascript" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/ajs.php"></script><a href="http://gg2.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=1090__zoneid=460__cb=9cd837975d__oadest=http%3A%2F%2Fgaozhao.51cto.com%2Fjob%2Fview%2Fid-1372.html%3Fblog1" target="_blank"><font color="red" style="text-decoration:underline"> 【领导直招】深圳云财经15k招募运维工程师
+</font></a><div id="beacon_9cd837975d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+
+</div>
+<script>
+document.getElementById("messageTj").innerHTML = document.getElementById("ggBox").innerHTML;
+</script>
+ <div class="modCon">
+
+ <div class="commForm">
+<dl>
+<dt>昵&nbsp;&nbsp;称：</dt>
+<dd>
+
+<input type="text" id="commentusername" name="username" value="" class="commInput fl"><span><a href="http://home.51cto.com/index.php?reback=http%253A%252F%252Fikinglai.blog.51cto.com%252F6220785%252F1324985" style="text-decoration:underline">登录</a>&nbsp;&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http://blog.51cto.com" target="_blank" style="text-decoration: underline;">快速注册</a></span>
+
+
+
+</dd>
+</dl>
+
+
+
+<dl id="commentyanzheng">
+
+
+<dt>验证码：</dt>
+<dd><input class="code" type="text" value="" id="commentauthnum" name="authnum" onclick="displaysecunum();">
+
+  <img width="78" class="fl" height="29" id="secunum" onclick="refimg()" style="display:none;"><p class="fl"><span style="display:none;" id="spanfont">点击图片可刷新验证码</span><span style="display:inline;" id="clickfont">请点击后输入验证码</span><span class="pl5"><a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank" style="text-decoration: underline;">博客过2级，无需填写验证码</a></span></p></dd>
+</dl>
+<dl>
+<dt>内&nbsp;&nbsp;容：</dt>
+<dd>
+<textarea class="writeCommCon f12" id="commentcontent" name="content"></textarea>
+</dd>
+</dl>
+</div>
+<div class="writeCommBot">
+  <input type="hidden" name="parentid" value="" id="parentid">
+  <input class="commBtn fl" name="submit" type="button" id="commentsubmit" value="" onclick="commentSubmitend2()">
+
+ <p class="fl" style="display:none;"><input class="fl" type="checkbox" name="favour" id="favour" checked="" value="1"><span class="fl">同时赞一个</span></p>
+
+</div>
+<span class="blank"></span>
+
+</div><!--modCon-->
+<span class="modBot"></span>
+</div>
+</form>
+<div style="display:none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2283d46608159c3b39fc9f1178809c21' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=2283d46608159c3b39fc9f1178809c21" target="_blank"><img border="0" src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/21.gif" width="20" height="20"></a>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57622524-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</div>
+<iframe id="iframe1" name="iframe1" width="0" height="0"></iframe>
+<!--发表评论 end-->
+</div>
+</div>
+<div id="f_close_box" style="width:150px; height:300px; position:fixed; top:42%;left:0; z-index:100; _position:absolute; _margin-top: 0; _top:expression(documentElement.scrollTop+(documentElement.clientHeight-this.offsetHeight)/2+50);">
+
+	<img src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/wKioL1VHFCjRwiyNAAB-jIackwQ674.jpg" border="0" usemap="#Map1">
+    <map name="Map1" id="Map1">
+      <area shape="rect" coords="124,7,143,25" href="javascript:void(0);" onclick="document.getElementById(&#39;f_close_box&#39;).style.display=&#39;none&#39;;">
+    </map>
+    
+</div>
+<script language="javascript">
+	function refimg(){
+		var randval = Math.random();
+		document.getElementById("secunum").src="/seccode.php?rnum="+randval;
+	}
+	function displaysecunum()
+	{
+		var displaystr = document.getElementById("secunum").style.display;
+		if(displaystr == 'none')
+		{
+			refimg();
+			document.getElementById("clickfont").style.display = 'none';
+			document.getElementById("secunum").style.display = 'inline';
+			document.getElementById("spanfont").style.display = 'inline';
+		}
+	}
+
+	function showMsn(){
+		document.getElementById("c02").style.display = "none";
+		document.getElementById("c01").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+	function showBBS(){
+		document.getElementById("c01").style.display = "none";
+		document.getElementById("c02").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+
+	//资源页面，分享按钮
+	function copyShareUrl(title){
+
+		if (window.clipboardData){
+
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				copy = "推荐：" + title + "http://ikinglai.blog.51cto.com/6220785/1324985";
+				var alertText = "复制成功，你可以粘贴到MSN或QQ中发给好友。";
+			}
+			else
+			{
+				copy = "[url=" + "http://ikinglai.blog.51cto.com/6220785/1324985" + "][u]" + title + "[/u][/url]";
+				var alertText = "复制成功，你可以粘贴到论坛分享给坛友。";
+			}
+			window.clipboardData.clearData();
+			window.clipboardData.setData("Text", copy);
+			alert(alertText);
+		}
+		else if (window.netscape){
+			alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。");
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				document.getElementById("shareTextQM").value = "推荐：" + title + "http://ikinglai.blog.51cto.com/6220785/1324985";
+				document.getElementById("shareTextQM").select();
+			}
+			else
+			{
+				document.getElementById("shareTextBBS").value = "[url=" + "http://ikinglai.blog.51cto.com/6220785/1324985" + "][u]" + title + "[/u][/url]";
+                document.getElementById("shareTextBBS").select();
+			}
+		}
+		return false;
+	}
+	function select_login(){
+		document.getElementById('fixed').style.display='';
+	}
+	function commentcheck()
+	{
+		if(document.form1.content.value == "")
+		{
+			alert("评论内容为空!");
+			document.form1.content.focus();
+			return false;
+		}
+	}
+	function changename(){
+
+	var memberid=0;
+	memberid="";
+
+	if(document.getElementById('commentniming').checked){
+		document.getElementById('commentusername').disabled=false;
+		document.getElementById('commentusername').value='';
+		document.getElementById("indexhidden").style.display="none";
+		document.getElementById("commentindex").value='';
+		document.getElementById("commentyanzheng").style.display="";
+	}else{
+		document.getElementById('commentusername').disabled=true;
+		document.getElementById('commentusername').value="";
+		document.getElementById("indexhidden").style.display="";
+		document.getElementById("commentindex").value="http://.blog.51cto.com";
+		if(memberid>8)
+		{
+			document.getElementById("commentyanzheng").style.display="none";
+		}
+	}
+	}
+	function openFavoulist()
+	{
+		window.open ('http://blog.51cto.com/mod/favourlist.php?tid=1324985','newwindow','height=300,width=500,top=400,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no,z-look=yes');
+	}
+
+	var e_zti = document.getElementById('zti');//有专题锚点
+	var maodian = window.location.href;//锚点
+	if (e_zti) {
+		//e_zti.href= (/[#]+/.test(maodian)) ? maodian : maodian + "#zhuanti";
+	}
+</script>
+<script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/jquery-1.7.1.min.js"></script>
+<script src="./Android导入第三方静态库.a编译成动态库.so - 移动开发 - 51CTO技术博客_files/jquery.cookie.js"></script></body></html>
