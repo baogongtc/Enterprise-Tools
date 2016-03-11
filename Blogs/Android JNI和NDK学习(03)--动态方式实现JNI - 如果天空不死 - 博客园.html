@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0067)http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092491.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/ca-pub-4210569241504288.js"></script>
+
+<title>Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/bundle-blue.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/skywang12345/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/skywang12345/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/skywang12345/wlwmanifest.xml">
+<script async="" src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/encoder.js"></script><script src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'skywang12345', cb_enable_mathjax=false;</script>
+<script src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div class="pagelayout">
+    
+<div class="header">
+	<div>
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/skywang12345/">skywang12345</a>
+	</div>
+	<div>
+		
+	</div>
+</div>
+    <div id="leftmenu" class="leftcolumn">
+        
+            
+<h1 class="listtitle">导航</h1>
+<ul class="list">
+			<li class="listitem"><a id="MyLinks1_HomeLink" class="listitem" href="http://www.cnblogs.com/">博客园</a></li>
+			<li class="listitem"><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/skywang12345/">首页</a>
+			</li><li class="listitem"><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>
+			</li><li class="listitem"><a id="MyLinks1_ContactLink" accesskey="9" class="listitem" rel="nofollow" href="http://msg.cnblogs.com/send/%E5%A6%82%E6%9E%9C%E5%A4%A9%E7%A9%BA%E4%B8%8D%E6%AD%BB">联系</a></li>
+			<li class="listitem"><a id="MyLinks1_Syndication" class="listitem" href="http://www.cnblogs.com/skywang12345/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/skywang12345/rss"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/xml.gif" alt="订阅"></a>
+			</li><li class="listitem"><a id="MyLinks1_Admin" class="listitem" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+            <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/02/01&#39;);return false;">&lt;</a></td><td align="center">2016年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalTodayDay" align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+            
+<div class="listtitle">统计</div>
+	<ul class="list">
+		<li class="listitem">随笔 - 278
+		</li><li class="listitem">文章 - 0
+		</li><li class="listitem">评论 - 513
+		</li><li class="listitem">引用 - 0
+	</li>
+</ul>
+            
+            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/skywang12345/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/skywang12345/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/skywang12345/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/skywang12345/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/skywang12345/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_categories">
+		<h1 class="listtitle">随笔分类<span style="font-size:11px;font-weight:normal">(275)</span></h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/skywang12345/category/493848.html">Android(7)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/skywang12345/category/482610.html">Android NDK编程(9)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/skywang12345/category/490118.html">Android 系统层(5)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/skywang12345/category/455318.html">Android 应用层(46)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/skywang12345/category/476579.html">Computer Culture(2)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/skywang12345/category/455711.html">Java(111)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/skywang12345/category/481789.html">Linux/Ubuntu(5)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/skywang12345/category/548620.html">UML(5)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/skywang12345/category/540303.html">Windows(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/skywang12345/category/548777.html">设计模式(1)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/skywang12345/category/508186.html">数据结构_算法(79)</a>  </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_11" class="listitem" href="http://www.cnblogs.com/skywang12345/category/489072.html">索引(4)</a>  </li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3308833.html#3375060">1. Re:Java 集合系列06之 Vector详细介绍(源码解析)和使用示例</a></li>
+    <li class="recent_comment_body">在JDK1.6u45（Java(TM) SE Runtime Environment (build 1.6.0_45-b06)）下执行多次，基本都是这个结果：iteratorThroughRandom......</li>
+    <li class="recent_comment_author">--小关部落</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3311275.html#3374771">2. Re:Java 集合系列18之 Iterator和Enumeration比较</a></li>
+    <li class="recent_comment_body">你好，在这篇文章中一句话我个人理解似乎不是特别正确，说iterator迭代器支持fail-fast机制，而后者则不支持，在我的理解看来，fail-fast应该只是一种机制，直白的理解就是快速错误，就是......</li>
+    <li class="recent_comment_author">--HCoderr</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3480016.html#3372532">3. Re:Java多线程系列--“基础篇”11之 生产消费者问题</a></li>
+    <li class="recent_comment_body">@leoric xulz代码用的是while(left)应该就是解决这个问题...</li>
+    <li class="recent_comment_author">--mrshen</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3576328.html#3371851">4. Re:二叉查找树(一)之 图文解析 和 C语言的实现</a></li>
+    <li class="recent_comment_body">跪了XD 大神回俺了 感動!!感謝開導 了解了想問一下 看到大神有在別篇提過紅黑樹和鏈表在 linux kernel 的具體應用想請問一下大大:(1) 除上述二者 可以順帶提點一下 其它的有在......</li>
+    <li class="recent_comment_author">--eric5420</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/skywang12345/p/3509954.html#3371804">5. Re:Java多线程系列--“JUC线程池”03之 线程池原理(二)</a></li>
+    <li class="recent_comment_body">赞</li>
+    <li class="recent_comment_author">--lovebingheji</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/skywang12345/p/3154150.html">1. Android 布局之GridLayout(18151)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/java_threads_category.html">2. Java多线程系列目录(共43篇)(16924)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/3603935.html">3. 数据结构与算法系列 目录(15402)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/3245399.html">4. 红黑树(一)之 原理和算法详细介绍(13956)</a></li><li><a href="http://www.cnblogs.com/skywang12345/p/3310835.html">5. Java 集合系列10之 HashMap详细介绍(源码解析)和使用示例(13328)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+        
+        <div class="spacer">
+            &nbsp;</div>
+    </div>
+    <div class="centercolumn">
+        
+<div id="post_detail">
+<div class="singlepost">
+	<div class="posttitle">
+		<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092491.html">Android JNI和NDK学习(03)--动态方式实现JNI</a>
+	</div>
+    <div class="postbody">
+	<div id="cnblogs_post_body"><p style="text-align: center;"><span style="font-size: 24pt;"><strong>Android JNI和NDK学习(03)--动态方式实现JNI</strong></span></p>
+<p>&nbsp;</p>
+<p>前面总结了静态实现JNI的方法，本文介绍如何动态实现JNI：JNI在加载时，会调用JNI_OnLoad，而卸载时会调用JNI_UnLoad，所以我们可以通过在JNI_OnLoad里面注册我们的native函数来实现JNI。下面就介绍该方法。</p>
+<p><span style="color: #ff0000; font-size: 18pt;"><strong>1 Android应用层代码</strong></span></p>
+<p>在eclipse中新建工程NdkLoad，工程文件NdkLoad.java的代码如下：&nbsp;</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> com.skywang.ndk;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.app.Activity;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.os.Bundle;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.widget.TextView;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> NdkLoad <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Activity {
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">final</span> String TAG="skywang--NdkLoad"<span style="color: #000000;">;
+    
+    @Override
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState)
+    {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);
+
+        Log.d(TAG, </span>"on create"<span style="color: #000000;">); 
+        TextView  myTextView </span>= <span style="color: #0000ff;">new</span> TextView(<span style="color: #0000ff;">this</span><span style="color: #000000;">);
+        myTextView.setText( HelloLoad() );
+        setContentView(myTextView);
+    }
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> jni中注册的方法</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">native</span><span style="color: #000000;"> String HelloLoad();
+
+    </span><span style="color: #0000ff;">static</span><span style="color: #000000;"> {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 加载本地libndk_load.so库文件</span>
+        System.loadLibrary("ndk_load"<span style="color: #000000;">);
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>public native String HelloLoad()</strong>; 这句话的作用是声明HelloLoad()这个本地方法。HelloLoad()是通过jni中注册到Android的方法，具体的实现在libndk_load.so中。<br><strong>System.loadLibrary("ndk_load")</strong>; 这个函数的作用是加载libndk_load.so库文件。由于定义在NdkLoad类的static函数体中，所以在建立NdkLoad这个Acitivity时就会执行。</p>
+<p>下面介绍ndk_load的具体实现。</p>
+<p>我们知道，系统初始化JNI在加载时，会调用JNI_OnLoad()，而卸载时会调用JNI_UnLoad()；所以，我们可以通过重写JNI_OnLoad()，在JNI_OnLoad()中将函数注册到Android中，以便能通过Java访问。在本文中，我们就是重写JNI_OnLoad()函数实现ndk_load库。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;"><strong><span style="color: #ff0000;">2 JNI动态注册的实现方法</span></strong></span></p>
+<p><span style="color: #ff0000; font-size: 14pt;"><strong>2.1 编写JNI动态注册的方法</strong></span></p>
+<p><strong>(01) 打开终端，切换到NdkLoad所在目录，新建jni目录。</strong></p>
+<p>假设NdkLoad所在目录为"/home/skywang/workspace/android_apps/NdkLoad"，则执行以下命令：</p>
+<div class="cnblogs_code">
+<pre>$ <span style="color: #0000ff;"><strong>cd /home/skywang/workspace/android_apps/NdkLoad/</strong></span><span style="color: #000000;">
+$ </span><span style="color: #0000ff;"><strong>mkdir jni</strong></span></pre>
+</div>
+<p><strong>(02) 在jni目录下新建ndk_load.c，ndk_load.c的代码如下：</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include &lt;stdlib.h&gt;<span style="color: #000000;">
+#include </span>&lt;string.h&gt;<span style="color: #000000;">
+#include </span>&lt;stdio.h&gt;<span style="color: #000000;">
+#include </span>&lt;jni.h&gt;<span style="color: #000000;">
+#include </span>&lt;<span style="color: #0000ff;">assert</span>.h&gt;
+
+
+<span style="color: #008000;">//</span><span style="color: #008000;"> 获取数组的大小</span>
+# define NELEM(x) ((<span style="color: #0000ff;">int</span>) (sizeof(x) / sizeof((x)[0<span style="color: #000000;">])))
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> 指定要注册的类，对应完整的java类名</span>
+#define JNIREG_CLASS "com/skywang/ndk/NdkLoad"
+
+
+<span style="color: #008000;">//</span><span style="color: #008000;"> 返回字符串"hello load jni"</span>
+JNIEXPORT jstring JNICALL native_hello(JNIEnv *<span style="color: #000000;">env, jclass clazz)
+{
+    </span><span style="color: #0000ff;">return</span> (*env)-&gt;NewStringUTF(env, "hello load jni."<span style="color: #000000;">);
+}
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> Java和JNI函数的绑定表</span>
+<span style="color: #0000ff;">static</span> JNINativeMethod method_table[] =<span style="color: #000000;"> {
+    { </span>"HelloLoad", "()Ljava/lang/String;", (<span style="color: #0000ff;">void</span>*)native_hello },<span style="color: #008000;">//</span><span style="color: #008000;">绑定</span>
+<span style="color: #000000;">};
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> 注册native方法到java中</span>
+<span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> registerNativeMethods(JNIEnv* env, <span style="color: #0000ff;">const</span> <span style="color: #0000ff;">char</span>*<span style="color: #000000;"> className,
+        JNINativeMethod</span>* gMethods, <span style="color: #0000ff;">int</span><span style="color: #000000;"> numMethods)
+{
+    jclass clazz;
+    clazz </span>= (*env)-&gt;<span style="color: #000000;">FindClass(env, className);
+    </span><span style="color: #0000ff;">if</span> (clazz ==<span style="color: #000000;"> NULL) {
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> JNI_FALSE;
+    }
+    </span><span style="color: #0000ff;">if</span> ((*env)-&gt;RegisterNatives(env, clazz, gMethods, numMethods) &lt; 0<span style="color: #000000;">) {
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> JNI_FALSE;
+    }
+
+    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> JNI_TRUE;
+}
+
+</span><span style="color: #0000ff;">int</span> register_ndk_load(JNIEnv *<span style="color: #000000;">env)
+{
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 调用注册方法</span>
+    <span style="color: #0000ff;">return</span><span style="color: #000000;"> registerNativeMethods(env, JNIREG_CLASS,
+            method_table, NELEM(method_table));
+}
+
+JNIEXPORT jint JNI_OnLoad(JavaVM</span>* vm, <span style="color: #0000ff;">void</span>*<span style="color: #000000;"> reserved)
+{
+    JNIEnv</span>* env =<span style="color: #000000;"> NULL;
+    jint result </span>= -1<span style="color: #000000;">; 
+
+    </span><span style="color: #0000ff;">if</span> ((*vm)-&gt;GetEnv(vm, (<span style="color: #0000ff;">void</span>**) &amp;env, JNI_VERSION_1_4) !=<span style="color: #000000;"> JNI_OK) {
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> result;
+    }   
+
+    register_ndk_load(env);
+
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 返回jni的版本</span>
+    <span style="color: #0000ff;">return</span><span style="color: #000000;"> JNI_VERSION_1_4;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>JNI_OnLoad()会在JNI注册时被调用。在JNI_OnLoad()中，调用register_ndk_load()。<br>register_ndk_load()调用registerNativeMethods()。<br>registerNativeMethods()中通过FindClass()找到class；然后通过RegisterNatives()将method_table注册到class中。method_table是JNINativeMethod类型。<br>JNINativeMethod的定义如下：</p>
+<div class="cnblogs_code">
+<pre>typedef <span style="color: #0000ff;">struct</span><span style="color: #000000;"> {
+    </span><span style="color: #0000ff;">const</span> <span style="color: #0000ff;">char</span>* name;      <span style="color: #008000;">//</span><span style="color: #008000;"> Java中申明的Native函数名称</span>
+    <span style="color: #0000ff;">const</span> <span style="color: #0000ff;">char</span>* signature; <span style="color: #008000;">//</span><span style="color: #008000;"> 描述了函数的参数和返回值</span>
+    <span style="color: #0000ff;">void</span>* fnPtr;           <span style="color: #008000;">//</span><span style="color: #008000;"> 函数指针，指向C函数</span>
+} JNINativeMethod;</pre>
+</div>
+<p>通过method_table，就将本地的native_hello()函数和注册到Java中的HelloLoad()绑定起来了。当我们在Java中调用HelloLoad()时，实际调用的是native_hello()。</p>
+<p><strong>(03) 在jni目录下新建Android.mk，Android.mk的代码如下：</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>LOCAL_PATH := $(call my-<span style="color: #000000;">dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE    :</span>=<span style="color: #000000;"> ndk_load
+LOCAL_SRC_FILES :</span>=<span style="color: #000000;"> ndk_load.c</span><span style="color: #000000;">
+
+include $(BUILD_SHARED_LIBRARY)
+
+LOCAL_PATH :</span>= $(call my-dir)</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="color: #ff0000; font-size: 18pt;"><strong>3 编译生成.so库文件</strong></span></p>
+<p>切换到NdkLoad工程目录，并执行ndk-build，生成.so库文件。执行的命令如下：</p>
+<div class="cnblogs_code">
+<pre>$ <span style="color: #0000ff; background-color: #ffffff;"><strong>cd /home/skywang/workspace/android_apps/NdkLoad/</strong></span><span style="color: #000000;">
+$ <span style="color: #0000ff;"><strong>ndk</strong></span></span><span style="color: #0000ff;"><strong>-build</strong></span></pre>
+</div>
+<p>命令执行成功，则生成“<strong>libs/armeabi/libndk_load.so</strong>”库文件。若命令执行失败，请先确保已经导入了ndk环境变量(请参考“<a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3095013.html"><strong>Android JNI和NDK学习(01)--搭建NDK开发环境</strong></a>”)！</p>
+<p><span style="color: #ff0000; font-size: 18pt;"><strong>4 执行工程</strong></span></p>
+<p>以下是在平板上运行的实际效果图：</p>
+<p><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/22143318-b55eb915bf434f45b134eea0c60de17f.png" alt=""></p>
+<p>&nbsp;</p>
+<p>点击下载：<a href="http://files.cnblogs.com/skywang12345/NdkLoad_without_log_20130522.zip"><span style="color: #0000ff; font-size: 14pt;"><strong>源代码</strong></span></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"><table><tbody><tr><td><img style="width: 80px; height:80px;" src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/t_f1.jpg" alt="img"></td><td style="FONT-WEIGHT: normal; FONT-SIZE: 14pt; LINE-HEIGHT: 100%; FONT-STYLE: normal; FONT-VARIANT: normal; color:#FF0000"><font style="LINE-HEIGHT: 250%; FONT-SIZE:14pt; color:#610B21">生活的悲欢离合永远在地平线以外，而眺望是一种青春的姿态...</font><br>PS.文章是笔者分享的学习笔记，若你觉得可以、还行、过得去、甚至不太差的话，可以“推荐”一下的哦。就此谢过!</td></tr></tbody></table></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/skywang12345/category/482610.html">Android NDK编程</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/skywang12345/tag/android/">android</a>, <a href="http://www.cnblogs.com/skywang12345/tag/jni/">jni</a>, <a href="http://www.cnblogs.com/skywang12345/tag/ndk/">ndk</a>, <a href="http://www.cnblogs.com/skywang12345/tag/JNI_OnLoad/">JNI_OnLoad</a>, <a href="http://www.cnblogs.com/skywang12345/tag/JNINativeMethod/">JNINativeMethod</a>, <a href="http://www.cnblogs.com/skywang12345/tag/%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C/">动态注册</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3092491,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/%E5%A6%82%E6%9E%9C%E5%A4%A9%E7%A9%BA%E4%B8%8D%E6%AD%BB" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/skywang12345/" target="_blank"><img src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/20131015182802.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/skywang12345/">如果天空不死</a><br>
+<a href="http://home.cnblogs.com/u/skywang12345/followees">关注 - 9</a><br>
+<a href="http://home.cnblogs.com/u/skywang12345/followers">粉丝 - 623</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(3092491,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(3092491,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3095074.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3095074.html" title="发布于2013-05-23 16:39">Android JNI和NDK学习(02)--静态方式实现JNI</a><br><a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092812.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092812.html" title="发布于2013-05-23 17:05">Android JNI和NDK学习(04)--NDK调试方法</a><br></div>
+</div>
+
+
+    </div>
+	<div class="itemdesc">
+		posted on <span id="post-date">2013-05-23 16:44</span> <a href="http://www.cnblogs.com/skywang12345/">如果天空不死</a> 阅读(<span id="post_view_count">3206</span>) 评论(<span id="post_comment_count">1</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=3092491" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092491.html#" onclick="AddToWz(3092491);return false;">收藏</a>
+	</div>
+</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=142383,cb_entryId=3092491,cb_blogApp=currentBlogApp,cb_blogUserGuid='529b107b-d87b-e211-aa8f-842b2b196315',cb_entryCreatedDate='2013/5/23 16:44:00';loadViewCount(cb_entryId);</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="评论"></a>
+<div class="moreinfo">
+	<div class="moreinfotitle">
+		Comments
+	</div>
+		
+	
+			<ul class="morelist">
+		
+			<li class="morelistitem">
+				<div class="moreinfotitle">
+					<a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092491.html#3057154" class="layer">#1楼</a><a name="3057154" id="comment_anchor_3057154"></a><span id="comment-maxId" style="display:none;">3057154</span><span id="comment-maxDate" style="display:none;">2014/11/4 13:59:28</span>
+				</div>
+				<a id="a_comment_author_3057154" href="http://www.cnblogs.com/elesos/" target="_blank">www点elesos点com</a> <a href="http://msg.cnblogs.com/send/www%E7%82%B9elesos%E7%82%B9com" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				Posted @  <span class="comment_date">2014-11-04 13:59</span><br>
+				<div id="comment_body_3057154" class="blog_comment_body">总结得相当不错，支持下。<br><br>已转载并附链接<br><br>by www.elesos.com 站长<br><br><a href="http://vcup.in/dtXf" target="_blank">http://vcup.in/dtXf</a> 免费vpn，我现在每月流量25G了，访问youtube一点不卡，亲测可用，不限速。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3057154,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3057154,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3057154_avatar" style="display:none;">http://pic.cnblogs.com/face/u461810.jpg?id=05104633</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			</li>
+		
+			</ul>
+		
+</div>
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092491.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/skywang12345/archive/2013/05/23/3092491.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－专注为 App 开发者提供IM云服务</a><br><a href="http://www.ucloud.cn/site/active/new_gift.html?utm_source=cost&amp;utm_campaign=bokeyuan1&amp;utm_medium=display&amp;utm_content=3yuecu" target="_blank">【推荐】UCloud开年大礼，充5000返1000；买云主机送CDN，详情点击</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block">     <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-4210569241504288" data-ad-slot="5457903683" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/540780/" target="_blank">小米再澄清：账面超100亿元没在融资 中信已辟谣</a><br> ·  <a href="http://news.cnblogs.com/n/540779/" target="_blank">能否满足果粉需求 iOS 10新特性盘点</a><br> ·  <a href="http://news.cnblogs.com/n/540778/" target="_blank">马云要建公寓6折卖给员工</a><br> ·  <a href="http://news.cnblogs.com/n/540777/" target="_blank">你所不知道的乔布斯：他是如何改变世界的</a><br> ·  <a href="http://news.cnblogs.com/n/540776/" target="_blank">任正非MWC讲话：终端业务很闪耀 但非公司重点</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jpush.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./Android JNI和NDK学习(03)--动态方式实现JNI - 如果天空不死 - 博客园_files/24442-20160307140747632-1210035054.jpg" alt="极光推送20160307" title="极光推送20160307"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/539160/" target="_blank">架构漫谈（一）：什么是架构？</a><br> ·  <a href="http://kb.cnblogs.com/page/540632/" target="_blank">架构的本质</a><br> ·  <a href="http://kb.cnblogs.com/page/538249/" target="_blank">谷歌背后的数学</a><br> ·  <a href="http://kb.cnblogs.com/page/533808/" target="_blank">Medium开发团队谈架构设计</a><br> ·  <a href="http://kb.cnblogs.com/page/539274/" target="_blank">理解“渐进增强(Progressive Enhancement)”</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+        <div class="spacer">
+            &nbsp;</div>
+    </div>
+    
+<div class="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 如果天空不死
+</div>
+</div>
+
+
+
+</body></html>

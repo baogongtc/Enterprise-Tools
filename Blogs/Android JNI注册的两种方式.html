@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://coolerfall.com/android/jni_register/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Android JNI注册的两种方式</title>
+
+    <meta name="keywords" content="Vincent Cheung, Blog, Android, Android Developer, Android开发, golang, github">
+    <meta name="description" content="Android Developer, Gopher, Open Source, Charcoal Drawing">
+    <meta name="author" content="Vincent Cheung">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="./Android JNI注册的两种方式_files/bootstrap.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="./Android JNI注册的两种方式_files/bs-sticky-footer.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="./Android JNI注册的两种方式_files/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="./Android JNI注册的两种方式_files/cooler.css" rel="stylesheet" type="text/css">
+    <link href="./Android JNI注册的两种方式_files/highlight.css" rel="stylesheet" type="text/css">
+    <link href="http://coolerfall.com/assets/themes/bootstrap-3/images/favicon.ico" rel="shortcut icon">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- atom & rss feed -->
+    <link href="http://coolerfall.com/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="http://coolerfall.com/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" async="" src="./Android JNI注册的两种方式_files/embed.js" charset="UTF-8"></script><script type="text/javascript" async="" src="./Android JNI注册的两种方式_files/embed.js" charset="UTF-8"></script><link type="text/css" rel="stylesheet" href="./Android JNI注册的两种方式_files/embed.bluebox.css"></head>
+
+  <body background="./Android JNI注册的两种方式_files/letter-paper.png">
+    <div class="container">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="http://coolerfall.com/">coolerfall</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="http://coolerfall.com/about.html">关于</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="http://coolerfall.com/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="http://coolerfall.com/contents.html">目录</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="http://coolerfall.com/project.html">Github上的项目</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+          <!-- <form action="" class="navbar-form pull-right" method="get" role="search">
+            <div class="form-group">
+              <input type="text" id="st-search-input" class="form-control col-md-8" placeholder="搜索">
+            </div>
+          </form> -->
+        </div><!-- /.navbar-collapse -->
+      </nav>
+    </div><!-- container -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="content">
+            
+<!-- post pages -->
+<div class="row post-full typo">
+  <div class="col-xs-12">
+    <div class="title">
+      <h2>Android JNI注册的两种方式 </h2>
+    </div>
+    <div class="date">
+    <!-- date: " %Y年%m月%d日" -->
+      <span><h3><small>10 July 2015</small></h3><h3>
+    </h3></span></div>
+    <div class="page-content">
+      
+        Android JNI开发时，如何注册JNI的方法，Java才能调用，下面说一下JNI的两种注册方法。
+      
+      <p>第一种方法：静态注册
+<br>
+　　所谓静态注册就是调用java的命令工具javah来生成头文件，然后再实现头文件中的所有函数即可。这种方法比较简单，首先在命令行中（我这里使用的是windows cmd，linux、mac是一样的），进入到src目录下，然后执行：</p>
+
+<pre><code>$ javah -d E:\SourceCode\Android\JniTest\ -jni com.coolerfall.HelloJni
+</code></pre>
+
+<p>其中-d表示生成的头文件的输出目录，可以自行设置，com.coolerfall.HelloJni是包含有native方法的类，native方法如：</p>
+
+<pre><code>public static native void init();
+</code></pre>
+
+<p>最后生成一个com_coolerfall_player_HelloJni.h头文件，接下来就可以新建一个c文件实现这些函数就ok了。
+<br>
+<br>
+第二种方法：动态注册
+<br>
+　　静态方法虽然用起来方便，只需要使用一句命令行就搞定了，但是这种方法我们不知道jni的注册过程是怎样的，而且如果新添加一个方法后，又得重新生成一次，比较麻烦，动态注册就可以避免这个问题。和静态注册的区别在于，不使用javah，而由我们自己来写注册函数等等。
+<br>
+　　我们可以新建一个c文件，比如init.c，然后在里面添加</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;jni.h&gt;</span>
+
+<span class="k">static</span> <span class="n">JNINativeMethod</span> <span class="n">g_methods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="s">"init"</span><span class="p">,</span> <span class="s">"()V"</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">init</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"start"</span><span class="p">,</span> <span class="s">"(Ljava/lang/String;JJ)V"</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">start</span><span class="p">},</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">register_native_methods</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">class_name</span><span class="p">,</span>
+        <span class="n">JNINativeMethod</span><span class="o">*</span> <span class="n">methods</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num_methods</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">jclass</span> <span class="n">clazz</span><span class="p">;</span>
+    <span class="n">clazz</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">FindClass</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">class_name</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">clazz</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">JNI_FALSE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">RegisterNatives</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">methods</span><span class="p">,</span> <span class="n">num_methods</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">JNI_FALSE</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">JNI_TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">jint</span> <span class="nf">JNI_OnLoad</span><span class="p">(</span><span class="n">JavaVM</span> <span class="o">*</span><span class="n">vm</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">reserved</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">vm</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetEnv</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">JNI_VERSION_1_4</span><span class="p">)</span> <span class="o">!=</span> <span class="n">JNI_OK</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">register_native_methods</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s">"com/coolerfall/HelloJni"</span><span class="p">,</span> <span class="n">g_methods</span><span class="p">,</span>
+            <span class="k">sizeof</span><span class="p">(</span><span class="n">g_methods</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g_methods</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">JNI_VERSION_1_4</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+
+<p>Java层调用System.loadLibrary("xxx")的时候，会首先进入JNI_OnLoad这个函数里面，因此，我们就在这里面调用register_native_methods对JNI的一些列方法进行注册，最终在register_native_methods调用了jni函数RegisterNatives来对native方法注册到对应的类上去，这样就完成了jni的注册，java就可以调用jni的方法了。使用这种方法时，添加一个native方法就非常方便了，直接在g_methods数组里面添加新的方法即可。
+<br>
+　　关于g_methods数组里面方法的签名规则可以查看<a href="http://coolerfall.com/android/jni-signature/">Android JNI类型、方法签名规范</a>。</p>
+
+    </div>
+
+    <ul class="tag_box inline">
+      
+        <li><i class="glyphicon glyphicon-open"></i></li>
+        
+        
+
+
+  
+     
+    	<li><a href="http://coolerfall.com/categories.html#android-ref">
+    		android <span>17</span>
+    	</a></li>
+    
+  
+
+
+      
+      
+        <li><i class="glyphicon glyphicon-tags"></i></li>
+        
+        
+
+
+  
+     
+    	<li><a href="http://coolerfall.com/tags.html#jni-ref">jni <span>2</span></a></li>
+    
+  
+
+
+
+      
+    </ul>
+  
+    <hr>
+    <ul class="pagination">
+      
+        <li class="prev"><a href="http://coolerfall.com/android/jni-signature" title="Android JNI类型、方法签名规范">« 上一篇</a></li>
+      
+      
+        <li class="next"><a href="http://coolerfall.com/android/android-marquee" title="TextView实现跑马灯效果">下一篇 »</a></li>
+      
+    </ul>
+    <hr>
+    
+
+
+  <!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="/android/jni_register" data-title="Android JNI注册的两种方式" data-url="/android/jni_register" id="ds-thread"><div id="ds-reset"><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);">0条评论</a></li>  </ul></div><ul class="ds-comments"><li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://coolerfall.duoshuo.com/login/weixin/" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://coolerfall.duoshuo.com/login/weibo/" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://coolerfall.duoshuo.com/login/qq/" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://coolerfall.duoshuo.com/login/renren/" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://coolerfall.duoshuo.com/login/douban/" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://coolerfall.duoshuo.com/login/kaixin/" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://coolerfall.duoshuo.com/login/baidu/" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://coolerfall.duoshuo.com/login/google/" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./Android JNI注册的两种方式_files/noavatar_default.png" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1223609107156566050">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="56cd44b46cc31"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">多说</a></p></div></div>
+<!-- 多说评论框 end -->
+
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"coolerfall"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+  </div>
+</div>
+
+
+          </div>
+        </div>
+        <div class="col-md-3 sidebar">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">分类</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="tag_box inline">
+                
+                
+
+
+  
+     
+    	<li><a href="http://coolerfall.com/categories.html#web-ref">
+    		web <span>1</span>
+    	</a></li>
+     
+    	<li><a href="http://coolerfall.com/categories.html#tools-ref">
+    		tools <span>6</span>
+    	</a></li>
+     
+    	<li><a href="http://coolerfall.com/categories.html#android-ref">
+    		android <span>17</span>
+    	</a></li>
+     
+    	<li><a href="http://coolerfall.com/categories.html#go-ref">
+    		go <span>1</span>
+    	</a></li>
+     
+    	<li><a href="http://coolerfall.com/categories.html#c-ref">
+    		c <span>2</span>
+    	</a></li>
+    
+  
+
+
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">标签</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="tag_box inline">
+                  
+                
+
+
+  
+     
+    	<li><a href="http://coolerfall.com/tags.html#github pages-ref">github pages <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#jekyll-ref">jekyll <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#android studio-ref">android studio <span>5</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#ndk-ref">ndk <span>3</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#http-ref">http <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#download-ref">download <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#home key-ref">home key <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#hash-ref">hash <span>2</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#daemon-ref">daemon <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#uninstall-ref">uninstall <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#maven-ref">maven <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#taskAffinity-ref">taskAffinity <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#git-ref">git <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#launch mode-ref">launch mode <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#shell-ref">shell <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#jni-ref">jni <span>2</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#widget-ref">widget <span>3</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#cue-ref">cue <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#clang-ref">clang <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#animation-ref">animation <span>1</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#proguard-ref">proguard <span>2</span></a></li>
+     
+    	<li><a href="http://coolerfall.com/tags.html#media-ref">media <span>1</span></a></li>
+    
+  
+
+
+
+              </ul>
+            </div>
+          </div><!-- tags -->
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">最近访客</h3>
+            </div>
+            <div class="panel-body">
+              <div class="ds-recent-visitors" data-avatar-size="60" data-num-items="18" id="ds-recent-visitors"><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://2tu.github.io/" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=13948634&#39;;" title="保持兴奋ING"><img src="./Android JNI注册的两种方式_files/1" alt="保持兴奋ING" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://t.qq.com/yao110888" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6253251700786725633&#39;;" title="蟀哥"><img src="./Android JNI注册的两种方式_files/100" alt="蟀哥" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://weibo.com/1770949525" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=10729877&#39;;" title="筱之菥"><img src="./Android JNI注册的两种方式_files/1(1)" alt="筱之菥" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://t.qq.com/huohuo397717749" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=10131508&#39;;" title="王燚"><img src="./Android JNI注册的两种方式_files/50" alt="王燚" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="javascript:void(0)" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6259522313947972353&#39;;" title="程先生"><img src="./Android JNI注册的两种方式_files/0" alt="程先生" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://www.angeldevil.me/" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=7475222&#39;;" title="angeldevil17"><img src="./Android JNI注册的两种方式_files/1(2)" alt="angeldevil17" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://www.lumenghz.com/" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6222595244416828162&#39;;" title="失联迷宫"><img src="./Android JNI注册的两种方式_files/1(3)" alt="失联迷宫" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://weibo.com/1241167880" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=9566766&#39;;" title="呵呵小小鱼"><img src="./Android JNI注册的两种方式_files/1(4)" alt="呵呵小小鱼" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://t.qq.com/wddqing" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=14021921&#39;;" title="wddqing"><img src="./Android JNI注册的两种方式_files/100(1)" alt="wddqing" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://t.qq.com/SnowDragonYY" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6254702921506620161&#39;;" title="SnowDragon"><img src="./Android JNI注册的两种方式_files/noavatar_default.png" alt="SnowDragon" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://weibo.com/3019447230" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6244398927903195906&#39;;" title="Daybreak1110"><img src="./Android JNI注册的两种方式_files/0(1)" alt="Daybreak1110" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://t.qq.com/snowdream86" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=7288531&#39;;" title="杨辉"><img src="./Android JNI注册的两种方式_files/50(1)" alt="杨辉" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://t.qq.com/dian61super" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6255876230768231169&#39;;" title="丶61super"><img src="./Android JNI注册的两种方式_files/noavatar_default.png" alt="丶61super" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://blog.coderzh.com/" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=8864091&#39;;" title="CoderZh"><img src="./Android JNI注册的两种方式_files/u1991100-8.jpg" alt="CoderZh" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="https://www.baidu.com/link?url=Lr6PLUgV9v_FEJRXaITWVwCKkrzE-LnVtnKTMom_yde&amp;wd=&amp;eqid=e300fb6400268a6c0000000656cfc6f6&amp;jfox" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6255441004275434241&#39;;" title="程序员"><img src="./Android JNI注册的两种方式_files/220661.jpg" alt="程序员" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="https://www.baidu.com/link?url=3He4b-qNUG_XMgyXvea8UUE_3aQNh-zKuauGig4JlE3&amp;wd=&amp;eqid=87b8a93900270b430000000656cfc388&amp;jfox" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6255433258943644417&#39;;" title="程序员"><img src="./Android JNI注册的两种方式_files/220645.jpg" alt="程序员" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://weibo.com/2678150467" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=10717861&#39;;" title="小刚_VIP"><img src="./Android JNI注册的两种方式_files/1(5)" alt="小刚_VIP" style="width:60px;height:60px"></a></div><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://weibo.com/1865130983" onclick="this.href=&#39;http://coolerfall.duoshuo.com/user-url/?user_id=6237313930759242498&#39;;" title="小邱1234"><img src="./Android JNI注册的两种方式_files/1(6)" alt="小邱1234" style="width:60px;height:60px"></a></div></div>
+            </div>
+          </div><!-- recent visitors -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer">
+        <center>
+          <p>© 2016 Vincent Cheung
+            with help from <a href="http://jekyllbootstrap.com/" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+            and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
+
+
+  <script type="text/javascript">
+	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254181437'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254181437%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+</script><span id="cnzz_stat_icon_1254181437"><a href="http://www.cnzz.com/stat/website.php?web_id=1254181437" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./Android JNI注册的两种方式_files/pic.gif"></a></span><script src="./Android JNI注册的两种方式_files/z_stat.php" type="text/javascript"></script><script src="./Android JNI注册的两种方式_files/core.php" charset="utf-8" type="text/javascript"></script>
+
+
+
+          </p>
+        </center>
+      </div>
+    </footer>
+
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"coolerfall"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./Android JNI注册的两种方式_files/jquery.min.js"></script>
+    <script src="./Android JNI注册的两种方式_files/bootstrap.min.js"></script>
+  
+
+
+</body></html>
