@@ -1,0 +1,3 @@
+1、Android通过OpenGL包含了对高性能２Ｄ和３Ｄ图形的支持．尤其支持OpenGLES API
+2、OpenGLES是一个专用于嵌入式设备的OpenGL规格
+3、在Android框架中有两个基本的类使你可以通过OpenGLES API创建和操作图形系统：GLSurfaceView和GLSurfaceView.Renderer

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://www.kancloud.cn/digest/designmodels/119083 -->
+<html class="js"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="shortcut icon" href="http://www.kancloud.cn/favicon.ico">
+    <meta name="description" content="主要为Java设计模式的初学者提供帮助，采用uml建模与具体代码实现的方式使内容丰富详实、具体、通俗易懂。
+        ">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/style.css">
+    <link rel="stylesheet" href="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/kancloud.min.css">
+            <script>(function (H) {
+        H.className = H.className.replace(/\bno-js\b/, 'js')
+    })(document.documentElement)</script>
+    <style></style>
+<link charset="utf-8" rel="stylesheet" href="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/hint.min.css"><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/jstree.min.js"></script><link charset="utf-8" rel="stylesheet" href="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/style.min.css"><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/jquery.cookie.js"></script><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/jquery.textSearch-1.0.js"></script><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/jquery.thinkkeyboard.js"></script><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/index.js"></script><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/highlight.js"></script><script charset="utf-8" async="" src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/highlight.pack.js"></script><link charset="utf-8" rel="stylesheet" href="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/tomorrow.css" class="codestyle"><link charset="utf-8" rel="alternate stylesheet" href="http://static.kancloud.cn/Static/document/script/plugins/highlight/assets/highlight/styles/androidstudio.css?v=20160217003" class="codestyle" disabled=""><link charset="utf-8" rel="alternate stylesheet" href="http://static.kancloud.cn/Static/document/script/plugins/highlight/assets/highlight/styles/dark.css?v=20160217003" class="codestyle" disabled=""></head>
+<body>
+<!--[if lte IE 8]>
+<div class="m-browsehappy">
+    <div class="browsehappy-inner">
+        <h3 class="title">对不起！<br>您的浏览器版本太低，请升级你的浏览器</h3>
+
+        <p class="suggest">建议使用：</p>
+
+        <p class="brower">
+            <span class="item">
+                <a class="ie image" href="https://www.microsoft.com/en-us/download/internet-explorer.aspx" target="_blank" title="下载Internet Explorer浏览器"></a>
+                <b class="text">ie9+</b>
+            </span>
+            <span class="item">
+                <a class="chrome image" href="http://www.google.cn/intl/zh-CN/chrome/browser/?spm=1.7274553.0.0.benzR1" target="_blank" title="下载Chrome浏览器"></a>
+                <b class="text">chrome</b>
+            </span>
+        </p>
+
+        <p class="from">--来自看云官方</p>
+        <b class="browsehappy-arrow"></b>
+    </div>
+</div>
+<script>
+    window.nonsupportIE = true;
+</script>
+<![endif]-->
+<div class="m-manual manual-reader manual-mode-view font-size-1 font-theme-0 manual-active" data-id="12793" data-title="Java设计模式菜鸟系列" data-desc="主要为Java设计模式的初学者提供帮助，采用uml建模与具体代码实现的方式使内容丰富详实、具体、通俗易懂。
+        " data-basepath="http://www.kancloud.cn" data-article-id="119083">
+    <div class="manual-head">
+        <div class="left"><span class="slidebar"><i class="icon-menu"></i></span>
+            <a class="manual-title" href="http://www.kancloud.cn/digest/designmodels" title="返回文档首页">
+                <b class="text">Java设计模式菜鸟系列</b>
+            </a>
+        </div>
+        <div style="display: none;">
+            <img src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/cover_2016-02-20_56c8553e3a64_800x1068.png">
+        </div>
+    </div>
+    <div class="manual-body">
+        <div class="manual-left">
+            <div class="manual-tab" style="bottom: 35px;">
+                <div class="tab-navg">
+                    <span data-mode="view" class="navg-item active"><i class="icon icon-menu"></i><b class="text">目录</b></span>
+                    <span data-mode="search" class="navg-item"><i class="icon icon-search"></i><b class="text">搜索</b></span>
+                <span data-mode="collect" class="navg-item"><i class="icon icon-heart"></i><b class="text">收藏</b></span></div>
+                <div class="tab-util">
+                    <span class="manual-fullscreen-switch">
+                        <b class="open icon-chevron-right" title="展开"></b>
+                        <b class="close icon-chevron-left" title="关闭"></b>
+                    </span>
+                </div>
+                <div class="tab-wrap">
+                    <div class="tab-item manual-catalog">
+                        <div class="catalog-list read-book-preview jstree jstree-1 jstree-default" role="tree" tabindex="0" aria-activedescendant="119080" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-wholerow-ul jstree-no-dots" role="group"><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119080_anchor" id="119080" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119080_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>前言</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119081_anchor" id="119081" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119081_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(一)策略模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119082_anchor" id="119082" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119082_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(二)观察者模式建模与实现</a></li><li role="treeitem" aria-selected="true" aria-level="1" aria-labelledby="119083_anchor" id="119083" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow jstree-wholerow-clicked">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor jstree-clicked" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119083_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(三)装饰者模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119084_anchor" id="119084" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119084_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(四)工厂方法模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119085_anchor" id="119085" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119085_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(五)抽象工厂模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119086_anchor" id="119086" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119086_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(六)单例模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119087_anchor" id="119087" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119087_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(七)命令模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119088_anchor" id="119088" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119088_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(八)适配器模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119089_anchor" id="119089" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119089_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(九)外观模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119090_anchor" id="119090" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119090_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十)模板方法模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119091_anchor" id="119091" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119091_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十一)迭代器模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119092_anchor" id="119092" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119092_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十二)组合模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119093_anchor" id="119093" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119093_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十三)状态模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119094_anchor" id="119094" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119094_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十四)代理模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119095_anchor" id="119095" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119095_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十五)建造者模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119096_anchor" id="119096" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119096_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十六)原型模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119097_anchor" id="119097" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119097_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十七)桥接模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119098_anchor" id="119098" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119098_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十八)责任链模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119099_anchor" id="119099" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119099_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(十九)备忘录模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119100_anchor" id="119100" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119100_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(二十)解释器模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119101_anchor" id="119101" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119101_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(二十一)享元模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119102_anchor" id="119102" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119102_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(二十二)中介者模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119103_anchor" id="119103" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119103_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>(二十三)访问者模式建模与实现</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="119104_anchor" id="119104" class="jstree-node  jstree-leaf jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="http://www.kancloud.cn/digest/designmodels/119083#" tabindex="-1" id="119104_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>Java设计模式博客全目录</a></li></ul></div>
+                    </div>
+                    <div class="tab-item manual-search">
+                        <div class="search-inner">
+                            <div class="search-form">
+                                <form class="w-search" onsubmit="return false;" method="post" autocomplete="off">
+                                    <label class="w-text text-m text-full search-enter"><input class="text-input" type="text" name="keyword" placeholder="请输入搜索关键词..."></label>
+                                    <input type="hidden" name="book_id" value="12793">
+                                    <button class="search-btn icon-search" type="submit"></button>
+                                <span class="form-loading">提交中...</span></form>
+                            </div>
+                            <div class="search-result"></div>
+                        </div>
+                    </div>
+                <div class="tab-item manual-collect"><div class="collect-result"></div></div></div>
+            </div>
+            <div class="m-copyright">
+                <p>
+                                        本文档使用
+                    <a href="http://www.kancloud.cn/" target="_blank" onclick="window.open(&#39;http://www.kancloud.cn&#39;)">看云</a> 发布
+                </p>
+            </div>
+        </div>
+        <div class="manual-right">
+            <div class="m-article">
+                <div class="article-head">
+                    <div class="head-tool">
+                        <div class="item font-setting w-drop drop-hover">
+                            <span class="drop-show"><i class="icon icon-font"></i><b class="text">文字</b></span>
+                            <div class="drop-hide drop-hide-left">
+                                <b class="drop-arrow-outer"><i class="drop-arrow-inner"></i></b>
+
+                                <div class="drop-hide-inner">
+                                    <div class="buttons size-list">
+                                        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+                                        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+                                    </div>
+                                    <div class="buttons theme-list">
+                                        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">默认</button>
+                                        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">护眼</button>
+                                        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">夜间</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="head-util">
+
+                    <div class="item w-drop drop-hover"><span class="drop-show"><i class="icon icon-share"></i><b class="text">分享</b></span><div class="drop-hide drop-hide-right"><b class="drop-arrow-outer" style="margin-left: 88px;"><i class="drop-arrow-inner"></i></b><div class="drop-hide-inner"><div class="m-share-list"><a class="weixin icon-weixin" data-sharing="wechat"></a><a class="qq icon-qq" data-sharing="qq"></a><a class="weibo icon-sina" data-sharing="weibo"></a></div></div></div></div><a class="collect item" title="收藏"><i class="icon icon-heart"></i><b class="text">收藏</b></a></div>
+                    <h1>(三)装饰者模式建模与实现</h1>
+                </div>
+                <div class="article-wrap">
+                    <div class="article-view">
+                        <div class="view-body think-editor-content"><p>装饰者(Decorator)模式：动态地将责任附加到对象上，若要扩展功能，装饰者提供了比继承更具有弹性的替代方案。对于装饰者模式，它其实是一种包装，所以我更愿意称它为一种包装。像咱们以前经常使用的Java里面的IO流就用到了装饰者模式。比如：BufferedReader&nbsp;br = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));这里file1为目标对象，而像BufferedReader、InputStreamReader就可以称之为包装类。下面举例说明：</p>
+
+<h2 id="-uml-">一、UML模型图</h2>
+
+<p><img src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/2016-02-19_56c7196d143cb.jpg" alt=""></p>
+
+<h2 id="-">二、代码实现</h2>
+
+<pre><code class="hljs cs"><span class="hljs-comment">/**
+ * 对修改关闭，对扩展开放。
+ * 
+ * 统一接口
+ */</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title">Filterable</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filter</span>(<span class="hljs-params"></span>)</span>;
+}
+
+<span class="hljs-comment">/**
+ * 目标类
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">Filter</span> <span class="hljs-title">implements</span> <span class="hljs-title">Filterable</span> {
+
+    @<span class="hljs-function">Override
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filter</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"目标类的核心过滤方法..."</span>);
+    }
+}
+
+<span class="hljs-comment">/**
+ * DecoratorForFilter1包装类与目标类实现相同的接口 --&gt; 织入Log
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">DecoratorForFilter1</span> <span class="hljs-title">implements</span> <span class="hljs-title">Filterable</span> {
+    <span class="hljs-keyword">private</span> Filterable filterable;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DecoratorForFilter1</span>(<span class="hljs-params">Filterable filterable</span>) </span>{
+        <span class="hljs-keyword">this</span>.filterable = filterable;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeMethod</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"DecoratorForFilter1 --&gt; 核心过滤方法执行前执行"</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterMethod</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"DecoratorForFilter1 --&gt; 核心过滤方法执行后执行"</span>);
+    }
+
+    @<span class="hljs-function">Override
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filter</span>(<span class="hljs-params"></span>) </span>{
+        beforeMethod();
+        filterable.filter();
+        afterMethod();
+    }
+}
+
+<span class="hljs-comment">/**
+ * DecoratorForFilter2包装类与目标类实现相同的接口 --&gt; 织入Log
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">DecoratorForFilter2</span> <span class="hljs-title">implements</span> <span class="hljs-title">Filterable</span> {
+    <span class="hljs-keyword">private</span> Filterable filterable;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DecoratorForFilter2</span>(<span class="hljs-params">Filterable filterable</span>) </span>{
+        <span class="hljs-keyword">this</span>.filterable = filterable;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeMethod</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"DecoratorForFilter2 --&gt; 核心过滤方法执行前执行"</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterMethod</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"DecoratorForFilter2 --&gt; 核心过滤方法执行后执行"</span>);
+    }
+
+    @<span class="hljs-function">Override
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">filter</span>(<span class="hljs-params"></span>) </span>{
+        beforeMethod();
+        filterable.filter();
+        afterMethod();
+    }
+}
+
+<span class="hljs-comment">/**
+ * 客户端测试类
+ * 
+ * @author Leo
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>) </span>{
+        <span class="hljs-comment">/**
+         * 目标对象
+         */</span>
+        Filterable targetObj = <span class="hljs-keyword">new</span> Filter();
+        <span class="hljs-comment">/**
+         * 包装对象(对目标对象进行包装)
+         */</span>
+        Filterable decorObj = <span class="hljs-keyword">new</span> DecoratorForFilter1(<span class="hljs-keyword">new</span> DecoratorForFilter2(
+                targetObj));
+        <span class="hljs-comment">/**
+         * 执行包装后的业务方法
+         */</span>
+        decorObj.filter();
+    }
+}</code></pre>
+
+<p>输出：</p>
+
+<p>DecoratorForFilter1 --&gt; 核心过滤方法执行前执行  <br>DecoratorForFilter2 --&gt; 核心过滤方法执行前执行  <br>目标类的核心过滤方法...  <br>DecoratorForFilter2 --&gt; 核心过滤方法执行后执行  <br>DecoratorForFilter1 --&gt; 核心过滤方法执行后执行  </p>
+
+<h2 id="--1">三、应用场景(仅代表个人观点)</h2>
+
+<p>I/O、过滤器  </p>
+
+<h2 id="--2">四、小结</h2>
+
+<p>通过输入的Log我们可以看到：输出的过程其实是将包装类“拆包”的过程，就像包装袋一样一层一层的拆开。  </p>
+
+<p>设计原则：1)多用组合，少用继承。2)对扩展开放，对修改关闭。</p></div>
+                        <div class="view-foot">
+                            <div class="article-jump">
+                                <span class="jump-up">上一篇：<a data-articleid="119082" href="http://www.kancloud.cn/digest/designmodels/119082">(二)观察者模式建模与实现</a></span>
+                                <span class="jump-down">下一篇：<a data-articleid="119084" href="http://www.kancloud.cn/digest/designmodels/119084">(四)工厂方法模式建模与实现</a></span>
+                            </div>
+                            <a class="view-backtop"><i class="icon-arrow-up2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            <div class="think-loading loading-ripple"><span class="loading-inner"><i class="loading-image"></i><b class="loading-text"></b></span></div></div>
+        </div>
+    <div class="manual-progress"><b class="progress-bar" style="width: 16%;"></b></div></div>
+<div class="manual-mask"></div></div>
+
+<script src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/sea.js"></script>
+<script>
+    seajs.config({
+        base   : "http://static.kancloud.cn/Static/",
+        paths  : {
+            'home'     : 'home/script',
+            'common'   : 'common/script',
+            'document' : 'document/script',
+            'component': 'component'
+        },
+        preload : [
+            'jquery'
+        ],
+        alias: {
+            'jquery':'component/jquery',
+            'config': 'common/module/config'
+        },
+        map    : [
+            [/^(.*\.(?:css|js))(.*)$/i, '$1?v=20160217003']
+        ],
+        debug  : true
+    });
+</script>
+<script src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/app.min.js"></script>
+    <script src="./(三)装饰者模式建模与实现 - [ Java设计模式菜鸟系列 ]_files/kancloud.min.js"></script><script>
+    seajs.use('config', function (config) {
+        //设置项目配置
+        config.set({
+            "ROOT"  : "", //当前网站地址
+            "APP"   : "", //当前项目地址
+            "STATIC": "http://static.kancloud.cn/Static", //静态资源文件地址
+            "PUBLIC": "http://static.kancloud.cn/Static" //home目录地址
+        });
+        seajs.use('home/globle', function (globle) {
+            //启动页面脚本
+            if(globle!==false) {
+                seajs.use('document/kancloud', function (kancloud) {
+                    kancloud.start({"plugins":["highlight"],"comment":false,"collect":true,"cover":"http:\/\/box.kancloud.cn\/cover_2016-02-20_56c8553e3a64_800x1068.png?imageMogr2\/thumbnail\/231x273!\/interlace\/1\/quality\/100","sharing":true,"login":true});
+                });
+            }
+        });
+    });
+</script>
+
+
+</body></html>

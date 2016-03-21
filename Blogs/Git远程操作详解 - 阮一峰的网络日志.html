@@ -1,0 +1,2440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0054)http://www.ruanyifeng.com/blog/2014/06/git_remote.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./Git远程操作详解 - 阮一峰的网络日志_files/styles.css" type="text/css">
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script async="" src="./Git远程操作详解 - 阮一峰的网络日志_files/analytics.js"></script><script type="text/javascript" src="./Git远程操作详解 - 阮一峰的网络日志_files/mt.js"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2016/01/ecmascript-6-primer.html">
+<dc:title>《ES6 标准入门》（第二版）出版了</dc:title>
+<dc:description>如果你经常看这个博客，就会知道我写了一本书。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2016-01-18T20:41:14+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2014/05/my_blog_book.html" title="我的博客文集上架了！">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2014/06/airbnb.html" title="Airbnb与创投">
+    
+    <title>Git远程操作详解 - 阮一峰的网络日志</title>
+<script src="./Git远程操作详解 - 阮一峰的网络日志_files/bsStatic.js" type="text/javascript" charset="utf-8"></script><script src="./Git远程操作详解 - 阮一峰的网络日志_files/fingerprint2.min.js" type="text/javascript" charset="utf-8"></script><script src="./Git远程操作详解 - 阮一峰的网络日志_files/bs-engine.js" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./Git远程操作详解 - 阮一峰的网络日志_files/bsMore.js" type="text/javascript" charset="utf-8"></script><script src="./Git远程操作详解 - 阮一峰的网络日志_files/bshareS1.js" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><script src="./Git远程操作详解 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="http://www.ruanyifeng.com/blog/search.html" id="cse-search-box">
+      <div>
+        <input type="hidden" name="cx" value="016304377626642577906:b_e9skaywzq">
+    <input type="hidden" name="cof" value="FORID:11">
+    <input type="hidden" name="ie" value="UTF-8">
+        <input type="text" name="q" size="20" class="searchbox" id="sbi" value="">
+        <input type="image" src="./Git远程操作详解 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa">
+      </div>
+    </form>
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1807" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2014/05/my_blog_book.html" title="我的博客文集上架了！">我的博客文集上架了！&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2014/06/airbnb.html" title="Airbnb与创投">Airbnb与创投&nbsp;&nbsp;</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+</div>
+                                </div>
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">Git远程操作详解</h1>
+                                            <div id="share_button" style="float:right;padding-right:2em;padding-top:1em;"><a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a><script type="text/javascript" charset="utf-8" src="./Git远程操作详解 - 阮一峰的网络日志_files/buttonLite.js"></script>                                       
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script></div>
+                                    <div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2014/06/"><abbr class="published" title="2014-06-12T13:22:22+08:00">2014年6月12日</abbr></a></p>
+
+
+                                    </div>
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p><a href="http://zh.wikipedia.org/wiki/Git" target="_blank">Git</a>是目前最流行的<a href="http://www.ruanyifeng.com/blog/2008/12/a_visual_guide_to_version_control.html" target="_blank">版本管理系统</a>，学会Git几乎成了开发者的必备技能。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>Git有很多优势，其中之一就是远程操作非常简便。本文详细介绍5个Git命令，它们的概念和用法，理解了这些内容，你就会完全掌握Git远程操作。</p>
+
+<ul>
+<li>git clone</li>
+<li>git remote</li>
+<li>git fetch</li>
+<li>git pull</li>
+<li>git push</li>
+</ul>
+
+<p>本文针对初级用户，从最简单的讲起，但是需要读者对Git的基本用法有所了解。同时，本文覆盖了上面5个命令的几乎所有的常用用法，所以对于熟练用户也有参考价值。</p>
+
+<p><img src="./Git远程操作详解 - 阮一峰的网络日志_files/bg2014061202.jpg" alt="git" title=""></p>
+
+<h2>一、git clone</h2>
+
+<p>远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到<code>git clone</code>命令。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git clone <span class="token operator">&lt;</span>版本库的网址<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p>比如，克隆jQuery的版本库。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git clone https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>jquery<span class="token operator">/</span>jquery<span class="token punctuation">.</span>git
+</code></pre></blockquote>
+
+<p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git clone <span class="token operator">&lt;</span>版本库的网址<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>本地目录名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git clone http<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>example<span class="token punctuation">.</span>com<span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token regex">/repo.git/</span>
+$ git clone ssh<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>example<span class="token punctuation">.</span>com<span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token regex">/repo.git/</span>
+$ git clone git<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>example<span class="token punctuation">.</span>com<span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token regex">/repo.git/</span>
+$ git clone <span class="token operator">/</span>opt<span class="token operator">/</span>git<span class="token operator">/</span>project<span class="token punctuation">.</span>git 
+$ git clone file<span class="token punctuation">:</span><span class="token comment" spellcheck="true">///opt/git/project.git
+</span>$ git clone ftp<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>example<span class="token punctuation">.</span>com<span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token regex">/repo.git/</span>
+$ git clone rsync<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>example<span class="token punctuation">.</span>com<span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token regex">/repo.git/</span>
+</code></pre></blockquote>
+
+<p>SSH协议还有另一种写法。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git clone <span class="token punctuation">[</span>user@<span class="token punctuation">]</span>example<span class="token punctuation">.</span>com<span class="token punctuation">:</span>path<span class="token operator">/</span>to<span class="token regex">/repo.git/</span>
+</code></pre></blockquote>
+
+<p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols" target="_blank">官方文档</a>。</p>
+
+<h2>二、git remote</h2>
+
+<p>为了便于管理，Git要求每个远程主机都必须指定一个主机名。<code>git remote</code>命令就用于管理主机名。</p>
+
+<p>不带选项的时候，<code>git remote</code>命令列出所有远程主机。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git remote
+origin
+</code></pre></blockquote>
+
+<p>使用<code>-v</code>选项，可以参看远程主机的网址。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git remote <span class="token operator">-</span>v
+origin  <a class="token email-link" href="mailto:git@github">git@github</a><span class="token punctuation">.</span>com<span class="token punctuation">:</span>jquery<span class="token operator">/</span>jquery<span class="token punctuation">.</span>git <span class="token punctuation">(</span>fetch<span class="token punctuation">)</span>
+origin  <a class="token email-link" href="mailto:git@github">git@github</a><span class="token punctuation">.</span>com<span class="token punctuation">:</span>jquery<span class="token operator">/</span>jquery<span class="token punctuation">.</span>git <span class="token punctuation">(</span>push<span class="token punctuation">)</span>
+</code></pre></blockquote>
+
+<p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
+
+<p>克隆版本库的时候，所使用的远程主机自动被Git命名为<code>origin</code>。如果想用其他的主机名，需要用<code>git clone</code>命令的<code>-o</code>选项指定。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git clone <span class="token operator">-</span>o jQuery https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>jquery<span class="token operator">/</span>jquery<span class="token punctuation">.</span>git
+$ git remote
+jQuery
+</code></pre></blockquote>
+
+<p>上面命令表示，克隆的时候，指定远程主机叫做jQuery。</p>
+
+<p><code>git remote show</code>命令加上主机名，可以查看该主机的详细信息。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git remote show <span class="token operator">&lt;</span>主机名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p><code>git remote add</code>命令用于添加远程主机。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git remote add <span class="token operator">&lt;</span>主机名<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>网址<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p><code>git remote rm</code>命令用于删除远程主机。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git remote rm <span class="token operator">&lt;</span>主机名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p><code>git remote rename</code>命令用于远程主机的改名。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git remote rename <span class="token operator">&lt;</span>原主机名<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>新主机名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<h2>三、git fetch</h2>
+
+<p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到<code>git fetch</code>命令。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git fetch <span class="token operator">&lt;</span>远程主机名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p>上面命令将某个远程主机的更新，全部取回本地。</p>
+
+<p><code>git fetch</code>命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
+
+<p>默认情况下，<code>git fetch</code>取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git fetch <span class="token operator">&lt;</span>远程主机名<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>分支名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p>比如，取回<code>origin</code>主机的<code>master</code>分支。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git fetch origin master
+</code></pre></blockquote>
+
+<p>所取回的更新，在本地主机上要用"远程主机名/分支名"的形式读取。比如<code>origin</code>主机的<code>master</code>，就要用<code>origin/master</code>读取。</p>
+
+<p><code>git branch</code>命令的<code>-r</code>选项，可以用来查看远程分支，<code>-a</code>选项查看所有分支。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git branch <span class="token operator">-</span>r
+origin<span class="token operator">/</span>master
+
+$ git branch <span class="token operator">-</span>a
+<span class="token operator">*</span> master
+  remotes<span class="token operator">/</span>origin<span class="token operator">/</span>master
+</code></pre></blockquote>
+
+<p>上面命令表示，本地主机的当前分支是<code>master</code>，远程分支是<code>origin/master</code>。</p>
+
+<p>取回远程主机的更新以后，可以在它的基础上，使用<code>git checkout</code>命令创建一个新的分支。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git checkout <span class="token operator">-</span>b newBrach origin<span class="token operator">/</span>master
+</code></pre></blockquote>
+
+<p>上面命令表示，在<code>origin/master</code>的基础上，创建一个新分支。</p>
+
+<p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git merge origin<span class="token operator">/</span>master
+# 或者
+$ git rebase origin<span class="token operator">/</span>master
+</code></pre></blockquote>
+
+<p>上面命令表示在当前分支上，合并<code>origin/master</code>。</p>
+
+<h2>四、git pull</h2>
+
+<p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull <span class="token operator">&lt;</span>远程主机名<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>远程分支名<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token operator">&lt;</span>本地分支名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p>比如，取回<code>origin</code>主机的<code>next</code>分支，与本地的<code>master</code>分支合并，需要写成下面这样。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull origin next<span class="token punctuation">:</span>master
+</code></pre></blockquote>
+
+<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull origin next
+</code></pre></blockquote>
+
+<p>上面命令表示，取回<code>origin/next</code>分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git fetch origin
+$ git merge origin<span class="token operator">/</span>next
+</code></pre></blockquote>
+
+<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的<code>master</code>分支自动"追踪"<code>origin/master</code>分支。</p>
+
+<p>Git也允许手动建立追踪关系。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+git branch <span class="token operator">--</span>set<span class="token operator">-</span>upstream master origin<span class="token operator">/</span>next
+</code></pre></blockquote>
+
+<p>上面命令指定<code>master</code>分支追踪<code>origin/next</code>分支。</p>
+
+<p>如果当前分支与远程分支存在追踪关系，<code>git pull</code>就可以省略远程分支名。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull origin
+</code></pre></blockquote>
+
+<p>上面命令表示，本地的当前分支自动与对应的<code>origin</code>主机"追踪分支"（remote-tracking branch）进行合并。</p>
+
+<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull
+</code></pre></blockquote>
+
+<p>上面命令表示，当前分支自动与唯一一个追踪分支进行合并。</p>
+
+<p>如果合并需要采用rebase模式，可以使用<code>--rebase</code>选项。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull <span class="token operator">--</span>rebase <span class="token operator">&lt;</span>远程主机名<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>远程分支名<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token operator">&lt;</span>本地分支名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止，由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
+
+<p>但是，你可以改变这个行为，加上参数 <code>-p</code> 就会在本地删除远程已经删除的分支。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git pull <span class="token operator">-</span>p
+# 等同于下面的命令
+$ git fetch <span class="token operator">--</span>prune origin 
+$ git fetch <span class="token operator">-</span>p
+</code></pre></blockquote>
+
+<h2>五、git push</h2>
+
+<p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push <span class="token operator">&lt;</span>远程主机名<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>本地分支名<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token operator">&lt;</span>远程分支名<span class="token operator">&gt;</span>
+</code></pre></blockquote>
+
+<p>注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
+
+<p>如果省略远程分支名，则表示将本地分支推送与之存在"追踪关系"的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push origin master
+</code></pre></blockquote>
+
+<p>上面命令表示，将本地的<code>master</code>分支推送到<code>origin</code>主机的<code>master</code>分支。如果后者不存在，则会被新建。</p>
+
+<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push origin <span class="token punctuation">:</span>master
+# 等同于
+$ git push origin <span class="token operator">--</span>delete master
+</code></pre></blockquote>
+
+<p>上面命令表示删除<code>origin</code>主机的<code>master</code>分支。</p>
+
+<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push origin
+</code></pre></blockquote>
+
+<p>上面命令表示，将当前分支推送到<code>origin</code>主机的对应分支。</p>
+
+<p>如果当前分支只有一个追踪分支，那么主机名都可以省略。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push
+</code></pre></blockquote>
+
+<p>如果当前分支与多个主机存在追踪关系，则可以使用<code>-u</code>选项指定一个默认主机，这样后面就可以不加任何参数使用<code>git push</code>。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push <span class="token operator">-</span>u origin master
+</code></pre></blockquote>
+
+<p>上面命令将本地的<code>master</code>分支推送到<code>origin</code>主机，同时指定<code>origin</code>为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
+
+<p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git config <span class="token operator">--</span>global push<span class="token punctuation">.</span>default matching
+# 或者
+$ git config <span class="token operator">--</span>global push<span class="token punctuation">.</span>default simple
+</code></pre></blockquote>
+
+<p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用<code>--all</code>选项。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push <span class="token operator">--</span>all origin
+</code></pre></blockquote>
+
+<p>上面命令表示，将所有本地分支都推送到<code>origin</code>主机。</p>
+
+<p>如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做<code>git pull</code>合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用<code>--force</code>选项。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push <span class="token operator">--</span>force origin 
+</code></pre></blockquote>
+
+<p>上面命令使用<code>--force</code>选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用<code>--force</code>选项。</p>
+
+<p>最后，<code>git push</code>不会推送标签（tag），除非使用<code>--tags</code>选项。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+$ git push origin <span class="token operator">--</span>tags
+</code></pre></blockquote>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./Git远程操作详解 - 阮一峰的网络日志_files/newwindow.js"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2014-06-12T13:22:22+08:00">2014年6月12日</abbr></li>
+<li>更多内容： <a href="http://www.ruanyifeng.com/blog/archives.html" target="_blank"> 档案</a>  » 
+<a href="http://www.ruanyifeng.com/blog/developer/"> 开发者手册</a> 
+</li>
+<li>购买文集：<a href="http://www.ruanyifeng.com/blog/2014/12/my-blog-book.html" target="_blank"><img src="data:image/png;base64,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" style="border:0;"> 《如何变得有思想》</a></li>
+<li>社交媒体：<a href="https://twitter.com/ruanyf" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAk1JREFUeNqsVc9rE0EU/mZ3dhPNJl2bVIk/Km09aFBE8GLvnrwJXvwLxIsgCP4Fnit6E8Gb0IMHwUsL9SSNgiAoooJIpE1Joo1h82uT7IxvxmRN3Q32kAdvdrI773vfe+/bDTu9WioDcDAda3Ja8piepQ1avCkCeny0Y+R9KenKwOmHHLvPaKn7AtVOoO8dOWDCMpg+41gMQv5FNEJACgoE8MsPNLDBhgfoutMOsJDmWLmU037C4TApciljwQ/kHoohQxV06+wMXNvE7WINuaSpvdYVKLgWnl3O4zAxU3Z1IYVGT+B5qYWV9z2kbQaT/cOwTsxOUUYF+mB5Dkmi8HG3h2q9hxsFNwRTdvQgxxnXRrMvIdkEhllis/qtiWuLDm4WZnBlPoWnXz28LHdw0uGR7m9Wu3j0qYGEubfn4UlBfXO4gTZltRNMg9w9f0i7kNFxllsBlS0x75gYfxyWTBUjT2W5CSMSPBrQuG21+hiMDS8CeCzF8eSLp13uQ3Ab1IqMFZN8tFHPmgOBF99bYP8Be1Xp6t7OJszJgKpPSiZvaj7uf2hguz2IBQuozDvFH6RDBjuK9wdQDvt0nMpW+8efGyh5UcAeZb2+UcHbnz5Jx4wdlp4yJYU3kLiQtfBwOYeLc8nIwfXtNu69q2Oz4mMxbemYOOOjKarhvq51KUjg3GwiFPIuvcNF6pnSnWK0lOEabNLgQh1aJFAhlGB9rG110B2+oyRNPc0sZbRNFltmLKDKqj4Qrm1ojzOxDz2pyPQ0P7CK4c40/wJ+CzAAGYrXsvfFXR4AAAAASUVORK5CYII=" style="border:0;"> twitter</a>，<a href="http://weibo.com/ruanyf" target="_blank"><img src="data:image/png;base64,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" style="border:0;"> weibo</a></li>
+<li>Feed订阅： <a href="http://www.ruanyifeng.com/feed.html" target="_blank"><img src="data:image/gif;base64,R0lGODlhFAAUANU2APV1GfmrePZ8IeR5VPq2ieNkLf7p3NpFJveCJ/NoFfibVPR1IexiJfvdzuZrNfXGuOhUEueTevaFOfzIpNxDGeZZJNU6IOubifiVTfOnid1aLuZpLOFSJf/28vJtIvGcefaLSd5kNu9iFv/z6//48//t4uFfLfNkCeJNGuGNc/rCof/+/PVxEeldI/V5KeKMbu9nIvB2OvzQtNxMKfOPXP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAADYALAAAAAAUABQAAAb/QJstEjKZCsjCZsl0pIS2QWXaYsA8noVWIEAgFoNhhWNyMESi7Jbr/aZCFdRnZJAFJCwAt+vlOkwtEBk1hDUkExJ6bQJaGyYMLTQTDSOFHQF8jAseSFYiJwkuAQ2FE1xaHjBIMDAgARguJwABJIQTLJswDEgeIgSEJQQILAqVNQEiui1HHgkBhTUGCiwYtR0xLS0VJhtaEgoEBoQkGCfPNSoQY9xaCwAsCBPALgmkJA4cZN0CAAgY/PJqEIDwgVAECjM0bOAnwcAKGQJclKhRgoGDDjUeUDigkN8vQiBOfByAglSDAxw3IBCgYEU0FyJoEPpA4UGNDjMsaHDQR8EdPVYOMmQYQGHAhQgHLIRIsWAlgASsGMRBMWMGBQtYZ7yIsoBRKkhjOMxAiXJGGCEpHGxIYsSIhrcaQmy1EQQAOw==" style="border:0;"></a></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+   <div id="gegz1">
+   <p style="text-align:center;"><a href="http://www.zhufengpeixun.cn/jscourse/new/js/index.html?ref=ruanyifeng.com" target="_blank"><img alt="珠峰培训" src="./Git远程操作详解 - 阮一峰的网络日志_files/sup_zhufeng_page.png" width="600" height="160" style="border:none;"></a></p>
+   <p style="text-align:center;"><a href="https://jianxun.io/?utm_source=ruanyifeng&amp;utm_medium=webad&amp;utm_campaign=regular&amp;utm_content=&amp;utm_term=bottombanner" target="_blank"><img alt="简寻" src="./Git远程操作详解 - 阮一峰的网络日志_files/ruanyifeng-bottombanner.png" width="600" height="160" style="border:none;"></a></p>
+   </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2016.03.08: <a href="http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html">Systemd 入门教程：实战篇</a></strong>
+
+                           <div class="entry-body">
+                              上一篇文章，我介绍了 Systemd 的主要命令，今天介绍如何使用它完成一些基本的任务。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2016.03.07: <a href="http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html">Systemd 入门教程：命令篇</a></strong>
+
+                           <div class="entry-body">
+                              Systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2016.02.28: <a href="http://www.ruanyifeng.com/blog/2016/02/linux-daemon.html">Linux 守护进程的启动方法</a></strong>
+
+                           <div class="entry-body">
+                              "守护进程"（daemon）就是一直在后台运行的进程（daemon）。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2016.01.06: <a href="http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html">Commit message 和 Change log 编写指南</a></strong>
+
+                           <div class="entry-body">
+                              Git 每次提交代码，都要写 Commit message（提交说明），否则就不允许提交。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+<div id="gd1">
+<h2>广告<a href="http://www.ruanyifeng.com/support.html">（购买广告位）</a></h2>
+<div id="gd1-inner">
+<div id="gd1-left">
+<a href="http://a.maka.im/pcviewer/BA7L1P6B?utm_source=ruanyifeng.com" title="一灯学堂" target="_blank"><img alt="一灯学堂" src="./Git远程操作详解 - 阮一峰的网络日志_files/sup_yideng.png" style="border:none;"></a>
+<br>
+<a href="http://www.zhinengshe.com/?utm_source=ruanyifeng.com" title="智能社" target="_blank"><img alt="智能社" src="./Git远程操作详解 - 阮一峰的网络日志_files/sup_zhinengshe.jpg" style="border:none;"></a>
+</div>
+<div id="gd1-right">
+
+<a href="http://100offer.com/join/ruanyifeng?utm_source=ruanyifeng&amp;utm_medium=dis&amp;utm_campaign=ruanyifeng" target="_blank"><img src="./Git远程操作详解 - 阮一峰的网络日志_files/sup_1000ffer_2.jpg" style="border:none;"></a><br>
+<a href="http://www.ruanyifeng.com/support.html" target="_blank"><img src="./Git远程操作详解 - 阮一峰的网络日志_files/sup_sale_s.png" style="border:none;"></a>
+
+</div>
+</div>
+</div>
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（51条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-328269" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Echo</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328269">
+            <p>现在公司用的就是Git. 感谢总结！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 12, 2014  4:52 PM">2014年6月12日 16:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328269">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用Echo的这条留言" onclick="return CommentQuote(&#39;comment-quote-328269&#39;,&#39;Echo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328277" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">RedNax</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328277">
+            <p>个人觉得最重要的东西反而不是pull(这个还不如先fetch，再merge或者rebase)，而是gitk……<br>
+有时候弄了半天会lost掉不知道local repo究竟处于什么奇怪的状态，gitk来看看commite graph厘清怎么处理才是最重要的。</p>
+
+<p>其他advanced command估计博主以后会提我就不提了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 12, 2014  5:50 PM">2014年6月12日 17:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328277">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用RedNax的这条留言" onclick="return CommentQuote(&#39;comment-quote-328277&#39;,&#39;RedNax&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328307" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://www.facebook.com/gshmu" href="https://www.facebook.com/gshmu" target="_blank" rel="nofollow">gshmu</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328307">
+            <p>我想增加一条.gitignore 小建议。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 12, 2014  7:19 PM">2014年6月12日 19:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328307">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用gshmu的这条留言" onclick="return CommentQuote(&#39;comment-quote-328307&#39;,&#39;gshmu&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328407" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://weibo.com/linchen1987" href="http://weibo.com/linchen1987" target="_blank" rel="nofollow">林晨</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328407">
+            <p>已读，顶一下。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 13, 2014 10:27 AM">2014年6月13日 10:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328407">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用林晨的这条留言" onclick="return CommentQuote(&#39;comment-quote-328407&#39;,&#39;林晨&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328409" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">raywang</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328409">
+            <p>$ git push origin master<br>
+上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。<br>
+如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+
+<p>$ git push origin :master<br>
+# 等同于<br>
+$ git push origin --delete master<br>
+上面命令表示删除origin主机的master分支。</p>
+
+<p>似乎第一条命令的解释写错了吧？两条命令都是  git push origin :master, 解释不同</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 13, 2014 11:17 AM">2014年6月13日 11:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328409">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用raywang的这条留言" onclick="return CommentQuote(&#39;comment-quote-328409&#39;,&#39;raywang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328423" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://mine260309.me" href="https://mine260309.me/" target="_blank" rel="nofollow">mine260309</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328423">
+            <p>最好不要混混淆 git merge 和 git rebase，这是不同的操作。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 13, 2014  1:01 PM">2014年6月13日 13:01</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328423">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用mine260309的这条留言" onclick="return CommentQuote(&#39;comment-quote-328423&#39;,&#39;mine260309&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328701" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fakenerd</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328701">
+            <p>配图很好地解释了几个概念</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 15, 2014  6:17 PM">2014年6月15日 18:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328701">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用fakenerd的这条留言" onclick="return CommentQuote(&#39;comment-quote-328701&#39;,&#39;fakenerd&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328857" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">chuan</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328857">
+            <p>git最有特色的是本地分支功能</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 16, 2014  4:43 PM">2014年6月16日 16:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328857">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用chuan的这条留言" onclick="return CommentQuote(&#39;comment-quote-328857&#39;,&#39;chuan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-328949" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://q.q.io" href="http://q.q.io/" target="_blank" rel="nofollow">EggBig</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-328949">
+            <p>HG也不错。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 17, 2014  9:10 PM">2014年6月17日 21:10</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-328949">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用EggBig的这条留言" onclick="return CommentQuote(&#39;comment-quote-328949&#39;,&#39;EggBig&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-329161" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">csj</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-329161">
+            <p>阮兄，首页的图片改为全屏后没法看啊，画面太渣。还是原尺寸好</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 21, 2014 12:20 AM">2014年6月21日 00:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-329161">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用csj的这条留言" onclick="return CommentQuote(&#39;comment-quote-329161&#39;,&#39;csj&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-329476" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">朱俊星</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-329476">
+            <p>您好， 阮老师！ 我是今年河南的应届考生 ，对您的个人魅力十分崇拜 。我的高考分数602 ，请问怎样才能成为您的学生？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 25, 2014  2:30 AM">2014年6月25日 02:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-329476">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用朱俊星的这条留言" onclick="return CommentQuote(&#39;comment-quote-329476&#39;,&#39;朱俊星&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-329594" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">雷明庆</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-329594">
+            <p>我是firefox插件vimperator的忠实用户，习惯于浏览网页时用键盘操作。所以我设置了快捷键 [[ 对应跳转 上一页|上一张|上一篇|上一章 等等， 快捷键 ]] 对应跳转 下一页|下一张|下一篇|下一章 等等。</p>
+
+<p>问题是，您的博客页面上， 上一篇|下一篇 都不是可点击的链接，必须点击右边的标题才能跳转。所以我无法用快捷键跳转。</p>
+
+<p>阮老师，您能把 上一篇|下一篇 写进<a>标签吗，谢谢！</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 26, 2014  7:52 PM">2014年6月26日 19:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-329594">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用雷明庆的这条留言" onclick="return CommentQuote(&#39;comment-quote-329594&#39;,&#39;雷明庆&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-329637" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-329637">
+            <p>@雷明庆:</p>
+
+<p>页面里已经加了link rel="prev"/"next"了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 27, 2014 12:03 AM">2014年6月27日 00:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-329637">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-329637&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-329854" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.rccoder.net" href="http://www.rccoder.net/" target="_blank" rel="nofollow">ysbinang</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-329854">
+            <p>一直用的是for window的那个图形界面版本，感觉应该试试这个命令行的了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 29, 2014 10:59 PM">2014年6月29日 22:59</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-329854">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用ysbinang的这条留言" onclick="return CommentQuote(&#39;comment-quote-329854&#39;,&#39;ysbinang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-329939" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://royaso.com/" href="http://royaso.com/" target="_blank" rel="nofollow">royaso</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-329939">
+            <blockquote>
+<pre>引用阮一峰的发言：</pre>
+
+<p>@雷明庆:</p>
+
+<p>页面里已经加了link rel="prev"/"next"了。</p>
+
+</blockquote>
+
+<p><br>
+验证成功了！<br>
+博主听取别人意见并改进，值得我们学习！</p>
+
+<p>页面添加这个功能，容易实现吗？怎么弄的？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  1, 2014  6:50 AM">2014年7月 1日 06:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-329939">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用royaso的这条留言" onclick="return CommentQuote(&#39;comment-quote-329939&#39;,&#39;royaso&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330094" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://yanhaijing.com" href="http://yanhaijing.com/" target="_blank" rel="nofollow">yanhaijing</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330094">
+            <p>灰常棒啊</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2014 10:50 AM">2014年7月 3日 10:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-330094">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用yanhaijing的这条留言" onclick="return CommentQuote(&#39;comment-quote-330094&#39;,&#39;yanhaijing&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330309" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">张杨</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330309">
+            <blockquote>
+<pre>引用朱俊星的发言：</pre>
+
+<p>您好， 阮老师！ 我是今年河南的应届考生 ，对您的个人魅力十分崇拜 。我的高考分数602 ，请问怎样才能成为您的学生？</p>
+
+</blockquote>
+
+<p>加油～同为河南人。<br>
+你考的不错，不一定要成为他的学生，也可以成为他的朋友。<br>
+大学里好好学习～</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  5, 2014  8:00 AM">2014年7月 5日 08:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-330309">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用张杨的这条留言" onclick="return CommentQuote(&#39;comment-quote-330309&#39;,&#39;张杨&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330518" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://ipple.net/" href="http://ipple.net/" target="_blank" rel="nofollow">苹果园子</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330518">
+            <blockquote>
+<pre>引用朱俊星的发言：</pre>
+
+<p>您好， 阮老师！ 我是今年河南的应届考生 ，对您的个人魅力十分崇拜 。我的高考分数602 ，请问怎样才能成为您的学生？</p>
+
+</blockquote>
+
+<p>多看阮老师博客文章不就行了？呵呵。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  8, 2014  3:13 PM">2014年7月 8日 15:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-330518">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用苹果园子的这条留言" onclick="return CommentQuote(&#39;comment-quote-330518&#39;,&#39;苹果园子&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330519" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.zhanzhenzhen.com/" href="http://www.zhanzhenzhen.com/" target="_blank" rel="nofollow">詹臻臻</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330519">
+            <blockquote>
+<pre>引用RedNax的发言：</pre>
+
+<p>个人觉得最重要的东西反而不是pull(这个还不如先fetch，再merge或者rebase)，而是gitk……<br>
+有时候弄了半天会lost掉不知道local repo究竟处于什么奇怪的状态，gitk来看看commite graph厘清怎么处理才是最重要的。</p>
+
+</blockquote>
+
+<p>我没装gitk，我看这些通常是用到：<br>
+git log --all --decorate --graph</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  8, 2014  3:17 PM">2014年7月 8日 15:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-330519">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用詹臻臻的这条留言" onclick="return CommentQuote(&#39;comment-quote-330519&#39;,&#39;詹臻臻&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330587" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xiaozhou.net" href="http://www.xiaozhou.net/" target="_blank" rel="nofollow">Timothy</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330587">
+            <p>感觉把远程主机改叫远程仓库更合适一些。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  9, 2014  1:20 PM">2014年7月 9日 13:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-330587">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用Timothy的这条留言" onclick="return CommentQuote(&#39;comment-quote-330587&#39;,&#39;Timothy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-333287" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">浪漫小生</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-333287">
+            <p>讲的非常棒！非常简单明了！比网上其他好的git的介绍棒多了！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  8, 2014  5:03 PM">2014年8月 8日 17:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-333287">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用浪漫小生的这条留言" onclick="return CommentQuote(&#39;comment-quote-333287&#39;,&#39;浪漫小生&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-333401" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.digglife.net" href="http://www.digglife.net/" target="_blank" rel="nofollow">摩摩诘</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-333401">
+            <p>我觉得初学者最好是先把Rebase搞清楚，哈哈哈哈，不然被人鄙视。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  9, 2014 10:09 PM">2014年8月 9日 22:09</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-333401">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用摩摩诘的这条留言" onclick="return CommentQuote(&#39;comment-quote-333401&#39;,&#39;摩摩诘&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-335050" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://nil" href="http://nil/" target="_blank" rel="nofollow">ynwzhao</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-335050">
+            <p>图片里面fetch和pull的功能弄反了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 24, 2014  1:55 PM">2014年8月24日 13:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-335050">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用ynwzhao的这条留言" onclick="return CommentQuote(&#39;comment-quote-335050&#39;,&#39;ynwzhao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-335077" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">guobosheng</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-335077">
+            <p>博主能说说fork操作吗？我有个问题，就是在我fork了一个项目之后，如果原项目又更新了代码，我自己fork的项目怎么做到和原项目同步呢？ </p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 25, 2014  9:56 AM">2014年8月25日 09:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-335077">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用guobosheng的这条留言" onclick="return CommentQuote(&#39;comment-quote-335077&#39;,&#39;guobosheng&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-336269" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.ecoandino.asia" href="http://www.ecoandino.asia/" target="_blank" rel="nofollow">秘鲁进口玛卡</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-336269">
+            <p>向你学习</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September  2, 2014  2:36 PM">2014年9月 2日 14:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-336269">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用秘鲁进口玛卡的这条留言" onclick="return CommentQuote(&#39;comment-quote-336269&#39;,&#39;秘鲁进口玛卡&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-336361" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">seatle</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-336361">
+            <blockquote>
+<pre>引用Timothy的发言：</pre>
+
+<p>感觉把远程主机改叫远程仓库更合适一些。</p>
+
+</blockquote>
+
+<p>恰恰相反，楼主用「主机」这个称呼，我一下子明了了。</p>
+
+<p>Git 文档里直接就叫 remote，仍然觉得抽象，虽然我知道它的含义。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September  3, 2014  2:21 AM">2014年9月 3日 02:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-336361">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用seatle的这条留言" onclick="return CommentQuote(&#39;comment-quote-336361&#39;,&#39;seatle&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-339800" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Bravluna</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-339800">
+            <p>阮哥，最后 git push --force origin 时，如果远程主机上分支比自己本地的新，不会发生『non-fast-forward merge』，事实上会覆盖远程主机上的提交，导致提交丢失，多人协同下很少会用 --force 选项，而 non-fast-forward 只在 merge 时才可能发生。其它地方也有些小错误，不过影响都不大。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 27, 2014 11:13 AM">2014年9月27日 11:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-339800">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用Bravluna的这条留言" onclick="return CommentQuote(&#39;comment-quote-339800&#39;,&#39;Bravluna&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-339895" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-339895">
+            <p>@Bravluna：</p>
+
+<p>谢谢指出，已经修改了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 27, 2014  8:17 PM">2014年9月27日 20:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-339895">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-339895&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-341307" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">笔尖</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-341307">
+            <blockquote>
+<pre>引用浪漫小生的发言：</pre>
+
+<p>讲的非常棒！非常简单明了！比网上其他好的git的介绍棒多了！</p>
+
+</blockquote>
+
+<p>你看过其他的教程吗？<br>
+   百度“git教程”第一个网站   廖雪峰的</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 12, 2014  9:20 PM">2014年10月12日 21:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-341307">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用笔尖的这条留言" onclick="return CommentQuote(&#39;comment-quote-341307&#39;,&#39;笔尖&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-342596" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.shelwee.com" href="http://www.shelwee.com/" target="_blank" rel="nofollow">ShelWee</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-342596">
+            <p>真的不能更赞，对我来说帮助太大了，跟字典一样。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  4, 2014  5:53 PM">2014年11月 4日 17:53</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-342596">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用ShelWee的这条留言" onclick="return CommentQuote(&#39;comment-quote-342596&#39;,&#39;ShelWee&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-342608" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">apple</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-342608">
+            <p>非常实用</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  4, 2014  8:42 PM">2014年11月 4日 20:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-342608">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用apple的这条留言" onclick="return CommentQuote(&#39;comment-quote-342608&#39;,&#39;apple&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-343798" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">shadow</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-343798">
+            <p>感谢，写的很不错</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 15, 2014  3:18 PM">2014年11月15日 15:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-343798">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用shadow的这条留言" onclick="return CommentQuote(&#39;comment-quote-343798&#39;,&#39;shadow&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-344759" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">风老前辈</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-344759">
+            <blockquote>
+<pre>引用朱俊星的发言：</pre>
+
+<p>您好， 阮老师！ 我是今年河南的应届考生 ，对您的个人魅力十分崇拜 。我的高考分数602 ，请问怎样才能成为您的学生？</p>
+
+</blockquote>
+
+<p>好好编程，进阿里你们就相见了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 24, 2014  5:06 PM">2014年11月24日 17:06</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-344759">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用风老前辈的这条留言" onclick="return CommentQuote(&#39;comment-quote-344759&#39;,&#39;风老前辈&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-346462" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Rock</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-346462">
+            <p>remote: ERROR:  committer email address XXX@CCCC.XXX.com<br>
+remote: ERROR:  does not match your user account.<br>
+remote: ERROR:<br>
+remote: ERROR:  The following addresses are currently registered:<br>
+remote: ERROR:    XX.CCXXX@XXXXX.com</p>
+
+<p>! [remote rejected] master -&gt; master (invalid committer)<br>
+error: failed to push some refs to 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+
+<p> ! [remote rejected] master -&gt; master (invalid committer)<br>
+error: failed to push some refs to 'ssh://code.ctripcorp.com:29418/Flight/Mobile</p>
+
+<p>我使用 git config --global user.email "XXXX@XXXX.com"后，还是不行，push后依然显示这个错，请问如何解决？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 18, 2014  9:34 PM">2014年12月18日 21:34</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-346462">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用Rock的这条留言" onclick="return CommentQuote(&#39;comment-quote-346462&#39;,&#39;Rock&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-346561" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">764</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-346561">
+            <p>@raywang：</p>
+
+<p>仔细看，第二条命令master前边有“:”，而第一条没有</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 23, 2014 11:54 AM">2014年12月23日 11:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-346561">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用764的这条留言" onclick="return CommentQuote(&#39;comment-quote-346561&#39;,&#39;764&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-347602" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">过客</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-347602">
+            <p>“如果省略远程分支名，则表示将本地分支推送与之存在"追踪关系"的远程分支（通常两者同名），如果该远程分支不存在，则会被新建”这里这样描述很容易给人歧义，$ git push origin master ，这里不应该提到“追踪关系”，很容易让人想到是不是追踪分支，虽然楼主加了双引号，事实上，这种关系楼主你知道是怎么产生的么？或者说在哪里有类似和追踪分支一样的设置</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 29, 2015 12:41 AM">2015年1月29日 00:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-347602">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用过客的这条留言" onclick="return CommentQuote(&#39;comment-quote-347602&#39;,&#39;过客&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-347604" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">过客</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-347604">
+            <p>“如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。<br>
+$ git push origin<br>
+上面命令表示，将当前分支推送到origin主机的对应分支”</p>
+
+<p>事实上，不是追踪分支关系的分支作为当前分支，也可以执行git push origin，所以这里上面那样写是不是不对？<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 29, 2015  1:55 AM">2015年1月29日 01:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-347604">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用过客的这条留言" onclick="return CommentQuote(&#39;comment-quote-347604&#39;,&#39;过客&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-347723" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://zchang.me" href="http://zchang.me/" target="_blank" rel="nofollow">Zhehua Chang</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-347723">
+            <p>学习了，很受用。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February  1, 2015  5:03 PM">2015年2月 1日 17:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-347723">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用Zhehua Chang的这条留言" onclick="return CommentQuote(&#39;comment-quote-347723&#39;,&#39;Zhehua Chang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-347870" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.nothinking.cn" href="http://www.nothinking.cn/" target="_blank" rel="nofollow">red.hu</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-347870">
+            <p>阮老师，把背景设为#dddddd吧，看黄色背景刺眼的很。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February  5, 2015 10:48 AM">2015年2月 5日 10:48</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-347870">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用red.hu的这条留言" onclick="return CommentQuote(&#39;comment-quote-347870&#39;,&#39;red.hu&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-349314" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">yimiyan</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-349314">
+            <p>请问 git remote -v 之后<br>
+origin  git@xxx.xx.x.xxx:developers/hljk365.git (fetch)<br>
+origin  git@xxx.xx.x.xxx:developers/hljk365.git (push)</p>
+
+<p> 这两个后面的fetch 和push 是什么意思啊</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 29, 2015  5:35 PM">2015年4月29日 17:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-349314">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用yimiyan的这条留言" onclick="return CommentQuote(&#39;comment-quote-349314&#39;,&#39;yimiyan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-349987" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ender</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-349987">
+            <p>学习了，谢谢，分享让世界更加的美好。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 28, 2015 10:59 AM">2015年5月28日 10:59</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-349987">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用ender的这条留言" onclick="return CommentQuote(&#39;comment-quote-349987&#39;,&#39;ender&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350874" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">王一</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350874">
+            <p>远程主机翻译为远程仓库是否更准确一些？</p>
+
+<p><a href="http://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes" rel="nofollow">http://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes</a><br>
+Remote repositories are...</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 16, 2015  2:03 PM">2015年7月16日 14:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-350874">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用王一的这条留言" onclick="return CommentQuote(&#39;comment-quote-350874&#39;,&#39;王一&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350902" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">KenzieChen</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350902">
+            <p>谢谢，讲得很清楚</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 17, 2015 11:19 PM">2015年7月17日 23:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-350902">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用KenzieChen的这条留言" onclick="return CommentQuote(&#39;comment-quote-350902&#39;,&#39;KenzieChen&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350921" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">陈熊猫</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350921">
+            <p>感谢博主的总结~</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 20, 2015  9:43 AM">2015年7月20日 09:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-350921">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用陈熊猫的这条留言" onclick="return CommentQuote(&#39;comment-quote-350921&#39;,&#39;陈熊猫&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-351099" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">xue</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-351099">
+            <blockquote>
+<pre>引用过客的发言：</pre>
+
+<p>“如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。<br>
+$ git push origin<br>
+上面命令表示，将当前分支推送到origin主机的对应分支”</p>
+
+<p>事实上，不是追踪分支关系的分支作为当前分支，也可以执行git push origin，所以这里上面那样写是不是不对？</p>
+
+</blockquote>
+
+<p>推动是可以，但是没有任何效果! 因为simple模式下，git没有找到对应的远程分支，所以，没有任何操作。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  2, 2015 10:41 PM">2015年8月 2日 22:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-351099">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用xue的这条留言" onclick="return CommentQuote(&#39;comment-quote-351099&#39;,&#39;xue&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-351322" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">haoming</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-351322">
+            <p>学到东西了，很有用。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 19, 2015 11:13 AM">2015年8月19日 11:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-351322">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用haoming的这条留言" onclick="return CommentQuote(&#39;comment-quote-351322&#39;,&#39;haoming&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-351324" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">haoming</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-351324">
+            <p>有一个添加文件到特定remote的问题。我先clone了一个名字叫try的repo：<br>
+git clone github.com/try.git<br>
+然后我用gitstack在本地电脑上创建一个空的remote：http://localhost/try.git，接着添加了这个remote：<br>
+git remote add jacky <a href="http://localhost/try.git" rel="nofollow">http://localhost/try.git</a><br>
+这都没有问题。我最后想把我repo里的文件（就是从github.com/try.git clone下来的文件）给push到jacky这个remote的时候，发现根本一个文件都没有push上去：<br>
+git push jacky master</p>
+
+<p>我的问题是怎样才能把本地repo（try文件夹）里面的文件push到jacky这个remote？谢谢大家的耐心和时间！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 19, 2015 11:49 AM">2015年8月19日 11:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-351324">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用haoming的这条留言" onclick="return CommentQuote(&#39;comment-quote-351324&#39;,&#39;haoming&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352045" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">杨镇同</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352045">
+            <p>文章很实用,我是新学git,32个赞.</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October  9, 2015  9:28 AM">2015年10月 9日 09:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-352045">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用杨镇同的这条留言" onclick="return CommentQuote(&#39;comment-quote-352045&#39;,&#39;杨镇同&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352508" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">luffy</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352508">
+            <p>pull那里是不是说错了，pull只是会覆盖本地仓库，但不会覆盖工作区间</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  2, 2015  2:21 PM">2015年11月 2日 14:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-352508">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用luffy的这条留言" onclick="return CommentQuote(&#39;comment-quote-352508&#39;,&#39;luffy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352803" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://hefengxian.gitcafe.io" href="http://hefengxian.gitcafe.io/" target="_blank" rel="nofollow">hefengxian</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352803">
+            <p>非常感谢，受益匪浅，解释清晰到位</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 16, 2015  2:56 PM">2015年11月16日 14:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-352803">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用hefengxian的这条留言" onclick="return CommentQuote(&#39;comment-quote-352803&#39;,&#39;hefengxian&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-354975" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.schoolpot.com" href="http://www.schoolpot.com/" target="_blank" rel="nofollow">chrisren</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-354975">
+            <p>博主，请问题头的那个图是用什么工具画的？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 13, 2016  4:04 PM">2016年3月13日 16:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-354975">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html#comment-text" title="引用chrisren的这条留言" onclick="return CommentQuote(&#39;comment-quote-354975&#39;,&#39;chrisren&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1807">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./Git远程操作详解 - 阮一峰的网络日志_files/prism.js"></script>
+
+            <div id="footer">
+    <div id="footer-inner">
+        <div id="footer-content">
+<p><a href="http://www.ruanyifeng.com/contact.html">联系方式</a> | ruanyifeng.com 2003 - 2016
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<!-- Site Meter -->
+<a href="http://sm3.sitemeter.com/stats.asp?site=sm3bomoocom" target="_top">
+<img src="./Git远程操作详解 - 阮一峰的网络日志_files/meter.asp" alt="Site Meter" border="0"></a>
+
+<!-- Copyright (c)2009 Site Meter -->
+
+</p>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="share_button_proto" style="display:none;"><a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a><script type="text/javascript" charset="utf-8" src="./Git远程操作详解 - 阮一峰的网络日志_files/buttonLite.js"></script>                                       
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script></div>
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame894" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="ads"></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:244px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="网易微博" onclick="javascript:bShare.share(event,&#39;neteasemb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1332px;">网易微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="飞信" onclick="javascript:bShare.share(event,&#39;feixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -702px;">飞信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="开心网" onclick="javascript:bShare.share(event,&#39;kaixin001&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1008px;">开心网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="搜狐微博" onclick="javascript:bShare.share(event,&#39;sohuminiblog&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1800px;">搜狐微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="人人网" onclick="javascript:bShare.share(event,&#39;renren&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1674px;">人人网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

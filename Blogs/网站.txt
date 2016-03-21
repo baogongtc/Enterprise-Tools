@@ -1,0 +1,2 @@
+http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/gdb.html
+http://c.learncodethehardway.org/book

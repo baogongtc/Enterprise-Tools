@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://segmentfault.com/q/1010000000430426 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta property="qc:admins" content="15317273575564615446375"><meta property="og:image" content="https://sf-static.b0.upaiyun.com/v-56df97e5/global/img/touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><title>git忽略已经被提交的文件 - SegmentFault</title><meta name="description" content="现在项目的根目录放了 .gitignore 文件，并且git远程仓库的项目根目录已经有了 logs文件夹。 由于每次本地运行项目，都会生成新的log文件，但是我并不想提交logs文件夹里面的内容，所以要在.gitignore写logs的规..."><meta name="keywords" content="git"><link rel="search" type="application/opensearchdescription+xml" href="https://segmentfault.com/opensearch.xml" title="SegmentFault"><link rel="shortcut icon" href="https://sf-static.b0.upaiyun.com/v-56df97e5/global/img/favicon.ico"><link rel="apple-touch-icon" href="https://sf-static.b0.upaiyun.com/v-56df97e5/global/img/touch-icon.png"><meta name="msapplication-TileColor" content="#009a61"><meta name="msapplication-square150x150logo" content="https://sf-static.b0.upaiyun.com/v-56df97e5/global/img/touch-icon.png"><meta name="userId" value="" id="SFUserId"><meta name="userRank" value="" id="SFUserRank"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="https://segmentfault.com/feeds/questions"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="https://segmentfault.com/feeds/blogs"><link rel="stylesheet" href="./git忽略已经被提交的文件 - SegmentFault_files/global.css"><link rel="stylesheet" href="./git忽略已经被提交的文件 - SegmentFault_files/qa_all.css"><link rel="stylesheet" href="./git忽略已经被提交的文件 - SegmentFault_files/responsive.css"><!--[if lt IE 9]><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-56df97e5/global/css/ie.css"/><script src="https://sf-static.b0.upaiyun.com/v-56df97e5/global/js/html5shiv.js"></script><script src="https://sf-static.b0.upaiyun.com/v-56df97e5/global/js/respond.js"></script><![endif]--><script src="./git忽略已经被提交的文件 - SegmentFault_files/hm.js"></script><script async="" src="./git忽略已经被提交的文件 - SegmentFault_files/analytics.js"></script><script src="./git忽略已经被提交的文件 - SegmentFault_files/debug.js"></script></head><body class="qa-question"><!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]--><div class="global-nav"><nav class="container nav"><div class="dropdown m-menu"><a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span><span class="mobile-menu__unreadpoint"></span></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li class="mobile-menu__item"><a href="https://segmentfault.com/questions/newest">问答</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/blogs">文章</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/user/note">笔记</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/jobs">职位</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/events">活动</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/tags">标签</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/users">榜单</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/sites">子站</a></li></ul></div><h1 class="logo"><a class="sf" href="https://segmentfault.com/">SegmentFault</a></h1><a href="https://segmentfault.com/user/login" class="visible-xs-block pull-right m-ask m-toptools"><span class="glyphicon glyphicon-log-in"></span></a><ul class="menu list-inline pull-left hidden-xs"><li class="menu__item"><a href="https://segmentfault.com/questions">问答</a></li><li class="menu__item"><a href="https://segmentfault.com/blogs">文章</a></li><li class="menu__item"><a href="https://segmentfault.com/user/note">笔记</a></li><li class="menu__item"><a href="https://segmentfault.com/jobs">职位</a></li><li class="menu__item"><a href="https://segmentfault.com/events">活动</a></li></ul><ul class="opts pull-right list-inline hidden-xs"><li class="opts__item message has-unread"><a target="_blank" href="https://segmentfault.com/tour"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-hand-peace-o"></span></a></li><li class="opts__item"><a href="https://segmentfault.com/user/login" class="SFLogin em ml10" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;Button&#39;, &#39;Click&#39;, &#39;Login&#39;]);">注册 · 登录</a></li></ul><form action="https://segmentfault.com/search" class="header-search pull-right hidden-sm hidden-xs"><button class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></button><input id="searchBox" name="q" type="text" placeholder="输入关键字搜索" class="form-control" value=""></form></nav></div><div class="global-navTags"><div class="container"><nav class=" nav"><ul class="nav__list"><li class="nav__item"><a href="https://segmentfault.com/"><i class="fa fa-home"></i>home
+                            </a></li><li class="nav__item"><a href="https://segmentfault.com/timeline"><i class="fa fa-list-alt"></i>feed
+                            </a></li><li class="nav__item nav__item--split"><a><span class="split"></span></a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/javascript">javascript</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/php">php</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/python">python</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/java">java</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/mysql">mysql</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/ios">ios</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/android">android</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/node.js">node.js</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/html5">html5</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/linux">linux</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/c%2B%2B">c++</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/css3">css3</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/git">git</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/golang">golang</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/ruby">ruby</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/vim">vim</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/docker">docker</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/mongodb">mongodb</a></li><li class="nav__item nav__item--more" data-open="0"><a class="nav__item--more-link" href="https://segmentfault.com/tags"><div class="tag__more"><i class="tag__more--icon"></i><i class="tag__more--icon"></i><i class="tag__more--icon"></i></div></a></li></ul><div class="tag-mgr__box hide"><input class="tag-mgr__query" type="text" placeholder="搜索关注的标签" data-tags="null"><div class="mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" data-mcs-theme="minimal-dark" style="position: relative; overflow: visible;"><div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" style="max-height: 0px;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr"><ul class="tag-mgr__list"></ul></div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div><a href="https://segmentfault.com/tags" class="btn btn-primary btn-sm tag-mgr__btn">标签管理</a></div></nav></div></div>
+<div class="wrap">
+
+    <div class="post-topheader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <span class="post-topheader__title--icon-symbol">问</span>
+
+                    <div class="post-topheader__info">
+                        <h1 class="h3 post-topheader__info--title" id="questionTitle" data-id="1010000000430426">
+                                            <a href="https://segmentfault.com/q/1010000000430426">git忽略已经被提交的文件</a>
+                        </h1>
+
+                        <ul class="taglist--inline inline-block question__title--tag mr10">
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/git" data-toggle="popover" data-img="https://sfault-avatar.b0.upaiyun.com/346/251/346251195-1040000000089459_huge256" data-placement="top" data-original-title="git" data-id="1040000000089459">git</a></li>
+                                                    </ul>
+
+                        <div class="question__author">
+                        <a href="https://segmentfault.com/u/yoleyu" class="mr5"><strong>Yole</strong></a>
+                        2014年03月11日提问<span class="hidden-xs">
+                                                    · <a href="https://segmentfault.com/q/1010000000430426/revision">2014年03月11日更新</a>
+                                                                      </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 hidden-xs">
+                    <ul class="post-topheader__side list-unstyled">
+                        <li>
+                                                            <button type="button" id="sideFollow" class="btn btn-success btn-sm" data-id="1010000000430426" data-do="follow" data-type="question" data-toggle="tooltip" data-placement="right" title="" data-original-title="关注后将获得更新提醒">关注
+                                </button>
+                                                        <strong>20</strong> 关注
+                        </li>
+                        <li>
+                                                            <button type="button" id="sideBookmark" class="btn btn-default btn-sm" data-id="1010000000430426" data-type="question">收藏
+                                </button>
+                                                        <strong id="sideBookmarked">67</strong> 收藏，<strong class="no-stress">28.1k</strong> 浏览
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end .post-topheader -->
+
+    <div class="container mt30">
+        <div class="row">
+            <div class="col-xs-12 col-md-9 main">
+                <article class="widget-question__item">
+                    <div class="post-col">
+                        <div class="widget-vote">
+                            <button type="button" class="like" data-id="1010000000430426" data-type="question" data-do="like" data-toggle="tooltip" data-placement="top" title="" data-original-title="问题对人有帮助，内容完整，我也想知道答案">
+                                <span class="sr-only">问题对人有帮助，内容完整，我也想知道答案</span>
+                            </button>
+                            <span class="count">1</span>
+                            <button type="button" class="hate" data-id="1010000000430426" data-type="question" data-do="hate" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="问题没有实际价值，缺少关键内容，没有改进余地">
+                                <span class="sr-only">问题没有实际价值，缺少关键内容，没有改进余地</span>
+                            </button>
+                        </div>
+                        <!-- end .widget-vote -->
+                    </div>
+
+                    <div class="post-offset">
+                        <div class="question fmt">
+                                                            
+<p>现在项目的根目录放了 <strong>.gitignore</strong> 文件，并且git远程仓库的项目根目录<strong>已经有了</strong> logs文件夹。</p>
+
+<p>由于每次本地运行项目，都会生成新的log文件，但是我并不想提交logs文件夹里面的内容，所以要在.gitignore写logs的规则。</p>
+
+<p>我尝试过添加以下规则<br>
+logs/*.log<br>
+logs/<br>
+/logs/</p>
+
+<p>但是运行git status的时候，始终能看到modified:logs/xx.log 。</p>
+
+<p>请问是我的规则编写错误，还是我某个地方有理解错误？</p>
+
+                            
+                        </div>
+
+
+                                                                                                                        
+                        <div class="row">
+                            <div class="post-opt col-md-8">
+                            <ul class="list-inline mb0">
+                                <li><a href="https://segmentfault.com/q/1010000000430426">2014年03月11日提问</a></li>
+                                
+                                <li><a href="javascript:void(0);" class="comments" data-id="1010000000430426" data-target="#comment-1010000000430426">
+                                        评论</a></li>
+
+
+                                
+                                
+                                
+                                                            </ul>
+                            </div>
+
+                            
+                        </div>
+                        <div class="widget-comments hidden" id="comment-1010000000430426" data-id="1010000000430426">
+                    <div class="widget-comments__form row">
+            
+                            <div class="col-md-12">
+                    请先 <a class="commentLogin" href="javascript:void(0);">登录</a> 后评论
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+                    </div>
+                    <!-- end .post-offset -->
+                </article>
+
+                    <div class="widget-answers">
+        <div class="btn-group pull-right" role="group">
+            <a href="https://segmentfault.com/q/1010000000430426#answers-title" id="sortby-rank" class="btn btn-default btn-xs active">默认排序</a>
+            <a href="https://segmentfault.com/q/1010000000430426?sort=created#answers-title" id="sortby-created" class="btn btn-default btn-xs">时间排序</a>
+        </div>
+
+        <h2 class="title h4 mt30 mb20 post-title" id="answers-title">4 个回答</h2>
+
+                    
+    
+            
+    <article class="clearfix widget-answers__item accepted" id="a-1020000000468956">
+        <div class="post-col">
+            <div class="widget-vote">
+                <button type="button" class="like" data-id="1020000000468956" data-type="answer" data-do="like" data-toggle="tooltip" data-placement="top" title="" data-original-title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                <span class="count">21</span>
+                <button type="button" class="hate" data-id="1020000000468956" data-type="answer" data-do="hate" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                            <div class="accepted-flag">采纳</div>        </div>
+
+        <div class="post-offset">
+            <div class="answer fmt">
+                                    
+<p><strong>tl;dr：</strong> 正确的做法应该是：<code>git rm --cached logs/xx.log</code>，然后更新 <code>.gitignore</code> 忽略掉目标文件，最后 <code>git commit -m "We really don't want Git to track this anymore!"</code></p>
+
+<p>具体的原因如下：</p>
+
+<p>被采纳的答案虽然能达到（暂时的）目的，但并非最正确的做法，这样做是误解了 <code>git update-index</code> 的含义，而且这样做带来的最直接（不良）后果是这样的：</p>
+
+<ol>
+<li><p>所有的团队成员都必须对目标文件执行：<code>git update-index --assume-unchanged &lt;PATH&gt;</code>。这是因为即使你让 Git 假装看不见目标文件的改变，但文件本身还是在 Git 的历史记录里的，所以团队的每个人在 <em>fetch</em> 的时候都会拉到目标文件的变更。（但实际上目标文件是根本不想被 Git 记录的，而不是假装看不见它发生了改变）</p></li>
+<li><p>一旦有人改变目标文件之后没有 <code>git update-index --assume-unchanged &lt;PATH&gt;</code> 就直接 <em>push</em> 了，那么接下来所有拉取了最新代码的成员必须重新执行 <em>update-index</em>，否则 Git 又会开始记录目标文件的变化。这一点实际上很常见的，比如说某成员换了机器或者硬盘，重新 <em>clone</em> 了一份代码库，由于目标文件还在 Git 的历史记录里，所以他／她很可能会忘记 <em>update-index</em>。</p></li>
+</ol>
+<p>为什么会这样？答案就在 Git 的 <em>man pages</em> 里：</p>
+
+<p>首先，<em>git update-index</em> 的定义是：</p>
+
+<blockquote>
+  <p>Register file contents in the working tree to the index（把工作区下的文件内容注册到索引区）</p>
+</blockquote>
+
+<p>这句话暗含的意思是：<em>update-index</em> 针对的是 Git 数据库里被记录的文件，而不是那些需要忽略的文件。</p>
+
+<p>接着看关于 <em>--assume-unchanged</em> 的几句相关的描述：</p>
+
+<blockquote>
+  <p>When the "assume unchanged" bit is on, Git stops checking the working tree files for possible modifications, so you need to manually unset the bit to tell Git when you change the working tree file. This is sometimes helpful when working with a big project on a filesystem that has very slow lstat(2) system call (e.g. cifs).</p>
+</blockquote>
+
+<p>大致意思是：</p>
+
+<blockquote>
+  <p>应用了该标识之后，Git 停止查看工作区文件可能发生的改变，所以你必须 <strong>手动</strong> 重置该标识以便 Git 知道你想要恢复对文件改变的追踪。当你工作在一个大型项目中，这在文件系统的 <code>lstat</code> 系统调用非常迟钝的时候会很有用。</p>
+</blockquote>
+
+<p>我们知道 Git 不仅仅是用来做代码版本管理的，很多其他领域的项目也会使用 Git。比如说我公司曾经一个客户的项目涉及到精密零件图纸文档的版本管理，他们也用 Git。有一种使用场景是对一些体积庞大的文件进行修改，但是每一次保存 Git 都要计算文件的变化并更新工作区，这在硬盘慢的时候延迟卡顿非常明显。</p>
+
+<p><code>git update-index --assume-unchanged</code> 的真正用法是这样的：</p>
+
+<ol>
+<li>你正在修改一个巨大的文件，你先对其 <code>git update-index --assume-unchanged</code>，这样 Git 暂时不会理睬你对文件做的修改；</li>
+<li>当你的工作告一段落决定可以提交的时候，重置改标识：<code>git update-index --no-assume-unchanged</code>，于是 Git 只需要做一次更新，这是完全可以接受的了；</li>
+<li>提交＋推送。</li>
+</ol>
+<p>另外，根据文档的进一步描述：</p>
+
+<blockquote>
+  <p>This option can be also used as a <strong>coarse</strong> file-level mechanism to ignore uncommitted changes in tracked files (akin to what .gitignore does for <strong>untracked files</strong>).</p>
+</blockquote>
+
+<p>这段描述告诉我们两个事实：</p>
+
+<ol>
+<li>虽然可以用其来达成楼主想要的结果，但这是不讲究的做法（coarse）；</li>
+<li>同样的事情更应该用 <code>.gitignore</code> 文件来实现（针对未追踪的文件）。</li>
+</ol>
+<p>随之而来的问题是：<strong>为什么我增加了 <em>.gitignore</em> 里的规则却没有效果？</strong></p>
+
+<p>这是因为我们误解了 <em>.gitignore</em> 文件的用途，该文件只能作用于 <strong><em>Untracked Files</em></strong>，也就是那些从来没有被 Git 记录过的文件（自添加以后，从未 add 及 commit 过的文件）。</p>
+
+<p>之所以你的规则不生效，是因为那些 <code>.log</code> 文件曾经被 Git 记录过，因此 <code>.gitignore</code> 对它们完全无效。这也正是开头那段简短答案所做的事情：</p>
+
+<ol>
+<li>从 Git 的数据库中删除对于该文件的追踪；</li>
+<li>把对应的规则写入 <em>.gitignore</em>，让忽略真正生效；</li>
+<li>提交＋推送。</li>
+</ol>
+<p>只有这样做，所有的团队成员才会保持一致而不会有后遗症，也只有这样做，其他的团队成员根本不需要做额外的工作来维持对一个文件的改变忽略。</p>
+
+<p>最后有一点需要注意的，<code>git rm --cached</code> 删除的是追踪状态，而不是物理文件；如果你真的是彻底不想要了，你也可以直接 <code>rm</code>＋忽略＋提交。</p>
+
+                            </div>
+
+            
+            
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="https://segmentfault.com/q/1010000000430426/a-1020000000468956"> 2014年04月15日回答</a> <span class="text-muted">
+
+                            · <a href="https://segmentfault.com/q/1010000000430426/a-1020000000468956/revision">2014年09月03日更新</a>
+                    </span></li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000000468956" data-target="#comment-1020000000468956">12
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="https://segmentfault.com/u/nightire"><img class="avatar-32" src="./git忽略已经被提交的文件 - SegmentFault_files/2630188223-1030000000125916_big64" alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="nightire" href="https://segmentfault.com/u/nightire">nightire</a><span class="answer__info--author-rank">23.5k 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments" id="comment-1020000000468956" data-id="1020000000468956">
+            <div class="widget-comments__item hover-show" id="1050000000470043">
+            <div class="votes widget-vote">
+                <button class="like" data-id="1050000000470043" type="button" data-do="like" data-type="comment" data-original-title="" title=""></button>
+                <span class="count">+1</span>
+            </div>
+            <div class="comment-content">
+                                                <div class="content fmt">
+                    <p>有时不想删除本地的文件, 只是想让git不再track, 这时可以使用 git rm --cached logs/xx.log</p>
+                </div>
+                <p class="comment-meta">
+                    <a href="https://segmentfault.com/c/1050000000470043" class="text-muted"></a>
+                    <a href="https://segmentfault.com/u/xhh" class="commentUser" data-userid="1030000000248935" data-username="xhh" data-userslug="xhh" data-useravatar="https://sfault-avatar.b0.upaiyun.com/292/660/2926601596-1030000000248935_medium40">
+                        <strong>xhh</strong>
+                    </a>
+                    ·
+                    2014年04月15日
+
+                <span class="pull-right commentTools hover-show-obj">
+                                            <a href="javascript:void(0);" class="commentReply" data-userid="1030000000248935" data-id="1050000000470043" data-username="xhh">
+                            <span class="glyphicon glyphicon-share-alt flipx" aria-hidden="true"></span>
+                        </a>
+                                                                                                </span>
+                </p>
+            </div>
+        </div>
+                <a href="javascript:void(0);" class="comments showMoreComments" data-id="1020000000468956" data-target="#comment-1020000000468956">展开评论</a>
+
+    <div class="widget-comments__form row hidden">
+        
+                            <div class="col-md-12">
+                    请先 <a class="commentLogin" href="javascript:void(0);">登录</a> 后评论
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+        
+                    
+    
+            
+    <article class="clearfix widget-answers__item" id="a-1020000000430441">
+        <div class="post-col">
+            <div class="widget-vote">
+                <button type="button" class="like" data-id="1020000000430441" data-type="answer" data-do="like" data-toggle="tooltip" data-placement="top" title="" data-original-title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                <span class="count">2</span>
+                <button type="button" class="hate" data-id="1020000000430441" data-type="answer" data-do="hate" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                    </div>
+
+        <div class="post-offset">
+            <div class="answer fmt">
+                                    
+<p>已经维护起来的文件，即使加上了gitignore，也无济于事。<br>
+用下面这个命令：<br><code>git update-index --assume-unchanged logs/*.log</code><br>
+这样每次提交就不会出现logs下面的文件了</p>
+
+                            </div>
+
+            
+            
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="https://segmentfault.com/q/1010000000430426/a-1020000000430441"> 2014年03月11日回答</a> <span class="text-muted">
+
+                    </span></li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000000430441" data-target="#comment-1020000000430441">2
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="https://segmentfault.com/u/fatghosta"><img class="avatar-32" src="./git忽略已经被提交的文件 - SegmentFault_files/user-64.png" alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="FatGhosta" href="https://segmentfault.com/u/fatghosta">FatGhosta</a><span class="answer__info--author-rank">387 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments hidden" id="comment-1020000000430441" data-id="1020000000430441">
+                    <div class="widget-comments__form row">
+            
+                            <div class="col-md-12">
+                    请先 <a class="commentLogin" href="javascript:void(0);">登录</a> 后评论
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+                    
+    
+            
+    <article class="clearfix widget-answers__item" id="a-1020000000468838">
+        <div class="post-col">
+            <div class="widget-vote">
+                <button type="button" class="like" data-id="1020000000468838" data-type="answer" data-do="like" data-toggle="tooltip" data-placement="top" title="" data-original-title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                <span class="count">2</span>
+                <button type="button" class="hate" data-id="1020000000468838" data-type="answer" data-do="hate" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                    </div>
+
+        <div class="post-offset">
+            <div class="answer fmt">
+                                    
+<p>自己来一段详细的答案<br>
+.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。<br>
+正确的做法是在每个clone下来的仓库中手动设置不要检查特定文件的更改情况。</p>
+
+<pre class="hljs sql"><div class="widget-codetool" style="display:none;"><button class="selectCode btn btn-xs">全选</button><button href="javascript:void(0);" class="copyCode btn btn-xs" data-clipboard-text="git update-index --assume-unchanged PATH    在PATH处输入要忽略的文件。
+" data-toggle="tooltip" data-placement="top" title="">复制</button><button href="javascript:void(0);" class="saveToNote btn btn-xs">放进笔记</button></div><code>git <span class="hljs-operator"><span class="hljs-keyword">update</span>-<span class="hljs-keyword">index</span> <span class="hljs-comment">--assume-unchanged PATH    在PATH处输入要忽略的文件。</span>
+</span></code></pre>
+
+<p>另外 git 还提供了另一种 exclude 的方式来做同样的事情，不同的是 .gitignore 这个文件本身会提交到版本库中去。用来保存的是公共的需要排除的文件。而 .git/info/exclude 这里设置的则是你自己本地需要排除的文件。 他不会影响到其他人。也不会提交到版本库中去。</p>
+
+<p>.gitignore 还有个有意思的小功能， 一个空的 .gitignore 文件 可以当作是一个 placeholder 。当你需要为项目创建一个空的 log 目录时， 这就变的很有用。 你可以创建一个 log 目录 在里面放置一个空的 .gitignore 文件。这样当你 clone 这个 repo 的时候 git 会自动的创建好一个空的 log 目录了。</p>
+
+                            </div>
+
+            
+            
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="https://segmentfault.com/q/1010000000430426/a-1020000000468838"> 2014年04月14日回答</a> <span class="text-muted">
+
+                    </span></li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000000468838" data-target="#comment-1020000000468838">2
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="https://segmentfault.com/u/yoleyu"><img class="avatar-32" src="./git忽略已经被提交的文件 - SegmentFault_files/2605074037-1030000000380264_big64" alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="Yole" href="https://segmentfault.com/u/yoleyu">Yole</a><span class="answer__info--author-rank">288 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments hidden" id="comment-1020000000468838" data-id="1020000000468838">
+                    <div class="widget-comments__form row">
+            
+                            <div class="col-md-12">
+                    请先 <a class="commentLogin" href="javascript:void(0);">登录</a> 后评论
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+                    
+    
+            
+    <article class="clearfix widget-answers__item" id="a-1020000000430485">
+        <div class="post-col">
+            <div class="widget-vote">
+                <button type="button" class="like" data-id="1020000000430485" data-type="answer" data-do="like" data-toggle="tooltip" data-placement="top" title="" data-original-title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                <span class="count">1</span>
+                <button type="button" class="hate" data-id="1020000000430485" data-type="answer" data-do="hate" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                    </div>
+
+        <div class="post-offset">
+            <div class="answer fmt">
+                                    
+<p>把log文件删了，加ingore, 再commit</p>
+
+                            </div>
+
+            
+            
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="https://segmentfault.com/q/1010000000430426/a-1020000000430485"> 2014年03月11日回答</a> <span class="text-muted">
+
+                            · <a href="https://segmentfault.com/q/1010000000430426/a-1020000000430485/revision">2014年05月14日更新</a>
+                    </span></li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000000430485" data-target="#comment-1020000000430485">
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="https://segmentfault.com/u/lidashuang"><img class="avatar-32" src="./git忽略已经被提交的文件 - SegmentFault_files/2649834099-54a56ace4b01a_big64" alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="lidashuang" href="https://segmentfault.com/u/lidashuang">lidashuang</a><span class="answer__info--author-rank">5.9k 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments hidden" id="comment-1020000000430485" data-id="1020000000430485">
+                    <div class="widget-comments__form row">
+            
+                            <div class="col-md-12">
+                    请先 <a class="commentLogin" href="javascript:void(0);">登录</a> 后评论
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+        
+        
+        
+        <div class="text-center">
+            
+        </div>
+    </div><!-- /.widget-answers -->
+
+
+            
+                    <div style="padding-left: 65px;">
+            <h4>撰写答案</h4>
+            <input type="hidden" id="draftId" value="">
+            <input type="hidden" value="1010000000430426" id="questionId">
+            <form action="https://segmentfault.com/question/1010000000430426/answers/add" method="post" class="editor-wrap">
+                <div class="editor" id="questionText">
+                    <textarea id="answerEditor" name="text" class="form-control" rows="4" placeholder="撰写答案..."></textarea>
+                </div>
+                <div id="answerSubmit" class="hide mt15 clearfix">
+                    <div class="checkbox pull-left">
+                        <label><input type="checkbox" class="" id="shareToWeibo">
+                            同步到新浪微博</label>
+                    </div>
+                    <div class="pull-right">
+                    <span id="editorStatus" class="hidden text-muted">
+
+                    </span>
+                        <a id="dropIt" href="javascript:void(0);" class="mr10 hidden">[舍弃]</a>
+                        <button type="submit" id="answerIt" data-id="1010000000430426" class="btn btn-lg btn-primary ml20">提交回答
+                        </button>
+                    </div>
+                </div>
+            </form>
+                        </div>
+            
+                    
+                            </div>
+            <!-- /.main -->
+
+
+            
+<div class="col-xs-12 col-md-3 side">
+    <div class="sfad-sidebar">
+      <div class="sfad-item">
+    <ins><a href="https://sponsor.segmentfault.com/ck.php?oaparams=2__bannerid=7__zoneid=1__cb=ec7484044d__oadest=http%3A%2F%2Fclick.aliyun.com%2Fm%2F3936%2F" target="_blank"><img src="./git忽略已经被提交的文件 - SegmentFault_files/faa0129fe8a80014459b52dc95cdd1d7.jpg" width="255" height="165" alt="" title="" border="0"></a><div id="beacon_ec7484044d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./git忽略已经被提交的文件 - SegmentFault_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div></ins>
+    <button class="close" type="button" aria-hidden="true">×</button>
+</div>
+
+  </div>
+
+
+        <div class="widget-box no-border">
+        <h2 class="h4 widget-box__title">相似问题</h2>
+        <ul class="widget-links list-unstyled">
+                            <li class="widget-links__item"><a title="git 仓库新建文件git status 没有提示变动" href="https://segmentfault.com/q/1010000004366643">git 仓库新建文件git status 没有提示变动</a>
+                                    <small class="text-muted">
+                                                    2 回答
+                                                                             |                             已解决
+                                            </small>
+                                </li>
+                            <li class="widget-links__item"><a title="git 包含git子文件夹怎么push？？" href="https://segmentfault.com/q/1010000004197196">git 包含git子文件夹怎么push？？</a>
+                                    <small class="text-muted">
+                                                    2 回答
+                                                                    </small>
+                                </li>
+                            <li class="widget-links__item"><a title="使用git如何批量对文件进行rm操作" href="https://segmentfault.com/q/1010000000095373">使用git如何批量对文件进行rm操作</a>
+                                    <small class="text-muted">
+                                                    5 回答
+                                                                             |                             已解决
+                                            </small>
+                                </li>
+                            <li class="widget-links__item"><a title="git如何获得两个文件夹文件的差异" href="https://segmentfault.com/q/1010000003694329">git如何获得两个文件夹文件的差异</a>
+                                    <small class="text-muted">
+                                                    1 回答
+                                                                    </small>
+                                </li>
+                            <li class="widget-links__item"><a title="git中 如何为每个文件单独添加注释 再提交" href="https://segmentfault.com/q/1010000000736024">git中 如何为每个文件单独添加注释 再提交</a>
+                                    <small class="text-muted">
+                                                    3 回答
+                                                                    </small>
+                                </li>
+                            <li class="widget-links__item"><a title="git远程仓库中看不到本地push的文件？" href="https://segmentfault.com/q/1010000002549403">git远程仓库中看不到本地push的文件？</a>
+                                    <small class="text-muted">
+                                                    2 回答
+                                                                             |                             已解决
+                                            </small>
+                                </li>
+                            <li class="widget-links__item"><a title="git 找回被误删的文件" href="https://segmentfault.com/q/1010000002470861">git 找回被误删的文件</a>
+                                    <small class="text-muted">
+                                                    3 回答
+                                                                    </small>
+                                </li>
+                            <li class="widget-links__item"><a title="将本地文件上传到Git" href="https://segmentfault.com/q/1010000003873018">将本地文件上传到Git</a>
+                                    <small class="text-muted">
+                                                    1 回答
+                                                                    </small>
+                                </li>
+                            <li class="widget-links__item"><a title="git不显示文件状态图标" href="https://segmentfault.com/q/1010000000160206">git不显示文件状态图标</a>
+                                    <small class="text-muted">
+                                                    1 回答
+                                                                    </small>
+                                </li>
+                            <li class="widget-links__item"><a title="如何设置使git status不显示某些文件(已经在git仓库中)的变更" href="https://segmentfault.com/q/1010000000373945">如何设置使git status不显示某些文件(已经在git仓库中)的变更</a>
+                                    <small class="text-muted">
+                                                    3 回答
+                                                                             |                             已解决
+                                            </small>
+                                </li>
+                    </ul>
+    </div>
+    <div class="widget-share__full" data-text="git忽略已经被提交的文件" data-url="https://segmentfault.com/q/1010000000430426" data-shorturl="http://sfau.lt/bNbX8w"><div style="margin-bottom:10px;">分享扩散：</div><div class="widget-share-network sharer-0" style="display: block;"><ul class="sn-inline"><li data-network="weibo"><a href="javascript:void(0);" class="entypo-weibo icon-sn-weibo share-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至新浪微博">新浪微博</a></li><li data-network="wechart"><a href="javascript:void(0);" class="entypo-wechart icon-sn-weixin share-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至微信">微信</a></li><li data-network="twitter"><a href="javascript:void(0);" class="entypo-twitter icon-sn-twitter share-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至 Twitter">Twitter</a></li><li data-network="facebook"><a href="javascript:void(0);" class="entypo-facebook icon-sn-facebook share-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至 Facebook">Facebook</a></li></ul></div><a type="button" class="btn btn-sm shareMore btn-sn-more" data-toggle="popover" data-placement="top" data-url="https://segmentfault.com/q/1010000000430426" data-shorturl="http://sfau.lt/bNbX8w"><span class="icon-sn-dotted" data-original-title="" title=""></span><strong class="visible-xs-inline">•••</strong></a></div>
+
+    
+</div><!-- /.side -->
+
+        </div>
+    </div>
+</div>
+
+<div id="shareToWeiboModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">分享</h4>
+            </div>
+            <div class="modal-body">
+                <p class="sfModal-content">
+                    分享到微博？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default dont-likeweibo" data-dismiss="modal">取消</button>
+                <a href="" id="shareLink" class="btn btn-primary done-btn" target="_blank" onclick="$(&#39;#shareToWeiboModal&#39;).modal(&#39;hide&#39;)">分享</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="widget-register widget-welcome-question mt20 hidden-xs widget-welcome widget-register-slideUp">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="title h4">与我们一起探索更多的未知</h2>
+            <p>专业的开发者技术社区，为用户提供多样化的线上知识交流，丰富的线下活动及给力的工作机会</p>
+        </div>
+        <form action="https://segmentfault.com/api/user/register/fast" method="post">
+            <div class="col-sm-5">
+                <div class="form-group mb0">
+                    <input type="text" class="form-control" placeholder="邮箱地址" name="mail" required="">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-primary btn-block">加入只需一步</button>
+            </div>
+            <div class="col-sm-10 mt10 captcha-part" style="display:none;">
+                <div class="row">
+                    <div class="col-sm-4 pr0">
+                        <input type="text" class="form-control" name="captcha" placeholder="请输入验证码" disabled="" required="">
+                    </div>
+                    <div class="col-sm-4 pr0">
+                        <a href="javascript:void(0)"><img src="" height="35"></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <a class="close" href="javascript:void(0);"><span>×</span></a>
+    </div>
+</div>
+</div>
+
+<div id="delete-modal" class="modal widget-911">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title radio-del question-close-only">关闭<span class="type-911">问题</span>（请谨慎操作）</h4>
+                <h4 class="modal-title radio-del question-delete-only">删除<span class="type-911">问题</span>（请谨慎操作）</h4>
+                <h4 class="modal-title radio-del answer-delete-only">删除<span class="type-911">回答</span>（请谨慎操作）</h4>
+                <h4 class="modal-title radio-del answer-ignore-only">忽略<span class="type-911">回答</span></h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong class="required radio-del question-close-only">关闭理由：</strong>
+                    <strong class="required radio-del question-delete-only answer-delete-only">删除理由：</strong>
+                    <strong class="required radio-del answer-ignore-only">忽略理由：</strong>
+                </p>
+                <div id="reportDescription">
+                    <div class="radio-del radio all">
+                        <label>
+                            <input type="radio" name="descRadio" value="推广（招聘、广告、SEO 等）方面的内容">
+                            推广（招聘、广告、SEO 等）方面的内容
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="与已有问题重复">
+                            与已有问题重复（请编辑该提问指向已有相同问题）
+                        </label>
+                    </div>
+                    <div class="radio-del radio answer-ignore-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="答非所问，不符合答题要求">
+                            答非所问，不符合答题要求
+                        </label>
+                    </div>
+                    <div class="radio-del radio answer-ignore-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="宜作评论而非答案">
+                            宜作评论而非答案
+                        </label>
+                    </div>
+                    <div class="radio-del radio all">
+                        <label>
+                            <input type="radio" name="descRadio" value="带有人身攻击、辱骂、仇恨等违反条款的内容">
+                            带有人身攻击、辱骂、仇恨等违反条款的内容
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="无法获得确切结果的问题">
+                            无法获得确切结果的问题
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="非开发直接相关的问题">
+                            非开发直接相关的问题
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only question-delete-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="非技术提问的讨论型问题">
+                            非技术提问的讨论型问题
+                        </label>
+                    </div>
+
+                    <div class="radio-del radio all btwRadio">
+                        <label>
+                            <input type="radio" name="descRadio" value="">
+                            其他原因（请补充说明）
+                        </label>
+                    </div>
+                    <div class="btw" style="display:none;">
+                        <p class="mt20"><strong>补充说明：</strong></p>
+                        <textarea class="form-control" rows="3" name="description" id="deleteDesc"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="submit-delete">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal widget-911" id="911">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">举报<span data-model="type"></span></h4>
+      </div>
+      <div class="modal-body">
+        <form id="reportForm">
+          <!-- 后台返回信息 -->
+          <p class="alert alert-warning" data-model="returnMsg"></p>
+          <div data-role="base">
+            <p>
+              <strong class="required">我要举报该<span data-model="type"></span>，理由是：</strong>
+            </p>
+            <ul class="list-unstyled" data-model="list"></ul>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default pull-left" type="button" data-role="back" style="display:none">返回重选</button>
+                <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+        <button class="btn btn-primary" data-role="submit" type="button">提交</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<footer id="footer">
+    <div class="container">
+        <div class="row hidden-xs">
+            <dl class="col-sm-2 site-link">
+                <dt>网站相关</dt>
+                <dd><a href="https://segmentfault.com/about">关于我们</a></dd>
+                <dd><a href="https://segmentfault.com/tos">服务条款</a></dd>
+                <dd><a href="https://segmentfault.com/faq">帮助中心</a></dd>
+                <dd><a href="https://segmentfault.com/repu">声望与权限</a></dd>
+                <dd><a href="https://segmentfault.com/markdown">编辑器语法</a></dd>
+                <dd><a href="https://weekly.segmentfault.com/">每周精选</a></dd>
+                <dd><a href="https://segmentfault.com/app">App 下载</a></dd>
+            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>联系合作</dt>
+                <dd><a href="https://segmentfault.com/contact">联系我们</a></dd>
+                <dd><a href="https://segmentfault.com/hiring">加入我们</a></dd>
+                <dd><a href="https://segmentfault.com/link">合作伙伴</a></dd>
+                <dd><a href="https://segmentfault.com/press">媒体报道</a></dd>
+                <dd><a href="https://board.segmentfault.com/">建议反馈</a></dd>
+                <dd><a href="http://pan.baidu.com/share/link?shareid=604288&amp;uk=839272106" target="_blank">Logo 下载</a>
+                </dd>
+            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>常用链接</dt>
+                                                <dd><a href="https://chrome.google.com/webstore/detail/segmentfault-%E7%AC%94%E8%AE%B0/pjklfdmleagfaekibdccmhlhellefcfo" target="_blank">笔记插件: Chrome</a></dd>
+                                                                <dd><a href="https://addons.mozilla.org/zh-CN/firefox/addon/sf-note-ext/" target="_blank">笔记插件: Firefox</a></dd>
+                                                                <dd>订阅：<a href="https://segmentfault.com/feeds">问答</a> / <a href="https://segmentfault.com/feeds/blogs">文章</a></dd>
+                                                                <dd><a href="https://mirrors.segmentfault.com/" target="_blank">SF 文档镜像</a></dd>
+                                                                <dd><a href="https://segmentfault.com/blog/interview" target="_blank">SF 社区访谈</a></dd>
+                                                                <dd><a href="https://segmentfault.com/d-day" target="_blank">技术沙龙D-DAY</a></dd>
+                                                                <dd><a href="https://segmentfault.com/hackathon" target="_blank">黑客马拉松Hackathon</a></dd>
+                                                                <dd><a href="https://namebeta.com/" target="_blank">域名搜索注册</a></dd>
+                                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>关注我们</dt>
+                                <dd><a href="https://github.com/SegmentFault" target="_blank">Github</a></dd>
+                                <dd><a href="https://twitter.com/segment_fault" target="_blank">Twitter</a></dd>
+                                <dd><a href="https://weibo.com/segmentfault" target="_blank">新浪微博</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault_team" target="_blank">SF 团队日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault" target="_blank">产品技术日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/community_admin" target="_blank">社区运营日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault_news" target="_blank">市场运营日志</a></dd>
+                            </dl>
+            <dl class="col-sm-4 site-link" id="license">
+                <dt>内容许可</dt>
+                <dd>除特别说明外，用户内容均采用 <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/cn/">知识共享署名-相同方式共享 3.0 中国大陆许可协议</a> 进行许可
+                </dd>
+                <dd>本站由 <a target="_blank" href="https://www.upyun.com/?utm_source=segmentfault&amp;utm_medium=link&amp;utm_campaign=upyun&amp;md=segmentfault">又拍云</a> 提供 CDN 存储服务
+                </dd>
+                            </dl>
+        </div>
+        <div class="copyright">
+            Copyright © 2011-2016 SegmentFault. 当前呈现版本 16.02.02<br><a href="http://www.miibeian.gov.cn/" rel="nofollow">浙ICP备15005796号-2</a>
+        </div>
+        <p class="text-center">
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="mobile" href="javascript:;">移动版</a>
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="desktop" href="javascript:;">桌面版</a>
+        </p>
+    </div>
+</footer>
+
+<div id="fixedTools" class="hidden-xs hidden-sm">
+    <a id="backtop" class="border-bottom" href="https://segmentfault.com/q/1010000000430426#">回顶部</a>
+
+    <div class="qrcodeWraper">
+        <a href="https://segmentfault.com/app#qrcode"><span class="glyphicon glyphicon-qrcode"></span></a>
+        <img id="qrcode" class="border" alt="sf-wechat" src="./git忽略已经被提交的文件 - SegmentFault_files/appQrcode.png">
+
+        <p class="qrcode-text">扫扫下载 App</p>
+    </div>
+</div>
+
+
+<div class="app-promotion-bar">
+    <a href="javascript:;"><i class="fa fa-close close"></i></a>
+    <div class="icon"></div>
+    <h5 class="title h5">SegmentFault</h5>
+    <p class="describe">一起探索更多未知</p>
+    <a class="download-btn btn btn-sm btn-primary" href="https://segmentfault.com/app#qrcode">下载 App</a>
+</div>
+
+<script id="loginModal" type="text/template">
+<div class="row bg-white login-modal">
+    <div class="col-md-4 col-sm-12 col-md-push-7 login-wrap">
+        <h1 class="h4 text-muted login-title">用户登录</h1>
+        <form action="/api/user/login" method="POST" role="form" class="mt30">
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input type="email" class="form-control" name="mail" required placeholder="hello@segmentfault.com">
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码</label>
+                <input type="password" class="form-control" name="password" required placeholder="密码">
+            </div>
+            <div class="form-group clearfix">
+                <div class="checkbox pull-left">
+                    <label><input name="remember" type="checkbox" value="1" checked> 记住登录状态</label>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right pl20 pr20">登录</button>
+            </div>
+        </form>
+        <p class="h4 text-muted visible-xs-block h4">快速登录</p>
+        <div class="widget-login mt30">
+            <p class="text-muted mt5 mr10 pull-left hidden-xs">快速登录</p>
+            <a href="/user/oauth/google" class="btn btn-default btn-sm btn-sn-google"><span class="icon-sn-bg-google"></span> <strong class="visible-xs-inline">Google 账号</strong></a>
+            <a href="/user/oauth/github" class="btn btn-default btn-sm btn-sn-github"><span class="icon-sn-bg-github"></span> <strong class="visible-xs-inline">Github 账号</strong></a>
+            <a href="/user/oauth/weibo" class="btn btn-default btn-sm btn-sn-weibo"><span class="icon-sn-bg-weibo"></span> <strong class="visible-xs-inline">新浪微博账号</strong></a>
+            <a href="/user/oauth/qq" class="btn btn-default btn-sm btn-sn-qq"><span class="icon-sn-bg-qq"></span> <strong class="visible-xs-inline">QQ 账号</strong></a>
+            <a href="/user/oauth/weixin" class="btn btn-default btn-sm btn-sn-weixin"><span class="icon-sn-bg-weixin"></span> <strong class="visible-xs-inline">微信账号</strong></a>
+            <button id="loginShowMore" href="javascript:void(0);" class="btn mb5 btn-default btn-sm btn-sn-dotted"><span class="icon-sn-bg-dotted"></span><strong class="visible-xs-inline">•••</strong></button>
+            <a href="/user/oauth/twitter" class="btn btn-default btn-sn-twitter btn-sm hidden"><span class="icon-sn-bg-twitter"></span> <strong class="visible-xs-inline">Twitter 账号</strong></a>
+            <a href="/user/oauth/facebook" class="btn btn-default btn-sn-facebook btn-sm hidden"><span class="icon-sn-bg-facebook"></span> <strong class="visible-xs-inline">Facebook 账号</strong></a>
+            <a href="/user/oauth/douban" class="btn btn-default btn-sn-douban btn-sm hidden"><span class="icon-sn-bg-douban"></span> <strong class="visible-xs-inline">豆瓣账号</strong></a>
+        </div>
+    </div>
+    <div class="login-vline hidden-xs hidden-sm"></div>
+    <div class="col-md-4 col-md-pull-3 col-sm-12 login-wrap">
+        <h1 class="h4 text-muted login-title">创建新账号</h1>
+        <form action="/api/user/register" method="POST" role="form" class="mt30">
+            <div class="form-group">
+                <label for="name" class="control-label">用户名</label>
+                <input type="text" class="form-control" name="name" required placeholder="字母、数字等，用户名唯一">
+            </div>
+            <div class="form-group">
+                <label for="mail" class="control-label">Email</label>
+                <input type="hidden" style="display:none" name="mail">
+                <input type="email" autocomplete="off" class="form-control register-mail" name="mail" required placeholder="hello@segmentfault.com">
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">密码</label>
+                <input type="password" class="form-control" name="password" required placeholder="不少于 6 位">
+            </div>
+            <div class="form-group" style="display:none;">
+                <label class="required control-label">验证码</label>
+                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="请输入下方的验证码">
+                <div class="mt10"><a id="loginReloadCaptcha"  href="javascript:void(0)"><img data-src="/user/captcha?w=240&h=50" class="captcha" width="240" height="50" /></a></div>
+            </div>
+            <div class="form-group clearfix">
+                <div class="checkbox pull-left">
+                    同意并接受<a href="/tos" target="_blank">《服务条款》</a>
+                </div>
+                <button type="submit" class="btn btn-primary pl20 pr20 pull-right">注册</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="text-center text-muted mt30">
+    <a href="/user/forgot" class="ml5">找回密码</a>
+</div>
+</script>
+
+
+
+<script>
+    (function (w) {
+        w.SF = {
+            staticUrl: "https://sf-static.b0.upaiyun.com/v-56df97e5"
+        };
+        w.SF.token = (function () {
+    var _tLz3 = //'M50'
+'M50'+''///*'3F0'*/'3F0'
++//'o'
+'3'+//'aB'
+'97'+'iMb'//'iMb'
++'cc2'//'2G'
++'d2'//'qWV'
++//'Si'
+'1'+//'Uv'
+'51'+//'U2M'
+'4cb'+//'lQ'
+'9d'+'0c'//'em'
++//'dT'
+'3d4'+'5'//'vD'
++/* '9BX'//'9BX' */''+'77'//'0z'
++'2'//'Zb'
++//'H'
+'7'+''///*'S'*/'S'
++/* '8'//'8' */''+'xF'//'xF'
++//'VKh'
+'f8'+'Ufd'//'Ufd'
++'e8'//'oKG'
++//'jl'
+'jl'+/* '3V'//'3V' */''+//'Xf'
+'c'+'0'//'q'
+, _NE6OR = [[0,3],[3,6],[26,28],[28,31],[30,32]];
+
+    for (var i = 0; i < _NE6OR.length; i ++) {
+        _tLz3 = _tLz3.substring(0, _NE6OR[i][0]) + _tLz3.substring(_NE6OR[i][1]);
+    }
+
+    return _tLz3;
+})();;
+    })(window);
+
+                var lock = {
+        type : "",
+        text : '',
+        table: {"ban_post":[1,"\u4f60\u5df2\u7ecf\u88ab\u7981\u8a00, \u65e0\u6cd5\u8fdb\u884c\u6b64\u64cd\u4f5c, \u5982\u6709\u7591\u4e49\u8bf7\u63d0\u4ea4\u7533\u8bc9, \u6216\u8005\u53d1\u90ae\u4ef6\u5230pr@segmentfault.com"]}
+    };
+</script>
+
+    <script crossorigin="" src="./git忽略已经被提交的文件 - SegmentFault_files/assets.js"></script>
+    <script crossorigin="" src="./git忽略已经被提交的文件 - SegmentFault_files/question.js"></script>
+
+<script async="" src="./git忽略已经被提交的文件 - SegmentFault_files/asyncjs.php"></script>
+
+<script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-918487-8']);
+    _gaq.push(['_trackPageview']);
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src   = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            
+    
+
+    
+
+    ga('create', 'UA-918487-8', 'auto', { 'userID': 0, 'createdTime': 0, 'now': 1457947561 });
+    ga('set', 'dimension1', 'guest' );
+    ga('send', 'pageview');
+
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e23800c454aa573c0ccb16b52665ac26";
+        var s  = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+<div id="noteWidget" class="noteWidget hidden hidden-xs">
+    <div class="noteWidget-header clearfix">
+        <h2 class="h4 pull-left">记笔记</h2>
+        <ul class="list-inline pull-right mb0">
+            <li id="noteWidgetMinimize"><span class="icon-minimize"></span></li><li id="noteWidgetZoom"><span class="icon-zoom"></span></li><li id="noteWidgetClose"><span class="icon-close"></span></li>
+        </ul>
+    </div>
+    <form method="POST" action="https://segmentfault.com/api/notes/add" role="form">
+        <div class="form-group">
+            <label for="title" class="sr-only">标题</label>
+            <input type="hidden" value="" id="draftId">
+            <input type="text" name="title" data-error="" autocomplete="off" class="form-control" placeholder="笔记描述" value="">
+        </div>
+        <div class="editor-config clearfix">
+            <select name="lang" class="form-control pull-left input-sm">
+                <optgroup label="文本语法">
+                    <option value="text" data-mode="text">纯文本</option>
+                    <option value="markdown" data-mode="markdown">Markdown</option>
+                    <option value="javascript" data-mode="javascript">Javascript</option>
+                    <option value="css" data-mode="css">CSS</option>
+                    <option value="html5" data-mode="htmlmixed">HTML</option>
+                    <option value="php" data-mode="php">PHP</option>
+                    <option value="python" data-mode="python">Python</option>
+                    <option value="ruby" data-mode="ruby">Ruby</option>
+                    <option value="go" data-mode="go">Go</option>
+                    <option value="c" data-mode="clike">C/C++</option>
+                    <option value="java" data-mode="java">Java</option>
+                    <option value="bash" data-mode="shell">Shell/Bash</option>
+                </optgroup>
+            </select>
+            <div class="pull-right hidden-xs">
+                <select name="indentWithTabs" class="form-control inline-block input-sm">
+                    <optgroup label="缩进模式">
+                        <option value="false">空格缩进</option>
+                        <option value="true">Tabs 缩进</option>
+                    </optgroup>
+                </select>
+                <select name="tabSize" class="form-control inline-block input-sm">
+                    <optgroup label="缩进大小">
+                        <option value="2">2</option>
+                        <option value="4" selected="">4</option>
+                    </optgroup>
+                </select>
+                <select name="lineWrap" class="form-control inline-block input-sm">
+                    <optgroup label="换行方式">
+                        <option value="true">自动换行</option>
+                        <option value="false">不换行</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <textarea id="codeMirror" class="form-control" style="display: none;"></textarea><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code"></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+        <div class="mt20 clearfix">
+            <div class="pull-right">
+                <span class="text-muted hidden" id="editorStatus">已保存</span>
+                <a id="dropIt" href="javascript:void(0);" class="mr10 hidden">[舍弃]</a>
+                <button data-type="note" id="publishIt2" class="btn btn-default ml10" data-id="" data-do="add" data-url="" data-text="保存私密笔记" data-name="">保存私密笔记</button>
+                <button data-type="note" id="publishIt" class="btn btn-primary ml10" data-id="" data-do="add" data-url="" data-text="保存公开笔记" data-name="">保存公开笔记</button>
+                </div>
+            </div>
+        </form></div>
+    
+<div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" width="100%" height="100%" type="application/x-shockwave-flash" data="https://sf-static.b0.upaiyun.com/v-56df97e5/3rd/zeroclipboard/dist/ZeroClipboard.swf?noCache=1457947562555"><param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=segmentfault.com%2C%2F%2Fsegmentfault.com%2Chttps%3A%2F%2Fsegmentfault.com&amp;swfObjectId=global-zeroclipboard-flash-bridge"></object></div></body></html>
