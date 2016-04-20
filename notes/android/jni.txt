@@ -1,0 +1,29 @@
+#mk文件书写及打包可以参考DanaleSDK工程
+
+语法见
+http://www.cnblogs.com/chuanwei-zhang/p/3930029.html
+http://zhuruenzhe2011-163-com.iteye.com/blog/1630531
+
+API见
+http://www.cnblogs.com/skywang12345/archive/2013/05/23/3094051.html
+http://blog.chinaunix.net/uid-22028680-id-3429721.html
+http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html
+
+1、 typedef union jvalue {
+     jboolean Z;
+     jbyte    B;
+     jchar    C;
+     jshort   S;
+     jint     I;
+     jlong    J;
+     jfloat   F;
+     jdouble  D;
+     jobject  L;
+ } jvalue;
+ 
+2、[ 表示数组，L 表示引用  
+.类和接口的描述符 在java当中使用”.”，如：java.lang.String而在JNI当中是用”/”，如：java/lang/String
+
+
+3、JNI中的方法的声明规则：先写参数列表，再写返回类型
+
