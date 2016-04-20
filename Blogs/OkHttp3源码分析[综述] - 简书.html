@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/aad5aacd79bf -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="OkHttp系列文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略]OkHttp3源码分析[DiskLruCache]OkHttp3源码分析[任务队列]本文主要是综述与常识介绍OkHttp是一个高效的Http客户端，有如下的特点：支持HTTP2/SPDY黑科技socket自动选择最好路线，并支持自动重连拥有自动维护的socket连接池，减少握手次数拥有队列线程池，轻松写并发拥有Interceptors轻松处理请求与响应（比如透...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/aad5aacd79bf">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/2773097">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="OkHttp3源码分析[综述]" property="twitter:title">
+  <meta content="OkHttp系列文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略]OkHttp3源码分析[DiskLruCache]OkHttp3源码分析[任务队列]本文主要是综述与常识介绍OkHttp是一个高效的Http客户端，有如下的特点：支持HTTP2/SPDY黑科技socket自动选择最好路线，并支持自动重连拥有自动维护的socket连接池，减少握手次数拥有队列线程池，轻松写并发拥有Interceptors轻松处理请求与响应（比如透..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/aad5aacd79bf" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="OkHttp3源码分析[综述]">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/aad5aacd79bf">
+  <meta property="og:description" content="OkHttp系列文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略]OkHttp3源码分析[DiskLruCache]OkHttp3源码分...">
+
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/98641-bf59bda54ea07552.png">
+    <meta property="og:image:width" content="1044">
+    <meta property="og:image:height" content="686">
+    <meta property="og:image:type" content="image/png">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/2773097">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/2773097">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>OkHttp3源码分析[综述] - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="jvcc7H9+aHQgZ2eP1cNCv0DdtfVWqfACGdCoi26zq6BnGFIsOaZE9BuAhXmQxmkr6KIaQraTj8p5nyIQHhpX1Q==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="./OkHttp3源码分析[综述] - 简书_files/base-f935477e8faba16f29c6f9e4f0e1d032.css">
+
+    <link rel="stylesheet" media="all" href="./OkHttp3源码分析[综述] - 简书_files/reading-note-4158a6eeb7c4e4a9fd15332778cfb52c.css">
+  <link rel="stylesheet" media="all" href="./OkHttp3源码分析[综述] - 简书_files/base-read-mode-64acccf6966299cfa3d580140a2582fe.css">
+  <script src="./OkHttp3源码分析[综述] - 简书_files/push.js"></script><script type="text/javascript" async="" src="./OkHttp3源码分析[综述] - 简书_files/ga.js"></script><script src="./OkHttp3源码分析[综述] - 简书_files/hm.js"></script><script src="./OkHttp3源码分析[综述] - 简书_files/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/57-7597f1cff93b0f41cd16ca7641e477eb.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/72-e02c647005f01e2d24778ac8e7f9dc45.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/76-4788ffdcd445555b5b93bfb4d1f4747c.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/114-e89d888a7bce6222606e46082dcab634.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/120-c7cdad6dd50db5a93175a6e015d6dc08.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/152-21fa4ed7968f6503816524e90dcb3d91.png" sizes="152x152">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+  
+  <div class="navbar navbar-jianshu shrink hide-wrap-btn">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a class="ad-selector" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>    <div class="ad-container ">
+      <div class="ad-pop">
+        <img class="ad-logo" src="./OkHttp3源码分析[综述] - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" alt="114">
+        <p class="ad-title">简书</p>
+        <p class="ad-subtitle">交流故事，沟通想法</p>
+        <img class="ad-qrcode" src="./OkHttp3源码分析[综述] - 简书_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode">
+        <div>
+          <a class="ad-link" href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
+          <a class="ad-link" href="http://downloads.jianshu.io/apps/haruki/JianShu-1.10.4.apk">Android</a>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="nav-user">
+      <a href="http://www.jianshu.com/p/aad5aacd79bf#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top hide-go-top" href="http://www.jianshu.com/p/aad5aacd79bf#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title="" data-original-title="写篇文章"><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="./OkHttp3源码分析[综述] - 简书_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container" class="imagebubble-container imagebubble-mode-off">
+    
+
+<div class="post-bg" id="flag">
+  <div class="wrap-btn hide-wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a data-toggle="tooltip" data-placement="bottom" data-original-title="未加入专题" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/b99b0edd4e77">
+              <img src="./OkHttp3源码分析[综述] - 简书_files/0bc10d70b7aa.jpeg" alt="100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/b99b0edd4e77">
+              <span>BlackSwift</span>
+</a>              <span data-toggle="tooltip" data-original-title="最后编辑于 2016.02.03 20:27">2016.01.06 19:10*</span>
+            <div>
+              <span>写了98969字</span>，<span>被900人关注</span>，<span>获得了1158个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">OkHttp3源码分析[综述]</h1>
+          <div class="meta-top">
+            <span class="wordage">字数2950</span>
+            <span class="views-count">阅读3874</span>
+            <span class="comments-count">评论13</span>
+            <span class="likes-count">喜欢20</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"><a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"> <i class="fa fa-bookmark-o"></i><span>收藏文章</span></a><span> <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a> <ul class="dropdown-menu arrow-top"> <li> <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/2773097/weibo/image_795d073ea333.jpg&#39;, &#39;推荐 @漆黑的燕 的文章《OkHttp3源码分析[综述]》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"> <img src="./OkHttp3源码分析[综述] - 简书_files/weibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;title=&#39;+e(&#39;OkHttp3源码分析[综述]&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"> <img src="./OkHttp3源码分析[综述] - 简书_files/douban.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./OkHttp3源码分析[综述] - 简书_files/tweibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./OkHttp3源码分析[综述] - 简书_files/qzone.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./OkHttp3源码分析[综述] - 简书_files/twitter.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://www.facebook.com/sharer.php?s=100&amp;p[url]=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;p[title]=&#39;+e(&#39;OkHttp3源码分析[综述] - 简书社&#39;)+&#39;&amp;p[summary]=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》&#39;),x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./OkHttp3源码分析[综述] - 简书_files/facebook.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./OkHttp3源码分析[综述] - 简书_files/google_plus.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》&#39;)+&#39;&amp;title=&#39;+e(&#39;OkHttp3源码分析[综述]&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./OkHttp3源码分析[综述] - 简书_files/renren.png"> </a> </li> </ul></span></div>
+          <!-- -->
+
+          <div class="show-content"><p>OkHttp系列文章如下</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/aad5aacd79bf" target="_blank">OkHttp3源码分析[综述]</a></li>
+<li><a href="http://www.jianshu.com/p/92a61357164b" target="_blank">OkHttp3源码分析[复用连接池]</a></li>
+<li><a href="http://www.jianshu.com/p/9cebbbd0eeab" target="_blank">OkHttp3源码分析[缓存策略]</a></li>
+<li><a href="http://www.jianshu.com/p/23b8aa490a6b" target="_blank">OkHttp3源码分析[DiskLruCache]</a></li>
+<li><a href="http://www.jianshu.com/p/6637369d02e7" target="_blank">OkHttp3源码分析[任务队列]</a></li>
+</ul>
+<p>本文主要是综述与常识介绍</p>
+<hr>
+<p>OkHttp是一个高效的Http客户端，有如下的特点：</p>
+<ol>
+<li>支持HTTP2/SPDY黑科技</li>
+<li>socket自动选择最好路线，并支持自动重连</li>
+<li>拥有自动维护的socket连接池，减少握手次数</li>
+<li>拥有队列线程池，轻松写并发</li>
+<li>拥有Interceptors轻松处理请求与响应（比如透明GZIP压缩,LOGGING）</li>
+<li>基于Headers的缓存策略</li>
+</ol>
+<hr>
+<p>本文基于<code>okhttp3</code>源码进行分析，逻辑错误或者不足请指出！</p>
+<h2>主要对象</h2>
+<ul>
+<li>Connections: 对JDK中的socket进行了封装，用来控制socket连接</li>
+<li>Streams: 维护HTTP的流，用来对Requset/Response进行IO操作</li>
+<li>Calls: HTTP请求任务封装</li>
+<li>StreamAllocation: 用来控制<code>Connections</code>/<code>Streams</code>的资源分配与释放</li>
+</ul>
+<h2>请求的分发</h2>
+<p>当我们用<code>OkHttpClient.newCall(request)</code>进行<code>execute/enenqueue</code>时，实际是将请求<code>Call</code>放到了<code>Dispatcher</code>中，okhttp使用<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/Dispatcher.java#L36-L36" target="_blank">Dispatcher</a>进行线程分发，它有两种方法，一个是普通的同步单线程；另一种是使用了队列进行并发任务的分发(Dispatch)与回调，我们下面主要分析队列这种情况，这也是okhttp能够竞争过其它库的核心功能之一</p>
+<h3>1. Dispatcher的结构</h3>
+<p>Dispatcher维护了如下变量，用于控制并发的请求</p>
+<ul>
+<li>maxRequests = 64: 最大并发请求数为64</li>
+<li>maxRequestsPerHost = 5: 每个主机最大请求数为5</li>
+<li>Dispatcher: 分发者，也就是生产者（默认在主线程）</li>
+<li>AsyncCall: 队列中需要处理的Runnable（包装了异步回调接口）</li>
+<li>ExecutorService：消费者池（也就是线程池）</li>
+<li>Deque&lt;readyAsyncCalls&gt;：缓存（用数组实现，可自动扩容，无大小限制）</li>
+<li>Deque&lt;runningAsyncCalls&gt;：正在运行的任务，仅仅是用来引用正在运行的任务以判断并发量，注意它并不是消费者缓存</li>
+</ul>
+<p>根据生产者消费者模型的模型理论，当入队(enqueue)<a href="https://github.com/square/okhttp/blob/7826bcb2fb1facb697a4c512776756c05d8c9deb/okhttp/src/main/java/okhttp3/Dispatcher.java#L110-L110" target="_blank">请求</a>时，如果满足<code>(runningRequests&lt;64 &amp;&amp; runningRequestsPerHost&lt;5)</code>，那么就直接把<code>AsyncCall</code>直接加到<code>runningCalls</code>的队列中，并在线程池中执行。如果消费者缓存满了，就放入<code>readyAsyncCalls</code>进行缓存等待。</p>
+<p>当任务执行完成后,调用<a href="https://github.com/square/okhttp/blob/7826bcb2fb1facb697a4c512776756c05d8c9deb/okhttp/src/main/java/okhttp3/Dispatcher.java#L142-L142" target="_blank">finished</a>的<code>promoteCalls()</code>函数，手动移动缓存区（可以看出这里是主动清理的，而不会发生死锁）</p>
+<div class="image-package imagebubble" widget="ImageBubble">
+<img src="./OkHttp3源码分析[综述] - 简书_files/98641-bf59bda54ea07552.png" data-original-src="http://upload-images.jianshu.io/upload_images/98641-bf59bda54ea07552.png?imageMogr2/auto-orient/strip%7CimageView2/2" class="imagebubble-image"><br><div class="image-caption">okhttp dispatcher</div>
+</div>
+<blockquote><p>本部分详细版在<a href="http://www.jianshu.com/p/6637369d02e7" target="_blank">OkHttp3源码分析[任务队列]</a></p></blockquote>
+<h2>Socket管理(StreamAllocation)</h2>
+<p>经过上一步的分配，我们现在需要进行连接了。我们目前有封装好的Request，而进行HTTP连接需要进行Socket握手，Socket握手的前提是根据域名或代理确定Socket的ip与端口。这个环节主要讲了http的握手过程与连接池的管理，分析的对象主要是<code>StreamAllocation</code></p>
+<h3>1. 选择路线与自动重连(RouteSelector)</h3>
+<p>此步骤用于获取socket的ip与端口,各位请欣赏<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/http/RouteSelector.java#L71-L71" target="_blank">源码</a>中<code>next()</code>的迷之缩进与递归，代码进行了如下事情：</p>
+<p>如果<code>Proxy</code>为<code>null</code>:</p>
+<ol>
+<li>在构造函数中<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/http/RouteSelector.java#L121" target="_blank">设置代理</a>为<code>Proxy.NO_PROXY</code>
+</li>
+<li>如果缓存中的<code>lastInetSocketAddress</code>为空，就通过DNS（默认是<code>Dns.SYSTEM</code>，包装了jdk自带的lookup函数）<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/http/RouteSelector.java#L173" target="_blank">查询</a>，并保存结果，注意结果是数组，即一个域名有多个IP，这就是自动重连的来源</li>
+<li>如果还没有查询到就递归调用next查询，直到查到为止</li>
+<li>一切next都没有枚举到，抛出<code>NoSuchElementException</code>，退出(这个几乎见不到)</li>
+</ol>
+<p>如果<code>Proxy</code>为<code>HTTP</code>:</p>
+<ol>
+<li>设置socket的ip为代理地址的ip</li>
+<li>设置socket的端口为代理地址的端口 </li>
+<li>一切next都没有枚举到，抛出<code>NoSuchElementException</code>，退出</li>
+</ol>
+<blockquote><ol>
+<li>HTTP代理是不安全的，本文附录有介绍</li>
+<li>HTTP代理会帮你在远程服务器进行DNS查询</li>
+<li>至于socket代理这里就不分析了，它已经不属于应用层了</li>
+</ol></blockquote>
+<h3>2. 连接socket链路(RealConnection)</h3>
+<p>当地址，端口准备好了，就可以进行TCP<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/io/RealConnection.java#L87-L87" target="_blank">连接</a>了（也就是我们常说的TCP三次握手），步骤如下：</p>
+<ol>
+<li>如果连接池中已经存在连接，就从中取出(get)RealConnection，如果<a href="https://github.com/square/okhttp/blob/c64e3426a326fdf61a6f9859292a45845186e790/okhttp/src/main/java/okhttp3/internal/http/StreamAllocation.java#L179-L179" target="_blank">没有命中</a>就进入下一步</li>
+<li>根据选择的路线(Route)，调用<code>Platform.get().connectSocket</code>选择当前平台Runtime下最好的socket库进行握手</li>
+<li>将建立成功的<code>RealConnection</code>放入(put)连接池缓存</li>
+<li>如果存在TLS，就根据SSL版本与证书进行安全握手</li>
+<li>构造HttpStream并维护刚刚的socket连接，管道建立完成</li>
+</ol>
+<blockquote><p>关于<code>Platform</code>,<code>DNS</code>,<code>Proxy</code>详细请看附录</p></blockquote>
+<h3>3. 释放socket链路(release)</h3>
+<p>如果不再需要（比如通信完成，连接失败等）此链路后，<a href="https://github.com/square/okhttp/blob/c64e3426a326fdf61a6f9859292a45845186e790/okhttp/src/main/java/okhttp3/internal/http/StreamAllocation.java#L247-L247" target="_blank">释放</a>连接（也就是TCP断开的握手）</p>
+<ol>
+<li>尝试从缓存的连接池中<a href="https://github.com/square/okhttp/blob/7826bcb2fb1facb697a4c512776756c05d8c9deb/okhttp/src/main/java/okhttp3/ConnectionPool.java#L145" target="_blank">删除</a>(remove)</li>
+<li>如果没有命中缓存,就直接调用jdk的socket关闭</li>
+</ol>
+<p>连接池分析见: <a href="http://www.jianshu.com/p/92a61357164b" target="_blank">OkHttp3源码分析[复用连接池]</a></p>
+<h2>HTTP请求序列化/反序列化</h2>
+<p>本段主要分析从拼装HTTP套接字，到读取的步骤。分析的对象是<code>HttpStream</code>接口，在HTTP/1.1下是<code>Http1xStream</code>实现的。</p>
+<h3>1. 获得HTTP流（httpStream）</h3>
+<p>以下为无缓存，无多次302跳转，网络良好，HTTP/1.1下的<code>GET</code>访问实例分析。</p>
+<p>我们已经在上文的<code>RealConnection</code>通过<code>connectSocket()</code>构造<code>HttpStream</code>对象并建立套接字连接（完成三次握手）</p>
+<pre class="hljs lisp"><code class="lisp">httpStream = connect<span class="hljs-list">()</span><span class="hljs-comment">;</span></code></pre>
+<p>在<code>connect()</code>有非常重要的一步，它通过okio库与远程socket建立了I/O连接，为了更好的理解，我们可以把它看成管道</p>
+<pre class="hljs objectivec"><code class="objectivec"><span class="hljs-comment">//source 用于获取response</span>
+source = Okio<span class="hljs-variable">.buffer</span>(Okio<span class="hljs-variable">.source</span>(rawSocket));
+<span class="hljs-comment">//sink 用于write buffer 到server</span>
+sink = Okio<span class="hljs-variable">.buffer</span>(Okio<span class="hljs-variable">.sink</span>(rawSocket));</code></pre>
+<blockquote>
+<p>Okhttp的I/O使用的是<a href="https://github.com/square/okio#sources-and-sinks" target="_blank">Okio</a>库，它是java中最好用的I/O API，本人曾经写NFC对这个用的就非常顺手。</p>
+<ul>
+<li>
+<code>Buffer</code>: Buffer是可变字节，类似于<code>byte[]</code>，相当于传输介质</li>
+<li>
+<code>source</code>: source是okio库中的输入组件，类似于inputstream，经常在下载中用到。它的重要方法是<code>read(Buffer sink, long byteCount)</code>，从流中读取数据。</li>
+<li>
+<code>Sink</code>: sink是okio库中的io输出组件，类似于outputstream，经常用于写到file/Socket，它的最重要方法是<code>void write(Buffer source, long byteCount)</code>，写数据到<code>Buffer</code>中</li>
+</ul>
+<p>如果把连接看成管道，<code>-&gt;</code>为管道的方向，如下图，这里借鉴了go语言的描述</p>
+<pre class="hljs mathematica"><code class="mathematica">Sink -&gt; <span class="hljs-keyword">Socket</span>/<span class="hljs-keyword">File</span> 
+Source &lt;- <span class="hljs-keyword">Socket</span>/<span class="hljs-keyword">File</span></code></pre>
+</blockquote>
+<h3>2. 拼装Raw请求与Headers(writeRequestHeaders)</h3>
+<p>我们通过<code>Request.Builder</code>构建了简陋的请求后，可能需要进行一些修饰，这时需要使用<code>Interceptors</code>对<code>Request</code>进行进一步的拼装了。</p>
+<p><a href="https://github.com/square/okhttp/wiki/Interceptors" target="_blank">拦截器</a>是okhttp中强大的流程装置，它可以用来监控log，修改请求，修改结果，甚至是对用户透明的GZIP压缩。类似于函数式编程中的flatmap操作。在okhttp中，内部维护了一个<code>Interceptors</code>的List，通过<code>InterceptorChain</code>进行多次拦截修改操作。</p>
+<div class="image-package imagebubble" widget="ImageBubble">
+<img src="./OkHttp3源码分析[综述] - 简书_files/interceptors@2x.png" data-original-src="https://raw.githubusercontent.com/wiki/square/okhttp/interceptors@2x.png" class="imagebubble-image"><br><div class="image-caption">interceptors</div>
+</div>
+<p>请求的代码如下，详细代码在<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/RealCall.java#L181-L181" target="_blank">这里</a>，源代码中是自增递归(recursive)调用<code>Chain.process()</code>，直到<code>interceptors().size()</code>中的拦截器全部调用完。这里代码维护性估计看着头大，大神们以后可能把它改成for等更简单的循环，主要做了两件事：</p>
+<ol>
+<li>递归调用Interceptors，依次入栈对response进行处理</li>
+<li>当全部递归出栈完成后，移交给网络模块(getResponse)</li>
+</ol>
+<pre class="hljs cs"><code class="cs"> <span class="hljs-keyword">if</span> (index &lt; client.interceptors().size()) {
+
+    Interceptor.Chain chain = <span class="hljs-keyword">new</span> ApplicationInterceptorChain(index + <span class="hljs-number">1</span>, request, forWebSocket);
+    Interceptor interceptor = client.interceptors().<span class="hljs-keyword">get</span>(index);
+    <span class="hljs-comment">//递归调用Chain.process()</span>
+    Response interceptedResponse = interceptor.intercept(chain);
+    <span class="hljs-keyword">if</span> (interceptedResponse == <span class="hljs-keyword">null</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NullPointerException(<span class="hljs-string">"application interceptor "</span> + interceptor
+          + <span class="hljs-string">" returned null"</span>);
+    }
+    <span class="hljs-keyword">return</span> interceptedResponse;
+  }
+  <span class="hljs-comment">// No more interceptors. Do HTTP.</span>
+  <span class="hljs-keyword">return</span> getResponse(request, forWebSocket);
+}</code></pre>
+<p>接下来是正式的网络请求<code>getResponse()</code>，此步骤通过<code>http协议规范</code>将<code>对象中的数据信息</code>序列化为<code>Raw文本</code>：</p>
+<ol>
+<li>在okhttp中，通过<code>RequestLine</code>，<code>Requst</code>，<code>HttpEngine</code>，<code>Header</code>等参数进行序列化操作，也就是拼装参数为socketRaw数据。拼装方法也比较暴力，直接按照RFC协议要求的格式进行concat输出就实现了</li>
+<li>通过sink写入<code>write</code>到socket连接。</li>
+</ol>
+<p>具体代码在<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/http/Http1xStream.java#L120" target="_blank">这里</a>。</p>
+<h3>1.3. 获得响应(readResponseHeaders/Body)</h3>
+<p>此步骤根据获取到的<code>Socket纯文本</code>，解析(<code>parse</code>)为<code>Response对象</code>，我们可以看成是一个反序列化（通过http协议将Raw文本转成对象）的过程：</p>
+<p>拦截器的设计:</p>
+<ol>
+<li>
+<code>自定义网络拦截器</code>请求进行递归入栈</li>
+<li>在<code>自定义网络拦截器</code>的<code>intercept</code>中，调用<code>NetworkInterceptorChain</code>的proceed(request),进行真正的网络请求(readNetworkResponse)</li>
+<li>接自定义请求递归出栈</li>
+</ol>
+<p>网络读取(readNetworkResponse)分析:</p>
+<ol>
+<li>读取Raw的第一行，并<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/http/Http1xStream.java#L178" target="_blank">反序列化</a>为<code>StatusLine</code>对象</li>
+<li>以<code>Transfer-Encoding: chunked</code>的模式传输并<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/http/Http1xStream.java#L407" target="_blank">组装</a><code>Body</code>
+</li>
+</ol>
+<p>伪代码如下：</p>
+<pre class="hljs swift"><code class="swift">(<span class="hljs-type">RawData</span> &lt;- <span class="hljs-type">RemoteChannel</span>(www.xx.com, <span class="hljs-number">80</span>))<span class="hljs-comment">//读取远程的Raw</span>
+    <span class="hljs-built_in">map</span>(<span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">NetworkInterceptorChains</span><span class="hljs-params">()</span></span>)<span class="hljs-comment">//预处理</span>
+    <span class="hljs-comment">//这里的source引用了HttpEngine，并重写了read方法</span>
+    .<span class="hljs-built_in">map</span>(<span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">getTransferStream</span><span class="hljs-params">()</span></span>{})
+    <span class="hljs-comment">//根据source拼装body对象</span>
+    .<span class="hljs-built_in">map</span>(<span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">RealResponseBody</span><span class="hljs-params">()</span></span>{})</code></pre>
+<p>接下来进行释放socket连接，上文已经介绍过了。现在我们就获得到<code>response</code>了</p>
+<h2>附录</h2>
+<p>以下为一些计算机常识</p>
+<h4>1. Proxy</h4>
+<p>代理，也就是有个中间服务器帮助你访问<del>不存在的网站</del>，okhttp中使用jdk自带的代理</p>
+<pre class="hljs sql"><code class="sql">You <span class="hljs-comment">---- Proxy ----- Server</span></code></pre>
+<p>HTTP代理的本质是改Header信息，当你访问HTTP/HTTPS服务时，本质是明文向跳板发送如下raw，远程服务器帮你完成dns与请求操作，比如HTTPS请求<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/io/RealConnection.java#L234-L234" target="_blank">源码</a>就详细的解释了发送的内容是非加密的，下面是我实际抓包的内容</p>
+<pre class="hljs cpp"><code class="cpp"><span class="hljs-comment">//HTTP 请求</span>
+GET HTTP:<span class="hljs-comment">//www.qq.com HTTP/1.1</span>
+<span class="hljs-comment">//HTTPS 请求</span>
+CONNECT github.com:<span class="hljs-number">443</span> HTTP/<span class="hljs-number">1.1</span></code></pre>
+<p>上面的抓包，廉价的民用上网行为管理交换机就可以把你记录的一清二楚，而且跳板到最终目标本质也是<code>不安全</code>的。</p>
+<blockquote><p>除了<code>tor</code>多重代理以外的一律不安全，推荐看编随程想的信息安全相关博客。</p></blockquote>
+<h4>2. DNS</h4>
+<p>DNS也就是域名到ip的映射(<code>mapping</code>)操作，用户向DNS服务器的53端口发送udp包后，会返回域名对应的地址，当然发送udp的细节对用户是透明的，用户直接调用jdk就可以了。我们先试下Unix下的查询</p>
+<pre class="hljs cpp"><code class="cpp">$ host baidu.com
+baidu.com has address <span class="hljs-number">111.13</span><span class="hljs-number">.101</span><span class="hljs-number">.208</span>
+baidu.com has address <span class="hljs-number">123.125</span><span class="hljs-number">.114</span><span class="hljs-number">.144</span>
+.....</code></pre>
+<p>在OkHttp中，提供了<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/Dns.java#L31-L31" target="_blank">DNS接口</a>，默认是使用<code>Dns.SYSTEM</code>，它包装了java原生socket包中的<code>InetAddress.getAllByName(hostname)</code>方法。这个接口值得玩，可以试试实现腾讯的httpDns</p>
+<h4>3. Platform</h4>
+<p>Platform指当前Runtime使用的socket库，它支持非常多平台下的Socket库实现，包括<code>Android,JdkWithJettyBootPlatform,JettyNegoProvider</code>都是支持的，具体的平台支持可以看<a href="https://github.com/square/okhttp/blob/db9c2db40b0b89a1853715fd52e2748463d9cc9c/okhttp/src/main/java/okhttp3/internal/Platform.java#L37" target="_blank">这里</a></p>
+<p>原理：通过try/catch的<code>Class.forName()</code>反射枚举实现，可以找到当前Runtime下最好的库。</p>
+<h4>4. 如何调试HTTP发送的内容</h4>
+<p>我们知道HTTP的本质是发送socktRaw信息，比如当你<code>GET</code>某个地址</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>curl -v ip.cn</code></pre>
+<p>我们可以看到我们发送的实际是纯文本</p>
+<pre class="hljs cpp"><code class="cpp">GET / HTTP/<span class="hljs-number">1.1</span>
+Host: ip.cn
+User-Agent: curl/<span class="hljs-number">7.43</span><span class="hljs-number">.0</span>
+Accept: *<span class="hljs-comment">/*
+Proxy-Connection: Keep-Alive</span></code></pre>
+<p>如果需要对OkHttp进行调试，可以看<a href="http://www.jianshu.com/p/9da13b95d231" target="_blank">这里</a>如何进行抓包</p>
+<p>综述完成，如果需要更深入了解，可以按照目录接着看下去</p>
+<h2>Refference</h2>
+<ol>
+<li><a href="http://www.jianshu.com/p/79e5b0a9aa89" target="_blank">Socket sample in C and Java</a></li>
+<li><a href="https://imququ.com/post/optimize-tls-handshake.html" target="_blank">https://imququ.com/post/optimize-tls-handshake.html</a></li>
+<li><a href="http://www.williamlong.info/archives/2210.html" target="_blank">http://www.williamlong.info/archives/2210.html</a></li>
+<li><a href="http://www.cnblogs.com/zemliu/p/4263048.html" target="_blank">http://www.cnblogs.com/zemliu/p/4263048.html</a></li>
+<li><a href="http://www.cnblogs.com/ct2011/p/3997368.html" target="_blank">http://www.cnblogs.com/ct2011/p/3997368.html</a></li>
+<li><a href="https://program-think.blogspot.com/2009/03/producer-consumer-pattern-0-overview.html" target="_blank">架构设计：生产者/消费者模式</a></li>
+</ol>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line" style="display: block;"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"><li id="further_reading_15939" data-can-be-dismissed=""> <a class="reading-title" href="http://www.jianshu.com/p/92a61357164b"> <h6>OkHttp3源码分析[复用连接池] - 简书</h6>  — 文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略](todo)1.概述HTTP中的keepalive连接在网络性能优化中，对于延迟降低与速度提升的有非常重要的作用。通常我们进行http连接时，首先进行tcp握手，然后传输数据，最后释放图源:Nginxclosed这种方法的确简单，但是在复杂的网络内容中就不够用了，创建socket需要进行3次握手，而释放socket需要2次握手(或者是4次)。重复的连接与释放tcp连接就像每次仅仅挤1mm的牙膏就合上  </a> <div class="article-origin"> <a href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>・ <a href="http://www.jianshu.com/p/92a61357164b">  www.jianshu.com →  </a>   </div></li><li id="further_reading_15940" data-can-be-dismissed=""> <a class="reading-title" href="http://www.jianshu.com/p/9cebbbd0eeab"> <h6>OkHttp3源码分析[缓存策略] - 简书</h6>  — 文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略]OkHttp3源码分析[LruDiskCache]本文专门分析OkHttp的缓存策略，应该是okhttp分析中最简单的一篇了HTTP缓存基础知识在分析源码之前，我们先回顾一下http的缓存Header的含义1.Expires表示到期时间，一般用在response报文中，当超过此事件后响应将被认为是无效的而需要网络连接，反之而是直接使用缓存Expires:Thu,12Jan20171...  </a> <div class="article-origin"> <a href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>・ <a href="http://www.jianshu.com/p/9cebbbd0eeab">  www.jianshu.com →  </a>   </div></li><li id="further_reading_15941" data-can-be-dismissed=""> <a class="reading-title" href="http://www.jianshu.com/p/6637369d02e7"> <h6>OkHttp3源码分析[任务队列] - 简书</h6>  — OkHttp系列文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略]OkHttp3源码分析[DiskLruCache]OkHttp3源码分析[任务队列]本文目录：线程池基础反向代理模型OkHttp的任务调度看过Wiki的都知道OkHttp拥有2种运行方式，一种是同步阻塞调用并直接返回的形式，另一种是通过内部分发调度实现非阻塞、高并发的异步回调。本文主要分析第二种，即OkHttp在多并发网络下的分发调度过程。本文主要分析的是Dispatche...  </a> <div class="article-origin"> <a href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>・ <a href="http://www.jianshu.com/p/6637369d02e7">  www.jianshu.com →  </a>   </div></li></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <!-- copyright -->
+          <div class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            <a><i class="fa fa-copyright"></i> 著作权归作者所有</a>
+          </div>
+        </div>   
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>打赏也是按照基本法！当然读者的意见也吼重要👓</p>
+            <a class="btn btn-pay" data-toggle="modal" href="http://www.jianshu.com/p/aad5aacd79bf#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"><a href="http://www.jianshu.com/users/hqsKMJ" class="avatar" data-nickname="ailurus" data-created-at="2016-01-23T23:38:25+08:00" data-original-title="" title=""> <img src="./OkHttp3源码分析[综述] - 简书_files/ed8775d70fe4"></a><a href="http://www.jianshu.com/users/c1b9d1faa7b5" class="avatar" data-nickname="MrFu" data-created-at="2016-01-23T13:42:14+08:00" data-original-title="" title=""> <img src="./OkHttp3源码分析[综述] - 简书_files/04777e99a3be.png"></a></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span id="likes-count" data-toggle="tooltip" data-placement="right" title="" data-original-title="查看所有喜欢的用户">20</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/2773097/weibo/image_795d073ea333.jpg&#39;, &#39;推荐 @漆黑的燕 的文章《OkHttp3源码分析[综述]》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="http://www.jianshu.com/p/aad5aacd79bf#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/2773097/weibo/image_795d073ea333.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="tweibo"><img src="./OkHttp3源码分析[综述] - 简书_files/tweibo.png">分享到腾讯微博</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="qzone"><img src="./OkHttp3源码分析[综述] - 简书_files/qzone.png">分享到QQ空间</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="twitter"><img src="./OkHttp3源码分析[综述] - 简书_files/twitter.png">分享到Twitter</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://www.facebook.com/sharer.php?s=100&amp;p[url]=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;p[title]=&#39;+e(&#39;OkHttp3源码分析[综述] - 简书社&#39;)+&#39;&amp;p[summary]=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》&#39;),x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="facebook"><img src="./OkHttp3源码分析[综述] - 简书_files/facebook.png">分享到Facebook</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="google_plus"><img src="./OkHttp3源码分析[综述] - 简书_files/google_plus.png">分享到Google+</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 BlackSwift 的文章《OkHttp3源码分析[综述]》&#39;)+&#39;&amp;title=&#39;+e(&#39;OkHttp3源码分析[综述]&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="renren"><img src="./OkHttp3源码分析[综述] - 简书_files/renren.png">分享到人人网</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/aad5aacd79bf&#39;)+&#39;&amp;title=&#39;+e(&#39;OkHttp3源码分析[综述]&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" data-name="douban"><img src="./OkHttp3源码分析[综述] - 简书_files/douban.png">分享到豆瓣</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body" title="http://www.jianshu.com/p/aad5aacd79bf?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas width="170" height="170" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="./OkHttp3源码分析[综述] - 简书_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="./OkHttp3源码分析[综述] - 简书_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+        <li data-user-id="1748583"> <a class="avatar" href="http://www.jianshu.com/users/5821fa7201bb"> <img src="./OkHttp3源码分析[综述] - 简书_files/54ab1323775e"> </a> <a class="blue-link" href="http://www.jianshu.com/users/5821fa7201bb">潮升</a> <span class="time">2016.03.30 00:35</span></li><li data-user-id="1689557"> <a class="avatar" href="http://www.jianshu.com/users/78653e0e25d5"> <img src="./OkHttp3源码分析[综述] - 简书_files/3-575b6d78d8c89400d30e4ed72c2675bf.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/78653e0e25d5">auea</a> <span class="time">2016.03.06 23:09</span></li><li data-user-id="46259"> <a class="avatar" href="http://www.jianshu.com/users/8b6cde0937e3"> <img src="./OkHttp3源码分析[综述] - 简书_files/85fabfccb118.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/8b6cde0937e3">简_</a> <span class="time">2016.02.20 14:53</span></li><li data-user-id="1489470"> <a class="avatar" href="http://www.jianshu.com/users/49dc3442fc52"> <img src="./OkHttp3源码分析[综述] - 简书_files/3c2ebb02ba23.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/49dc3442fc52">RainFool</a> <span class="time">2016.02.04 17:28</span></li><li data-user-id="653146"> <a class="avatar" href="http://www.jianshu.com/users/10c985ffc1ce"> <img src="./OkHttp3源码分析[综述] - 简书_files/45828784e9cb.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/10c985ffc1ce">cgspine</a> <span class="time">2016.01.29 13:30</span></li><li data-user-id="736692"> <a class="avatar" href="http://www.jianshu.com/users/175255046c2f"> <img src="./OkHttp3源码分析[综述] - 简书_files/21a68633c04a"> </a> <a class="blue-link" href="http://www.jianshu.com/users/175255046c2f">wjehovah</a> <span class="time">2016.01.24 16:13</span></li><li data-user-id="20109"> <a class="avatar" href="http://www.jianshu.com/users/hqsKMJ"> <img src="./OkHttp3源码分析[综述] - 简书_files/ed8775d70fe4"> </a> <a class="blue-link" href="http://www.jianshu.com/users/hqsKMJ">ailurus</a> <span class="time">2016.01.23 23:34</span></li><li data-user-id="611087"> <a class="avatar" href="http://www.jianshu.com/users/c1b9d1faa7b5"> <img src="./OkHttp3源码分析[综述] - 简书_files/04777e99a3be.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/c1b9d1faa7b5">MrFu</a> <span class="time">2016.01.23 10:56</span></li><li data-user-id="1419533"> <a class="avatar" href="http://www.jianshu.com/users/b8cddfa2e3e8"> <img src="./OkHttp3源码分析[综述] - 简书_files/8544d22d15ee.jpeg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/b8cddfa2e3e8">谈小龙</a> <span class="time">2016.01.19 23:07</span></li><li data-user-id="268450"> <a class="avatar" href="http://www.jianshu.com/users/df40282480b4"> <img src="./OkHttp3源码分析[综述] - 简书_files/1acbdceac878.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/df40282480b4">小鄧子</a> <span class="time">2016.01.16 00:20</span></li><li data-user-id="444956"> <a class="avatar" href="http://www.jianshu.com/users/dab6c56dfff6"> <img src="./OkHttp3源码分析[综述] - 简书_files/73e23f33a402.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/dab6c56dfff6">seewhy</a> <span class="time">2016.01.14 18:44</span></li><li data-user-id="416275"> <a class="avatar" href="http://www.jianshu.com/users/7de928b3e4a2"> <img src="./OkHttp3源码分析[综述] - 简书_files/13-8072fce67829ce128ba5df823205516c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/7de928b3e4a2">fmworld</a> <span class="time">2016.01.11 00:27</span></li><li data-user-id="1334955"> <a class="avatar" href="http://www.jianshu.com/users/c630ee3f56fd"> <img src="./OkHttp3源码分析[综述] - 简书_files/9-ece2d3668ecf525c902de6c8672b6435.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/c630ee3f56fd">oHeHeHou</a> <span class="time">2016.01.08 08:36</span></li><li data-user-id="209316"> <a class="avatar" href="http://www.jianshu.com/users/b9a0891e7c9b"> <img src="./OkHttp3源码分析[综述] - 简书_files/39a18c9e2b05.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/b9a0891e7c9b">小呀么小黄鸡</a> <span class="time">2016.01.07 20:57</span></li><li data-user-id="1386117"> <a class="avatar" href="http://www.jianshu.com/users/68768b474bfc"> <img src="./OkHttp3源码分析[综述] - 简书_files/8f360cf61e16.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/68768b474bfc">TellH</a> <span class="time">2016.01.07 16:18</span></li><a class="more hidden" data-max-id="11536420" href="javascript:void(null);"><i class="fa fa-ellipsis-h"></i></a></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          13条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[{"id":1176739,"children_count":1,"likes_count":0},{"id":1183989,"children_count":0,"likes_count":0},{"id":1243658,"children_count":0,"likes_count":0},{"id":1300240,"children_count":0,"likes_count":0},{"id":1300245,"children_count":4,"likes_count":0},{"id":1332217,"children_count":1,"likes_count":0},{"id":1645276,"children_count":0,"likes_count":0}]}
+</script>
+
+
+<div class="note-comment clearfix" id="comment-1176739">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/ec59bd61433a">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/60959ccfd3fb" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/ec59bd61433a">程序亦非猿</a>
+        </p>
+        <span class="reply-time">
+          <small>2 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1176739#comment-1176739">2016.01.07 08:42</a></span>
+      </div>
+      <p>先占个位子</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1176739" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1176739" data-nickname="程序亦非猿" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-1177447" data-id="1177447">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>：
+      <a href="http://www.jianshu.com/users/ec59bd61433a" class="maleskine-author" target="_blank" data-user-slug="ec59bd61433a">@程序亦非猿</a> 谢猿哥
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1176739" data-nickname="BlackSwift" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1177447#comment-1177447">2016.01.07 10:17</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="1176739" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1183989">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c630ee3f56fd">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/9-ece2d3668ecf525c902de6c8672b6435.jpg" alt="9">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c630ee3f56fd">oHeHeHou</a>
+        </p>
+        <span class="reply-time">
+          <small>3 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1183989#comment-1183989">2016.01.08 08:36</a></span>
+      </div>
+      <p>很清晰，赞</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1183989" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1183989" data-nickname="oHeHeHou" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1243658">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/df40282480b4">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/1acbdceac878.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/df40282480b4">小鄧子</a>
+        </p>
+        <span class="reply-time">
+          <small>4 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1243658#comment-1243658">2016.01.16 00:20</a></span>
+      </div>
+      <p> <img src="./OkHttp3源码分析[综述] - 简书_files/+1.png" alt=":+1:" title=":+1:" class="emoji" width="20" height="20"> </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1243658" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1243658" data-nickname="小鄧子" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1300240">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c1b9d1faa7b5">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/04777e99a3be.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c1b9d1faa7b5">MrFu</a>
+        </p>
+        <span class="reply-time">
+          <small>5 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1300240#comment-1300240">2016.01.23 10:55</a></span>
+      </div>
+      <p>如果满足(maxRequests&lt;64 &amp;&amp; maxRequestsPerHost&lt;5)<br><br>这里好像不对，应该是满足：runningAsyncCalls.size() &lt; maxRequests &amp;&amp; runningCallsForHost(call) &lt; maxRequestsPerHost)  才是吧~</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1300240" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1300240" data-nickname="MrFu" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1300245">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c1b9d1faa7b5">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/04777e99a3be.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c1b9d1faa7b5">MrFu</a>
+        </p>
+        <span class="reply-time">
+          <small>6 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1300245#comment-1300245">2016.01.23 10:56</a></span>
+      </div>
+      <p>用来入队(enenqueue)的Call是生产者   <br><br>这句话应该是  enqueue  ，多写了 en ，哈哈</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1300245" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1300245" data-nickname="MrFu" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-1300755" data-id="1300755">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>：
+      <a href="http://www.jianshu.com/users/c1b9d1faa7b5" class="maleskine-author" target="_blank" data-user-slug="c1b9d1faa7b5">@MrFu</a> 非常感谢，已经修改了部分内容，加入了避免歧义的话，加入了源码的位置
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1300245" data-nickname="BlackSwift" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1300755#comment-1300755">2016.01.23 12:39</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-1301201" data-id="1301201">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/c1b9d1faa7b5">MrFu</a>：
+      <a href="http://www.jianshu.com/users/b99b0edd4e77" class="maleskine-author" target="_blank" data-user-slug="b99b0edd4e77">@BlackSwift</a> 看完了，本以为几个小时能看完你这三篇的，结果，一篇就看了一个上午加中午~而且还有很多概念性的知识不懂...网络请求这块信息量太大...这个源码...怕是快读不下去了...即便读下去...也是似懂非懂....
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1300245" data-nickname="MrFu" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1301201#comment-1301201">2016.01.23 13:41</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-1301306" data-id="1301306">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/c1b9d1faa7b5">MrFu</a>：
+      <a href="http://www.jianshu.com/users/c1b9d1faa7b5" class="maleskine-author" target="_blank" data-user-slug="c1b9d1faa7b5">@MrFu</a>   厨师的比喻被你删掉了，哈哈哈：<br>     * 餐馆有64个厨师，相同的菜单只能同时处理5份。<br>     * 当菜单过来时，如果厨师们都非常闲，某一个厨师立刻就开始执行(execute)炒菜任务，当炒完菜后，大声喊道“下一个！”(也就是promoteCalls)。这是无缓存的情况<br>     * 当64个厨师都非常忙或者某个菜单有5个厨师同时在做，还有很多人排队时，来了一份菜单，某个厨师大声喊“去排队！”，当炒完菜后，又开始大声喊道“排队的下一个进来！”
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1300245" data-nickname="MrFu" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1301306#comment-1301306">2016.01.23 14:03</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+            <span>
+              还有 <span class="count">1</span> 条评论，
+              <a class="blue-link" data-id="1300245" data-max-id="1513208" data-action="load-children-comments" href="javascript:void(null)">展开查看</a>
+            </span>
+          <span class="pull-right">
+            <a data-id="1300245" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1332217">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/ec509f634662">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/7-a82e998966cef5ab3eeda59b4297b619.jpg" alt="7">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/ec509f634662">ec509f634662</a>
+        </p>
+        <span class="reply-time">
+          <small>7 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1332217#comment-1332217">2016.01.27 20:20</a></span>
+      </div>
+      <p>请教 自动重连，这个怎么用的？（文中并没有说）</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1332217" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1332217" data-nickname="ec509f634662" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-1332599" data-id="1332599">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/b99b0edd4e77">BlackSwift</a>：
+      <a href="http://www.jianshu.com/users/ec509f634662" class="maleskine-author" target="_blank" data-user-slug="ec509f634662">@ec509f634662</a> 在HttpEngine中的recovery中实现，虽然它有这个机制，但是前提是域名有多个地址，然后迭代试用，这样情况一般不是很多。“自动重连”并不是“断点续传”
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="1332217" data-nickname="BlackSwift" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1332599#comment-1332599">2016.01.27 21:21</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="1332217" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-1645276">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/77bbafa190f3">
+          <img src="./OkHttp3源码分析[综述] - 简书_files/3b1a80ca0f70" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/77bbafa190f3">发黄的小草</a>
+        </p>
+        <span class="reply-time">
+          <small>8 楼 · </small>
+          <a href="http://www.jianshu.com/p/aad5aacd79bf/comments/1645276#comment-1645276">2016.03.07 18:00</a></span>
+      </div>
+      <p>好文</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="1645276" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="1645276" data-nickname="发黄的小草" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":2773097,"abbr":"OkHttp系列文章如下OkHttp3源码分析[综述]OkHttp3源码分析[复用连接池]OkHttp3源码分析[缓存策略]OkHttp3源码分析[DiskLruCache]OkHttp3源码分析[任务队列]本文主要是综述与常识介绍OkHttp是一个高效的Http客户端，有如下的特点：支持HTTP2/SPDY黑科技socket自动选择最好路线，并支持自动重连拥有自动维护的socket连接池，减少握手次数拥有队列线程池，轻松写并发拥有Interceptors轻松处理请求与响应（比如透...","slug":"aad5aacd79bf","url":"http://www.jianshu.com/p/aad5aacd79bf","image_url":"http://cwb.assets.jianshu.io/notes/images/2773097/weibo/image_795d073ea333.jpg","wordage":2950,"has_further_readings":true,"views_count":3874,"likes_count":20,"comments_count":13,"rewards_total_count":2}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"2574b370-d859-0133-bab4-52540088e616"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":98641,"nickname":"BlackSwift","slug":"b99b0edd4e77","public_notes_count":76,"followers_count":900,"total_likes_count":1158,"is_current_user":false,"is_signed_author":false}
+  </script>
+
+
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="http://www.jianshu.com/notes/2773097/rewards" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="jvcc7H9+aHQgZ2eP1cNCv0DdtfVWqfACGdCoi26zq6BnGFIsOaZE9BuAhXmQxmkr6KIaQraTj8p5nyIQHhpX1Q==">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/b99b0edd4e77">
+        <div class="avatar"><img src="./OkHttp3源码分析[综述] - 简书_files/0bc10d70b7aa.jpeg" alt="100"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>打赏也是按照基本法！当然读者的意见也吼重要👓<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="2.00" type="text" name="reward[amount_in_yuan]" id="reward_amount_in_yuan">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div class="iradio_minimal checked" style="position: relative;"><input type="radio" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div class="iradio_minimal" style="position: relative;"><input type="radio" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="./OkHttp3源码分析[综述] - 简书_files/complete-pay-25426877089eb23bd76d9d0e6aad89c1.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+  <div class="imagebubble-backmask image-package" style="z-index: 1000;"><div class="image-caption">okhttp dispatcher</div><div class="image-caption">interceptors</div><img class="imagebubble-ghost" src="./OkHttp3源码分析[综述] - 简书_files/interceptors@2x.png" style="top: 5107px; left: 331px; width: 620px; height: 568px;"><img class="imagebubble-ghost" src="./OkHttp3源码分析[综述] - 简书_files/98641-bf59bda54ea07552(1).png" style="top: 1822px; left: 331px; width: 620px; height: 407px;"></div></div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="./OkHttp3源码分析[综述] - 简书_files/base-8f20b806c8514691a8ea324f286cacdd.js"></script>
+  
+  <script src="./OkHttp3源码分析[综述] - 简书_files/reading-base-9132a81390eb5b2cc4f21734b0e9cd08.js"></script>
+  <script src="./OkHttp3源码分析[综述] - 简书_files/note_show-a3248fb70ead7874e0a2172b3f221274.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+</body></html>

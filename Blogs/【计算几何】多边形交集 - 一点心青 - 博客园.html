@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)http://www.cnblogs.com/dwdxdy/p/3232110.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/ca-pub-4210569241504288.js"></script>
+
+<title>【计算几何】多边形交集 - 一点心青 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./【计算几何】多边形交集 - 一点心青 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./【计算几何】多边形交集 - 一点心青 - 博客园_files/bundle-iMetro_HD.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/dwdxdy/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/dwdxdy/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/dwdxdy/wlwmanifest.xml">
+<script async="" src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/encoder.js"></script><script src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'dwdxdy', cb_enable_mathjax=false;</script>
+<script src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/dwdxdy/"><img id="blogLogo" src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/dwdxdy/">一点心青</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/dwdxdy/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/%E4%B8%80%E7%82%B9%E5%BF%83%E9%9D%92">联系</a></li>
+<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/dwdxdy/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/dwdxdy/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔- 87&nbsp;
+文章- 0&nbsp;
+评论- 83&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/dwdxdy/p/3232110.html">【计算几何】多边形交集</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>问题描述：已知两个多边形Poly1和Poly2，分别由点集C1={P1,P2,...,Pm}和C2={Q1,Q2,...,Qn}表示，求这两个多边形的交集。</p>
+<p>算法思想：</p>
+<p>两个多边形相交后，其顶点要么是两个多边形边的交点，要么是在多边形内部的点。</p>
+<p>算法步骤：</p>
+<p>1.计算两个多边形每条边之间的交点。</p>
+<p>2.计算包含在多边形内部的点。</p>
+<p>3.将交点和多边形内部的点，按逆时针(或顺时针)排序，得出最终的点集。</p>
+<p>代码基本实现如下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> typedef <span style="color: #0000ff;">struct</span><span style="color: #000000;"> Point
+</span><span style="color: #008080;"> 2</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> x;
+</span><span style="color: #008080;"> 4</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> y;
+</span><span style="color: #008080;"> 5</span> <span style="color: #000000;">}Point;
+</span><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">bool</span> PolygonClip(<span style="color: #0000ff;">const</span> vector&lt;Point&gt; &amp;poly1,<span style="color: #0000ff;">const</span> vector&lt;Point&gt; &amp;poly2, std::vector&lt;Point&gt; &amp;<span style="color: #000000;">interPoly)
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">if</span> (poly1.size() &lt; <span style="color: #800080;">3</span> || poly2.size() &lt; <span style="color: #800080;">3</span><span style="color: #000000;">)
+</span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;">11</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">12</span> 
+<span style="color: #008080;">13</span>     <span style="color: #0000ff;">long</span><span style="color: #000000;"> x,y;
+</span><span style="color: #008080;">14</span>     <span style="color: #008000;">//</span><span style="color: #008000;">计算多边形交点</span>
+<span style="color: #008080;">15</span>     <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>;i &lt; poly1.size();i++<span style="color: #000000;">)
+</span><span style="color: #008080;">16</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">17</span>         <span style="color: #0000ff;">int</span> poly1_next_idx = (i + <span style="color: #800080;">1</span>) %<span style="color: #000000;"> poly1.size();
+</span><span style="color: #008080;">18</span>         <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> j = <span style="color: #800080;">0</span>;j &lt; poly2.size();j++<span style="color: #000000;">)
+</span><span style="color: #008080;">19</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">20</span>             <span style="color: #0000ff;">int</span> poly2_next_idx = (j + <span style="color: #800080;">1</span>) %<span style="color: #000000;"> poly2.size();
+</span><span style="color: #008080;">21</span>             <span style="color: #0000ff;">if</span><span style="color: #000000;"> (GetCrossPoint(poly1[i],poly1[poly1_next_idx],
+</span><span style="color: #008080;">22</span> <span style="color: #000000;">                poly2[j],poly2[poly2_next_idx],
+</span><span style="color: #008080;">23</span> <span style="color: #000000;">                x,y))
+</span><span style="color: #008080;">24</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">25</span> <span style="color: #000000;">                interPoly.push_back(cv::Point(x,y));
+</span><span style="color: #008080;">26</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">27</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">28</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">29</span> 
+<span style="color: #008080;">30</span>     <span style="color: #008000;">//</span><span style="color: #008000;">计算多边形内部点</span>
+<span style="color: #008080;">31</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>;i &lt; poly1.size();i++<span style="color: #000000;">)
+</span><span style="color: #008080;">32</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">33</span>         <span style="color: #0000ff;">if</span><span style="color: #000000;"> (IsPointInpolygon(poly2,poly1[i]))
+</span><span style="color: #008080;">34</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">35</span> <span style="color: #000000;">            interPoly.push_back(poly1[i]);
+</span><span style="color: #008080;">36</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">37</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">38</span>     <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>;i &lt; poly2.size();i++<span style="color: #000000;">)
+</span><span style="color: #008080;">39</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">40</span>         <span style="color: #0000ff;">if</span><span style="color: #000000;"> (IsPointInpolygon(poly1,poly2[i]))
+</span><span style="color: #008080;">41</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">42</span> <span style="color: #000000;">            interPoly.push_back(poly2[i]);
+</span><span style="color: #008080;">43</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">44</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">45</span>     
+<span style="color: #008080;">46</span>     <span style="color: #0000ff;">if</span>(interPoly.size() &lt;= <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">47</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;">48</span>         
+<span style="color: #008080;">49</span>     <span style="color: #008000;">//</span><span style="color: #008000;">点集排序 </span>
+<span style="color: #008080;">50</span> <span style="color: #000000;">    ClockwiseSortPoints(interPoly);
+</span><span style="color: #008080;">51</span>     <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+</span><span style="color: #008080;">52</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>代码分析：</p>
+<p>求多边形交集，主要由计算多边形交点、计算多边形内部点、点集排序三部分组成，主要由以下三个函数完成。</p>
+<p>GetCrossPoint(),求线段交点，参考：<a href="http://www.cnblogs.com/dwdxdy/p/3230485.html">http://www.cnblogs.com/dwdxdy/p/3230485.html</a><a href="http://www.cnblogs.com/dwdxdy/p/3230485.html" target="_blank"><br></a></p>
+<p>IsPointInpolygon()，判断点是否在多边形内部，参考：<a href="http://www.cnblogs.com/dwdxdy/p/3230647.html">http://www.cnblogs.com/dwdxdy/p/3230647.html</a></p>
+<p>ClockwiseSortPoints()，点集排序，参考：<a href="http://www.cnblogs.com/dwdxdy/p/3230156.html">http://www.cnblogs.com/dwdxdy/p/3230156.html</a></p>
+<p>参考资料：</p>
+<p><a href="http://blog.csdn.net/zxy_snow/article/details/6917501">http://blog.csdn.net/zxy_snow/article/details/6917501</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/dwdxdy/category/385008.html">计算机视觉</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3232110,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/%E4%B8%80%E7%82%B9%E5%BF%83%E9%9D%92" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dwdxdy/" target="_blank"><img src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/u414008.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dwdxdy/">一点心青</a><br>
+<a href="http://home.cnblogs.com/u/dwdxdy/followees">关注 - 3</a><br>
+<a href="http://home.cnblogs.com/u/dwdxdy/followers">粉丝 - 91</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(3232110,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(3232110,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/dwdxdy/p/3230647.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/dwdxdy/p/3230647.html" title="发布于2013-08-01 18:07">【计算几何】点在多边形内部</a><br><a href="http://www.cnblogs.com/dwdxdy/p/3232331.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/dwdxdy/p/3232331.html" title="发布于2013-08-02 12:50">【OpenCV学习】计算两幅图像的重叠区域</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-08-02 11:05</span> <a href="http://www.cnblogs.com/dwdxdy/">一点心青</a> 阅读(<span id="post_view_count">2706</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=3232110" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/dwdxdy/p/3232110.html#" onclick="AddToWz(3232110);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=118978,cb_entryId=3232110,cb_blogApp=currentBlogApp,cb_blogUserGuid='6bf5a84e-05aa-e111-aa3f-842b2b196315',cb_entryCreatedDate='2013/8/2 11:05:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/dwdxdy/p/3232110.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/dwdxdy/p/3232110.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－专注为 App 开发者提供IM云服务</a><br><a href="http://www.ucloud.cn/site/active/new_gift.html?utm_source=cost&amp;utm_campaign=bokeyuan1&amp;utm_medium=display&amp;utm_content=3yuecu" target="_blank">【推荐】UCloud开年大礼，充5000返1000；买云主机送CDN，详情点击</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block">     <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-4210569241504288" data-ad-slot="5457903683" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/541721/" target="_blank">英特尔延长14nm工艺周期：‘tick-tock’时代正式终结</a><br> ·  <a href="http://news.cnblogs.com/n/541720/" target="_blank">RIAA：2015年流媒体音乐收入首次超越数字音乐</a><br> ·  <a href="http://news.cnblogs.com/n/541719/" target="_blank">陌陌推出网页版 支持观看音乐互动直播</a><br> ·  <a href="http://news.cnblogs.com/n/541718/" target="_blank">苹果支持新购iPhone 5S免费退换iPhone SE？</a><br> ·  <a href="http://news.cnblogs.com/n/541717/" target="_blank">程序bug导致了天大的损失，要枪毙程序猿吗？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jpush.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./【计算几何】多边形交集 - 一点心青 - 博客园_files/24442-20160307140747632-1210035054.jpg" alt="极光推送20160307" title="极光推送20160307"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/541230/" target="_blank">如何运维千台以上游戏云服务器</a><br> ·  <a href="http://kb.cnblogs.com/page/539160/" target="_blank">架构漫谈（一）：什么是架构？</a><br> ·  <a href="http://kb.cnblogs.com/page/540632/" target="_blank">架构的本质</a><br> ·  <a href="http://kb.cnblogs.com/page/538249/" target="_blank">谷歌背后的数学</a><br> ·  <a href="http://kb.cnblogs.com/page/533808/" target="_blank">Medium开发团队谈架构设计</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/dwdxdy/">一点心青</a><br>园龄：<a href="http://home.cnblogs.com/u/dwdxdy/" title="入园时间：2012-05-30">3年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/dwdxdy/followers/">91</a><br>关注：<a href="http://home.cnblogs.com/u/dwdxdy/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;6bf5a84e-05aa-e111-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/02/01&#39;);return false;">&lt;</a></td><td align="center">2016年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalTodayDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/dwdxdy/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/dwdxdy/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/dwdxdy/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/dwdxdy/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/dwdxdy/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/dwdxdy/p/3232110.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/dwdxdy/tag/FFmpeg/">FFmpeg</a>(6)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/GPU/">GPU</a>(5)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/OpenCV/">OpenCV</a>(4)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E8%83%8C%E6%99%AF%E5%BB%BA%E6%A8%A1/">背景建模</a>(4)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/">视频处理</a>(3)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a>(2)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E5%86%85%E5%AD%98%E6%B1%A0/">内存池</a>(2)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理</a>(2)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E7%BA%B9%E7%90%86%E7%89%B9%E5%BE%81/">纹理特征</a>(1)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/">匈牙利算法</a>(1)</li><li><a href="http://www.cnblogs.com/dwdxdy/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/dwdxdy/category/385024.html">C/C++(29)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/dwdxdy/category/385023.html">CUDA(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/dwdxdy/category/501611.html">JavaScript(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/dwdxdy/category/385903.html">OpenCV(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/dwdxdy/category/477517.html">多媒体处理(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/dwdxdy/category/385008.html">计算机视觉(31)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/dwdxdy/category/392507.html">生活感悟(2)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/dwdxdy/archive/2014/05.html">2014年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/dwdxdy/archive/2014/03.html">2014年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/dwdxdy/archive/2014/01.html">2014年1月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/dwdxdy/archive/2013/08.html">2013年8月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/dwdxdy/archive/2013/07.html">2013年7月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/dwdxdy/archive/2013/05.html">2013年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/dwdxdy/archive/2012/08.html">2012年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/dwdxdy/archive/2012/07.html">2012年7月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/dwdxdy/archive/2012/06.html">2012年6月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/dwdxdy/archive/2012/05.html">2012年5月 (9)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dwdxdy/p/3232331.html#3387678">1. Re:【OpenCV学习】计算两幅图像的重叠区域</a></li>
+    <li class="recent_comment_body">楼主可不可以把完整代码发我一下，想学习一下~QQ：1030443595@qq.com</li>
+    <li class="recent_comment_author">--xmj0531</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dwdxdy/p/3240217.html#3378838">2. Re:【FFmpeg】ffplay播放rtsp视频流花屏问题</a></li>
+    <li class="recent_comment_body">楼主，我想问下你改了源码后是在windows下还是linux下编译的呢？编程成dll库还是so库？</li>
+    <li class="recent_comment_author">--lgt-prog</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dwdxdy/p/3244508.html#3350745">3. Re:【OpenCV】OpenCV中GPU模块使用</a></li>
+    <li class="recent_comment_body">大神，请问关于GpuMat d_src_img（src_img）耗时问题。我的机子上跑这一句代码要花费800多900多ms。但是我看官方文档只需要0.5ms。我的显卡是GTX 760，请问这是为什么啊......</li>
+    <li class="recent_comment_author">--夜落、</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dwdxdy/p/3261742.html#3287619">4. Re:【算法题】任务分配问题---匈牙利算法</a></li>
+    <li class="recent_comment_body">QwQ搜了这么多，终于找到一个不是在讲代码的了。。。我就想安安静静地先做个数模而已嘤嘤婴~</li>
+    <li class="recent_comment_author">--陈玩玩</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dwdxdy/p/3528711.html#3280819">5. Re:【OpenCV &amp; CUDA】OpenCV和Cuda结合编程</a></li>
+    <li class="recent_comment_body">求博主推荐一些CUDA+opencv混编的入门资料，就是你在方法三所介绍的。本人无CUDA基础，但熟悉opencv。无论CV还是CUDA的文档，好像都没有介绍类似于你所说的方法三的内容。自学CUDA编......</li>
+    <li class="recent_comment_author">--kelvin_yan</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/dwdxdy/archive/2012/07/25/2608816.html">1. 【Shell脚本】逐行处理文本文件(23648)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3240167.html">2. 【FFmpeg】FFmpeg常用基本命令(19570)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3214905.html">3. 【C/C++】计时函数比较(14475)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3713990.html">4. 【视频处理】YUV与RGB格式转换(12020)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3244508.html">5. 【OpenCV】OpenCV中GPU模块使用(10860)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/dwdxdy/p/3528711.html">1. 【OpenCV &amp; CUDA】OpenCV和Cuda结合编程(19)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3240217.html">2. 【FFmpeg】ffplay播放rtsp视频流花屏问题(12)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3244723.html">3. 【GPU编解码】GPU硬解码---CUVID(9)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3244508.html">4. 【OpenCV】OpenCV中GPU模块使用(7)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/archive/2012/07/17/2595741.html">5. 【C++】 私有成员变量的理解(6)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/dwdxdy/archive/2012/07/17/2595741.html">1. 【C++】 私有成员变量的理解(4)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/archive/2012/07/25/2608816.html">2. 【Shell脚本】逐行处理文本文件(2)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/archive/2012/07/16/2594113.html">3. 【C++】DISALLOW_COPY_AND_ASSIGN(2)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3244508.html">4. 【OpenCV】OpenCV中GPU模块使用(2)</a></li><li><a href="http://www.cnblogs.com/dwdxdy/p/3232331.html">5. 【OpenCV学习】计算两幅图像的重叠区域(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 一点心青
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

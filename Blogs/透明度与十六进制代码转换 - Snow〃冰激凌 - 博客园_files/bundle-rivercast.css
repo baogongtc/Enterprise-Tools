@@ -1,0 +1,521 @@
+/* Minification failed. Returning unminified contents.
+(384,10): run-time error CSS1035: Expected colon, found '1px'
+ */
+/* CLEARSCREEN .TEXT SKIN by Miguel Jimenez @ http://blogs.clearscreen.com/migs */
+/* This is linkware, you are free to use it if you keep the link to the skin download at the footer section */
+
+/* Links of all the skin */
+a:link, a:active {color : #000000;}
+a:visited {color : #000000;}
+a:hover {color : gray;}
+
+
+/* Main Body Properties */
+body {
+	margin:0px;
+	padding:0px;
+	font-family: verdana,Arial,helvetica,sans-seriff;
+	font-size:12px; /*small*/
+	word-break:break-all;
+	line-height:160%;
+	background-color:#F6F6F6;	
+	text-align:left;
+}
+
+/* 	FONT-SIZE: 12px; 
+	COLOR: #454545; */
+td {
+	font-size:12px;
+	FONT-FAMILY: Verdana,Helvetica,Arial;
+	word-break:break-all;
+	line-height:150%
+}
+
+/* Header */
+.header {
+	height:280px;
+	background-image:url(images/bg_header.gif);
+	background-repeat:no-repeat;
+    background-position:left;
+	border:0px dotted #000000;
+	padding-left:0px;
+	padding-top:0px;
+	margin-left:0px;
+	width:850px;	
+	padding-bottom:0px;
+}
+
+.headerText 
+{
+	padding-top:30px;
+	width:500px;
+}	
+
+a.headermaintitle:visited,a.headermaintitle:active,a.headermaintitle:link {
+	color:#3C3C3C;
+	font-size:16px;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+a.headermaintitle:hover {
+	color:gray;
+}
+
+#main
+{
+	width:850px;
+}
+
+
+/* Floating Left Menu */
+#leftcontent {
+    float:left; 
+	width : 200px;
+	background-color : #FFFFFF;	
+	border : 0px solid #000000;
+	border-top: 1px solid #000000;
+	border-bottom: 0px solid #000000;
+	font-family:Arial;
+	font-size:12px;	
+	margin-left:5px;
+	padding-left:0px;
+	margin-top:-80px;
+}
+
+#leftcontentcontainer  {
+	padding:10px;
+	background-image:url(images/bg_leftcontent.jpg);
+	background-repeat:no-repeat
+}
+
+#centercontent {
+   	padding-top:5px;
+   	padding-right:10px;
+   	padding-left:0px;
+   	width:620px;
+    float:right;
+    border : 0px solid #000000;
+    text-align:left;
+ 
+}
+
+#mytopmenu 
+{
+    float:right;
+	width:650px;
+	border:0px solid #5E5E5E;
+   	/*background-color:White;*/
+	background-image:url(images/bg_menu.jpg);
+	background-repeat:no-repeat;
+	background-position:right top;
+   	padding:8px;
+   	padding-left:30px;
+   	padding-right:10px;
+	margin-top:5px;
+	margin-right:-2px;
+   	margin-left:0px;
+   	text-align:right;
+	font-size:12px;
+	padding-top:0px;
+		
+}	
+
+#mystats 
+{
+	margin-top:24px;
+	
+	    
+}
+
+a.menu:link,a.menu:visited,a.menu:active {
+	color:black
+}
+a.menu:hover {
+	color:gray;
+}
+
+#mylinks {
+	font-size:12px;
+	padding:8px;
+   	padding-left:10px;
+   	padding-right:12px;
+   	text-align:left;
+   	margin-left:30px;
+	}
+		
+.footer {
+	color:#000000;
+   	padding:12px;
+   	padding-left:10px;
+	margin-top:0px;
+   	text-align:center;
+   	line-height:20px;
+}	
+/* End Layout and Formatting */
+
+.day {
+	border:1px dotted #8A8A8A;
+	background-color:white;
+	background-image:url(images/bg_day.jpg);
+	background-repeat:no-repeat;
+	background-position:right top;
+   	padding:20px;
+	color:#4B4B4B;
+	margin-bottom:20px;
+	margin-left:2px;
+}
+
+.dayTitle {
+	font-size:13px;
+	font-weight:bold;
+	margin-bottom:20px;	
+}
+
+.postSeparator {
+	background-image:url(images/line.gif);
+	background-repeat:repeat-x;
+	height:10;
+	border-top:0px dotted #000000;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.news {
+	font-family:Verdana;
+	font-size:11px;
+	font-weight:bold;
+}
+
+.newsItem {
+	margin-top:2px;
+	margin-bottom:20px;
+	text-align:left;
+}
+
+.blogstats {
+	font-size:12px;
+	margin-top:0px;
+}
+
+.entrylist {
+	border:1px dotted #000000;
+   	background-color:White;
+   	padding:20px;
+   	padding-bottom:8px;
+	color:#7B7D62;
+}
+
+.listtitle {
+
+	background-repeat:no-repeat;
+	font-family:verdana;
+	font-size:14.7px;
+	font-weight:bold;
+	color:#666666;
+	margin-bottom:10px;
+	height:21;
+}
+
+.entrylistTitle {
+	font-family:verdana;
+	font-size:16px;
+	font-weight:bold;
+	color:Black;
+}
+
+.entrylistDescription {
+	margin-bottom:20px;
+}
+
+.entrylistItemTitle {
+	font-size:13px;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+.entrylistItemPostDesc {
+	font-size:12px;
+}
+
+.gallery {
+	border:1px dotted #000000;
+   	background-color:White;
+   	padding:20px;
+	color:#7B7D62;
+}
+
+.galleryTitle {
+	font-family:verdana;
+	font-size:16px;
+	font-weight:bold;
+	color:Black;
+}
+
+.galleryDescription {
+	margin-bottom:20px;	
+}
+
+.galleryThumbnail {
+	padding:20px;
+	padding-left:0px;
+}
+.post {
+	border:1px dotted #000000;
+   	background-color:White;
+   	padding:20px;
+	color:#4B4B4B;
+	font-size:13px;
+}
+
+.postTitle {
+	font-size:14.7px;
+	font-weight:bold;
+	margin-bottom:10px;
+}
+
+.postTitle2 {
+	text-decoration:none;
+}
+
+.postDesc {
+	color:#303030;
+	margin-top:10px;
+	text-align:right
+}
+
+.contact {
+	border:1px dotted #000000;
+   	background-color:White;
+   	padding:20px;
+   	padding-left:22px;
+	font-family:Verdana;
+	font-weight:bold;
+	font-size:11px;   	
+}
+
+
+
+.comments {
+	border:1px dotted #000000;
+	border-top:0px;	
+   	background-color:White;
+   	padding:20px;
+   	padding-left:22px;
+   	padding-top:0px;
+	font-family:Verdana;
+	font-weight:bold;
+	font-size:11px;   	
+}
+
+.commentsTable {
+	font-family:Verdana;
+	font-size:11px;  
+	margin-top:15px; 
+}
+
+.feedback {
+	border:1px dotted #000000;
+	border-bottom:0px;	
+   	background-color:White;
+   	margin-top:20px;
+   	margin-bottom:0px;
+   	padding:20px;
+   	padding-bottom:30px;
+}
+
+.feedbackTitle {
+	font-family:Verdana;
+	font-weight:bold;
+	font-size:11px;
+}
+
+.feedbackItem, .feedbackNoItems {
+	margin-bottom:0px;
+	margin-top:20px;
+	line-height:200%
+}
+
+.feedbackList {
+	list-style: none;
+	margin-left:0px;
+	margin-right:0px; 
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.feedbackListTitle {
+	padding-bottom:6px;
+	position:absolute;
+	font-size:9px;
+	padding:5px;
+	padding-left:7px;
+	color:#000000;
+}
+
+.feedbackListSubtitle {
+	background-color:white;
+	color:#000000;
+	padding:5px;
+	padding-right:7px;
+	border:1px dotted #000000;
+	text-align:right;
+	font-size:9px;
+	margin-bottom:8px;
+}
+
+.catListTitle {
+
+	background-repeat:no-repeat;
+	font-family:Verdana;
+	font-size:13px;
+	margin-bottom:10px;
+	height:21;
+	text-align:left;
+}
+
+.catList {
+	list-style: none;
+	border-top: 0px;
+	margin: 0px;
+	padding-left: 10px;
+	margin-bottom:20px;
+	text-align:left;
+}
+
+catListItem { 
+	padding 1px 0px 1 px 0px;
+	margin-left: 5px;
+	text-align: left;
+}
+
+h3
+{
+	font-size : 13px;
+}
+
+ul {
+	list-style: none;
+	margin : 0px;
+	padding-left : 5px;
+	margin-left : 5px;
+	margin-bottom : 10px;
+	font-size : 13px;
+	text-align:left;
+}
+
+.Cal
+{
+	border-color:transparent;
+	width:160px;;
+	font-family:Arial;
+	font-size: 12px;
+	margin-top:0px;
+	margin-bottom:10px;
+	height:180px;
+	border:0px;
+}
+
+.CalTitle
+{
+	background-color :transparent;
+	font-family:verdana;
+	font-size: 12px;
+	margin-left : 0px;
+	padding : 0px;
+	height:100%;
+	font-weight:bold;
+	color:#C0C0C0
+
+}
+
+.CalOtherMonthDay
+{
+	color:#808080;
+	
+}
+
+.CalSelector
+{
+	background-color:#FFFFFF;
+	
+}
+
+a.CalNextPrev,a.CalNextPrev:link, a.CalNextPrev:visited, a.CalNextPrev:active
+{
+	color:#FFF;
+}
+
+.CalNextPrev
+{
+	color:#FFF;
+}
+
+
+.CalDayHeader
+{
+	background-color:transparent;
+	font-weight:bold;
+	color:#E4E4E4
+	
+}
+
+.CalSelectedDay
+{
+    background-color:#CCCCCC;
+     
+}
+
+.CalWeekendDay
+{
+	background-color:transparent;
+}
+
+.CalTodayDay
+{
+	background-color:#555555;
+	color:white
+	
+    
+}
+
+h1 {
+	margin : 0px;
+	margin-top : 10px;
+	margin-bottom : 5px;
+	font-size : 14.7px;
+	color:#666666;
+	text-align:left;
+}
+
+/* section comment style */
+.feedbackListTitle{
+  font-size: 12px;
+  color:black
+}
+
+.feedbackListSubtitle{
+  font-size: 12px;
+  color:black
+}
+
+#leftcontentcontainer H3
+{
+	background-repeat:no-repeat;
+	font-family:Verdana;
+	height:21;
+	margin : 0px;
+	margin-top : 10px;
+	margin-bottom : 5px;
+	font-size : 14.7px;
+	color:#666666;
+	text-align:left;
+}
+
+p
+{
+	font-size: 13px;
+}
+
+#cnblogs_post_body{line-height:1.5;}
+#cnblogs_post_body img{ max-width: 580px;  }

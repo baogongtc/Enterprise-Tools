@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0048)http://www.cnblogs.com/lianghui66/p/4537809.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/bundle-rivercast.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/lianghui66/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/lianghui66/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/lianghui66/wlwmanifest.xml">
+<script async="" src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/analytics.js"></script><script src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'lianghui66', cb_enable_mathjax=false;</script>
+<script src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="centerbody" align="center">
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/lianghui66/">Snow〃冰激凌</a><br>
+		
+	</div>
+</div>
+
+</div>
+<div id="main">
+<div id="mytopmenu">
+	
+	<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/lianghui66/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/Snow%E3%80%83%E5%86%B0%E6%BF%80%E5%87%8C">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/lianghui66/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/lianghui66/rss"><img src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a>
+</div>
+		<div id="mystats">
+			
+<!--done-->
+<div class="blogStats">
+posts - 137,&nbsp;
+comments - 7,&nbsp;
+trackbacks - 0
+
+</div></div>
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/lianghui66/p/4537809.html">透明度与十六进制代码转换</a>
+	</div>
+	<div id="cnblogs_post_body"><p>解析：〈#ffffffff〉<br>#ffffffff由#加八位数字或字母组成，前两个ff为透明度（十六进制），后面六位ffffff为颜色代码，采用RGB配色（十六进制）<br><br>一、进位制转换器获取透明代码的方法<br>安装打开，出现一个操作面板，<br>Hex（十六进制）、Dec（十进制）、Octal（八进制）、Bin（二进制）<br><br>输出框；<br>Hex（输出十六进制值）、Decimal（输出十进制值）、Octal（输出八进制值）、Binary（输出二进制值）<br><br>了解了功能就好办了，只要选择好功能，输入数值就可以读出对应的进位值，这里以透明度为例，透明度总共有255阶，写进语句的都是转换为十六进制的值，255阶为不透明，要得到25%透明度，将255乘25%得到大概63（此时仍是十进制值），那么在进位制选择十进制，输入63，在Hex输出框可以得到3f，那么这个就是十进制时63转化为十六进制的值，将3f写进语句得到〈#3fffffff〉，保存回编译，对应布局的25%透明度就改好了！是不是很简单呢？嘿嘿～<br>透明度参照表；<br>00%=FF（不透明）&nbsp; &nbsp; 5%=F2&nbsp; &nbsp; 10%=E5&nbsp; &nbsp; 15%=D8&nbsp; &nbsp; 20%=CC&nbsp; &nbsp; 25%=BF&nbsp; &nbsp; 30%=B2&nbsp; &nbsp; 35%=A5&nbsp; &nbsp; 40%=99&nbsp; &nbsp; 45%=8c&nbsp; &nbsp; 50%=7F&nbsp; &nbsp;&nbsp;<br>55%=72&nbsp; &nbsp; 60%=66&nbsp; &nbsp; 65%=59&nbsp; &nbsp; 70%=4c&nbsp; &nbsp; 75%=3F&nbsp; &nbsp; 80%=33&nbsp; &nbsp; 85%=21&nbsp; &nbsp; 90%=19&nbsp; &nbsp; 95%=0c&nbsp; &nbsp; 100%=00（全透明）</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/lianghui66/category/424525.html">android</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4537809,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/Snow%E3%80%83%E5%86%B0%E6%BF%80%E5%87%8C" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/lianghui66/" target="_blank"><img src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/lianghui66/">Snow〃冰激凌</a><br>
+<a href="http://home.cnblogs.com/u/lianghui66/followees">关注 - 0</a><br>
+<a href="http://home.cnblogs.com/u/lianghui66/followers">粉丝 - 19</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(4537809,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(4537809,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/lianghui66/p/4210790.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/lianghui66/p/4210790.html" title="发布于2015-01-08 14:07">Android pid uid</a><br><a href="http://www.cnblogs.com/lianghui66/p/4788163.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/lianghui66/p/4788163.html" title="发布于2015-09-07 10:09">微信分享</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2015-05-29 10:05</span> <a href="http://www.cnblogs.com/lianghui66/">Snow〃冰激凌</a> 阅读(<span id="post_view_count">257</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=4537809" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/lianghui66/p/4537809.html#" onclick="AddToWz(4537809);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=132221,cb_entryId=4537809,cb_blogApp=currentBlogApp,cb_blogUserGuid='f54c9235-0323-e211-aa8f-842b2b196315',cb_entryCreatedDate='2015/5/29 10:05:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/lianghui66/p/4537809.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/lianghui66/p/4537809.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－专注为 App 开发者提供IM云服务</a><br><a href="http://www.ucloud.cn/site/active/new_gift.html?utm_source=cost&amp;utm_campaign=bokeyuan1&amp;utm_medium=display&amp;utm_content=3yuecu" target="_blank">【推荐】UCloud开年大礼，充5000返1000；买云主机送CDN，详情点击</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="https://bce.baidu.com/event/promotion-march/index.html?t=cp:online-media|pf:pc|pp:mar|pu:244" target="_blank"><img width="300" height="250" src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/24442-20160324115230854-2017204765.png" alt="百度云_20160324" title="百度云_20160324"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/541826/" target="_blank">《神秘的程序员们》漫画39：你的时间去哪了？</a><br> ·  <a href="http://news.cnblogs.com/n/541825/" target="_blank">消息人士称Google正努力打造直播应用YouTube Connect</a><br> ·  <a href="http://news.cnblogs.com/n/541824/" target="_blank">外媒：莫桑比克发现客机碎片“几乎确定来自MH370”</a><br> ·  <a href="http://news.cnblogs.com/n/541823/" target="_blank">美国宇航局用遥控机器人建造火箭发射-着陆台</a><br> ·  <a href="http://news.cnblogs.com/n/541822/" target="_blank">零售商清仓苹果删资料 这是iPhone 5s要停产的节奏？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jpush.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./透明度与十六进制代码转换 - Snow〃冰激凌 - 博客园_files/24442-20160307140747632-1210035054.jpg" alt="极光推送20160307" title="极光推送20160307"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/541805/" target="_blank">程序bug导致了天大的损失，要枪毙程序猿吗？</a><br> ·  <a href="http://kb.cnblogs.com/page/541230/" target="_blank">如何运维千台以上游戏云服务器</a><br> ·  <a href="http://kb.cnblogs.com/page/539160/" target="_blank">架构漫谈（一）：什么是架构？</a><br> ·  <a href="http://kb.cnblogs.com/page/540632/" target="_blank">架构的本质</a><br> ·  <a href="http://kb.cnblogs.com/page/538249/" target="_blank">谷歌背后的数学</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2016  Snow〃冰激凌 Powered By: <a href="http://www.cnblogs.com/">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a>
+</div>
+</div>
+
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/02/01&#39;);return false;">&lt;</a></td><td align="center">2016年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center"><a href="http://www.cnblogs.com/lianghui66/archive/2016/03/09.html"><u>9</u></a></td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalTodayDay" align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/lianghui66/">Snow〃冰激凌</a><br>园龄：<a href="http://home.cnblogs.com/u/lianghui66/" title="入园时间：2012-10-31">3年4个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/lianghui66/followers/">19</a><br>关注：<a href="http://home.cnblogs.com/u/lianghui66/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;f54c9235-0323-e211-aa8f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/lianghui66/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/lianghui66/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/lianghui66/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/lianghui66/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/lianghui66/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<!--done-->
+
+		<h1 class="catListTitle">随笔分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/lianghui66/category/424525.html">android(75)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/lianghui66/category/738578.html">android开源库(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/lianghui66/category/622198.html">angularJs(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/lianghui66/category/581856.html">github(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/lianghui66/category/623640.html">html(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/lianghui66/category/457404.html">HTTP(7)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/lianghui66/category/424526.html">java(27)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/lianghui66/category/504582.html">sql(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/lianghui66/category/456736.html">svn管理(8)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/lianghui66/category/570002.html">VPN(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/lianghui66/category/619564.html">开发工具</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_11" class="listitem" href="http://www.cnblogs.com/lianghui66/category/490790.html">面试(6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_12" class="listitem" href="http://www.cnblogs.com/lianghui66/category/548678.html">手机(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_13" class="listitem" href="http://www.cnblogs.com/lianghui66/category/509730.html">数据结构(1)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2016/03.html">2016年3月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2015/12.html">2015年12月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2015/11.html">2015年11月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2015/09.html">2015年9月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2015/05.html">2015年5月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2015/01.html">2015年1月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/11.html">2014年11月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_7" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/10.html">2014年10月 (7)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_8" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/09.html">2014年9月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_9" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/08.html">2014年8月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_10" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/05.html">2014年5月 (6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_11" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/04.html">2014年4月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_12" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/03.html">2014年3月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_13" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/02.html">2014年2月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_14" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2014/01.html">2014年1月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_15" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/12.html">2013年12月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_16" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/11.html">2013年11月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_17" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/10.html">2013年10月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_18" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/09.html">2013年9月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_19" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/08.html">2013年8月 (10)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_20" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/07.html">2013年7月 (9)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_21" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/06.html">2013年6月 (9)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_22" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/05.html">2013年5月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_23" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/04.html">2013年4月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_24" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/03.html">2013年3月 (20)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_25" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2013/01.html">2013年1月 (12)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_26" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2012/12.html">2012年12月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_27" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2012/11.html">2012年11月 (13)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_28" class="listitem" href="http://www.cnblogs.com/lianghui66/archive/2012/10.html">2012年10月 (2)</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/lianghui66/archive/2012/12/03/2799134.html#3325949">1. Re:java的getClass()函数</a></li>
+    <li class="recent_comment_body">really good!</li>
+    <li class="recent_comment_author">--Mink</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/lianghui66/p/3607091.html">1. FragmentPagerAdapter与FragmentStatePagerAdapter区别(36939)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/03/06/2946495.html">2. Http 四种请求访问代码 HttpGet HttpPost HttpPut HttpDelete(23180)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/03/12/2956249.html">3. android 客户端 Cookie处理(15060)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/03/07/2948494.html">4. 对称加密----AES和DES加密、解密(12590)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/03/05/2944498.html">5. android keystore 生成以及作用(11921)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/lianghui66/p/3146155.html">1. SAX与DOM解析XML的区别(2)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/03/06/2946495.html">2. Http 四种请求访问代码 HttpGet HttpPost HttpPut HttpDelete(2)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2012/12/03/2799134.html">3. java的getClass()函数(1)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/05/21/3090215.html">4. android popupwindow(1)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/04/12/3016275.html">5. android ExpandableListView(1)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/lianghui66/p/3607091.html">1. FragmentPagerAdapter与FragmentStatePagerAdapter区别(7)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2012/12/03/2799134.html">2. java的getClass()函数(2)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/05/21/3090886.html">3. android手机屏幕分辨率  及 sp dip（dp） px  区别 及高中低分辨率时处理(1)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/04/12/3016275.html">4. android ExpandableListView(1)</a></li><li><a href="http://www.cnblogs.com/lianghui66/archive/2013/03/28/2987176.html">5. android 之 WebView详解(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>
+	
+</div>
+
+</div>
+
+</div>
+
+
+
+</body></html>

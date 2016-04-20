@@ -1,0 +1,742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)http://www.cnblogs.com/ct2011/p/3997368.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/bundle-SimpleClear.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/ct2011/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/ct2011/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/ct2011/wlwmanifest.xml">
+<script async="" src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/analytics.js"></script><script src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'ct2011', cb_enable_mathjax=false;</script>
+<script src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="main">
+<div id="header">
+<h1><a id="Header1_HeaderTitle" href="http://www.cnblogs.com/ct2011/">GavinCT</a></h1>
+<p id="tagline">Do one thing at a time, and do well.</p></div>
+
+<div id="post_detail">
+<div class="post">
+    <h2 class="postTitle"><a id="cb_post_title_url" href="http://www.cnblogs.com/ct2011/p/3997368.html">OkHttp使用进阶 译自OkHttp Github官方教程</a></h2>
+    <div class="postText"><div id="cnblogs_post_body" class="cnblogs-markdown"><p>没有使用过OkHttp的，可以先看<a href="http://www.cnblogs.com/ct2011/p/4001708.html">OkHttp使用介绍</a></p>
+<h1>英文版原版地址</h1>
+<p><a href="https://github.com/square/okhttp/wiki/Recipes">Recipes · square/okhttp Wiki</a></p>
+<h1 id="get">同步get</h1>
+<p>下载一个文件，打印他的响应头，以string形式打印响应体。<br>
+响应体的 <code>string()</code> 方法对于小文档来说十分方便、高效。但是如果响应体太大（超过1MB），应避免适应 <code>string()</code>方法 ，因为他会将把整个文档加载到内存中。<br>
+对于超过1MB的响应body，应使用流的方式来处理body。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://publicobject.com/helloworld.txt"</span></span>)
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    Headers responseHeaders = response.<span class="fu">headers</span>();
+    <span class="kw"><span class="hljs-keyword">for</span></span> (<span class="dt"><span class="hljs-keyword">int</span></span> i = <span class="dv"><span class="hljs-number">0</span></span>; i &lt; responseHeaders.<span class="fu">size</span>(); i++) {
+      System.<span class="fu">out</span>.<span class="fu">println</span>(responseHeaders.<span class="fu">name</span>(i) + <span class="st"><span class="hljs-string">": "</span></span> + responseHeaders.<span class="fu">value</span>(i));
+    }
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+<h1 id="get">异步get</h1>
+<p>在一个工作线程中下载文件，当响应可读时回调Callback接口。读取响应时会阻塞当前线程。OkHttp现阶段不提供异步api来接收响应体。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://publicobject.com/helloworld.txt"</span></span>)
+        .<span class="fu">build</span>();
+
+    client.<span class="fu">newCall</span>(request).<span class="fu">enqueue</span>(<span class="kw"><span class="hljs-keyword">new</span></span> Callback() {
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">onFailure</span></span></span><span class="hljs-function"><span class="hljs-params">(Request request, Throwable throwable)</span> </span>{
+        throwable.<span class="fu">printStackTrace</span>();
+      }
+
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">onResponse</span></span></span><span class="hljs-function"><span class="hljs-params">(Response response)</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> IOException </span>{
+        <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+        Headers responseHeaders = response.<span class="fu">headers</span>();
+        <span class="kw"><span class="hljs-keyword">for</span></span> (<span class="dt"><span class="hljs-keyword">int</span></span> i = <span class="dv"><span class="hljs-number">0</span></span>; i &lt; responseHeaders.<span class="fu">size</span>(); i++) {
+          System.<span class="fu">out</span>.<span class="fu">println</span>(responseHeaders.<span class="fu">name</span>(i) + <span class="st"><span class="hljs-string">": "</span></span> + responseHeaders.<span class="fu">value</span>(i));
+        }
+
+        System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+      }
+    });
+}</code></pre></div>
+<h1>提取响应头</h1>
+<p>典型的HTTP头 像是一个 <code>Map&lt;String, String&gt;</code> :每个字段都有一个或没有值。但是一些头允许多个值，像Guava的<a href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Multimap.html">Multimap</a>。例如：HTTP响应里面提供的<code>Vary</code>响应头，就是多值的。OkHttp的api试图让这些情况都适用。<br>
+当写请求头的时候，使用<code>header(name, value)</code>可以设置唯一的name、value。如果已经有值，旧的将被移除，然后添加新的。使用<code>addHeader(name, value)</code>可以添加多值（添加，不移除已有的）。<br>
+当读取响应头时，使用<code>header(name)</code>返回最后出现的name、value。通常情况这也是唯一的name、value。如果没有值，那么<code>header(name)</code>将返回null。如果想读取字段对应的所有值，使用<code>headers(name)</code>会返回一个list。<br>
+为了获取所有的Header，Headers类支持按index访问。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://api.github.com/repos/square/okhttp/issues"</span></span>)
+        .<span class="fu">header</span>(<span class="st"><span class="hljs-string">"User-Agent"</span></span>, <span class="st"><span class="hljs-string">"OkHttp Headers.java"</span></span>)
+        .<span class="fu">addHeader</span>(<span class="st"><span class="hljs-string">"Accept"</span></span>, <span class="st"><span class="hljs-string">"application/json; q=0.5"</span></span>)
+        .<span class="fu">addHeader</span>(<span class="st"><span class="hljs-string">"Accept"</span></span>, <span class="st"><span class="hljs-string">"application/vnd.github.v3+json"</span></span>)
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Server: "</span></span> + response.<span class="fu">header</span>(<span class="st"><span class="hljs-string">"Server"</span></span>));
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Date: "</span></span> + response.<span class="fu">header</span>(<span class="st"><span class="hljs-string">"Date"</span></span>));
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Vary: "</span></span> + response.<span class="fu">headers</span>(<span class="st"><span class="hljs-string">"Vary"</span></span>));
+}</code></pre></div>
+<h1 id="poststring">Post方式提交String</h1>
+<p>使用HTTP POST提交请求到服务。这个例子提交了一个markdown文档到web服务，以HTML方式渲染markdown。因为整个请求体都在内存中，因此避免使用此api提交大文档（大于1MB）。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">public</span></span> <span class="dt"><span class="hljs-keyword">static</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> MediaType MEDIA_TYPE_MARKDOWN
+  = MediaType.<span class="fu">parse</span>(<span class="st"><span class="hljs-string">"text/x-markdown; charset=utf-8"</span></span>);
+
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    String postBody = <span class="st"><span class="hljs-string">""</span></span>
+        + <span class="st"><span class="hljs-string">"Releases</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>
+        + <span class="st"><span class="hljs-string">"--------</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>
+        + <span class="st"><span class="hljs-string">"</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>
+        + <span class="st"><span class="hljs-string">" * _1.0_ May 6, 2013</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>
+        + <span class="st"><span class="hljs-string">" * _1.1_ June 15, 2013</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>
+        + <span class="st"><span class="hljs-string">" * _1.2_ August 11, 2013</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>;
+
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://api.github.com/markdown/raw"</span></span>)
+        .<span class="fu">post</span>(RequestBody.<span class="fu">create</span>(MEDIA_TYPE_MARKDOWN, postBody))
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+<h1 id="post">Post方式提交流</h1>
+<p>以流的方式POST提交请求体。请求体的内容由流写入产生。这个例子是流直接写入<a href="https://github.com/square/okio">Okio</a>的BufferedSink。你的程序可能会使用<code>OutputStream</code>，你可以使用<code>BufferedSink.outputStream()</code>来获取。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">public</span></span> <span class="dt"><span class="hljs-keyword">static</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> MediaType MEDIA_TYPE_MARKDOWN
+      = MediaType.<span class="fu">parse</span>(<span class="st"><span class="hljs-string">"text/x-markdown; charset=utf-8"</span></span>);
+
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    RequestBody requestBody = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">RequestBody</span>() {
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> MediaType </span><span class="fu"><span class="hljs-function"><span class="hljs-title">contentType</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span>{
+        <span class="kw"><span class="hljs-keyword">return</span></span> MEDIA_TYPE_MARKDOWN;
+      }
+
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">writeTo</span></span></span><span class="hljs-function"><span class="hljs-params">(BufferedSink sink)</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> IOException </span>{
+        sink.<span class="fu">writeUtf8</span>(<span class="st"><span class="hljs-string">"Numbers</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>);
+        sink.<span class="fu">writeUtf8</span>(<span class="st"><span class="hljs-string">"-------</span></span><span class="ch"><span class="hljs-string">\n</span></span><span class="st"><span class="hljs-string">"</span></span>);
+        <span class="kw"><span class="hljs-keyword">for</span></span> (<span class="dt"><span class="hljs-keyword">int</span></span> i = <span class="dv"><span class="hljs-number">2</span></span>; i &lt;= <span class="dv"><span class="hljs-number">997</span></span>; i++) {
+          sink.<span class="fu">writeUtf8</span>(String<span class="fu">.format</span>(<span class="st"><span class="hljs-string">" * </span></span><span class="ch"><span class="hljs-string">%s</span></span><span class="st"><span class="hljs-string"> = </span></span><span class="ch"><span class="hljs-string">%s\n</span></span><span class="st"><span class="hljs-string">"</span></span>, i, <span class="fu">factor</span>(i)));
+        }
+      }
+
+      <span class="kw"><span class="hljs-function"><span class="hljs-keyword">private</span></span></span><span class="hljs-function"> String </span><span class="fu"><span class="hljs-function"><span class="hljs-title">factor</span></span></span><span class="hljs-function"><span class="hljs-params">(</span></span><span class="dt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> n)</span> </span>{
+        <span class="kw"><span class="hljs-keyword">for</span></span> (<span class="dt"><span class="hljs-keyword">int</span></span> i = <span class="dv"><span class="hljs-number">2</span></span>; i &lt; n; i++) {
+          <span class="dt"><span class="hljs-keyword">int</span></span> x = n / i;
+          <span class="kw"><span class="hljs-keyword">if</span></span> (x * i == n) <span class="kw"><span class="hljs-keyword">return</span></span> <span class="fu">factor</span>(x) + <span class="st"><span class="hljs-string">" × "</span></span> + i;
+        }
+        <span class="kw"><span class="hljs-keyword">return</span></span> Integer.<span class="fu">toString</span>(n);
+      }
+    };
+
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://api.github.com/markdown/raw"</span></span>)
+        .<span class="fu">post</span>(requestBody)
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+<h1 id="post">Post方式提交文件</h1>
+<p>以文件作为请求体是十分简单的。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">public</span></span> <span class="dt"><span class="hljs-keyword">static</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> MediaType MEDIA_TYPE_MARKDOWN
+  = MediaType.<span class="fu">parse</span>(<span class="st"><span class="hljs-string">"text/x-markdown; charset=utf-8"</span></span>);
+
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    File file = <span class="kw"><span class="hljs-keyword">new</span></span> File(<span class="st"><span class="hljs-string">"README.md"</span></span>);
+
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://api.github.com/markdown/raw"</span></span>)
+        .<span class="fu">post</span>(RequestBody.<span class="fu">create</span>(MEDIA_TYPE_MARKDOWN, file))
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+<h1 id="post">Post方式提交表单</h1>
+<p>使用<code>FormEncodingBuilder</code>来构建和HTML<code>&lt;form&gt;</code>标签相同效果的请求体。键值对将使用一种HTML兼容形式的URL编码来进行编码。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    RequestBody formBody = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">FormEncodingBuilder</span>()
+        .<span class="fu">add</span>(<span class="st"><span class="hljs-string">"search"</span></span>, <span class="st"><span class="hljs-string">"Jurassic Park"</span></span>)
+        .<span class="fu">build</span>();
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://en.wikipedia.org/w/index.php"</span></span>)
+        .<span class="fu">post</span>(formBody)
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+<h1 id="post">Post方式提交分块请求</h1>
+<p><code>MultipartBuilder</code>可以构建复杂的请求体，与HTML文件上传形式兼容。多块请求体中每块请求都是一个请求体，可以定义自己的请求头。这些请求头可以用来描述这块请求，例如他的<code>Content-Disposition</code>。如果<code>Content-Length</code>和<code>Content-Type</code>可用的话，他们会被自动添加到请求头中。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">static</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> String IMGUR_CLIENT_ID = <span class="st"><span class="hljs-string">"..."</span></span>;
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">static</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> MediaType MEDIA_TYPE_PNG = MediaType.<span class="fu">parse</span>(<span class="st"><span class="hljs-string">"image/png"</span></span>);
+
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    <span class="co"><span class="hljs-comment">// Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image</span></span>
+    RequestBody requestBody = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">MultipartBuilder</span>()
+        .<span class="fu">type</span>(MultipartBuilder.<span class="fu">FORM</span>)
+        .<span class="fu">addPart</span>(
+            Headers.<span class="fu">of</span>(<span class="st"><span class="hljs-string">"Content-Disposition"</span></span>, <span class="st"><span class="hljs-string">"form-data; name=</span></span><span class="ch"><span class="hljs-string">\"</span></span><span class="st"><span class="hljs-string">title</span></span><span class="ch"><span class="hljs-string">\"</span></span><span class="st"><span class="hljs-string">"</span></span>),
+            RequestBody.<span class="fu">create</span>(<span class="kw"><span class="hljs-keyword">null</span></span>, <span class="st"><span class="hljs-string">"Square Logo"</span></span>))
+        .<span class="fu">addPart</span>(
+            Headers.<span class="fu">of</span>(<span class="st"><span class="hljs-string">"Content-Disposition"</span></span>, <span class="st"><span class="hljs-string">"form-data; name=</span></span><span class="ch"><span class="hljs-string">\"</span></span><span class="st"><span class="hljs-string">image</span></span><span class="ch"><span class="hljs-string">\"</span></span><span class="st"><span class="hljs-string">"</span></span>),
+            RequestBody.<span class="fu">create</span>(MEDIA_TYPE_PNG, <span class="kw"><span class="hljs-keyword">new</span></span> File(<span class="st"><span class="hljs-string">"website/static/logo-square.png"</span></span>)))
+        .<span class="fu">build</span>();
+
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">header</span>(<span class="st"><span class="hljs-string">"Authorization"</span></span>, <span class="st"><span class="hljs-string">"Client-ID "</span></span> + IMGUR_CLIENT_ID)
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://api.imgur.com/3/image"</span></span>)
+        .<span class="fu">post</span>(requestBody)
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+<h1 id="gsonjson">使用Gson来解析JSON响应</h1>
+<p><a href="https://code.google.com/p/google-gson/">Gson</a>是一个在JSON和Java对象之间转换非常方便的api。这里我们用Gson来解析Github API的JSON响应。<br>
+注意：<code>ResponseBody.charStream()</code>使用响应头<code>Content-Type</code>指定的字符集来解析响应体。默认是UTF-8。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> Gson gson = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">Gson</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"https://api.github.com/gists/c2a7c39532239ff261be"</span></span>)
+        .<span class="fu">build</span>();
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    Gist gist = gson.<span class="fu">fromJson</span>(response.<span class="fu">body</span>().<span class="fu">charStream</span>(), Gist.<span class="fu">class</span>);
+    <span class="kw"><span class="hljs-keyword">for</span></span> (Map.<span class="fu">Entry</span>&lt;String, GistFile&gt; entry : gist.<span class="fu">files</span>.<span class="fu">entrySet</span>()) {
+      System.<span class="fu">out</span>.<span class="fu">println</span>(entry.<span class="fu">getKey</span>());
+      System.<span class="fu">out</span>.<span class="fu">println</span>(entry.<span class="fu">getValue</span>().<span class="fu">content</span>);
+    }
+}
+
+<span class="dt"><span class="hljs-keyword">static</span></span> <span class="kw"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> <span class="hljs-title">Gist</span> </span>{
+    Map&lt;String, GistFile&gt; files;
+}
+
+<span class="dt"><span class="hljs-keyword">static</span></span> <span class="kw"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> <span class="hljs-title">GistFile</span> </span>{
+    String content;
+}</code></pre></div>
+<h1>响应缓存</h1>
+<p>为了缓存响应，你需要一个你可以读写的缓存目录，和缓存大小的限制。这个缓存目录应该是私有的，不信任的程序应不能读取缓存内容。<br>
+一个缓存目录同时拥有多个缓存访问是错误的。大多数程序只需要调用一次<code>new OkHttp()</code>，在第一次调用时配置好缓存，然后其他地方只需要调用这个实例就可以了。否则两个缓存示例互相干扰，破坏响应缓存，而且有可能会导致程序崩溃。<br>
+响应缓存使用HTTP头作为配置。你可以在请求头中添加<code>Cache-Control: max-stale=3600</code> ,OkHttp缓存会支持。你的服务通过响应头确定响应缓存多长时间，例如使用<code>Cache-Control: max-age=9600</code>。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client;
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> <span class="hljs-title">CacheResponse</span><span class="hljs-params">(File cacheDirectory)</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    <span class="dt"><span class="hljs-keyword">int</span></span> cacheSize = <span class="dv"><span class="hljs-number">10</span></span> * <span class="dv"><span class="hljs-number">1024</span></span> * <span class="dv"><span class="hljs-number">1024</span></span>; <span class="co"><span class="hljs-comment">// 10 MiB</span></span>
+    Cache cache = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">Cache</span>(cacheDirectory, cacheSize);
+
+    client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+    client.<span class="fu">setCache</span>(cache);
+}
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://publicobject.com/helloworld.txt"</span></span>)
+        .<span class="fu">build</span>();
+
+    Response response1 = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response1.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response1);
+
+    String response1Body = response1.<span class="fu">body</span>().<span class="fu">string</span>();
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 1 response:          "</span></span> + response1);
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 1 cache response:    "</span></span> + response1.<span class="fu">cacheResponse</span>());
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 1 network response:  "</span></span> + response1.<span class="fu">networkResponse</span>());
+
+    Response response2 = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response2.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response2);
+
+    String response2Body = response2.<span class="fu">body</span>().<span class="fu">string</span>();
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 2 response:          "</span></span> + response2);
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 2 cache response:    "</span></span> + response2.<span class="fu">cacheResponse</span>());
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 2 network response:  "</span></span> + response2.<span class="fu">networkResponse</span>());
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 2 equals Response 1? "</span></span> + response1Body.<span class="fu">equals</span>(response2Body));
+}</code></pre></div>
+<h2>扩展</h2>
+<p>在这一节还提到了下面一句：<br>
+There are cache headers to force a cached response, force a network response, or force the network response to be validated with a conditional GET.</p>
+<p>我不是很懂cache，平时用到的也不多，所以把Google在Android Developers一段相关的解析放到这里吧。</p>
+<h3 id="force-a-network-response">Force a Network Response</h3>
+<p>In some situations, such as after a user clicks a 'refresh' button, it may be necessary to skip the cache, and fetch data directly from the server. To force a full refresh, add the no-cache directive:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs">connection.<span class="fu">addRequestProperty</span>(<span class="st"><span class="hljs-string">"Cache-Control"</span></span>, <span class="st"><span class="hljs-string">"no-cache"</span></span>);</code></pre></div>
+<p>If it is only necessary to force a cached response to be validated by the server, use the more efficient max-age=0 instead:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs">connection.<span class="fu">addRequestProperty</span>(<span class="st"><span class="hljs-string">"Cache-Control"</span></span>, <span class="st"><span class="hljs-string">"max-age=0"</span></span>);</code></pre></div>
+<h3 id="force-a-cache-response">Force a Cache Response</h3>
+<p>Sometimes you'll want to show resources if they are available immediately, but not otherwise. This can be used so your application can show something while waiting for the latest data to be downloaded. To restrict a request to locally-cached resources, add the only-if-cached directive:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">try</span></span> {
+     connection.<span class="fu">addRequestProperty</span>(<span class="st"><span class="hljs-string">"Cache-Control"</span></span>, <span class="st"><span class="hljs-string">"only-if-cached"</span></span>);
+     InputStream cached = connection.<span class="fu">getInputStream</span>();
+     <span class="co"><span class="hljs-comment">// the resource was cached! show it</span></span>
+  <span class="kw"><span class="hljs-keyword">catch</span></span> (FileNotFoundException e) {
+     <span class="co"><span class="hljs-comment">// the resource was not cached</span></span>
+ }
+}</code></pre></div>
+<p>This technique works even better in situations where a stale response is better than no response. To permit stale cached responses, use the max-stale directive with the maximum staleness in seconds:</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="dt"><span class="hljs-keyword">int</span></span> maxStale = <span class="dv"><span class="hljs-number">60</span></span> * <span class="dv"><span class="hljs-number">60</span></span> * <span class="dv"><span class="hljs-number">24</span></span> * <span class="dv"><span class="hljs-number">28</span></span>; <span class="co"><span class="hljs-comment">// tolerate 4-weeks stale</span></span>
+connection.<span class="fu">addRequestProperty</span>(<span class="st"><span class="hljs-string">"Cache-Control"</span></span>, <span class="st"><span class="hljs-string">"max-stale="</span></span> + maxStale);</code></pre></div>
+<p>以上信息来自：<a href="http://developer.android.com/reference/android/net/http/HttpResponseCache.html">HttpResponseCache - Android SDK | Android Developers</a></p>
+<h1 id="call">取消一个Call</h1>
+<p>使用<code>Call.cancel()</code>可以立即停止掉一个正在执行的call。如果一个线程正在写请求或者读响应，将会引发<code>IOException</code>。当call没有必要的时候，使用这个api可以节约网络资源。例如当用户离开一个应用时。不管同步还是异步的call都可以取消。<br>
+你可以通过tags来同时取消多个请求。当你构建一请求时，使用<code>RequestBuilder.tag(tag)</code>来分配一个标签。之后你就可以用<code>OkHttpClient.cancel(tag)</code>来取消所有带有这个tag的call。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> ScheduledExecutorService executor = Executors.<span class="fu">newScheduledThreadPool</span>(<span class="dv"><span class="hljs-number">1</span></span>);
+<span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://httpbin.org/delay/2"</span></span>) <span class="co"><span class="hljs-comment">// This URL is served with a 2 second delay.</span></span>
+        .<span class="fu">build</span>();
+
+    <span class="dt"><span class="hljs-keyword">final</span></span> <span class="dt"><span class="hljs-keyword">long</span></span> startNanos = System.<span class="fu">nanoTime</span>();
+    <span class="dt"><span class="hljs-keyword">final</span></span> Call call = client.<span class="fu">newCall</span>(request);
+
+    <span class="co"><span class="hljs-comment">// Schedule a job to cancel the call in 1 second.</span></span>
+    executor.<span class="fu">schedule</span>(<span class="kw"><span class="hljs-keyword">new</span></span> Runnable() {
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span>{
+        System.<span class="fu">out.printf</span>(<span class="st"><span class="hljs-string">"</span></span><span class="ch"><span class="hljs-string">%.2f</span></span><span class="st"><span class="hljs-string"> Canceling call.</span></span><span class="ch"><span class="hljs-string">%n</span></span><span class="st"><span class="hljs-string">"</span></span>, (System.<span class="fu">nanoTime</span>() - startNanos) / <span class="hljs-number">1e9f</span>);
+        call.<span class="fu">cancel</span>();
+        System.<span class="fu">out.printf</span>(<span class="st"><span class="hljs-string">"</span></span><span class="ch"><span class="hljs-string">%.2f</span></span><span class="st"><span class="hljs-string"> Canceled call.</span></span><span class="ch"><span class="hljs-string">%n</span></span><span class="st"><span class="hljs-string">"</span></span>, (System.<span class="fu">nanoTime</span>() - startNanos) / <span class="hljs-number">1e9f</span>);
+      }
+    }, <span class="dv"><span class="hljs-number">1</span></span>, TimeUnit.<span class="fu">SECONDS</span>);
+
+    <span class="kw"><span class="hljs-keyword">try</span></span> {
+      System.<span class="fu">out.printf</span>(<span class="st"><span class="hljs-string">"</span></span><span class="ch"><span class="hljs-string">%.2f</span></span><span class="st"><span class="hljs-string"> Executing call.</span></span><span class="ch"><span class="hljs-string">%n</span></span><span class="st"><span class="hljs-string">"</span></span>, (System.<span class="fu">nanoTime</span>() - startNanos) / <span class="hljs-number">1e9f</span>);
+      Response response = call.<span class="fu">execute</span>();
+      System.<span class="fu">out.printf</span>(<span class="st"><span class="hljs-string">"</span></span><span class="ch"><span class="hljs-string">%.2f</span></span><span class="st"><span class="hljs-string"> Call was expected to fail, but completed: </span></span><span class="ch"><span class="hljs-string">%s%n</span></span><span class="st"><span class="hljs-string">"</span></span>,
+          (System.<span class="fu">nanoTime</span>() - startNanos) / <span class="hljs-number">1e9f</span>, response);
+    } <span class="kw"><span class="hljs-keyword">catch</span></span> (IOException e) {
+      System.<span class="fu">out.printf</span>(<span class="st"><span class="hljs-string">"</span></span><span class="ch"><span class="hljs-string">%.2f</span></span><span class="st"><span class="hljs-string"> Call failed as expected: </span></span><span class="ch"><span class="hljs-string">%s%n</span></span><span class="st"><span class="hljs-string">"</span></span>,
+          (System.<span class="fu">nanoTime</span>() - startNanos) / <span class="hljs-number">1e9f</span>, e);
+    }
+}</code></pre></div>
+<h1>超时</h1>
+<p>没有响应时使用超时结束call。没有响应的原因可能是客户点链接问题、服务器可用性问题或者这之间的其他东西。OkHttp支持连接，读取和写入超时。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client;
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">ConfigureTimeouts</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+    client.<span class="fu">setConnectTimeout</span>(<span class="dv"><span class="hljs-number">10</span></span>, TimeUnit.<span class="fu">SECONDS</span>);
+    client.<span class="fu">setWriteTimeout</span>(<span class="dv"><span class="hljs-number">10</span></span>, TimeUnit.<span class="fu">SECONDS</span>);
+    client.<span class="fu">setReadTimeout</span>(<span class="dv"><span class="hljs-number">30</span></span>, TimeUnit.<span class="fu">SECONDS</span>);
+}
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://httpbin.org/delay/2"</span></span>) <span class="co"><span class="hljs-comment">// This URL is served with a 2 second delay.</span></span>
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response completed: "</span></span> + response);
+}</code></pre></div>
+<h1 id="call">每个call的配置</h1>
+<p>使用<code>OkHttpClient</code>，所有的HTTP Client配置包括代理设置、超时设置、缓存设置。当你需要为单个call改变配置的时候，clone 一个 <code>OkHttpClient</code>。这个api将会返回一个浅拷贝（shallow copy），你可以用来单独自定义。下面的例子中，我们让一个请求是500ms的超时、另一个是3000ms的超时。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://httpbin.org/delay/1"</span></span>) <span class="co"><span class="hljs-comment">// This URL is served with a 1 second delay.</span></span>
+        .<span class="fu">build</span>();
+
+    <span class="kw"><span class="hljs-keyword">try</span></span> {
+      Response response = client.<span class="fu">clone</span>() <span class="co"><span class="hljs-comment">// Clone to make a customized OkHttp for this request.</span></span>
+          .<span class="fu">setReadTimeout</span>(<span class="dv"><span class="hljs-number">500</span></span>, TimeUnit.<span class="fu">MILLISECONDS</span>)
+          .<span class="fu">newCall</span>(request)
+          .<span class="fu">execute</span>();
+      System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 1 succeeded: "</span></span> + response);
+    } <span class="kw"><span class="hljs-keyword">catch</span></span> (IOException e) {
+      System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 1 failed: "</span></span> + e);
+    }
+
+    <span class="kw"><span class="hljs-keyword">try</span></span> {
+      Response response = client.<span class="fu">clone</span>() <span class="co"><span class="hljs-comment">// Clone to make a customized OkHttp for this request.</span></span>
+          .<span class="fu">setReadTimeout</span>(<span class="dv"><span class="hljs-number">3000</span></span>, TimeUnit.<span class="fu">MILLISECONDS</span>)
+          .<span class="fu">newCall</span>(request)
+          .<span class="fu">execute</span>();
+      System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 2 succeeded: "</span></span> + response);
+    } <span class="kw"><span class="hljs-keyword">catch</span></span> (IOException e) {
+      System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Response 2 failed: "</span></span> + e);
+    }
+}</code></pre></div>
+<h1>处理验证</h1>
+<p>这部分和HTTP AUTH有关。<br>
+相关资料：<a href="http://blog.csdn.net/wwwsq/article/details/7255062">HTTP AUTH 那些事 - 王绍全的博客 - 博客频道 - CSDN.NET</a></p>
+<p>OkHttp会自动重试未验证的请求。当响应是<code>401 Not Authorized</code>时，<code>Authenticator</code>会被要求提供证书。Authenticator的实现中需要建立一个新的包含证书的请求。如果没有证书可用，返回null来跳过尝试。</p>
+<pre><code class="hljs cs"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Challenge&gt; <span class="hljs-title">challenges</span>(<span class="hljs-params"></span>)
+Returns the authorization challenges appropriate <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> response's code. If the response code <span class="hljs-keyword">is</span> 401 unauthorized, <span class="hljs-keyword">this</span> returns the "WWW-Authenticate" challenges. If the response code <span class="hljs-keyword">is</span> 407 proxy unauthorized, <span class="hljs-keyword">this</span> returns the "Proxy-Authenticate" challenges. Otherwise <span class="hljs-keyword">this</span> returns an empty list of challenges.</span></code></pre>
+<p>当需要实现一个<code>Basic</code> challenge， 使用<code>Credentials.basic(username, password)</code>来编码请求头。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java hljs"><span class="kw"><span class="hljs-keyword">private</span></span> <span class="dt"><span class="hljs-keyword">final</span></span> OkHttpClient client = <span class="kw"><span class="hljs-keyword">new</span></span> <span class="fu">OkHttpClient</span>();
+
+<span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="dt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="fu"><span class="hljs-function"><span class="hljs-title">run</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span><span class="kw"><span class="hljs-function"><span class="hljs-keyword">throws</span></span></span><span class="hljs-function"> Exception </span>{
+    client.<span class="fu">setAuthenticator</span>(<span class="kw"><span class="hljs-keyword">new</span></span> Authenticator() {
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> Request </span><span class="fu"><span class="hljs-function"><span class="hljs-title">authenticate</span></span></span><span class="hljs-function"><span class="hljs-params">(Proxy proxy, Response response)</span> </span>{
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Authenticating for response: "</span></span> + response);
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st"><span class="hljs-string">"Challenges: "</span></span> + response.<span class="fu">challenges</span>());
+        String credential = Credentials.<span class="fu">basic</span>(<span class="st"><span class="hljs-string">"jesse"</span></span>, <span class="st"><span class="hljs-string">"password1"</span></span>);
+        <span class="kw"><span class="hljs-keyword">return</span></span> response.<span class="fu">request</span>().<span class="fu">newBuilder</span>()
+            .<span class="fu">header</span>(<span class="st"><span class="hljs-string">"Authorization"</span></span>, credential)
+            .<span class="fu">build</span>();
+      }
+
+      <span class="fu"><span class="hljs-meta">@Override</span></span> <span class="kw"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> Request </span><span class="fu"><span class="hljs-function"><span class="hljs-title">authenticateProxy</span></span></span><span class="hljs-function"><span class="hljs-params">(Proxy proxy, Response response)</span> </span>{
+        <span class="kw"><span class="hljs-keyword">return</span></span> <span class="kw"><span class="hljs-keyword">null</span></span>; <span class="co"><span class="hljs-comment">// Null indicates no attempt to authenticate.</span></span>
+      }
+    });
+
+    Request request = <span class="kw"><span class="hljs-keyword">new</span></span> Request.<span class="fu">Builder</span>()
+        .<span class="fu">url</span>(<span class="st"><span class="hljs-string">"http://publicobject.com/secrets/hellosecret.txt"</span></span>)
+        .<span class="fu">build</span>();
+
+    Response response = client.<span class="fu">newCall</span>(request).<span class="fu">execute</span>();
+    <span class="kw"><span class="hljs-keyword">if</span></span> (!response.<span class="fu">isSuccessful</span>()) <span class="kw"><span class="hljs-keyword">throw</span></span> <span class="kw"><span class="hljs-keyword">new</span></span> IOException(<span class="st"><span class="hljs-string">"Unexpected code "</span></span> + response);
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(response.<span class="fu">body</span>().<span class="fu">string</span>());
+}</code></pre></div>
+</div><div id="MySignature" style="display: block;"><h1>声明</h1>
+<p>
+欢迎转载，但请保留文章原始出处<br>  
+作者：<a href="http://weibo.com/gavinct?s=6cm7D0" target="_blank" alt="GavinCT" title="GavinCT">GavinCT</a> <br>
+出处：<a href="http://www.cnblogs.com/ct2011/" target="_blank">http://www.cnblogs.com/ct2011/</a>
+</p>
+<br>
+<p style="color:#03a94f">如果您觉得此博客对您有用，欢迎通过支付宝对我进行小额赞助。</p>
+<img src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/o_1419044427135.jpg" width="180" height="180"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/ct2011/category/615953.html">Android</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/ct2011/tag/Android%E5%BC%80%E6%BA%90%E5%BA%93%E4%BD%BF%E7%94%A8/">Android开源库使用</a>, <a href="http://www.cnblogs.com/ct2011/tag/OkHttp/">OkHttp</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3997368,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/GavinCT" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ct2011/" target="_blank"><img src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/20140813141853.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ct2011/">GavinCT</a><br>
+<a href="http://home.cnblogs.com/u/ct2011/followees">关注 - 9</a><br>
+<a href="http://home.cnblogs.com/u/ct2011/followers">粉丝 - 31</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(3997368,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+	<div class="buryit" onclick="votePost(3997368,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/ct2011/p/3996164.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/ct2011/p/3996164.html" title="发布于2014-09-27 11:24">Evernote Markdown Sublime实现</a><br><a href="http://www.cnblogs.com/ct2011/p/4001708.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/ct2011/p/4001708.html" title="发布于2014-09-30 13:44">OkHttp使用介绍</a><br></div>
+</div>
+
+</div>
+    <p class="postfoot">posted on <span id="post-date">2014-09-30 13:43</span> <a href="http://www.cnblogs.com/ct2011/">GavinCT</a> 阅读(<span id="post_view_count">19836</span>) 评论(<span id="post_comment_count">7</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=3997368" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/ct2011/p/3997368.html#" onclick="AddToWz(3997368);return false;">收藏</a></p>
+</div>
+<script src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/highlight.min.js"></script><script>markdown_highlight();</script><script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=98599,cb_entryId=3997368,cb_blogApp=currentBlogApp,cb_blogUserGuid='b79f081f-fe38-e011-ac81-842b2b196315',cb_entryCreatedDate='2014/9/30 13:43:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="评论"></a>
+<div id="comments">
+<h3>评论</h3>
+	
+	
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3101404" class="layer">#1楼</a><a name="3101404" id="comment_anchor_3101404"></a>
+					<span>
+						 <span class="comment_date">2015-01-06 17:41</span>
+					</span>
+				<a id="a_comment_author_3101404" href="http://home.cnblogs.com/u/711164/" target="_blank">lzyickobe</a> <a href="http://msg.cnblogs.com/send/lzyickobe" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3101404" class="blog_comment_body">你好，博主，感谢你的OKHttp的分享。我在这里转载了你的这篇文章，lzyblog.com</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3101404,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3101404,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3101418" class="layer">#2楼</a><a name="3101418" id="comment_anchor_3101418"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						 <span class="comment_date">2015-01-06 17:55</span>
+					</span>
+				<a id="a_comment_author_3101418" href="http://www.cnblogs.com/ct2011/" target="_blank">GavinCT</a> <a href="http://msg.cnblogs.com/send/GavinCT" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3101418" class="blog_comment_body"><a href="http://www.cnblogs.com/ct2011/p/3997368.html#3101404" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3101404);">@</a>lzyickobe<br>烦请申明一下这个<a href="http://www.cnblogs.com/ct2011/p/4078137.html" target="_blank">OkHttp2.0有Bug，暂时不推荐在产品中使用</a>。<br><br>在国内使用OkHttp会因为这个问题导致部分酷派手机用户无法联网，所以对于大众app来说，需要等待这个bug修复后再使用。或者尝试使用OkHttp的老版本。<br>截止到目前，OkHttp一直没有修复，并把修复计划延迟到了OkHttp2.3中。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3101418,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3101418,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3101418_avatar" style="display:none;">http://pic.cnblogs.com/face/273890/20140813141853.png</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3119592" class="layer">#3楼</a><a name="3119592" id="comment_anchor_3119592"></a>
+					<span>
+						 <span class="comment_date">2015-01-30 12:59</span>
+					</span>
+				<a id="a_comment_author_3119592" href="http://www.cnblogs.com/fuyuan/" target="_blank">傅傅傅傅傅先生</a> <a href="http://msg.cnblogs.com/send/%E5%82%85%E5%82%85%E5%82%85%E5%82%85%E5%82%85%E5%85%88%E7%94%9F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3119592" class="blog_comment_body"><a href="http://www.cnblogs.com/ct2011/p/3997368.html#3101418" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3101418);">@</a>GavinCT<br>现在的版本好像是2.2的，那不是意味着现在还不能正式使用呀~还有其他bug么，国产手机的可能会有很多意料不到的问题产生</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3119592,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3119592,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3121344" class="layer">#4楼</a><a name="3121344" id="comment_anchor_3121344"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						 <span class="comment_date">2015-02-02 10:56</span>
+					</span>
+				<a id="a_comment_author_3121344" href="http://www.cnblogs.com/ct2011/" target="_blank">GavinCT</a> <a href="http://msg.cnblogs.com/send/GavinCT" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3121344" class="blog_comment_body"><a href="http://www.cnblogs.com/ct2011/p/3997368.html#3119592" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3119592);">@</a>傅傅傅傅傅先生<br>可以跟进这个issue 目前还没有解决 <br><a href="https://github.com/square/okhttp/issues/1114" target="_blank">https://github.com/square/okhttp/issues/1114</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3121344,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3121344,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3121344_avatar" style="display:none;">http://pic.cnblogs.com/face/273890/20140813141853.png</span>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3199293" class="layer">#5楼</a><a name="3199293" id="comment_anchor_3199293"></a>
+					<span>
+						 <span class="comment_date">2015-06-03 13:16</span>
+					</span>
+				<a id="a_comment_author_3199293" href="http://www.cnblogs.com/androidsuperman/" target="_blank">西北野狼</a> <a href="http://msg.cnblogs.com/send/%E8%A5%BF%E5%8C%97%E9%87%8E%E7%8B%BC" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3199293" class="blog_comment_body">用2.4的jar包，各种崩溃中，我擦</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3199293,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3199293,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3215987" class="layer">#6楼</a><a name="3215987" id="comment_anchor_3215987"></a>
+					<span>
+						 <span class="comment_date">2015-06-26 15:53</span>
+					</span>
+				<a id="a_comment_author_3215987" href="http://home.cnblogs.com/u/719624/" target="_blank">passerbywhu</a> <a href="http://msg.cnblogs.com/send/passerbywhu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3215987" class="blog_comment_body"><a href="http://www.cnblogs.com/ct2011/p/3997368.html#3199293" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3199293);">@</a>西北野狼<br>不过在build.gradle中直接引入okhttp2.4写不了缓存。不知道什么原因。换成了旧的不知道啥版本的okhttp和1.3版本的okio就好了。。。囧。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3215987,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3215987,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+			<h4>
+				<a href="http://www.cnblogs.com/ct2011/p/3997368.html#3216005" class="layer">#7楼</a><a name="3216005" id="comment_anchor_3216005"></a><span id="comment-maxId" style="display:none;">3216005</span><span id="comment-maxDate" style="display:none;">2015/6/26 16:11:13</span>
+					<span>
+						 <span class="comment_date">2015-06-26 16:11</span>
+					</span>
+				<a id="a_comment_author_3216005" href="http://home.cnblogs.com/u/719624/" target="_blank">passerbywhu</a> <a href="http://msg.cnblogs.com/send/passerbywhu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</h4>
+			<p>
+				</p><div id="comment_body_3216005" class="blog_comment_body"><a href="http://www.cnblogs.com/ct2011/p/3997368.html#3199293" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3199293);">@</a>西北野狼<br>而且在网络通畅的情况下，如果设置maxStale(365, TimeUnit.DAYS)，取回来的还是缓存。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3216005,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3216005,&#39;Bury&#39;,this)">反对(0)</a></div>
+				&nbsp;&nbsp;<span class="comment_actions"></span>
+			<p></p>
+		
+</div><div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/ct2011/p/3997368.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/ct2011/p/3997368.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－专注为 App 开发者提供IM云服务</a><br><a href="http://www.ucloud.cn/site/active/new_gift.html?utm_source=cost&amp;utm_campaign=bokeyuan1&amp;utm_medium=display&amp;utm_content=3yuecu" target="_blank">【推荐】UCloud开年大礼，充5000返1000；买云主机送CDN，详情点击</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="https://bce.baidu.com/event/promotion-march/index.html?t=cp:online-media|pf:pc|pp:mar|pu:244" target="_blank"><img width="300" height="250" src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/24442-20160324115230854-2017204765.png" alt="百度云_20160324" title="百度云_20160324"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/542194/" target="_blank">“e租宝”案已有18万投资人登记信息 人数还在增加</a><br> ·  <a href="http://news.cnblogs.com/n/542193/" target="_blank">淘宝打假殃及闲鱼 二手交易平台遭假货入侵</a><br> ·  <a href="http://news.cnblogs.com/n/542192/" target="_blank">饿了么：清理违规店家还需时间 避免一刀切</a><br> ·  <a href="http://news.cnblogs.com/n/542191/" target="_blank">中国成功发射第22颗北斗导航卫星 精度更高</a><br> ·  <a href="http://news.cnblogs.com/n/542190/" target="_blank">亚马逊成美国最受尊敬公司 苹果名落孙山</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jpush.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/24442-20160307140747632-1210035054.jpg" alt="极光推送20160307" title="极光推送20160307"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/541862/" target="_blank">为什么未来是全栈工程师的世界？</a><br> ·  <a href="http://kb.cnblogs.com/page/541805/" target="_blank">程序bug导致了天大的损失，要枪毙程序猿吗？</a><br> ·  <a href="http://kb.cnblogs.com/page/541230/" target="_blank">如何运维千台以上游戏云服务器</a><br> ·  <a href="http://kb.cnblogs.com/page/539160/" target="_blank">架构漫谈（一）：什么是架构？</a><br> ·  <a href="http://kb.cnblogs.com/page/540632/" target="_blank">架构的本质</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+</div>
+<div id="rightmenu">
+	
+		
+<div id="my_links">
+<h3>导航</h3>
+<ul>
+<li><a id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/ct2011/">首页</a></li>
+<!--<li><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>-->
+<li><a id="MyLinks1_ContactLink" rel="nofollow" href="http://msg.cnblogs.com/send/GavinCT">联系</a></li>
+<li><a id="MyLinks1_Syndication" href="http://www.cnblogs.com/ct2011/rss">订阅</a></li><!--<a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/ct2011/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>-->
+<li><a id="MyLinks1_Admin" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+</div>
+		<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="newsItem">
+	<div id="blog-news"><br>
+<div id="ct"><iframe width="100%" height="120" class="share_self" frameborder="0" scrolling="no" src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/index.html"></iframe></div>
+<br>
+<div>Github: <a href="https://github.com/GavinCT" target="_blank">GavinCT</a></div>
+<div>Gmail：<a href="mailto:chentong.think@gmail.com">chentong.think@gmail.com</a></div>
+<br>
+<div style="color:#03a94f">如果您觉得此博客对您有用，欢迎通过支付宝对我进行小额赞助。</div>
+<img src="./OkHttp使用进阶 译自OkHttp Github官方教程 - GavinCT - 博客园_files/o_1419044427135.jpg" width="180" height="180">
+<br><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/ct2011/">GavinCT</a><br>园龄：<a href="http://home.cnblogs.com/u/ct2011/" title="入园时间：2011-02-15">5年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/ct2011/followers/">31</a><br>关注：<a href="http://home.cnblogs.com/u/ct2011/followees/">9</a><div id="p_b_follow"></div><div style="display: none" id="__document_write_ajax_div-2"></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>		
+		
+<div id="blog_stats">
+<h3>统计</h3>
+<ul>
+<li>随笔 - 12
+</li><li>文章 - 0
+</li><li>评论 - 110
+<!--<li>引用 - 0-->
+</li>
+</ul>
+</div>
+		<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/ct2011/tag/Android%E5%BC%80%E6%BA%90%E5%BA%93%E4%BD%BF%E7%94%A8/">Android开源库使用</a>(4)</li><li><a href="http://www.cnblogs.com/ct2011/tag/OkHttp/">OkHttp</a>(3)</li><li><a href="http://www.cnblogs.com/ct2011/tag/Material/">Material</a>(2)</li><li><a href="http://www.cnblogs.com/ct2011/tag/AndroidStudio/">AndroidStudio</a>(1)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/ct2011/category/615953.html">Android(9)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/ct2011/category/643764.html">Android开源库解析</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/ct2011/category/712599.html">Android性能优化</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/ct2011/category/616757.html">Java(1)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/ct2011/category/615840.html">工具使用(2)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/ct2011/archive/2015/05.html">2015年5月 (2)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/ct2011/archive/2014/12.html">2014年12月 (2)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/ct2011/archive/2014/11.html">2014年11月 (3)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/ct2011/archive/2014/10.html">2014年10月 (1)</a> </li>
+			
+				<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/ct2011/archive/2014/09.html">2014年9月 (4)</a> </li>
+			
+				</ul>
+			
+	</div><div id="sidebar_scorerank" class="sidebar-block">
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		28474
+	</li><li>
+		排名 -
+		7733
+	</li>
+</ul>
+</div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/ct2011/p/3997368.html">1. OkHttp使用进阶 译自OkHttp Github官方教程(19836)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4001708.html">2. OkHttp使用介绍(17504)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4183553.html">3. 将Eclipse代码导入到AndroidStudio的两种方式(10831)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4100132.html">4. 放弃WebView，使用Crosswalk做富文本编辑器(9679)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4152323.html">5. Android批量打包提速 - 1分钟900个市场不是梦(9610)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/ct2011/p/4100132.html">1. 放弃WebView，使用Crosswalk做富文本编辑器(9)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4152323.html">2. Android批量打包提速 - 1分钟900个市场不是梦(4)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4493439.html">3. Material适配2 - 高级篇(3)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4493384.html">4. Material适配1 - 入门篇(3)</a></li><li><a href="http://www.cnblogs.com/ct2011/p/4001708.html">5. OkHttp使用介绍(3)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+        
+		
+<div id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © GavinCT
+</div>
+	
+</div>			
+			
+	
+
+<!--PageEndHtml Block Begin-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63621768-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>
