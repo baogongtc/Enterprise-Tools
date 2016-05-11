@@ -5,9 +5,3 @@
 4、<include> @layout里面布局 长宽可以先设为0,引用的时候layout_*再设置。
 
 5、懒加载layout 用<ViewStub> android:inflatedId设置后当 inflate() 或者 setVisibility(View.VISIBLE)返回引用。只需改变ViewStub的可见性便可以控制layout是否显示。
-
-6、获取android源代码
-http://blog.csdn.net/mc_hust/article/details/34850083
-
-
-
