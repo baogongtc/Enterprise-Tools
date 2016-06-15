@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)http://sunjiajia.com/2015/08/14/download-android-open-source-projects/ -->
+<html lang="zh-CN" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./国内镜像加速Android源码下载 _ 安卓猴_files/cm.js" charset="utf-8"></script><script src="./国内镜像加速Android源码下载 _ 安卓猴_files/shares.php" charset="utf-8"></script><script src="./国内镜像加速Android源码下载 _ 安卓猴_files/push.js"></script><script src="./国内镜像加速Android源码下载 _ 安卓猴_files/id.php" charset="utf-8"></script>
+  
+  
+    <title>国内镜像加速Android源码下载 | 安卓猴</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="安卓猴">
+    
+
+    
+    <meta name="description" content="转发请注明出处：安卓猴的博客（http://sunjiajia.com）
+
+
+1.首先，感谢伟大的Google；
+2.其次，感谢清华镜像；
+3.最后，感谢小水管以及长城。
+
+直接用小水管跨越长城下载Android source简直是和自己开玩笑。
+
+清华大学镜像无论是Ubuntu源更新还是Android源码下砸，都是使用清华大学镜像。
+Ubuntu源使用方法不多说了，不会的自行Google。
+A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="国内镜像加速Android源码下载">
+<meta property="og:url" content="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/index.html">
+<meta property="og:site_name" content="安卓猴">
+<meta property="og:description" content="转发请注明出处：安卓猴的博客（http://sunjiajia.com）
+
+
+1.首先，感谢伟大的Google；
+2.其次，感谢清华镜像；
+3.最后，感谢小水管以及长城。
+
+直接用小水管跨越长城下载Android source简直是和自己开玩笑。
+
+清华大学镜像无论是Ubuntu源更新还是Android源码下砸，都是使用清华大学镜像。
+Ubuntu源使用方法不多说了，不会的自行Google。
+A">
+<meta property="og:image" content="http://sunjiajia.com/img/201508/android-source-Tags-and-Builds.jpg">
+<meta property="og:image" content="http://service.t.sina.com.cn/widget/qmd/5358335375/ec0d271f/1.png">
+<meta property="og:image" content="http://sunjiajia.com/img/qrcode_for_android_amazing.jpg">
+<meta property="og:updated_time" content="2016-05-14T04:07:08.160Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="国内镜像加速Android源码下载">
+<meta name="twitter:description" content="转发请注明出处：安卓猴的博客（http://sunjiajia.com）
+
+
+1.首先，感谢伟大的Google；
+2.其次，感谢清华镜像；
+3.最后，感谢小水管以及长城。
+
+直接用小水管跨越长城下载Android source简直是和自己开玩笑。
+
+清华大学镜像无论是Ubuntu源更新还是Android源码下砸，都是使用清华大学镜像。
+Ubuntu源使用方法不多说了，不会的自行Google。
+A">
+<meta name="twitter:image" content="http://sunjiajia.com/img/201508/android-source-Tags-and-Builds.jpg">
+<link rel="publisher" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/109556248010192800000">
+
+    
+    <link rel="alternative" href="http://sunjiajia.com/atom.xml" title="安卓猴" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="http://sunjiajia.com/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="http://sunjiajia.com/img/author.jpg">
+    <link rel="apple-touch-icon-precomposed" href="http://sunjiajia.com/img/author.jpg">
+    
+    <link rel="stylesheet" href="./国内镜像加速Android源码下载 _ 安卓猴_files/style.css">
+<script type="text/javascript" async="" src="./国内镜像加速Android源码下载 _ 安卓猴_files/embed.js" charset="UTF-8"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><script src="./国内镜像加速Android源码下载 _ 安卓猴_files/m.js"></script><link type="text/css" rel="stylesheet" href="./国内镜像加速Android源码下载 _ 安卓猴_files/embed.default.css"></head>
+
+  <body style=""><div id="MathJax_Message" style="display: none;"></div><link href="./国内镜像加速Android源码下载 _ 安卓猴_files/jiathis_counter.css" rel="stylesheet" type="text/css"><link href="./国内镜像加速Android源码下载 _ 安卓猴_files/jiathis_share.css" rel="stylesheet" type="text/css"><iframe frameborder="0" style="position: absolute; display: none; opacity: 0;" src="./国内镜像加速Android源码下载 _ 安卓猴_files/saved_resource.html"></iframe><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;"></div><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; overflow: auto;"></div><iframe frameborder="0" src="./国内镜像加速Android源码下载 _ 安卓猴_files/jiathis_utility.html" style="display: none;"></iframe>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="http://sunjiajia.com/"><img src="./国内镜像加速Android源码下载 _ 安卓猴_files/logo.png" alt="安卓猴" title="安卓猴"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="http://sunjiajia.com/" title="安卓猴">安卓猴</a></h1>
+				<h2 class="blog-motto">关注Android开发的点点滴滴。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="http://sunjiajia.com/">主页</a></li>
+					
+						<li><a href="http://sunjiajia.com/archives">归档</a></li>
+					
+						<li><a href="http://sunjiajia.com/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="http://sunjiajia.com/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/" title="国内镜像加速Android源码下载" itemprop="url">国内镜像加速Android源码下载</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/109556248010192800000?rel=author" title="安卓猴" target="_blank" itemprop="author">安卓猴</a>
+		
+  </p><p class="article-time">
+    <time datetime="2015-08-13T23:50:27.000Z" itemprop="datePublished"> 发表于 2015-08-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#清华大学镜像"><span class="toc-number">1.</span> <span class="toc-text">清华大学镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#Ubuntu源使用方法"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu源使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#Android源码清华镜像使用方法"><span class="toc-number">2.</span> <span class="toc-text">Android源码清华镜像使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#官方介绍使用方法"><span class="toc-number">2.1.</span> <span class="toc-text">官方介绍使用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#我来介绍"><span class="toc-number">2.2.</span> <span class="toc-text">我来介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#结束"><span class="toc-number">3.</span> <span class="toc-text">结束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#关于我"><span class="toc-number">3.1.</span> <span class="toc-text">关于我</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<blockquote>
+<p>转发请注明出处：<br><a href="http://sunjiajia.com/">安卓猴的博客（http://sunjiajia.com）</a></p>
+</blockquote>
+<hr>
+<pre><code>1.首先，感谢伟大的Google；
+2.其次，感谢清华镜像；
+3.最后，感谢小水管以及长城。
+</code></pre><blockquote>
+<p>直接用小水管跨越长城下载Android source简直是和自己开玩笑。</p>
+</blockquote>
+<h2 id="清华大学镜像"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#清华大学镜像" class="headerlink" title="清华大学镜像"></a>清华大学镜像</h2><p>无论是Ubuntu源更新还是Android源码下砸，都是使用清华大学镜像。</p>
+<h3 id="Ubuntu源使用方法"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#Ubuntu源使用方法" class="headerlink" title="Ubuntu源使用方法"></a>Ubuntu源使用方法</h3><p>不多说了，不会的自行Google。</p>
+<h2 id="Android源码清华镜像使用方法"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#Android源码清华镜像使用方法" class="headerlink" title="Android源码清华镜像使用方法"></a>Android源码清华镜像使用方法</h2><h3 id="官方介绍使用方法"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#官方介绍使用方法" class="headerlink" title="官方介绍使用方法"></a>官方介绍使用方法</h3><p><a href="https://wiki.tuna.tsinghua.edu.cn/MirrorUsage/android" target="_blank" rel="external">====<strong>点击浏览</strong>====</a></p>
+<h3 id="我来介绍"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#我来介绍" class="headerlink" title="我来介绍"></a>我来介绍</h3><p>1.下载修改好的<strong>repo</strong>，<a href="http://pan.baidu.com/s/1dDpqsmd" target="_blank" rel="external">====<strong>下载地址</strong>====</a>，密码：<code>rb5t</code>；</p>
+<p>2.打开终端，输入：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/bin</span><br><span class="line">PATH=~/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></tbody></table></figure>
+<p>3.将<strong>repo</strong>放入<code>~/bin</code>目录下；</p>
+<p>4.赋予执行权限，终端输入：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x ~/bin/repo</span><br></pre></td></tr></tbody></table></figure>
+<p>5.建立android源码存放目录：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir android_source</span><br><span class="line">cd android_source</span><br></pre></td></tr></tbody></table></figure>
+<p>6.查看想要下载的源码的Tag和Builds，网址：<a href="https://source.android.com/source/build-numbers.html#source-code-tags-and-builds" target="_blank" rel="external">====<strong>点击查看，需要翻蔷</strong>====</a>，这里 @安卓猴 给你们截下图，自己放大查看：</p>
+<p><a href="./国内镜像加速Android源码下载 _ 安卓猴_files/android-source-Tags-and-Builds.jpg" title="Android源码Tags和Builds" class="fancybox" rel="article0"><img src="./国内镜像加速Android源码下载 _ 安卓猴_files/android-source-Tags-and-Builds.jpg" alt="Android源码Tags和Builds"></a><span class="caption">Android源码Tags和Builds</span></p>
+<p>7.例如我要下载android-5.1.1_r3，就在终端输入：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo init -u git://aosp.tuna.tsinghua.edu.cn/android/platform/manifest -b android-5.1.1_r3</span><br></pre></td></tr></tbody></table></figure>
+<p>8.终端输入下面命令使用<strong>repo</strong>开始源代码下载同步，<code>-j4</code>表示并发数为4，清华镜像只支持最大并发数4：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo sync -j4</span><br></pre></td></tr></tbody></table></figure>
+<p>9.漫长的等待后，源码下载完毕。速度在200～800KB/s不等。</p>
+<h2 id="结束"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#结束" class="headerlink" title="结束"></a>结束</h2><p>Android源码终于下载完毕，历程才刚刚开始，接下来的<strong>编译</strong>工作，才最考验耐心。</p>
+<h3 id="关于我"><a href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#关于我" class="headerlink" title="关于我"></a>关于我</h3><ul>
+<li>微博：<a href="http://weibo.com/208931921" target="_blank" rel="external">@安卓猴</a></li>
+</ul>
+<p><a href="http://weibo.com/u/5358335375?s=6uyXnP" target="_blank"><a href="./国内镜像加速Android源码下载 _ 安卓猴_files/1.png" title="" class="fancybox" rel="article0"><img border="0" src="./国内镜像加速Android源码下载 _ 安卓猴_files/1.png"></a></a></p>
+<ul>
+<li>微信公众号：Android奇想录（android_amazing）</li>
+</ul>
+<p><a href="./国内镜像加速Android源码下载 _ 安卓猴_files/qrcode_for_android_amazing.jpg" title="扫描二维码关注公众号" class="fancybox" rel="article0"><img src="./国内镜像加速Android源码下载 _ 安卓猴_files/qrcode_for_android_amazing.jpg" alt="扫描二维码关注公众号"></a><span class="caption">扫描二维码关注公众号</span></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="http://sunjiajia.com/categories/Android%E8%BF%9B%E9%98%B6/">Android进阶</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="http://sunjiajia.com/tags/Android/">Android</a><a href="http://sunjiajia.com/tags/%E8%BF%9B%E9%98%B6/">进阶</a><a href="http://sunjiajia.com/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina" title="分享到微博"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+	<a class="jiathis_button_weixin" title="分享到微信"><span class="jiathis_txt jtico jtico_weixin"></span></a>
+	<a class="jiathis_button_renren" title="分享到人人网"><span class="jiathis_txt jtico jtico_renren"></span></a>
+	<a class="jiathis_button_qzone" title="分享到QQ空间"><span class="jiathis_txt jtico jtico_qzone"></span></a>
+	<a class="jiathis_button_googleplus" title="分享到Google+"><span class="jiathis_txt jtico jtico_googleplus"></span></a>
+	<a class="jiathis_button_douban" title="分享到豆瓣"><span class="jiathis_txt jtico jtico_douban"></span></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_43" title="累计分享2次">2</span></a>
+</div>
+<script type="text/javascript">
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"5358335375"},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="./国内镜像加速Android源码下载 _ 安卓猴_files/jia.js" charset="utf-8"></script><script type="text/javascript" src="./国内镜像加速Android源码下载 _ 安卓猴_files/plugin.client.js" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="http://sunjiajia.com/2015/08/16/make-android-open-source/" title="编译Android5.1.1源码">
+  <strong>上一篇：</strong><br>
+  <span>
+  编译Android5.1.1源码</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="http://sunjiajia.com/2015/08/10/monkey-android-6/" title="《Monkey Android》第6课点击事件的四种写法">
+ <strong>下一篇：</strong><br> 
+ <span>《Monkey Android》第6课点击事件的四种写法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/08/14/download-android-open-source-projects/" data-title="国内镜像加速Android源码下载" data-url="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/" id="ds-thread"><div id="ds-reset"><div class="ds-meta" style="display: none;"><a href="javascript:void(0)" class="ds-like-thread-button ds-rounded"><span class="ds-icon ds-icon-heart"></span> <span class="ds-thread-like-text">喜欢</span><span class="ds-thread-cancel-like">取消喜欢</span></a><span class="ds-like-panel"></span></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);">0条评论</a></li>  </ul></div><ul class="ds-comments"><li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://androidmonkey.duoshuo.com/login/weixin/" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://androidmonkey.duoshuo.com/login/weibo/" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://androidmonkey.duoshuo.com/login/qq/" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://androidmonkey.duoshuo.com/login/renren/" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://androidmonkey.duoshuo.com/login/douban/" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://androidmonkey.duoshuo.com/login/kaixin/" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://androidmonkey.duoshuo.com/login/baidu/" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://androidmonkey.duoshuo.com/login/google/" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./国内镜像加速Android源码下载 _ 安卓猴_files/noavatar_default.png" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1353893538466627660">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="57034f6cd95b9"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">Monkey's Android正在使用多说</a></p></div></div>
+</section>
+
+
+</div>  
+      <div class="openaside" style="top: 80px;"><a class="navbutton" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside" style="top: 140px;">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#清华大学镜像"><span class="toc-number">1.</span> <span class="toc-text">清华大学镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#Ubuntu源使用方法"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu源使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#Android源码清华镜像使用方法"><span class="toc-number">2.</span> <span class="toc-text">Android源码清华镜像使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#官方介绍使用方法"><span class="toc-number">2.1.</span> <span class="toc-text">官方介绍使用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#我来介绍"><span class="toc-number">2.2.</span> <span class="toc-text">我来介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#结束"><span class="toc-number">3.</span> <span class="toc-text">结束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#关于我"><span class="toc-number">3.1.</span> <span class="toc-text">关于我</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="http://sunjiajia.com/2015/08/14/download-android-open-source-projects/#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self" frameborder="0" scrolling="no" src="./国内镜像加速Android源码下载 _ 安卓猴_files/index.html"></iframe>
+</div>
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/Android%E6%96%B0%E6%89%8B/" title="Android新手">Android新手<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/Android%E8%BF%9B%E9%98%B6/" title="Android进阶">Android进阶<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/%E3%80%8AMonkey-Android%E3%80%8B/" title="《Monkey Android》">《Monkey Android》<sup>15</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/%E3%80%8AMonkey-Java%E3%80%8B/" title="《Monkey Java》">《Monkey Java》<sup>34</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/" title="技术相关">技术相关<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/" title="生活点滴">生活点滴<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://sunjiajia.com/categories/%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/" title="系统相关">系统相关<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="http://sunjiajia.com/tags/Android/" style="font-size: 20px;">Android</a> <a href="http://sunjiajia.com/tags/Java/" style="font-size: 18px;">Java</a> <a href="http://sunjiajia.com/tags/gps/" style="font-size: 10px;">gps</a> <a href="http://sunjiajia.com/tags/linux/" style="font-size: 10px;">linux</a> <a href="http://sunjiajia.com/tags/%E5%81%A5%E8%BA%AB/" style="font-size: 12px;">健身</a> <a href="http://sunjiajia.com/tags/%E5%89%8D%E8%A8%80/" style="font-size: 10px;">前言</a> <a href="http://sunjiajia.com/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">技巧</a> <a href="http://sunjiajia.com/tags/%E6%96%B0%E6%89%8B/" style="font-size: 16px;">新手</a> <a href="http://sunjiajia.com/tags/%E8%B7%91%E6%AD%A5/" style="font-size: 12px;">跑步</a> <a href="http://sunjiajia.com/tags/%E8%BF%9B%E9%98%B6/" style="font-size: 14px;">进阶</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://hexo.io/" target="_blank" title="Hexo">Hexo</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/" target="_blank" title="GitHub">GitHub</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me/" target="_blank" title="Jark&#39;s Blog">Jark's Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="http://sunjiajia.com/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I'm Android Monkey. <br>
+			A Monkey loves Android.    ^#^</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/androidmonkey" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/opengit" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="https://plus.google.com/109556248010192800000?rel=author" target="_blank" class="icon-google_plus" title="Google+"></a>
+		
+		
+		<a href="mailto:gitopen@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/by-nc-nd/4.0" class="cc-opacity" target="_blank">
+            <img src="./国内镜像加速Android源码下载 _ 安卓猴_files/cc-by-nc-nd.svg" alt="Creative Commons">
+          </a>
+
+
+<script language="javascript" type="text/javascript" src="./国内镜像加速Android源码下载 _ 安卓猴_files/18853413.js"></script><a href="http://www.51.la/?18853413" target="_blank" title="51.La 网站流量统计系统"><img alt="51.La 网站流量统计系统" src="./国内镜像加速Android源码下载 _ 安卓猴_files/icon_9.gif" style="border:none"></a>
+
+<noscript>&lt;a href="http://www.51.la/?18853413" target="_blank"&gt;&lt;img alt="&amp;#x6211;&amp;#x8981;&amp;#x5566;&amp;#x514D;&amp;#x8D39;&amp;#x7EDF;&amp;#x8BA1;" src="http://img.users.51.la/18853413.asp" style="border:none" /&gt;&lt;/a&gt;</noscript>
+
+
+
+
+			<script>
+			(function(){
+			    var bp = document.createElement('script');
+			    var curProtocol = window.location.protocol.split(':')[0];
+			    if (curProtocol === 'https') {
+				bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+			    }
+			    else {
+				bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+			    }
+			    var s = document.getElementsByTagName("script")[0];
+			    s.parentNode.insertBefore(bp, s);
+			})();
+			</script>
+
+        </div>
+    
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016
+		
+		<a href="http://sunjiajia.com/about" target="_blank" title="安卓猴">安卓猴</a>
+		
+
+		</p>
+</div>
+</footer>
+    <script src="./国内镜像加速Android源码下载 _ 安卓猴_files/jquery-2.0.3.min.js"></script>
+<script src="./国内镜像加速Android源码下载 _ 安卓猴_files/jquery.imagesloaded.min.js"></script>
+<script src="./国内镜像加速Android源码下载 _ 安卓猴_files/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"androidmonkey"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./国内镜像加速Android源码下载 _ 安卓猴_files/jquery.fancybox.css" media="screen" type="text/css">
+<script src="./国内镜像加速Android源码下载 _ 安卓猴_files/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop" style="display: block; opacity: 1;">
+	<a title="返回顶部"><img src="./国内镜像加速Android源码下载 _ 安卓猴_files/scrollup.png"></a>
+	</div>
+	<script src="./国内镜像加速Android源码下载 _ 安卓猴_files/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="./国内镜像加速Android源码下载 _ 安卓猴_files/MathJax.js">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  
+
+</body></html>

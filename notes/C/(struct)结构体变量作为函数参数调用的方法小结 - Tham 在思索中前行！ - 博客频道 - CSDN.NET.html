@@ -1,0 +1,1399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0051)http://blog.csdn.net/tham_/article/details/45370607 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/acwm"></script><script type="text/javascript" async="" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/acwm(1)"></script>   
+   
+
+    <script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script><script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/repoAddr2.js"></script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/tham_/article/details/45370607#">
+
+    <title>(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="在java项目的实际开发和应用中，常常需要用到将对象转为String这一基本功能。本文将对常用的转换方法进行一个总结。常用的方法有Object.toString()，（String）要转换的对象，String.valueOf(Object)等。下面对这些方法一一进行分析。方法1：采用 Object.toString()方法请看下面的例子：      Object object = ge">
+    <script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/jquery-version.js"></script>
+    <script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/tracking(1).js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/tham_/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/share.js"></script><link rel="stylesheet" type="text/css" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/job_reco.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><script type="text/javascript" charset="utf-8" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/main.js"></script><link href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/style(2).css"><script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/get_ads.php" type="text/javascript"></script><script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/logger.js"></script><link rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><iframe frameborder="0" style="display: none;" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe><div id="MathJax_Message" style="display: none;"></div>
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-0"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/tham_">Tham 在思索中前行！</a></h2>
+            <h3>因为他已经明白，不经过一番苦工是做不成的，而只有想做的人，才忍得过这番痛苦。</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/tham_?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/tham_?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/tham_/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "tham_";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/tham_";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/130" target="_blank">
+<font color="red">【免费公开课】Gulp前端自动化教程
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/51423859" target="_blank">
+<font color="blue">走进VR开发世界——我们离开发一款VR大作还有多远？</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/robbin2015/article/details/51446176" target="_blank">
+<font color="red">CSDN发福利啦！C币、京东卡、现金任你选
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+
+
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_72" data-mtp="40" data-order="40" data-con="ad_content_217" style="width: 1px; height: 1px; position: fixed; right: 10px; bottom: 10px; z-index: 999; background-color: transparent;"><div id="location_parent"></div><script>document.getElementById('location_parent').parentNode.style.height='1px';document.getElementById('location_parent').parentNode.style.width='1px';document.getElementById('location_parent').parentNode.style.position='fixed';document.getElementById('location_parent').parentNode.style.right='10px';document.getElementById('location_parent').parentNode.style.bottom='10px';document.getElementById('location_parent').parentNode.style.zIndex=999;document.getElementById('location_parent').parentNode.style.backgroundColor='transparent';</script><!-- 广告占位容器 --><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] || {})['u2392861']={at:'3',rsi0:'300',rsi1:'250',pat:'17',tn:'baiduCustNativeAD_xuanfu',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'14',rss2:'#000000',titSU:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u2392861'});  </script>  <script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/f.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->
+
+  
+<link href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/main(1).js"></script>
+<link rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/markdown_views.css">
+<link rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/category.css">
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/MathJax.js"></script>
+
+ <script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/web-storage-cache.min.js"></script>
+
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/replace.min.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/tham_/article/details/45370607">
+        (struct)结构体变量作为函数参数调用的方法小结            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%98%e9%87%8f%e4%bd%9c%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">结构体变量作函数参数</a><a href="http://www.csdn.net/tag/%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%98%e9%87%8f%e8%b0%83%e7%94%a8" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">结构体变量调用</a><a href="http://www.csdn.net/tag/%e7%bb%93%e6%9e%84%e4%bd%93%e7%b1%bb%e5%9e%8b%e4%bd%9c%e4%b8%ba%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">结构体类型作为函数参数</a><a href="http://www.csdn.net/tag/struct%e5%8f%98%e9%87%8f%e5%81%9a%e5%8f%82%e6%95%b0" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">struct变量做参数</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2015-04-29 19:37</span>
+            <span class="link_view" title="阅读次数">1334人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/tham_/article/details/45370607#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(1)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;(struct)结构体变量作为函数参数调用的方法小结&#39;,&#39;45370607&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/tham_/article/details/45370607#report" onclick="javascript:report(45370607,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var lib = eval("("+$("#lib").attr("value")+")");
+            var html = "";
+            if (lib.err == 0) {
+                $.each(lib.data, function (i) {
+                    var obj = lib.data[i];
+                    //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                    html += ' <a href="' + obj.url + '" target="_blank">';
+                    html += ' <img src="' + obj.logo + '">';
+                    html += ' <em><b>' + obj.name + '</b></em>';
+                    html += ' </a>';
+                });
+                if (html != "") {
+                    setTimeout(function () {
+                        $("#lib").html(html);
+                        /*
+                        var testhtml = "";
+                        testhtml += '<a href="#">';
+                        testhtml += '<img src="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg">';
+                        testhtml += '<em>Android知识库</em>';
+                        testhtml += '</a>';
+                        $(".embody_c").html(testhtml);
+                        */
+                        $("#embody").show();
+                    }, 100);
+                }
+            }          
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;2797861&#39;,&#39;tham_&#39;,&#39;top&#39;,&#39;45370607&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">C/C++<em>（22）</em></span>
+                      <img class="arrow-down" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/tham_/article/category/2797861" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2797861">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label onclick="GetCategoryArticles(&#39;3062933&#39;,&#39;tham_&#39;,&#39;top&#39;,&#39;45370607&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Data_Structure<em>（19）</em></span>
+                      <img class="arrow-down" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/tham_/article/category/3062933" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_3062933">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/category.js"></script>  
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/tham_/article/details/45370607#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/tham_/article/details/45370607#t0">结构体参数调用归纳</a></li><li><a href="http://blog.csdn.net/tham_/article/details/45370607#t1">结构体变量作为函数的形式参数实验总结</a></li><li><a href="http://blog.csdn.net/tham_/article/details/45370607#t2">结构体变量作为函数参数传递的3种方法</a></li></ol></div><div style="clear:both"></div><div id="article_content" class="article_content">
+
+<p><span style="font-family:Microsoft YaHei; font-size:18px"><span style="line-height:26px"><span style="color:#ff0000">结构体变量、结构指针变量、结构数组作为函数的参数应用实例分析</span></span><span style="color:rgb(51,51,51); line-height:26px">&nbsp;</span></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:18px"><span style="color:rgb(51,51,51); line-height:26px"></span></span></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 535px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">long</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;num;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">float</span><span>&nbsp;score;&nbsp;&nbsp;</span></span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">struct stud
+{
+	long int num;
+	float score;
+};</pre>
+<p></p>
+<p style="line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px"><span style="color:#333333">/*</span><span style="color:#000099"><strong>结构体变量作为函数的参数，修改之后的成员值不能返回到主调函数</strong></span><span style="color:#333333">*/</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 715px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;funvr(</span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;t)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t.num=2000101;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t.score=71.0;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void funvr(struct stud t)
+{
+	t.num=2000101;
+	t.score=71.0;
+}</pre><br>
+<p></p>
+<p style="line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px"><span style="color:#333333">/*</span><span style="color:#6600cc"><strong>结构体数组作为函数的参数，修改后的元素的成员值能返回到主调函数</strong></span><span style="color:#333333">*/</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 931px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;funar(</span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;t[])&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//void&nbsp;funar(struct&nbsp;stud&nbsp;&amp;t)</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t[0].num=3000101;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*注意结构体数组元素的成员的引用形式*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t[0].score=81.0;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t[1].num=3000102;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t[1].score=82.0;&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void funar(struct stud t[])
+//void funar(struct stud &amp;t)
+{
+	t[0].num=3000101;         /*注意结构体数组元素的成员的引用形式*/
+	t[0].score=81.0;
+    t[1].num=3000102;
+	t[1].score=82.0;
+}</pre><br>
+<p></p>
+<p style="line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px"><span style="color:#333333">/*</span><span style="color:#ff6600"><strong>结构体指针变量作为函数的参数，修改后的结构体成员的值能返回到主调函数</strong></span><span style="color:#333333">*/</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 1198px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;funpr(</span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;*t)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t-&gt;num=4000101;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*注意通过结构体指针变量引用成员的具体形式*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;(*t).score=92.0;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void funpr(struct stud *t)
+{
+	t-&gt;num=4000101;          /*注意通过结构体指针变量引用成员的具体形式*/
+	(*t).score=92.0;
+}</pre>
+<p><br>
+</p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">/*在主函数中分别调用上述函数修改成员值，再验证结果的正确性*/</span></p>
+<p style="color:rgb(51,51,51); line-height:26px"></p><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 1414px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_5" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=5&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="preprocessor">#include&lt;stdio.h&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">long</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;num;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">float</span><span>&nbsp;score;&nbsp;&nbsp;</span></span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">void</span><span>&nbsp;funvr(</span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;t)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t.num=2000101;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t.score=71.0;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">void</span><span>&nbsp;funar(</span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;t[])&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//void&nbsp;funar(struct&nbsp;stud&nbsp;&amp;t)</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t[0].num=3000101;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*注意结构体数组元素的成员的引用形式*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t[0].score=81.0;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t[1].num=3000102;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;t[1].score=82.0;&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">void</span><span>&nbsp;funpr(</span><span class="keyword">struct</span><span>&nbsp;stud&nbsp;*t)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;t-&gt;num=4000101;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*注意通过结构体指针变量引用成员的具体形式*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;(*t).score=92.0;&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">void</span><span>&nbsp;main()&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">struct</span><span>&nbsp;stud&nbsp;a[2]={&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{1000101,61.0},&nbsp;{1000102,62.0}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">struct</span><span>&nbsp;stud&nbsp;b=a[0],*p;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"old&nbsp;b:&nbsp;b.num:%ld\tb.score:%f\n"</span><span>,b.num,b.score);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*显示结构体变量b的成员的原有值*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;funvr(b);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*验证第一种情况，观察并分析结果，看结构体变量作为函数参数时，形参结构体变量成员的值的改变能影响实参结构体变量的成员的值，</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下为输出调用函数funvr(b)之后的结果值*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"call&nbsp;funvr()&nbsp;new&nbsp;b:&nbsp;b.num:%ld\tb.score:%f\n&nbsp;"</span><span>,b.num,b.score);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;funpr(&amp;b);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*将结构体变量的指针对作为函数的参数*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"call&nbsp;funpr()&nbsp;new&nbsp;b:&nbsp;b.num:%ld\tb.score:%f\n&nbsp;"</span><span>,b.num,b.score);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*输出结构体数组a元素的原来的成员值*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"old&nbsp;a[0]:a[0].num:%ld\ta[0].score:%f\n&nbsp;"</span><span>,a[0].num,a[0].score);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"old&nbsp;a[1]:a[1].num:%ld\ta[1].score:%f\n&nbsp;"</span><span>,a[1].num,a[1].score);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*将结构体数组a作为函数的参数，然后再输出其元素的成员的值，已经被修改了*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;funar(a);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"&nbsp;new&nbsp;a[0]:a[0].num:%ld\ta[0].score:%f\n&nbsp;"</span><span>,a[0].num,a[0].score);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"new&nbsp;a[1]:a[1].num:%ld\ta[1].score:%f\n&nbsp;"</span><span>,a[1].num,a[1].score);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">#include&lt;stdio.h&gt;
+
+struct stud
+{
+	long int num;
+	float score;
+};
+
+void funvr(struct stud t)
+{
+	t.num=2000101;
+	t.score=71.0;
+}
+
+void funar(struct stud t[])
+//void funar(struct stud &amp;t)
+{
+	t[0].num=3000101;         /*注意结构体数组元素的成员的引用形式*/
+	t[0].score=81.0;
+    t[1].num=3000102;
+	t[1].score=82.0;
+}
+
+void funpr(struct stud *t)
+{
+	t-&gt;num=4000101;          /*注意通过结构体指针变量引用成员的具体形式*/
+	(*t).score=92.0;
+}
+
+void main()
+{
+	struct stud a[2]={
+						{1000101,61.0}, {1000102,62.0}
+					 };
+	struct stud	b=a[0],*p;
+	
+	printf("old b: b.num:%ld\tb.score:%f\n",b.num,b.score);
+	/*显示结构体变量b的成员的原有值*/
+    funvr(b);
+	/*验证第一种情况，观察并分析结果，看结构体变量作为函数参数时，形参结构体变量成员的值的改变能影响实参结构体变量的成员的值，
+	  以下为输出调用函数funvr(b)之后的结果值*/
+	printf("call funvr() new b: b.num:%ld\tb.score:%f\n ",b.num,b.score);
+	funpr(&amp;b);            /*将结构体变量的指针对作为函数的参数*/
+    printf("call funpr() new b: b.num:%ld\tb.score:%f\n ",b.num,b.score);
+                         /*输出结构体数组a元素的原来的成员值*/
+    printf("old a[0]:a[0].num:%ld\ta[0].score:%f\n ",a[0].num,a[0].score);
+    printf("old a[1]:a[1].num:%ld\ta[1].score:%f\n ",a[1].num,a[1].score);
+	/*将结构体数组a作为函数的参数，然后再输出其元素的成员的值，已经被修改了*/
+	funar(a);
+    printf(" new a[0]:a[0].num:%ld\ta[0].score:%f\n ",a[0].num,a[0].score);
+    printf("new a[1]:a[1].num:%ld\ta[1].score:%f\n ",a[1].num,a[1].score);
+    
+}</pre><p></p>
+<h2 style="color:rgb(51,51,51); line-height:26px"><a name="t0"></a><span style="font-family:&#39;Microsoft YaHei&#39;"><span style="font-size:24px">【结构体参数调用归纳】</span></span></h2>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333">1）</span><span style="color:#006600">结构体变量作为函数参数[实参与形参]时</span><span style="color:#333333">，形参结构体变量成员值的改变不影响对应的实参构体变量成员值的改变。</span></span></p>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333">2）</span><span style="color:#000099">结构体数组或结构体指针变量作为函数参数[实参与形参]时</span><span style="color:#333333">，形参结构体数组元素[或形参结构体指针变量指向的变量]成员值的改变将影响对应的实参构体数组[或实参结构体指针变量指向的变量]成员值的改变。</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">3）结构体变量可作为函数的参数，函数可返回一结构体类数据</span></p>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333">4）</span><span style="color:#3333ff">p=&amp;b; 使结构体指针变量p指向结构体变量b的空间。</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">&nbsp; &nbsp; &nbsp;p-&gt;num:表示通过指针变量引用结构体变量b的成员num</span></p>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333">5）</span><span style="color:#ff0000">p=a;或p=&amp;a[0]；将结构体指针变量指向结构体数组a。</span><span style="color:#333333">则：</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ①p-&gt;num:表示通过指针变量引用结构体数组元素的成员num的值。</span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ②p-&gt;num++:表示通过指针变量先引用结构体数组元素的成员num的值，再使该元素的成员num的值加 1，先引用其值然后其加1。</span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;③++p-&gt;num:表示使指向的元素的成员num的值加1，再引用其值。</span></p>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333">6）</span><span style="color:#3333ff">p=a;或p=&amp;a[0]；表示将结构体指针变量p指向结构体数组a。</span></span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;①（p++）-&gt;num:表示通过指针变量先引用结构体数组元素&nbsp; 的成员num的值，再使指针变量本身加1，指针变量加1表示使指针变量指向结构体数组的下一个元素。</span></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="font-family:Microsoft YaHei; font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;②（++p）-&gt;num:先使指针变量本身加1，先使使指针变量指向结构体数组的下一个元素，然后引用指针变量所指向的结构体数组元素的成员num的值。</span></p>
+<h2 style="line-height:26px"><a name="t1"></a><span style="font-family:&#39;Microsoft YaHei&#39;"><span style="font-size:24px; color:#6600cc"><strong>结构体变量作为函数的形式参数实验总结</strong></span></span></h2>
+<div><span style="font-family:&#39;Microsoft YaHei&#39;"><span style="font-size:24px; color:#6600cc"><strong></strong></span></span><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 2856px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_6" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_6" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=6&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;stdio.h&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;stdlib.h&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;string.h&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">typedef</span><span>&nbsp;</span><span class="keyword">struct</span><span>&nbsp;str{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;len;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">char</span><span>&nbsp;s[0];&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;str(<span class="datatypes">int</span><span>&nbsp;k)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;len=k;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>}Str;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">void</span><span>&nbsp;make(Str&nbsp;tmp)&nbsp;</span><span class="comment">//&nbsp;注意当函数的形参是Str&nbsp;tmp&nbsp;时，传递的方式是普通的结构体变量传值调用，这里让len的值改变不会影响下面的temp的len</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;tmp.len=2;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">void</span><span>&nbsp;make_ptr(Str&nbsp;&amp;tmp)&nbsp;&nbsp;</span><span class="comment">//&nbsp;当函数的形参是Str&nbsp;&amp;tmp，时传递的是结构体的地址，当这里使得tmp.len值改变时，实参temp.len值也会改变</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;tmp.len=3;&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">void</span><span>&nbsp;make_ptr2(Str&nbsp;*tmp)&nbsp;</span><span class="comment">//&nbsp;函数参数是一个Str类型的指针，传地址调用就不用说了，（上面的引用方式是C++的特性之一，C语言不能那样使用）</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;tmp-&gt;len=4;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;main(</span><span class="datatypes">int</span><span>&nbsp;argc,&nbsp;</span><span class="datatypes">char</span><span>**&nbsp;argv)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">struct</span><span>&nbsp;str&nbsp;temp(1);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"temp=%d\n"</span><span>,temp);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;make(temp);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"temp=%d\n"</span><span>,temp);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;make_ptr(temp);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;printf(<span class="string">"temp=%d\n"</span><span>,temp);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct str{
+    int len;
+    char s[0];
+
+    str(int k)
+    {
+    	len=k;
+	}
+
+}Str;
+ 
+void make(Str tmp) // 注意当函数的形参是Str tmp 时，传递的方式是普通的结构体变量传值调用，这里让len的值改变不会影响下面的temp的len
+{
+	tmp.len=2;
+}
+
+void make_ptr(Str &amp;tmp)  // 当函数的形参是Str &amp;tmp，时传递的是结构体的地址，当这里使得tmp.len值改变时，实参temp.len值也会改变
+{
+	tmp.len=3;
+}
+
+void make_ptr2(Str *tmp) // 函数参数是一个Str类型的指针，传地址调用就不用说了，（上面的引用方式是C++的特性之一，C语言不能那样使用）
+{
+	tmp-&gt;len=4;
+}
+
+ 
+int main(int argc, char** argv) {
+	
+	struct str temp(1);
+	printf("temp=%d\n",temp);
+	
+	make(temp);
+	printf("temp=%d\n",temp);
+	
+	make_ptr(temp);
+	printf("temp=%d\n",temp);
+	
+    return 0;
+}</pre></div>
+<h2 style="color:rgb(51,51,51); line-height:26px"><a name="t2"></a><span style="font-family:&#39;Microsoft YaHei&#39;"><strong><span style="font-size:24px">结构体变量作为函数参数传递的3种方法</span></strong></span></h2>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333">将一个结构体变量中的数据传递给另一个函数，有下列3种方法：</span><br>
+<span style="color:#3333ff">用结构体变量名作参数。一般较少用这种方法。<br>
+用指向结构体变量的指针作实参，将结构体变量的地址传给形参。<br>
+用结构体变量的引用变量作函数参数。</span><br>
+<br>
+<span style="color:#333333">下面通过一个简单的例子来说明，并对它们进行比较。</span><br>
+<span style="color:#333333">【例7.5】有一个结构体变量stu，内含学生学号、姓名和3门课的成绩。要求在main函数中为各成员赋值，在另一函数print中将它们的值输出。</span><br>
+</span></p>
+<p style="color:rgb(51,51,51); line-height:26px"></p><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 3915px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_7" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_7" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=7&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>1)&nbsp;用结构体变量作函数参数。&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;iostream&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;string&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">struct</span><span>&nbsp;Student</span><span class="comment">//声明结构体类型Student</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;num;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">char</span><span>&nbsp;name[20];&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">float</span><span>&nbsp;score[3];&nbsp;&nbsp;</span></span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;main(&nbsp;)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">void</span><span>&nbsp;print(Student);&nbsp;</span><span class="comment">//函数声明，形参类型为结构体Student</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;Student&nbsp;stu;&nbsp;<span class="comment">//定义结构体变量</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;stu.num=12345;&nbsp;<span class="comment">//以下5行对结构体变量各成员赋值</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;stu.name=<span class="string">"Li&nbsp;Fung"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;stu.score[0]=67.5;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;stu.score[1]=89;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;stu.score[2]=78.5;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;print(stu);&nbsp;<span class="comment">//调用print函数，输出stu各成员的值</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">void</span><span>&nbsp;print(Student&nbsp;st)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;cout&lt;&lt;st.num&lt;&lt;<span class="string">"&nbsp;"</span><span>&lt;&lt;st.name&lt;&lt;</span><span class="string">"&nbsp;"</span><span>&lt;&lt;st.score[0]&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&lt;&lt;<span class="string">"&nbsp;"</span><span>&nbsp;&lt;&lt;st.score[1]&lt;&lt;</span><span class="string">"&nbsp;"</span><span>&lt;&lt;st.score[2]&lt;&lt;endl;&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>运行结果为：&nbsp;&nbsp;</span></li><li class=""><span>12345&nbsp;Li&nbsp;Fung&nbsp;67.5&nbsp;89&nbsp;78.5&nbsp;(2)&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px; display: none;">1) 用结构体变量作函数参数。
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+struct Student//声明结构体类型Student
+{
+   int num;
+   char name[20];
+   float score[3];
+};
+int main( )
+{
+   void print(Student); //函数声明，形参类型为结构体Student
+   Student stu; //定义结构体变量
+   stu.num=12345; //以下5行对结构体变量各成员赋值
+   stu.name="Li Fung";
+   stu.score[0]=67.5;
+   stu.score[1]=89;
+   stu.score[2]=78.5;
+   print(stu); //调用print函数，输出stu各成员的值
+   return 0;
+}
+void print(Student st)
+{
+   cout&lt;&lt;st.num&lt;&lt;" "&lt;&lt;st.name&lt;&lt;" "&lt;&lt;st.score[0]
+   &lt;&lt;" " &lt;&lt;st.score[1]&lt;&lt;" "&lt;&lt;st.score[2]&lt;&lt;endl;
+}
+运行结果为：
+12345 Li Fung 67.5 89 78.5 (2)</pre><br>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 4536px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_8" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_8" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=8&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>2)用指向结构体变量的指针作实参在上面程序的基础上稍作修改即可。&nbsp;&nbsp;</span></span></li><li class=""><span>复制纯文本新窗口&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;iostream&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;string&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">struct</span><span>&nbsp;Student&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;num;&nbsp;string&nbsp;name;&nbsp;</span><span class="comment">//用string类型定义字符串变量</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">float</span><span>&nbsp;score[3];&nbsp;&nbsp;</span></span></li><li class="alt"><span>}stu={12345,<span class="string">"Li&nbsp;Fung"</span><span>,67.5,89,78.5};&nbsp;</span><span class="comment">//定义结构体student变量stu并赋初值</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;main(&nbsp;)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">void</span><span>&nbsp;print(Student&nbsp;*);&nbsp;</span><span class="comment">//函数声明，形参为指向Student类型数据的指针变量</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;Student&nbsp;*pt=&amp;stu;&nbsp;<span class="comment">//定义基类型为Student的指针变量pt，并指向stu</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;print(pt);&nbsp;<span class="comment">//实参为指向Student类数据的指针变量</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//定义函数，形参p是基类型为Student的指针变量</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">void</span><span>&nbsp;print(Student&nbsp;*p)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;cout&lt;&lt;p-&gt;num&lt;&lt;<span class="string">"&nbsp;"</span><span>&lt;&lt;p-&gt;name&lt;&lt;</span><span class="string">"&nbsp;"</span><span>&lt;&lt;p-&gt;score[0]&lt;&lt;</span><span class="string">"&nbsp;"</span><span>&nbsp;&lt;&lt;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;p-&gt;score[1]&lt;&lt;<span class="string">"&nbsp;"</span><span>&lt;&lt;p-&gt;score[2]&lt;&lt;endl;&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px; display: none;">2)用指向结构体变量的指针作实参在上面程序的基础上稍作修改即可。
+复制纯文本新窗口
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+struct Student
+{
+   int num; string name; //用string类型定义字符串变量
+   float score[3];
+}stu={12345,"Li Fung",67.5,89,78.5}; //定义结构体student变量stu并赋初值
+int main( )
+{
+   void print(Student *); //函数声明，形参为指向Student类型数据的指针变量
+   Student *pt=&amp;stu; //定义基类型为Student的指针变量pt，并指向stu
+   print(pt); //实参为指向Student类数据的指针变量
+   return 0;
+}
+//定义函数，形参p是基类型为Student的指针变量
+void print(Student *p)
+{
+   cout&lt;&lt;p-&gt;num&lt;&lt;" "&lt;&lt;p-&gt;name&lt;&lt;" "&lt;&lt;p-&gt;score[0]&lt;&lt;" " &lt;&lt;
+   p-&gt;score[1]&lt;&lt;" "&lt;&lt;p-&gt;score[2]&lt;&lt;endl;
+}</pre><span style="background-color:rgb(255,255,255)"><span style="font-family:Microsoft YaHei; font-size:18px"><span style="color:rgb(51,51,51); line-height:22.3999996185303px"></span></span></span><p></p>
+<p style="color:rgb(51,51,51); line-height:26px"><span style="background-color:rgb(255,255,255)"><span style="font-family:Microsoft YaHei; font-size:18px"><span style="color:rgb(51,51,51); line-height:22.3999996185303px"><br>
+</span></span></span></p>
+调用print函数时，实参指针变量pt将stu的起始地址传送给形参p（p也是基类型为student的指针变量）。这样形参p也就指向stu，见图7.10。<br style="color:rgb(51,51,51); line-height:22.3999996185303px">
+<span style="color:rgb(51,51,51); line-height:22.3999996185303px">在print函数中输出p所指向的结构体变量的各个成员值，它们也就是stu的成员值。在main函数中也可以不定义指针变量pt，而在调用print函数时以&amp;stu作为实参，把stu的起始地址传给实参p。</span><br style="color:rgb(51,51,51); line-height:22.3999996185303px">
+<br style="color:rgb(51,51,51); line-height:22.3999996185303px">
+<div style="color:rgb(51,51,51); line-height:22.3999996185303px; text-align:center">
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Microsoft YaHei; font-size:18px"><img alt="" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/1-140513213951510.png" style="border:none; max-width:728px!important; width:213px; height:251px"><br>
+图7.10</span></span></div>
+<div><br>
+</div>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 423px; top: 5463px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_9" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_9" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=9&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/tham_/article/details/45370607#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/tham_/article/details/45370607#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>3)&nbsp;用结构体变量的引用作函数参数&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;iostream&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="preprocessor">#include&nbsp;&lt;string&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">struct</span><span>&nbsp;Student&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;num;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;string&nbsp;name;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="datatypes">float</span><span>&nbsp;score[3];&nbsp;&nbsp;</span></span></li><li class="alt"><span>}stu={12345,<span class="string">"Li&nbsp;Li"</span><span>,67.5,89,78.5};&nbsp;&nbsp;</span></span></li><li class=""><span><span class="datatypes">int</span><span>&nbsp;main(&nbsp;)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">void</span><span>&nbsp;print(Student&nbsp;&amp;);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="comment">//函数声明，形参为Student类型变量的引用</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;print(stu);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="comment">//实参为结构体Student变量</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//函数定义，形参为结构体Student变量的引用</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">void</span><span>&nbsp;print(Student&nbsp;&amp;stud)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;cout&lt;&lt;stud.num&lt;&lt;<span class="string">"&nbsp;"</span><span>&lt;&lt;stud.name&lt;&lt;</span><span class="string">"&nbsp;"</span><span>&lt;&lt;stud.score[0]&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&lt;&lt;<span class="string">"&nbsp;"</span><span>&nbsp;&lt;&lt;stud.score[1]&lt;&lt;</span><span class="string">"&nbsp;"</span><span>&lt;&lt;stud.score[2]&lt;&lt;endl;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">3) 用结构体变量的引用作函数参数
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+struct Student
+{
+   int num;
+   string name;
+   float score[3];
+}stu={12345,"Li Li",67.5,89,78.5};
+int main( )
+{
+   void print(Student &amp;);
+   //函数声明，形参为Student类型变量的引用
+   print(stu);
+   //实参为结构体Student变量
+   return 0;
+}
+//函数定义，形参为结构体Student变量的引用
+void print(Student &amp;stud)
+{
+   cout&lt;&lt;stud.num&lt;&lt;" "&lt;&lt;stud.name&lt;&lt;" "&lt;&lt;stud.score[0]
+   &lt;&lt;" " &lt;&lt;stud.score[1]&lt;&lt;" "&lt;&lt;stud.score[2]&lt;&lt;endl;
+}</pre>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#3333ff">程序(1)用结构体变量作实参和形参，程序直观易懂，效率是不高的。</span><br>
+<span style="color:#ff6600">程序(2)采用指针变量作为实参和形参，空间和时间的开销都很小，效率较高。但程序（2）不如程序(1)那样直接。</span><br>
+<span style="color:#ff0000">程序(3)的实参是结构体Student类型变量，而形参用Student类型的引用，虚实结合时传递的是stu的地址，因而效率较高。它兼有(1)和(2)的优点。</span><br>
+<br>
+<span style="color:#ff0000">引用变量主要用作函数参数，它可以提高效率，而且保持程序良好的可读性（引用'&amp;'是C++的新特性）</span><span style="color:#333333">。在本例中用了string方法定义字符串变量，在某些C++系统中目前不能运行这些程序，读者可以修改程序，使之能在自己所用的系统中运行。</span><br>
+</span></p>
+<p style="line-height:26px"><span style="font-family:&#39;Microsoft YaHei&#39;; font-size:18px"><span style="color:#333333"><br>
+</span></span></p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1464159662593">
+<a href="http://blog.csdn.net/tham_/article/details/45370607#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tham_/article/details/45370607#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tham_/article/details/45370607#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tham_/article/details/45370607#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tham_/article/details/45370607#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tham_/article/details/45370607#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/blog_detail.css">
+
+    
+<!--172.16.140.11-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" articleid="45370607">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>2</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/tham_/article/details/45331625&#39;;">上一篇</span><a href="http://blog.csdn.net/tham_/article/details/45331625" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">浅谈经典排序算法系列—各种排序算法总结</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/tham_/article/details/45505327&#39;;">下一篇</span><a href="http://blog.csdn.net/tham_/article/details/45505327" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">C++ string 类的函数</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article" style="">
+                <h4>我的同类文章</h4>
+                <div class="similar_c" style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;2797861&#39;,&#39;tham_&#39;,&#39;foot&#39;,&#39;45370607&#39;);">C/C++<em>（22）</em></span>
+                                </label>
+                                <label class="">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;3062933&#39;,&#39;tham_&#39;,&#39;foot&#39;,&#39;45370607&#39;);">Data_Structure<em>（19）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141" style="max-height:195px;">
+                        <a href="http://blog.csdn.net/" style="display:none" target="_blank">http://blog.csdn.net</a>
+                        <ul class="similar_list fl"><li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/51201249" id="foot_aritcle_51201249undefined25707676343429364" target="_blank" title="transform函数转换字符串string的大小写">transform函数转换字符串string的大小写</a><span>2016-04-20</span><label><i>阅读</i><b>29</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/51087838" id="foot_aritcle_51087838undefined14421525634268706" target="_blank" title="单链表的基本操作（C语言实现）">单链表的基本操作（C语言实现）</a><span>2016-04-07</span><label><i>阅读</i><b>75</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/48626005" id="foot_aritcle_48626005undefined4979768541198082" target="_blank" title="C++编程思想重点笔记">C++编程思想重点笔记</a><span>2015-09-21</span><label><i>阅读</i><b>70</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/47999609" id="foot_aritcle_47999609undefined675439639350083" target="_blank" title="NOI系列赛中 C++容器使用总结">NOI系列赛中 C++容器使用总结</a><span>2015-08-26</span><label><i>阅读</i><b>111</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/45846647" id="foot_aritcle_45846647undefined9800946646819038" target="_blank" title="const char*, char const*, char*const使用时的区别">const char*, char const*, char*const使用时的区别</a><span>2015-05-19</span><label><i>阅读</i><b>429</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/45507253" id="foot_aritcle_45507253undefined4272828255427512" target="_blank" title="【C/C++】点滴基础知识（EOF，sscanf）">【C/C++】点滴基础知识（EOF，sscanf）</a><span>2015-05-05</span><label><i>阅读</i><b>265</b></label></li> </ul>
+
+                        <ul class="similar_list fr"><li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/51169792" id="foot_aritcle_51169792undefined6026090802924957" target="_blank" title="C++基础和STL，Effective C++笔记">C++基础和STL，Effective C++笔记</a><span>2016-04-16</span><label><i>阅读</i><b>2831</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/50318347" id="foot_aritcle_50318347undefined3986436748467952" target="_blank" title="探究 Windows 下编译的栈空间 以及 DEV C++工具栈空间的调整(设置)">探究 Windows 下编译的栈空间 以及 DEV C++工具栈空间的调整(设置)</a><span>2015-12-15</span><label><i>阅读</i><b>98</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/48625915" id="foot_aritcle_48625915undefined5448447616440655" target="_blank" title="C++ Primer Plus第6版重点笔记">C++ Primer Plus第6版重点笔记</a><span>2015-09-21</span><label><i>阅读</i><b>168</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/46049239" id="foot_aritcle_46049239undefined009014921153095212" target="_blank" title="图算法 单源最短路径 Dijkstra算法（邻接表/邻接矩阵+优先队列STL)">图算法 单源最短路径 Dijkstra算法（邻接表/邻接矩阵+优先队列STL)</a><span>2015-05-27</span><label><i>阅读</i><b>178</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tham_/article/details/45771049" id="foot_aritcle_45771049undefined3391772586646371" target="_blank" title="C/C++中的getline函数总结">C/C++中的getline函数总结</a><span>2015-05-16</span><label><i>阅读</i><b>282</b></label></li> </ul>
+                    <a href="http://blog.csdn.net/tham_/article/category/2797861" class="MoreArticle">更多文章</a></div>
+                </div>
+            </div>    
+    <script type="text/javascript">
+        $(function () {
+            GetCategoryArticles('2797861', 'tham_','foot','45370607');
+        });
+    </script>
+      
+</div>
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/tham_/svc/GetSuggestContent/45370607",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/replace.css">
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: none;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "45370607",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    <div class="tracking-ad" data-mod="popu_84"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/512" title="iOS8-Swift开发教程" strategy="v3:content" target="_blank">iOS8-Swift开发教程</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/336" title="HTML 5移动开发从入门到精通" strategy="v3:content" target="_blank">HTML 5移动开发从入门到精通</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/885" title="最适合自学的C++基础视频" strategy="v3:content" target="_blank">最适合自学的C++基础视频</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1961" title="iOS移动开发从入门到精通(Xcode7 &amp; Swift2)" strategy="v3:content" target="_blank">iOS移动开发从入门到精通(Xcode7 &amp; Swift2)</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/395" title="零基础学Java系列从入门到精通" strategy="v3:hot" target="_blank">零基础学Java系列从入门到精通</a></dd></div></div>  
+
+    
+     <div id="res" data-mod="popu_36" class="tracking-ad" style="width: 42%; float: left; margin-right: 30px; display: block;"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/CG_Lueng/article/details/50948403" title="结构体变量及成员作为函数参数" strategy="SearchAlgorithm" target="_blank">结构体变量及成员作为函数参数</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u011392772/article/details/42680015" title="C语言结构体指针变量作函数参数" strategy="SearchAlgorithm" target="_blank">C语言结构体指针变量作函数参数</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u011392772/article/details/42680055" title="C语言结构体指针变量作函数参数" strategy="SearchAlgorithm" target="_blank">C语言结构体指针变量作函数参数</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u010345869/article/details/23664445" title="结构体变量作函数参数" strategy="SearchAlgorithm" target="_blank">结构体变量作函数参数</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/wangxiaokunNO1/article/details/45486393" title="结构体类型数据作为函数参数三种方法" strategy="SearchAlgorithm" target="_blank">结构体类型数据作为函数参数三种方法</a></dd></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = '(struct)结构体变量作为函数参数调用的方法小结' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_71" data-mtp="36" data-order="40" data-con="ad_content_216" style="width: 728px; height: 90px;"><!-- 广告占位容器 --><div id="cpro_u1607657"><iframe id="iframeu1607657_0" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/acwm.html" width="728" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] ||{})['u1607657']={at:'3',rsi0:'728',rsi1:'90',pat:'6',tn:'baiduCustNativeAD',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'',rss2:'#000000',titSU:'0',ptbg:'90',piw:'0',pih:'0',ptp:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u1607657'});  </script>  <script src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/c.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_5036031"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/txl16211" target="_blank">Tank_long</a> <span class="ptime">2015-05-09 20:41发表</span>  <a href="http://blog.csdn.net/tham_/article/details/45370607#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="5036031" username="txl16211"> <a href="http://blog.csdn.net/tham_/article/details/45370607#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/tham_/article/details/45370607#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/txl16211" target="_blank"><img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/3_txl16211.jpg" width="40" height="40"></a></dd><dd class="comment_body">写的非常详细，受教了。博主是一个很有耐心的人。</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Ftham_%2Farticle%2Fdetails%2F45370607">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '45370607';
+    var commentscount = 1;
+    var islock = false
+</script>
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script language="javascript" type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/tham_/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/tham_" target="_blank">
+    <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/1_tham_.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/tham_" class="user_name" target="_blank">tham_</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=tham_&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="2">
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>52634次</span></li>
+    <li>积分：<span>1445</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/blog4.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：1445 </div>
+        </span>  </li>
+    <li>排名：<span>第18880名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>93篇</span></li>
+    <li>转载：<span>15篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>12条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2752773" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Career</a><span>(20)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2757253" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Network</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2765259" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Linux/Unix</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2767389" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Computer Skill</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2773427" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Web develop</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/6187493" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">PHP Web</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2776623" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">compter  operation</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/6187514" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Database</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2787237" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Life</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2797861" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">C/C++</a><span>(23)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/2828281" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Algorithm</a><span>(27)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/3062933" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Data_Structure</a><span>(20)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tham_/article/category/3108955" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Book</a><span>(8)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/tham_/article/month/2016/04">2016年04月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2016/03">2016年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/12">2015年12月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/10">2015年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/09">2015年09月</a><span>(9)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/tham_/article/month/2015/08">2015年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/05">2015年05月</a><span>(24)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/04">2015年04月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/03">2015年03月</a><span>(21)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2015/01">2015年01月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/tham_/article/month/2014/12">2014年12月</a><span>(19)</span></li></span><div id="archive_list_button" class="list_closed" style="display: none;">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41868831" title="CentOS 7 需要安装的常用工具，及centos安装fcitx  搜狗输入法的坑旅">CentOS 7 需要安装的常用工具，及centos安装fcitx  搜狗输入法的坑旅</a><span>(3117)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/51169773" title="Linux 常用命令sed/awk/grep及正则表达式">Linux 常用命令sed/awk/grep及正则表达式</a><span>(2843)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/51169792" title="C++基础和STL，Effective C++笔记">C++基础和STL，Effective C++笔记</a><span>(2831)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/45973787" title="搭建nginx反向代理用做内网域名转发">搭建nginx反向代理用做内网域名转发</a><span>(2635)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41828937" title="善于使用搜索引擎、百度网盘、华为网盘、新浪微盘找资源的方法总结">善于使用搜索引擎、百度网盘、华为网盘、新浪微盘找资源的方法总结</a><span>(2412)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/51178315" title="带权最短路 Dijkstra, SPFA, Bellman-Ford, ASP, Floyd-Warshall 算法分析">带权最短路 Dijkstra, SPFA, Bellman-Ford, ASP, Floyd-Warshall 算法分析</a><span>(2078)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/51178470" title="二分图的最大匹配、完美匹配和匈牙利算法">二分图的最大匹配、完美匹配和匈牙利算法</a><span>(2062)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41949815" title="建站知识：域名/ 空间/ IP/ 端口之间的关系">建站知识：域名/ 空间/ IP/ 端口之间的关系</a><span>(1665)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/51169644" title="版本控制——Git 使用笔记，以及Windows搭建Git服务器">版本控制——Git 使用笔记，以及Windows搭建Git服务器</a><span>(1509)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/46003897" title="Sublime Text 使用指南">Sublime Text 使用指南</a><span>(1477)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/46003897" title="Sublime Text 使用指南">Sublime Text 使用指南</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/42504901" title="初学者PHPer的建议，（接触php两年了，一直没什么成长）">初学者PHPer的建议，（接触php两年了，一直没什么成长）</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/42060511" title="网关，路由，局域网内的通信及不同的网络间通信实现的原理剖析">网关，路由，局域网内的通信及不同的网络间通信实现的原理剖析</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/44906571" title="C++ 对象和实例的区别，以及用new和不用new创建类对象区别">C++ 对象和实例的区别，以及用new和不用new创建类对象区别</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/45370607" title="(struct)结构体变量作为函数参数调用的方法小结">(struct)结构体变量作为函数参数调用的方法小结</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41868831" title="CentOS 7 需要安装的常用工具，及centos安装fcitx  搜狗输入法的坑旅">CentOS 7 需要安装的常用工具，及centos安装fcitx  搜狗输入法的坑旅</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41896315" title="LNMP 配置漏洞系列解读">LNMP 配置漏洞系列解读</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41828937" title="善于使用搜索引擎、百度网盘、华为网盘、新浪微盘找资源的方法总结">善于使用搜索引擎、百度网盘、华为网盘、新浪微盘找资源的方法总结</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/51201249" title="transform函数转换字符串string的大小写">transform函数转换字符串string的大小写</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tham_/article/details/41809101" title="程序员技术练级攻略（技术升级之路）">程序员技术练级攻略（技术升级之路）</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/evan_man/article/details/51328628" target="_blank">*EventBus的使用与深入学习</a></li>
+<li><a href="http://blog.csdn.net/xuehuayous/article/details/51324656" target="_blank">*Android 拍照、选择图片并裁剪</a></li>
+<li><a href="http://blog.csdn.net/lw_ghy/article/details/51420027" target="_blank">*spark性能调优：开发调优</a></li>
+<li><a href="http://blog.csdn.net/u013064109/article/details/51416389" target="_blank">*浅谈android中图片处理之色彩特效处理ColorMatrix(三)</a></li>
+<li><a href="http://blog.csdn.net/gj19890923/article/details/51333899" target="_blank">*neutron-server的启动流程(一)</a></li>
+<li><a href="http://blog.csdn.net/u010143774/article/details/51460947" target="_blank">*Hadoop中Map端shuffle源码解析</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/42060511#comments">网关，路由，局域网内的通信及不同的网络间通信实现的原理剖析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/aiq540435204" class="user_name">aiq540435204</a>:
+厉害！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/42504901#comments">初学者PHPer的建议，（接触php两年了，一直没什么成长）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/penbox2" class="user_name">penbox2</a>:
+晕，漏了一个“没”
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/42504901#comments">初学者PHPer的建议，（接触php两年了，一直没什么成长）</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/penbox2" class="user_name">penbox2</a>:
+对于初学者来说是很好的文章啊，竟然评论。在此谢过啦~
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/41868831#comments">CentOS 7 需要安装的常用工具，及centos安装fcitx  搜狗输入法的坑旅</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/fenghou1st" class="user_name">饶鹏</a>:
+多谢踩坑啊！我也在苦恼用什么输入法呢。还有最大化时隐藏标题栏，这个虽说没有写方法，但确实让我眼前一亮...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/46003897#comments">Sublime Text 使用指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/nnh186" class="user_name">nnh186</a>:
+请问一下楼主的BracketHighLighter是怎么配置的呀
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/46003897#comments">Sublime Text 使用指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u010028869" class="user_name">牛迁迁</a>:
+楼主总结的很详细，学习了 。欢迎关注，互相交流：http://blog.csdn.net/u0100...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/46003897#comments">Sublime Text 使用指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ixshells" class="user_name">ixshells</a>:
+挺不错
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/46003897#comments">Sublime Text 使用指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/huangxiongbiao" class="user_name">AngryBill</a>:
+很全面
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/46003897#comments">Sublime Text 使用指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/maoruibin9035" class="user_name">M-咕咚</a>:
+好文 ，顶！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/tham_/article/details/46003897#comments">Sublime Text 使用指南</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/yirancpp" class="user_name">源码剖析之COCOS2D-X</a>:
+为什么不是VIM呢
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/JavaScript1.js"></script><link rel="stylesheet" type="text/css" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2355263776&amp;site=qq&amp;menu=yes" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏乐知网络技术有限公司 提供商务支持</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/notify.js"></script>
+
+    <script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div><input type="hidden" id="aa_g_data_ids">
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+   
+    <link href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/wmd.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/showdown.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/prettify.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ask_float_block.js"></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   <div><iframe src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/skip.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></div></div>
+
+
+   
+ <div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="tracking-ad" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:378px"></a><a id="com-d-top-a" style="top: 416px; display: block;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/tham_/article/details/45370607#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/tham_/article/details/45370607#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/tham_/article/details/45370607#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./(struct)结构体变量作为函数参数调用的方法小结 - Tham 在思索中前行！ - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/tham_/article/details/45370607#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/tham_/article/details/45370607#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div></body></html>

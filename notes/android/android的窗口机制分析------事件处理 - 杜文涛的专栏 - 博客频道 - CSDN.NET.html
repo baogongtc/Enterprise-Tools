@@ -1,0 +1,1349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0054)http://blog.csdn.net/windskier/article/details/6966264 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ca-pub-8990951720398508.js"></script><script type="text/javascript" async="" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/scqm"></script>   
+   
+
+    <script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script><script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/repoAddr2.js"></script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/windskier/article/details/6966264#">
+
+    <title>android的窗口机制分析------事件处理 - 杜文涛的专栏
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="HttpClient 是 Apache Jakarta Common 下的子项目，可以用来提供高效的、最新的、功能丰富的支持 HTTP 协议的客户端编程工具包，并且它支持 HTTP 协议最新的版本和建议（CV大法来自于HttpClient百度百科，-  -），httpclient的jar包可去apache官网或者csdn或者iask下载(个人感觉iask还是不错的，至少好多资源免积分，而且里面还有">
+    <script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/jquery-version.js"></script>
+    <script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/tracking(1).js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/windskier/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/share.js"></script><link rel="stylesheet" type="text/css" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/job_reco.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><script type="text/javascript" charset="utf-8" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/main.js"></script><link rel="stylesheet" type="text/css" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/get_ads.php" type="text/javascript"></script><script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/logger.js"></script><link href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><iframe frameborder="0" style="display: none;" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe>
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-0"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/windskier">杜文涛的专栏</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/windskier?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/windskier?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/windskier/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "windskier";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/windskier";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/130" target="_blank">
+<font color="red">【免费公开课】Gulp前端自动化教程
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://ask.csdn.net/subjects/7" target="_blank">
+<font color="blue">【专家问答】陈绍英：大型IT系统性能测试实战</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/51423859" target="_blank">
+<font color="red">【博客活动】有奖征文--走进VR开发世界</font></a>
+&nbsp;&nbsp;&nbsp;
+
+
+
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_72" data-mtp="40" data-order="40" data-con="ad_content_217" style="width: 1px; height: 1px; position: fixed; right: 10px; bottom: 10px; z-index: 999; background-color: transparent;"><div id="location_parent"></div><script>document.getElementById('location_parent').parentNode.style.height='1px';document.getElementById('location_parent').parentNode.style.width='1px';document.getElementById('location_parent').parentNode.style.position='fixed';document.getElementById('location_parent').parentNode.style.right='10px';document.getElementById('location_parent').parentNode.style.bottom='10px';document.getElementById('location_parent').parentNode.style.zIndex=999;document.getElementById('location_parent').parentNode.style.backgroundColor='transparent';</script><!-- 广告占位容器 --><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] || {})['u2392861']={at:'3',rsi0:'300',rsi1:'250',pat:'17',tn:'baiduCustNativeAD_xuanfu',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'14',rss2:'#000000',titSU:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u2392861'});  </script>  <script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/f.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->
+
+  
+<link href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/main(1).js"></script>
+<link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/markdown_views.css">
+<link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/category.css">
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/MathJax.js"></script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/replace.min.js"></script>
+
+<link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/blog_code.css">
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/saveToCode.js"></script>
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/windskier/article/details/6966264">
+        android的窗口机制分析------事件处理            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/android" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">android</a><a href="http://www.csdn.net/tag/application" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">application</a><a href="http://www.csdn.net/tag/linux%e5%86%85%e6%a0%b8" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">linux内核</a><a href="http://www.csdn.net/tag/input" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">input</a><a href="http://www.csdn.net/tag/action" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">action</a><a href="http://www.csdn.net/tag/system" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">system</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2011-11-20 15:23</span>
+            <span class="link_view" title="阅读次数">18922人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/windskier/article/details/6966264#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(16)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;android的窗口机制分析------事件处理&#39;,&#39;6966264&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" onclick="javascript:report(6966264,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var lib = eval("("+$("#lib").attr("value")+")");
+            var html = "";
+            if (lib.err == 0) {
+                $.each(lib.data, function (i) {
+                    var obj = lib.data[i];
+                    //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                    html += ' <a href="' + obj.url + '" target="_blank">';
+                    html += ' <img src="' + obj.logo + '">';
+                    html += ' <em><b>' + obj.name + '</b></em>';
+                    html += ' </a>';
+                });
+                if (html != "") {
+                    setTimeout(function () {
+                        $("#lib").html(html);
+                        /*
+                        var testhtml = "";
+                        testhtml += '<a href="#">';
+                        testhtml += '<img src="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg">';
+                        testhtml += '<em>Android知识库</em>';
+                        testhtml += '</a>';
+                        $(".embody_c").html(testhtml);
+                        */
+                        $("#embody").show();
+                    }, 100);
+                }
+            }          
+            
+        });
+    </script>
+    <script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/category.js"></script>  
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/windskier/article/details/6966264#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t0">事件处理系统的初始化过程</a></li><ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t1">&nbsp; &nbsp; 11 创建管道连接</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t2">&nbsp; &nbsp; 12&nbsp;InputChannel的注册过程</a></li><ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t3">&nbsp; &nbsp; 121 注册到NativeInputQueue</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t4">&nbsp; &nbsp; 122 注册到InputManager</a></li><ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t5">&nbsp; &nbsp; A&nbsp;InputReader</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t6">&nbsp; &nbsp; B&nbsp;InputDispatcher</a></li></ol></ol></ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t7">事件传递</a></li><ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t8">&nbsp; &nbsp; 21&nbsp;InputReaderThread线程操作</a></li><ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t9">&nbsp; &nbsp; 211&nbsp;notifySwitch</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t10">&nbsp; &nbsp; 212&nbsp;notifyKey</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t11">&nbsp; &nbsp; 213&nbsp;notifyMotion</a></li></ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t12">&nbsp; &nbsp; 22 InputDispatcherThread线程操作</a></li><ol><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t13">&nbsp; &nbsp; 221&nbsp;InputDispatcherThread基本流程</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t14">
+</a></li><li><a href="http://blog.csdn.net/windskier/article/details/6966264#t15">&nbsp; &nbsp; 223 丢弃事件</a></li></ol></ol></ol></div><div style="clear:both"></div><div id="article_content" class="article_content">
+
+<p>&nbsp; &nbsp; 由于<a href="http://lib.csdn.net/base/15" class="replace_word" title="Android知识库" target="_blank" style="color:#df3434; font-weight:bold;">Android</a>是linux内核的，所以它的事件处理也在linux的基础上完成的，因此本文我们从linux 内核往应用这个方向慢慢理清它的处理过程。</p>
+<p>&nbsp; &nbsp; linux内核提供了一个Input子系统来实现的，Input子系统会在/dev/input/路径下创建我们硬件输入设备的节点，一般情况下在我们的手机中这些节点是以eventXX来命名的，如event0，event1等等，但是如果是虚拟机的话，我们可以看到一个mice，这个mice代表鼠标设备，这是由于PC需要使用鼠标来模拟触屏。由于这些设备节点是硬件相关的，所以每款设备都是不尽相同的。看到了这些输入的设备节点，我们可能比较困惑这些eventXX到底代表什么含义呢，也就是说到底是什么样的设备创建了这个节点呢？我们可以从/proc/bus/input/devices中读出eventXX相关的硬件设备，这里具体的就不多说了，我们只需要知道android读取事件信息就是从/dev/input/目录下的设备节点中读取出来的，算是android事件处理的起源吧，可以让大家知道按键、触屏等事件是从哪里来的，不是我们的重点。</p>
+<p>&nbsp; &nbsp; 首先，简而言之的介绍一下android事件传递的流程，按键，触屏等事件是经由WindowManagerService获取，并通过共享内存和管道的方式传递给ViewRoot，ViewRoot再dispatch给Application的View。当有事件从硬件设备输入时，system_server端在检测到事件发生时，通过管道(pipe)通知ViewRoot事件发生，此时ViewRoot再去的内存中读取这个事件信息。</p>
+<p>&nbsp; &nbsp; 至于android在事件处理上为什么使用共享内存而不是直接使用Binder机制，我的猜测应该是google为了保证事件响应的实时性，因此在选择进程间传递事件的方式中，选择了高的共享内存的方式，由于共享内存在数据管理过程中基本不涉及到内存的数据拷贝，只是在进程读写时涉及到2次数据拷贝，这个是不可避免的数据拷贝，因此这种方式能够很好的保证系统对事件的响应，但是仅仅是共享内存是不够的，因为共享内存的通信方式并不能够通知对方有数据更新，因此android在事件处理过程中加入了另一种进程间通信方式管道(pipe)，管道的效率不如共享内存高，会不会影响事件处理的实时性？没关系，每次system_serve通知ViewRoot只是向其传递一个字符，即轻巧有简单，一个字符的多次数据拷贝，我想google还是能够接受的。</p>
+<p>&nbsp; &nbsp; 好的，了解了一些基本知识后，我们从底层往上层来分析事件的传递过程，这里为了下文便于理解，首先列出整个事件处理的结构图。</p>
+<p>&nbsp; &nbsp;&nbsp;<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/0_1321764347oyXX.gif" alt=""></p>
+<h1><a name="t0"></a>1. 事件处理系统的初始化过程</h1>
+<p>&nbsp; &nbsp; 前文讲到android的事件处理系统，这里称为事件传递系统更贴切一些，因为android事件系统中比较复杂就是其传递过程，下面我们就以事件传递系统来代替事件处理系统。android事件传递系统是以共享内存和管道的进程间通信方式来实现传递的，为了便于理解它的传递机制，事件传递系统的初始化工作的理解则会显得非常的重要。</p>
+<h2><a name="t1"></a>&nbsp; &nbsp; 1.1 创建管道连接</h2>
+<p>&nbsp; &nbsp; 事件传递系统中的管道的主要作用是在有事件被存储到共享内存中时，system_server端通知ViewRoot去读取事件的通信机制。既然是ViewRoot和system_server之间建立管道通信，那么ViewRoot和WindowManagerService(负责事件传递，运行在system_server进程中)各需维护管道的一个文件描述符，其实ViewRoot和WindowManagerService不是各维护了一个管道的文件描述符，而是两个，当然了这两个描述符不属于同一管道，实际上也就是ViewRoot和WindowManagerService之间实现了全双工的管道通信。</p>
+<p>&nbsp; &nbsp;&nbsp;WindowManagerService---&gt;ViewRoot方向的管道通信，表示WMS通知ViewRoot有新事件被写入到共享内存；</p>
+<p>&nbsp; &nbsp;&nbsp;ViewRoot--&gt;WindowManagerService方向的管道通信，表示ViewRoot已经消化完共享内存中的新事件，特此通知WMS。</p>
+<p>&nbsp; &nbsp;&nbsp;ViewRoot和WindowManagerService的管道的文件描述符都是被存储在一个名为InputChannel的类中，这个InputChannel类是管道通信的载体。</p>
+<p>&nbsp; &nbsp; 首先来看ViewRoot端的管道的建立。</p>
+<p>&nbsp; &nbsp; setView()@ViewRoot.<a href="http://lib.csdn.net/base/17" class="replace_word" title="Java EE知识库" target="_blank" style="color:#df3434; font-weight:bold;">Java</a></p>
+<p></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 435px; top: 2284px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>requestLayout();&nbsp;&nbsp;</span></span></li><li class=""><span>mInputChannel&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;InputChannel();&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;res&nbsp;=&nbsp;sWindowSession.add(mWindow,&nbsp;mWindowAttributes,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getHostVisibility(),&nbsp;mAttachInfo.mContentInsets,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mInputChannel);&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;<span class="keyword">catch</span><span>&nbsp;(RemoteException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" style="display: none;">                requestLayout();
+                mInputChannel = new InputChannel();
+                try {
+                    res = sWindowSession.add(mWindow, mWindowAttributes,
+                            getHostVisibility(), mAttachInfo.mContentInsets,
+                            mInputChannel);
+                } catch (RemoteException e) {</pre>
+<p>&nbsp; &nbsp;&nbsp;在ViewRoot和WMS(WindowManagerService)建立起连接之前首先会创建一个InputChannel对象,同样的WMS端也会创建一个InputChannel对象，不过WMS的创建过程是在ViewRoot调用add()方法时调用的。InputChannel的构造不做任何操作，所以在ViewRoot中创建InputChannel时尚未初始化，它的初始化过程是在调用WMS方法add()时进行的，看到上面代码中将mInputChannel作为参数传递给WMS，目的就是为了初始化。下面转到WMS代码看看InputChannel的初始化过程。<span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)"><span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)"><span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)"><span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)"></span></span></span></span></p>
+<p>&nbsp; &nbsp;&nbsp;addWindow()@WindowManagerService.java</p>
+<p></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 435px; top: 2641px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">if</span><span>&nbsp;(outInputChannel&nbsp;!=&nbsp;</span><span class="keyword">null</span><span>)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;name&nbsp;=&nbsp;win.makeInputChannelName();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;InputChannel[]&nbsp;inputChannels&nbsp;=&nbsp;InputChannel.openInputChannelPair(name);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;win.mInputChannel&nbsp;=&nbsp;inputChannels[<span class="number">0</span><span>];&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;inputChannels[<span class="number">1</span><span>].transferToBinderOutParameter(outInputChannel);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;mInputManager.registerInputChannel(win.mInputChannel);&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" style="display: none;">            if (outInputChannel != null) {
+                String name = win.makeInputChannelName();
+                InputChannel[] inputChannels = InputChannel.openInputChannelPair(name);
+                win.mInputChannel = inputChannels[0];
+                inputChannels[1].transferToBinderOutParameter(outInputChannel);
+                
+                mInputManager.registerInputChannel(win.mInputChannel);
+            }</pre>
+<p>&nbsp; &nbsp;&nbsp;outInputChannel为ViewRoot传递来的InputChannel对象，上述代码主要的工作其实就是创建一对InputChannel，这一对InputChannel中实现了一组全双工管道。 在创建InputChannel对的同时，会申请共享内存，并向2个InputChannel对象中各自保存一个共享内存的文件描述符。InputChannel创建完成后，会将其中一个的native InputChannel 赋值给outInputChannel，也就是对ViewRoot端InputChannel对象的初始化，这样随着ViewRoot和WMS两端的InputChannel对象的创建，事件传输系统的管道通信也就建立了起来。<span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)"></span></p>
+<p>&nbsp; &nbsp; 创建InputChannel pair的过程以及管道建立，共享内存申请的过程就不再列出它的代码了，请参考openInputChannelPair()@InputTransport.cpp。下图为ViewRoot和WMS两端创建InputChannel pair之后的结构。</p>
+<p>&nbsp; &nbsp;&nbsp;<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/0_132176355880gR.gif" alt=""></p>
+<p>&nbsp; &nbsp;&nbsp;</p>
+<h2><a name="t2"></a>&nbsp; &nbsp; 1.2&nbsp;InputChannel的注册过程</h2>
+<p>&nbsp; &nbsp; 上一节介绍了InputChannel对象的创建过程，这个过程将管道通信建立了起来，但是我们需要清楚的一点是，一个管道通信只是对应一个Activity的事件处理，也就是当前系统中有多少个Activity就会有多少个全双工管道，那么系统需要一个管理者来管理以及调度每一个管道通信，因此我们在创建完InputChannel对象后，需要将其注册到这个管理者中去。</p>
+<p>&nbsp; &nbsp; 明白了InputChannel对象需要注册的原因之后，我们再看ViewRoot和WMS端的InputChannel对象各自需要注册到哪里？其实也很好理解，两个InputChannel对象WMS端的是管道通信的sender, ViewRoot端的是Receiver(尽管创建的全双工，但是目前只使用到了它的一向的通信，另一方向的通信尚未使用)，那么着两个InputChannel对象肯定需要被两个不同的管理者来管理。ViewRoot端的一般情况下会注册到一个NativeInputQueue对象中(这是一个Native的对象，而JAVA端的InputQueue类仅仅是提供了一些static方法与NativeInputQueue通信)，只要当用到NativeActivity时，会是另外一种处理机制，这里我们不管它，NativeActivity毕竟很少用到；WMS端注册在InputManager对象中。其实从NativeInputQueue和InputManager的名字中也就能知道各自的功能了。</p>
+<h3><a name="t3"></a>&nbsp; &nbsp; 1.2.1 注册到NativeInputQueue</h3>
+<p>&nbsp; &nbsp; ViewRoot端InputChannel对象在向NativeInputQueue注册时，需要注册3个参数：</p>
+<p>&nbsp; &nbsp; 1. 将InputChannel对象对应的Native InputChannel传递给NativeInputQueue；</p>
+<p>&nbsp; &nbsp; 2. 将ViewRoot的成员变量InputHandler传递给NativeInputQueue，这个InputHandler则是事件的处理函数，传递它的作用主要是明确当前ViewRoot的事件处理函数；</p>
+<p>&nbsp; &nbsp; 3. 还有一个很重要的参数需要传递给NativeInputQueue，那就是当前Application的主进程的MessageQueue。</p>
+<p>&nbsp; &nbsp; 其实，android在实现事件传输时，很大程度上借用了线程Looper和MessageQueue的轮询(poll)机制，通过它的轮询机制来检测管道上是否有消息通知事件发生，借用Looper机制能够很大限度的保证事件能够第一时间被Application知晓， Looper这块会单独分析一下。</p>
+<p>&nbsp; &nbsp; 在注册过程中，android会将InputChannel对象中保存的管道的文件描述符交给MessageQueue的native looper去监听，同时向native looper指示一个回调函数，一旦有事件发生，native looper就会检测到管道上的数据，同时会去调用指示的回调函数。这个回调函数为handleReceiveCallback()@android_view_InputQueue.cpp.</p>
+<p>&nbsp; &nbsp; 当然了，NativeInputQueue对象，整个系统中只有这么一个，它为了负责管理这么多的Application的事件传递，android在NativeInputQueue类中定义了一个子类Connection，每个InputChannel对象在注册时都会创建一个自己的Connection对象。</p>
+<p>&nbsp; &nbsp;&nbsp;<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/0_1321665482ve7V.gif" alt=""><br>
+</p>
+<p>&nbsp; &nbsp; 这一块的代码在registerInputChannel()@android_view_InputQueue.cpp</p>
+<h3><a name="t4"></a>&nbsp; &nbsp; 1.2.2 注册到InputManager</h3>
+<p></p>
+<p>&nbsp; &nbsp; 由于WMS端的对linux Input 系统的检测和ViewRoot对管道接收端的检测机制不同，前面分析过了，ViewRoot端很好的复用了Application 主线程的Looper轮询机制来实现对事件响应的实时性，而WMS尽管也有自己的Looper，WMS却没像ViewRoot一样复用自己的Looper机制，至于原因android的code上没有明确说明，我的猜测应该是WMS是整个系统的，不像ViewRoot一样每个Activity都有一套，为了不影响系统的整体性能，尽量不要去影响WMS。</p>
+<p>&nbsp; &nbsp; 不采用Looper来轮询是否有事件发生，InputManager启动了2个进程来管理事件发生与传递，InputReaderThread和InputDispatcherThread，InputReaderThread进程负责轮询事件发生；&nbsp;InputDispatcherThread负责dispatch事件。为什么需要2个进程来管理，用一个会出现什么问题？很明显，如果用一个话，在轮询input系统event的时间间隔会变长，有可能丢失事件。</p>
+<p>&nbsp; &nbsp; 虽然没有使用Looper来轮询事件的发生，但是InputDispatcher使用了native looper来轮询检查管道通信，这个管道通信表示InputQueue是否消化完成dispatch过去的事件。注意的是这个native looper并不是WMS线程的，而是线程InputDispatcher自定定义的，因此所有的轮询过程，需要InputDispatcher主动去调用，如</p>
+<p>&nbsp; &nbsp;&nbsp;&nbsp;mLooper-&gt;pollOnce(timeoutMillis);或者mLooper-&gt;wake();。而不像NativeInputQueue一样，完全不用操心对looper的操作。</p>
+<p><br>
+</p>
+<p>&nbsp; &nbsp;&nbsp;WMS在初始化时会创建这么一个InputManager实例，当然了，它也是系统唯一的。JAVA层的InputManager实例并没有实现太多的业务，真正实现Input Manager业务是Native的NativeInputManager实例，它在被创建时，建立起了整个WMS端事件传递系统的静态逻辑，如下图：</p>
+<p>&nbsp; &nbsp;&nbsp;<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/0_1321666183odf9.gif" alt=""></p>
+<p>&nbsp; &nbsp;&nbsp;NativeInputManager的整个业务的核心其实是InputReader和InputDispatcher两个模块，下面简单介绍一下这两个模块。</p>
+<h4><a name="t5"></a>&nbsp; &nbsp; A.&nbsp;InputReader</h4>
+<p>&nbsp; &nbsp;&nbsp;InputReader从名称就可以看出主要任务是读事件，基本上它所有的业务都包含在了process()的函数中，</p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 6378px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;InputReader::process(</span><span class="keyword">const</span><span>&nbsp;RawEvent*&nbsp;rawEvent)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">switch</span><span>&nbsp;(rawEvent-&gt;type)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;EventHubInterface::DEVICE_ADDED:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addDevice(rawEvent-&gt;deviceId);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;EventHubInterface::DEVICE_REMOVED:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeDevice(rawEvent-&gt;deviceId);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;EventHubInterface::FINISHED_DEVICE_SCAN:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleConfigurationChanged(rawEvent-&gt;when);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">default</span><span>:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;consumeEvent(rawEvent);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void InputReader::process(const RawEvent* rawEvent) {
+    switch (rawEvent-&gt;type) {
+    case EventHubInterface::DEVICE_ADDED:
+        addDevice(rawEvent-&gt;deviceId);
+        break;
+
+    case EventHubInterface::DEVICE_REMOVED:
+        removeDevice(rawEvent-&gt;deviceId);
+        break;
+
+    case EventHubInterface::FINISHED_DEVICE_SCAN:
+        handleConfigurationChanged(rawEvent-&gt;when);
+        break;
+
+    default:
+        consumeEvent(rawEvent);
+        break;
+    }
+}</pre>
+<p></p>
+<p>&nbsp; &nbsp;process()函数的输入参数时EventHub模块提供的，</p>
+<p>&nbsp; &nbsp; 1.当EventHub尚未打开input系统eventXX设备时，InputReader去向EventHub获取事件时，EventHub会首先去打开所有的设备，并将每个设备信息以RawEvent的形式返给InputReader，也就是process()中处理的EventHubInterface::DEVICE_ADDED类型，该过程会根据每个设备的deviceId去创建InputDevice，并根据设备的classes来创建对应的InputMapper。如上图所示。</p>
+<p>&nbsp; &nbsp; 2.当所有的设备均被打开之后，InputReader去向EventHub获取事件时，EventHub回去轮询event节点，如果有事件，InputReader则会消化该事件consumeEvent(rawEvent);</p>
+<h4><a name="t6"></a>&nbsp; &nbsp; B.&nbsp;InputDispatcher</h4>
+<p></p>
+<p>&nbsp; &nbsp; 数据传输管理的核心业务是在InputDispatcher中完成的，因此最终WMS端InputChannel对象会注册到InputDispatcher中，同样的由于整个系统中InputDispatcher实例只有一个，而WMS端InputChannel对象是和ViewRoot一一对应的，因此InputDispatcher类中也定义了一个内部类Connect来管理各自的InputChannel对象。不同于NativeInputQueue类中的Connect类，InputDispatcher中的Connect类的核心业务是由InputPublisher对象来实现的，该对象负责将发生的事件信息写入到共享内存。<br>
+相关代码在registerInputChannel()@InputDispatcher.cpp</p>
+<h1><a name="t7"></a>2. 事件传递</h1>
+<p>&nbsp; &nbsp; 经过分析事件处理系统的初始化过程之后，我们已经对事件处理系统的整体<a href="http://lib.csdn.net/base/16" class="replace_word" title="大型网站架构知识库" target="_blank" style="color:#df3434; font-weight:bold;">架构</a>有了一定程度的理解，那么下面的事件传递过程就会显得很easy了。</p>
+<h2><a name="t8"></a>&nbsp; &nbsp; 2.1&nbsp;InputReaderThread线程操作</h2>
+<p>&nbsp; &nbsp; &nbsp;当input系统有事件发生时，会被InputReaderThread线程轮询到，InputReader会根据事件的device id来选择的InputDevice，然后再根据事件的类型来选择InputDevice中的InputMapper，InputMapper会将事件信息通知给InputDispatcher；</p>
+<p>&nbsp; &nbsp; 目前adroid在InputReader中实现了5种设备类型的InputMapper，分别为滑盖/翻盖SwitchInputMapper、键盘KeyboardInputMapper、轨迹球TrackballInputMapper、多点触屏MultiTouchInputMapper以及单点触屏SingleTouchInputMapper。</p>
+<p>
+</p><table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p>设备类型</p>
+</td>
+<td valign="top">
+<p>InputManager</p>
+</td>
+<td valign="top">
+<p>EventType</p>
+</td>
+<td valign="top">
+<p>Notify InputDispatcher</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>滑盖/翻盖</p>
+</td>
+<td valign="top">
+<p>SwitchInputMapper</p>
+</td>
+<td valign="top">
+<p>EV_SW</p>
+</td>
+<td valign="top">
+<p>notifySwitch()</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>键盘</p>
+</td>
+<td valign="top">
+<p>KeyboardInputMapper</p>
+</td>
+<td valign="top">
+<p>EV_KEY</p>
+</td>
+<td valign="top">
+<p>notifyKey()</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>轨迹球</p>
+</td>
+<td valign="top">
+<p>TrackballInputMapper</p>
+</td>
+<td valign="top">
+<p>EV_KEY, EV_REL,</p>
+<p>EV_SYN</p>
+</td>
+<td valign="top">
+<p>notifyMotion()</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>单点触屏</p>
+</td>
+<td valign="top">
+<p>SingleTouchInputMapper</p>
+</td>
+<td valign="top">
+<p>EV_KEY, EV_ABS,</p>
+<p>EV_SYN</p>
+</td>
+<td valign="top">
+<p>notifyMotion()</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p>多点触屏</p>
+</td>
+<td valign="top">
+<p>MultiTouchInputMapper</p>
+</td>
+<td valign="top">
+<p>EV_ABS,</p>
+<p>EV_SYN</p>
+</td>
+<td valign="top">
+<p>notifyMotion()</p>
+</td>
+</tr>
+</tbody>
+</table>
+&nbsp; &nbsp; 其中EV_REL为事件相对坐标，EV_ABS为绝对坐标，EV_SYN表示Motion的一系列动作结束。<p></p>
+<p>&nbsp; &nbsp; Notify InputDispatcher表示不同的事件通知InputDispatcher的函数调用，这几个函数虽然是被InputReaderThread调用的，单却是在InputDispatcher定义的。</p>
+<p>&nbsp; &nbsp;&nbsp;<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/0_13216963509Dit.gif" alt=""></p>
+<h3><a name="t9"></a>&nbsp; &nbsp; 2.1.1&nbsp;notifySwitch()</h3>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 8621px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;InputDispatcher::notifySwitch(nsecs_t&nbsp;when,&nbsp;int32_t&nbsp;switchCode,&nbsp;int32_t&nbsp;switchValue,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uint32_t&nbsp;policyFlags)&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#if&nbsp;DEBUG_INBOUND_EVENT_DETAILS</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;LOGD(<span class="string">"notifySwitch&nbsp;-&nbsp;switchCode=%d,&nbsp;switchValue=%d,&nbsp;policyFlags=0x%x"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switchCode,&nbsp;switchValue,&nbsp;policyFlags);&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#endif</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;policyFlags&nbsp;|=&nbsp;POLICY_FLAG_TRUSTED;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;mPolicy-&gt;notifySwitch(when,&nbsp;switchCode,&nbsp;switchValue,&nbsp;policyFlags);&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void InputDispatcher::notifySwitch(nsecs_t when, int32_t switchCode, int32_t switchValue,
+        uint32_t policyFlags) {
+#if DEBUG_INBOUND_EVENT_DETAILS
+    LOGD("notifySwitch - switchCode=%d, switchValue=%d, policyFlags=0x%x",
+            switchCode, switchValue, policyFlags);
+#endif
+
+    policyFlags |= POLICY_FLAG_TRUSTED;
+    mPolicy-&gt;notifySwitch(when, switchCode, switchValue, policyFlags);
+}</pre><br>
+&nbsp; &nbsp; Switch事件的处理是比较简单的，这是一个与Activity无关的事件，因此我们根本不需要将其dispatch到ViewRoot，所以在notifySwitch()方法中直接通知给PhoneWindowManager去处理即可。从上面的类图中我们其实可以发现mPolicy指向的就是NativeInputManager，
+<p></p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 8965px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_5" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=5&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;NativeInputManager::notifySwitch(nsecs_t&nbsp;when,&nbsp;int32_t&nbsp;switchCode,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int32_t&nbsp;switchValue,&nbsp;uint32_t&nbsp;policyFlags)&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#if&nbsp;DEBUG_INPUT_DISPATCHER_POLICY</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;LOGD(<span class="string">"notifySwitch&nbsp;-&nbsp;when=%lld,&nbsp;switchCode=%d,&nbsp;switchValue=%d,&nbsp;policyFlags=0x%x"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when,&nbsp;switchCode,&nbsp;switchValue,&nbsp;policyFlags);&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#endif</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;JNIEnv*&nbsp;env&nbsp;=&nbsp;jniEnv();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">switch</span><span>&nbsp;(switchCode)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;SW_LID:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;env-&gt;CallVoidMethod(mCallbacksObj,&nbsp;gCallbacksClassInfo.notifyLidSwitchChanged,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when,&nbsp;switchValue&nbsp;==&nbsp;0);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;checkAndClearExceptionFromCallback(env,&nbsp;<span class="string">"notifyLidSwitchChanged"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void NativeInputManager::notifySwitch(nsecs_t when, int32_t switchCode,
+        int32_t switchValue, uint32_t policyFlags) {
+#if DEBUG_INPUT_DISPATCHER_POLICY
+    LOGD("notifySwitch - when=%lld, switchCode=%d, switchValue=%d, policyFlags=0x%x",
+            when, switchCode, switchValue, policyFlags);
+#endif
+
+    JNIEnv* env = jniEnv();
+
+    switch (switchCode) {
+    case SW_LID:
+        env-&gt;CallVoidMethod(mCallbacksObj, gCallbacksClassInfo.notifyLidSwitchChanged,
+                when, switchValue == 0);
+        checkAndClearExceptionFromCallback(env, "notifyLidSwitchChanged");
+        break;
+    }
+}</pre>&nbsp; &nbsp;&nbsp;NativeInputManager的notifySwitch()最终会调用到notifySwitch()@PhoneWindowManager.java<br>
+<br>
+<p></p>
+<h3><a name="t10"></a>&nbsp; &nbsp; 2.1.2&nbsp;notifyKey()</h3>
+<div><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 9418px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_6" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_6" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=6&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;InputDispatcher::notifyKey(nsecs_t&nbsp;eventTime,&nbsp;int32_t&nbsp;deviceId,&nbsp;int32_t&nbsp;source,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uint32_t&nbsp;policyFlags,&nbsp;int32_t&nbsp;action,&nbsp;int32_t&nbsp;flags,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int32_t&nbsp;keyCode,&nbsp;int32_t&nbsp;scanCode,&nbsp;int32_t&nbsp;metaState,&nbsp;nsecs_t&nbsp;downTime)&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#if&nbsp;DEBUG_INBOUND_EVENT_DETAILS</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;LOGD(<span class="string">"notifyKey&nbsp;-&nbsp;eventTime=%lld,&nbsp;deviceId=0x%x,&nbsp;source=0x%x,&nbsp;policyFlags=0x%x,&nbsp;action=0x%x,&nbsp;"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"flags=0x%x,&nbsp;keyCode=0x%x,&nbsp;scanCode=0x%x,&nbsp;metaState=0x%x,&nbsp;downTime=%lld"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eventTime,&nbsp;deviceId,&nbsp;source,&nbsp;policyFlags,&nbsp;action,&nbsp;flags,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyCode,&nbsp;scanCode,&nbsp;metaState,&nbsp;downTime);&nbsp;&nbsp;</span></li><li class="alt"><span><span class="preprocessor">#endif</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!&nbsp;validateKeyEvent(action))&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;policyFlags&nbsp;|=&nbsp;POLICY_FLAG_TRUSTED;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;mPolicy-&gt;interceptKeyBeforeQueueing(eventTime,&nbsp;deviceId,&nbsp;action,&nbsp;<span class="comment">/*byref*/</span><span>&nbsp;flags,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyCode,&nbsp;scanCode,&nbsp;<span class="comment">/*byref*/</span><span>&nbsp;policyFlags);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">bool</span><span>&nbsp;needWake;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="comment">//&nbsp;acquire&nbsp;lock</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AutoMutex&nbsp;_l(mLock);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int32_t&nbsp;repeatCount&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyEntry*&nbsp;newEntry&nbsp;=&nbsp;mAllocator.obtainKeyEntry(eventTime,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deviceId,&nbsp;source,&nbsp;policyFlags,&nbsp;action,&nbsp;flags,&nbsp;keyCode,&nbsp;scanCode,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metaState,&nbsp;repeatCount,&nbsp;downTime);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;needWake&nbsp;=&nbsp;enqueueInboundEventLocked(newEntry);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="comment">//&nbsp;release&nbsp;lock</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(needWake)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mLooper-&gt;wake();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">void InputDispatcher::notifyKey(nsecs_t eventTime, int32_t deviceId, int32_t source,
+        uint32_t policyFlags, int32_t action, int32_t flags,
+        int32_t keyCode, int32_t scanCode, int32_t metaState, nsecs_t downTime) {
+#if DEBUG_INBOUND_EVENT_DETAILS
+    LOGD("notifyKey - eventTime=%lld, deviceId=0x%x, source=0x%x, policyFlags=0x%x, action=0x%x, "
+            "flags=0x%x, keyCode=0x%x, scanCode=0x%x, metaState=0x%x, downTime=%lld",
+            eventTime, deviceId, source, policyFlags, action, flags,
+            keyCode, scanCode, metaState, downTime);
+#endif
+    if (! validateKeyEvent(action)) {
+        return;
+    }
+
+    policyFlags |= POLICY_FLAG_TRUSTED;
+    mPolicy-&gt;interceptKeyBeforeQueueing(eventTime, deviceId, action, /*byref*/ flags,
+            keyCode, scanCode, /*byref*/ policyFlags);
+
+    bool needWake;
+    { // acquire lock
+        AutoMutex _l(mLock);
+
+        int32_t repeatCount = 0;
+        KeyEntry* newEntry = mAllocator.obtainKeyEntry(eventTime,
+                deviceId, source, policyFlags, action, flags, keyCode, scanCode,
+                metaState, repeatCount, downTime);
+
+        needWake = enqueueInboundEventLocked(newEntry);
+    } // release lock
+
+    if (needWake) {
+        mLooper-&gt;wake();
+    }
+}</pre>&nbsp; &nbsp; InputDispatcher对KeyBoard事件的处理如上述代码所述，</div>
+<div>&nbsp; &nbsp; 首先，InputDispatcher会截取这个按键事件，根据当前设备的状况来优先消化这个事件，这个过程当然是在将事件dispatch给ViewRoot之前。同样的就像notifySwitch()一样，最终该过程交由interceptKeyBeforeQueueing()@PhoneWindowManager.java来处理。interceptKeyBeforeQueueing()主要是对一些特殊案件的特殊处理，并判断该按键是够应该传递给ViewRoot。通过设置标志位policyFlags的值来判断是否给ViewRoot，例如policyFlags&amp;POLICY_FLAG_PASS_TO_USER
+ == 1 则应该传递给ViewRoot。</div>
+<div>&nbsp; &nbsp;&nbsp;interceptKeyBeforeQueueing()特殊处理主要是针对在锁屏或者屏幕不亮的情况的下收到特殊的键值，如音量键或者wake键。wake键是指能够点亮屏幕的键时的操作。</div>
+<div>&nbsp; &nbsp; 其次，InputDispatcher再将该按键信息存储在一个队列中(<span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)">enqueueInboundEventLocked()@InputDispatcher.cpp<span style="font-family:Arial,Verdana,sans-serif; white-space:normal; background-color:rgb(255,255,255)">)。</span></span></div>
+<div>&nbsp; &nbsp;&nbsp;<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 10353px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_7" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_7" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=7&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>Queue&lt;EventEntry&gt;&nbsp;mInboundQueue;&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="cpp" style="display: none;">    Queue&lt;EventEntry&gt; mInboundQueue;</pre></div>
+<h3><a name="t11"></a>&nbsp; &nbsp; 2.1.3&nbsp;notifyMotion()</h3>
+<div><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 10465px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_8" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_8" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=8&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>mPolicy-&gt;interceptGenericBeforeQueueing(eventTime,&nbsp;</span><span class="comment">/*byref*/</span><span>&nbsp;policyFlags);&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="cpp" style="display: none;">    mPolicy-&gt;interceptGenericBeforeQueueing(eventTime, /*byref*/ policyFlags);</pre>&nbsp; &nbsp; 首先，同样的，InputDispatcher会截取这个motion事件，不同的是motion事件的截取处理NativeInputManager完全有能力处理，所以并没有交给PhoneWindowManager来处理。查看代码interceptGenericBeforeQueueing()@com_android_server_InputManager.cpp.</div>
+<div>&nbsp; &nbsp; 其次，InputDispatcher再将该motion事件信息存储在<span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)">mInboundQueue</span>队列中(<span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)">enqueueInboundEventLocked()@InputDispatcher.cpp<span style="font-family:Arial,Verdana,sans-serif; white-space:normal; background-color:rgb(255,255,255)">)。</span></span><br>
+<br>
+</div>
+<p></p>
+<h2><a name="t12"></a>&nbsp; &nbsp; 2.2 InputDispatcherThread线程操作</h2>
+<p>&nbsp; &nbsp; InputDispatcherThread线程的轮询过程dispatchOnce()--&gt;dispatchOnceInnerLocked()，&nbsp;InputDispatcherThread线程不停的执行该操作，以达到轮询的目的，我们的研究重点也就放在这2个函数处理上。</p>
+<h3><a name="t13"></a>&nbsp; &nbsp; 2.2.1&nbsp;InputDispatcherThread基本流程</h3>
+<p>&nbsp; &nbsp;&nbsp;InputDispatcherThread的主要操作是分两块同时进行的，</p>
+<p>&nbsp; &nbsp; 一部分是对InputReader传递过来的事件进行dispatch前处理，比如确定focus window，特殊按键处理如HOME/ENDCALL等，在预处理完成&nbsp;后，InputDispatcher会将事件存储到对应的focus window的outBoundQueue，这个outBoundQueue队列是InputDispatcher::Connection的成员函数，因此它是和ViewRoot相关的。</p>
+<p>&nbsp; &nbsp; 一部分是对looper的轮询，这个轮询过程是检查NativeInputQueue是否处理完成上一个事件，如果NativeInputQueue处理完成事件，它就会向通过管道向InputDispatcher发送消息指示consume完成，只有NativeInputQueue consume完成一个事件，InputDispatcher才会向共享内存写入另一个事件。</p>
+<p>&nbsp; &nbsp;&nbsp;<img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/0_13217722001era.gif" alt=""></p>
+<h3><a name="t14"></a><br>
+</h3>
+<h3><a name="t15"></a>&nbsp; &nbsp; 2.2.3 丢弃事件</h3>
+<p>&nbsp; &nbsp; 并不是所有的InputReader发送来的事件我们都需要传递给应用，比如上节讲到的翻盖/滑盖事件，除此之外的按键，触屏，轨迹球(后两者统一按motion事件处理)，也会有部分的事件被丢弃，InputDispatcher总会根据一些规则来丢弃掉一部分事件，我们来分析以下哪些情况下我们需要丢弃掉部分事件？</p>
+<p>&nbsp; &nbsp;&nbsp;InputDispatcher.h中定义了一个包含有丢弃原因的枚举：</p><div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 429px; top: 12104px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_9" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_9" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=9&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/windskier/article/details/6966264#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/windskier/article/details/6966264#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">enum</span><span>&nbsp;DropReason&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;DROP_REASON_NOT_DROPPED&nbsp;=&nbsp;0,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;DROP_REASON_POLICY&nbsp;=&nbsp;1,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;DROP_REASON_APP_SWITCH&nbsp;=&nbsp;2,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;DROP_REASON_DISABLED&nbsp;=&nbsp;3,&nbsp;&nbsp;</span></li><li class=""><span>};&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="cpp" style="display: none;">    enum DropReason {
+        DROP_REASON_NOT_DROPPED = 0,
+        DROP_REASON_POLICY = 1,
+        DROP_REASON_APP_SWITCH = 2,
+        DROP_REASON_DISABLED = 3,
+    };</pre>&nbsp; &nbsp; 1.&nbsp;DROP_REASON_NOT_DROPPED<p></p>
+<p>&nbsp; &nbsp; &nbsp;不需要丢弃</p>
+<p>&nbsp; &nbsp; 2.&nbsp;DROP_REASON_POLICY</p>
+<p>&nbsp; &nbsp;设置为DROP_REASON_POLICY主要有两种情形：</p>
+<p>&nbsp; &nbsp; A. 在InputReader notify InputDispatcher之前，Policy会判断不需要传递给应用的事件。如上一节所述。</p>
+<p>&nbsp; &nbsp; B.&nbsp;在InputDispatcher dispatch事件前，PhoneWindowManager使用方法interceptKeyBeforeDispatching()提前consume掉一些按键事件，如上面的流程图所示。</p>
+<p>&nbsp; &nbsp; interceptKeyBeforeDispatching()主要对HOME/MENU/SEARCH按键的特殊处理，如果此时能被consume掉，那么在InputDispatcher 中将被丢弃。</p>
+<p>&nbsp; &nbsp; 3.DROP_REASON_APP_SWITCH</p>
+<p>&nbsp; &nbsp; 当有App switch 按键如HOME/ENDCALL按键发生时，当InputReader向InputDispatcher 传递app switch按键时，会设置一个APP_SWITCH_TIMEOUT&nbsp;0.5S的超时时间，当0.5s超时时，InputDispatcher 尚未dispatch到这个app switch按键时，InputDispatcher 将会丢弃掉mInboundQueue中所有处在app switch按键前的按键事件。这么做的目的是保证app switch按键能够确保被处理。此时被丢弃掉的按键会被置为DROP_REASON_APP_SWITCH。</p>
+<p>&nbsp; &nbsp; 4.&nbsp;DROP_REASON_DISABLED</p>
+<p>&nbsp; &nbsp; 这个标志表示当前的InputDispatcher 被disable掉了，不能dispatch任何事件，比如当系统休眠时或者正在关机时会用到。</p>
+<p><br>
+</p>
+<p><br>
+</p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1465262076925">
+<a href="http://blog.csdn.net/windskier/article/details/6966264#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/windskier/article/details/6966264#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/windskier/article/details/6966264#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/windskier/article/details/6966264#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/windskier/article/details/6966264#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/windskier/article/details/6966264#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/blog_detail.css">
+
+    
+<!--172.16.140.14-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" articleid="6966264">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>32</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/windskier/article/details/6957901&#39;;">上一篇</span><a href="http://blog.csdn.net/windskier/article/details/6957901" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">android的窗口机制分析------ViewRoot类</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/windskier/article/details/6995546&#39;;">下一篇</span><a href="http://blog.csdn.net/windskier/article/details/6995546" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">Native looper 分析</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+      
+</div>
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/windskier/svc/GetSuggestContent/6966264",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/replace.css">
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: block;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c"><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/15"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/1455589744328_328.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/15">Android知识库</a></h4><p><label><span>11873</span><em>关注</em><i>|</i><span>1149</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/16"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/1458091865915_915.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/16">大型网站架构知识库</a></h4><p><label><span>985</span><em>关注</em><i>|</i><span>532</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/17"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/1456818035722_722.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/17">Java EE知识库</a></h4><p><label><span>1055</span><em>关注</em><i>|</i><span>581</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/12"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/1453169124297_297.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/12">Java SE知识库</a></h4><p><label><span>9344</span><em>关注</em><i>|</i><span>454</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/13"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/1453701371636_636.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/13">Java Web知识库</a></h4><p><label><span>9629</span><em>关注</em><i>|</i><span>1017</span><em>收录</em></label></p></dd></dl></div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "6966264",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    <div class="tracking-ad" data-mod="popu_84"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/545" title="Android入门实战教程" strategy="v3:content" target="_blank">Android入门实战教程</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1923" title="Android高手进阶" strategy="v3:content" target="_blank">Android高手进阶</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/337" title="Struts实战-使用SSH框架技术开发学籍管理系统" strategy="v3:content" target="_blank">Struts实战-使用SSH框架技术开发学籍管理系统</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/841" title="Linux高薪入门实战精品 (上)" strategy="v3:content" target="_blank">Linux高薪入门实战精品 (上)</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/391" title="深入浅出MySQL入门必备" strategy="v3:hot" target="_blank">深入浅出MySQL入门必备</a></dd></div></div>  
+
+    
+     <div id="res" data-mod="popu_36" class="tracking-ad" style="width: 42%; float: left; margin-right: 30px; display: block;"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/grovefeitian/article/details/10824189" title="android的窗口机制分析------事件处理" strategy="SearchAlgorithm" target="_blank">android的窗口机制分析------事件处理</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/hongzg1982/article/details/37699893" title="android的窗口机制分析------事件处理" strategy="SearchAlgorithm" target="_blank">android的窗口机制分析------事件处理</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/lyglostangel/article/details/38423527" title="android的窗口机制分析------事件处理" strategy="SearchAlgorithm" target="_blank">android的窗口机制分析------事件处理</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/murongbingxiao/article/details/7291087" title="android的窗口机制分析------事件处理" strategy="SearchAlgorithm" target="_blank">android的窗口机制分析------事件处理</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/yangxi_001/article/details/19620273" title="android的窗口机制分析------事件处理" strategy="SearchAlgorithm" target="_blank">android的窗口机制分析------事件处理</a></dd></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'android的窗口机制分析------事件处理' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_71" data-mtp="43" data-order="114" data-con="ad_content_671" style="width: 728px; height: 90px;"><script src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8990951720398508" data-ad-slot="8267689356/3115746762" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/saved_resource(2).html"></iframe></ins></ins></ins><script>(adsbygoogle=window.adsbygoogle || []).push({});</script></div>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_4604883"><dt class="comment_head" floor="15">15楼 <span class="user"><a class="username" href="http://blog.csdn.net/xin128888" target="_blank">刘无知</a> <span class="ptime">2014-12-12 16:51发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="4604883" username="xin128888"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xin128888" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_xin128888.jpg" width="40" height="40"></a></dd><dd class="comment_body">make 一下，再研习研习。</dd></dl><dl class="comment_item comment_topic" id="comment_item_4468683"><dt class="comment_head" floor="14">14楼 <span class="user"><a class="username" href="http://blog.csdn.net/gnawgnawgnaw" target="_blank">gnawgnawgnaw</a> <span class="ptime">2014-10-31 17:13发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="4468683" username="gnawgnawgnaw"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gnawgnawgnaw" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_gnawgnawgnaw.jpg" width="40" height="40"></a></dd><dd class="comment_body">请问binder是如何实现跨进程初始化的？看代码是对WMS所在的进程的outInputChannel进行了初始化，但是为什么client进程的mInputChannel也得到了初始化，实在是很不理解，跨进程不是在新的进程重新创建了一个InputChannel的实例么，怎么能影响到原来进程的实例。求指教，谢谢~~</dd></dl><dl class="comment_item comment_topic" id="comment_item_3266179"><dt class="comment_head" floor="13">13楼 <span class="user"><a class="username" href="http://blog.csdn.net/linghu_java" target="_blank">linghu_java</a> <span class="ptime">2013-12-09 17:13发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3266179" username="linghu_java"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/linghu_java" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_linghu_java.jpg" width="40" height="40"></a></dd><dd class="comment_body">写的确实不错！赞！！！</dd></dl><dl class="comment_item comment_topic" id="comment_item_2460184"><dt class="comment_head" floor="12">12楼 <span class="user"><a class="username" href="http://blog.csdn.net/zhangfu328" target="_blank">迷失华尔街</a> <span class="ptime">2012-12-07 20:33发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2460184" username="zhangfu328"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/zhangfu328" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_zhangfu328.jpg" width="40" height="40"></a></dd><dd class="comment_body">我还是不太明白,假如有两个屏幕,在哪里可以区分输入消息到底派发给哪个屏幕?</dd></dl><dl class="comment_item comment_topic" id="comment_item_2405087"><dt class="comment_head" floor="11">11楼 <span class="user"><a class="username" href="http://blog.csdn.net/ylyuanlu" target="_blank">ylyuanlu</a> <span class="ptime">2012-10-18 16:30发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2405087" username="ylyuanlu"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/ylyuanlu" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_ylyuanlu.jpg" width="40" height="40"></a></dd><dd class="comment_body">very good</dd></dl><dl class="comment_item comment_topic" id="comment_item_2226034"><dt class="comment_head" floor="10">10楼 <span class="user"><a class="username" href="http://blog.csdn.net/gemmem" target="_blank">余龙飞</a> <span class="ptime">2012-05-19 18:42发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2226034" username="gemmem"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gemmem" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_gemmem.jpg" width="40" height="40"></a></dd><dd class="comment_body">Switch事件的处理是比较简单的，这是一个与Activity无关的事件，因此我们根本不需要将其dispatch到ViewRoot，所以在notifySwitch()方法中直接通知给PhoneWindowManager去处理即可。从上面的类图中我们其实可以发现mPolicy指向的就是NativeInputManager， <br><br>mPolicy指向的应该是PhoneWindowManager吧？</dd></dl><dl class="comment_item comment_topic" id="comment_item_2226018"><dt class="comment_head" floor="9">9楼 <span class="user"><a class="username" href="http://blog.csdn.net/gemmem" target="_blank">余龙飞</a> <span class="ptime">2012-05-19 18:28发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2226018" username="gemmem"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gemmem" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_gemmem.jpg" width="40" height="40"></a></dd><dd class="comment_body">InputManager启动了2个进程来管理事件发生与传递，InputReaderThread和InputDispatcherThread<br><br><br>这2个是进程？  应该是线程吧？</dd></dl><dl class="comment_item comment_topic" id="comment_item_2226017"><dt class="comment_head" floor="8">8楼 <span class="user"><a class="username" href="http://blog.csdn.net/gemmem" target="_blank">余龙飞</a> <span class="ptime">2012-05-19 18:25发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2226017" username="gemmem"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/gemmem" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_gemmem.jpg" width="40" height="40"></a></dd><dd class="comment_body">牛人啊。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2175227"><dt class="comment_head" floor="7">7楼 <span class="user"><a class="username" href="http://blog.csdn.net/ivsunshine" target="_blank">ivsunshine</a> <span class="ptime">2012-04-09 18:34发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2175227" username="ivsunshine"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/ivsunshine" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_ivsunshine.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主，请问您如何在锁屏条件下监听系统输入呢？比如音量键的输入？谢谢，zhangganhan@126.com</dd></dl><dl class="comment_item comment_topic" id="comment_item_2173715"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/edwar12345r" target="_blank">edwar12345r</a> <span class="ptime">2012-04-08 16:25发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2173715" username="edwar12345r"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/edwar12345r" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_edwar12345r.jpg" width="40" height="40"></a></dd><dd class="comment_body">大哥， 你这个是 android 几的版本啊？<br>为什么我在 android 2.2 里面的 ViewRoot.setView()方法源码里看的没有inputchannel 这一行呢？<br><br> requestLayout();<br> try {<br>res = sWindowSession.add(mWindow, mWindowAttributes,<br>                            getHostVisibility(), mAttachInfo.mContentInsets);<br>                } catch (RemoteException e) {<br>                <br><br>而你的setView()多了inputChannel<br>requestLayout();  <br>mInputChannel = new InputChannel();  <br>try {  <br>    res = sWindowSession.add(mWindow, mWindowAttributes,  <br>            getHostVisibility(), mAttachInfo.mContentInsets,  <br>            mInputChannel);  <br>} catch (RemoteException e) {  <br><br>我的代码是 从网上下的android 2.2 的 sourcecode SDK 源码</dd><dl class="comment_item comment_reply" id="comment_item_2174094"><dt class="comment_head" floor="6">Re: <span class="user"><a class="username" href="http://blog.csdn.net/windskier" target="_blank">windskier</a> <span class="ptime">2012-04-08 22:53发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2174094" username="windskier"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/windskier" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_windskier.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复edwar12345r：这篇文章是2.3的。</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_2059793"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/skyxiexin" target="_blank">xiechaofang</a> <span class="ptime">2011-12-21 15:49发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2059793" username="skyxiexin"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/skyxiexin" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_skyxiexin.jpg" width="40" height="40"></a></dd><dd class="comment_body">很好，分析很详细，有参考价值，值得一读。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2029224"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/wanglei3208" target="_blank">一个人的奋斗</a> <span class="ptime">2011-11-23 16:34发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2029224" username="wanglei3208"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wanglei3208" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_wanglei3208.jpg" width="40" height="40"></a></dd><dd class="comment_body">写得太好了！之前也分析过android2.3的输入子系统，当时只是把底层事件和上层应用挂接起来，不过那时还是有很多疑惑，最近看了楼主的文章，有些之前不怎么明白的现在真是茅塞顿开啊！</dd></dl><dl class="comment_item comment_topic" id="comment_item_2029054"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/t5721654" target="_blank">King_at_csdn</a> <span class="ptime">2011-11-23 14:54发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2029054" username="t5721654"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/t5721654" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_t5721654.jpg" width="40" height="40"></a></dd><dd class="comment_body">谢谢楼主,这篇文章对我非常有帮助.基本上理清了事件传递的流程,不过对学java的我来说要完全理解事件传递详细过程还有很多要学的~</dd></dl><dl class="comment_item comment_topic" id="comment_item_2028907"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/richhy" target="_blank">richhy</a> <span class="ptime">2011-11-23 13:24发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2028907" username="richhy"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/richhy" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_richhy.jpg" width="40" height="40"></a></dd><dd class="comment_body">正在看PhoneWindowManager这段代码，结合此文有助于加深理解。谢谢了。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2028738"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/corehu" target="_blank">corehu</a> <span class="ptime">2011-11-23 11:06发表</span>  <a href="http://blog.csdn.net/windskier/article/details/6966264#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2028738" username="corehu"> <a href="http://blog.csdn.net/windskier/article/details/6966264#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/windskier/article/details/6966264#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/corehu" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/3_corehu.jpg" width="40" height="40"></a></dd><dd class="comment_body">赞一个，写的很好！</dd></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fwindskier%2Farticle%2Fdetails%2F6966264">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '6966264';
+    var commentscount = 16;
+    var islock = false
+</script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script language="javascript" type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/windskier/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/windskier" target="_blank">
+    <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/1_windskier.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/windskier" class="user_name" target="_blank">windskier</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=windskier&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>315734次</span></li>
+    <li>积分：<span>3501</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/blog5.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：3501 </div>
+        </span>  </li>
+    <li>排名：<span>第6114名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>23篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>185条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/windskier/article/month/2012/04">2012年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2012/03">2012年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2012/02">2012年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/12">2011年12月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/11">2011年11月</a><span>(4)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/windskier/article/month/2011/10">2011年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/08">2011年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/07">2011年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/06">2011年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/05">2011年05月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/windskier/article/month/2011/04">2011年04月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed" style="display: none;">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7030732" title="android surfaceflinger研究----显示系统">android surfaceflinger研究----显示系统</a><span>(26196)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7096521" title="android Application Component研究之Activity(一)">android Application Component研究之Activity(一)</a><span>(24251)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6957901" title="android的窗口机制分析------ViewRoot类">android的窗口机制分析------ViewRoot类</a><span>(22665)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7041610" title="android surfaceflinger研究----Surface机制">android surfaceflinger研究----Surface机制</a><span>(22218)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6560925" title="android persistent属性研究">android persistent属性研究</a><span>(21628)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6957854" title="android的窗口机制分析------UI管理系统">android的窗口机制分析------UI管理系统</a><span>(18930)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6966264" title="android的窗口机制分析------事件处理">android的窗口机制分析------事件处理</a><span>(18911)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6416547" title="android的init过程分析">android的init过程分析</a><span>(18476)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6417657" title="System Server 分析">System Server 分析</a><span>(16318)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7251742" title="android Application Component研究之BroadcastReceiver">android Application Component研究之BroadcastReceiver</a><span>(14717)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7060995" title="android surfaceflinger研究----SurfaceFlinger loop">android surfaceflinger研究----SurfaceFlinger loop</a><span>(18)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6966264" title="android的窗口机制分析------事件处理">android的窗口机制分析------事件处理</a><span>(16)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7096521" title="android Application Component研究之Activity(一)">android Application Component研究之Activity(一)</a><span>(14)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6317867" title="Android Binder IPC分析">Android Binder IPC分析</a><span>(13)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7251742" title="android Application Component研究之BroadcastReceiver">android Application Component研究之BroadcastReceiver</a><span>(13)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7041610" title="android surfaceflinger研究----Surface机制">android surfaceflinger研究----Surface机制</a><span>(13)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/7030732" title="android surfaceflinger研究----显示系统">android surfaceflinger研究----显示系统</a><span>(12)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6416547" title="android的init过程分析">android的init过程分析</a><span>(10)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6913698" title="IBinder对象在进程间传递的形式(二)">IBinder对象在进程间传递的形式(二)</a><span>(9)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/windskier/article/details/6957854" title="android的窗口机制分析------UI管理系统">android的窗口机制分析------UI管理系统</a><span>(8)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/lfdfhl/article/details/51559847" target="_blank">*自定义View系列教程06--详解View的Touch事件处理</a></li>
+<li><a href="http://blog.csdn.net/pangpang123654/article/details/51553224" target="_blank">*通过Android源码分析再探观察者模式(二)</a></li>
+<li><a href="http://blog.csdn.net/qianweifeng123/article/details/51555998" target="_blank">*浅析ZeroMQ工作原理及其特点</a></li>
+<li><a href="http://blog.csdn.net/hanhailong726188/article/details/50687466" target="_blank">*Rebound-Android的弹簧动画库</a></li>
+<li><a href="http://blog.csdn.net/huashen1621y/article/details/51594148" target="_blank">*大型网站架构系列：缓存在分布式系统中的应用（二）</a></li>
+<li><a href="http://blog.csdn.net/u010143774/article/details/51460947" target="_blank">*Hadoop中Map端shuffle源码解析</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6957854#comments">android的窗口机制分析------UI管理系统</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/csm_qz" class="user_name">Rander.C</a>:
+写的真好，2011年写的，想知道博主现在在干嘛
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/7096521#comments">android Application Component研究之Activity(一)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/csm_qz" class="user_name">Rander.C</a>:
+看完第一个框架图，我就忍不住回复了，那个图一目了然了，太棒了
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6995546#comments">Native looper 分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/yefengxuelang" class="user_name">夜风雪</a>:
+点个赞，为什么我就不能这么nb呢
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6995546#comments">android Application Component研究之Activity(一)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq1501000255" class="user_name">qq1501000255</a>:
+楼主  真的我爱你啊啊啊啊啊 啊啊啊啊啊啊这一篇真的帮大忙了！！！！可以的话576889091指导一...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6921672#comments">android IPC通信中的UID和PID识别</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wudiisss" class="user_name">wudiisss</a>:
+顶
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6417657#comments">System Server 分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/xingfeng2010" class="user_name">xingfeng2010</a>:
+@songjinshi:博主说的有问题，Runnable 类型，并没有启动新的线程。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6417061#comments">How to start a new process for Android?</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/xingfeng2010" class="user_name">xingfeng2010</a>:
+楼主是真正的高手，不知哪里高就？
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/6678187#comments">android的窗口机制分析---------类图关系</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/szhxc1111" class="user_name">szhxc1111</a>:
+最近在研究android的窗口部分的代码，这个写得不错。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/7172710#comments">android Application Component研究之Activity(二)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/HOLDONX" class="user_name">孤星泪100</a>:
+好贴要顶
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/windskier/article/details/7251742#comments">android Application Component研究之BroadcastReceiver</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u010158115" class="user_name">Mr_叶</a>:
+楼主你好，你在1.3讲的sticky broadcast，AMS并不是返回一个时间较早的sticky...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/JavaScript1.js"></script><link rel="stylesheet" type="text/css" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏乐知网络技术有限公司 提供商务支持</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/saved_resource(3).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/notify.js"></script>
+
+    <script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div><input type="hidden" id="aa_g_data_ids">
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+   
+    <link href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/wmd.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/showdown.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/prettify.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ask_float_block.js"></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+
+   
+ <div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="tracking-ad" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:311px"></a><a id="com-d-top-a" style="top: 349px; display: block;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/windskier/article/details/6966264#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/windskier/article/details/6966264#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/windskier/article/details/6966264#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./android的窗口机制分析------事件处理 - 杜文涛的专栏 - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/windskier/article/details/6966264#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/windskier/article/details/6966264#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div></body></html>

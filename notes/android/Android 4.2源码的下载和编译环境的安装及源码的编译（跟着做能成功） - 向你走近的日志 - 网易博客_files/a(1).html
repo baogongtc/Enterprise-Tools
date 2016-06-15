@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- saved from url=(0184)http://iad.g.163.com/wa/a?affiliate=blog&cat=article&location=2&site=netease&type=logo240x240&url=http%3A%2F%2Fblog.163.com%2Fzhou_411424%2Fblog%2Fstatic%2F1973621562012111782412775%2F -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="shortcut icon" href="http://www.163.com/favicon.ico" type="image/x-icon">
+<title>网易个性化广告投放系统</title>
+<script type="text/javascript" src="./jquery-1.4.2.js"></script>
+<script type="text/javascript">
+    function sendHover(uuid, flight_id, ad_id) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://iad.g.163.com/wa/s',
+            data: {
+                'uuid': uuid,
+                'flight_id': flight_id,
+                'ad_id': ad_id
+            },
+            dataType: 'json',
+            success: function(info) {
+            }
+        });
+    }
+    
+    function sendClick(uuid, flight_id, ad_id) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://iad.g.163.com/wa/c',
+            data: {
+                'uuid': uuid,
+                'flight_id': flight_id,
+                'ad_id': ad_id
+            },
+            dataType: 'json',
+            success: function(info) {
+            }
+        });
+    }
+    
+    var count = 0;
+    $(document).ready(function() {
+        $('body').click(function() {
+            var uuid = $('body').attr('data-uuid');
+            var flight_id = $('body').attr('data-flight_id');
+            var ad_id = $('body').attr('data-ad_id');
+            sendClick(uuid, flight_id, ad_id);
+        });
+        
+        $('body').hover(function() {
+            if(count == 0) {
+                var uuid = $('body').attr('data-uuid');
+                var flight_id = $('body').attr('data-flight_id');
+                var ad_id = $('body').attr('data-ad_id');
+                sendHover(uuid, flight_id, ad_id);
+            }
+            count++;
+        });
+    });
+</script>
+</head>
+<body class="adrec" marginwidth="0" marginheight="0" data-uuid="08b5aec8-26df-4435-8bee-55a457cb1cec" data-flight_id="2471" data-ad_id="213024">
+<a target="_blank" href="http://g.163.com/c?AID=213024&amp;FlightID=2471&amp;Values=2094985684&amp;Redirect=http://www.lofter.com/?act=qb163rk_20141031_12"><img src="./0204lofter-240x240.jpg" border="0" height="240" width="240" alt=""></a>
+
+
+</body></html>

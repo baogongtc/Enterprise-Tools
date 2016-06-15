@@ -1,0 +1,33 @@
+
+<!-- saved from url=(0214)http://ads.csdn.net/skip.php?subject=AmsAKA4xUzdUcAZaVT4ANARtBz9VNwMnBmcHY1B0VmEFcQokW2lUJgU2CVVSOQI2VTwFMVY4UHRUPQVhV2BRYgJbADMOMVNvVDQGN1VvAHYEIAdqVWMDbwZZB3dQdFY5BTIKYFswVHMFJwlzUiACN1U8BXI=&r=0.1672942715401624 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><input type="hidden" value="10" name="ad_href_text_hidden">
+<a target="_blank" name="show_link_text" href="http://letter.csdn.net/edm/show_emd_by_id?edm_id=6114">红帽热门培训课程介绍</a>
+<script type="text/javascript">
+    function get_length(s){
+        var char_length = 0;
+        for (var i = 0; i < s.length; i++){
+            var son_char = s.charAt(i);
+            encodeURI(son_char).length > 2 ? char_length += 1 : char_length += 0.5;
+        }
+        return char_length;
+    }
+    function cut_str(str, len){
+    	if(get_length(str)<len){
+    		return str;
+    	}else{
+	        var char_length = 0;
+	        for (var i = 0; i < str.length; i++){
+	            var son_str = str.charAt(i);
+	            encodeURI(son_str).length > 2 ? char_length += 1 : char_length += 0.5;
+	            if (char_length >= len){
+	                var sub_len = char_length == len ? i+1 : i;
+	                return str.substr(0, sub_len);
+	                break;
+	            }
+	        }
+    	}
+    }
+for(var i=0;i<=document.getElementsByName("show_link_text").length-1;i++){
+  document.getElementsByName("show_link_text")[i].innerHTML=cut_str(document.getElementsByName("show_link_text")[i].innerHTML,document.getElementsByName("ad_href_text_hidden")[i].value);
+}
+</script></body></html>

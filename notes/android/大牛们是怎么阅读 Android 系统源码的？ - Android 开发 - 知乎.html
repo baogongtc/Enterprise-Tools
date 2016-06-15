@@ -1,0 +1,2779 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://www.zhihu.com/question/19759722 -->
+<html lang="zh-CN" dropeffect="none" class="js no-auth  is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/za-0.1.1.min.js"></script><script async="" src="https://ssl.google-analytics.com/ga.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-ZA-Response-Id" content="679a8392e92a453bb793127420c47adb">
+
+<title>
+
+
+大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎
+
+
+</title>
+
+<meta name="apple-itunes-app" content="app-id=432274380, app-argument=zhihu://questions/19759722">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="mobile-agent" content="format=html5;url=https://www.zhihu.com/question/19759722">
+<meta id="znonce" name="znonce" content="f3e1a41318ae4848b12c28c22ac21f2c">
+
+
+
+<link rel="apple-touch-icon" href="https://static.zhihu.com/static/revved/img/ios/touch-icon-152.87c020b9.png" sizes="152x152">
+<link rel="apple-touch-icon" href="https://static.zhihu.com/static/revved/img/ios/touch-icon-120.496c913b.png" sizes="120x120">
+<link rel="apple-touch-icon" href="https://static.zhihu.com/static/revved/img/ios/touch-icon-76.dcf79352.png" sizes="76x76">
+<link rel="apple-touch-icon" href="https://static.zhihu.com/static/revved/img/ios/touch-icon-60.9911cffb.png" sizes="60x60">
+
+
+<link rel="shortcut icon" href="https://static.zhihu.com/static/favicon.ico" type="image/x-icon">
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://static.zhihu.com/static/search.xml" title="知乎">
+<link rel="stylesheet" href="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/z.b56939f4.css">
+
+
+
+<meta name="google-site-verification" content="FTeR0c8arOPKh8c5DYh_9uu98_zJbaWw53J-Sch9MTg">
+
+
+
+<!--[if lt IE 9]>
+<script src="https://static.zhihu.com/static/components/respond/dest/respond.min.js"></script>
+<link href="https://static.zhihu.com/static/components/respond/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+<link href="/static/components/respond/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+<script src="/static/components/respond/cross-domain/respond.proxy.js"></script>
+<![endif]-->
+<script src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/instant.e7a17de6.js"></script>
+
+
+
+
+<style type="text/css">._colors_text-muted_5fu-{color:#999}</style><style type="text/css">._Pager_root_2GoR{font-size:1.1em;text-align:center;line-height:3}._Pager_item_3xy4{padding:.5em;-webkit-transition:color .5s ease;transition:color .5s ease}</style><style type="text/css">._InputBox_root_1Xwi{width:100%;padding:9px 12px;min-height:38px;min-height:22px\9;line-height:1.4;color:#222;cursor:text;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1) inset;box-sizing:border-box;background:#fff}._InputBox_root_1Xwi:focus{border:1px solid #ccc}._InputBox_blur_3JWV._InputBox_empty_3_ur:before{content:attr(placeholder);color:#999}</style><style type="text/css">._CommentBox_dialog_2jQ_.modal-dialog{width:520px}._CommentBox_dialog_2jQ_.modal-dialog .modal-dialog-content{margin:0;padding:0}._CommentBox_root_G_1m{position:relative;margin-top:1em;margin-bottom:3em}._CommentBox_root_G_1m._CommentBox_embedded_1c_2{margin:0}._CommentBox_root_G_1m._CommentBox_embedded_1c_2._CommentBox_empty_1VbA{padding:1em}._CommentBox_root_G_1m._CommentBox_bordered_3Fo-{border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 1px rgba(0,0,0,.05)}._CommentBox_list_10_K{padding-left:1em;padding-right:1em}._CommentBox_pagerBorder_yuO1{border-top:1px solid #eee}._CommentBox_list_10_K[hidden]+._CommentBox_pagerBorder_yuO1,._CommentBox_pagerBorder_yuO1[hidden]{border-top:none}._CommentBox_inConversations_MnYD{margin:0}._CommentBox_inConversations_MnYD ._CommentBox_list_10_K{margin:17px;padding:0;border:none}._CommentBox_inConversations_MnYD ._CommentBox_list_10_K._CommentBox_scrollable_87FS{padding-right:.1em}._CommentBox_inConversations_MnYD ._CommentBox_list_10_K>:first-child{padding-top:0}._CommentBox_inConversations_MnYD ._CommentBox_list_10_K>:last-child{padding-bottom:0}._CommentBox_button_1bar{font-size:.9em;cursor:pointer}._CommentBox_textButton_3t9_{padding:0;border:0;outline:0;background:none;cursor:pointer;color:#999}._CommentBox_textButton_3t9_:focus,html.no-touchevents ._CommentBox_textButton_3t9_:hover{color:#778087}._CommentBox_scrollable_87FS{padding-right:.9em;overflow-y:auto;max-height:550px;max-height:60vh;-webkit-overflow-scrolling:touch}@media (min-height:900px){._CommentBox_scrollable_87FS{max-height:550px}}._CommentBox_cannotCommentReason_1_q5{padding:1.5em 1em;border-radius:4px;text-align:center;background:#fbfbfb;border-top:1px solid #eee;color:#999}._CommentBox_root_G_1m._CommentBox_empty_1VbA ._CommentBox_cannotCommentReason_1_q5{border:none;background:#fff}._CommentBox_root_G_1m._CommentBox_embedded_1c_2 ._CommentBox_cannotCommentReason_1_q5{padding:.5em 1em}._CommentBox_loading_3DjF{padding:6px 12px;color:#999}._CommentBox_inConversations_MnYD ._CommentBox_loading_3DjF{padding:20px;text-align:center}._CommentBox_divider_3NgO{margin:0 -1em;height:0;color:#999;text-align:center;border-top:1px solid #eee}._CommentBox_divider_3NgO:last-child{margin-bottom:20px}._CommentBox_dividerText_eF9Y{position:relative;z-index:2;top:-.8em;padding:0 .8em;display:inline-block;background:#fff}</style><style type="text/css">._CommentForm_root_1-ko{position:relative;margin-top:1em}._CommentForm_bordered_2isg{margin:0;padding:1em;border-top:1px solid #eee;border-radius:0 0 4px 4px;background:#fbfbfb}._CommentForm_actions_ooEq{margin-top:1em;padding-bottom:0;text-align:right;line-height:33px;display:none}._CommentForm_expanded_39uD ._CommentForm_actions_ooEq{display:block}._CommentForm_submitButton_1N49{float:right}._CommentForm_cancelButton_cy3u{margin-right:1em}._CommentForm_mask_6Rp2{position:absolute;top:0;right:0;bottom:0;left:0}</style><style type="text/css">._CommentItem_root_PQNS{position:relative;list-style:none;outline:none;padding:.9em 0}._CommentItem_root_PQNS+._CommentItem_root_PQNS{border-top:1px solid #eee}._CommentItem_deleted_3yx3{color:#999}._CommentItem_likes_2hey{float:right;padding-right:2px}._CommentItem_avatarLink_3V51{float:left;margin:4px 1em 0 0}._CommentItem_avatar_3i-F{width:25px;height:25px;border-radius:2px}._CommentItem_body_3qwB{overflow:hidden}._CommentItem_content_CYqW{min-height:22px;word-wrap:break-word;color:#222}._CommentItem_footer_46v8,._CommentItem_header_2JGh{color:#999}._CommentItem_footer_46v8,._CommentItem_footer_46v8 button{font-size:.95em}._CommentItem_action_Hk0w{margin-left:.6em;visibility:hidden}html.no-touchevents ._CommentItem_action_Hk0w:hover{color:#698ebf}._CommentItem_root_PQNS._CommentItem_focusin_1khT ._CommentItem_action_Hk0w,._CommentItem_root_PQNS:hover ._CommentItem_action_Hk0w,html.touchevents ._CommentItem_action_Hk0w{visibility:visible}._CommentItem_action_Hk0w .zg-icon{margin-right:5px;width:11px;height:11px;vertical-align:-1px}@media screen and (max-width:420px){._CommentItem_action_Hk0w .zg-icon{display:none}}._CommentItem_openConversations_36xr{float:right;padding-right:0;visibility:visible;font-size:.95em}._CommentItem_openConversations_36xr i{margin-right:.5em}</style><style type="text/css">[class*=sprite-comment-icon-]{display:inline-block;vertical-align:middle}.sprite-comment,[class*=sprite-comment-]{background-image:url(/static/revved/img/comment/sprites.auto.ad5f8607.png);background-repeat:no-repeat}.sprite-comment-icon-open-conversations-default{background-position:0 0;width:12px;height:11px}.sprite-comment-icon-open-conversations-hover,html.no-touchevents .sprite-comment-icon-open-conversations-default:hover,html.no-touchevents a:hover .sprite-comment-icon-open-conversations-default,html.no-touchevents button:hover .sprite-comment-icon-open-conversations-default{background-position:-14px 0;width:12px;height:11px}@media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi){.sprite-comment,[class*=sprite-comment-]{background-image:url(/static/revved/img/comment/sprites@2x.auto.222e7cdd.png);background-size:26px 11px}}</style></head>
+
+<body class="zhi  no-auth">
+
+
+
+<div role="navigation" class="zu-top">
+<div class="zg-wrap modal-shifting clearfix" id="zh-top-inner">
+<a href="https://www.zhihu.com/" class="zu-top-link-logo" id="zh-top-link-logo" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_zhihu_logo">知乎</a>
+
+
+
+<ul class="topnav-noauth clearfix">
+<li>
+<a href="javascript:;" class="js-signup-noauth"><i class="zg-icon zg-icon-dd-home"></i>注册知乎</a>
+</li>
+<li>
+<a href="javascript:;" class="js-signin-noauth">登录</a>
+</li>
+</ul>
+
+
+
+<button class="zu-top-add-question" id="zu-top-add-question">提问</button>
+
+
+<div role="search" id="zh-top-search" class="zu-top-search">
+<form method="GET" action="https://www.zhihu.com/search" id="zh-top-search-form" class="zu-top-search-form">
+
+
+
+<input type="hidden" name="type" value="content">
+<label for="q" class="hide-text">知乎搜索</label><input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="" placeholder="搜索你感兴趣的内容..." role="combobox" aria-autocomplete="list">
+<button type="submit" class="zu-top-search-button"><span class="hide-text">搜索</span><span class="sprite-global-icon-magnifier-dark"></span></button>
+</form>
+</div>
+
+
+
+<div id="zg-top-nav" class="zu-top-nav">
+<ul class="zu-top-nav-ul zg-clear">
+
+<li class="zu-top-nav-li " id="zh-top-nav-home">
+<a class="zu-top-nav-link" href="https://www.zhihu.com/" id="zh-top-link-home" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_home">首页</a>
+</li>
+
+
+
+<li class="top-nav-topic-selector zu-top-nav-li " id="zh-top-nav-topic">
+<a class="zu-top-nav-link" href="https://www.zhihu.com/topic" id="top-nav-dd-topic">话题</a>
+</li>
+
+<li class="zu-top-nav-li " id="zh-top-nav-explore">
+<a class="zu-top-nav-link" href="https://www.zhihu.com/explore">发现</a>
+</li>
+
+
+</ul>
+<div class="zu-top-nav-live zu-noti7-popup zg-r5px no-hovercard" id="zh-top-nav-live-new" role="popup" tabindex="0">
+<div class="zu-top-nav-live-inner zg-r5px">
+<div class="zu-top-live-icon">&nbsp;</div>
+<div class="zu-home-noti-inner" id="zh-top-nav-live-new-inner">
+<div class="zm-noti7-popup-tab-container clearfix" tabindex="0">
+<button class="zm-noti7-popup-tab-item message">
+<span class="icon">消息</span>
+</button>
+<button class="zm-noti7-popup-tab-item user">
+<span class="icon">用户</span>
+</button>
+<button class="zm-noti7-popup-tab-item thanks">
+<span class="icon">赞同和感谢</span>
+</button>
+</div>
+</div>
+<div class="zm-noti7-frame-border top"></div>
+<div class="zm-noti7-frame">
+<div class="zm-noti7-content">
+<div class="zm-noti7-content-inner">
+<div class="zm-noti7-content-body">
+<div class="zm-noti7-popup-loading">
+<span class="noti-spinner-loading"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="zm-noti7-content" style="display:none;">
+<div class="zm-noti7-content-inner">
+<div class="zm-noti7-content-body">
+<div class="zm-noti7-popup-loading">
+<span class="noti-spinner-loading"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="zm-noti7-content" style="display:none;">
+<div class="zm-noti7-content-inner">
+<div class="zm-noti7-content-body">
+<div class="zm-noti7-popup-loading">
+<span class="noti-spinner-loading"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="zm-noti7-frame-border bottom"></div>
+<div class="zm-noti7-popup-footer">
+<a href="https://www.zhihu.com/notifications" class="zm-noti7-popup-footer-all zg-right">查看全部 »</a>
+<a href="https://www.zhihu.com/settings/notification" class="zm-noti7-popup-footer-set" title="通知设置"><i class="zg-icon zg-icon-settings"></i></a>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="zu-global-notify" id="zh-global-message" style="display:none">
+<div class="zg-wrap">
+<div class="zu-global-nitify-inner">
+<a class="zu-global-notify-close" href="javascript:;" title="关闭" name="close">x</a>
+<span class="zu-global-notify-icon"></span>
+<span class="zu-global-notify-msg"></span>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="zu-global-notify zu-global-notify-info" id="zh-question-redirect-info" style="display:none"></div>
+
+
+<div class="zu-global-notify zu-global-notify-info" id="zh-question-notification-summary" style="display:none;">
+<div class="zg-wrap">
+<div class="zu-global-nitify-inner">
+<span class="zu-global-notify-icon"></span>
+<ul class="zu-question-notify-wrap">
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="zg-wrap zu-main clearfix with-indention-votebar" itemscope="" itemtype="http://schema.org/Question" id="zh-single-question-page" data-urltoken="19759722" role="main">
+<div class="zu-main-content">
+<div class="zu-main-content-inner">
+
+
+<meta itemprop="isTopQuestion" content="false">
+<meta itemprop="visitsCount" content="377652">
+
+
+<div class="zm-tag-editor zg-section">
+<div class="zm-tag-editor-labels zg-clear">
+
+<a class="zm-item-tag" href="https://www.zhihu.com/topic/19555634" data-tip="t$b$19555634" data-token="19555634" data-topicid="1800">
+Android 开发
+</a>
+
+<a class="zm-item-tag" href="https://www.zhihu.com/topic/20044980" data-tip="t$b$20044980" data-token="20044980" data-topicid="167323">
+Android系统源码
+</a>
+
+</div>
+</div>
+<div id="zh-question-title" data-editable="true">
+
+<h2 class="zm-item-title zm-editable-content">
+
+大牛们是怎么阅读 Android 系统源码的？
+
+</h2>
+</div>
+<div id="zh-question-detail" class="zm-item-rich-text" data-resourceid="83931" data-action="/question/detail">
+
+<div class="zm-editable-content"> 最近想去深入学习下底层的东西。<br><br>看的哪一部分？有没有好的查看工具？ 心得体会... </div>
+
+
+</div>
+<div class="zm-item-meta zm-item-comment-el clearfix" id="zh-question-meta-wrap">
+<div class="zm-meta-panel">
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="toggle-comment meta-item">
+<i class="z-icon-comment"></i>1 条评论
+</a>
+<a href="https://www.zhihu.com/question/19759722#" name="share" class="share meta-item goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+
+</div>
+<div class="panel-container">
+
+<div class="question-invite-panel"></div><div class="zm-comment-box" style="display: none;"></div></div>
+</div>
+
+<div class="zh-answers-title clearfix">
+
+<div id="zh-answers-filter" class="Sorter">
+
+<span class="lbl">按投票排序</span>
+<a class="lbl" href="https://www.zhihu.com/question/19759722?sort=created">按时间排序</a>
+
+<i class="zg-icon zg-icon-double-arrow"></i>
+</div>
+
+<h3 data-num="32" id="zh-question-answer-num">32 个回答</h3>
+</div>
+
+<div id="zh-question-answer-wrap" data-pagesize="10" class="zh-question-answer-wrapper navigable" data-widget="navigable" data-navigable-options="{&quot;items&quot;: &quot;&gt;.zm-item-answer&quot;}" data-init="{&quot;params&quot;: {&quot;url_token&quot;: 19759722, &quot;pagesize&quot;: 10, &quot;offset&quot;: 0}, &quot;nodename&quot;: &quot;QuestionAnswerListV2&quot;}"><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemprop="topAnswer" itemscope="" itemtype="http://schema.org/Answer" data-aid="7068715" data-atoken="29213925" data-collapsed="0" data-created="1408036499" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/29213925">
+<meta itemprop="answer-id" content="7068715">
+<meta itemprop="answer-url-token" content="29213925">
+<a class="zg-anchor-hidden" name="answer-7068715"></a>
+
+
+<div style="visibility: hidden; position: static; top: auto; left: auto; display: block; float: left; margin: 0px 0px 0px -48px; width: 38px; height: 73px;"></div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/wangyulong" target="_blank" data-tip="p$t$wangyulong"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/ac46d484f_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$wangyulong" target="_blank" href="https://www.zhihu.com/people/wangyulong">王宇龙</a>
+
+
+<span title="程序员" class="bio">，程序员</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="946" data-za-module="VoteInfo">
+
+
+
+<span class="text">收录于 </span>
+
+
+<span class="text">编辑推荐</span>
+
+
+
+
+
+
+<span class="zg-bull text">•</span><span class="voters text"><a href="javascript:;" class="more text">946 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="王宇龙" data-entry-url="/question/19759722/answer/29213925">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+由于工作需要大量修改framework代码, 在AOSP(Android Open Source Project)源码上花费了不少功夫, Application端和Services端都看和改了不少.如果只是想看看一些常用类的实现, 在Android包管理器里把源码下载下来, 随便一个IDE配好Source Code的path看就行.…
+
+<a href="https://www.zhihu.com/question/19759722/answer/29213925" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+由于工作需要大量修改framework代码, 在AOSP(Android Open Source Project)源码上花费了不少功夫, Application端和Services端都看和改了不少.<br>如果只是想看看一些常用类的实现, 在Android包管理器里把源码下载下来, 随便一个IDE配好Source Code的path看就行. <br>但如果想深入的了解Android系统, 那么可以看下我的一些简单的总结. <br><br><ul><li><b>知识</b><br></li><ul><li>Java</li><ul><li>Java是AOSP的主要语言之一. 没得说, 必需熟练掌握.</li></ul><li>熟练的Android App开发</li><li>Linux</li><ul><li>Android基于Linux的, 并且AOSP的推荐编译环境是Ubuntu 12.04. 所以熟练的使用并了解Linux这个系统是必不可少的. 如果你想了解偏底层的代码, 那么必需了解基本的Linux环境下的程序开发. 如果再深入到驱动层, 那么Kernel相关的知识也要具备.</li></ul><li>Make</li><ul><li>AOSP使用Make系统进行编译. 了解基本的Makefile编写会让你更清晰了解AOSP这个庞大的项目是如何构建起来的.</li></ul><li>Git</li><ul><li>AOSP使用git+repo进行源码管理. 这应该是程序员必备技能吧.</li></ul><li>C++</li><ul><li>Android系统的一些性能敏感模块及第三方库是用C++实现的, 比如: Input系统, Chromium项目(WebView的底层实现). </li></ul></ul></ul><br><ul><li><b>硬件</b><br></li><ul><li>流畅的国际网络</li><ul><li>AOSP代码下载需要你拥有一个流畅的国际网络. 如果在下载代码这一步就失去耐心的话, 那你肯定没有耐心去看那乱糟糟的AOSP代码. 另外, 好程序员应该都会需要一个流畅的Google.</li></ul><li>一台运行Ubuntu 12.04的PC. </li><ul><li>如果只是阅读源码而不做太多修改的话, 其实不需要太高的配置.</li></ul><li>一台Nexus设备</li><ul><li>AOSP项目默认只支持Nexus系列设备. 没有也没关系, 你依然可以读代码. 但如果你想在大牛之路走的更远, 还是改改代码, 然后刷机调试看看吧.</li></ul><li>高品质USB线</li><ul><li>要刷机时线坏了, 没有更窝心的事儿了.</li></ul></ul><li><b>软件</b><br></li><ul><li>Ubuntu 12.04</li><ul><li>官方推荐, 没得选.</li></ul><li>Oracle Java 1.6</li><ul><li>注意不要用OpenJDK. 这是个坑, 官方文档虽然有写, 但还是单独提一下.</li><li>安装:<div class="highlight"><pre><code class="language-text">sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java6-installer
+sudo apt-get install oracle-java6-set-default
+</code></pre></div><br></li></ul><li>Eclipse</li><ul><li>估计会有不少人吐槽, 为什么要用这个老古董. 其实原因很简单, 合适. 刚开始搞AOSP时, 为了找到效率最优的工具, 我尝试过Eclipse, IntelliJ IDEA, Vim+Ctags, Sublime Text+Ctags. 最终结果还是Eclipse. 主要优点有: </li><ul><li>有语法分析 (快速准确的类, 方法跳转).</li><li>支持C++ (IntelliJ的C++支持做的太慢了).</li><li>嵌入了DDMS, View Hierarchy等调试工具.</li></ul><li>为了提高效率, 花5分钟背下常用快捷键<b>非常非常值得</b>.</li><li>调整好你的classpath, 不要导入无用的代码. 因为AOSP项目代码实在是太多了. 当你还不需要看C++代码时, 不要为项目添加C++支持, 建索引过程会让你崩溃.</li></ul><li>Intellij IDEA</li><ul><li>开发App必备. 当你要调试系统的某个功能是, 常常需要迅速写出一个调试用App, 这个时候老旧的Eclipse就不好用了. Itellij IDEA的xml自动补全非常给力.</li></ul></ul><li><b>巨人的肩膀</b><br></li><ul><li>AOSP项目官方: <a href="https://link.zhihu.com/?target=https%3A//source.android.com/source/index.html" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">https://</span><span class="visible">source.android.com/sour</span><span class="invisible">ce/index.html</span><span class="ellipsis"></span><i class="icon-external"></i></a></li><ul><li><b>这个一定要先读</b>. 项目介绍, 代码下载, 环境搭建, 刷机方法, Eclipse配置都在这里. 这是一切的基础.</li></ul><li>Android官方Training: <a href="https://link.zhihu.com/?target=https%3A//developer.android.com/training/index.html" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">https://</span><span class="visible">developer.android.com/t</span><span class="invisible">raining/index.html</span><span class="ellipsis"></span><i class="icon-external"></i></a></li><ul><li>这个其实是给App开发者看的. 但是里面也有不少关于系统机制的介绍, 值得细读.</li></ul><li>老罗的Android之旅: <a href="https://link.zhihu.com/?target=http%3A//blog.csdn.net/luoshengyang" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">blog.csdn.net/luoshengy</span><span class="invisible">ang</span><span class="ellipsis"></span><i class="icon-external"></i></a></li><ul><li>此老罗非彼老罗. 罗升阳老师的博客非常有营养, 基本可以作为<b>指引你开始阅读AOSP源码的教程</b>. 你可以按照博客的时间顺序一篇篇挑需要的看.但这个系列的博客有些问题: </li><ul><li>早期的博客是基于旧版本的Android; </li><li>大量的代码流程追踪. 读文章时你一定要清楚你在看的东西在整个系统处于什么样的位置.</li></ul></ul><li>Innost的专栏: <a href="https://link.zhihu.com/?target=http%3A//blog.csdn.net/innost" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">blog.csdn.net/innost</span><span class="invisible"></span><i class="icon-external"></i></a></li><ul><li>邓凡平老师也是为Android大牛, 博客同样很有营养. 但是不像罗升阳老师的那么系统. 更多的是一些技术点的深入探讨.</li></ul><li>Android Issues: <a href="https://link.zhihu.com/?target=http%3A//code.google.com/p/android/issues/list" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">code.google.com/p/andro</span><span class="invisible">id/issues/list</span><span class="ellipsis"></span><i class="icon-external"></i></a></li><ul><li>Android官方Issue列表. 我在开发过程中发现过一些奇怪的bug, 最后发现这里基本都有记录. 当然你可以提一些新的, 有没有人改就是另外一回事了.</li></ul><li>Google: <a href="https://link.zhihu.com/?target=https%3A//www.google.com" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">https://www.</span><span class="visible">google.com</span><span class="invisible"></span><i class="icon-external"></i></a></li><ul><li>一定要能流畅的使用这个工具. 大量的相关知识是没有人系统的总结的, 你需要自己搞定.</li></ul></ul><li><b>其它</b><br></li><ul><li>代码组织</li><ul><li>AOSP的编译单元不是和git项目一一对应的, 而是和Android.mk文件一一对应的. 善用mmm命令进行模块编译将节省你大量的时间.</li></ul><li>Binder</li><ul><li>这是Android最基础的进程间通讯. 在Application和System services之间大量使用. 你不仅要知道AIDL如何使用, 也要知道如何手写Binder接口. 这对你理解Android的Application和System services如何交互有非常重要的作用. Binder如何实现的倒不必着急看.</li></ul><li>HAL</li><ul><li>除非你对硬件特别感兴趣或者想去方案公司上班, 否则别花太多时间在这一层.</li></ul><li>CyanogenMod</li><ul><li>这是一个基于AOSP的第三方Rom. 从这个项目的wiki里你能学到很多AOSP官方没有告诉你的东西. 比如如何支持Nexus以外的设备.</li></ul><li>DIA</li><ul><li>这是一个Linux下画UML的工具, 能够帮你梳理看过的代码.</li></ul><li>XDA</li><ul><li><a href="https://link.zhihu.com/?target=http%3A//www.xda-developers.com/" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://www.</span><span class="visible">xda-developers.com/</span><span class="invisible"></span><i class="icon-external"></i></a></li><li>这里有最新资讯和最有趣的论坛.</li></ul><li>想到了再补充.</li></ul></ul>
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="7068715-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" data-tip="s$t$发布于 2014-08-15" target="_blank" href="https://www.zhihu.com/question/19759722/answer/29213925">编辑于 2014-12-11</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>72 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+<button class="item-collapse js-collapse"><i class="z-icon-fold"></i>收起</button></div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded focusin navigable-focusin" itemscope="" itemtype="http://schema.org/Answer" data-aid="1941188" data-atoken="17019083" data-collapsed="0" data-created="1368411701" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/17019083">
+<meta itemprop="answer-id" content="1941188">
+<meta itemprop="answer-url-token" content="17019083">
+<a class="zg-anchor-hidden" name="answer-1941188"></a>
+
+
+<div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">560</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="javascript:;"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<span class="name">知乎用户</span>
+
+
+<span title="懒.." class="bio">，懒..</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="560" data-za-module="VoteInfo">
+
+
+
+<span class="text">收录于 </span>
+
+
+<span class="text">编辑推荐</span>
+
+
+
+
+
+
+<span class="zg-bull text">•</span><span class="voters text"><a href="javascript:;" class="more text">560 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="墨小西" data-entry-url="/question/19759722/answer/17019083">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+<img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/ffa1356b43c947758c41c8eac0ea4898_200x112.jpg" data-rawwidth="640" data-rawheight="459" class="origin_image inline-img zh-lightbox-thumb" data-original="https://pic1.zhimg.com/ffa1356b43c947758c41c8eac0ea4898_r.jpg">
+-----------------------------------------------------------------------------------------------------------------这是前言在Android系统源码上摸索4年，说说我的看法：显然Eclipse不是阅读Android源码的好工具，不流畅，搜索低效，继承性关系/调用关…
+
+<a href="https://www.zhihu.com/question/19759722/answer/17019083" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+-----------------------------------------------------------------------------------------------------------------<br>这是前言<br>在Android系统源码上摸索4年，说说我的看法：<br>显然Eclipse不是阅读Android源码的好工具，不流畅，搜索低效，继承性关系/调用关系都无法有效查看。推荐Source Insight，在这个工具帮助下，你才可以驾驭巨大数量的Android 源码，你可以从容在Java，C++,C代码间遨游，你可以很快找到你需要的继承和调用关系。<br>顺便，现在东家是Linux+Samba+Windows的工作模式，Linux+Samba用于代码的同步/编译/管理，Windows做代码编辑。<br>你需要先理解下这个图：Application层就是一个个应用程序，很好理解。Framework提供一个java的运行环境以及对功能实现的封装，简单点说，你家装修总要留很多水电之类的接口吧！Runtime/ART是一个java虚拟机，因为Android上层不是java吗，需要再编译一次成为低级一点的语言识别。从Libraries那些名字也可以看出来，这里有很多高端大气库，它是功能实现区，多媒体编解码，浏览器渲染啊，数据库实现啦，很多很多。Kernel部分负责陪硬件大哥玩，你那些功能实现的区域最终都要调硬件吧，Kernel这家伙已经和硬件很熟了，你就直接通过它来和冷冰冰硬件大哥打交道吧！<br><noscript>&lt;img src="https://pic1.zhimg.com/ffa1356b43c947758c41c8eac0ea4898_b.jpg" data-rawwidth="640" data-rawheight="459" class="origin_image zh-lightbox-thumb" width="640" data-original="https://pic1.zhimg.com/ffa1356b43c947758c41c8eac0ea4898_r.jpg"&gt;</noscript><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/ffa1356b43c947758c41c8eac0ea4898_b.jpg" data-rawwidth="640" data-rawheight="459" class="origin_image zh-lightbox-thumb lazy" width="640" data-original="https://pic1.zhimg.com/ffa1356b43c947758c41c8eac0ea4898_r.jpg" data-actualsrc="https://pic1.zhimg.com/ffa1356b43c947758c41c8eac0ea4898_b.jpg" data-lazyloaded="" style="width: 584px; height: 418.837px; display: block;"><br><br>好了，上面这些内容很好理解对不对，现在的问题是：当你拿到一份几G的源码，该从哪里开始呢？经过上面的前言的洗礼，你应该能够很好理解下面这部分了<br>-------------------------------------------------------------------------------------------------------------------<br>1.宏观上看，<b>Android源码分为功能实现上的纵向，和功能拓展上的横向</b>。在阅读源码时需要把握好着两个思路。<br>譬如你需要研究音频系统的实现原理，纵向：你需要从一个音乐的开始播放追踪，一路下来，你发现解码库的调用，共享内存的创建和使用，路由的切换，音频输入设备的开启，音频流的开始。<br>譬如你要看音频系统包括哪些内容，横向：通过Framework的接口，你会发现，音频系统主要包括：放音，录音，路由切换，音效处理等。<br><br>2.<b>Android的功能模块绝大部分是C/S架构</b><br>你心里一定需要有这个层级关系，你需要思路清晰地找到Server的位置，它才是你需要攻破的城，上面的libraries是不是很亲切的样子？看完它长成啥样后，然后你才能发现HAL和Kernel一层层地剥离。<br>很多研究源码的同学兜兜转转，始终在JAVA层上，这是不科学的，要知道libraries才是它的精髓啊。<br>3.<b>Android的底层是Linux Kernel</b>。<br>在理解1,2后，还是需要对Kernel部分有个简单的理解，起码你要熟悉kernel的基础协议吧！你要能看懂电路图吧！你要熟悉设备的开启和关闭吧！你要熟悉调寄存器了吧！这方面的书太多了，我建议根据实例去阅读，它并不复杂，不需要一本本厚书来铺垫。<br>在libraries和kernel间，可能还会有个HAL的东东，其实它是对kernel层的封装，方便各个硬件的接口统一。这样，如果我换个硬件，不用跑了长得很复杂的libraries里面改了，kernel调试好了后，改改HAL就好了。<br>--------------------------------------------------------------------------------------------------------------------<br><br>好了，你现在是不是跃跃欲试准备去找个突破口准备进攻了，但是好像每个宝库的入口都挺难找了<br>我大概在三个月前阅读完Android UI系统的源码，这是Android最复杂的部分，我要简单说下过程。<br><br>我需要先找宝库入口，我要研究UI，首先要找什么和UI有亲戚关系吧！<br>View大神跳出来了，沿着它往下找找看，发现它在贴图在画各种形状，但是它在哪里画呢，马良也要纸吧？<br>很明显它就是某个宝藏，但是世人只是向我们描述了它有多美，却无人知在哪里？我们需要找一张地图罗。<br>开发Android的同学逃不掉Activity吧！它有个setcontentview的方法，从这个名字看好像它是把view和activity结合的地方。赶紧看它的实现和被调用。，然后我们就发现了Window，ViewRoot和WindowManager的身影，沿着WM和WMS我们就惊喜会发现了Surface，以及draw的函数，它居然在一个DeCorView上画东西哈。借助Source Insight， UI Java层的横向静态图呼之欲出了。<br><br>完成这个静态UML，我觉得我可以开始功能实现上追踪了，这部分主要是C++的代码（这也是我坚定劝阻的放弃Eclipse的原因），我沿着draw函数，看到了各个层级的关系，SurfaceSession的控制和事务处理，SharedBuffer读写控制，彪悍的SurfaceFlinger主宰一切，OpenGL ES的神笔马良。FrameBuffer和FrameBufferDevice的图像输出，LCD设备打开后，开始接收FBD发过来的一帧帧图像，神奇吧。<br><br>好吧，就这样，再往底层我爱莫能助了！
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="1941188-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" data-tip="s$t$发布于 2013-05-13" target="_blank" href="https://www.zhihu.com/question/19759722/answer/17019083">编辑于 2014-09-18</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>34 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+<div style="display: block; position: absolute; top: 5px; right: 0px; bottom: auto; left: auto; float: none; margin: 0px; visibility: hidden; width: 51px; height: 23px;"></div><button class="item-collapse js-collapse is-sticky" style="left: 669.5px; top: auto; bottom: 12px;"><i class="sprite-global-icon-fold-white"></i>收起</button></div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="13968565" data-atoken="46430218" data-collapsed="0" data-created="1430455702" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/46430218">
+<meta itemprop="answer-id" content="13968565">
+<meta itemprop="answer-url-token" content="46430218">
+<a class="zg-anchor-hidden" name="answer-13968565"></a>
+
+
+<div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">22</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/gracker" target="_blank" data-tip="p$t$gracker"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/7ded840bd_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$gracker" target="_blank" href="https://www.zhihu.com/people/gracker">高爷</a>
+
+
+<span title="多一点真诚 少一点套路" class="bio">，多一点真诚 少一点套路</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="22" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">22 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="高爷" data-entry-url="/question/19759722/answer/46430218">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+工具:Android Studio查看源码方法: <a href="https://link.zhihu.com/?target=http%3A//androidperformance.com/2015/01/16/view-android-source-code-with-androidstudio/" class=" wrap external" target="_blank" rel="nofollow noreferrer">http://androidperformance.com/2015/01/16/view-android-source-code-with-androidstudio.html<i class="icon-external"></i></a>看那一部分:Framework/basePackage/appsartexternal操作系统：推荐Linux，可以随时编译Android源码测试机：推荐Nexus系列手…
+
+<a href="https://www.zhihu.com/question/19759722/answer/46430218" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+<ol><li> 工具:Android Studio<br></li><li>查看源码方法: <a href="https://link.zhihu.com/?target=http%3A//androidperformance.com/2015/01/16/view-android-source-code-with-androidstudio/" class=" wrap external" target="_blank" rel="nofollow noreferrer">http://androidperformance.com/2015/01/16/view-android-source-code-with-androidstudio.html<i class="icon-external"></i></a><br></li><li>看那一部分:<br></li><ol><li>Framework/base</li><li>Package/apps</li><li>art</li><li>external<br><br></li></ol><li>操作系统：推荐Linux，可以随时编译Android源码</li><li>测试机：推荐Nexus系列手机，编译源码后push进去可以随时验证。</li></ol>
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="13968565-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" data-tip="s$t$发布于 2015-05-01" target="_blank" href="https://www.zhihu.com/question/19759722/answer/46430218">编辑于 2015-11-25</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>14 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="7045822" data-atoken="29156462" data-collapsed="0" data-created="1407926420" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/29156462">
+<meta itemprop="answer-id" content="7045822">
+<meta itemprop="answer-url-token" content="29156462">
+<a class="zg-anchor-hidden" name="answer-7045822"></a>
+
+
+<div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">42</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/____________________" target="_blank" data-tip="p$t$____________________"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/640dda607_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$____________________" target="_blank" href="https://www.zhihu.com/people/____________________">小湿妹</a>
+
+
+<span title="灌狸猿，厮碧池" class="bio">，灌狸猿，厮碧池</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="42" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">42 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="小湿妹" data-entry-url="/question/19759722/answer/29156462">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+<b>零、准备工作：</b>开发环境：建议在ubuntu（32/64位均可）下进行开发。开发板：推荐<b>cubieboard</b>、<b>pcduino</b>（资料开放，连相应的android源码以及硬件配置文件都有提供。不推荐所谓的开源硬件Raspberry-Pi，毕竟Raspberry-Pi<b>并不是真正的开源硬件</b>。）其他：串口线…
+
+<a href="https://www.zhihu.com/question/19759722/answer/29156462" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+<b>零、准备工作：</b><br>开发环境：建议在ubuntu（32/64位均可）下进行开发。<br>开发板：推荐<b>cubieboard</b>、<b>pcduino</b><br>（资料开放，连相应的android源码以及硬件配置文件都有提供。<br>不推荐所谓的开源硬件Raspberry-Pi，毕竟Raspberry-Pi<b>并不是真正的开源硬件</b>。）<br>其他：串口线<br><br>强烈<b>不推荐</b>在<b>windows环境</b>下搞Android底层开发！！！<br>一个及格的Android工程师，就应该熟练在Linux环境下进行开发工作。<br>如果你不会“<b>优雅</b>”地使用Linux，<b>不得不</b>在windows下编辑代码，<br>恳请你记得设置<b>编码</b><b>utf-8</b>！！！！！！！！！！<br>（怨念：每次编译固件看见乱码警告就各种强迫症啊摔ヽ(≧Д≦)ノ！尽管大多情况下不影响编译结果。）<br><br><b>一、编译器的选择：</b><br>阅读/编译代码：eclipse （Java）、vim+ctags+cscope（C/C++）<br>搜索代码：shell<br>例如命令1：grep "Telephoney" -rn ./*<br>例如命令2：find -name Telephoney*<br>等等等<br><br>不会用eclipse，请不要说他不好用！<br><b>eclipse</b>是阅读framework代码以及系统应用的<b>居家旅行杀人必备</b><b>神器</b>。<br><b>正确使用eclipse阅读Android源码</b>：<br>1.复制eclipse的classpath到Android源码根目录<br>cp ~/android/development/ide/eclipse/.classpath ~/android<br>2.修改eclipse缓存设置<br>把eclipse.ini文件的3个值改为下面的值（不要盲目参考，需要根据自己机器情况来定）：<br>           -Xms128m<br>           -Xmx768m<br>           -XX:MaxPermSize=512m<br>（mac路径：eclipse/Eclipse.app/Contents/MacOS/eclipse.ini）<br>3.导入eclipse代码风格<br>把android-formatting.xml和android.importorder导入Eclipse<br>~/android/development/ide/eclipse/android-formatting.xml<br>~/android/development/ide/eclipse/android.importorder<br>4.导入Android源码<br>新建Java Project（不是Android project），选择从已存在的工程导入，定位到Android源码的目录进行导入即可。<br>PS：eclipse只是阅读/编辑代码的工具，编译源码还是需要通过make命令在终端编译的。 <br><br><b>二、知识储备：</b><br>编程语言什么的没什么好说。<br>着重提一个：<b>设计模式</b><br>由于Android源代码用到各种各样的设计模式，如果不会设计模式，将会大大降低你的阅读理解速度。<br><br><b>三、网站资料：</b><br><a href="https://link.zhihu.com/?target=http%3A//source.android.com/devices" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">source.android.com/devi</span><span class="invisible">ces</span><span class="ellipsis"></span><i class="icon-external"></i></a><br>android官方文档，很详细描述各模块的设计思路。<br>理解这个链接的内容，看个十遍八遍，一边看一边分析代码。<br>PS：由于比较笨(-’๏_๏’-)，所以我当年是一边看一边翻译出来，大家也可以参考我这种方法，容易加深理解、印象<br><br><b>四、书刊资料：</b><br>邓凡平大神的《深入理解Android》系列<br>《深入理解Android：卷I/卷​II》 [Kindle电子书] ~ 邓凡平<br><strong>链接:</strong><a href="https://link.zhihu.com/?target=http%3A//www.amazon.cn/dp/B00K6Y5OEM" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://www.</span><span class="visible">amazon.cn/dp/B00K6Y5OEM</span><span class="invisible"></span><i class="icon-external"></i></a><br>作者Blog：<a href="https://link.zhihu.com/?target=http%3A//blog.csdn.net/Innost/" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">blog.csdn.net/Innost/</span><span class="invisible"></span><i class="icon-external"></i></a><br><br><b>五、学习方法：</b><br>要一下子把所有模仿都理解透，是件比较困难的事情。<br>可以分模块学习：<br>Telephoney<br>Audio &amp; media<br>webkit &amp; Browser<br>Wi-Fi &amp; wpa supplicant<br>Dalvik<br>Display &amp; Surface flinger<br>Camera<br>等等等<br><br>先吃饭，看心情再补(*´・ｖ・)。。。
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="7045822-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/29156462">发布于 2014-08-13</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>14 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+<button class="item-collapse js-collapse"><i class="sprite-global-icon-fold-white"></i>收起</button></div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="268646" data-atoken="12873889" data-collapsed="0" data-created="1310344656" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/12873889">
+<meta itemprop="answer-id" content="268646">
+<meta itemprop="answer-url-token" content="12873889">
+<a class="zg-anchor-hidden" name="answer-268646"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">14</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/duguguiyu" target="_blank" data-tip="p$t$duguguiyu"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/5665baf1d_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$duguguiyu" target="_blank" href="https://www.zhihu.com/people/duguguiyu">范怀宇</a>
+
+
+<span title="做广告是不是不好，我不会告诉你欢迎阅读『Android开发精要』的" class="bio">，做广告是不是不好，我不会告诉你欢迎阅读…</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="14" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">14 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="范怀宇" data-entry-url="/question/19759722/answer/12873889">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+Android源码两个部分看得最多，一个是packages，就是各个系统应用的实现，另外就是framework，框架层的实现。具体看什么就看你想了解什么。工具eclipse也很好，build一下生成class path，各种转跳非常方便，不需要grep了。 
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+ Android源码两个部分看得最多，一个是packages，就是各个系统应用的实现，另外就是framework，框架层的实现。具体看什么就看你想了解什么。<br><br>工具eclipse也很好，build一下生成class path，各种转跳非常方便，不需要grep了。 
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="268646-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/12873889">发布于 2011-07-11</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>2 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="12510215" data-atoken="42791643" data-collapsed="0" data-created="1427110749" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/42791643">
+<meta itemprop="answer-id" content="12510215">
+<meta itemprop="answer-url-token" content="42791643">
+<a class="zg-anchor-hidden" name="answer-12510215"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">2</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/wendel-stock" target="_blank" data-tip="p$t$wendel-stock"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/3e620cb7a_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$wendel-stock" target="_blank" href="https://www.zhihu.com/people/wendel-stock">Wendel Stock</a>
+
+
+<span title="学EE的程序员" class="bio">，学EE的程序员</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="2" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">2 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="Wendel Stock" data-entry-url="/question/19759722/answer/42791643">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+<a data-hash="4d6200cf87fb52b9c80e41dc2a096b3e" href="https://www.zhihu.com/people/4d6200cf87fb52b9c80e41dc2a096b3e" class="member_mention" data-editable="true" data-title="@王宇龙" data-tip="p$b$4d6200cf87fb52b9c80e41dc2a096b3e">@王宇龙</a><a data-hash="c728907ade12812ce1b652defa50e8aa" href="https://www.zhihu.com/people/c728907ade12812ce1b652defa50e8aa" class="member_mention" data-editable="true" data-title="@墨小西" data-tip="p$b$c728907ade12812ce1b652defa50e8aa">@墨小西</a> 两位已经说的很全了，我就稍微补充点 答下题主的问题：最近想去深入学习下底层的东西。看的哪一部分？代码里面的部分，那就学学Linux Kernel，Bootloader，再底层的需要学些硬件驱动，一步一步来。有没有好的查看工具？ Windows 下推荐Soure…
+
+<a href="https://www.zhihu.com/question/19759722/answer/42791643" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+<a data-hash="4d6200cf87fb52b9c80e41dc2a096b3e" href="https://www.zhihu.com/people/4d6200cf87fb52b9c80e41dc2a096b3e" class="member_mention" data-editable="true" data-title="@王宇龙" data-tip="p$b$4d6200cf87fb52b9c80e41dc2a096b3e">@王宇龙</a><a data-hash="c728907ade12812ce1b652defa50e8aa" href="https://www.zhihu.com/people/c728907ade12812ce1b652defa50e8aa" class="member_mention" data-editable="true" data-title="@墨小西" data-tip="p$b$c728907ade12812ce1b652defa50e8aa">@墨小西</a>  两位已经说的很全了，我就稍微补充点 答下题主的问题：<br><blockquote>最近想去深入学习下底层的东西。看的哪一部分？</blockquote>代码里面的部分，那就学学Linux Kernel，Bootloader，再底层的需要学些硬件驱动，一步一步来。<br><br><blockquote>有没有好的查看工具？ </blockquote>Windows 下推荐SoureInsight，建个工程把AOSP 所有代码丢进去，几个月不用关掉，看到感兴趣的地方不停的往下追就好。当初就在这上面直接改代码，Ubuntu 开个窗口编译搞定，其实是懒得开IDE（逃
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="12510215-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" data-tip="s$t$发布于 2015-03-23" target="_blank" href="https://www.zhihu.com/question/19759722/answer/42791643">编辑于 2015-03-23</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="8149644" data-atoken="31910112" data-collapsed="0" data-created="1413364649" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/31910112">
+<meta itemprop="answer-id" content="8149644">
+<meta itemprop="answer-url-token" content="31910112">
+<a class="zg-anchor-hidden" name="answer-8149644"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">2</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/du-peng-xiao" target="_blank" data-tip="p$t$du-peng-xiao"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$du-peng-xiao" target="_blank" href="https://www.zhihu.com/people/du-peng-xiao">杜鹏霄</a>
+
+
+<span title="it一小兵" class="bio">，it一小兵</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="2" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">2 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="杜鹏霄" data-entry-url="/question/19759722/answer/31910112">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+因为工作原因，接触 Android 源码并且折腾的很早，也因为工作原因，无法有效的利用各种 IDE, 所以一直是用 VIM + grep 的方式。效率可能比较低下，但是读源码这种东西就是贵在坚持学习，看的时间长了，慢慢哪些代码在什么地方都大概能有印象，所以读和找起…
+
+<a href="https://www.zhihu.com/question/19759722/answer/31910112" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+因为工作原因，接触 Android 源码并且折腾的很早，也因为工作原因，无法有效的利用各种 IDE, 所以一直是用 VIM + grep 的方式。效率可能比较低下，但是读源码这种东西就是贵在坚持学习，看的时间长了，慢慢哪些代码在什么地方都大概能有印象，所以读和找起来就很方便。蛮羡慕会用 taglist 的，只是一直不大习惯使用。<br>再有比较关键的一点是多找一些身边喜欢学习的朋友交流，每个人看的可能都不一样，很多时候突破口就在抽烟聊天的时间讨论出来的。
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="8149644-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/31910112">发布于 2014-10-15</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>1 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="7806765" data-atoken="31054648" data-collapsed="0" data-created="1411717016" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/31054648">
+<meta itemprop="answer-id" content="7806765">
+<meta itemprop="answer-url-token" content="31054648">
+<a class="zg-anchor-hidden" name="answer-7806765"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">9</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/droidyue" target="_blank" data-tip="p$t$droidyue"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/af3e9a5e56ad657b20fa7528b8440ca7_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$droidyue" target="_blank" href="https://www.zhihu.com/people/droidyue">技术小黑屋</a>
+
+
+<span title="http://droidyue.com/" class="bio">，<a href="https://link.zhihu.com/?target=http%3A//droidyue.com/" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">droidyue.com/</span><span class="invisible"></span><i class="icon-external"></i></a></span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="9" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">9 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="技术小黑屋" data-entry-url="/question/19759722/answer/31054648">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+使用<a href="https://link.zhihu.com/?target=http%3A//grepcode.com/" class=" wrap external" target="_blank" rel="nofollow noreferrer">GrepCode.com<i class="icon-external"></i></a>查看API很方便。
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+使用<a href="https://link.zhihu.com/?target=http%3A//grepcode.com/" class=" wrap external" target="_blank" rel="nofollow noreferrer">GrepCode.com<i class="icon-external"></i></a>查看API很方便。
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="7806765-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/31054648">发布于 2014-09-26</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>1 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="268550" data-atoken="12873649" data-collapsed="0" data-created="1310319433" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/12873649">
+<meta itemprop="answer-id" content="268550">
+<meta itemprop="answer-url-token" content="12873649">
+<a class="zg-anchor-hidden" name="answer-268550"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">2</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/pinxue" target="_blank" data-tip="p$t$pinxue"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$pinxue" target="_blank" href="https://www.zhihu.com/people/pinxue">品雪</a>
+
+
+<span title="人生如梦" class="bio">，人生如梦</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="2" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">2 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="品雪" data-entry-url="/question/19759722/answer/12873649">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+我觉得vim+tags已经很爽了，当然要是source insight出个Mac版本就更好了。 
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+ 我觉得vim+tags已经很爽了，当然要是source insight出个Mac版本就更好了。 
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="268550-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/12873649">发布于 2011-07-11</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="8897417" data-atoken="33775396" data-collapsed="0" data-created="1416557056" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/33775396">
+<meta itemprop="answer-id" content="8897417">
+<meta itemprop="answer-url-token" content="33775396">
+<a class="zg-anchor-hidden" name="answer-8897417"></a>
+
+
+<div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">6</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+<span class="name">匿名用户</span>
+</div>
+<div class="zm-item-vote-info" data-votecount="6" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">6 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="匿名用户" data-entry-url="/question/19759722/answer/33775396">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+分享自己总结的一些阅读源码的方法，需要注意的几个点可以注意下做什么事情都要知道从那里开始，读程序也不例外。在c语言里,首先要找到main()函数，然后逐层去阅读，其他的程序无论是vb、delphi都要首先找到程序头，否则你是很难分析清楚程序的层次关系。<b>分…</b>
+
+<a href="https://www.zhihu.com/question/19759722/answer/33775396" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+<p>分享自己总结的一些阅读源码的方法，需要注意的几个点可以注意下</p><p>做什么事情都要知道从那里开始，读程序也不例外。在c语言里,首先要找到main()函数，然后逐层去阅读，其他的程序无论是vb、delphi都要首先找到程序头，否则你是很难分析清楚程序的层次关系。</p><p><b>分层次阅读</b></p><p>　　在阅读代码的时候不要一头就扎下去，这样往往容易只见树木不见森林，阅读代码比较好的方法有一点象二叉树的广度优先的遍历。在程序主体一般会比较简 单，调用的函数会比较少，根据函数的名字以及层次关系一般可以确定每一个函数的大致用途，将你的理解作为注解写在这些函数的边上。当然很难一次就将全部注 解都写正确，有时候甚至可能是你猜测的结果，不过没有关系这些注解在阅读过程是不断修正的，直到你全部理解了代码为止。一般来说采用逐层阅读的方法可以是 你系统的理解保持在一个正确的方向上。避免一下子扎入到细节的问题上。在分层次阅读的时候要注意一个问题，就是将系统的函数和开发人员编写代码区分开。在 c, c++，java ,delphi中都有自己的系统函数，不要去阅读这些系统函数，除非你要学习他们的编程方法，否则只会浪费你的时间。将系统函数表示出来，注明它们的作用 即可，区分系统函数和自编函数有几个方法，一个是系统函数的编程风格一般会比较好，而自编的函数的编程风格一般比较会比较差。从变量名、行之间的缩进、注 解等方面一般可以分辨出来，另外一个是象ms c6++会在你编程的时候给你生成一大堆文件出来，其中有很多文件是你用不到了，可以根据文件名来区分一下时候是系统函数，最后如果你实在确定不了，那就 用开发系统的帮助系统去查一下函数名，对一下参数等来确定即可。</p><p><b>重复阅读</b></p><p>　　一次就可以将所有的代码都阅读明白的人是没有的。至少我还没有遇到过。反复的去阅读同一段代码有助于得代码的理解。一般来说，在第一次阅读代码的时候 你可以跳过很多一时不明白的代码段，只写一些简单的注解，在以后的重复阅读过程用，你对代码的理解会比上一次理解的更深刻，这样你可以修改那些注解错误的 地方和上一次没有理解的对方。一般来说，对代码阅读3，4次基本可以理解代码的含义和作用。</p><p><b>运行并修改代码</b></p><p>　　如果你的代码是可运行的，那么先让它运行起来，用单步跟踪的方法来阅读代码，会提高你的代码速度。代码通过看中间变量了解代码的含义,而且对 以后的修改会提供很大的帮助</p><p>　　用自己的代码代替原有代码，看效果，但在之前要保留源代码</p><p>　　600行的一个函数，阅读起来很困难，编程的人不是一个好的习惯。在阅读这个代码的时候将代码进行修改，变成了14个函数。每一个大约是40-50 行左右.</p><p>———————————————源码下载网站—————————————————————</p><p>跟你说几个我常用的源码下载网站</p><p>csdn（<a href="https://link.zhihu.com/?target=http%3A//www.csdn.net/" class=" wrap external" target="_blank" rel="nofollow noreferrer">中文IT社区<i class="icon-external"></i></a>）它是集新闻、论坛、群组、Blog、文档、下载、读书、Tag、网摘、搜索、.NET、Java、游戏、视频、人才、外包、第二书店、《程序员》等多种项目于一体的大型综合性IT门户网站，源码只是其中的一项，但是很实用 里边有很多大牛。</p><p>DevStore（<a href="https://link.zhihu.com/?target=http%3A//www.devstore.cn/code/list/pn1-or0.html" class=" wrap external" target="_blank" rel="nofollow noreferrer">源码下载<i class="icon-external"></i></a>）主要是开发者服务平台，汇集国内外众多第三方开发者服务，为开发者提供从设计开发到运营推广一站式的解决方案，源码和服务评测也是亮点，很专业，很实用，这里边聚集的都是开发者和PM，可以看看。</p><p>站长之家（<a href="https://link.zhihu.com/?target=http%3A//down.chinaz.com/" class=" wrap external" target="_blank" rel="nofollow noreferrer">网站源码<i class="icon-external"></i></a>）针对个人站长，企业网管提供的资讯和源码，包含的语言和类型也比较多。</p>
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="8897417-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/33775396">发布于 2014-11-21</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+<button class="item-collapse js-collapse"><i class="sprite-global-icon-fold-white"></i>收起</button></div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemprop="topAnswer" itemscope="" itemtype="http://schema.org/Answer" data-aid="20571800" data-atoken="62895188" data-collapsed="0" data-created="1441732271" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/62895188">
+<meta itemprop="answer-id" content="20571800">
+<meta itemprop="answer-url-token" content="62895188">
+<a class="zg-anchor-hidden" name="answer-20571800"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">0</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/guohai" target="_blank" data-tip="p$t$guohai"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/30e58181f_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$guohai" target="_blank" href="https://www.zhihu.com/people/guohai">Hai Guo</a>
+
+
+<span title="do one thing, do it well" class="bio">，do one thing, do it well</span>
+
+</div>
+<div class="zm-item-vote-info empty" data-votecount="0" data-za-module="VoteInfo">
+
+
+
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="Hai Guo" data-entry-url="/question/19759722/answer/62895188">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+工具就 vim + 一款自己熟悉的文本编辑器，关键是要选一个感兴趣的子系统/模块开始
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+工具就 vim + 一款自己熟悉的文本编辑器，关键是要选一个感兴趣的子系统/模块开始
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="20571800-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/62895188">发布于 2015-09-09</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="18208221" data-atoken="57001150" data-collapsed="0" data-created="1438189416" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/57001150">
+<meta itemprop="answer-id" content="18208221">
+<meta itemprop="answer-url-token" content="57001150">
+<a class="zg-anchor-hidden" name="answer-18208221"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">1</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/yorkie" target="_blank" data-tip="p$t$yorkie"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/d5977288948f374da4e5bd46198bf288_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$yorkie" target="_blank" href="https://www.zhihu.com/people/yorkie">Yorkie</a>
+
+
+<span title="github.com/yorkie" class="bio">，<a href="https://link.zhihu.com/?target=http%3A//github.com/yorkie" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">github.com/yorkie</span><span class="invisible"></span><i class="icon-external"></i></a></span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="1" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">1 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="Yorkie" data-entry-url="/question/19759722/answer/57001150">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+之前好像就答过 目标导向是阅读一切源代码的不二法门 试试给android系统慢慢加一下小功能 先从ui开始 然后再往下深 期间没准有彩蛋 遇到bug之类的 修掉提交给google吧
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+之前好像就答过 目标导向是阅读一切源代码的不二法门 试试给android系统慢慢加一下小功能 先从ui开始 然后再往下深 期间没准有彩蛋 遇到bug之类的 修掉提交给google吧
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="18208221-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/57001150">发布于 2015-07-30</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="305570" data-atoken="12966328" data-collapsed="0" data-created="1311757660" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/12966328">
+<meta itemprop="answer-id" content="305570">
+<meta itemprop="answer-url-token" content="12966328">
+<a class="zg-anchor-hidden" name="answer-305570"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">4</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/liaorui" target="_blank" data-tip="p$t$liaorui"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$liaorui" target="_blank" href="https://www.zhihu.com/people/liaorui">廖锐</a>
+
+
+<span title="Java, Android, 享受编程" class="bio">，Java, Android, 享受编程</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="4" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">4 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="廖锐" data-entry-url="/question/19759722/answer/12966328">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+Eclipse里看最方便了。在Android SDK的platforms目录下建立sources文件夹，放入frameworks的源代码，Eclipse里就能自动打开源代码了。网上有很多具体的说明。如果是看所有源码，包括底层C/C++源码，可以用<strong>lxr</strong>，变量函数查找和跳转都非常方便，但配置起来比…
+
+<a href="https://www.zhihu.com/question/19759722/answer/12966328" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+ Eclipse里看最方便了。在Android SDK的platforms目录下建立sources文件夹，放入frameworks的源代码，Eclipse里就能自动打开源代码了。网上有很多具体的说明。<br>如果是看所有源码，包括底层C/C++源码，可以用<strong>lxr</strong>，变量函数查找和跳转都非常方便，但配置起来比较麻烦，需要多尝试。 
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="305570-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/12966328">发布于 2011-07-27</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="7804758" data-atoken="31049633" data-collapsed="0" data-created="1411711244" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/31049633">
+<meta itemprop="answer-id" content="7804758">
+<meta itemprop="answer-url-token" content="31049633">
+<a class="zg-anchor-hidden" name="answer-7804758"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">2</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/kpld" target="_blank" data-tip="p$t$kpld"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$kpld" target="_blank" href="https://www.zhihu.com/people/kpld">李波</a>
+
+
+<span title="Linux爱好者" class="bio">，Linux爱好者</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="2" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">2 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="李波" data-entry-url="/question/19759722/answer/31049633">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+有没有用记事本的？我就用Notepad++和SublimeText来看。搜索用Everything和baregrep，以及Notepad++的搜索功能
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+有没有用记事本的？我就用Notepad++和SublimeText来看。搜索用Everything和baregrep，以及Notepad++的搜索功能
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="7804758-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/31049633">发布于 2014-09-26</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="10948669" data-atoken="38891812" data-collapsed="0" data-created="1423037526" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/38891812">
+<meta itemprop="answer-id" content="10948669">
+<meta itemprop="answer-url-token" content="38891812">
+<a class="zg-anchor-hidden" name="answer-10948669"></a>
+
+
+<div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">4</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/du9781123" target="_blank" data-tip="p$t$du9781123"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/e40182016a9e09c8f9c82505d2c635f7_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$du9781123" target="_blank" href="https://www.zhihu.com/people/du9781123">杜一</a>
+
+
+<span title="不会做菜的码农不是好运营" class="bio">，不会做菜的码农不是好运营</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="4" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">4 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="杜一" data-entry-url="/question/19759722/answer/38891812">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+阅读别人的代码作为开发人员是一件经常要做的事情。一个是学习新的编程语言的时候通过阅读别人的代码是一个最好的学习方法，另外是积累编程经验。如果你有机会阅读一些操作系统的代码会帮助你理解一些基本的原理。还有就是在你作为一个质量保证人员或一个小…
+
+<a href="https://www.zhihu.com/question/19759722/answer/38891812" class="toggle-expand">显示全部</a>
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+<p>阅读别人的代码作为开发人员是一件经常要做的事情。一个是学习新的编程语言的时候通过阅读别人的代码是一个最好的学习方法，另外是积累编程经验。如果你有机会阅读一些操作系统的代码会帮助你理解一些基本的原理。还有就是在你作为一个质量保证人员或一个小领导的时候如果你要做白盒测试的时候没有阅读代码的能力是不能完成相应的任务。最后一个就是如果你中途接手一个项目的时候或给一个项目做售后服务的时候是要有阅读代码的能力的。</p><p>　　收集所有可能收集的材料</p><p>　　阅读代码要做的第一件事情是收集所有和项目相关的资料。比如你要做一个项目的售后服务，那么你首先要搞明白项目做什么用的，那么调研文档、概要设计文档、详细设计文档、测试文档、使用手册都是你要最先搞到手的。如果你是为了学习那么尽量收集和你的学习有关的资料，比如你想学习linux的文件系统的代码，那最好要找到linux的使用手册、以及文件系统设计的方法、数据结构的说明。(这些资料在书店里都可以找到)。</p><p>　　材料的种类分为几种类型</p><p>　　1.基础资料。</p><p>　　比如你阅读turbo c2的源代码你要有turbo c2的函数手册，使用手册等专业书籍，msc 6.0或者java 的话不但要有函数手册，还要有类库函数手册。这些资料都是你的基础资料。另外你要有一些关于uml的资料可以作为查询手册也是一个不错的选择</p><p>　　2.和程序相关的专业资料。</p><p>　　每一个程序都是和相关行业相关的。比如我阅读过一个关于气象分析方面的代码，因为里边用到了一个复杂的数据转换公式，所以不得不把自己的大学时候课本 找出来来复习一下高等数学的内容。如果你想阅读linux的文件管理的代码，那么找一本讲解linux文件系统的书对你的帮助会很大。</p><p>　　3.相关项目的文档资料</p><p>　　这一部分的资料分为两种，一个相关行业的资料，比如你要阅读一个税务系统的代码那么有一些财务/税务系统的专业资料和国家的相关的法律、法规的资料是 必不可少的。此外就是关于这个项目的需求分析报告、概要设计报告、详细设计报告，使用手册、测试报告等，尽量多收集对你以后的代码阅读是很重要的</p><p>　　知识准备</p><p>　　了解基础知识，不要上来就阅读代码，打好基础可以做到事半功倍的效果</p><p>　　留备份,构造可运行的环境</p><p>　　代码拿到手之后的第一件事情是先做备份，最好是刻在一个光盘上，在代码阅读的时候一点不动代码是很困难的一件事情，特别是你要做一些修改性或增强性维护的时候。而一旦做修改就可能发生问题，到时候要恢复是经常发生的事情，如果你不能很好的使用版本控制软件那么先留一个备份是一个最起码的要求了。</p><p>　　在做完备份之后最好给自己构造一个可运行的环境，当然可能会很麻烦，但可运行代码和不可运行的代码阅读起来难度会差很多的。所以多用一点时间搭建一个环境是很值得的，而且我们阅读代码主要是为了修改其中的问题或做移植操作。不能运行的代码除了可以学到一些技术以外，用处有限。</p><p>　　找开始的地方</p><p>　　做什么事情都要知道从那里开始，读程序也不例外。在c语言里,首先要找到main()函数，然后逐层去阅读，其他的程序无论是vb、delphi都要首先找到程序头，否则你是很难分析清楚程序的层次关系。</p><p>　　分层次阅读</p><p>　　在阅读代码的时候不要一头就扎下去，这样往往容易只见树木不见森林，阅读代码比较好的方法有一点象二叉树的广度优先的遍历。在程序主体一般会比较简 单，调用的函数会比较少，根据函数的名字以及层次关系一般可以确定每一个函数的大致用途，将你的理解作为注解写在这些函数的边上。当然很难一次就将全部注 解都写正确，有时候甚至可能是你猜测的结果，不过没有关系这些注解在阅读过程是不断修正的，直到你全部理解了代码为止。一般来说采用逐层阅读的方法可以是 你系统的理解保持在一个正确的方向上。避免一下子扎入到细节的问题上。在分层次阅读的时候要注意一个问题，就是将系统的函数和开发人员编写代码区分开。在 c, c++，java ,delphi中都有自己的系统函数，不要去阅读这些系统函数，除非你要学习他们的编程方法，否则只会浪费你的时间。将系统函数表示出来，注明它们的作用 即可，区分系统函数和自编函数有几个方法，一个是系统函数的编程风格一般会比较好，而自编的函数的编程风格一般比较会比较差。从变量名、行之间的缩进、注 解等方面一般可以分辨出来，另外一个是象ms c6++会在你编程的时候给你生成一大堆文件出来，其中有很多文件是你用不到了，可以根据文件名来区分一下时候是系统函数，最后如果你实在确定不了，那就 用开发系统的帮助系统去查一下函数名，对一下参数等来确定即可。</p><p>　　写注解</p><p>　　　　写注解是在阅读代码中最重要的一个步骤，在我们阅读的源代码一般来说是我们不熟悉的系统,阅读别人的代码一般会有几个问题，1搞明白别人的编程思想不 是一件很容易的事情，即使你知道这段程序的思路的时候也是一样。2阅读代码的时候代码量一般会比较大，如果不及时写注解往往会造成读明白了后边忘了前边的 现象。3阅读代码的时候难免会出现理解错误，如果没有及时的写注解很难及时的发现这些错误。4不写注解有时候你发生你很难确定一个函数你时候阅读过，它的功能是什么，经常会发生重复阅读、理解的现象。</p><p>　　好了，说一些写注解的基本方法：</p><p>1.猜测的去写，刚开始阅读一个代码的时候，你很难一下子就确定所有的函数的功能，不妨采用采用猜测的方法去写注解，根 据函数的名字、位置写一个大致的注解，当然一般会有错误，但你的注解实际是不但调整的，直到最后你理解了全部代码。</p><p>2.按功能去写，别把注解写成语法说明 书，千万别看到fopen就写打开文件，看到fread就写读数据，这样的注解一点用处都没有，而应该写在此处开发参数配置文件(****。dat)读出 系统初始化参数。。。。。，这样才是有用的注解。</p><p>3.在写注解的使用另外要注意的一个问题是分清楚系统自动生成的代码和用户自 己开发的代码，一般来说没有必要写系统自动生成的代码。象delphi的代码，我们往往要自己编写一些自己的代码段，还要对一些系统自动生成的代码段进行 修改，这些代码在阅读过程是要写注解的，但有一些没有修改过的自动生成的代码就没有必要写注解了。</p><p>4.在主要代码段要写较为详细的注解。有一些函数或类在程序中起关键的作用，那么要写比较详细的注解。这样对你理解代码有很大的帮助。</p><p>5.对你理解起来比较困难的地方要写详细的注解，在这些地方往往会有一些编程的技巧。不理解这些编程技巧对你以后的理解或移植会有问题。</p><p>6.写中文注解。如果你的英文足够的好，不用看这条了，但很多的人英文实在不怎么样，那就写中文注解吧，我们写注解是为了加快自己的理解速度。中文在大多数的时候比英文更适应中国人。与其写一些谁也看不懂的英文注解还不如不写。</p><p>　　重复阅读</p><p>　　一次就可以将所有的代码都阅读明白的人是没有的。至少我还没有遇到过。反复的去阅读同一段代码有助于得代码的理解。一般来说，在第一次阅读代码的时候 你可以跳过很多一时不明白的代码段，只写一些简单的注解，在以后的重复阅读过程用，你对代码的理解会比上一次理解的更深刻，这样你可以修改那些注解错误的 地方和上一次没有理解的对方。一般来说，对代码阅读3，4次基本可以理解代码的含义和作用。</p><p>　　运行并修改代码</p><p>　　如果你的代码是可运行的，那么先让它运行起来，用单步跟踪的方法来阅读代码，会提高你的代码速度。代码通过看中间变量了解代码的含义,而且对 以后的修改会提供很大的帮助</p><p>　　用自己的代码代替原有代码，看效果，但在之前要保留源代码</p><p>　　600行的一个函数，阅读起来很困难，编程的人不是一个好的习惯。在阅读这个代码的时候将代码进行修改，变成了14个函数。每一个大约是40-50 行左右. </p>
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="10948669-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/38891812">发布于 2015-02-04</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>1 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+<button class="item-collapse js-collapse"><i class="sprite-global-icon-fold-white"></i>收起</button></div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="7574433" data-atoken="30474623" data-collapsed="0" data-created="1410552463" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/30474623">
+<meta itemprop="answer-id" content="7574433">
+<meta itemprop="answer-url-token" content="30474623">
+<a class="zg-anchor-hidden" name="answer-7574433"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">7</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+<span class="name">匿名用户</span>
+</div>
+<div class="zm-item-vote-info" data-votecount="7" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">7 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="匿名用户" data-entry-url="/question/19759722/answer/30474623">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+这个问题最好玩的地方就是在于一堆人喜欢东扯一点西扯一点 , 最后说拿eclipse来看看源码吧= =真好玩.
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+这个问题最好玩的地方就是在于一堆人喜欢东扯一点西扯一点 , 最后说拿eclipse来看看源码吧= =<br>真好玩.
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="7574433-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/30474623">发布于 2014-09-13</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="268535" data-atoken="12873608" data-collapsed="0" data-created="1310318107" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/12873608">
+<meta itemprop="answer-id" content="268535">
+<meta itemprop="answer-url-token" content="12873608">
+<a class="zg-anchor-hidden" name="answer-268535"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">6</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/holly-lee" target="_blank" data-tip="p$t$holly-lee"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$holly-lee" target="_blank" href="https://www.zhihu.com/people/holly-lee">Holly Lee</a>
+
+
+<span title="码农. 大多数时候在为五斗米折腰, 偶尔会尝试写一些有趣的, 或者好玩的, 或者比较酷的程序. 即使不能改变世界, 也希望能改变一点生活" class="bio">，码农. 大多数时候在为五斗米折腰, 偶尔会…</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="6" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">6 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="Holly Lee" data-entry-url="/question/19759722/answer/12873608">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+vim+grep. 读任何代码都是一样的. android 并没什么特殊的 
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+ vim+grep. 读任何代码都是一样的. android 并没什么特殊的 
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="268535-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/12873608">发布于 2011-07-11</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>4 条评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="278692" data-atoken="12898996" data-collapsed="0" data-created="1310654399" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/12898996">
+<meta itemprop="answer-id" content="278692">
+<meta itemprop="answer-url-token" content="12898996">
+<a class="zg-anchor-hidden" name="answer-278692"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">3</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/border" target="_blank" data-tip="p$t$border"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/0b833c792_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$border" target="_blank" href="https://www.zhihu.com/people/border">JiangBian</a>
+
+
+<span title="关注Android, Golang" class="bio">，关注Android, Golang</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="3" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">3 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="JiangBian" data-entry-url="/question/19759722/answer/12898996">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+vim+tags+cscope+grep 
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+ vim+tags+cscope+grep 
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="278692-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/12898996">发布于 2011-07-14</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="7029342" data-atoken="29115160" data-collapsed="0" data-created="1407841695" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/29115160">
+<meta itemprop="answer-id" content="7029342">
+<meta itemprop="answer-url-token" content="29115160">
+<a class="zg-anchor-hidden" name="answer-7029342"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">2</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/heng-liu" target="_blank" data-tip="p$t$heng-liu"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/da8e974dc_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$heng-liu" target="_blank" href="https://www.zhihu.com/people/heng-liu">heng liu</a>
+
+
+<span title="曾经很骄傲" class="bio">，曾经很骄傲</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="2" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">2 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="heng liu" data-entry-url="/question/19759722/answer/29115160">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+emacs gtags ggtags 
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+emacs gtags ggtags 
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="7029342-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/29115160">发布于 2014-08-12</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div><div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemscope="" itemtype="http://schema.org/Answer" data-aid="34378546" data-atoken="97331110" data-collapsed="0" data-created="1461650453" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1" data-za-module="AnswerItem">
+<link itemprop="url" href="https://www.zhihu.com/question/19759722/answer/97331110">
+<meta itemprop="answer-id" content="34378546">
+<meta itemprop="answer-url-token" content="97331110">
+<a class="zg-anchor-hidden" name="answer-34378546"></a>
+
+
+<div class="zm-votebar" data-za-module="VoteBar">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">1</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+
+<a class="zm-item-link-avatar avatar-link" href="https://www.zhihu.com/people/pilu-66" target="_blank" data-tip="p$t$pilu-66"><img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/176fa8b74221ebe7ccc265a0b2fc991b_s.jpg" class="zm-list-avatar avatar"></a>
+
+
+<a class="author-link" data-tip="p$t$pilu-66" target="_blank" href="https://www.zhihu.com/people/pilu-66">pilu</a>
+
+
+<span title="RTFSC" class="bio">，RTFSC</span>
+
+</div>
+<div class="zm-item-vote-info" data-votecount="1" data-za-module="VoteInfo">
+
+
+
+
+<span class="voters text"><a href="javascript:;" class="more text">1 人赞同</a></span>
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="83931" data-action="/answer/content" data-author-name="pilu" data-entry-url="/question/19759722/answer/97331110">
+
+
+<div class="zh-summary summary clearfix" style="display:none;">
+
+多年的Android经验建议，debug, debug &amp; debug!动态跟踪android framework代码，属于service实现的相关代码就attach到systemserver上比你看死代码强N倍！
+
+</div>
+
+
+<div class="zm-editable-content clearfix">
+多年的Android经验建议，debug, debug &amp; debug!<br>动态跟踪android framework代码，属于service实现的相关代码就attach到systemserver上<br>比你看死代码强N倍！
+</div>
+
+
+</div>
+<a class="zg-anchor-hidden ac" name="34378546-comment"></a>
+<div class="zm-item-meta answer-actions clearfix js-contentActions">
+<div class="zm-meta-panel">
+
+<a itemprop="url" class="answer-date-link meta-item" target="_blank" href="https://www.zhihu.com/question/19759722/answer/97331110">发布于 2016-04-26</a>
+
+<a href="https://www.zhihu.com/question/19759722#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-thank" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-share goog-inline-block goog-menu-button" role="button" aria-expanded="false" tabindex="0" aria-haspopup="true" style="-webkit-user-select: none;"><div class="goog-inline-block goog-menu-button-outer-box"><div class="goog-inline-block goog-menu-button-inner-box"><div class="goog-inline-block goog-menu-button-caption"><i class="z-icon-share"></i>分享</div><div class="goog-inline-block goog-menu-button-dropdown">&nbsp;</div></div></div></a>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-collect"><i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">•</span>
+
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-noHelp">没有帮助</a>
+
+<span class="zg-bull zu-autohide">•</span>
+<a href="https://www.zhihu.com/question/19759722#" class="meta-item zu-autohide js-report">举报</a>
+
+
+
+<span class="zg-bull">•</span>
+
+<a href="https://www.zhihu.com/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ </div><a aria-role="button" class="zg-btn-white zu-button-more">更多</a>
+
+<div id="zh-question-collapsed-link" class="zu-question-collap-title" style="display:none">
+<a href="javascript:;" name="expand" class="zg-link-gray" id="zh-question-collapsed-switcher">
+<span id="zh-question-collapsed-num">10</span> 个回答被折叠
+</a>
+（<a target="_blank" href="http://www.zhihu.com/question/20120168" class="zg-link-gray">为什么？</a>）
+</div>
+<div id="zh-question-collapsed-wrap" class="zh-question-answer-wrapper" style="display:none"></div>
+<a name="draft"></a>
+<div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
+<div class="zm-editable-tip zu-answer-form-disabled-wrap" style="display: none;"></div>
+<div class="zm-editable-content" style="display: none;"><a href="javascript:;" class="zu-edit-button" name="edit"><i class="zu-edit-button-icon"></i>修改</a></div><div class="zm-editable-editor-wrap" style=""><div class="zh-answer-form clearfix"><div><div class="zu-answer-form-title">我来回答这个问题<span></span></div></div></div><div class="zm-editable-editor-outer"><div class="zm-editable-toolbar-container goog-scrollfloater"><div class="goog-toolbar goog-toolbar-horizontal" role="toolbar" tabindex="-1" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button" title="写作模式" role="button" id="toggleFullScreen" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-max" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="粗体 (ctrl+b)" role="button" aria-pressed="false" id="+bold" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-bold" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="斜体 (ctrl+i)" role="button" aria-pressed="false" id="+italic" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-italic" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="下划线 (ctrl+u)" role="button" aria-pressed="false" id="+underline" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-underline" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-toolbar-separator goog-toolbar-separator-disabled goog-inline-block" aria-disabled="true" role="separator" id=":2c" style="-webkit-user-select: none;">&nbsp;</div><div class="goog-inline-block goog-toolbar-button" title="引用内容" role="button" aria-pressed="false" id="+blockquote" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-blockquote" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="插入代码" role="button" aria-pressed="false" id="+code" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-code" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="有序列表" role="button" aria-pressed="false" id="+insertOrderedList" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-insertOrderedList" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="无序列表" role="button" aria-pressed="false" id="+insertUnorderedList" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-insertUnorderedList" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="插入公式" role="button" id="+equation" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-equation" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-toolbar-separator goog-toolbar-separator-disabled goog-inline-block" aria-disabled="true" role="separator" id=":2d" style="-webkit-user-select: none;">&nbsp;</div><div class="goog-inline-block goog-toolbar-button" title="插入图片" role="button" id="image" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-image" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-inline-block goog-toolbar-button" title="插入视频" role="button" id="video" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-video" style="-webkit-user-select: none;"></div></div></div></div><div class="goog-toolbar-separator goog-toolbar-separator-disabled goog-inline-block" aria-disabled="true" role="separator" id=":2e" style="-webkit-user-select: none;">&nbsp;</div><div class="goog-inline-block goog-toolbar-button" title="清除格式" role="button" id="+removeFormat" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-outer-box" style="-webkit-user-select: none;"><div class="goog-inline-block goog-toolbar-button-inner-box" style="-webkit-user-select: none;"><div class="tr-icon tr-removeFormat" style="-webkit-user-select: none;"></div></div></div></div><div class="tr-spinner spinner-gray" style="display: none;"></div></div></div><div class="zm-editable-editor-field-wrap"><div id="mock:16" class="zm-editable-editor-field-element editable" g_editable="true" role="textbox" contenteditable="true" style="font-style: italic;"><p><span style="font-style: normal;color: #999;">写回答…</span></p></div><div class="editable-dropzone"><div class="row"><div class="cell"><div>拖拽至此处上传</div></div></div></div></div><div class="signin-mask-tip-answer"></div><div class="mention-popup" style="display: none;"><div class="writing-bg"><input role="combobox" aria-autocomplete="list" autocomplete="off"></div><div class="tip">想用 @ 提到谁？</div></div></div><div class="zm-command"><a class="zg-r3px zg-btn-blue" href="javascript:">我要回答</a></div><div class="zm-command clearfix" style="display: none;"><label class="zg-left anno-box" style="-webkit-user-select: none;"><input name="anno-checkbox" type="checkbox" style="-webkit-user-select: none;"> 匿名 <span style="-webkit-user-select: none;">&nbsp;</span></label> <label class="zg-left copyright-box"><input name="copyright-checkbox" type="checkbox">未经许可，禁止转载<a href="https://www.zhihu.com/terms#sec-licence-6" target="_blank"><i class="zg-icon zg-icon-question-mark" style="margin-left: 5px;" id="copyright_question_mark" data-copyright-demo="true"></i></a></label> <span class=" zg-right"><a class="submit-button zg-btn-blue" name="save" href="javascript:">发布回答</a></span><div class="draft-controls zg-right "><span class="draft-saved-info" style="display: none;"><a class="draft-clear-button goog-inline-block" href="https://www.zhihu.com/question/19759722#" data-tip="s$b$删除草稿"><i class="zg-icon zg-icon-bin"></i><span class="hide-text">清除草稿</span></a><span class="draft-saved-time"></span></span></div></div></div>
+</div>
+<!-- 版权演示 -->
+
+<script type="text/x-template" id="copyright-demo-template">
+<article>
+
+<section>
+<p class="copyright-demo-title"> 这是你的回答正文 </p>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+</section>
+
+<section>
+<p class="copyright-demo-title"> 当其他人想复制你的一段回答 </p>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region1">
+<span class="copyright-ico-indicator" id="copyright-demo-indicator"></span>
+</div>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region2"></div>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region3"></div>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region4"></div>
+<div class="copyright-demo-region"></div>
+</section>
+
+<section id="copyright-demo-frame3">
+<p class="copyright-demo-title"> 复制将受限，同时会弹出提醒 </p>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region"></div>
+<span class="copyright-ico-pointer copyright-demo-pointer"></span>
+</section>
+</article>
+</script>
+
+
+
+</div>
+</div>
+
+
+<div class="zu-main-sidebar">
+
+<div class="zm-side-section">
+<div class="zm-side-section-inner">
+<div class="SignFlow SignFlow--bordered" id="SidebarSignFlow">
+<div class="SignFlow-panel">
+<div class="title register">
+<h1>加入知乎</h1>
+<h2>与世界分享你的知识、经验和见解</h2>
+</div>
+<div class="view register SignupForm">
+<form action="https://www.zhihu.com/register/email" novalidate="novalidate">
+<div class="input-wrapper">
+<input type="text" name="fullname" aria-label="姓名" data-placeholder="姓名" required="" placeholder="姓名">
+</div>
+<div class="input-wrapper">
+
+<input type="text" name="phone_num" class="account" aria-label="手机号（仅支持中国大陆）" data-placeholder="手机号（仅支持中国大陆）" required="" placeholder="手机号（仅支持中国大陆）">
+
+</div>
+<div class="input-wrapper toggle-password">
+<input type="password" hidden=""> 
+<input type="password" name="password" aria-label="密码" data-placeholder="密码（不少于 6 位）" required="" placeholder="密码（不少于 6 位）">
+<span class="z-ico-show-password"></span>
+</div>
+<div class="input-wrapper captcha-module" data-type="en" style="display: block;">
+<input id="captcha" name="captcha" placeholder="验证码" required="" data-rule-required="true" data-msg-required="请填写验证码">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张" alt="验证码" src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/captcha.gif" style="display: inline;">
+</div>
+</div>
+<div class="actions">
+
+<input type="submit" value="注册" class="submit zg-btn-blue">
+
+</div>
+<div class="sns clearfix">
+<span>已有帐号？<a href="https://www.zhihu.com/question/19759722#" class="switch-to-login">登录</a></span>
+</div>
+</form>
+</div>
+</div>
+<div class="SignFlow-panel" hidden="">
+<div class="LoginForm">
+<div class="title login">
+<h1>登录知乎</h1>
+<h2>与世界分享你的知识、经验和见解</h2>
+</div>
+<div class="view login">
+<form method="POST" novalidate="novalidate">
+<div class="input-wrapper">
+<input type="text" name="account" class="account" aria-label="手机号或邮箱" placeholder="手机号或邮箱" required="">
+</div>
+<div class="input-wrapper toggle-password">
+<input type="password" name="password" aria-label="密码" placeholder="密码" required="">
+<span class="z-ico-show-password"></span>
+</div>
+<div class="input-wrapper captcha-module" data-type="en">
+<input id="captcha" name="" placeholder="验证码" required="" data-rule-required="true" data-msg-required="请填写验证码" class="is-ignoreValidation">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张" alt="验证码">
+</div>
+</div>
+<div class="actions">
+
+<input type="submit" value="登录" class="submit zg-btn-blue">
+
+</div>
+<div class="sns clearfix">
+<label class="remember-me"><input type="checkbox" name="remember_me" checked="" value="true">记住我</label>
+<span class="middot">·</span>
+<button class="unable-login" type="button">无法登录？</button>
+<button type="button" class="js-show-sns-buttons is-visible">社交帐号登录</button>
+<div class="sns-buttons">
+<button type="button" class="wechat"><span class="ico sprite-global-icon-wechat-gray"></span>微信</button>
+<button type="button" class="weibo"><span class="ico sprite-global-icon-weibo-gray"></span>微博</button>
+<button type="button" class="qq"><span class="ico sprite-global-icon-qq-gray"></span>QQ</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="zm-side-section">
+<div class="zm-side-section-inner zg-gray-normal" id="zh-question-side-header-wrap">
+<button data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="83931">关注问题</button>
+
+4551
+人关注该问题
+
+</div>
+</div>
+
+
+<div class="shameimaru-section" data-track="https://sugar.zhihu.com/track?vs=1&amp;ai=614&amp;ut=145afcc133344ed398541913e3dae309&amp;cg=1&amp;ts=1464673735.28&amp;si=e9975c3c3a124a819b0e07558d961745&amp;lu=0&amp;hn=ad02&amp;pf=Windows&amp;az=3&amp;sg=42ba85141615cb3bd5ebbbee77c767d3">
+<a class="shameimaru-link" href="https://sugar.zhihu.com/track?vs=1&amp;ai=614&amp;ut=145afcc133344ed398541913e3dae309&amp;tu=https%3A//www.zhihu.com/careers%23engineering&amp;cg=1&amp;ts=1464673735.28&amp;si=e9975c3c3a124a819b0e07558d961745&amp;lu=0&amp;hn=ad02&amp;at=click&amp;pf=Windows&amp;az=3&amp;sg=da092d172056bb09e35e0ff35fae87bc" target="_blank" rel="nofollow">
+<img src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/b07a6e98bff5162216f5562ac05ea953_270x225.png" srcset="https://pic3.zhimg.com/b07a6e98bff5162216f5562ac05ea953_540x450.png 2x" alt="engineering ">
+</a>
+<a class="shameimaru-close z-ico-shameimaru-close" data-tip="s$b$不再显示" rel="nofollow"></a>
+
+<img class="shameimaru-pixel" src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/track">
+
+</div>
+<div class="zm-side-section">
+<div class="zm-side-section-inner">
+<div id="zh-question-related-questions" class="zh-question-related-questions clearfix" data-za-module="RelatedQuestions">
+
+<a class="zg-right next">换一换</a>
+
+<h3>相关问题</h3>
+<ul itemprop="relatedQuestion" itemscope="" itemtype="http://schema.org/ItemList">
+
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/20181899" data-id="252930">拿到 Android 项目源码后，如何才能以最高效的速度看懂？</a> <span class="num">14 个回答</span><meta itemprop="followerCount" content="215">
+</li>
+
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/34652589" data-id="6067493">Android中为什么主线程不会因为Looper.loop()里的死循环卡死？</a> <span class="num">26 个回答</span><meta itemprop="followerCount" content="501">
+</li>
+
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/27852694" data-id="3323918">如何评价 React Native？</a> <span class="num">43 个回答</span><meta itemprop="followerCount" content="5856">
+</li>
+
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/22171700" data-id="1049544">为什么android 源代码中很多地方使用输出参数 ( outParameter ),而不是返回值?</a> <span class="num">6 个回答</span><meta itemprop="followerCount" content="108">
+</li>
+
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/27227425" data-id="3073893">大家有哪些好的 Android 开发习惯？</a> <span class="num">28 个回答</span><meta itemprop="followerCount" content="3560">
+</li>
+
+<li hidden="" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/20652822" data-id="441519">Java 程序员转 Android 开发有哪些经验可以分享？</a> <span class="num">12 个回答</span><meta itemprop="followerCount" content="947">
+</li>
+
+<li hidden="" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/24976909" data-id="2172725">android系统不释放内存吗？</a> <span class="num">11 个回答</span><meta itemprop="followerCount" content="609">
+</li>
+
+<li hidden="" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/29091766" data-id="3819669">下图中两种样式的返回按钮，视觉上的主要差别在哪？</a> <span class="num">20 个回答</span><meta itemprop="followerCount" content="281">
+</li>
+
+<li hidden="" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/19865201" data-id="126056">如何限制应用程序申请不必要权限？</a> <span class="num">26 个回答</span><meta itemprop="followerCount" content="190">
+</li>
+
+<li hidden="" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Question" data-za-module="QuestionItem">
+<a class="question_link" href="https://www.zhihu.com/question/19981105" data-id="172410">怎么将 Android 程序做成插件化的形式？</a> <span class="num">23 个回答</span><meta itemprop="followerCount" content="745">
+</li>
+
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div id="zh-footer" class="zh-footer">
+<div class="content zg-wrap clearfix">
+<ul>
+
+<li><a href="https://liukanshan.zhihu.com/" target="_blank">刘看山</a></li>
+
+<li><a href="https://www.zhihu.com/app" target="_blank">移动应用</a></li>
+<li><a href="https://www.zhihu.com/careers">加入知乎</a></li>
+<li><a href="https://www.zhihu.com/terms" target="_blank">知乎协议</a></li>
+<li><a href="https://www.zhihu.com/contact">联系我们</a></li>
+
+</ul>
+
+<span class="copy">© 2016 知乎</span>
+
+</div>
+</div>
+
+<script type="text/json" class="json-inline" data-name="guiders2">{}</script>
+<script type="text/json" class="json-inline" data-name="current_user">["","","","-1","",0,0]</script>
+<script type="text/json" class="json-inline" data-name="user_status">[null,null]</script>
+<script type="text/json" class="json-inline" data-name="env">["zhihu.com","comet.zhihu.com",false,null,false]</script>
+<script type="text/json" class="json-inline" data-name="permissions">[]</script>
+
+
+<script type="text/json" class="json-inline" data-name="ga_vars">{"user_created":0,"now":1464665690000,"abtest_mask":"------------------------------","user_attr":[0,0,0,"-","-"],"user_hash":0}</script>
+
+<script type="text/json" class="json-inline" data-name="ra-urls">{"Report":"https:\/\/static.zhihu.com\/static\/revved\/-\/apps\/Report.7b207896.js","Community":"https:\/\/static.zhihu.com\/static\/revved\/-\/apps\/Community.97844271.js","common":"https:\/\/static.zhihu.com\/static\/revved\/-\/apps\/common.33e6b712.js","CommentApp":"https:\/\/static.zhihu.com\/static\/revved\/-\/apps\/CommentApp.59727ee3.js"}</script>
+
+<script type="text/json" class="json-inline" data-name="current_question">{"status":"normal","isLocked":0,"isEditLocked":false,"detailEditReasonRequired":true,"editPermission":false,"isAnon":0,"qid":83931,"urlToken":19759722,"showInvitePanel":false,"askAboutMember":0}</script>
+<script type="text/json" class="json-inline" data-name="current_question_owner">false</script>
+<script type="text/json" class="json-inline" data-name="draft">[]</script>
+<script type="text/json" class="json-inline" data-name="my_answer">{}</script>
+<script type="text/json" class="json-inline" data-name="current_question_bio">{"selected_bio":null,"type":null,"value":""}</script>
+
+<script type="text/json" class="json-inline" data-name="redirect_to">""</script>
+
+
+<script src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/vendor.ff76fbae.js"></script>
+<script src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/base.070bc2d4.js"></script>
+
+<script src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/common.7a59ca4a.js"></script>
+
+
+<script src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/richtexteditor.403c207a.js" async=""></script>
+<script src="./大牛们是怎么阅读 Android 系统源码的？ - Android 开发 - 知乎_files/page-main.d4a61e9c.js"></script>
+<meta name="entry" content="ZH.entrySQ" data-module-id="page-main">
+
+<script type="text/zscript" znonce="f3e1a41318ae4848b12c28c22ac21f2c"></script>
+
+<input type="hidden" name="_xsrf" value="f8dc4ac7834d661f14ea28036776b55c">
+
+<div class="zh-backtotop" style="opacity: 1;"><a data-action="backtotop" data-tip="s$r$回到顶部" href="javascript:;" class="btn-backtotop btn-action"><div class="arrow"></div><div class="stick"></div></a></div><div id="copyright-demo-helper" style="display: none; position: absolute;"><p class="copyright-demo-helper-intro"> 勾选后，我们将限制其他用户的复制操作，并给予提醒 </p><p class="copyright-demo-helper-btn"> 查看演示 </p></div><div id="zh-tooltip"></div><div style="display: none;"><div class="lang-select collapsed"><div class="title-button" style="-webkit-user-select: none;">选择语言</div><i class="zg-icon zg-icon-double-arrow"></i><div class="input-wrapper"><input class="filter-input zg-form-text-input" placeholder="搜索语言" role="combobox" aria-autocomplete="list"></div></div></div><div></div><script type="text/template" class="register-template">
+<div class="title register">
+<h1>加入知乎</h1>
+<h2>与世界分享你的知识、经验和见解</h2>
+</div>
+<div class="view register SignupForm">
+<form action="/register/email">
+<div class="input-wrapper">
+<input type="text" name="fullname" aria-label="姓名" placeholder="姓名" required>
+</div>
+<div class="input-wrapper">
+
+
+<input type="text" name="phone_num" class="account" data-is-domestic="true" aria-label="手机号（仅支持中国大陆）" placeholder="手机号（仅支持中国大陆）" required>
+
+
+</div>
+<div class="input-wrapper toggle-password">
+<input type="password" hidden> 
+<input type="password" name="password" aria-label="密码" placeholder="密码（不少于 6 位）" required>
+<span class="z-ico-show-password"></span>
+</div>
+<div class="input-wrapper captcha-module" data-type="en" >
+<input id="captcha" name="captcha" placeholder="验证码" required data-rule-required="true" data-msg-required="请填写验证码">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张"  alt="验证码">
+</div>
+</div>
+<div class="actions">
+
+<button class="submit blue-button">注册</button>
+
+</div>
+<div class="sns clearfix">
+<span>已有帐号？<a href="#" class="switch-to-login">登录</a></span>
+</div>
+</form>
+</div>
+</script>
+<script type="text/template" class="phone-verification-template">
+<div class="title verification">
+<h1>验证手机</h1>
+<h2>请输入你收到的 6 位数短信验证码</h2>
+</div>
+<div class="view verification">
+<form>
+<div class="input-wrapper">
+<input type="text" name="phone_num" aria-label="手机号" placeholder="手机号" required>
+</div>
+<div class="input-wrapper verification-code">
+<input type="text" name="verification_code" aria-label="验证码" placeholder="6 位数验证码" maxlength="6" required>
+<button type="button" class="send-code">重发验证码</button>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">进入知乎</button>
+</div>
+</form>
+</div>
+</script>
+<script type="text/template" class="login-template">
+<div class="LoginForm">
+<div class="title login">
+<h1>登录知乎</h1>
+<h2>与世界分享你的知识、经验和见解</h2>
+</div>
+<div class="view login">
+<form method="POST">
+<div class="input-wrapper">
+<input type="text" name="account" class="account" aria-label="手机号或邮箱" placeholder="手机号或邮箱" required>
+</div>
+<div class="input-wrapper toggle-password">
+<input type="password" name="password" aria-label="密码" placeholder="密码" required>
+<span class="z-ico-show-password"></span>
+</div>
+<div class="input-wrapper captcha-module" data-type="en" >
+<input id="captcha" name="captcha" placeholder="验证码" required data-rule-required="true" data-msg-required="请填写验证码">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张"  alt="验证码">
+</div>
+</div>
+<div class="actions">
+
+<button class="submit blue-button">登录</button>
+
+</div>
+<div class="sns clearfix">
+<label class="remember-me"><input type="checkbox" name="remember_me" checked value="true">记住我</label>
+<span class="middot">·</span>
+<button class="unable-login" type="button">无法登录？</button>
+<button type="button" class="js-show-sns-buttons is-visible">社交帐号登录</button>
+<div class="sns-buttons">
+<button type="button" class="wechat"><span class="ico sprite-global-icon-wechat-gray"></span>微信</button>
+<button type="button" class="weibo"><span class="ico sprite-global-icon-weibo-gray"></span>微博</button>
+<button type="button" class="qq"><span class="ico sprite-global-icon-qq-gray"></span>QQ</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</script>
+<script type="text/template" class="login-sms-verification-template">
+<div class="title">
+<h1>为保护你的帐号安全，请验证手机</h1>
+<h2>短信验证码已发送至以下号码</h2>
+</div>
+<div class="view">
+<form>
+<div class="input-wrapper">
+<input type="text" name="phone_num" aria-label="手机号" placeholder="手机号" required disabled>
+</div>
+<div class="input-wrapper verification-code">
+<input type="text" name="verification_code" aria-label="验证码" placeholder="6 位数验证码" maxlength="6" required>
+<button type="button" class="send-code">重发验证码</button>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">登录</button>
+</div>
+</form>
+</div>
+</script>
+<script type="text/template" class="unable-login-template">
+<div class="title start">
+<h1>无法登录</h1>
+<h2>我们提供两种方式帮助你重新登录知乎</h2>
+</div>
+<div class="view start">
+<button class="blue-button reset-password">找回密码</button>
+<button class="blue-button sms-login">使用手机验证码登录</button>
+</div>
+<div class="title reset-password-verification">
+<h1>找回密码</h1>
+<h2>
+
+验证码将会发送至你的注册邮箱或手机
+
+</h2>
+</div>
+<div class="view reset-password-verification">
+<form>
+<div class="input-wrapper">
+<input type="text" name="account" class="account" aria-label="手机号或邮箱" placeholder="手机号或邮箱" required>
+</div>
+<div class="input-wrapper captcha-module" data-type="en" >
+<input id="captcha" name="captcha" placeholder="验证码" required data-rule-required="true" data-msg-required="请填写验证码">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张"  alt="验证码">
+</div>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">获取验证码</button>
+</div>
+</form>
+</div>
+<div class="title reset-password">
+<h1>重设密码</h1>
+<h2>
+
+验证码将会发送至你的注册邮箱或手机
+
+</h2>
+</div>
+<div class="view reset-password">
+<form action="/resetpassword/email">
+<div class="input-wrapper">
+<input type="text" name="account" class="account" aria-label="手机号或邮箱" placeholder="手机号或邮箱" required>
+</div>
+<div class="input-wrapper toggle-password">
+<input type="password" hidden> 
+<input type="password" name="password" aria-label="新密码" placeholder="新密码" required>
+<span class="z-ico-show-password"></span>
+</div>
+<div class="input-wrapper verification-code">
+<input type="text" name="verification_code" aria-label="邮箱收到的" placeholder="邮箱收到的 6 位数验证码" maxlength="6" required>
+<button type="button" class="send-code">重发验证码</button>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">重设密码</button>
+</div>
+</form>
+</div>
+<div class="title sms-login-verification">
+<h1>登录知乎</h1>
+<h2>验证码将会发送至你的手机</h2>
+</div>
+<div class="view sms-login-verification">
+<form>
+<div class="input-wrapper">
+<input type="text" name="phone_num" aria-label="手机号" placeholder="手机号" required>
+</div>
+<div class="input-wrapper captcha-module" data-type="en" >
+<input id="captcha" name="captcha" placeholder="验证码" required data-rule-required="true" data-msg-required="请填写验证码">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张"  alt="验证码">
+</div>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">获取验证码</button>
+</div>
+</form>
+</div>
+<div class="title sms-login">
+<h1>登录知乎</h1>
+<h2>输入你收到的 6 位数短信验证码</h2>
+</div>
+<div class="view sms-login">
+<form>
+<div class="input-wrapper">
+<input type="text" name="phone_num" aria-label="手机号" placeholder="手机号" required>
+</div>
+<div class="input-wrapper verification-code">
+<input type="text" name="verification_code" aria-label="验证码" placeholder="6 位数验证码" maxlength="6" required>
+<button type="button" class="send-code">重发验证码</button>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">登录知乎</button>
+</div>
+</form>
+</div>
+</script>
+<script type="text/template" class="oauth-register-template">
+<div class="title register">
+<h1>填写姓名</h1>
+<h2>请填写你的真实姓名</h2>
+</div>
+<div class="view register">
+<form>
+<div class="input-wrapper">
+<input type="text" name="fullname" aria-label="姓名" placeholder="姓名" required>
+</div>
+<div class="input-wrapper captcha-module" data-type="en" >
+<input id="captcha" name="captcha" placeholder="验证码" required data-rule-required="true" data-msg-required="请填写验证码">
+<div class="captcha-container">
+
+<img class="js-refreshCaptcha captcha" width="120" height="30" data-tip="s$t$看不清楚？换一张"  alt="验证码">
+</div>
+</div>
+<div class="submit-wrapper">
+<button class="submit blue-button">进入知乎</button>
+</div>
+</form>
+</div>
+<div class="title bound">
+<h1>登录知乎</h1>
+<h2>该微博曾绑定过以下帐号</h2>
+</div>
+<div class="view bound">
+<img src="" width="50px" height="50px">
+<span class="name"></span>
+<button class="blue-button bind-login">绑定此帐号并登录</button>
+<button class="button register">不绑定，用微博创建新帐号</button>
+</div>
+<div class="title registered">
+<h1>微博邮箱已注册知乎</h1>
+<h2>已注册至如下帐号</h2>
+</div>
+<div class="view registered">
+<img src="" width="50px" height="50px">
+<span class="name"></span>
+<button class="blue-button bind-login">绑定此帐号并登录</button>
+<button class="button register">不绑定，用微博创建新帐号</button>
+</div>
+<div class="title bind-login">
+<h1>登录知乎</h1>
+<h2>与世界分享你的知识、经验和见解</h2>
+</div>
+<div class="view bind-login">
+<form>
+<div class="input-wrapper">
+<input type="text" name="account" class="account" aria-label="手机号或邮箱" placeholder="手机号或邮箱" required disabled>
+</div>
+<div class="input-wrapper toggle-password">
+<input type="password" name="password" aria-label="密码" placeholder="密码" required>
+<span class="z-ico-show-password"></span>
+</div>
+<div class="actions">
+<button class="unable-login" type="button">无法登录？</button>
+<button class="submit blue-button">绑定并登录</button>
+</div>
+</form>
+</div>
+</script><div class="zm-votebar goog-scrollfloater goog-scrollfloater-floating" data-za-module="VoteBar" style="left: 88.5px; width: 38px; float: none; position: fixed; top: 44px;">
+<button class="up" aria-pressed="false" title="赞同">
+<i class="icon vote-arrow"></i>
+<span class="count">946</span>
+<span class="label sr-only">赞同</span>
+</button>
+<button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+<i class="icon vote-arrow"></i>
+<span class="label sr-only">反对，不会显示你的姓名</span>
+</button>
+</div></body></html>

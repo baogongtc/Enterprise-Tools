@@ -1,0 +1,350 @@
+/* Break-pt menu
+----------------------------------------------------------------------------------------------------*/
+body { background: #F5F5F5}
+#pt { margin: 5px 0  0 0; padding: 0 !important; line-height: 32px;}
+#pt .z em, #pt .z span { color: #333333; height: 32px; line-height: 32px; text-decoration: none;line-height: 80px;overflow: hidden;}
+#pt .z em{background-position:3px 11px; }
+.pgs { border-bottom: 0 !important}
+.bbda { border-bottom: 1px solid #EEEEEE}
+.bm_h { border-bottom: 0 !important; margin-bottom: 0 !important}
+.mtm { position: relative}
+.p_opt { left: 40px !important; top: 30px !important}
+.ptitle { margin-left:235px;width: 395px; margin-top: 0}
+.ptitle a { height: 40px; font-size: 16px; font-weight: 400; color: #000000; overflow: hidden}
+.ptitle a:hover { color: #005580}
+.pcontent {margin-left:235px;width: 395px; height: 60px; line-height: 20px; overflow: hidden; font-size: 12px; color: #666666; margin-top: 10px; text-overflow: ellipsis}
+.pcontentdown { margin-left:235px;width: 395px; height: 20px; line-height: 20px; font-size: 12px; color: #006CD8; padding-top: 10px}
+.pmore { float: left; width: 395px}
+.apost a.fb { padding: 10px 5px 10px 30px; background: url(post.png) no-repeat left center}
+.apost { float: right}
+#pt .z a{height: 32px;}
+.ct2 .mn { width: 630px}
+.ct2 .sd { width: 280px}
+
+#nv_portal .vw .h, #nv_portal .vw .s, #nv_portal .vw .d, #nv_portal .vw .o, #nv_portal .vw .pren, #nv_forum .vw .h, #nv_forum .vw .s, #nv_forum .vw .d { margin-left: 0; margin-right: 0}
+.vw .text { line-height: 24px;font-size: 13px;font-family: "微软雅黑","Microsoft YaHei","WenQuanYi Micro Hei"}
+.vw p { overflow: hidden; padding-bottom: 4px; padding-top: 6px; word-wrap: break-word}
+.vw .s { margin-bottom: 20px}
+.hm { text-align: left}
+.vw .ph { font-size: 26px; font-weight: bold; border-bottom: 0; padding: 20px 0 0 0}
+#nv_portal .vw .h { margin-bottom: 20px; border-bottom: 1px solid #DFDFDF}
+
+#click_div { display: none}
+.win8mi_list_pic{float: left;}
+.aprev { float: left; width: 295px; overflow: hidden}
+.anext { float: left; width: 295px; overflow: hidden}
+.pren { padding: 25px 0 !important}
+#nv_portal .vw .pren em { width: 265px; padding-left: 30px; height: 28px; font-size: 18px; color: #000000; background: url(btn_page.jpg) no-repeat left 5px}
+#nv_portal .vw .pren em:hover { background: url(btn_page.jpg) no-repeat left -28px}
+#nv_portal .vw .pren em a:hover { color: #18A24C; text-decoration: underline}
+em.articlenext { text-align: right !important; padding: 0 30px 0 0 !important; background: url(btn_page.jpg) no-repeat right -60px !important}
+em.articlenext:hover { background: url(btn_page.jpg) no-repeat right -92px !important}
+.line { float: left; width: 1px; height: 28px; margin: 0 20px 0 19px; padding: 0; background: none repeat 0 0 #C0C0C0}
+
+/* Break-pt end*/
+.win8mi_xld dl{line-height: 24px;
+padding: 15px 0;}
+.win8mi_simple .mnw1{
+float: left;
+width: 630px;
+margin-bottom: 1em;
+overflow: visible;
+}
+.win8mi_simple .sd {
+float: right;
+width: 280px;
+overflow: visible;
+}
+.bm_c{padding: 0px;}
+.pg a, .pg strong, .pgb a, .pg label {
+    float: left;
+    display: inline-block;
+    margin-left: 0;
+    padding: 0px 8px;
+    height: 26px;
+	line-height: 26px;
+    border: 1px solid rgb(194, 213, 227);
+    background-color: rgb(255, 255, 255);
+    background-repeat: no-repeat;
+    color: rgb(51, 51, 51);
+    overflow: hidden;
+    text-decoration: none;
+    margin:8px;
+}
+.pg label .px { margin-top: -1px}
+.pg a, .pg strong, .pgb a, .pg label, .pg a.nxt {
+    float: none;
+    border: 0px none;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-weight: normal;
+    padding: 0 10px;
+    display: inline-block;
+	background: #999;
+}
+.pg strong {
+    color: #FFFFFF;
+    background-color: #333333 !important;
+}
+.pg a:hover, .pgb a:hover {
+    border-color: #333333;
+    color: #FFFFFF;
+	background: #333333
+}
+.pg a.prev { background: url(pre.png) no-repeat center center #999999}
+.pg a.nxt { padding: 0 12px; text-indent: -9999px; background: url(next.png) no-repeat center center #999999}
+.pg label { display: none}
+
+.shadowbox { box-shadow: 0px 1px 7px rgb(188, 188, 188); border-radius: 10px; padding: 10px 15px; margin-bottom: 30px; background: #FFFFFF}
+.righttit { height: 40px; line-height: 40px; border-bottom: 2px solid #F2F2F2}
+.righttit h3 { font-size: 16px; color: #999999}
+.hotnews { margin: 15px 0}
+.hotnews li { line-height: 22px; font-size: 14px; padding: 0 0 15px 0; color: #333333}
+
+/* 评论样式 */
+.tedt {
+    border: medium none;
+    width: 630px;
+    overflow: hidden;
+}
+.tedt .pt {
+    width: 606px !important;
+    min-height: 100px;
+    padding: 8px 10px !important;
+    line-height: 1.6;
+    border: 1px solid rgb(217, 217, 217);
+    background-color: rgb(247, 247, 247);
+    overflow: hidden;
+    vertical-align: middle;
+    resize: vertical;
+    color: rgb(130, 138, 147);
+}
+.tedt .pt.bgchange {
+    background: none repeat scroll 0% 0% rgb(255, 255, 255);
+    box-shadow: 1px 1px 2px rgb(230, 230, 230);
+    color: rgb(187, 187, 187);
+}
+.tedt .area { padding: 0 !important}
+
+/* 频道页顶部幻灯片样式 */
+.m-slide{ position: relative; width:683px;  height: 200px; border-left: 1px solid #e9e9e9; border-right: 1px solid #e9e9e9; background: #fff }
+.m-slide .bottom-shadow{ position: absolute; bottom: -3px; left: 0; width: 100%; height: 1px; overflow: hidden; border-top: 1px solid #E0E0E0; background: #E6E6E6; border-bottom: 1px solid #ECECEC}
+.m-slide .img { float: left; position: relative}
+.m-slide .img li, .m-slide .img a, .m-slide .img img { display: block; width: 490px; height: 200px}
+.m-slide .img li { display: none; position: absolute; left: 0; top: 0}
+.m-slide .img .first { display: block}
+.m-slide .tab { float: right}
+.m-slide .tab li { *margin-bottom: -3px; border-top: 1px solid #E5E5E5; width: 193px; height: 49px; overflow: hidden}
+.ie6 .m-slide .tab li { *margin-bottom: -3px; border-top: 1px solid #E5E5E5; width: 193px; height: 46px; overflow: hidden}
+.m-slide .tab .first { border-top: 0}
+.m-slide .tab a { text-decoration: none; display: block; position: relative; width: 180px; overflow: hidden; padding-right: 10px; height: 49px; border-left: 3px solid #FFFFFF}
+.m-slide .tab a b { position: absolute; left: 0; top: 20px; width: 4px; height: 11px; overflow: hidden}
+.m-slide .tab a span { position: absolute; overflow: hidden}
+.m-slide .tab a .title { width: 160px; left: 17px; top: 6px; padding: 0; height: 20px; line-height: 20px; font-size: 14px; font-weight: bold; color: #666666}
+.m-slide .tab a .des { width: 160px; left: 18px !important; top: 26px; height: 16px; line-height: 16px; color: #999999}
+.m-slide .tab .first a { height: 50px}
+.m-slide .tab .on a { border-left: 3px solid #41a1f2}
+.m-slide .tab .on a b { background: url(dot.png) no-repeat}
+.m-slide .tab .on a span { color: #41a1f2}
+
+
+.hot-view { margin-top: 15px}
+.t-h2 {
+    height: 32px;
+    line-height: 32px;
+    background-color: #555555;
+    padding: 0 12px;
+	margin-bottom: 10px;
+    position: relative;
+    font-size: 12px;
+}
+.t-h2 .more, .t-h2 em {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-style: normal;
+}
+.t-h2 .more {
+    position: absolute;
+    right: 12px;
+    top: 0;
+}
+.view-box {
+    border-bottom: 1px dashed #CCC;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+}
+.pull-left {
+    float: left;
+}
+.view-box .img-box {
+    width: 110px;
+    text-align: left;
+    margin: 5px 10px 0 0;
+}
+.view-box .img-box img {
+    width: 100px;
+}
+.view-box-ctt {
+    margin-left: 110px;
+}
+.view-box-ctt h4 {
+    margin: 0;
+    font-size: 14px;
+	height: 48px;
+    line-height: 24px;
+	overflow: hidden;
+}
+.view-box-ctt h4 a, .view-list .comment-box a {
+    color: #333333;
+}
+.box-other {
+    color: #999999;
+    font-size: 12px;
+}
+.box-other .source-quote {
+    margin-right: 5px;
+}
+.source-quote a {
+    color: #999999;
+}
+.box-other time {
+    margin-right: 5px;
+}
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url(glyphicons-halflings.png);
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+.icon-comment {
+    background-position: -240px -120px;
+}
+.comment-box .icon-comment {
+    background-position: 0 -167px;
+    margin-right: 3px;
+}
+.view-box-ctt h4 a, .view-list .comment-box a {
+    color: #333333;
+}
+
+
+/* 文集样式 */
+.pst-relative {
+    position: relative;
+    width: 630px;
+    height: 380px;
+    color: #DDDDDD;
+    padding: 15px 0;
+}
+.shadow-top, .shadow-bottom {
+    width: 603px;
+    height: 360px;
+    background-color: #FFFFFF;
+    position: absolute;
+    box-shadow: 1px 1px 5px #999999;
+}
+.shadow-bottom {
+    left: 16px;
+    top: 31px;
+}
+.shadow-top {
+    left: 8px;
+    top: 23px;
+}
+.article-image {
+    width: 603px;
+    height: 360px;
+    background-color: #FFF;
+    position: absolute;
+    left: 0px;
+    top: 15px;
+}
+.article-image img {
+    width: 603px;
+    height: 360px;
+}
+.article-other {
+    width: 603px;
+    height: 360px;
+    background: url(wenjiImg.png) repeat-x scroll 0% 0% transparent;
+    position: relative;
+    box-shadow: 1px 1px 5px #999999;
+}
+.article-link {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.pst-relative a {
+    text-decoration: none;
+}
+#wenji-content a {
+    outline: medium none;
+}
+.article-text {
+    width: 287px;
+    position: absolute;
+    left: 16px;
+    bottom: 40px;
+}
+.article-text a {
+    color: #FFFFFF;
+    transition: all 0.3s ease-in 0s
+}
+#wenji-content a {
+    outline: medium none;
+}
+.article-text h2 {
+    font-size: 26px;
+    line-height: 30px;
+    margin-right: 14px;
+	color: #ffffff;
+    word-break: break-all
+}
+.article-text p {
+    font-size: 14px;
+	width: 287px;
+	height: 40px;
+    line-height: 20px;
+	padding-top: 13px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.article-tool {
+    overflow: hidden;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    margin:  0 20px 0 0;
+}
+.update-time {
+    background: url(wenjishouyeTool.png) no-repeat scroll -184px -198px transparent;
+    padding-left: 20px;
+    margin-left: 10px;
+}
+.article-tool span a {
+    font-size: 14px;
+    color: #DDDDDD;
+}
+#wenji-content a {
+    outline: medium none;
+}
+
+.block{margin:0px;}
+.frame, .frame-tab{border:none;margin:0px; background:transparent;}
+a, a:hover {
+transition: all 0.3s ease 0s;
+}
+.nvhm {
+width: 32px;
+line-height: 80px;
+overflow: hidden;
+background: url(http://test.localhost/template/win8mi_1st_huxiu2/src/img/category.png) no-repeat left top;
+}

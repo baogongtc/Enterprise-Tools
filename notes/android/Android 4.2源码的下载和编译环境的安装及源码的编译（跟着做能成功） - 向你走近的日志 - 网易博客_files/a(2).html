@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- saved from url=(0186)http://iad.g.163.com/wa/a?affiliate=blog&cat=article&location=1&site=netease&type=column590x100&url=http%3A%2F%2Fblog.163.com%2Fzhou_411424%2Fblog%2Fstatic%2F1973621562012111782412775%2F -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="shortcut icon" href="http://www.163.com/favicon.ico" type="image/x-icon">
+<title>网易个性化广告投放系统</title>
+<script type="text/javascript" src="./jquery-1.4.2.js"></script>
+<script type="text/javascript">
+    function sendHover(uuid, flight_id, ad_id) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://iad.g.163.com/wa/s',
+            data: {
+                'uuid': uuid,
+                'flight_id': flight_id,
+                'ad_id': ad_id
+            },
+            dataType: 'json',
+            success: function(info) {
+            }
+        });
+    }
+    
+    function sendClick(uuid, flight_id, ad_id) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://iad.g.163.com/wa/c',
+            data: {
+                'uuid': uuid,
+                'flight_id': flight_id,
+                'ad_id': ad_id
+            },
+            dataType: 'json',
+            success: function(info) {
+            }
+        });
+    }
+    
+    var count = 0;
+    $(document).ready(function() {
+        $('body').click(function() {
+            var uuid = $('body').attr('data-uuid');
+            var flight_id = $('body').attr('data-flight_id');
+            var ad_id = $('body').attr('data-ad_id');
+            sendClick(uuid, flight_id, ad_id);
+        });
+        
+        $('body').hover(function() {
+            if(count == 0) {
+                var uuid = $('body').attr('data-uuid');
+                var flight_id = $('body').attr('data-flight_id');
+                var ad_id = $('body').attr('data-ad_id');
+                sendHover(uuid, flight_id, ad_id);
+            }
+            count++;
+        });
+    });
+</script>
+</head>
+<body class="adrec" marginwidth="0" marginheight="0" data-uuid="62e2058d-ebb6-4edb-9e63-8d68acdddee0" data-flight_id="2472" data-ad_id="mat_332">
+<a target="_blank" href="http://1.163.com/hd/oneact/hdframe.do?id=61&amp;from=w_163photo_16liuyi&amp;tab=car"><img src="./ad.bid.material_0e4b4f42906e46188302279cf42c8624" border="0" height="100" width="590" alt="590x100"></a>
+
+
+</body></html>

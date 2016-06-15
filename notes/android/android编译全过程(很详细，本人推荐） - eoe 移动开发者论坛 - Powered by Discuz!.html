@@ -1,0 +1,604 @@
+
+<!-- saved from url=(0077)http://www.eoeandroid.com/forum.php?mod=viewthread&action=printable&tid=53569 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!</title>
+
+<style type="text/css">
+body 	   {margin: 10px 80px;}
+body,table {font-size: FONTSIZE; font-family: FONT;}
+h1 { font-size: 24px; margin-bottom: 20px; color: #999; }
+</style>
+<script src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/common.js" type="text/javascript"></script>
+<script src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/forum_viewthread.js" type="text/javascript"></script>
+<script type="text/javascript">var STYLEID = '1', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'wS0', charset = 'utf-8', discuz_uid = '0', cookiepre = 'M9xo_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'newthread|viewvote|tradeorder|activity|debate|usergroups|task', creditnotice = '1|e望|点,2|体力|个,4|e币|元', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy5lb2VhbmRyb2lkLmNvbS9mb3J1bS5waHA/bW9kPXZpZXd0aHJlYWQmYWN0aW9uPXByaW50YWJsZSZ0aWQ9NTM1Njk=', SITEURL = 'http://www.eoeandroid.com/', JSPATH = 'http://s1.eoeandroid.com/js/';</script>
+</head>
+
+<body>
+<h1>eoe 移动开发者论坛</h1>
+<b>标题: </b>android编译全过程(很详细，本人推荐） <b><a href="http://www.eoeandroid.com/forum.php?mod=viewthread&amp;action=printable&amp;tid=53569###" onclick="this.style.visibility=&#39;hidden&#39;;window.print();this.style.visibility=&#39;visible&#39;">[打印本页]</a></b><br>
+<script type="text/javascript">var zoomstatus = 0;var aimgcount = new Array();</script><hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ttmmc1210&nbsp; &nbsp; <b>时间: </b>2010-12-30 09:27<br>
+<b>标题: </b>android编译全过程(很详细，本人推荐）<br><i class="pstatus"> 本帖最后由 ttmmc1210 于 2012-2-23 10:09 编辑 </i><br>
+<br>
+<strong>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;最近在研究这些东西，难免会在论坛上搜搜资料，感觉很多童鞋和我一样对编译这东西很迷茫，这里转载一篇很不错的文章，虽然我写不出这么有技术水平的文章来，但至少可以判断文章的水平和可实践性，这里推荐，有我们疑问的童鞋可发贴，大家一起讨论。<br>
+<br>
+</strong>&nbsp;&nbsp;本文主要参考官方文档（<a href="http://source.android.com/download" target="_blank">http://source.android.com/download</a>）和网上相关资料（<a href="http://blog.csdn.net/HKjinzhao/archive/2009/03/18/4002326.aspx" target="_blank">http://blog.csdn.net/HKjinzhao/archive/2009/03/18/4002326.aspx</a>，<a href="http://www.williamhua.com/2009/04/30/how-to-build-android-15-kernel-image/" target="_blank">http://www.williamhua.com/2009/0 ... id-15-kernel-image/</a>）。网上的资料对于andorid的最新代码有的已经过时，或者有错误，这份文档本人亲自实验，保证可行。另本人没有使用eclipse的习惯，所以并没有做eclipse的相关配置。<br>
+<br>
+编译环境：ubuntu9.10，widnows平台目前不被支持。<br>
+<br>
+1）安装必要的软件环境<br>
+<div class="blockcode"><div id="code_oTS"><ol><li>$ sudo apt-get install git-core gnupg sun-java5-jdk flex bison gperf libsdl-dev libesd0-dev libwxgtk2.6-dev build-essential zip curl libncurses5-dev zlib1g-dev</li></ol></div><em onclick="copycode($(&#39;code_oTS&#39;));">复制代码</em></div><br>
+
+<br>
+官方推荐的就是上面这些，如果在编译过程中发现某些命令找不到，就apt-get它。可能需要的包还有：<br>
+<div class="blockcode"><div id="code_Lzx"><ol><li>$ sudo apt-get install make<br>
+</li><li>$ sudo apt-get install gcc<br>
+</li><li>$ sudo apt-get install g++<br>
+</li><li>$ sudo apt-get install libc6-dev<br>
+</li><li><br>
+</li><li>$ sudo apt-get install patch<br>
+</li><li>$ sudo apt-get install texinfo<br>
+</li><li><br>
+</li><li>$ sudo apt-get install zlib1g-dev<br>
+</li><li>$ sudo apt-get install valgrind<br>
+</li><li>$ sudo apt-get install python2.5（或者更高版本）</li></ol></div><em onclick="copycode($(&#39;code_Lzx&#39;));">复制代码</em></div><br>
+
+<br>
+需要注意的是，官方文档说如果用sun-java6-jdk可出问题，得要用sun-java5- jdk。经测试发现，如果仅仅make（make不包括make sdk），用sun-java6-jdk是没有问题的。而make sdk，就会有问题，严格来说是在make doc出问题，它需要的javadoc版本为1.5。<br>
+因此，我们安装完sun-java6-jdk后最好再安装sun-java5-jdk，或者只安装sun-java5-jdk。这里sun-java6-jdk和sun-java5-jdk都安装，并只修改javadoc.1.gz和javadoc。因为只有这两个是make sdk用到的。这样的话，除了javadoc工具是用1.5版本，其它均用1.6版本：<br>
+<div class="blockcode"><div id="code_uA9"><ol><li>$ sudo apt-get install sun-java6-jdk</li></ol></div><em onclick="copycode($(&#39;code_uA9&#39;));">复制代码</em></div><br>
+
+<br>
+修改javadoc的link<br>
+<div class="blockcode"><div id="code_XnN"><ol><li>$ cd /etc/alternatives<br>
+</li><li>$ sudo rm javadoc.1.gz<br>
+</li><li>$ sudo ln -s /usr/lib/jvm/java-1.5.0-sun/man/man1/javadoc.1.gz javadoc.1.gz<br>
+</li><li>$ sudo rm javadoc<br>
+</li><li>$ sudo ln -s /usr/lib/jvm/java-1.5.0-sun/bin/javadoc javadoc</li></ol></div><em onclick="copycode($(&#39;code_XnN&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+2）设置环境变量<br>
+<div class="blockcode"><div id="code_WLR"><ol><li>$ emacs ~/.bashrc</li></ol></div><em onclick="copycode($(&#39;code_WLR&#39;));">复制代码</em></div><br>
+
+<br>
+在.bashrc中新增或整合PATH变量，如下：<br>
+#java 程序开发/运行的一些环境变量<br>
+<div class="blockcode"><div id="code_b1A"><ol><li>JAVA_HOME=/usr/lib/jvm/java-6-sun<br>
+</li><li>JRE_HOME=${JAVA_HOME}/jre<br>
+</li><li>export ANDROID_JAVA_HOME=$JAVA_HOME<br>
+</li><li>export CLASSPATH=.:${JAVA_HOME}/lib:$JRE_HOME/lib:$CLASSPATH<br>
+</li><li>export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin<br>
+</li><li>export JAVA_HOME;<br>
+</li><li>export JRE_HOME;<br>
+</li><li>export CLASSPATH;<br>
+</li><li>HOME_BIN=~/bin/<br>
+</li><li>export PATH=${PATH}:${JAVA_PATH}:${HOME_BIN};</li></ol></div><em onclick="copycode($(&#39;code_b1A&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+保存后，同步更新：<br>
+<div class="blockcode"><div id="code_ON2"><ol><li>source ~/.bashrc</li></ol></div><em onclick="copycode($(&#39;code_ON2&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+3）安装repo（用来更新android源码）<br>
+创建~/bin目录，用来存放repo程序，如下：<br>
+<div class="blockcode"><div id="code_rqC"><ol><li>$ cd ~<br>
+</li><li>$ mkdir bin</li></ol></div><em onclick="copycode($(&#39;code_rqC&#39;));">复制代码</em></div><br>
+
+<br>
+并加到环境变量PATH中，在第2步中已经加入<br>
+下载repo脚本并使其可执行：<br>
+<div class="blockcode"><div id="code_Bn0"><ol><li>$ curl http://android.git.kernel.org/repo &gt;~/bin/repo&nbsp; &nbsp;&nbsp;&nbsp;（由于地址有所更改，google新提供了地址，因此本处更改为：<br>
+</li><li> curl https://dl-ssl.google.com/dl/googlesource/git-repo/repo &gt; ~/bin/repo&nbsp; &nbsp;&nbsp;&nbsp;谢谢104楼同学提醒）<br>
+</li><li>$ chmod a+x ~/bin/repo&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<br>
+</li><li><br>
+</li><li><br>
+</li><li></li></ol></div><em onclick="copycode($(&#39;code_Bn0&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+4）初始化repo<br>
+repo是android对git的一个封装，简化了一些git的操作。<br>
+创建工程目录：<br>
+<div class="blockcode"><div id="code_DwO"><ol><li>$ mkdir android<br>
+</li><li>$ cd android<br>
+</li><li>repo初始化<br>
+</li><li>$ repo init -u git://android.git.kernel.org/platform/manifest.git&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;（同上更改为：<br>
+</li><li> repo init -u https://android.googlesource.com/platform/manifest ）<br>
+</li><li></li></ol></div><em onclick="copycode($(&#39;code_DwO&#39;));">复制代码</em></div><br>
+
+<br>
+在此过程中需要输入名字和email地址。初始化成功后，会显示：<br>
+<div class="blockcode"><div id="code_u1S"><ol><li>repo initialized in /android</li></ol></div><em onclick="copycode($(&#39;code_u1S&#39;));">复制代码</em></div><br>
+
+<br>
+在~/android下会有一个.repo的隐藏目录。<br>
+<br>
+5）同步源代码<br>
+<div class="blockcode"><div id="code_p1S"><ol><li>$ repo sync</li></ol></div><em onclick="copycode($(&#39;code_p1S&#39;));">复制代码</em></div><br>
+
+<br>
+这一步要很久很久<br>
+<br>
+6）编译android源码,并得到~/android/out目录<br>
+<div class="blockcode"><div id="code_gy9"><ol><li>$ cd ~/andoird<br>
+</li><li>$ make</li></ol></div><em onclick="copycode($(&#39;code_gy9&#39;));">复制代码</em></div><br>
+
+<br>
+这一过程很久<br>
+<br>
+7）在模拟器上运行编译好的android<br>
+<div class="blockcode"><div id="code_RgA"><ol><li>编译好android之后，emulator在~/android/out/host/linux-x86/bin 下，ramdisk.img，system.img和userdata.img则在~/android/out/target/product /generic下<br>
+</li><li>$ cd ~/android/out/host/linux-x86/bin</li></ol></div><em onclick="copycode($(&#39;code_RgA&#39;));">复制代码</em></div><br>
+
+<br>
+增加环境变量<br>
+<div class="blockcode"><div id="code_Pwz"><ol><li>$ emacs ~/.bashrc</li></ol></div><em onclick="copycode($(&#39;code_Pwz&#39;));">复制代码</em></div><br>
+
+<br>
+在.bashrc中新增环境变量，如下<br>
+#java 程序开发/运行的一些环境变量<br>
+<div class="blockcode"><div id="code_P2H"><ol><li>export ANDROID_PRODUCT_OUT=~/android/out/target/product/generic<br>
+</li><li>ANDROID_PRODUCT_OUT_BIN=~/android/out/host/linux-x86/bin<br>
+</li><li>export PATH=${PATH}:${ANDROID_PRODUCT_OUT_BIN}:${ANDROID_PRODUCT_OUT};</li></ol></div><em onclick="copycode($(&#39;code_P2H&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+
+<br>
+最后，同步这些变化：<br>
+<div class="blockcode"><div id="code_V29"><ol><li>$ source ~/.bashrc<br>
+</li><li>$ cd ~/android/out/target/product/generic<br>
+</li><li>$ emulator -system system.img -data userdata.img -ramdisk ramdisk.img</li></ol></div><em onclick="copycode($(&#39;code_V29&#39;));">复制代码</em></div><br>
+
+<br>
+最后进入android桌面，就说明成功了。<br>
+<br>
+8）编译模块<br>
+android中的一个应用程序可以单独编译，编译后要重新生成system.img<br>
+在源码目录下执行<br>
+$ . build/envsetup.sh （.后面有空格）<br>
+就多出一些命令：<br>
+<div class="blockcode"><div id="code_e18"><ol><li>- croot:&nbsp; &nbsp;Changes directory to the top of the tree.<br>
+</li><li>- m:&nbsp; &nbsp;&nbsp; &nbsp; Makes from the top of the tree.<br>
+</li><li>- mm:&nbsp; &nbsp;&nbsp; &nbsp;Builds all of the modules in the current directory.<br>
+</li><li>- mmm:&nbsp; &nbsp;&nbsp;&nbsp;Builds all of the modules in the supplied directories.<br>
+</li><li>- cgrep:&nbsp; &nbsp;Greps on all local C/C++ files.<br>
+</li><li>- jgrep:&nbsp; &nbsp;Greps on all local Java files.<br>
+</li><li>- resgrep: Greps on all local res/*.xml files.<br>
+</li><li>- godir:&nbsp; &nbsp;Go to the directory containing a file.</li></ol></div><em onclick="copycode($(&#39;code_e18&#39;));">复制代码</em></div><br>
+
+<br>
+可以加—help查看用法<br>
+我们可以使用mmm来编译指定目录的模块，如编译联系人：<br>
+$ mmm packages/apps/Contacts/<br>
+编完之后生成两个文件：<br>
+out/target/product/generic/data/app/ContactsTests.apk<br>
+out/target/product/generic/system/app/Contacts.apk<br>
+可以使用<br>
+<div class="blockcode"><div id="code_WV4"><ol><li>$ make snod</li></ol></div><em onclick="copycode($(&#39;code_WV4&#39;));">复制代码</em></div><br>
+
+<br>
+重新生成system.img，再运行模拟器<br>
+<br>
+9）编译SDK<br>
+直接执行make是不包括make sdk的。make sdk用来生成SDK，这样，我们就可以用与源码同步的SDK来开发android了。<br>
+<br>
+a）修改/frameworks/base/include/utils/Asset.h<br>
+‘UNCOMPRESS_DATA_MAX = 1 * 1024 * 1024’ 改为 ‘UNCOMPRESS_DATA_MAX = 2 * 1024 * 1024’<br>
+原因是eclipse编译工程需要大于1.3M的buffer；<br>
+<br>
+b）编译ADT。<br>
+由于本人不使用eclipse，所以没有进行这步；<br>
+<br>
+c）执行make sdk。<br>
+注意，这里需要的javadoc版本为1.5，所以你需要在步骤1中同时安装sun-java5-jdk<br>
+$ make sdk<br>
+编译很慢。编译后生成的SDK存放在out/host/linux-x86/sdk/，此目录下有android-sdk_eng.xxx_linux- x86.zip和android-sdk_eng.xxx_linux-x86目录。android-sdk_eng.xxx_linux-x86就是 SDK目录<br>
+实际上，当用mmm命令编译模块时，一样会把SDK的输出文件清除，因此，最好把android-sdk_eng.xxx_linux-x86移出来<br>
+此后的应用开发，就在该SDK上进行，所以把7）对于~/.bashrc的修改注释掉，增加如下一行：<br>
+export PATH=${PATH}:~/android/out/host/linux-x86/sdk/android-sdk_eng.xxx_linux-x86/tools<br>
+注意要把xxx换成真实的路径；<br>
+<br>
+d）关于环境变量、android工具的选择<br>
+目前的android工具有：<br>
+A、我们从网上下载的SDK，如果你下载过的话（ tools下有许多android工具，lib/images下有img映像）<br>
+B、我们用make sdk编译出来的SDK（ tools下也有许多android工具，lib/images下有img映像）<br>
+C、我们用make编译出来的out目录（ tools下也有许多android工具，lib/images下有img映像）<br>
+那么我们应该用那些工具和img呢？<br>
+首先，我们一般不会用A选项的工具和img，因为一般来说它比较旧，也源码不同步。其次，也不会用C选项的工具和img，因为这些工具和img没有经过SDK的归类处理，会有工具和配置找不到的情况；事实上，make sdk产生的很多工具和img，在make编译出来out目录的时候，已经编译产生了，make sdk只是做了copy而已。<br>
+<br>
+e）安装、配置ADT<br>
+略过；<br>
+<br>
+f）创建Android Virtual Device<br>
+编译出来的SDK是没有AVD（Android Virtual Device）的，我们可以通过android工具查看：<br>
+$ android list<br>
+创建AVD：<br>
+$ android create avd -t 1 -n myavd<br>
+可以android –help来查看上面命令选项的用法。创建中有一些选项，默认就行了<br>
+再执行android list，可以看到AVD存放的位置<br>
+以后每次运行emulator都要加-avd myavd或@myavd选项：<br>
+$ emulator -avd myavd<br>
+<br>
+10）编译linux内核映像<br>
+a）准备交叉编译工具链<br>
+android代码树中有一个prebuilt项目，包含了我们编译内核所需的交叉编译工具。<br>
+<br>
+b）设定环境变量<br>
+<div class="blockcode"><div id="code_r0G"><ol><li>$ emacs ~/.bashrc</li></ol></div><em onclick="copycode($(&#39;code_r0G&#39;));">复制代码</em></div><br>
+
+<br>
+增加如下两行：<br>
+<div class="blockcode"><div id="code_iZA"><ol><li>export PATH=$PATH:~/android/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin<br>
+</li><li>export ARCH=arm</li></ol></div><em onclick="copycode($(&#39;code_iZA&#39;));">复制代码</em></div><br>
+
+<br>
+保存后，同步变化：<br>
+<div class="blockcode"><div id="code_im8"><ol><li>$ source ~/.bashrc</li></ol></div><em onclick="copycode($(&#39;code_im8&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+c）获得合适的内核源代码<br>
+$ cd ~/android<br>
+获得内核源代码仓库<br>
+<div class="blockcode"><div id="code_b6z"><ol><li>$ git clone git://android.git.kernel.org/kernel/common.git kernel<br>
+</li><li>$ cd kernel<br>
+</li><li>$ git branch</li></ol></div><em onclick="copycode($(&#39;code_b6z&#39;));">复制代码</em></div><br>
+
+<br>
+显示<br>
+* android-2.6.27<br>
+说明你现在在android-2.6.27这个分支上，也是kernel/common.git的默认主分支。<br>
+显示所有head分支：<br>
+<div class="blockcode"><div id="code_RyK"><ol><li>$ git branch -a</li></ol></div><em onclick="copycode($(&#39;code_RyK&#39;));">复制代码</em></div><br>
+
+<br>
+显示<br>
+<div class="blockcode"><div id="code_jyV"><ol><li>* android-2.6.27<br>
+</li><li>remotes/origin/HEAD -&gt; origin/android-2.6.27<br>
+</li><li>remotes/origin/android-2.6.25<br>
+</li><li>remotes/origin/android-2.6.27<br>
+</li><li>remotes/origin/android-2.6.29<br>
+</li><li>remotes/origin/android-goldfish-2.6.27<br>
+</li><li>remotes/origin/android-goldfish-2.6.29<br>
+</li><li>我们选取最新的android-goldfish-2.6.29，其中goldfish是android的模拟器模拟的CPU。<br>
+</li><li>$ git checkout -b android-goldfish-2.6.29 origin/android-goldfish-2.6.29<br>
+</li><li>$ git branch<br>
+</li><li>显示<br>
+</li><li>android-2.6.27<br>
+</li><li>* android-goldfish-2.6.29</li></ol></div><em onclick="copycode($(&#39;code_jyV&#39;));">复制代码</em></div><br>
+
+<br>
+我们已经工作在android-goldfish-2.6.29分支上了。<br>
+<br>
+d）设定交叉编译参数<br>
+打开kernel目录下的Makefile文件，把CROSS_COMPILE指向刚才下载的prebuilt中的arm-eabi编译器<br>
+CROSS_COMPILE ?= arm-eabi-<br>
+把<br>
+<div class="blockcode"><div id="code_E9i"><ol><li>LDFLAGS_BUILD_ID = $(patsubst -Wl$(comma)%,%,\<br>
+</li><li>$(call ld-option, -Wl$(comma)–build-id,))</li></ol></div><em onclick="copycode($(&#39;code_E9i&#39;));">复制代码</em></div><br>
+
+<br>
+这一行注释掉，并且添加一个空的LDFLAGS_BUILD_ID定义，如下:<br>
+LDFLAGS_BUILD_ID =<br>
+<br>
+e）编译内核映像<br>
+<div class="blockcode"><div id="code_o0T"><ol><li>$ cd ~/android/kernel<br>
+</li><li>$ make goldfish_defconfig<br>
+</li><li>$ make</li></ol></div><em onclick="copycode($(&#39;code_o0T&#39;));">复制代码</em></div><br>
+
+<br>
+
+<br>
+f）测试生成的内核映像<br>
+$ emulator -avd myavd -kernel ~/android/kernel/arch/arm/boot/zImage <a href="http://source.android.com/source/downloading.html" target="_blank">http://source.android.com/source/downloading.html</a><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<font size="5"><strong>由于android系统及ubuntu版本的更新，有些方法可能不尽相同，本文未作出及时更新，请同学们谅解，如有什么问题，请发贴提出，或是查看最新googleDoc（<a href="http://source.android.com/source/downloading.html" target="_blank">http://source.android.com/source/downloading.html</a>），最近使用64位机ubuntu11.10完成对4.0的编译，感觉还是有点差别，一般参考</strong></font><font size="5"><strong>googleDoc即可解决。</strong></font><hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ydw1987&nbsp; &nbsp; <b>时间: </b>2010-12-30 09:38<br>
+看不懂，太深奥了。呵<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ttmmc1210&nbsp; &nbsp; <b>时间: </b>2010-12-30 09:44<br>
+<div class="quote"><blockquote><font size="2"><font color="#999999">ydw1987 发表于 2010-12-30 09:38</font> <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477387&amp;ptid=53569" target="_blank"><img id="aimg_solOO" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/back.gif" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" width="13" height="13"></a></font><br>
+看不懂，太深奥了。呵</blockquote></div><br>
+呵呵，其实并不深奥，只是你没有去试吧，装上ubuntu多试试就熟了<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>howay&nbsp; &nbsp; <b>时间: </b>2010-12-30 10:34<br>
+很详细。。。仔细看。。。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>howay&nbsp; &nbsp; <b>时间: </b>2010-12-30 10:35<br>
+还是习惯用eclipse。。。。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ydw1987&nbsp; &nbsp; <b>时间: </b>2010-12-30 15:19<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477426&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+是你自己写的吗？<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>lenovo123&nbsp; &nbsp; <b>时间: </b>2010-12-31 14:52<br>
+好东西，收了。比source.android讲的还详细<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>b831574&nbsp; &nbsp; <b>时间: </b>2010-12-31 15:19<br>
+寫的很詳細,看起來很有參考的價值,謝謝啦~<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>alongqin&nbsp; &nbsp; <b>时间: </b>2010-12-31 15:25<br>
+很不错，很详细，学习了<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>unix229&nbsp; &nbsp; <b>时间: </b>2011-1-1 09:07<br>
+这个必须要顶，太详细了:lol<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>sip59&nbsp; &nbsp; <b>时间: </b>2011-1-7 17:04<br>
+:handshake<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>freejianfei&nbsp; &nbsp; <b>时间: </b>2011-1-7 18:16<br>
+很详细 支持下!!:)<br>
+<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>leo546400&nbsp; &nbsp; <b>时间: </b>2011-1-9 14:14<br>
+相当牛X<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>stone_wsx&nbsp; &nbsp; <b>时间: </b>2011-1-11 11:43<br>
+不错，很是齐全啊，<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>powerspring&nbsp; &nbsp; <b>时间: </b>2011-1-12 13:18<br>
+好东西，谢谢诶<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>Smart&nbsp; &nbsp; <b>时间: </b>2011-1-12 13:25<br>
+不错不错。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>jah&nbsp; &nbsp; <b>时间: </b>2011-1-12 13:37<br>
+谢谢，，，这个是个好东西<br>
+<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>jah&nbsp; &nbsp; <b>时间: </b>2011-1-12 13:37<br>
+谢谢，，，这个是个好东西<br>
+<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>runsheng2005&nbsp; &nbsp; <b>时间: </b>2011-1-13 10:03<br>
+不错，拿来学习了 :)<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>neuuranus&nbsp; &nbsp; <b>时间: </b>2011-1-13 21:54<br>
+很详细，不错的东西～～<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>eaglepatrick&nbsp; &nbsp; <b>时间: </b>2011-1-14 00:03<br>
+留名~~~~~<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>椰子面包&nbsp; &nbsp; <b>时间: </b>2011-1-14 08:53<br>
+立刻收藏了<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>xzyoung&nbsp; &nbsp; <b>时间: </b>2011-1-14 13:51<br>
+楼主很给力<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ubuntuserver&nbsp; &nbsp; <b>时间: </b>2011-1-17 10:08<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477426&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+写的真详细,很好很强大<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>yiranhan&nbsp; &nbsp; <b>时间: </b>2011-1-19 16:04<br>
+good<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>liuweipeng&nbsp; &nbsp; <b>时间: </b>2011-1-21 09:24<br>
+写的很详细<br>
+,我很需要,谢谢!!<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>yuanshengwei005&nbsp; &nbsp; <b>时间: </b>2011-1-25 10:34<br>
+真的很详细！！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zly_1988&nbsp; &nbsp; <b>时间: </b>2011-1-25 11:43<br>
+谢谢<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>angp&nbsp; &nbsp; <b>时间: </b>2011-1-25 17:56<br>
+下載了一堆文件, 也看了網上一堆文章, 但越看越模糊... Orz<br>
+決定從這篇開始, 一步一步照著作作看...<br>
+謝謝分享<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>relaxlife&nbsp; &nbsp; <b>时间: </b>2011-1-26 09:01<br>
+很详细，很麻烦<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>hong6234&nbsp; &nbsp; <b>时间: </b>2011-1-26 10:24<br>
+好东西。先试试<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>bodendong&nbsp; &nbsp; <b>时间: </b>2011-1-27 11:56<br>
+很详细，正在研究<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ttmmc1210&nbsp; &nbsp; <b>时间: </b>2011-1-27 19:41<br>
+<div class="quote"><blockquote><font size="2"><font color="#999999">ubuntuserver 发表于 2011-1-17 10:08</font> <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=516596&amp;ptid=53569" target="_blank"><img id="aimg_HEhZ5" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/back.gif" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" width="13" height="13"></a></font><br>
+回复 ttmmc1210 的帖子<br>
+<br>
+写的真详细,很好很强大</blockquote></div><br>
+看你的名字就知道搞Ubuntu的高手&nbsp; &nbsp;呵呵<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>imyfriend&nbsp; &nbsp; <b>时间: </b>2011-1-28 08:49<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477324&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+很详细，感谢<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ych5318&nbsp; &nbsp; <b>时间: </b>2011-1-31 11:30<br>
+Henhao.&nbsp;&nbsp;.........<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>lsryan&nbsp; &nbsp; <b>时间: </b>2011-1-31 15:55<br>
+写的真好，收下了<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>daniel2588&nbsp; &nbsp; <b>时间: </b>2011-2-4 13:08<br>
+謝謝大大分享~非常的詳細<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>liounian&nbsp; &nbsp; <b>时间: </b>2011-2-11 10:36<br>
+顶你，继续学习<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>bensking&nbsp; &nbsp; <b>时间: </b>2011-2-11 17:23<br>
+不错 真的很详细 从准备工作到系统编译 全套都有 哈哈 :D<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>kuroterry&nbsp; &nbsp; <b>时间: </b>2011-2-21 08:15<br>
+昨天搞了一天没成功，终于发现了楼主的文章<br>
+下载完源码之后build报了很多doc方面的错误，估计是因为只安装了jdk1.6导致<br>
+我今天回去先安装jdk1.5然后再试试<br>
+不行按照楼主方法从新做一次<br>
+谢谢<br>
+另外楼主能帮忙解答下我在问答区的小问题吗，谢谢<br>
+传送门：<a href="http://www.eoeandroid.com/thread-59351-1-1.html" target="_blank">http://www.eoeandroid.com/thread-59351-1-1.html</a><hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>magic_android&nbsp; &nbsp; <b>时间: </b>2011-2-23 10:53<br>
+不知道楼主可以解释下这个对开发有什么帮助啊 ？<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>lonet&nbsp; &nbsp; <b>时间: </b>2011-2-23 13:12<br>
+好东西 收藏<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ttmmc1210&nbsp; &nbsp; <b>时间: </b>2011-2-23 21:12<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=586010&amp;ptid=53569" target="_blank"><font color="Olive">magic_android</font> 的帖子</a></strong><br>
+<br>
+一般来说做上层app暂时用不到这些，不过既然是发表在framework区当然是当涉及到framework改动时多数情况下这种编译方式为首选。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>magic_android&nbsp; &nbsp; <b>时间: </b>2011-2-24 21:42<br>
+哦 那是不是比如要精简framework或者定制适合自己开发app的framework时，就可以自己编译内核啊？<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>magic_android&nbsp; &nbsp; <b>时间: </b>2011-2-24 21:42<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=588374&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+
+<br>
+哦 那是不是比如要精简framework或者定制适合自己开发app的framework时，就可以自己编译内核啊？<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>lljl2009&nbsp; &nbsp; <b>时间: </b>2011-3-1 19:15<br>
+mark<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>popfj&nbsp; &nbsp; <b>时间: </b>2011-3-2 09:35<br>
+很详细，很实用~多谢！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>supper&nbsp; &nbsp; <b>时间: </b>2011-3-2 14:27<br>
+我想在虚拟机里面编译,但是虚拟机不能上网,好多LInux下的工具都无法下载<br>
+不知lz是否可以指点指点....<br>
+QQ286012882....:P<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>yuyafly&nbsp; &nbsp; <b>时间: </b>2011-3-2 14:44<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477324&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+很详细。。。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>liao_19840826&nbsp; &nbsp; <b>时间: </b>2011-3-4 09:29<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477426&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+这个东西官方文档写的步骤很清晰，把官方的贴上来一看你就明白了，所以像这样的东西，以后我们还是引导为读官方文档吧。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ttmmc1210&nbsp; &nbsp; <b>时间: </b>2011-3-4 19:41<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=612774&amp;ptid=53569" target="_blank"><font color="Olive">liao_19840826</font> 的帖子</a></strong><br>
+<br>
+请首先看我第二段话的声明！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zhaojianxi2010&nbsp; &nbsp; <b>时间: </b>2011-3-5 15:42<br>
+谢谢<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>liao_19840826&nbsp; &nbsp; <b>时间: </b>2011-3-6 14:19<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=614774&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+呵呵，不好意思，我刚看到，之前没怎么注意看，呵呵<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>494078416&nbsp; &nbsp; <b>时间: </b>2011-3-10 17:03<br>
+恩 感谢楼主分享<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>niyanxiang0523&nbsp; &nbsp; <b>时间: </b>2011-3-16 14:57<br>
+这个写得不错，辛苦了<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zzq291&nbsp; &nbsp; <b>时间: </b>2011-3-18 16:13<br>
+很详细，谢谢分享！！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>magic_android&nbsp; &nbsp; <b>时间: </b>2011-3-19 20:15<br>
+弱弱的问下楼主，是不是比如我想自己跑一跑android自带的程序（比如联系人），就必须按照您说的方法编译android的源码，然后在eclipse里面调试运行啊？<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>marts.penn&nbsp; &nbsp; <b>时间: </b>2011-3-21 10:09<br>
+很好，试一试看。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>yingying&nbsp; &nbsp; <b>时间: </b>2011-3-21 11:45<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477324&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+你好，按照你的方法，我修改了源文件后，模块化编译，怎么加载不进模拟器呢？模拟器显示启动界面就一直卡在哪里，请问是什么原因啊？<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>172662888&nbsp; &nbsp; <b>时间: </b>2011-4-11 15:30<br>
+谢谢啊<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>txlong_onz&nbsp; &nbsp; <b>时间: </b>2011-4-21 15:55<br>
+<i class="pstatus"> 本帖最后由 txlong_onz 于 2011-4-21 15:56 编辑 </i><br>
+<br>
+不知道楼主能否把android的源码导入IDE中编译然后在shell里修改，install到模拟器啊？我在导入的时候就遇到问题来，也不知道是否是这样子的？<br>
+[attach]33200[/attach]<br>
+出现错误jar missing，望LZ指点。<br>
+<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>442766185&nbsp; &nbsp; <b>时间: </b>2011-4-21 16:08<br>
+好东西&nbsp;&nbsp;<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ttmmc1210&nbsp; &nbsp; <b>时间: </b>2011-4-21 16:13<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=728982&amp;ptid=53569" target="_blank"><font color="Olive">txlong_onz</font> 的帖子</a></strong><br>
+<br>
+你需要倒的android源码是指apps下面的应用么？<br>
+倒入进来后肯定是一大堆错误的，上千个是正常现象,<br>
+这时候,如果你直接在源码环境下编译,可以不用理会这些错误.<br>
+问题是如果你需要在Eclipse下编译的话，那么你就需要解决这些错误,<br>
+解决这些错误的方法当然需要了解这些错误的原因,你需要找到报错的原因,通常错误原因为无法识别一些变量,方法等,之所以无法识别,因为他们通常定义在framework中,因此你需要找到它的jar包,你可以到/out/target/product/coral/system/framework/下找到该包,另外还需要 classes.jar包,自己搜下吧,我记得不时很清楚.很多应用程序如contacts等在添加这些后依旧存在错误,那你就需要查看到底少些什么东西了,如contacts还依赖着phone的相关方法,这时就要把电话的相关东东弄进来了.这时候错误就应该消失了吧....<br>
+&nbsp; &nbsp;然后拿到eclipse编译出来的.apk push进终端就可以了.<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>lisztkao&nbsp; &nbsp; <b>时间: </b>2011-4-21 22:39<br>
+寫的還蠻仔細的<br>
+不錯~~~<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>litianx&nbsp; &nbsp; <b>时间: </b>2011-4-26 23:14<br>
+<strong>回复 <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=477324&amp;ptid=53569" target="_blank"><font color="Olive">ttmmc1210</font> 的帖子</a></strong><br>
+<br>
+整了好几天了， 在$ make goldfish_defconfig时报错：<br>
+*** Can't find default configuration "arch/arm/configs/goldfish_defconfig"!<br>
+我查了下的确没有arch/arm/configs/goldfish_defconfig， 请问goldfish_defconfig 是在什么时候生成的？<br>
+sli9@ubuntu:~/android/kernel$ git branch -a<br>
+* android-2.6.36<br>
+&nbsp;&nbsp;remotes/origin/HEAD -&gt; origin/android-2.6.36<br>
+&nbsp;&nbsp;remotes/origin/android-2.6.35<br>
+&nbsp;&nbsp;remotes/origin/android-2.6.36<br>
+&nbsp;&nbsp;remotes/origin/android-2.6.37<br>
+&nbsp;&nbsp;remotes/origin/android-2.6.38<br>
+&nbsp;&nbsp;remotes/origin/android-2.6.39<br>
+&nbsp;&nbsp;remotes/origin/archive/android-2.6.25<br>
+&nbsp;&nbsp;remotes/origin/archive/android-2.6.27<br>
+&nbsp;&nbsp;remotes/origin/archive/android-2.6.29<br>
+&nbsp;&nbsp;remotes/origin/archive/android-2.6.32<br>
+&nbsp;&nbsp;remotes/origin/archive/android-gldfish-2.6.29<br>
+&nbsp;&nbsp;remotes/origin/archive/android-goldfish-2.6.27<br>
+&nbsp;&nbsp;remotes/origin/linux-wl12xx-2.6.39<br>
+sli9@ubuntu:~/android/kernel$ make goldfish_defconfig<br>
+***<br>
+*** Can't find default configuration "arch/arm/configs/goldfish_defconfig"!<br>
+***<br>
+make[1]: *** [goldfish_defconfig] Error 1<br>
+make: *** [goldfish_defconfig] Error 2<br>
+sli9@ubuntu:~/android/kernel$ <br>
+<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ldhlyq&nbsp; &nbsp; <b>时间: </b>2011-4-27 22:36<br>
+谢谢楼主的分享。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ldhlyq&nbsp; &nbsp; <b>时间: </b>2011-4-27 22:41<br>
+谢谢楼主的分享！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>sinxiao&nbsp; &nbsp; <b>时间: </b>2011-4-28 11:46<br>
+不错，很好，很给力 。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>samfly&nbsp; &nbsp; <b>时间: </b>2011-4-28 11:49<br>
+{:4_83:}<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>dpyrain&nbsp; &nbsp; <b>时间: </b>2011-4-29 14:04<br>
+收下了，编译android 参考<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>crab&nbsp; &nbsp; <b>时间: </b>2011-5-9 09:19<br>
+study<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>joyceyichang&nbsp; &nbsp; <b>时间: </b>2011-5-25 16:34<br>
+謝謝分享, 很有用<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>gongminjie&nbsp; &nbsp; <b>时间: </b>2011-5-25 16:56<br>
+windows平台的路过<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>sofinelulu&nbsp; &nbsp; <b>时间: </b>2011-6-21 11:41<br>
+我是初学者，谢谢大哥的帮助<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>pyqihpgdgh&nbsp; &nbsp; <b>时间: </b>2011-6-21 17:20<br>
+好好好。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>samfly&nbsp; &nbsp; <b>时间: </b>2011-7-14 11:21<br>
+<img src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/ddee.gif" smilieid="95" border="0" alt=""><hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zjmbyd&nbsp; &nbsp; <b>时间: </b>2011-7-15 15:25<br>
+我顶~~~~~<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zhoualbeart&nbsp; &nbsp; <b>时间: </b>2011-8-22 14:13<br>
+非常謝謝……<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>jianboc163&nbsp; &nbsp; <b>时间: </b>2011-8-22 15:17<br>
+都是些什么啊<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>fayewan&nbsp; &nbsp; <b>时间: </b>2011-8-23 13:57<br>
+good<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>fengxuanyang&nbsp; &nbsp; <b>时间: </b>2011-8-23 17:31<br>
+太棒了&nbsp;&nbsp;现在刚进公司，这里要修改源码，很受用，谢谢<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>ww565649529&nbsp; &nbsp; <b>时间: </b>2011-8-26 21:58<br>
+很全面<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>saraowner&nbsp; &nbsp; <b>时间: </b>2011-8-31 09:28<br>
+没看明白<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>tomcat5&nbsp; &nbsp; <b>时间: </b>2011-9-3 10:32<br>
+支持一下，我花了7个小时，编译成功<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>boyka&nbsp; &nbsp; <b>时间: </b>2011-9-5 10:30<br>
+楼主很厉害啊！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>xufun&nbsp; &nbsp; <b>时间: </b>2011-9-5 18:02<br>
+收藏，备用。<br>
+谢谢！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>wys_victory&nbsp; &nbsp; <b>时间: </b>2011-9-6 02:14<br>
+不错，写的挺好。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>cg375811585&nbsp; &nbsp; <b>时间: </b>2011-9-7 10:16<br>
+不错，之前编译源码有问题。。回去了参考<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>penghao&nbsp; &nbsp; <b>时间: </b>2011-9-7 10:57<br>
+没看到内容。。。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>liudb5&nbsp; &nbsp; <b>时间: </b>2011-9-7 11:05<br>
+向楼主学习！！！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zuoan1987&nbsp; &nbsp; <b>时间: </b>2011-9-7 11:46<br>
+有些包找不到源，要添加两个源啊<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>Mysteryq&nbsp; &nbsp; <b>时间: </b>2011-9-7 13:46<br>
+顶起，学习了！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>yejc1001&nbsp; &nbsp; <b>时间: </b>2011-9-13 15:01<br>
+写的非常详细。非常好的资料，谢谢分享！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>yejc1001&nbsp; &nbsp; <b>时间: </b>2011-9-13 15:01<br>
+写的非常详细。非常好的资料，谢谢分享！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>kooqianfeng&nbsp; &nbsp; <b>时间: </b>2011-11-25 11:16<br>
+顶,看不懂<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>scean&nbsp; &nbsp; <b>时间: </b>2011-12-19 14:38<br>
+学习！谢谢！<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>曼陀罗花粉&nbsp; &nbsp; <b>时间: </b>2011-12-22 13:23<br>
+<img src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/ms.gif" smilieid="86" border="0" alt=""><hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>lzh168&nbsp; &nbsp; <b>时间: </b>2012-1-6 14:54<br>
+sudo apt-get install&nbsp;&nbsp;sun-java5-jdk<br>
+安装不了<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>steve130&nbsp; &nbsp; <b>时间: </b>2012-1-7 16:36<br>
+感谢楼主分享，不过看了一篇以后，严重怀疑是用google翻译工具翻译的。。。。<hr noshade="" size="2" width="100%" color="#808080">
+<b>作者: </b>zuo515592787&nbsp; &nbsp; <b>时间: </b>2012-1-9 20:18<br>
+恩，我今天也编译下载成功了，搞了几天了，呵呵
+<br><br><br><br><hr noshade="" size="2" width="100%" color="BORDERCOLOR">
+<table cellspacing="0" cellpadding="0" border="0" width="95%" align="center" style="font-size: SMFONTSIZE; font-family: SMFONT">
+<tbody><tr><td>欢迎光临 eoe 移动开发者论坛 (http://www.eoeandroid.com/)</td>
+<td align="right">
+Powered by Discuz! X3.2</td></tr></tbody></table>
+
+
+			<div id="discuz_tips" style="display:none;"></div>
+			<script type="text/javascript">
+				var tipsinfo = '7379687|X3.2|0.6||0||0|7|1464739306|78a48165512930ca47a199b5e85aff80|2';
+			</script>
+			<script src="./android编译全过程(很详细，本人推荐） - eoe 移动开发者论坛 - Powered by Discuz!_files/discuz_tips.js" type="text/javascript" charset="UTF-8"></script><script type="text/javascript">document.getElementById("debuginfo").innerHTML = " Updated at 08:01:47, Processed in  second(s),  Queries";</script></body></html>
