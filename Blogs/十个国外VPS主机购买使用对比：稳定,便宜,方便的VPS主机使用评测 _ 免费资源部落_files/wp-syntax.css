@@ -1,0 +1,79 @@
+.wp_syntax {
+	color:#100;
+	background-color:#f9f9f9;
+	border:1px solid #EBEBEB;
+	margin:0 0 1.5em 0;
+	overflow:auto;
+}
+.wp_syntax {
+	overflow-x:auto;
+	overflow-y:hidden;
+	padding-bottom:expression(this.scrollWidth > this.offsetWidth ? 15:0);
+	width: 90%;
+    margin: 20px 20px 20px 25px;
+
+}
+.wp_syntax table {
+	border:none;
+	border-collapse:collapse;
+	margin:0;
+	padding:0;
+	width:100% !important
+}
+.wp_syntax caption {
+	padding:2px;
+	width:100%;
+	background-color:#def;
+	text-align:left;
+	font-family:Monaco;
+	font-size:13px;
+	line-height:20px;
+}
+.wp_syntax caption a {
+	color:#1982d1;
+	text-align:left;
+	font-family:Monaco;
+	font-size:13px;
+	line-height:20px;
+	text-decoration:none;
+}
+.wp_syntax caption a:hover {
+	color:#1982d1;
+	text-decoration:underline;
+}
+.wp_syntax div,.wp_syntax td {
+	border:none;
+	text-align:left;
+	padding:0;
+	vertical-align:top;
+}
+.wp_syntax td.code {
+	background:none;
+	line-height:normal;
+	white-space:normal;
+	padding-left:0px;
+}
+.wp_syntax pre {
+	background:transparent;
+	margin:0;
+	padding:0;
+	width:auto;
+	float:none;
+	clear:none;
+	overflow:visible;
+	font-family:Monaco;
+	font-size:13px;
+	line-height:20px;
+	white-space:pre;
+}
+.wp_syntax td.line_numbers pre {
+	border-right:3px solid #6CE26C;
+	background-color:#E7E5DC;
+	color:gray;
+	width:20px;
+	padding:0 5px;
+	text-align:right;
+}
+.wp_syntax td.line_numbers {
+	width:40px;
+}

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://www.bejson.com/knownjson/webInterface/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>JSON API免费接口-BeJSON.com</title>
+<meta name="keywords" content="json API,提供JSON接口的API,JSON WEB interface">
+<meta name="description" content="各种提供JSON格式数据返回服务网站的API接口">
+<meta property="qc:admins" content="14002146716252376637571563176">
+ 
+<script src="./JSON API免费接口-BeJSON.com_files/jquery.min.js"></script>
+<link href="./JSON API免费接口-BeJSON.com_files/bootstrap.min.css" rel="stylesheet">
+<script src="./JSON API免费接口-BeJSON.com_files/bootstrap.min.js"></script>
+ 
+<style>.list-group-item a{padding-right:20px}#links a{font-size:13px}#desc1{font-size:13px;}.newFeatureTip{width:13px;height:13px;background-repeat:no-repeat;position:absolute;top:5px;color:red;right:10px;}.newItem{float:left;color:red;position:absolute;margin-top:2px;margin-left:8px;}.announce{color:red;}.nav>{z-index:99999999;}.nav>li:hover .dropdown-menu{display:block;z-index:99999999;}.navbar{margin-bottom:4px;min-height:0px;}.navbar-nav>li>a{padding-top:10px;}#nav_div ul>li>span{color:blue;}#nav_div ul>li{list-style:none;float:left;margin-left:10px;}#nav_div ul{height:20px;}#nav_div ul:hover{background:gainsboro;}nav_div #nav_div ul>li>span{font-family:"微软雅黑";color:blue;width:72px;}#nav_div ul>li>a{color:#666;}#nav_div ul>li>a:hover{color:red;}.xie{-webkit-transform:rotate(-3deg);-moz-transform:rotate(-3deg);-o-transform:rotate(-3deg);}li.hide1{display:block;}*{font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu}</style>
+</head>
+<body data-pinterest-extension-installed="cr1.39.1">
+<div class="aw-container-wrap">
+<div class="container">
+<div class="row">
+<div class="aw-content-wrap clearfix">
+<div class=" aw-main-content" style="min-height:700px;max-height:2000px">
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<ul class="nav navbar-nav" style="width: 100%;">
+<li>
+<a href="javascript:;" style="color: red;" onclick="showList()" data-target="#mod" data-toggle="modal" target="_blank">菜单</a>
+</li>
+<li>
+<a href="http://www.bejson.com/">首页</a>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" id="jsontools" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JSON相关<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://www.bejson.com/">格式化校验</a>
+</li>
+<li><a href="http://www.bejson.com/jsonviewernew/" target="_blank" red="">JSON视图</a>
+</li>
+<li><a href="http://www.bejson.com/zhuanyi/" red="">JSON压缩转义</a>
+</li>
+<li><a href="http://www.bejson.com/json2javapojo/" red="">JSON生成Java实体类</a>
+</li>
+<li><a href="http://www.bejson.com/convert/json2csharp/" id="json2csharp">JSON生成C#实体类</a>
+</li>
+<li><a href="http://www.bejson.com/jsoneditoronline/" red="">JSON在线编辑器</a>
+</li>
+<li><a href="http://www.bejson.com/color/">JSON着色</a></li>
+<li><a href="http://www.bejson.com/xml2json/" red="">XML-JSON互转</a></li>
+<li><a href="http://www.bejson.com/jsontools/json2get/" id="json2get">JSON和GET请求字符串互转</a></li>
+<li><a href="http://www.bejson.com/json/col2json/" id="excel2json">Excel转Json</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" id="encTools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+编码/加密<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://www.bejson.com/enc/base64/">Base64编码、解码</a></li>
+<li><a href="http://www.bejson.com/enc/md5/">MD5加密</a></li>
+<li><a href="http://www.bejson.com/enc/sha/">SHA加密</a></li>
+<li><a href="http://www.bejson.com/enc/escape/">Escape编码</a></li>
+<li><a href="http://www.bejson.com/enc/urlencode/" id="urlEncode">URL编码</a></li>
+<li><a href="http://www.bejson.com/enc/eval_package/">Javascript Eval加密解密</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">格式化<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://www.bejson.com/jshtml_format/">Javascript/HTML压缩、格式化</a></li>
+<li><a href="http://www.bejson.com/otherformat/css/">CSS压缩、格式化</a></li>
+<li><a href="http://www.bejson.com/otherformat/xml/">XML压缩、格式化</a></li>
+<li><a href="http://www.bejson.com/otherformat/sql/">SQL压缩、格式化</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" id="httputil" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+网络<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://www.bejson.com/httppost/" target="_blank" red="">在线模拟发送HTTP请求</a></li>
+<li><a id="http3" href="http://www.bejson.com/httputil/httppost3/">支持返回结果的HTTP请求</a></li>
+<li><a href="http://www.bejson.com/httputil/getip/">获取你的IP</a></li>
+<li><a href="http://www.bejson.com/httputil/queryip/" id="queryip">获取IP信息</a></li>
+<li><a href="http://www.bejson.com/httputil/ip2addr/" id="ip2addr">IP定位周边信息</a></li>
+<li><a href="http://www.bejson.com/httputil/clientinfo/" id="clientinfo">获取您的浏览器信息</a></li>
+<li><a href="http://www.bejson.com/httputil/useragent/" id="useragent">常用USER_AGENT</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" id="uitools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+前端<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://h5.baidu.com/store" target="_blank" rel="external nofollow" id="h5maker">H5模板在线制作</a></li>
+<li><a href="http://www.bejson.com/ui/borderradius/" id="borderradius">在线生成圆角图片</a></li>
+<li><a href="http://www.bejson.com/ui/icomaker/" id="icomaker">ICO图标在线转换工具</a></li>
+<li><a href="http://runjs.cn/code" target="_blank" rel="external nofollow" id="runjs">RunJS在线编辑器</a></li>
+<li><a href="http://www.bejson.com/ui/ueditor/" id="ueditor">ueditor在线代码编辑器</a></li>
+<li><a href="http://www.bejson.com/ui/getcolor/">在线调色板</a></li>
+<li><a href="http://www.bejson.com/ui/safecolor/" id="safecolor">WEB安全色</a></li>
+<li><a href="http://www.bejson.com/ui/image2base64/" id="img2base64">在线图片转Base64编码</a></li>
+<li><a href="http://www.bejson.com/ui/imageresize/" id="imgResize">在线图片大小缩放</a></li>
+<li><a href="http://www.bejson.com/ui/phonesize/" id="phonesize">iPhone/iPad/Android UI尺寸规范</a></li>
+<li><a href="http://iconfont.cn/collections" target="_blank" rel="external nofollow">阿里巴巴矢量图标库</a></li>
+<li><a href="http://www.bejson.com/othertools/libcdn/" id="libcdn">常用JS资源库</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" id="convertTools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+转换<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://www.bejson.com/convert/map/" id="mapdw">在线地图经纬度定位换算</a></li>
+<li><a href="http://www.bejson.com/ui/px2em/" id="px2em">px转em,em转px</a></li>
+<li><a href="http://www.bejson.com/ui/image2base64/" id="img2base64">在线图片转Base64编码</a></li>
+<li><a id="unicodechinese" href="http://www.bejson.com/convert/unicode_chinese/">unicode中文互转</a></li>
+<li><a href="http://www.bejson.com/convert/shorturl/" id="shorturl">在线短地址转换</a></li>
+<li><a href="http://www.bejson.com/convert/unix/">Unix时间转换</a></li>
+<li><a href="http://www.bejson.com/convert/jinzhi/">进制转换</a></li>
+<li><a href="http://www.bejson.com/convert/ox2str/">16进制到文本字符串</a></li>
+<li><a href="http://www.bejson.com/convert/uplowercase/" id="uplowercase">字母大小写转换</a></li>
+<li><a href="http://www.bejson.com/convert/rgbhex/" id="rgbhex">RGB颜色和HEX互转</a></li>
+<li><a href="http://www.bejson.com/convert/file2pdf/" id="file2pdf">在线文档转PDF</a></li>
+<li><a href="http://www.bejson.com/convert/qrcode/" id="qrtools">二维码生成与解码</a></li>
+<li><a href="http://www.bejson.com/convert/numtohz/" id="numtohz">数字转中文(人民币)</a></li>
+<li><a href="http://www.bejson.com/convert/filesize/" id="filesizehs">在线文件大小换算</a></li>
+<li><a href="http://www.bejson.com/convert/nativeascii/" id="navasc">NATIVE/ASCII编码互转工具</a></li>
+<li><a href="http://www.bejson.com/othertools/sql2pojo/" id="sql2pojo">数据库转实体类</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" id="otherTools" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+其他<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="http://www.bejson.com/othertools/findelement/" id="findbyxpath">寻找图片、链接或xpath寻找元素</a></li>
+<li><a href="http://www.bejson.com/othertools/finddif/">文字对比找不同处</a></li>
+<li><a href="http://www.bejson.com/othertools/regex/">正则表达式</a></li>
+<li><a href="http://www.bejson.com/othertools/sqlAppend/">SQL追加或去除双引号</a></li>
+<li><a href="http://www.bejson.com/othertools/removeDuplicate/">去除重复字符串</a></li>
+<li><a href="http://www.bejson.com/othertools/sortwords/" id="sortWords">在线根据首字母排序</a></li>
+<li><a href="http://www.bejson.com/chargeservice/ocr/">在线文字识别</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" id="jsonapi" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+接口API<span class="caret"></span></a>
+<ul class="dropdown-menu">
+ 
+ 
+<li><a href="http://www.bejson.com/knownjson/webInterface/" id="findbyxpath">免费JSON接口</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" id="docs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+文档<span class="caret"></span></a><span class="newFeatureTip">●</span>
+<ul class="dropdown-menu">
+<li><a id="apliayapi" href="http://wiki.open.qq.com/wiki/%E9%A6%96%E9%A1%B5" target="_blank" rel="external nofollow">腾讯开发平台</a></li>
+<li><a id="wxapi" href="http://mp.weixin.qq.com/wiki/home/index.html" target="_blank" rel="external nofollow">微信公众平台开发文档</a></li>
+<li><a id="wxapi" href="http://mp.weixin.qq.com/wiki/11/74ad127cc054f6b80759c40f77ec03db.html" target="_blank" rel="external nofollow">微信JSSDK开发文档</a></li>
+<li><a id="wxapi" href="https://pay.weixin.qq.com/wiki/doc/api/index.html" target="_blank" rel="external nofollow">微信支付开发文档</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="tbapi" href="http://open.taobao.com/api/api_list.htm?spm=a219a.7386789.1.27.Lf4YRD" target="_blank" rel="external nofollow">淘宝开发文档</a></li>
+<li><a id="apliayapi" href="https://open.alipay.com/platform/document.htm" target="_blank" rel="external nofollow">支付宝开发文档</a></li>
+<li role="separator" class="divider"></li>
+ 
+<li><span class="newItem">●</span><a href="http://www.bejson.com/doc/AndroidManifest/" id="androidManifest">Android权限大全</a></li>
+<li><a id="jqapi" href="http://www.jq22.com/chm/jquery1.8.3.html" target="_blank" rel="external nofollow">jQuery文档</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="http://www.bejson.com/knownjson/aboutjson/">什么是JSON</a></li>
+<li><a href="http://www.bejson.com/knownjson/demo/">举个栗子</a></li>
+<li><a href="http://www.bejson.com/knownjson/webInterface/">JSON API免费接口</a></li>
+<li><a href="http://www.bejson.com/knownjson/regexJiaocheng/">正则表达式30分钟入门教程</a></li>
+<li><a href="http://www.bejson.com/knownjson/httpstate/">HTTP状态码查询</a></li>
+</ul>
+</li>
+<li class="dropdown hide1">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" id="testtools" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">平台工具<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a rel="external nofollow" target="_blank" href="http://mp.weixin.qq.com/debug">微信公众平台调试工具</a></li>
+<li><a id="coupon" rel="external nofollow" target="_blank" href="http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=cardsign">微信卡券JSAPI签名校验工具</a></li>
+<li><a id="wxsign" rel="external nofollow" target="_blank" href="http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign">微信 JS 接口签名校验工具</a></li>
+<li><a rel="external nofollow" target="_blank" href="http://qy.weixin.qq.com/debug">微信企业号调试工具</a></li>
+<li><a rel="external nofollow" target="_blank" href="http://connect.qq.com/sdk/webtools/">QQ互联API调试工具</a></li>
+<li role="separator" class="divider"></li>
+<li><a rel="external nofollow" target="_blank" href="http://t.cn/R4617Pf">淘宝oauth2.0测试工具</a></li>
+<li><a rel="external nofollow" target="_blank" href="http://t.cn/R461ZZu">淘宝API测试工具</a></li>
+<li><a rel="external nofollow" target="_blank" href="http://t.cn/R461Zm2">淘宝错误码查询工具</a></li>
+<li><a rel="external nofollow" target="_blank" href="http://t.cn/R461wa7">淘宝商品属性工具</a></li>
+<li role="separator" class="divider"></li>
+<li><a rel="external nofollow" target="_blank" href="http://sandbox.alipaydev.com/home/apiTestTools.htm?method=alipay.security.risk.detect">支付宝API工具</a></li>
+<li role="separator" class="divider"></li>
+<li><a rel="external nofollow" target="_blank" href="http://open.weibo.com/tools/console">新浪微博API工具</a></li>
+</ul>
+</li>
+<li>
+<a href="http://www.jq22.com/" target="_blank">jQuery插件库</a>
+</li>
+<li class="dropdown">
+<a href="http://www.bejson.com/knownjson/webInterface/#" class="dropdown-toggle" id="moret" data-toggle="dropdown" style="color: red;" role="button" aria-haspopup="true" aria-expanded="false">
+更多<span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li>
+<a href="http://www.bejson.com/soft/">常用软件下载</a>
+</li>
+<li>
+<a href="http://www.bejson.com/robot/" id="td" style="color: green;">我是泰迪</a>
+</li>
+<li>
+<a href="http://www.bejson.com/other/blogs/">Blogs</a>
+</li>
+<li>
+<a href="http://www.bejson.com/knownjson/msg/">留言</a>
+</li>
+<li>
+<a href="http://www.bejson.com/other/ads/">广告招租</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<script>
+							var showaban = true;
+								var storageKey = "newtools20160527";
+								if(window.localStorage.getItem(storageKey)==null){
+									$("#docs").after('<span class="newFeatureTip">●</span>');
+									
+									$("#androidManifest").before('<span class="newItem">●</span>');
+									document.getElementById("androidManifest").onmouseover = function(){
+										window.localStorage.setItem(storageKey,"has");
+										$(".newFeatureTip").text('');
+									}
+									
+								}
+								
+							</script>
+<div style="clear:both"></div>
+<style>.a2016{color:white;font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;text-align:center;background:red;border-radius:2px;}</style>
+ 
+ 
+ <style>.code{background-color:whiteSmoke;font-family:Courier New;font-size:12px;border:1px solid #CCC;padding:5px;word-break:break-all;overflow:auto;width:98%;margin:5px 0px;}#container span{font-family:Courier New;font-size:12px;}.fix{clear:both;}.demo{color:red}.des{font-size:12px;color:gray;}</style>
+<div class="panel panel-default">
+<div class="panel-heading">
+<div class="media">
+<div class="media-body">
+<h4 class="media-heading">JSON API免费接口</h4>
+<div id="desc1">
+各种提供JSON格式数据返回服务网站的API接口</div><p style="height: 38px;line-height: 38px;background-color: #fff07b;border-bottom: 1px solid #d9cda7;color: #988328;font-size: 13px;" id="aban">建议各位在本站关闭广告屏蔽插件,因为他可能会导致部分功能js无法正常加载,比如【<a style="color: black;" href="http://www.bejson.com/jshtml_format/" target="_blank">JavaScript/HTML格式化</a>】的<a href="http://ww2.sinaimg.cn/large/7fa0b485jw1ew33qr3qtmj20za02l3zk.jpg" style="color: black;" target="_blank">点击查看被错误屏蔽的截图</a></p>
+</div>
+</div>
+</div>
+<div class="panel-body">
+ 
+<div style="margin:0 auto;top:0;width:100%" id="container">
+<div id="header">
+<div class="code" style="float:left;width:466px;"> 这里为大家搜集了一些能够返回JSON格式的服务接口。部分需要用JSONP调用。
+<br><a href="http://www.jisuapi.com/?hmsr=bejsonnav&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank" style="color: red;">如果需要功能更强大的收费的API请点这</a>
+</div>
+</div>
+<div class="fix"></div>
+<h3>电商接口</h3>
+<ul>
+<li>
+<span>京东获取单个商品价格接口:</span>
+<div class="code">http://p.3.cn/prices/mgets?skuIds=J_商品ID&amp;type=1
+<a href="http://www.oschina.net/code/snippet_160697_34201" onclick="return jump2(this);" class="demo">用例</a>
+<br>
+<div class="des">
+ps:商品ID这么获取:http://item.jd.com/<font color="red">954086</font>.html
+</div>
+</div>
+<span>淘宝商品搜索建议:</span>
+<div class="code">http://suggest.taobao.com/sug?code=utf-8&amp;q=商品关键字&amp;callback=cb
+<a href="http://suggest.taobao.com/sug?code=utf-8&amp;q=%E5%8D%AB%E8%A1%A3&amp;callback=cb" onclick="return jump2(this);" class="demo">用例</a>
+<br>
+<div class="des">
+ps:callback是回调函数设定
+</div>
+</div>
+</li>
+</ul>
+<div class="fix"></div>
+<h3>物流接口</h3>
+<ul>
+<li>
+<span>快递接口:</span>
+<div class="code">http://www.kuaidi100.com/query?type=快递公司代号&amp;postid=快递单号
+<br>
+<div class="des">
+ps:快递公司编码:申通="shentong" EMS="ems" 顺丰="shunfeng" 圆通="yuantong" 中通="zhongtong" 韵达="yunda" 天天="tiantian" 汇通="huitongkuaidi" 全峰="quanfengkuaidi" 德邦="debangwuliu" 宅急送="zhaijisong"
+</div>
+</div>
+</li>
+</ul>
+<h3>谷歌接口</h3>
+<ul>
+<li>
+<span>FeedXml转json接口:</span>
+<div class="code">http://ajax.googleapis.com/ajax/services/feed/load?q=Feed地址&amp;v=1.0 <a href="http://ajax.googleapis.com/ajax/services/feed/load?q=http://www.bilibili.tv/rss-13.xml&amp;v=1.0" class="demo" onclick="return jump2(this);">用例(请右击在新窗口打开)</a><a href="https://developers.google.com/feed/v1/jsondevguide#resultJson" target="_blank">官方文档</a></div>
+<div class="des">
+备选参数:callback：&amp;callback=foo就会在json外面嵌套foo({})方便做jsonp使用。
+<br>
+备选参数:n：返回多少条记录。
+</div>
+</li>
+</ul>
+<h3>百度接口</h3>
+<ul>
+<li>
+<span>百度百科接口:</span>
+<div class="code">http://baike.baidu.com/api/openapi/BaikeLemmaCardApi?scope=103&amp;format=json&amp;appid=379020&amp;bk_key=关键字&amp;bk_length=600<a href="http://baike.baidu.com/api/openapi/BaikeLemmaCardApi?scope=103&amp;format=json&amp;appid=379020&amp;bk_key=%E9%93%B6%E9%AD%82&amp;bk_length=600" class="demo" onclick="return jump2(this);">用例(请右击在新窗口打开)</a></div>
+<div class="des">
+查询出错示例如下：查看原始页面 {"error_code":"20000","error_msg":"search word not found"}
+</div>
+</li>
+</ul>
+<h3>天气接口</h3>
+<ul>
+<li>
+<span>百度接口:</span>
+<div class="code">http://api.map.baidu.com/telematics/v3/weather?location=嘉兴&amp;output=json&amp;ak=5slgyqGDENN7Sy7pw29IUvrZ <a href="http://www.oschina.net/code/snippet_554046_35134" class="demo" onclick="return jump2(this);">用例</a><a href="http://developer.baidu.com/map/carapi-7.htm" onclick="return jump2(this);">官方文档</a></div>
+<div class="des">
+location:城市名或经纬度 ak:开发者密钥 output:默认xml
+</div>
+</li>
+<li>
+<span>气象局接口:</span>
+<div class="code">http://m.weather.com.cn/data/101010100.html <a href="http://blog.csdn.net/zgyulongfei/article/details/7956118" target="_blank">解析</a> <a href="http://bejson.com/demos/weather.php" class="demo" onclick="return jump2(this);">用例</a></div>
+</li>
+<li>
+<a name="sinaWeather"></a>
+<span>新浪接口:</span>
+<div class="code">http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&amp;day=0&amp;city=&amp;dfc=1&amp;charset=utf-8 <a href="http://www.bejson.com/demo/sinaweather/" class="demo" onclick="return jump2(this);">用例</a></div>
+<div class="des">参数中city如果给了参数就是相关的城市,否则会自动判断<br>
+day=0的话是今天
+<br>返回的参数 大家看着办吧,具体的我也不清楚,新浪没给API。</div>
+</li>
+</ul>
+<h3>音乐接口</h3>
+<ul>
+<li>
+<span>虾米接口</span>
+<div class="code">http://kuang.xiami.com/app/nineteen/search/key/歌曲名称/diandian/1/page/歌曲当前页?_=当前毫秒&amp;callback=getXiamiData <a href="http://bejson.com/demos/xiamiDemo.php" class="demo" onclick="return jump2(this);">用例</a> <a href="http://www.jqdemo.com/927.html" onclick="return jump2(this);">代码解释和下载</a>
+</div>
+</li>
+<li>
+<span>QQ空间音乐接口</span>
+<div class="code">http://qzone-music.qq.com/fcg-bin/cgi_playlist_xml.fcg?uin=QQ号码&amp;json=1&amp;g_tk=1916754934<a href="http://bejson.com/demos/qqmusic/" onclick="return jump2(this);" class="demo">用例</a> <a href="http://www.jqdemo.com/932.html" onclick="return jump2(this);">代码解释和下载</a>
+</div>
+</li>
+<li>
+<span>QQ空间收藏音乐接口</span>
+<div class="code">http://qzone-music.qq.com/fcg-bin/fcg_music_fav_getinfo.fcg?dirinfo=0&amp;dirid=1&amp;uin=QQ号&amp;p=0.519638272547262&amp;g_tk=1284234856
+</div>
+</li>
+<li>
+<span>多米音乐接口</span>
+<div class="code">http://v5.pc.duomi.com/search-ajaxsearch-searchall?kw=关键字&amp;pi=页码&amp;pz=每页音乐数
+</div>
+</li>
+<li>
+<span>soso接口</span>
+<div class="code">http://cgi.music.soso.com/fcgi-bin/fcg_search_xmldata.q?source=10&amp;w=关键字&amp;perpage=1&amp;ie=utf-8
+</div>
+</li>
+</ul>
+<h3>视频信息接口<a style="color:white" href="http://www.bejson.com/" title="JSON在线工具">JSON在线工具</a></h3>
+<ul>
+<li>
+<span>优酷</span>
+<div class="code">http://v.youku.com/player/getPlayList/VideoIDS/视频ID (比如 http://v.youku.com/v_show/id_<font color="red">XNTQxNzc4ODg0</font>.html的ID就是XNTQxNzc4ODg0)
+</div>
+</li>
+<li>
+<span>爱奇艺</span>
+<div class="code">http://cache.video.iqiyi.com/jp/avlist/202861101/1/?callback=jsonp9</div>
+</li>
+<li>
+<span>土豆接口</span>
+<div class="code">http://api.tudou.com/v3/gw?method=album.item.get&amp;appKey=Appkey&amp;format=json&amp;albumId=视频剧集ID&amp;pageNo=当前页&amp;pageSize=每页显示 <a href="http://api.tudou.com/v3/gw?method=album.item.get&amp;appKey=myKey&amp;format=json&amp;albumId=Lqfme5hSolM&amp;pageNo=5&amp;pageSize=100" class="demo" onclick="return jump2(this);">示例(火影忍者剧集)</a> <a onclick="return jump2(this);" href="http://api.tudou.com/apidoc/index.php/%E5%89%A7%E9%9B%86%E8%8A%82%E7%9B%AE%E6%9F%A5%E8%AF%A2" target="_blank">官方文档</a></div>
+<div class="code">http://www.tudou.com/tvp/getMultiTvcCodeByAreaCode.action?type=3&amp;app=4&amp;codes=Lqfme5hSolM&amp;areaCode=320500&amp;jsoncallback=__TVP_getMultiTvcCodeByAreaCode <a href="http://www.tudou.com/tvp/getMultiTvcCodeByAreaCode.action?type=3&amp;app=4&amp;codes=Lqfme5hSolM&amp;areaCode=320500&amp;jsoncallback=__TVP_getMultiTvcCodeByAreaCode" class="demo" target="_blank">示例(火影忍者APP剧集)</a></div>
+</li>
+</ul>
+<h3>地图接口</h3>
+<ul>
+<li>
+<span>阿里云根据地区名获取经纬度接口</span>
+<div class="code">http://gc.ditu.aliyun.com/geocoding?a=苏州市 <a href="http://ditu.aliyun.com/jsdoc/geocode_api.html" target="_blank">官方文档</a>
+</div>
+<div class="des">
+<div class="param">参数解释: 纬度,经度
+type 001 (100代表道路，010代表POI，001代表门址，111可以同时显示前三项)</div>
+</div>
+</li>
+<li>
+<span>阿里云根据经纬度获取地区名接口</span>
+<div class="code">http://gc.ditu.aliyun.com/regeocoding?l=39.938133,116.395739&amp;type=001 <a href="http://ditu.aliyun.com/jsdoc/geocode_api.html" target="_blank">官方文档</a>
+</div>
+</li>
+<li>
+<span>获取用户的IP,国家代码缩写,经纬度</span>
+<div class="code">http://www.telize.com/geoip?callback=a <a href="http://www.telize.com/geoip?callback=cb" target="_blank">测试用例</a>
+</div>
+<div class="des">
+<div class="param">参数解释: callback是回调函数</div>
+</div>
+</li>
+<li>
+<span>获取用户经纬度，以及获取附近建筑物名/span&gt;
+<div class="code">http://ditu.amap.com/service/pl/pl.json?rand=635840524184357321<a href="http://ditu.amap.com/service/pl/pl.json?rand=635840524184357321" target="_blank">测试用例</a>
+</div>
+<div class="code">http://ditu.amap.com/service/regeo?longitude=121.04925573429551&amp;latitude=31.315590522490712<a href="http://ditu.amap.com/service/regeo?longitude=121.04925573429551&amp;latitude=31.315590522490712" target="_blank">测试用例</a>
+</div>
+</span></li>
+</ul>
+<h3>IP接口</h3>
+<ul>
+<li>
+<span>新浪接口(ip值为空的时候 获取本地的)</span>
+<div class="code">http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=218.4.255.255
+</div>
+</li>
+<li>
+<span>淘宝接口</span>
+<div class="code">http://ip.taobao.com/service/getIpInfo.php?ip=63.223.108.42</div>
+</li>
+</ul>
+<h3>手机信息查询接口 <a style="color:white" href="http://www.bejson.com/" title="JSON在线工具">JSON在线工具</a></h3>
+<ul>
+<li>
+<span>淘宝网接口</span>
+<div class="code">http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=手机号
+</div>
+</li>
+<li>
+<span>拍拍接口</span>
+<div class="code">http://virtual.paipai.com/extinfo/GetMobileProductInfo?mobile=手机号&amp;amount=10000&amp;callname=getPhoneNumInfoExtCallback <a href="http://bejson.com/demos/paipai-tel.php" class="demo">用例</a>
+</div>
+</li>
+<li>
+<span>百付宝接口</span>
+<div class="code">https://www.baifubao.com/callback?cmd=1059&amp;callback=phone&amp;phone=手机号
+</div>
+</li>
+<li>
+<span>115接口</span>
+<div class="code">http://cz.115.com/?ct=index&amp;ac=get_mobile_local&amp;callback=jsonp1333962541001&amp;mobile=手机号
+</div>
+</li>
+<li>
+<span>有道接口</span>
+<div class="code">http://www.youdao.com/smartresult-xml/search.s?jsFlag=true&amp;type=mobile&amp;q=手机号
+</div>
+</li>
+<li>
+<span>手机在线接口</span>
+<div class="code">http://api.showji.com/Locating/www.showji.com.aspx?m=手机号&amp;output=json&amp;callback=querycallback
+</div>
+</li>
+</ul>
+<h3>翻译、词典接口</h3>
+<ul>
+<li>
+<span>腾讯</span>
+<div class="code">http://dict.qq.com/dict?q=词语
+</div>
+</li>
+</ul>
+<h3>腾讯的部分接口</h3>
+<ul>
+<li>
+<span>获取QQ昵称和用户头像</span>
+<div class="code">http://r.qzone.qq.com/cgi-bin/user/cgi_personal_card?uin=QQ(不过是jsonp哦)</div>
+</li>
+</ul>
+<h3>其他接口</h3>
+<ul>
+<li>
+<span>360笑话接口</span>
+<div class="code">http://xiaohua.hao.360.cn/m/itxt?page=1&amp;callback=jsonp7</div>
+</li>
+</ul>
+ 
+</div>
+<input type="hidden" id="encode" value="1">
+<div class="panel-footer"></div>
+</div>
+ 
+<p>
+<script src="./JSON API免费接口-BeJSON.com_files/stat.php" language="JavaScript"></script><script src="./JSON API免费接口-BeJSON.com_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=3302454" target="_blank" title="站长统计">站长统计</a>
+</p>
+<img src="./JSON API免费接口-BeJSON.com_files/1443430414000418.jpg" id="adimg" style="display: none;">
+</div></div></div></div></div>
+<script src="./JSON API免费接口-BeJSON.com_files/bejsoncommon.js"></script><div class="modal fade" id="mod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><div class="modal-dialog" role="document" style="width: 96%;"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="modal-title" id="mod_title">扫描二维码付款</h4></div><div class="modal-body" id="mod_body" style="text-align: center;"></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>
+
+ 
+</div><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

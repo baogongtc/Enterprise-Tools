@@ -1,0 +1,1426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0060)http://blog.csdn.net/langresser_king/article/details/8288195 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/rclm"></script><script type="text/javascript" async="" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/rclm(1)"></script>   
+   
+
+    <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script><script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/repoAddr2.js"></script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/langresser_king/article/details/8288195#">
+
+    <title>android和iOS平台的崩溃捕获和收集 - langresser的专栏
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="(死去的丈夫)1、小明的成绩单星期一才发,为什么星期天晚上就为了成绩而被爸爸揍了一顿？(爸爸明天起要去出差半个月,算准了小明一定考的很烂,先揍了再说)2、什么方式可以让人保持不眨眼睛最长？ (让他死不冥目)3、小王用捕鼠笼在家抓老鼠,第二天一早发现笼子里抓了一只活老鼠,而笼子外面却有二只死老鼠四...">
+    <script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/jquery-version.js"></script>
+    <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/tracking(1).js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/langresser/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/share.js"></script><link rel="stylesheet" type="text/css" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/job_reco.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link type="text/css" rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/style(1).css"><link rel="stylesheet" type="text/css" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/get_ads.php" type="text/javascript"></script><script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/logger.js"></script><link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+<body data-pinterest-extension-installed="cr1.39.1"><div id="MathJax_Message" style="display: none;"></div><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><iframe frameborder="0" style="display: none;" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe>
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-0"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/langresser_king">langresser的专栏</a></h2>
+            <h3>Unity游戏开发   qq:450140822</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/langresser_king?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/langresser_king?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/langresser_king/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "langresser";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/langresser_king";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/kakashi8841/article/details/51735510" target="_blank">
+<font color="blue">【专家图书】蔡俊鸿翻译的Unity3D书籍上市啦</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://lib.csdn.net/base/swift/resource" target="_blank">
+<font color="red">【知识库】Swift资源大集合
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/51668917" target="_blank">
+<font color="blue">【公告】博客新皮肤上线啦</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/robbin2015/article/details/51683764" target="_blank">
+<font color="red">快来领福利：C币、机械键盘
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_72" data-mtp="40" data-order="40" data-con="ad_content_217" style="width: 1px; height: 1px; position: fixed; right: 10px; bottom: 10px; z-index: 999; background-color: transparent;"><div id="location_parent"></div><script>document.getElementById('location_parent').parentNode.style.height='1px';document.getElementById('location_parent').parentNode.style.width='1px';document.getElementById('location_parent').parentNode.style.position='fixed';document.getElementById('location_parent').parentNode.style.right='10px';document.getElementById('location_parent').parentNode.style.bottom='10px';document.getElementById('location_parent').parentNode.style.zIndex=999;document.getElementById('location_parent').parentNode.style.backgroundColor='transparent';</script><!-- 广告占位容器 --><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] || {})['u2392861']={at:'3',rsi0:'300',rsi1:'250',pat:'17',tn:'baiduCustNativeAD_xuanfu',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'14',rss2:'#000000',titSU:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u2392861'});  </script>  <script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/f.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->
+
+  
+<link href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/main.js"></script>
+<link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/markdown_views.css">
+<link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/category.css">
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/MathJax.js"></script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/langresser_king/article/details/8288195">
+        android和iOS平台的崩溃捕获和收集            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_r">
+            <span class="link_postdate">2012-12-12 22:11</span>
+            <span class="link_view" title="阅读次数">25738人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(26)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;android和iOS平台的崩溃捕获和收集&#39;,&#39;8288195&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" onclick="javascript:report(8288195,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;1110322&#39;,&#39;langresser&#39;,&#39;top&#39;,&#39;8288195&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Android开发<em>（26）</em></span>
+                      <img class="arrow-down" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/langresser/article/category/1110322" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1110322">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label onclick="GetCategoryArticles(&#39;1110321&#39;,&#39;langresser&#39;,&#39;top&#39;,&#39;8288195&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">IOS游戏开发<em>（43）</em></span>
+                      <img class="arrow-down" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/langresser/article/category/1110321" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1110321">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label onclick="GetCategoryArticles(&#39;1110320&#39;,&#39;langresser&#39;,&#39;top&#39;,&#39;8288195&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">IOS应用开发<em>（10）</em></span>
+                      <img class="arrow-down" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/langresser/article/category/1110320" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1110320">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/category.js"></script>  
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+&nbsp; &nbsp; &nbsp; &nbsp; 通过崩溃捕获和收集，可以收集到已发布应用（游戏）的异常，以便开发人员发现和修改bug，对于提高软件质量有着极大的帮助。本文介绍了iOS和android平台下崩溃捕获和收集的原理及步骤，不过如果是个人开发应用或者没有特殊限制的话，就不用往下看了，直接把友盟sdk（一个统计分析sdk）加入到工程中就万事大吉了，其中的错误日志功能完全能够满足需求，而且不需要额外准备接收服务器。 &nbsp;但是如果你对其原理更感兴趣，或者像我一样必须要兼容公司现有的bug收集系统，那么下面的东西就值得一看了。
+<p>&nbsp; &nbsp; &nbsp; &nbsp;要实现崩溃捕获和收集的困难主要有这么几个：</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;1、如何捕获崩溃（比如c++常见的野指针错误或是内存读写越界，当发生这些情况时程序不是异常退出了吗，我们如何捕获它呢）</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;2、如何获取堆栈信息（告诉我们崩溃是哪个函数，甚至是第几行发生的，这样我们才可能重现并修改问题）</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;3、将错误日志上传到指定服务器（这个最好办）</p>
+<p><br>
+</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; 我们先进行一个简单的综述。会引发崩溃的代码本质上就两类，一个是c++语言层面的错误，比如野指针，除零，内存访问异常等等；另一类是未捕获异常（Uncaught Exception），<a href="http://lib.csdn.net/base/1" class="replace_word" title="Swift知识库" target="_blank" style="color:#df3434; font-weight:bold;">iOS</a>下面最常见的就是objective-c的NSException（通过@throw抛出，比如，NSArray访问元素越界），<a href="http://lib.csdn.net/base/15" class="replace_word" title="Android知识库" target="_blank" style="color:#df3434; font-weight:bold;">Android</a>下面就是<a href="http://lib.csdn.net/base/17" class="replace_word" title="Java EE知识库" target="_blank" style="color:#df3434; font-weight:bold;">Java</a>抛出的异常了。这些异常如果没有在最上层try住，那么程序就崩溃了。 &nbsp;无论是iOS还是android系统，其底层都是unix或者是类unix系统，对于第一类语言层面的错误，可以通过信号机制来捕获（signal或者是sigaction，不要跟qt的信号插槽弄混了），即任何系统错误都会抛出一个错误信号，我们可以通过设定一个回调函数，然后在回调函数里面打印并发送错误日志。</p>
+<p>&nbsp; &nbsp; &nbsp; 一、iOS平台的崩溃捕获和收集</p>
+<p>1、设置开启崩溃捕获</p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 568px; top: 1169px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">static</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;s_fatal_signals[]&nbsp;=&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGABRT,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGBUS,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGFPE,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGILL,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGSEGV,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGTRAP,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGTERM,&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;SIGKILL,&nbsp;&nbsp;</span></li><li class=""><span>};&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>*&nbsp;s_fatal_signal_names[]&nbsp;=&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGABRT"</span><span>,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGBUS"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGFPE"</span><span>,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGILL"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGSEGV"</span><span>,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGTRAP"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGTERM"</span><span>,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"SIGKILL"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">static</span><span>&nbsp;</span><span class="datatypes">int</span><span>&nbsp;s_fatal_signal_num&nbsp;=&nbsp;</span><span class="keyword">sizeof</span><span>(s_fatal_signals)&nbsp;/&nbsp;</span><span class="keyword">sizeof</span><span>(s_fatal_signals[0]);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">void</span><span>&nbsp;InitCrashReport()&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linux错误信号捕获</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;s_fatal_signal_num;&nbsp;++i)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signal(s_fatal_signals[i],&nbsp;SignalHandler);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;objective-c未捕获异常的捕获</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;NSSetUncaughtExceptionHandler(&amp;HandleException);&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249" style="display: none;"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">static int s_fatal_signals[] = {
+    SIGABRT,
+    SIGBUS,
+    SIGFPE,
+    SIGILL,
+    SIGSEGV,
+    SIGTRAP,
+	SIGTERM,
+	SIGKILL,
+};
+
+static const char* s_fatal_signal_names[] = {
+	"SIGABRT",
+	"SIGBUS",
+	"SIGFPE",
+	"SIGILL",
+	"SIGSEGV",
+	"SIGTRAP",
+	"SIGTERM",
+	"SIGKILL",
+};
+
+static int s_fatal_signal_num = sizeof(s_fatal_signals) / sizeof(s_fatal_signals[0]);
+
+void InitCrashReport()
+{
+        // 1     linux错误信号捕获
+	for (int i = 0; i &lt; s_fatal_signal_num; ++i) {
+		signal(s_fatal_signals[i], SignalHandler);
+	}
+	
+        // 2      objective-c未捕获异常的捕获
+	NSSetUncaughtExceptionHandler(&amp;HandleException);
+}</pre>
+<p>在游戏的最开始调用InitCrashReport()函数来开启崩溃捕获。 &nbsp;注释1处对应上文所说的第一类崩溃，注释2处对应objective-c（或者说是UIKit Framework）抛出但是没有被处理的异常。</p>
+<p>2、打印堆栈信息</p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 568px; top: 1916px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>+&nbsp;(NSArray&nbsp;*)backtrace&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">void</span><span>*&nbsp;callstack[128];&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;frames&nbsp;=&nbsp;backtrace(callstack,&nbsp;128);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">char</span><span>&nbsp;**strs&nbsp;=&nbsp;backtrace_symbols(callstack,&nbsp;frames);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;i;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;NSMutableArray&nbsp;*backtrace&nbsp;=&nbsp;[NSMutableArray&nbsp;arrayWithCapacity:frames];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(i&nbsp;=&nbsp;kSkipAddressCount;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;&lt;&nbsp;__min(kSkipAddressCount&nbsp;+&nbsp;kReportAddressCount,&nbsp;frames);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++i)&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[backtrace&nbsp;addObject:[NSString&nbsp;stringWithUTF8String:strs[i]]];&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;free(strs);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;backtrace;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">+ (NSArray *)backtrace
+{
+	void* callstack[128];
+	int frames = backtrace(callstack, 128);
+	char **strs = backtrace_symbols(callstack, frames);
+	
+	int i;
+	NSMutableArray *backtrace = [NSMutableArray arrayWithCapacity:frames];
+	for (i = kSkipAddressCount;
+		 i &lt; __min(kSkipAddressCount + kReportAddressCount, frames);
+		 ++i) {
+	 	[backtrace addObject:[NSString stringWithUTF8String:strs[i]]];
+	}
+	free(strs);
+	
+	return backtrace;
+}
+</pre><br>
+幸好，苹果的iOS系统支持backtrace，通过这个函数可以直接打印出程序崩溃的调用堆栈。优点是，什么符号函数表都不需要，也不需要保存发布出去的对应版本，直接查看崩溃堆栈。缺点是，不能打印出具体哪一行崩溃，很多问题知道了是哪个函数崩的，但是还是查不出是因为什么崩的<img alt="大哭" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/wail.gif">
+<p></p>
+<p>3、日志上传，这个需要看实际需求，比如我们公司就是把崩溃信息http post到一个php服务器。这里就不多做声明了。</p>
+<p>4、技巧---崩溃后程序保持运行状态而不退出</p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 568px; top: 2491px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span>CFRunLoopRef&nbsp;runLoop&nbsp;=&nbsp;CFRunLoopGetCurrent();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;CFArrayRef&nbsp;allModes&nbsp;=&nbsp;CFRunLoopCopyAllModes(runLoop);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;(!dismissed)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(NSString&nbsp;*mode&nbsp;in&nbsp;(__bridge&nbsp;NSArray&nbsp;*)allModes)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CFRunLoopRunInMode((__bridge&nbsp;CFStringRef)mode,&nbsp;0.001,&nbsp;<span class="keyword">false</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;CFRelease(allModes);&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">CFRunLoopRef runLoop = CFRunLoopGetCurrent();
+	CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
+	
+	while (!dismissed)
+	{
+		for (NSString *mode in (__bridge NSArray *)allModes)
+		{
+			CFRunLoopRunInMode((__bridge CFStringRef)mode, 0.001, false);
+		}
+	}
+	
+	CFRelease(allModes);</pre><br>
+在崩溃处理函数上传完日志信息后，调用上述代码，可以重新构建程序主循环。这样，程序即便崩溃了，依然可以正常运行（当然，这个时候是处于不稳定状态，但是由于手持游戏和应用大多是短期操作，不会有挂机这种说法，所以稳定与否就无关紧要了）。玩家甚至感受不到崩溃。
+<p></p>
+<p>这里要在说明一个感念，那就是“可重入（<span style="font-family:sans-serif; font-size:15px; line-height:22.066667556762695px">reentrant</span>）”。简单来说，当我们的崩溃回调函数是可重入的时候，那么再次发生崩溃的时候，依然可以正常运行这个新的函数；但是如果是不可重入的，则无法运行（这个时候就彻底死了）。要实现上面描述的效果，并且还要保证回调函数是可重入的几乎不可能。所以，我测试的结果是，objective-c的异常触发多少次都可以正常运行。但是如果多次触发错误信号，那么程序就会卡死。
+ &nbsp;所以要慎重决定是否要应用这个技巧。</p>
+<p><br>
+</p>
+<p>二、android崩溃捕获和收集</p>
+<p>1、android开启崩溃捕获</p>
+<p>&nbsp; &nbsp; &nbsp; 首先是java代码的崩溃捕获，这个可以仿照最下面的完整代码写一个UncaughtExceptionHandler，然后在所有的Activity的onCreate函数最开始调用<br>
+<br>
+<span style="white-space:pre"></span>Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler(this));</p>
+<p>&nbsp; &nbsp; &nbsp; 这样，当发生崩溃的时候，就会自动调用UncaughtExceptionHandler的public void uncaughtException(Thread thread, Throwable exception)函数，其中的exception包含堆栈信息，我们可以在这个函数里面打印我们需要的信息，并且上传错误日志</p>
+<p>&nbsp; &nbsp; 然后是重中之重，jni的c++代码如何进行崩溃捕获。</p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 568px; top: 3375px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;InitCrashReport()&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;CCLOG(<span class="string">"InitCrashReport"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;Try&nbsp;to&nbsp;catch&nbsp;crashes...</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">struct</span><span>&nbsp;sigaction&nbsp;handler;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;memset(&amp;handler,&nbsp;0,&nbsp;<span class="keyword">sizeof</span><span>(</span><span class="keyword">struct</span><span>&nbsp;sigaction));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;handler.sa_sigaction&nbsp;=&nbsp;android_sigaction;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;handler.sa_flags&nbsp;=&nbsp;SA_RESETHAND;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="preprocessor">#define&nbsp;CATCHSIG(X)&nbsp;sigaction(X,&nbsp;&amp;handler,&nbsp;&amp;old_sa[X])</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGILL);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGABRT);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGBUS);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGFPE);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGSEGV);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGSTKFLT);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;CATCHSIG(SIGPIPE);&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">void InitCrashReport()
+{
+	CCLOG("InitCrashReport");
+
+    // Try to catch crashes...
+    struct sigaction handler;
+    memset(&amp;handler, 0, sizeof(struct sigaction));
+
+    handler.sa_sigaction = android_sigaction;
+    handler.sa_flags = SA_RESETHAND;
+
+#define CATCHSIG(X) sigaction(X, &amp;handler, &amp;old_sa[X])
+    CATCHSIG(SIGILL);
+    CATCHSIG(SIGABRT);
+    CATCHSIG(SIGBUS);
+    CATCHSIG(SIGFPE);
+    CATCHSIG(SIGSEGV);
+    CATCHSIG(SIGSTKFLT);
+    CATCHSIG(SIGPIPE);
+}</pre>通过singal的设置，当崩溃发生的时候就会调用android_sigaction函数。这同样是linux的信号机制。 此处设置信号回调函数的代码跟iOS有点不同，这个只是同一个功能的两种不同写法，没有本质区别。有兴趣的可以google下两者的区别。
+<p></p>
+<p>2、打印堆栈</p>
+<p>&nbsp; &nbsp; &nbsp; java语法可以直接通过exception获取到堆栈信息，但是jni代码不支持backtrace，那么我们如何获取堆栈信息呢？ &nbsp; &nbsp;这里有个我想尝试的新方法，就是使用google breakpad，貌似它现在完整的跨平台了（支持windows, mac, linux, iOS和android等），它自己实现了一套minidump，在android上面限制会小很多。 &nbsp;但是这个库有些大，估计要加到我们的工程中不是一件非常容易的事，所以我们还是使用了简洁的“传统”方案。 思路是，当发生崩溃的时候，在回调函数里面调用一个我们在Activity写好的静态函数。在这个函数里面通过执行命令获取logcat的输出信息（输出信息里面包含了jni的崩溃地址），然后上传这个崩溃信息。
+ &nbsp;当我们获取到崩溃信息后，可以通过arm-linux-androideabi-addr2line（具体可能不是这个名字，在android ndk里面搜索*addr2line，找到实际的程序）解析崩溃信息。</p>
+<p>&nbsp; &nbsp; &nbsp; jni的崩溃回调函数如下：</p>
+<p></p>
+<div class="dp-highlighter bg_cpp"><div class="bar"><div class="tools"><b>[cpp]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 568px; top: 4162px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_5" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=5&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-cpp"><li class="alt"><span><span class="keyword">void</span><span>&nbsp;android_sigaction(</span><span class="datatypes">int</span><span>&nbsp;signal,&nbsp;siginfo_t&nbsp;*info,&nbsp;</span><span class="keyword">void</span><span>&nbsp;*reserved)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!g_env)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;jclass&nbsp;classID&nbsp;=&nbsp;g_env-&gt;FindClass(CLASS_NAME);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!classID)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;jmethodID&nbsp;methodID&nbsp;=&nbsp;g_env-&gt;GetStaticMethodID(classID,&nbsp;<span class="string">"onNativeCrashed"</span><span>,&nbsp;</span><span class="string">"()V"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(!methodID)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;g_env-&gt;CallStaticVoidMethod(classID,&nbsp;methodID);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;old_sa[signal].sa_handler(signal);&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="cpp" style="display: none;">void android_sigaction(int signal, siginfo_t *info, void *reserved)
+{
+	if (!g_env)	{
+		return;
+	}
+
+    jclass classID = g_env-&gt;FindClass(CLASS_NAME);
+    if (!classID) {
+    	return;
+    }
+
+    jmethodID methodID = g_env-&gt;GetStaticMethodID(classID, "onNativeCrashed", "()V");
+    if (!methodID) {
+        return;
+    }
+
+    g_env-&gt;CallStaticVoidMethod(classID, methodID);
+
+    old_sa[signal].sa_handler(signal);
+}</pre><br>
+可以看到，我们仅仅是通过jni调用了java的一个函数，然后所有的处理都是在java层面完成。
+<p></p>
+<p>java对应的函数实现如下：</p>
+<p></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 574px; top: 4667px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_6" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_6" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=6&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onNativeCrashed()&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;http://stackoverflow.com/questions/1083154/how-can-i-catch-sigsegv-segmentation-fault-and-get-a-stack-trace-under-jni-on-a</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.e(<span class="string">"handller"</span><span>,&nbsp;</span><span class="string">"handle"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;RuntimeException(</span><span class="string">"crashed&nbsp;here&nbsp;(native&nbsp;trace&nbsp;should&nbsp;follow&nbsp;after&nbsp;the&nbsp;Java&nbsp;trace)"</span><span>).printStackTrace();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s_instance.startActivity(<span class="keyword">new</span><span>&nbsp;Intent(s_instance,&nbsp;CrashHandler.</span><span class="keyword">class</span><span>));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="java" style="display: none;">public static void onNativeCrashed() {
+        // http://stackoverflow.com/questions/1083154/how-can-i-catch-sigsegv-segmentation-fault-and-get-a-stack-trace-under-jni-on-a
+		Log.e("handller", "handle");
+        new RuntimeException("crashed here (native trace should follow after the Java trace)").printStackTrace();
+        s_instance.startActivity(new Intent(s_instance, CrashHandler.class));
+    }</pre><br>
+我们开启了一个新的activity，因为当jni发生崩溃的时候，原始的activity可能已经结束掉了。 &nbsp;这个新的activity实现如下：
+<p></p>
+<p></p>
+<div class="dp-highlighter bg_java"><div class="bar"><div class="tools"><b>[java]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 574px; top: 4949px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_7" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_7" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=7&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;CrashHandler&nbsp;</span><span class="keyword">extends</span><span>&nbsp;Activity&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">final</span><span>&nbsp;String&nbsp;TAG&nbsp;=&nbsp;</span><span class="string">"CrashHandler"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">protected</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onCreate(Bundle&nbsp;state)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">super</span><span>.onCreate(state);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setTitle(R.string.crash_title);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.crashhandler);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TextView&nbsp;v&nbsp;=&nbsp;(TextView)findViewById(R.id.crashText);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.setText(MessageFormat.format(getString(R.string.crashed),&nbsp;getString(R.string.app_name)));&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">final</span><span>&nbsp;Button&nbsp;b&nbsp;=&nbsp;(Button)findViewById(R.id.report),&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&nbsp;(Button)findViewById(R.id.close);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.setOnClickListener(<span class="keyword">new</span><span>&nbsp;View.OnClickListener(){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onClick(View&nbsp;v){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">final</span><span>&nbsp;ProgressDialog&nbsp;progress&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;ProgressDialog(CrashHandler.</span><span class="keyword">this</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.setMessage(getString(R.string.getting_log));&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.setIndeterminate(<span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.setCancelable(<span class="keyword">false</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.show();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">final</span><span>&nbsp;AsyncTask&nbsp;task&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;LogTask(CrashHandler.</span><span class="keyword">this</span><span>,&nbsp;progress).execute();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.postDelayed(<span class="keyword">new</span><span>&nbsp;Runnable(){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;run(){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(task.getStatus()&nbsp;==&nbsp;AsyncTask.Status.FINISHED)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;It's&nbsp;probably&nbsp;one&nbsp;of&nbsp;these&nbsp;devices&nbsp;where&nbsp;some&nbsp;fool&nbsp;broke&nbsp;logcat.</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.dismiss();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task.cancel(<span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;AlertDialog.Builder(CrashHandler.</span><span class="keyword">this</span><span>)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setMessage(MessageFormat.format(getString(R.string.get_log_failed),&nbsp;getString(R.string.author_email)))&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setCancelable(<span class="keyword">true</span><span>)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setIcon(android.R.drawable.ic_dialog_alert)&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.show();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}},&nbsp;<span class="number">3000</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.setOnClickListener(<span class="keyword">new</span><span>&nbsp;View.OnClickListener(){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onClick(View&nbsp;v){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finish();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;String&nbsp;getVersion(Context&nbsp;c)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;c.getPackageManager().getPackageInfo(c.getPackageName(),</span><span class="number">0</span><span>).versionName;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>(Exception&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;c.getString(R.string.unknown_version);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">class</span><span>&nbsp;LogTask&nbsp;</span><span class="keyword">extends</span><span>&nbsp;AsyncTask&lt;Void,&nbsp;Void,&nbsp;Void&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;Activity&nbsp;activity;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;logText;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;Process&nbsp;process;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;ProgressDialog&nbsp;progress;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;LogTask(Activity&nbsp;a,&nbsp;ProgressDialog&nbsp;p)&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;activity&nbsp;=&nbsp;a;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress&nbsp;=&nbsp;p;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">protected</span><span>&nbsp;Void&nbsp;doInBackground(Void...&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.e(<span class="string">"crash"</span><span>,&nbsp;</span><span class="string">"doInBackground&nbsp;begin"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;=&nbsp;Runtime.getRuntime().exec(<span class="keyword">new</span><span>&nbsp;String[]{</span><span class="string">"logcat"</span><span>,</span><span class="string">"-d"</span><span>,</span><span class="string">"-t"</span><span>,</span><span class="string">"500"</span><span>,</span><span class="string">"-v"</span><span>,</span><span class="string">"threadtime"</span><span>});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logText&nbsp;=&nbsp;UncaughtExceptionHandler.readFromLogcat(process.getInputStream());&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.e(<span class="string">"crash"</span><span>,&nbsp;</span><span class="string">"doInBackground&nbsp;end"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(IOException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toast.makeText(activity,&nbsp;e.toString(),&nbsp;Toast.LENGTH_LONG).show();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;</span><span class="keyword">null</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">protected</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onCancelled()&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.e(<span class="string">"crash"</span><span>,&nbsp;</span><span class="string">"onCancelled"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process.destroy();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">protected</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onPostExecute(Void&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.e(<span class="string">"crash"</span><span>,&nbsp;</span><span class="string">"onPostExecute"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.setMessage(activity.getString(R.string.starting_email));&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UncaughtExceptionHandler.sendLog(logText,&nbsp;activity);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;progress.dismiss();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;activity.finish();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.e(<span class="string">"crash"</span><span>,&nbsp;</span><span class="string">"onPostExecute&nbsp;over"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="java" style="display: none;">public class CrashHandler extends Activity
+{
+    public static final String TAG = "CrashHandler";
+    protected void onCreate(Bundle state)
+    {
+        super.onCreate(state);
+        setTitle(R.string.crash_title);
+        setContentView(R.layout.crashhandler);
+        TextView v = (TextView)findViewById(R.id.crashText);
+        v.setText(MessageFormat.format(getString(R.string.crashed), getString(R.string.app_name)));
+        final Button b = (Button)findViewById(R.id.report),
+              c = (Button)findViewById(R.id.close);
+        b.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                final ProgressDialog progress = new ProgressDialog(CrashHandler.this);
+                progress.setMessage(getString(R.string.getting_log));
+                progress.setIndeterminate(true);
+                progress.setCancelable(false);
+                progress.show();
+                final AsyncTask task = new LogTask(CrashHandler.this, progress).execute();
+                b.postDelayed(new Runnable(){
+                    public void run(){
+                        if (task.getStatus() == AsyncTask.Status.FINISHED)
+                            return;
+                        // It's probably one of these devices where some fool broke logcat.
+                        progress.dismiss();
+                        task.cancel(true);
+                        new AlertDialog.Builder(CrashHandler.this)
+                            .setMessage(MessageFormat.format(getString(R.string.get_log_failed), getString(R.string.author_email)))
+                            .setCancelable(true)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    }}, 3000);
+            }});
+        c.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                finish();
+            }});
+    }
+
+    static String getVersion(Context c)
+    {
+        try {
+            return c.getPackageManager().getPackageInfo(c.getPackageName(),0).versionName;
+        } catch(Exception e) {
+            return c.getString(R.string.unknown_version);
+        }
+    }
+}
+
+class LogTask extends AsyncTask&lt;Void, Void, Void&gt;
+{
+    Activity activity;
+    String logText;
+    Process process;
+    ProgressDialog progress; 
+
+    LogTask(Activity a, ProgressDialog p) {
+        activity = a;
+        progress = p;
+    }
+
+    @Override
+    protected Void doInBackground(Void... v) {
+        try {
+        	Log.e("crash", "doInBackground begin");
+            process = Runtime.getRuntime().exec(new String[]{"logcat","-d","-t","500","-v","threadtime"});
+            logText = UncaughtExceptionHandler.readFromLogcat(process.getInputStream());
+        	Log.e("crash", "doInBackground end");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        return null;
+    }
+
+    @Override
+    protected void onCancelled() {
+    	Log.e("crash", "onCancelled");
+        process.destroy();
+    }
+
+    @Override
+    protected void onPostExecute(Void v) {
+    	Log.e("crash", "onPostExecute");
+        progress.setMessage(activity.getString(R.string.starting_email));
+        UncaughtExceptionHandler.sendLog(logText, activity);
+        progress.dismiss();
+        activity.finish();
+        Log.e("crash", "onPostExecute over");
+    }</pre>
+<p></p>
+<p>最主要的地方是doInBackground函数，这个函数通过logcat获取了崩溃信息。 不要忘记在AndroidManifest.xml添加读取LOG的权限</p>
+<p></p>
+<div class="dp-highlighter bg_html"><div class="bar"><div class="tools"><b>[html]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 576px; top: 6673px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_8" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_8" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=8&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1" class="dp-xml"><li class="alt"><span><span class="tag">&lt;</span><span class="tag-name">uses-permission</span><span>&nbsp;</span><span class="attribute">android:name</span><span>=</span><span class="attribute-value">"android.permission.READ_LOGS"</span><span>&nbsp;</span><span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="html" style="display: none;">&lt;uses-permission android:name="android.permission.READ_LOGS" /&gt;</pre><br>
+3、获取到错误日志后，就可以写到sd卡（同样不要忘记添加权限），或者是上传。 &nbsp;代码很容易google到，不多说了。 &nbsp;最后再说下如何解析这个错误日志。
+<p></p>
+<p>我们在获取到的错误日志中，可以截取到如下信息：</p>
+<p></p><div class="dp-highlighter bg_plain"><div class="bar"><div class="tools"><b>[plain]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 577px; top: 6876px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_9" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_9" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=9&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1"><li class="alt"><span><span>12-12&nbsp;20:41:31.807&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>12-12&nbsp;20:41:31.847&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#00&nbsp;&nbsp;pc&nbsp;004931f8&nbsp;&nbsp;/data/data/org.cocos2dx.wing/lib/libhelloworld.so&nbsp;&nbsp;</span></li><li class="alt"><span>12-12&nbsp;20:41:31.847&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#01&nbsp;&nbsp;pc&nbsp;005b3a5e&nbsp;&nbsp;/data/data/org.cocos2dx.wing/lib/libhelloworld.so&nbsp;&nbsp;</span></li><li class=""><span>12-12&nbsp;20:41:31.847&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#02&nbsp;&nbsp;pc&nbsp;005aab68&nbsp;&nbsp;/data/data/org.cocos2dx.wing/lib/libhelloworld.so&nbsp;&nbsp;</span></li><li class="alt"><span>12-12&nbsp;20:41:31.847&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#03&nbsp;&nbsp;pc&nbsp;005ad8aa&nbsp;&nbsp;/data/data/org.cocos2dx.wing/lib/libhelloworld.so&nbsp;&nbsp;</span></li><li class=""><span>12-12&nbsp;20:41:31.847&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#04&nbsp;&nbsp;pc&nbsp;005924a4&nbsp;&nbsp;/data/data/org.cocos2dx.wing/lib/libhelloworld.so&nbsp;&nbsp;</span></li><li class="alt"><span>12-12&nbsp;20:41:31.847&nbsp;24206&nbsp;24206&nbsp;I&nbsp;DEBUG&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#05&nbsp;&nbsp;pc&nbsp;005929b6&nbsp;&nbsp;/data/data/org.cocos2dx.wing/lib/libhelloworld.so&nbsp;&nbsp;</span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="plain" style="display: none;">12-12 20:41:31.807 24206 24206 I DEBUG   : 
+12-12 20:41:31.847 24206 24206 I DEBUG   :          #00  pc 004931f8  /data/data/org.cocos2dx.wing/lib/libhelloworld.so
+12-12 20:41:31.847 24206 24206 I DEBUG   :          #01  pc 005b3a5e  /data/data/org.cocos2dx.wing/lib/libhelloworld.so
+12-12 20:41:31.847 24206 24206 I DEBUG   :          #02  pc 005aab68  /data/data/org.cocos2dx.wing/lib/libhelloworld.so
+12-12 20:41:31.847 24206 24206 I DEBUG   :          #03  pc 005ad8aa  /data/data/org.cocos2dx.wing/lib/libhelloworld.so
+12-12 20:41:31.847 24206 24206 I DEBUG   :          #04  pc 005924a4  /data/data/org.cocos2dx.wing/lib/libhelloworld.so
+12-12 20:41:31.847 24206 24206 I DEBUG   :          #05  pc 005929b6  /data/data/org.cocos2dx.wing/lib/libhelloworld.so</pre><br>
+<div class="dp-highlighter bg_plain"><div class="bar"><div class="tools"><b>[plain]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 577px; top: 7210px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_10" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_10" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=10&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1"><li class="alt"><span><span>004931f8&nbsp;&nbsp;</span></span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="plain" style="display: none;">004931f8</pre>这个就是我们崩溃函数的地址， &nbsp;libhelloworld.so就是崩溃的动态库。我们要使用addr2line对这个动态库进行解析（注意要是obj/local目录下的那个比较大的，含有符号文件的动态库，不是Libs目录下比较小的，同时发布版本时，这个动态库也要保存好，之后查log都要有对应的动态库）。命令如下：<p></p>
+<p>arm-linux-androideabi-addr2line.exe -e 动态库名称 &nbsp;崩溃地址<br>
+</p>
+<p>例如：</p>
+<p></p><div class="dp-highlighter bg_plain"><div class="bar"><div class="tools"><b>[plain]</b> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command(&#39;CopyToClipboard&#39;,this);return false;">copy</a><div style="position: absolute; left: 577px; top: 7452px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_11" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_11" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=11&amp;width=18&amp;height=18" wmode="transparent"></div></span><span data-mod="popu_169"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a></span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="About" title="?" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div></div><ol start="1"><li class="alt"><span><span>$&nbsp;/cygdrive/d/devandroid/android-ndk-r8c-windows/android-ndk-r8c/toolchains/arm-linux-androideabi-4.6/prebuilt/windows/bin/arm-linux-androideabi-addr2line.exe&nbsp;-e&nbsp;obj/local/armeabi-v7a/libhelloworld.so&nbsp;004931f8&nbsp;&nbsp;</span></span></li></ol><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div></div><pre name="code" class="plain" style="display: none;">$ /cygdrive/d/devandroid/android-ndk-r8c-windows/android-ndk-r8c/toolchains/arm-linux-androideabi-4.6/prebuilt/windows/bin/arm-linux-androideabi-addr2line.exe -e obj/local/armeabi-v7a/libhelloworld.so 004931f8</pre>得到的结果就是哪个cpp文件第几行崩溃。 &nbsp;如果动态库信息不对，返回的就是 ?:0<p></p>
+<p><br>
+<br>
+</p>
+<p></p>
+<p><br>
+</p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1467195133055">
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/blog_detail.css">
+
+    
+<!--172.16.140.13-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" articleid="8288195">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>5</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/langresser_king/article/details/8283565&#39;;">上一篇</span><a href="http://blog.csdn.net/langresser_king/article/details/8283565" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">iOS和Android设备上最高效的xml解析库</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/langresser_king/article/details/8290281&#39;;">下一篇</span><a href="http://blog.csdn.net/langresser_king/article/details/8290281" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">Android Jni知识点</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article" style="">
+                <h4>我的同类文章</h4>
+                <div class="similar_c" style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;1110322&#39;,&#39;langresser&#39;,&#39;foot&#39;,&#39;8288195&#39;);">Android开发<em>（26）</em></span>
+                                </label>
+                                <label class="">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;1110321&#39;,&#39;langresser&#39;,&#39;foot&#39;,&#39;8288195&#39;);">IOS游戏开发<em>（43）</em></span>
+                                </label>
+                                <label class="">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;1110320&#39;,&#39;langresser&#39;,&#39;foot&#39;,&#39;8288195&#39;);">IOS应用开发<em>（10）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141" style="max-height:195px;">
+                        <a href="http://blog.csdn.net/" style="display:none" target="_blank">http://blog.csdn.net</a>
+                        <ul class="similar_list fl"><li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/22095235" id="foot_aritcle_22095235undefined6156818429829793" target="_blank" title="Unity动态字体文字破碎的解决方法(Dynamic Font Broken)">Unity动态字体文字破碎的解决方法(Dynamic Font Broken)</a><span>2014-03-25</span><label><i>阅读</i><b>5389</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/9382227" id="foot_aritcle_9382227undefined24677574791345136" target="_blank" title="cocos2d-x中luajit的使用">cocos2d-x中luajit的使用</a><span>2013-07-19</span><label><i>阅读</i><b>10297</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8638507" id="foot_aritcle_8638507undefined2962702480873607" target="_blank" title="解决三星S2 i9100声音播放崩溃(CocosDenshion)">解决三星S2 i9100声音播放崩溃(CocosDenshion)</a><span>2013-03-05</span><label><i>阅读</i><b>3234</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8570440" id="foot_aritcle_8570440undefined01243597710885469" target="_blank" title="实现In-app Billing (IAB Version 3)">实现In-app Billing (IAB Version 3)</a><span>2013-02-05</span><label><i>阅读</i><b>7416</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8531689" id="foot_aritcle_8531689undefined7921489638232637" target="_blank" title="跨平台的多线程断点续传下载库">跨平台的多线程断点续传下载库</a><span>2013-01-26</span><label><i>阅读</i><b>2374</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8426708" id="foot_aritcle_8426708undefined3360657258485824" target="_blank" title="iOS和android游戏纹理优化和内存优化(cocos2d-x)">iOS和android游戏纹理优化和内存优化(cocos2d-x)</a><span>2012-12-24</span><label><i>阅读</i><b>23760</b></label></li> </ul>
+
+                        <ul class="similar_list fr"><li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/14230373" id="foot_aritcle_14230373undefined8318377187184425" target="_blank" title="在Android.mk文件中输出打印消息">在Android.mk文件中输出打印消息</a><span>2013-11-06</span><label><i>阅读</i><b>1303</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/9373051" id="foot_aritcle_9373051undefined5830005756419494" target="_blank" title="Android下获取设备唯一标识(UDID, DeviceID...)">Android下获取设备唯一标识(UDID, DeviceID...)</a><span>2013-07-18</span><label><i>阅读</i><b>11839</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8584661" id="foot_aritcle_8584661undefined8591458930773759" target="_blank" title="webp图片格式在手持设备性能测试">webp图片格式在手持设备性能测试</a><span>2013-02-17</span><label><i>阅读</i><b>5483</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8540626" id="foot_aritcle_8540626undefined6521890748488692" target="_blank" title="内存调试的东西D/dalvikvm( 809 ): GC_CONCURRENT freed">内存调试的东西D/dalvikvm( 809 ): GC_CONCURRENT freed</a><span>2013-01-25</span><label><i>阅读</i><b>1385</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/langresser/article/details/8531112" id="foot_aritcle_8531112undefined26584963170337206" target="_blank" title="android bionic缺失pthread_cancel的解决方法">android bionic缺失pthread_cancel的解决方法</a><span>2013-01-22</span><label><i>阅读</i><b>1976</b></label></li> </ul>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110322" class="MoreArticle">更多文章</a></div>
+                </div>
+            </div>    
+    <script type="text/javascript">
+        $(function () {
+            GetCategoryArticles('1110322', 'langresser','foot','8288195');
+        });
+    </script>
+      
+</div>
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/langresser/svc/GetSuggestContent/8288195",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/replace.css">
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: block;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c"><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/15"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/1455589744328_328.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/15">Android知识库</a></h4><p><label><span>11873</span><em>关注</em><i>|</i><span>1149</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/17"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/1456818035722_722.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/17">Java EE知识库</a></h4><p><label><span>1055</span><em>关注</em><i>|</i><span>581</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/12"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/1453169124297_297.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/12">Java SE知识库</a></h4><p><label><span>9344</span><em>关注</em><i>|</i><span>454</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/13"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/1453701371636_636.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/13">Java Web知识库</a></h4><p><label><span>9629</span><em>关注</em><i>|</i><span>1017</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/1"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/1452496101906_906.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/1">Swift知识库</a></h4><p><label><span>1695</span><em>关注</em><i>|</i><span>386</span><em>收录</em></label></p></dd></dl></div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "8288195",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    <div class="tracking-ad" data-mod="popu_84"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/2308" title="iOS进阶开发-调试程序" strategy="v3:content" target="_blank">iOS进阶开发-调试程序</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/545" title="Android入门实战教程" strategy="v3:content" target="_blank">Android入门实战教程</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1128" title="从零练就iOS高手实战班" strategy="v3:content" target="_blank">从零练就iOS高手实战班</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/512" title="iOS8-Swift开发教程" strategy="v3:content" target="_blank">iOS8-Swift开发教程</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/381" title="软件测试基础" strategy="v3:hot" target="_blank">软件测试基础</a></dd></div></div>  
+
+    
+     <div id="res" data-mod="popu_36" class="tracking-ad" style="width: 42%; float: left; margin-right: 30px; display: block;"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/wbw1985/article/details/8727280" title="android和iOS平台的崩溃捕获和收集" strategy="SearchAlgorithm" target="_blank">android和iOS平台的崩溃捕获和收集</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/hylaking/article/details/9245581" title="android和iOS平台的崩溃捕获和收集" strategy="SearchAlgorithm" target="_blank">android和iOS平台的崩溃捕获和收集</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/joe1209/article/details/8972709" title="android和iOS平台的崩溃捕获和收集" strategy="SearchAlgorithm" target="_blank">android和iOS平台的崩溃捕获和收集</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u010040590/article/details/45827237" title="android和iOS平台的崩溃捕获和收集" strategy="SearchAlgorithm" target="_blank">android和iOS平台的崩溃捕获和收集</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/chenya866/article/details/50587041" title="android和iOS平台的崩溃捕获和收集" strategy="SearchAlgorithm" target="_blank">android和iOS平台的崩溃捕获和收集</a></dd></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'android和iOS平台的崩溃捕获和收集' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_71" data-mtp="36" data-order="40" data-con="ad_content_216" style="width: 728px; height: 90px;"><!-- 广告占位容器 --><div id="cpro_u1607657"><iframe id="iframeu1607657_0" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/rclm.html" width="728" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] ||{})['u1607657']={at:'3',rsi0:'728',rsi1:'90',pat:'6',tn:'baiduCustNativeAD',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'',rss2:'#000000',titSU:'0',ptbg:'90',piw:'0',pih:'0',ptp:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u1607657'});  </script>  <script src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/c.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_5017277"><dt class="comment_head" floor="13">13楼 <span class="user"><a class="username" href="http://blog.csdn.net/TaoismShi" target="_blank">TaoismShi</a> <span class="ptime">2015-05-05 18:08发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="5017277" username="TaoismShi"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/TaoismShi" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_taoismshi.jpg" width="40" height="40"></a></dd><dd class="comment_body">完整的代码找到了，http://xwrwc.blog.163.com/blog/static/4632000320138835758393/</dd><dl class="comment_item comment_reply" id="comment_item_5149935"><dt class="comment_head" floor="13">Re: <span class="user"><a class="username" href="http://blog.csdn.net/lijing215" target="_blank">lijing215</a> <span class="ptime">2015-06-18 14:29发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="5149935" username="lijing215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/lijing215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_lijing215.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复TaoismShi：求分享demo工程</dd><dl class="comment_item comment_reply" id="comment_item_5194073"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/TaoismShi" target="_blank">TaoismShi</a> <span class="ptime">2015-07-09 16:40发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="5194073" username="TaoismShi"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/TaoismShi" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_taoismshi.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复lijing215：现在android不能获取非本进程打出的日志了，也就是说不能通过获取系统日志找到进程崩溃后的信息。只有通过google－breakepad做。</dd></dl><dl class="comment_item comment_reply" id="comment_item_5194051"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/TaoismShi" target="_blank">TaoismShi</a> <span class="ptime">2015-07-09 16:37发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="5194051" username="TaoismShi"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/TaoismShi" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_taoismshi.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复lijing215：现在安卓不能获取系统日志了，我试过。只能通过google_breakepad去做</dd></dl></dl></dl><dl class="comment_item comment_topic" id="comment_item_5017275"><dt class="comment_head" floor="12">12楼 <span class="user"><a class="username" href="http://blog.csdn.net/TaoismShi" target="_blank">TaoismShi</a> <span class="ptime">2015-05-05 18:07发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="5017275" username="TaoismShi"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/TaoismShi" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_taoismshi.jpg" width="40" height="40"></a></dd><dd class="comment_body">完整的代码找到了，http://xwrwc.blog.163.com/blog/static/4632000320138835758393/</dd></dl><dl class="comment_item comment_topic" id="comment_item_3861215"><dt class="comment_head" floor="11">11楼 <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-22 15:40发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3861215" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">看下楼主的截取到得信息感觉是直接Eclipse截图的，不像是邮件里面的信息。</dd></dl><dl class="comment_item comment_topic" id="comment_item_3827735"><dt class="comment_head" floor="10">10楼 <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-09 17:52发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3827735" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">#define CATCHSIG(X) sigaction(X, &amp;handler, &amp;old_sa[X])<br>中的old_sa未定义。。。</dd></dl><dl class="comment_item comment_topic" id="comment_item_3401993"><dt class="comment_head" floor="9">9楼 <span class="user"><a class="username" href="http://blog.csdn.net/u_wwy" target="_blank">u_wwy</a> <span class="ptime">2014-01-14 16:06发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3401993" username="u_wwy"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u_wwy" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_u_wwy.jpg" width="40" height="40"></a></dd><dd class="comment_body">lz 能分享一下 工程吗？</dd></dl><dl class="comment_item comment_topic" id="comment_item_3342929"><dt class="comment_head" floor="8">8楼 <span class="user"><a class="username" href="http://blog.csdn.net/brook0344" target="_blank">布鲁克零三四四</a> <span class="ptime">2013-12-30 02:42发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3342929" username="brook0344"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/brook0344" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_brook0344.jpg" width="40" height="40"></a></dd><dd class="comment_body">JNI崩溃，用博主的方法，在安卓模拟器中确实有那些DEBUG日志，但是我在两台安卓真机（一台手机一台平板）中测试，都没有得到那些DEBUG信息。</dd><dl class="comment_item comment_reply" id="comment_item_3827755"><dt class="comment_head" floor="8">Re: <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-09 17:57发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3827755" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复布鲁克零三四四：朋友在么，我也按照这个做了，但是现在程序根本没法编译，想问下你用的cocos2d-x的版本</dd><dl class="comment_item comment_reply" id="comment_item_3828475"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/brook0344" target="_blank">布鲁克零三四四</a> <span class="ptime">2014-05-10 01:39发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3828475" username="brook0344"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/brook0344" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_brook0344.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复罗密欧与猪过夜：可能要包含某些头文件吧？这是JNI程序就能用的，不一定要COCOS2D-X</dd><dl class="comment_item comment_reply" id="comment_item_3844489"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-16 14:12发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3844489" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复布鲁克零三四四：你哪里有DEMO么？？方便的话传我一份好吧。。谢谢~邮箱：1156091803@qq.com</dd><dl class="comment_item comment_reply" id="comment_item_3845535" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/brook0344" target="_blank">布鲁克零三四四</a> <span class="ptime">2014-05-16 20:34发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3845535" username="brook0344"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/brook0344" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_brook0344.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复罗密欧与猪过夜：库里就有完整例子库下载（SVN)：http://google-breakpad.googlecode.com/svn/trunk其中安卓例子在：GoogleBreakPad\android\sample_app\jni</dd></dl></dl></dl></dl><dl class="comment_item comment_reply" id="comment_item_3354137"><dt class="comment_head" floor="8">Re: <span class="user"><a class="username" href="http://blog.csdn.net/brook0344" target="_blank">布鲁克零三四四</a> <span class="ptime">2013-12-31 13:30发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3354137" username="brook0344"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/brook0344" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_brook0344.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复布鲁克零三四四：我发现sigaction设置之后，崩溃确实能进自己的函数做一些操作，但是LOGCAT的崩溃DEBUG信息都没有了。要是不sigaction设置的话，崩溃就会出现LOGCAT的DEBUG信息。但是在模拟器中，无论是否sigaction设置，都能出现LOGCAT的DEBUG崩溃信息</dd><dl class="comment_item comment_reply" id="comment_item_3861207"><dt class="comment_head" floor="2">Re: <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-22 15:38发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3861207" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复布鲁克零三四四：我也是这种情况，但是没法把DEBUG信息保存到本地信息中</dd></dl></dl></dl><dl class="comment_item comment_topic" id="comment_item_3272163"><dt class="comment_head" floor="7">7楼 <span class="user"><a class="username" href="http://blog.csdn.net/chenqiumiao" target="_blank">chenqiumiao</a> <span class="ptime">2013-12-10 17:03发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3272163" username="chenqiumiao"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/chenqiumiao" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_chenqiumiao.jpg" width="40" height="40"></a></dd><dd class="comment_body">Android api level 16以后READ_LOGS被google禁掉了，现在拿logcat里的信息拿不到了，楼主有别的解决方案吗？</dd></dl><dl class="comment_item comment_topic" id="comment_item_2982677"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/xiongzhizong" target="_blank">xiongzhizong</a> <span class="ptime">2013-10-15 11:16发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2982677" username="xiongzhizong"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xiongzhizong" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_xiongzhizong.jpg" width="40" height="40"></a></dd><dd class="comment_body">很多时候连logcat里面也没有这些信息。<br>请问楼主，如果是很多时候没有logcat的这种信息，拿来有何用呢，我汗</dd><dl class="comment_item comment_reply" id="comment_item_2983111"><dt class="comment_head" floor="6">Re: <span class="user"><a class="username" href="http://blog.csdn.net/langresser" target="_blank">langresser</a> <span class="ptime">2013-10-15 13:51发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2983111" username="langresser"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/langresser" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_langresser.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复xiongzhizong：自我安慰或者骂一句android傻x</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_2951021"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/u010335966" target="_blank">penuel</a> <span class="ptime">2013-09-29 17:45发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2951021" username="u010335966"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u010335966" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_u010335966.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主问下，ios能捕获了，但是真正的异常信息怎么获取，现在只能取到singal码；比如：reason: '-[PullTableView _contentOffsetForScrollingToRowAtIndexPath:atScrollPosition:]: row (1000) beyond bounds (10) for section (0).<br>这种信息怎么获取；还有类名什么的</dd><dl class="comment_item comment_reply" id="comment_item_3826737"><dt class="comment_head" floor="5">Re: <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-09 12:51发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3826737" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复penuel：朋友，你这个捕获崩溃的功能实现了么？？能指点下么？？</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_2898601"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/wanrue" target="_blank">珑儿</a> <span class="ptime">2013-09-07 14:35发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2898601" username="wanrue"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wanrue" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_wanrue.jpg" width="40" height="40"></a></dd><dd class="comment_body">楼主，为什么我在底层c++代码中抛出异常，android_sigaction方法没有被调用呢？直接导致java相关方法没被调用，异常没有捕获，直接就闪退了。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2629348"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/q3745960" target="_blank">q3745960</a> <span class="ptime">2013-05-15 15:44发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2629348" username="q3745960"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/q3745960" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_q3745960.jpg" width="40" height="40"></a></dd><dd class="comment_body">UncaughtExceptionHandler.readFromLogcat(process.getInputStream())这个方法在哪里定义的？</dd></dl><dl class="comment_item comment_topic" id="comment_item_2602455"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/zq5599966_xy" target="_blank">重明</a> <span class="ptime">2013-04-22 15:49发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2602455" username="zq5599966_xy"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/zq5599966_xy" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_zq5599966_xy.jpg" width="40" height="40"></a></dd><dd class="comment_body">请问我在activity的onCreate注册了事件以后不会自动调用uncaughtException事件，是需要别的什么设置吗。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2574440"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/nut799" target="_blank">nut799</a> <span class="ptime">2013-04-01 02:51发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2574440" username="nut799"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/nut799" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_nut799.jpg" width="40" height="40"></a></dd><dd class="comment_body">你好 ，请问个问题，我的 log里面没有 <br>12-12 20:41:31.807 24206 24206 I DEBUG   :   <br>12-12 20:41:31.847 24206 24206 I DEBUG   :          #00  pc 004931f8  /data/data/org.cocos2dx.wing/lib/libhelloworld.so  <br>12-12 20:41:31.847 24206 24206 I DEBUG   :          #01  pc 005b3a5e  /data/data/org.cocos2dx.wing/lib/libhelloworld.so  <br>12-12 20:41:31.847 24206 24206 I DEBUG   :          #02  pc 005aab68  /data/data/org.cocos2dx.wing/lib/libhelloworld.so  <br>12-12 20:41:31.847 24206 24206 I DEBUG   :          #03  pc 005ad8aa  /data/data/org.cocos2dx.wing/lib/libhelloworld.so  <br>12-12 20:41:31.847 24206 24206 I DEBUG   :          #04  pc 005924a4  /data/data/org.cocos2dx.wing/lib/libhelloworld.so  <br>12-12 20:41:31.847 24206 24206 I DEBUG   :          #05  pc 005929b6  /data/data/org.cocos2dx.wing/lib/libhelloworld.so  <br>这些内存堆栈的数据，请问要设置什么吗？谢谢</dd><dl class="comment_item comment_reply" id="comment_item_3826281"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/libing0215" target="_blank">罗密欧与猪过夜</a> <span class="ptime">2014-05-09 10:31发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3826281" username="libing0215"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/libing0215" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_libing0215.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复nut799：朋友，你这个捕获崩溃的功能实现了么？？能指点下么？？</dd></dl><dl class="comment_item comment_reply" id="comment_item_2576629"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/langresser" target="_blank">langresser</a> <span class="ptime">2013-04-02 14:52发表</span>  <a href="http://blog.csdn.net/langresser_king/article/details/8288195#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2576629" username="langresser"> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/langresser_king/article/details/8288195#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/langresser" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/3_langresser.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复nut799：不需要设置，看运气。有的有，有的崩溃没有。比较随即，很多时候连logcat里面也没有这些信息。</dd></dl></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Flangresser_king%2Farticle%2Fdetails%2F8288195">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '8288195';
+    var commentscount = 26;
+    var islock = false
+</script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script language="javascript" type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/langresser/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/langresser" target="_blank">
+    <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/1_langresser.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/langresser" class="user_name" target="_blank">langresser</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=langresser&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="1">
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>729264次</span></li>
+    <li>积分：<span>9594</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：9594 </div>
+        </span>  </li>
+    <li>排名：<span>第1162名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>187篇</span></li>
+    <li>转载：<span>72篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>462条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1325482" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">职业生涯</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110319" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Core Text</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1332399" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">游戏客户端</a><span>(53)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1332400" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">游戏服务器</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/2569797" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">cocos2d-x</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110320" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">IOS应用开发</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110321" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">IOS游戏开发</a><span>(44)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110323" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">开源库介绍</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110322" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android开发</a><span>(27)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1110324" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">编程基础</a><span>(25)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1344466" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">游戏引擎</a><span>(37)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1748961" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Unity3D开发</a><span>(53)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/langresser/article/category/1878901" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">游戏分析</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/langresser/article/month/2016/05">2016年05月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2016/03">2016年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2016/01">2016年01月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/12">2015年12月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/11">2015年11月</a><span>(2)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/langresser/article/month/2015/10">2015年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/09">2015年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/08">2015年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/07">2015年07月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/06">2015年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/05">2015年05月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/04">2015年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/03">2015年03月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/02">2015年02月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2015/01">2015年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/12">2014年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/11">2014年11月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/10">2014年10月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/09">2014年09月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/08">2014年08月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/07">2014年07月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/06">2014年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/05">2014年05月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/04">2014年04月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/03">2014年03月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2014/01">2014年01月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/12">2013年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/11">2013年11月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/10">2013年10月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/09">2013年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/07">2013年07月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/06">2013年06月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/05">2013年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/04">2013年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/03">2013年03月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/02">2013年02月</a><span>(26)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2013/01">2013年01月</a><span>(25)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2012/12">2012年12月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2012/11">2012年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2012/08">2012年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2012/06">2012年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2012/04">2012年04月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2012/03">2012年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2011/10">2011年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2011/09">2011年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2011/08">2011年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2011/07">2011年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2011/06">2011年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2011/03">2011年03月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2010/12">2010年12月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2010/11">2010年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2010/08">2010年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2010/07">2010年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2010/06">2010年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2009/10">2009年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2009/01">2009年01月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/langresser/article/month/2008/05">2008年05月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed" style="display: none;">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195" title="android和iOS平台的崩溃捕获和收集">android和iOS平台的崩溃捕获和收集</a><span>(25721)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8426708" title="iOS和android游戏纹理优化和内存优化(cocos2d-x)">iOS和android游戏纹理优化和内存优化(cocos2d-x)</a><span>(23764)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8275291" title="Android.mk高级写法">Android.mk高级写法</a><span>(14567)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/9339313" title="关于cocos2d-x对etc1图片支持的分析">关于cocos2d-x对etc1图片支持的分析</a><span>(13622)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8496833" title="基于cocos2d-x的游戏客户端优化">基于cocos2d-x的游戏客户端优化</a><span>(12458)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/9373051" title="Android下获取设备唯一标识(UDID, DeviceID...)">Android下获取设备唯一标识(UDID, DeviceID...)</a><span>(11845)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8646088" title="跨平台的游戏客户端Socket封装">跨平台的游戏客户端Socket封装</a><span>(11680)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/6783242" title="IOS应用内购买（In App Purchase）总结">IOS应用内购买（In App Purchase）总结</a><span>(10677)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/9382227" title="cocos2d-x中luajit的使用">cocos2d-x中luajit的使用</a><span>(10298)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/7403729" title="获取普通用户 iOS 设备上的 Crash Log 的方法">获取普通用户 iOS 设备上的 Crash Log 的方法</a><span>(9530)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/16359107" title="创业半年的思考，如何做出一个成功的游戏">创业半年的思考，如何做出一个成功的游戏</a><span>(39)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8646088" title="跨平台的游戏客户端Socket封装">跨平台的游戏客户端Socket封装</a><span>(30)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8288195" title="android和iOS平台的崩溃捕获和收集">android和iOS平台的崩溃捕获和收集</a><span>(26)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/9339313" title="关于cocos2d-x对etc1图片支持的分析">关于cocos2d-x对etc1图片支持的分析</a><span>(24)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8496833" title="基于cocos2d-x的游戏客户端优化">基于cocos2d-x的游戏客户端优化</a><span>(21)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/10900847" title="将cocos2d-x游戏移植到win8/wp8上">将cocos2d-x游戏移植到win8/wp8上</a><span>(17)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8570440" title="实现In-app Billing (IAB Version 3)">实现In-app Billing (IAB Version 3)</a><span>(12)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/8580362" title="基于id的游戏客户端事件分发（消息队列）">基于id的游戏客户端事件分发（消息队列）</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/9382227" title="cocos2d-x中luajit的使用">cocos2d-x中luajit的使用</a><span>(10)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/langresser_king/article/details/37929293" title="创业一年半的失败总结，什么样的团队能够创业成功">创业一年半的失败总结，什么样的团队能够创业成功</a><span>(10)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/mackkill/article/details/51752687" target="_blank">*Android RocooFix 热修复框架</a></li>
+<li><a href="http://blog.csdn.net/xiehuimx/article/details/51731649" target="_blank">*笑谈Android图表------MPAndroidChart</a></li>
+<li><a href="http://blog.csdn.net/hiyun9/article/details/51602428" target="_blank">*Nginx正反向代理、负载均衡等功能实现配置</a></li>
+<li><a href="http://blog.csdn.net/qianweifeng123/article/details/51555998" target="_blank">* 浅析ZeroMQ工作原理及其特点</a></li>
+<li><a href="http://blog.csdn.net/sahadev_/article/details/51746119" target="_blank">*Android官方开发文档Training系列课程中文版：多样屏幕之支持不同的屏幕尺寸</a></li>
+<li><a href="http://blog.csdn.net/mickjoust/article/details/51646658" target="_blank">*Spring Boot 实践折腾记（三）：三板斧，Spring Boot下使用Mybatis</a></li>
+
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/42774827#comments">cocos2dx的3D粒子特效编辑器(Particle Universe With Torchlight)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u010292445" class="user_name">fongzi1</a>:
+终于找到楼主啦。。你好，我现在在研究你修改过的pu，但现在有一个问题，就是你把材质界面简化掉了，现在...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/42774827#comments">cocos2dx的3D粒子特效编辑器(Particle Universe With Torchlight)</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u010292445" class="user_name">fongzi1</a>:
+终于找到楼主啦。。你好，我现在在研究你修改过的pu，但现在有一个问题，就是你把材质界面简化掉了，现在...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/8646088#comments">跨平台的游戏客户端Socket封装</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u013843773" class="user_name">最怕认真</a>:
+楼主，那你接收消息怎么接收，是要在cocos2dx 的循环里不停的调用接收函数？
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/46756393#comments">手游帧同步的研究</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ranhuan" class="user_name">小刀</a>:
+没听说过帧同步会受到机器硬件和网络卡了一下影响的
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/46756393#comments">手游帧同步的研究</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/gzzheyi" class="user_name">劉俊</a>:
+我们游戏之前也是用帧同步，但是坑太多，不同步问题各种难查。后面基于性能和反外挂的考虑，终于还是改方案...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/43051525#comments">一个Excel转换为Json格式的Python脚本</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u011639126" class="user_name">听着rap写代码</a>:
+请教一下大神  cs 文件是怎么写能发我一份吗？谢谢啦54276264@qq.com
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/50363907#comments">对于游戏服务器的一些思考和研究</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ForeverLJM" class="user_name">ForeverLJM</a>:
+楼主，不知能否加一下我的Q，718112196，本人也是一名Unity刚入门，在小公司上班的，希望能...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/50363907#comments">手游帧同步的研究</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ForeverLJM" class="user_name">ForeverLJM</a>:
+学习了！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/50976029#comments">Unity实现残影特效</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ForeverLJM" class="user_name">ForeverLJM</a>:
+啧啧，楼主真心厉害！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/langresser_king/article/details/50976029#comments">手游帧同步的研究</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/langresser" class="user_name">langresser</a>:
+@xiaofeng2543:仔细想想，我现在依然对帧同步持有一定的抵触，我认为除了特殊情况（比如上百...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/JavaScript1.js"></script><link rel="stylesheet" type="text/css" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏乐知网络技术有限公司 提供商务支持</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/notify.js"></script>
+
+    <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div><input type="hidden" id="aa_g_data_ids">
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+   
+    <link href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/wmd.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/showdown.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/prettify.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ask_float_block.js"></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   <div><iframe src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/skip.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></div><div><iframe src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/skip(1).html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></div></div>
+
+    <link rel="stylesheet" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/blog_code.css">
+    <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/saveToCode.js"></script>
+      <script type="text/javascript" src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/main(1).js"></script>
+
+   
+ <div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="tracking-ad" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:386px"></a><a id="com-d-top-a" style="top: 424px; display: inline;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/langresser_king/article/details/8288195#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/langresser_king/article/details/8288195#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./android和iOS平台的崩溃捕获和收集 - langresser的专栏 - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/langresser_king/article/details/8288195#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="android和iOS平台的崩溃捕获和收集" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="android和iOS平台的崩溃捕获和收集： http://blog.csdn.net/langresser_king/article/details/8288195"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value=""><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

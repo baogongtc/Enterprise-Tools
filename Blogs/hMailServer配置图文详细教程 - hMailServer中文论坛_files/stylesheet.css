@@ -1,0 +1,42 @@
+/*  phpBB3 Style Sheet
+    --------------------------------------------------------------
+	Style name:			prosilver (the default phpBB 3.1.x style)
+	Based on style:		
+	Original author:	Tom Beddard ( http://www.subblue.com/ )
+	Modified by:		phpBB Limited ( https://www.phpbb.com/ )
+    --------------------------------------------------------------
+*/
+
+@import url("common.css");
+@import url("links.css");
+@import url("content.css");
+@import url("buttons.css");
+@import url("cp.css");
+@import url("forms.css");
+@import url("colours.css");
+@import url("imageset.css");
+
+
+
+
+.indexhead {width:910px;margin:0 auto;font: 12px/1.5 Tahoma,Helvetica,Arial,sans-serif}
+.top_link {width:100%;background:#f8f8f8;border-bottom:#e6e6e6 1px solid;height:22px;line-height:22px}
+.top_link_box {width:910px;margin:0 auto}
+.top_link_box ul {float:right;margin-right:-4px}
+.top_link_box ul li {float:left;list-style: none}
+.top_link_box ul li span {font-family:"宋体",Tohoma;color:#74809a}
+.top_link_box ul li a {text-decoration:none;font-weight:normal;color:#738197;padding:0 4px 0 4px}
+.title_pc {height:70px}
+.title_pc h1,.title_pc p {margin-left:125px;float: left;width:340px}
+.title_pc h1{font-weight: bold;margin-top:20px}
+.title_pc a {display:block;height:70px;width:240px;text-indent:-999em;background:url(images/logo2.png);float: left;}
+.title_menu {clear:both;height:36px;background:url(images/base_icon.png)}
+.title_menu ul {margin-left:50px;_display:inline}
+.title_menu ul li {float:left;list-style: none}
+.title_menu ul li a {float:left;margin:2px 0 0 2px;_display:inline;width:88px;height:32px;font-size:14px;line-height:32px;font-weight:bold;color:#FFF;text-align:center}
+.title_menu ul li a:hover {text-decoration:none}
+.title_menu ul li a {background:none;color:#FFF;margin-top:2px}
+.title_menu ul li a.index {background:url(images/base_icon.png) 0 -36px;color:#000;margin-top:4px}
+.title_menu .labs {margin:-1px 30px 0 0;_display:inline;float:right}
+.title_menu .labs a {padding-left:20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:32px;font-weight:bold;background:url(images/base_icon.png) -307px -37px no-repeat;*background-position:-307px -36px;color:#FFF}
+.title_menu .labs a strong {font-size:16px;line-height:32px}

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://hjc.im/free-ghost-blog-openshift-guide/ -->
+<html lang="en" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>使用Nitrous.IO+OpenShift免费搭建Ghost博客</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="使用Nitrous.IO+OpenShift免费搭建Ghost博客">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="使用Nitrous.IO+OpenShift免费搭建Ghost博客">
+    <meta property="og:description" content="">
+
+    <meta name="twitter:site" content="@LightStudioW">
+
+<meta name="twitter:creator" content="@LightStudioW">
+
+<meta name="google-site-verification" content="">
+
+<meta property="fb:admins" content="">
+
+    <link href="http://hjc.im/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="http://hjc.im/apple-touch-icon-precomposed.png" rel="apple-touch-icon">
+
+    <!--<link href="//fonts.ligstd.com/" rel="dns-prefetch">
+    <link href="//fonts.ligstd.com/css?family=Droid+Serif:400,700,400italic|Open+Sans:700,400&subset=latin,latin-ext" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/main.min.css">
+    <link rel="stylesheet" href="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/xcode.css">  
+    <script src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/analytics.js"></script><script src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/highlight.pack.js"></script>  
+    <script>hljs.initHighlightingOnLoad();</script>  
+    <script type="text/javascript">
+      var ga_ua = 'UA-52977591-1';
+
+var disqus_shortname = 'hjc4869';
+
+var enable_pjax = true;
+
+      // Pace Options
+      // ==============
+      window.paceOptions = {
+        catchupTime: 100,
+        minTime: 100,
+        elements: false,
+        restartOnRequestAfter: 1500,
+        startOnPageLoad: false
+      }
+
+      // Ghostium Globals
+      // ==============
+      window.GHOSTIUM = {};
+      GHOSTIUM.haveGA = typeof ga_ua !== 'undefined' && ga_ua !== 'UA-XXXXX-X';
+      GHOSTIUM.haveDisqus = typeof disqus_shortname !== 'undefined' && disqus_shortname !== 'example';
+      GHOSTIUM.enablePjax = typeof enable_pjax !== 'undefined' ? enable_pjax : true;
+    </script>
+
+    <script src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/head-scripts.min.js"></script>
+
+    <link rel="canonical" href="http://hjc.im/free-ghost-blog-openshift-guide/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="風の音">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="使用Nitrous.IO+OpenShift免费搭建Ghost博客">
+    <meta property="og:description" content="建站示例：http://www.uygw.ga/ 长期有效。 折腾Ghost博客是个人喜好之一，虽说现在把blog各方面（皮肤，核心）改得自己还算满意，而且有了一年都不down的Linode作为主机，但还是想折腾出一套免费搭建完美的Ghost博客的教程。毕竟用Linode只建一个Ghost也太浪费了，即便是10刀的plan，跑10个Ghost博客都不嫌多。Ghost完全可以用免费的OpenShift来搭建，如果只搭博客，最多也只会用到$5/mo的DigitalOcean，甚至都可以几个人合租。   本文主要讲怎样使用Nitrous.IO和OpenShift快速并免费地搭建一个Ghost博客，安装并编辑主题，并实现在国内基本正常的访问。之所以使用Nitrous.IO，是因为它提供了一个配置好的Linux环境，并且有在线编辑的功能。   放眼一看国内搭建Ghost博客的教程抄来抄去就那几篇，而由于OpenShift的问题，Ghost博客的在线一键安装已经失效了，因此不得不手动搭建。国内的教程还会教你用putty，生成公钥私钥（麻烦死），上传公钥之类的。但有了Nitrous.IO这个环境，这一切都很方便。你只需要多注册一个服务即可，而所有操作都在网页上进行，你不需要在电脑上安装任何程序。 需要注意的是Ghost博客仍然不像WordPress那样成熟，因此对于初学者来说搭建可能比较麻烦。 你需要准备： 1.域名*1">
+    <meta property="og:url" content="http://hjc.im/free-ghost-blog-openshift-guide/">
+    <meta property="article:published_time" content="2014-07-28T10:52:12.000Z">
+    <meta property="article:modified_time" content="2014-08-16T21:50:21.000Z">
+    <meta property="article:tag" content="网站">
+    <meta property="article:tag" content="Nitrous.IO">
+    <meta property="article:tag" content="VPS">
+    <meta property="article:tag" content="Openshift">
+    <meta property="article:tag" content="Ghost">
+    <meta property="article:tag" content="教程">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="使用Nitrous.IO+OpenShift免费搭建Ghost博客">
+    <meta name="twitter:description" content="建站示例：http://www.uygw.ga/ 长期有效。 折腾Ghost博客是个人喜好之一，虽说现在把blog各方面（皮肤，核心）改得自己还算满意，而且有了一年都不down的Linode作为主机，但还是想折腾出一套免费搭建完美的Ghost博客的教程。毕竟用Linode只建一个Ghost也太浪费了，即便是10刀的plan，跑10个Ghost博客都不嫌多。Ghost完全可以用免费的OpenShift来搭建，如果只搭博客，最多也只会用到$5/mo的DigitalOcean，甚至都可以几个人合租。   本文主要讲怎样使用Nitrous.IO和OpenShift快速并免费地搭建一个Ghost博客，安装并编辑主题，并实现在国内基本正常的访问。之所以使用Nitrous.IO，是因为它提供了一个配置好的Linux环境，并且有在线编辑的功能。   放眼一看国内搭建Ghost博客的教程抄来抄去就那几篇，而由于OpenShift的问题，Ghost博客的在线一键安装已经失效了，因此不得不手动搭建。国内的教程还会教你用putty，生成公钥私钥（麻烦死），上传公钥之类的。但有了Nitrous.IO这个环境，这一切都很方便。你只需要多注册一个服务即可，而所有操作都在网页上进行，你不需要在电脑上安装任何程序。 需要注意的是Ghost博客仍然不像WordPress那样成熟，因此对于初学者来说搭建可能比较麻烦。 你需要准备： 1.域名*1">
+    <meta name="twitter:url" content="http://hjc.im/free-ghost-blog-openshift-guide/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "風の音",
+    "author": {
+        "@type": "Person",
+        "name": "David Huang",
+        "image": "http://hjc.im/content/images/2016/05/avatar.png",
+        "url": "http://hjc.im/author/david/"
+    },
+    "headline": "使用Nitrous.IO+OpenShift免费搭建Ghost博客",
+    "url": "http://hjc.im/free-ghost-blog-openshift-guide/",
+    "datePublished": "2014-07-28T10:52:12.000Z",
+    "dateModified": "2014-08-16T21:50:21.000Z",
+    "keywords": "网站, Nitrous.IO, VPS, Openshift, Ghost, 教程",
+    "description": "建站示例：http://www.uygw.ga/ 长期有效。 折腾Ghost博客是个人喜好之一，虽说现在把blog各方面（皮肤，核心）改得自己还算满意，而且有了一年都不down的Linode作为主机，但还是想折腾出一套免费搭建完美的Ghost博客的教程。毕竟用Linode只建一个Ghost也太浪费了，即便是10刀的plan，跑10个Ghost博客都不嫌多。Ghost完全可以用免费的OpenShift来搭建，如果只搭博客，最多也只会用到$5/mo的DigitalOcean，甚至都可以几个人合租。   本文主要讲怎样使用Nitrous.IO和OpenShift快速并免费地搭建一个Ghost博客，安装并编辑主题，并实现在国内基本正常的访问。之所以使用Nitrous.IO，是因为它提供了一个配置好的Linux环境，并且有在线编辑的功能。   放眼一看国内搭建Ghost博客的教程抄来抄去就那几篇，而由于OpenShift的问题，Ghost博客的在线一键安装已经失效了，因此不得不手动搭建。国内的教程还会教你用putty，生成公钥私钥（麻烦死），上传公钥之类的。但有了Nitrous.IO这个环境，这一切都很方便。你只需要多注册一个服务即可，而所有操作都在网页上进行，你不需要在电脑上安装任何程序。 需要注意的是Ghost博客仍然不像WordPress那样成熟，因此对于初学者来说搭建可能比较麻烦。 你需要准备： 1.域名*1"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="風の音" href="http://hjc.im/rss/">
+    <style>
+body {
+font: 400 20px/1.6 "Microsoft Yahei Light";
+}
+p {
+text-autospace:ideograph-alpha;
+}
+</style>
+  <script async="" type="text/javascript" src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/embed.js"></script><script async="" type="text/javascript" src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/count.js"></script><script src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/count-data.js"></script></head>
+  <body class="post-template tag-wang-zhan tag-nitrous-io tag-vps tag-openshift tag-ghost-tag tag-jiao-cheng" data-pinterest-extension-installed="cr1.39.1">
+
+    <button data-action="open-drawer" id="drawer-button" class="drawer-button"><i class="fa fa-bars"></i></button>
+<nav tabindex="-1" class="drawer">
+  <div class="drawer-container">
+    <!--.drawer-search(role="search")-->
+    <ul role="navigation" class="drawer-list">
+      
+<li class="drawer-list-item">
+  <a href="http://hjc.im/">
+    <i class="fa fa-home"></i>首页
+  </a>
+</li>
+<li class="drawer-list-item">
+  <a href="http://hjc.im/rss/">
+    <i class="fa fa-rss"></i>订阅到RSS
+  </a>
+</li>
+<li class="drawer-list-item">
+  <a href="http://hjc.im/about">
+    <i class="fa fa-user"></i>关于我
+  </a>
+</li>
+<!--<li class="drawer-list-item">
+  <a href="/hjc-private-network-how-to">
+    <i class="fa fa-cloud"></i>Virtual Network
+  </a>
+</li>-->
+<!--<li class="drawer-list-item">
+  <a href="/gong-gong-googlefan-xiang-dai-li">
+    <i class="fa fa-google"></i>Google
+  </a>
+</li>-->
+<!--<li class="drawer-list-item">
+  <a href="/vpsdai-gou-jie-ge-biao">
+    <i class="fa fa-dollar"></i>VPS代购
+  </a>
+</li>-->
+<li class="drawer-list-divider"></li>
+<li class="drawer-list-item drawer-list-title">
+  关注
+</li>
+<li class="drawer-list-item">
+  <a rel="external nofollow" href="https://twitter.com/hjc4869" target="_blank">
+    <i class="fa fa-twitter"></i>Twitter
+  </a>
+</li>
+<li class="drawer-list-item">
+  <a rel="external nofollow" href="http://weibo.com/LightStudioW" target="_blank">
+    <i class="fa fa-weibo"></i>微博
+  </a>
+</li>
+<li class="drawer-list-item">
+  <a rel="external nofollow" href="https://github.com/hjc4869" target="_blank">
+    <i class="fa fa-github"></i>GitHub
+  </a>
+</li>
+<!--<li class="drawer-list-divider"></li>
+<li class="drawer-list-item drawer-list-title">
+  加速访问
+</li>
+<li class="drawer-list-item">
+  <a href="//hjc.me">
+    <i class="fa fa-square-o"></i>国内
+  </a>
+</li>
+<li class="drawer-list-item">
+  <a href="//hjc.im">
+    <i class="fa fa-square"></i>海外
+  </a>
+</li>-->
+<li class="drawer-list-divider"></li>
+<li class="drawer-list-item drawer-list-title">
+  联系
+</li>
+<li class="drawer-list-item">
+  <a href="mailto:hjc@hjc.im">
+    <i class="fa fa-send"></i>Email
+  </a>
+</li>
+<!--<li class="drawer-list-item">
+  <a href="https://telegram.me/hjc4869">
+    <i class="fa fa-comment"></i>Telegram
+  </a>
+</li>-->
+<li class="drawer-list-item">
+  <a href="skype:david_hjc">
+    <i class="fa fa-skype"></i>Skype
+  </a>
+</li>
+<li class="drawer-list-divider"></li>
+<li class="drawer-list-item drawer-list-title">
+  站点
+</li>
+<li class="drawer-list-item">
+  <a rel="nofollow" href="https://hjc.im/ghost" data-pjax="" itemprop="url">
+    <i class="fa fa-cog"></i>管理
+  </a>
+</li>
+    </ul>
+  </div>
+</nav>
+    <div class="drawer-overlay"></div>
+    <main id="container" role="main" class="container">
+      <div class="surface">
+        <div class="surface-container">
+          <div data-pjax-container="" class="content">
+            
+<div class="wrapper wrapper-post">
+  <div class="wrapper-container">
+    <article itemscope="" itemtype="http://schema.org/BlogPosting" role="article" class="post post tag-wang-zhan tag-nitrous-io tag-vps tag-openshift tag-ghost-tag tag-jiao-cheng">
+        <div class="post-container">
+          <header class="post-header">
+            <ul class="post-meta-list">
+              <li class="post-meta-item">
+                <time datetime="2014-07-28" itemprop="datePublished">
+                  2 years ago
+                </time>
+              </li>
+                <li class="post-meta-item">
+                    <a itemprop="articleSection" href="http://hjc.im/tag/wang-zhan/" data-pjax="">网站</a>, 
+                    <a itemprop="keywords" href="http://hjc.im/tag/nitrous-io/" data-pjax="">Nitrous.IO</a>, 
+                    <a itemprop="keywords" href="http://hjc.im/tag/vps/" data-pjax="">VPS</a>, 
+                    <a itemprop="keywords" href="http://hjc.im/tag/openshift/" data-pjax="">Openshift</a>, 
+                    <a itemprop="keywords" href="http://hjc.im/tag/ghost-tag/" data-pjax="">Ghost</a>, 
+                    <a itemprop="keywords" href="http://hjc.im/tag/jiao-cheng/" data-pjax="">教程</a> 
+                </li>
+              <li class="post-meta-item">
+                <a href="http://hjc.im/free-ghost-blog-openshift-guide/#disqus_thread" data-disqus-identifier="62">没有评论</a>
+              </li>
+            </ul>
+            <h1 itemprop="name headline" class="post-title"><a href="http://hjc.im/free-ghost-blog-openshift-guide/" itemprop="url" data-pjax="" title="使用Nitrous.IO+OpenShift免费搭建Ghost博客">使用Nitrous.IO+OpenShift免费搭建Ghost博客</a></h1>
+            <!--h2 itemprop="about" class="post-subtitle"></h2-->
+          </header>
+          <aside class="post-side">
+            <div class="post-author">
+                <a href="http://hjc.im/free-ghost-blog-openshift-guide/" class="post-author-avatar">
+                  <img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/avatar.png" alt="David Huang">
+                </a>
+              <div class="post-author-info">
+                <a href="http://hjc.im/free-ghost-blog-openshift-guide/" class="post-author-name">
+                  David Huang
+                </a>
+                <p class="post-author-bio"></p>
+              </div>
+            </div>
+          </aside>
+          <div itemprop="articleBody" class="post-body">
+            <p>建站示例：<a href="http://www.uygw.ga/">http://www.uygw.ga/</a> 长期有效。</p>
+
+<p>折腾Ghost博客是个人喜好之一，虽说现在把blog各方面（皮肤，核心）改得自己还算满意，而且有了一年都不down的Linode作为主机，但还是想折腾出一套免费搭建完美的Ghost博客的教程。毕竟用Linode只建一个Ghost也太浪费了，即便是10刀的plan，跑10个Ghost博客都不嫌多。Ghost完全可以用免费的OpenShift来搭建，如果只搭博客，最多也只会用到$5/mo的DigitalOcean，甚至都可以几个人合租。  </p>
+
+<p>本文主要讲怎样使用Nitrous.IO和OpenShift快速并免费地搭建一个Ghost博客，安装并编辑主题，并实现在国内基本正常的访问。之所以使用Nitrous.IO，是因为它提供了一个配置好的Linux环境，并且有在线编辑的功能。  </p>
+
+<p>放眼一看国内搭建Ghost博客的教程抄来抄去就那几篇，而由于OpenShift的问题，Ghost博客的在线一键安装已经失效了，因此不得不手动搭建。国内的教程还会教你用putty，生成公钥私钥（麻烦死），上传公钥之类的。但有了Nitrous.IO这个环境，这一切都很方便。你只需要多注册一个服务即可，而所有操作都在网页上进行，你不需要在电脑上安装任何程序。</p>
+
+<p><strong>需要注意的是Ghost博客仍然不像WordPress那样成熟，因此对于初学者来说搭建可能比较麻烦。</strong></p>
+
+<p>你需要准备：</p>
+
+<pre class="  language-markup"><code class="language-markup hljs">1.域名*1  顶级域名二级域名都行，但没有的话就不能让国内用户正常使用了。
+2.国外邮箱*1  推荐Outlook，或者说Gmail也行（访问可能不通畅），也可以给自己的域名申请一个企业邮箱，比如免费的Zoho。
+3.翻q工具（可选）  不一定是VPN，只要能让你的IP变到国外就行。据说OpenShift给国内用户分配的服务器比国外用户更加拥挤，不知是不是真的。
+4.基本的英语水平  如果你认得谷歌翻译的结果也行，总之要能看得懂网站内容。
+5.“现代”浏览器  Firefox或者Chromium最新版，推荐Firefox。（虽然我很无奈，但是还是得说，Nitrous.IO最近的更新让IE10+不能使用在线IDE编辑功能了，跟他们的客服反映，他们让我用Chrome或Firefox。本来IE完全可以搞定的。）
+</code></pre>
+
+<p>注意：从这里开始，就可以全程挂上翻q工具了。  </p>
+
+<h2 id="1">1.注册账号</h2>
+
+<p>你需要以下几个地方的账号：  </p>
+
+<h3 id="nitrousio">Nitrous.IO</h3>
+
+<p>这一步请使用Firefox或Chrome完成 <br>
+不介意的话可以用我给的<a href="https://www.nitrous.io/join/saXC1jEgXYA?utm_source=nitrous.io&amp;utm_medium=copypaste&amp;utm_campaign=referral">邀请链接</a>，你会多得到一些配额，我会得到一点奖励。<a href="http://www.nitrous.io/">直接注册</a> <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/nitrous-register.PNG" alt="" title=""> <br>
+步骤很简单，填写想要的用户名，邮箱和密码，点击“Sign Up for Free”，看到如下画面后去邮箱里确认即可。 <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/confirm-mail-nitrous.PNG" alt="" title=""> 
+邮件内容如下图 <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/mail-content-nitrous.PNG" alt="" title=""> <br>
+点击链接之后，会出现登录框，使用刚刚注册的用户名登录即可。登录后点击 <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/open-dashboard.PNG" alt="" title=""> <br>
+会出现以下页面
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/create-box.PNG" alt="" title=""> <br>
+这里你需要创建一个Box，template选Node.js，名称任意，Region建议选择US West，Download a Github repo空着不填，如果用我的邀请链接注册，之后可以把磁盘容量略微调大一些。 <br>
+Create Box后会让你绑定其它账号，为了节约时间这一步可以跳过去。 <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/bonus.PNG" alt="" title=""> <br>
+直接Next即可。下一页点击Take me to my Box!就进入了在线IDE界面。如果不挂翻q工具，这一步可能会卡在Connectiong上。 <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/IDE.PNG" alt="" title=""> <br>
+至此Nitrous.IO账号准备完成。这个IDE将成为以后编辑主题、Ghost博客的场所，以及使用OpenShift命令行rhc工具的地方。</p>
+
+<h3 id="openshift">OpenShift</h3>
+
+<p><a href="https://www.openshift.com/app/account/new">注册地址</a> <br>
+与上述步骤基本相同，就不截图了。OpenShift只需要注册+验证邮箱+接受服务协议，其它的任何操作都不需要进行。  </p>
+
+<h2 id="2nitrousrhc">2.在Nitrous上安装并使用rhc工具</h2>
+
+<p>回到刚刚的Nitrous.IO IDE，在Console里面输入命令<code class="  language-markup">gem install rhc</code> <br>
+输入<code class="  language-markup">rhc setup</code>，你需要输入一系列信息 <br>
+Enter the server hostname直接回车 <br>
+Login to openshift.redhat.com输入注册openshift服务的邮箱 <br>
+Password输入密码 <br>
+Generate a Token now回答yes <br>
+Upload Now?回答yes <br>
+Please enter a namespace随意填写一个（唯一）namespace，只能是数字和字母 <br>
+Provide a name for this key直接回车即可 <br>
+这样一来rhc工具就安装完成了。</p>
+
+<h2 id="3ghost">3.创建Ghost应用并绑定域名</h2>
+
+<p>在第二步的命令行中继续输入命令（有些长，这是一行命令）  </p>
+
+<pre class="  language-markup"><code class="language-markup hljs nginx"><span class="hljs-title">rhc</span> app create ghost[你想要的应用名，建议ghost，为了方便，本文中都使用ghost代替] nodejs-<span class="hljs-number">0</span>.<span class="hljs-number">10</span> mysql-<span class="hljs-number">5</span>.<span class="hljs-number">1</span> --env NODE_ENV=production --from-code <a class="token url-link" href="https://github.com/openshift-quickstart/openshift-ghost-quickstart.git"><span class="hljs-url">https://github.com/openshift-quickstart/openshift-ghost-quickstart.git</span></a>
+</code></pre>
+
+<p>注意：Nitrous的命令行粘贴是Ctrl+Shift+V。 <br>
+稍等一会儿（要个几分钟吧）会问你： <br>
+Are you sure you want to continue connecting (yes/no) <br>
+回答yes即可。然后会告诉你成功创建。并且你的网址是<code class="  language-markup">http://[应用名]-[namespace名].rhcloud.com/</code>，这样一来，就可以直接通过网址访问Ghost博客了。 <br>
+接下来绑定域名。输入命令<code class="  language-markup">rhc alias add [你的应用名] [你自己的域名]</code>，看到<code class="  language-markup">Alias '[你自己的域名]' has been added.</code>时就已经成功了。这是你只需要将域名对应的记录CNAME到<code class="  language-markup">http://[应用名]-[namespace名].rhcloud.com/</code>（默认网址）即可。等待生效后就能通过自己的域名访问Ghost博客了。至于Ghost博客的使用这里就不多描述了。  </p>
+
+<h2 id="4cdn">4.CDN</h2>
+
+<p>上述过程已经搭建了一个q外可以正常访问的网站了。但是这个时候细心的你肯定发现国内很多地方无法访问。现在你需要的就是Incapsula或者Cloudflare。前者免费50GB流量，后者无限流量但必须把整个域名都交给它，并且后者有些IP已经被q，如果不幸“中奖”就不好了。CDN选取上就不多作说明了，网上很多相关教程，推荐看这个 <code class="  language-markup">www.freehao123.com/cloudflare-cdn</code> 。 <br>
+如果感觉Cloudflare的DNS慢，可以试试DNSPod解析+Incapsula加速，这样是最快的。 <br>
+同时还有一个有国内节点的免备案CDN叫YEPCDN可以尝试一下，个人没用过所以不做推荐。</p>
+
+<h2 id="5diy">5.DIY</h2>
+
+<p>看到这儿你可能想问我，花这么大劲去注册Nitrous.IO干什么，不会只是为了个Linux环境吧？答案显然是No!接下来就试着用Nitrous.IO来做点有用的事情。 <br>
+1.删除或替换前台谷歌字体，加快国内访问速度。 <br>
+打开Nitrous.IO，找到如图所示的文件（~/你的应用名/content/themes/casper[或你的主题名]/default.hbs），去掉圈起来的内容，再按Ctrl+S保存。 <br>
+<img src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/remove_google.PNG" alt="" title=""> <br>
+如果你使用了第三方主题，那么就把casper换成对应的主题文件夹。 <br>
+注意：这样只是删除了前台的google字体，后台仍然存在，不过后台略慢一些不太影响，如果一定要去除需要删掉ghost/core/server/views/default.hbs里面的<code class="  language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//fonts.googleapis.com/css?family<span class="token punctuation">=</span>Open+Sans:400,300,700<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code>和ghost/core/server/views/user-error.hbs里的相同内容。</p>
+
+<p>接下来更新应用 <br>
+进入命令行，输入命令 <br>
+<code class="  language-markup">cd ~/ghost[你的app名]</code> <br>
+<code class="  language-markup">git add .</code> 【这一个点(.)千万别掉了，而且和add之间有一个空格】 <br>
+<code class="  language-markup">git commit -m "google fonts removed[随便输入什么内容]"</code> <br>
+<code class="  language-markup">git push</code>  </p>
+
+<p>等待出现<code class="  language-markup">remote: Deployment completed with status: success</code>的时候就是成功了。</p>
+
+<p>2.安装主题 <br>
+Ghost主题安装分为两种：直接下载和git clone。前者只需wget下载到ghost/content/themes/[文件夹名]/ 内并unzip/tar解压，后者是<code class="  language-markup">cd ~/ghost/content/themes/</code>，<code class="  language-markup">git clone [git地址]</code>。注意这样是将主题安装到nitrous的box内，还需要更新应用（过程与修改谷歌字体中更新应用相同）</p>
+
+<h2 id="6">6.小提示</h2>
+
+<p>1.<strong>千万不要</strong>用免费tk域名，它迟早有一天会坑你（直接删你域名之类的），让你好不容易得到的搜索引擎排名瞬间消失。（本来tk就不容易被收录）域名不贵，也不难买，支持支付宝的GoDaddy，经常有优惠。 <br>
+2.OpenShift可以验证信用卡（不扣钱）但不用付费服务，验证之后你创建app的宿主机质量会变好！并且你可以使用SSL证书（StartSSL免费证书也行） <br>
+3.Nitrous.IO连续几个月不登录可能会删掉Box（会提前很久邮件提醒你，但你没看到就惨了），因此不要保存任何重要数据。 <br>
+4.OpenShift的免费平台还是很靠谱的，短时间内应该不会停止，因此可以作为长期使用的平台。</p>
+          </div>
+          <footer class="post-footer">
+            <div itemprop="author" itemscope="" itemtype="http://schema.org/Person" class="post-author">
+                <a href="http://hjc.im/free-ghost-blog-openshift-guide/" class="post-author-avatar">
+                  <img itemprop="image" src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/avatar.png" alt="David Huang">
+                </a>
+              <div class="post-author-info">
+                <h4 class="post-footer-heading">Written by</h4>
+                <a href="http://hjc.im/free-ghost-blog-openshift-guide/" itemprop="url" class="post-author-name">
+                  <span itemprop="name">David Huang</span>
+                </a>
+                <p itemprop="description" class="post-author-bio"></p>
+                <p class="post-info">
+                  <b class="post-info-title">发布时间</b>
+                  <time class="post-date">July 28, 2014</time>
+                </p>
+              </div>
+            </div>
+            <div class="post-social">
+              <h4 class="post-footer-heading">分享这篇文章</h4>
+              <a rel="external nofollow" href="http://hjc.im/free-ghost-blog-openshift-guide/#" data-action="share-twitter"><i class="fa fa-fw fa-lg fa-twitter"></i></a>
+              <a rel="external nofollow" href="http://hjc.im/free-ghost-blog-openshift-guide/#" data-action="share-facebook"><i class="fa fa-fw fa-lg fa-facebook"></i></a>
+              <a rel="external nofollow" href="http://hjc.im/free-ghost-blog-openshift-guide/#" data-action="share-gplus"><i class="fa fa-fw fa-lg fa-google-plus"></i></a>
+              <br><a rel="external nofollow" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=3874829129&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;utf-8&#39;));"><i class="fa fa-fw fa-lg fa-weibo"></i></a> 
+              <a rel="external nofollow" target="_blank" version="1.0" class="qzOpenerDiv" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://hjc.im/free-ghost-blog-openshift-guide/&amp;summary=%E5%BB%BA%E7%AB%99%E7%A4%BA%E4%BE%8B%EF%BC%9Ahttp://www.uygw.ga/%20%E9%95%BF%E6%9C%9F%E6%9C%89%E6%95%88%E3%80%82%20%E6%8A%98%E8%85%BEGhost%E5%8D%9A%E5%AE%A2%E6%98%AF%E4%B8%AA%E4%BA%BA%E5%96%9C%E5%A5%BD%E4%B9%8B%E4%B8%80%EF%BC%8C%E8%99%BD%E8%AF%B4%E7%8E%B0%E5%9C%A8%E6%8A%8Ablog%E5%90%84%E6%96%B9%E9%9D%A2%EF%BC%88%E7%9A%AE%E8%82%A4%EF%BC%8C%E6%A0%B8%E5%BF%83%EF%BC%89%E6%94%B9%E5%BE%97%E8%87%AA%E5%B7%B1%E8%BF%98%E7%AE%97%E6%BB%A1%E6%84%8F%EF%BC%8C%E8%80%8C%E4%B8%94%E6%9C%89%E4%BA%86%E4%B8%80%E5%B9%B4%E9%83%BD%E4%B8%8Ddown%E7%9A%84Linode%E4%BD%9C%E4%B8%BA%E4%B8%BB%E6%9C%BA%EF%BC%8C%E4%BD%86%E8%BF%98%E6%98%AF%E6%83%B3%E6%8A%98%E8%85%BE%E5%87%BA%E4%B8%80%E5%A5%97%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E5%AE%8C%E7%BE%8E%E7%9A%84Ghost%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%95%99%E7%A8%8B%E3%80%82%E6%AF%95%E7%AB%9F%E7%94%A8Linode%E5%8F%AA%E5%BB%BA%E4%B8%80%E4%B8%AAGhost%E4%B9%9F%E5%A4%AA%E6%B5%AA%E8%B4%B9%E4%BA%86%EF%BC%8C%E5%8D%B3%E4%BE%BF%E6%98%AF10%E5%88%80%E7%9A%84plan%EF%BC%8C%E8%B7%9110%E4%B8%AAGhost%E5%8D%9A%E5%AE%A2%E9%83%BD%E4%B8%8D%E5%AB%8C%E5%A4%9A%E3%80%82Ghost%E5%AE%8C%E5%85%A8%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%85%8D%E8%B4%B9%E7%9A%84OpenShift%E6%9D%A5%E6%90%AD%E5%BB%BA%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%8F%AA%E6%90%AD%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%9C%80%E5%A4%9A%E4%B9%9F%E5%8F%AA%E4%BC%9A%E7%94%A8%E5%88%B0$5/"><i class="fa fa-fw fa-lg fa-qq"></i></a>
+              <a rel="external nofollow" target="_blank" href="http://widget.renren.com/dialog/share?title=%E4%BD%BF%E7%94%A8Nitrous.IO%2BOpenShift%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BAGhost%E5%8D%9A%E5%AE%A2&amp;resourceUrl=http://hjc.im/free-ghost-blog-openshift-guide/&amp;description=%E5%BB%BA%E7%AB%99%E7%A4%BA%E4%BE%8B%EF%BC%9Ahttp%3A%2F%2Fwww.uygw.ga%2F%20%E9%95%BF%E6%9C%9F%E6%9C%89%E6%95%88%E3%80%82%20%E6%8A%98%E8%85%BEGhost%E5%8D%9A%E5%AE%A2%E6%98%AF%E4%B8%AA%E4%BA%BA%E5%96%9C%E5%A5%BD%E4%B9%8B%E4%B8%80%EF%BC%8C%E8%99%BD%E8%AF%B4%E7%8E%B0%E5%9C%A8%E6%8A%8Ablog%E5%90%84%E6%96%B9%E9%9D%A2%EF%BC%88%E7%9A%AE%E8%82%A4%EF%BC%8C%E6%A0%B8%E5%BF%83%EF%BC%89%E6%94%B9%E5%BE%97%E8%87%AA%E5%B7%B1%E8%BF%98%E7%AE%97%E6%BB%A1%E6%84%8F%EF%BC%8C%E8%80%8C%E4%B8%94%E6%9C%89%E4%BA%86%E4%B8%80%E5%B9%B4%E9%83%BD%E4%B8%8Ddown%E7%9A%84Linode%E4%BD%9C%E4%B8%BA%E4%B8%BB%E6%9C%BA%EF%BC%8C%E4%BD%86%E8%BF%98%E6%98%AF%E6%83%B3%E6%8A%98%E8%85%BE%E5%87%BA%E4%B8%80%E5%A5%97%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E5%AE%8C%E7%BE%8E%E7%9A%84Ghost%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%95%99%E7%A8%8B%E3%80%82%E6%AF%95%E7%AB%9F%E7%94%A8Linode%E5%8F%AA%E5%BB%BA%E4%B8%80%E4%B8%AAGhost%E4%B9%9F%E5%A4%AA%E6%B5%AA%E8%B4%B9%E4%BA%86%EF%BC%8C%E5%8D%B3%E4%BE%BF%E6%98%AF10%E5%88%80%E7%9A%84plan%EF%BC%8C%E8%B7%9110%E4%B8%AAGhost%E5%8D%9A%E5%AE%A2%E9%83%BD%E4%B8%8D%E5%AB%8C%E5%A4%9A%E3%80%82Ghost%E5%AE%8C%E5%85%A8%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%85%8D%E8%B4%B9%E7%9A%84OpenShift%E6%9D%A5%E6%90%AD%E5%BB%BA%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%8F%AA%E6%90%AD%E5%8D%9A%E5%AE%A2%EF%BC%8C%E6%9C%80%E5%A4%9A%E4%B9%9F%E5%8F%AA%E4%BC%9A%E7%94%A8%E5%88%B0%245%2F"><i class="fa fa-fw fa-lg fa-renren"></i></a>
+            </div>
+          </footer>
+        </div>
+      <section itemprop="comment" class="post-comments">
+        <div id="disqus_thread"><iframe id="dsq-app2" name="dsq-app2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+      </section>
+    </article>
+
+    ﻿<footer role="contentinfo" class="footer">
+  <p><font color="black">友情链接 </font><a target="_blank" href="http://imbushuo.net/"><font color="black">imbushuo</font></a> 
+<!--<a href="http://www.xieaoran.tk/"> <font color="black">小猪的部屋</font></a>-->
+<a href="http://www.raineggplant.com/"> <font color="black">RainEggplant</font></a>
+<a href="http://starduster.me/"> <font color="black">星尘独奏曲</font></a>
+<a href="http://acgmiao.com/"> <font color="black">ACG喵</font></a>
+<a href="https://bismarck.moe/"> <font color="black">雨宫千鹤</font> </a><br>
+<a href="http://ttt.tt/" title="通天塔" target="_blank"><font color="black">通天塔</font></a>
+<a href="http://www.zhuji.com/" title="诸暨" target="_blank"><font color="black">诸暨</font></a>
+<a href="https://www.tombu.info/" title="The Fairest of the Fair March" target="_blank"><font color="black">The Fairest of the Fair March</font></a>
+<a href="https://www.kiritostudio.com/" title="KiritoStudio" target="_blank"><font color="black">KiritoStudio</font></a><br>
+<a href="https://blog.yoitsu.moe/" title="约伊兹的萌狼乡手札" target="_blank"><font color="black">约伊兹的萌狼乡手札</font></a>
+
+  </p><p><small><font color="black">© 2014-2016 風の音. 保留所有权利。</font><br><font color="#8F0000">文章转载、引用请保留原文链接。</font></small>   </p>
+  <!--<p><small>本博客仅代表風の音个人观点，如需Light工作室官方信息请访问 <a href="https://ligstd.com/" target="_blank">Light工作室主页</a></small></p>-->
+</footer>
+  </div>
+</div>
+
+<script type="text/javascript">
+  if(GHOSTIUM.haveDisqus) {
+    var disqus_identifier = '62';
+
+    if(typeof DISQUS !== 'object') {
+      (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+      }());
+    }
+  } else {
+    document.querySelector('.post-comments').remove();
+  }
+</script>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/jquery-1.11.3.min.js"></script>
+
+    <script src="./使用Nitrous.IO+OpenShift免费搭建Ghost博客_files/foot-scripts.min.js"></script>
+
+    <script type="text/javascript">
+
+      if(GHOSTIUM.haveGA) {
+        (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
+        function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
+        t=h.createElement(o);z=h.getElementsByTagName(o)[0];
+        t.src='//www.google-analytics.com/analytics.js';
+        z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
+        ga('create',ga_ua);ga('send','pageview');
+      }
+
+      if(GHOSTIUM.haveDisqus) {
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+      }
+    </script>
+  
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

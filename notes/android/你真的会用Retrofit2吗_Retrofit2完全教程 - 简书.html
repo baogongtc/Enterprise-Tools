@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/308f3c54abdd -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="作者：@怪盗kidou如需转载需在明显位置保留作者信息及原文链接Retrofit版本:2.0.2本文注目录：Retrofit入门Retrofit注解详解Gson与ConverterRxJava与CallAdapter自定义Converter自定义CallAdapter其它说明前言本文中的Retrofit均指代Retrofit2.0。本文涉及到的代码以及测试使用的接口可在Github上找到。测试接口服务器在server项目下，直接运行RESTServer.main()即可启动...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/308f3c54abdd">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/3968715">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="你真的会用Retrofit2吗?Retrofit2完全教程" property="twitter:title">
+  <meta content="作者：@怪盗kidou如需转载需在明显位置保留作者信息及原文链接Retrofit版本:2.0.2本文注目录：Retrofit入门Retrofit注解详解Gson与ConverterRxJava与CallAdapter自定义Converter自定义CallAdapter其它说明前言本文中的Retrofit均指代Retrofit2.0。本文涉及到的代码以及测试使用的接口可在Github上找到。测试接口服务器在server项目下，直接运行RESTServer.main()即可启动..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/308f3c54abdd" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="你真的会用Retrofit2吗?Retrofit2完全教程">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/308f3c54abdd">
+  <meta property="og:description" content="作者：@怪盗kidou如需转载需在明显位置保留作者信息及原文链接Retrofit版本:2.0.2本文注目录：Retrofit入门Retrofit注解详解Gson与ConverterRxJava与...">
+
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1724103-db95c51539b62c96.png">
+    <meta property="og:image:width" content="527">
+    <meta property="og:image:height" content="348">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1724103-4d09b5595bfb3291.png">
+    <meta property="og:image:width" content="671">
+    <meta property="og:image:height" content="335">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1724103-073abf80aacf492e.png">
+    <meta property="og:image:width" content="741">
+    <meta property="og:image:height" content="498">
+    <meta property="og:image:type" content="image/png">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/3968715">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/3968715">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>你真的会用Retrofit2吗?Retrofit2完全教程 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="jRUwHSZt9CfIrVlW0blDFahwK89xTGJbm2nfRuCeMzUs7qaV6pAykdUBHwAWZrcvEj6EZOTBEaEdRbRaWNgNkw==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/base-f935477e8faba16f29c6f9e4f0e1d032.css">
+
+    <link rel="stylesheet" media="all" href="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/reading-note-4158a6eeb7c4e4a9fd15332778cfb52c.css">
+  <link rel="stylesheet" media="all" href="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/base-read-mode-64acccf6966299cfa3d580140a2582fe.css">
+  <script src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/push.js"></script><script type="text/javascript" async="" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/ga.js"></script><script src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/hm.js"></script><script src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png" sizes="152x152">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN" data-pinterest-extension-installed="cr1.39.1">
+  
+  <div class="navbar navbar-jianshu shrink hide-wrap-btn">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a class="ad-selector" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>    <div class="ad-container ">
+      <div class="ad-pop">
+        <img class="ad-logo" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" alt="114">
+        <p class="ad-title">简书</p>
+        <p class="ad-subtitle">交流故事，沟通想法</p>
+        <img class="ad-qrcode" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode">
+        <div>
+          <a class="ad-link" href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
+          <a class="ad-link" href="http://downloads.jianshu.io/apps/haruki/JianShu-1.10.8.apk">Android</a>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="nav-user">
+      <a href="http://www.jianshu.com/p/308f3c54abdd#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top" href="http://www.jianshu.com/p/308f3c54abdd#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title="" data-original-title="写篇文章"><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container" class="imagebubble-container imagebubble-mode-off">
+    
+<div class="post-bg" id="flag">
+  <div class="wrap-btn hide-wrap-btn" style="top: -1px;">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/019f1cbb16e2">
+              <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/585bc6be16ec.png" alt="100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">
+              <span>怪盗kidou</span>
+</a>              <span data-toggle="tooltip" data-original-title="最后编辑于 2016.06.08 16:32">2016.05.15 19:20*</span>
+            <div>
+              <span>写了17342字</span>，<span>被597人关注</span>，<span>获得了795个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">你真的会用Retrofit2吗?Retrofit2完全教程</h1>
+          <div class="meta-top">
+            <span class="wordage">字数4476</span>
+            <span class="views-count">阅读4685</span>
+            <span class="comments-count">评论28</span>
+            <span class="likes-count">喜欢138</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"><a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"> <i class="fa fa-bookmark-o"></i><span>收藏文章</span></a><span> <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a> <ul class="dropdown-menu arrow-top"> <li> <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/3968715/weibo/image_a001179532b8.jpg&#39;, &#39;推荐 @怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/308f3c54abdd&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/weibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;title=&#39;+e(&#39;你真的会用Retrofit2吗?Retrofit2完全教程&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/douban.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/tweibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/qzone.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/twitter.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/308f3c54abdd&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/facebook.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/google_plus.png"> </a> </li> <li> <a href="http://www.jianshu.com/p/308f3c54abdd"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/renren.png"> </a> </li> </ul></span></div>
+          <!-- -->
+
+          <div class="show-content"><blockquote><p>作者： <a href="http://www.jianshu.com/users/019f1cbb16e2" target="_blank">@怪盗kidou</a><br>如需转载需在明显位置保留作者信息及原文链接<br>Retrofit版本: 2.0.2   </p></blockquote>
+<p>本文注目录：</p>
+<ul>
+<li>Retrofit入门</li>
+<li>Retrofit注解详解</li>
+<li>Gson与Converter</li>
+<li>RxJava与CallAdapter</li>
+<li>自定义Converter</li>
+<li>自定义CallAdapter</li>
+<li>其它说明</li>
+</ul>
+<h2>前言</h2>
+<p>本文中的Retrofit均指代Retrofit2.0。<br>本文涉及到的代码以及测试使用的接口可在<a href="https://github.com/ikidou/Retrofit2Demo" target="_blank">Github</a>上找到。<br>测试接口服务器在 <strong>server</strong> 项目下，直接运行 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/server/src/main/java/com/github/ikidou/RESTServer.java" target="_blank"><code>RESTServer.main()</code></a> 即可启动测试服务器，所面代码示例均使用该接口(接口地址 <a href="http://localhost:4567/" target="_blank">http://localhost:4567/</a> ).<br>当然你也可以自己借助 <a href="https://github.com/typicode/json-server" target="_blank">json-server</a> 或 最新开源的<a href="https://github.com/ParsePlatform/parse-server" target="_blank">Parse</a> 搭建一个REST API，不过都需要安装Node.js，有兴趣的可以去试试。</p>
+<p>接口列表：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>请求方法</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/blog</td>
+<td>GET</td>
+<td>page={page},sort=asc或desc</td>
+<td>分页获取Blog列表,每页10条</td>
+</tr>
+<tr>
+<td>/blog/{id}</td>
+<td>GET</td>
+<td>id</td>
+<td>获取指定ID的Blog</td>
+</tr>
+<tr>
+<td>/blog</td>
+<td>POST</td>
+<td>{"author":"","title":"","content":""}</td>
+<td>创建一个新Blog</td>
+</tr>
+<tr>
+<td>/blog/{id}</td>
+<td>PUT</td>
+<td>{"author":"","title":"","content":""} 中至少一个</td>
+<td>修改Blog</td>
+</tr>
+<tr>
+<td>/blog/{id}</td>
+<td>DELETE</td>
+<td>id</td>
+<td>删除一个Blog</td>
+</tr>
+<tr>
+<td>/form</td>
+<td>POST</td>
+<td>任意,最终以Json Object形式返回</td>
+<td>用于测试Form表单，支持文件上传</td>
+</tr>
+<tr>
+<td>/headers</td>
+<td>GET</td>
+<td>showAll=true或false,默认false</td>
+<td>返回自定义请求头，all=true是显示全部</td>
+</tr>
+</tbody>
+</table>
+<p> 注：以上的接口的<code>{id}</code>和<code>{page}</code>均代表一个纯数字，<code>/blog/{id}</code> 可以用 <code>/blog?id=XXX</code> 代替，page同理。</p>
+<p>前面写了<a href="http://www.jianshu.com/p/e544b7a76dac" target="_blank">你应该知道的HTTP基础知识</a> 介绍了HTTP的相关知识，不知道那些想了解Retrofit的同鞋是不是去看了Retrofit的<a href="http://square.github.io/retrofit/" target="_blank">官方教程</a>，曾经我在<a href="http://www.jianshu.com/p/3108f1e44155" target="_blank">你真的会用Gson吗?Gson使用指南（四）</a> 中说当你了解了注解、反射、泛型、HTTP的内容只需要看一篇Retrofit的代码示例就可以轻松玩转Retrofit，不知道你玩转了没?<br>当然注解、反射、泛型的内容还没有写，Retrofit的内容却先来了！毕竟看懂Retrofit也只需要会使就行，你准备好了吗？</p>
+<h2>1、Retrofit入门</h2>
+<p>Retrofit 其实相当简单，简单到源码只有37个文件，其中22个文件是注解还都和HTTP有关，真正暴露给用户的类并不多,所以我看了一遍 <a href="http://square.github.io/retrofit/" target="_blank">官方教程</a> 大多数情景就可以无障碍使用，如果你还没有看过，可以先去看看,虽然是英文，但代码才是最好的教程不是么?当然本篇文章会介绍得详细一点，不能写一篇水文，毕竟我给它命名为《你真的会用Retrofit2吗?Retrofit2完全教程》。</p>
+<h4>1.1、创建Retrofit实例</h4>
+<pre class="hljs java"><code class="java">Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+        .baseUrl(<span class="hljs-string">"http://localhost:4567/"</span>)
+        .build();</code></pre>
+<p>创建Retrofit实例时需要通过<code>Retrofit.Builder</code>,并调用<code>baseUrl</code>方法设置URL。<br><strong>注：</strong> Retrofit2 的baseUlr 必须以 <strong>/（斜线）</strong> 结束，不然会抛出一个<code>IllegalArgumentException</code>,所以如果你看到别的教程没有以 <strong>/</strong> 结束，那么多半是直接从Retrofit 1.X 照搬过来的。</p>
+<h4>1.2、接口定义</h4>
+<p>以获取指定id的Blog为例:</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BlogService</span> </span>{
+    <span class="hljs-annotation">@GET</span>(<span class="hljs-string">"blog/{id}"</span>)
+    <span class="hljs-function">Call&lt;ResponseBody&gt; <span class="hljs-title">getFirstBlog</span><span class="hljs-params">(@Path(<span class="hljs-string">"id"</span>)</span> <span class="hljs-keyword">int</span> id)</span>;
+}</code></pre>
+<p>注意，这里是<code>interface</code>不是<code>class</code>，所以我们是无法直接调用该方法，我们需要用Retrofit创建一个<code>BlogService</code>的代理对象。</p>
+<pre class="hljs java"><code class="java">BlogService service = retrofit.create(BlogService.class);</code></pre>
+<p>拿到代理对象之后，就可以调用该方法啦。</p>
+<h4>1.3、接口调用</h4>
+<pre class="hljs java"><code class="java">Call&lt;ResponseBody&gt; call = service.getFirstBlog(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// 用法和OkHttp的call如出一辙,</span>
+<span class="hljs-comment">// 不同的是如果是Android系统回调方法执行在主线程</span>
+call.enqueue(<span class="hljs-keyword">new</span> Callback&lt;ResponseBody&gt;() {
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onResponse</span><span class="hljs-params">(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response)</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            System.out.println(response.body().string());
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailure</span><span class="hljs-params">(Call&lt;ResponseBody&gt; call, Throwable t)</span> </span>{
+        t.printStackTrace();
+    }
+});</code></pre>
+<p>打印结果:</p>
+<pre class="hljs json"><code class="json">{"<span class="hljs-attribute">code</span>":<span class="hljs-value"><span class="hljs-number">200</span></span>,"<span class="hljs-attribute">msg</span>":<span class="hljs-value"><span class="hljs-string">"OK"</span></span>,"<span class="hljs-attribute">data</span>":<span class="hljs-value">{"<span class="hljs-attribute">id</span>":<span class="hljs-value"><span class="hljs-number">2</span></span>,"<span class="hljs-attribute">date</span>":<span class="hljs-value"><span class="hljs-string">"2016-04-15 03:17:50"</span></span>,"<span class="hljs-attribute">author</span>":<span class="hljs-value"><span class="hljs-string">"怪盗kidou"</span></span>,"<span class="hljs-attribute">title</span>":<span class="hljs-value"><span class="hljs-string">"Retrofit2 测试2"</span></span>,"<span class="hljs-attribute">content</span>":<span class="hljs-value"><span class="hljs-string">"这里是 Retrofit2 Demo 测试服务器2"</span></span>}</span>,"<span class="hljs-attribute">count</span>":<span class="hljs-value"><span class="hljs-number">0</span></span>,"<span class="hljs-attribute">page</span>":<span class="hljs-value"><span class="hljs-number">0</span></span>}</code></pre>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example01.java" target="_blank">Example01.java</a></p>
+<h2>2、Retrofit注解详解</h2>
+<p>上面提到Retrofit 共22个注解，这节就专门介绍这22个注解，为帮助大家更好理解我将这22个注解分为三类，并用表格的形式展现出来,表格上说得并不完整，具体的见源码上的例子注释。</p>
+<h4>第一类：HTTP请求方法</h4>
+<div class="image-package imagebubble" widget="ImageBubble">
+<img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/1724103-db95c51539b62c96.png" data-original-src="http://upload-images.jianshu.io/upload_images/1724103-db95c51539b62c96.png?imageMogr2/auto-orient/strip%7CimageView2/2" class="imagebubble-image"><br><div class="image-caption">HTTP请求方法注解</div>
+</div><p><br>以上表格中的除<strong>HTTP</strong>以外都对应了HTTP标准中的请求方法，而HTTP注解则可以代替以上方法中的任意一个注解,有3个属性：<code>method</code>、<code>path</code>,<code>hasBody</code>,下面是用HTTP注解实现上面 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example01.java" target="_blank">Example01.java</a> 的例子。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BlogService</span> </span>{
+    <span class="hljs-comment">/**
+     * method 表示请的方法，不区分大小写
+     * path表示路径
+     * hasBody表示是否有请求体
+     */</span>
+    <span class="hljs-annotation">@HTTP</span>(method = <span class="hljs-string">"get"</span>, path = <span class="hljs-string">"blog/{id}"</span>, hasBody = <span class="hljs-keyword">false</span>)
+    <span class="hljs-function">Call&lt;ResponseBody&gt; <span class="hljs-title">getFirstBlog</span><span class="hljs-params">(@Path(<span class="hljs-string">"id"</span>)</span> <span class="hljs-keyword">int</span> id)</span>;
+}</code></pre>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example02.java" target="_blank">Example02.java</a></p>
+<h4>第二类：标记类</h4>
+<div class="image-package imagebubble" widget="ImageBubble">
+<img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/1724103-4d09b5595bfb3291.png" data-original-src="http://upload-images.jianshu.io/upload_images/1724103-4d09b5595bfb3291.png?imageMogr2/auto-orient/strip%7CimageView2/2" class="imagebubble-image"><br><div class="image-caption">标记类注解</div>
+</div><p><br>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example03.java" target="_blank">Example03.java</a></p>
+<h4>第三类：参数类</h4>
+<div class="image-package imagebubble" widget="ImageBubble">
+<img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/1724103-073abf80aacf492e.png" data-original-src="http://upload-images.jianshu.io/upload_images/1724103-073abf80aacf492e.png?imageMogr2/auto-orient/strip%7CimageView2/2" class="imagebubble-image"><br><div class="image-caption">参数类注解</div>
+</div>
+<p><strong>注1：</strong>{占位符}和<strong><code>PATH</code></strong>尽量只用在URL的path部分，url中的参数使用<code>Query</code>和<code>QueryMap</code> 代替，保证接口定义的简洁<br><strong>注2：</strong><code>Query</code>、<code>Field</code>和<code>Part</code>这三者都支持<strong>数组</strong>和实现了<code>Iterable</code>接口的类型，如<code>List</code>，<code>Set</code>等，方便向后台传递数组。  </p>
+<pre class="hljs java"><code class="java"><span class="hljs-function">Call&lt;ResponseBody&gt; <span class="hljs-title">foo</span><span class="hljs-params">(@Query(<span class="hljs-string">"ids[]"</span>)</span> List&lt;Integer&gt; ids)</span>;
+<span class="hljs-comment">//结果：ids[]=0&amp;ids[]=1&amp;ids[]=2</span></code></pre>
+<p>Path 示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example01.java" target="_blank">Example01.java</a><br>Field、FieldMap、Part和PartMap 示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example03.java" target="_blank">Example03.java</a><br>Header和Headers 示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example04.java" target="_blank">Example04.java</a><br>Query、QueryMap、Url 示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example05.java" target="_blank">Example05.java</a>  </p>
+<h2>3、Gson与Converter</h2>
+<p>在默认情况下Retrofit只支持将HTTP的响应体转换换为<code>ResponseBody</code>,<br>这也是什么我在前面的例子接口的返回值都是 <code>Call&lt;ResponseBody&gt;</code>，<br>但如果响应体只是支持转换为<code>ResponseBody</code>的话何必要引用泛型呢，<br>返回值直接用一个<code>Call</code>就行了嘛，既然支持泛型，那说明泛型参数可以是其它类型的，<br>而<code>Converter</code>就是Retrofit为我们提供用于将<code>ResponseBody</code>转换为我们想要的类型，<br>有了<code>Converter</code>之后我们就可以写把我们的第一个例子的接口写成这个样子了：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BlogService</span> </span>{
+  <span class="hljs-annotation">@GET</span>(<span class="hljs-string">"blog/{id}"</span>) <span class="hljs-comment">//这里的{id} 表示是一个变量</span>
+  Call&lt;Result&lt;Blog&gt;&gt; getFirstBlog(<span class="hljs-comment">/** 这里的id表示的是上面的{id} */</span><span class="hljs-annotation">@Path</span>(<span class="hljs-string">"id"</span>) <span class="hljs-keyword">int</span> id);
+}</code></pre>
+<p>当然只改变泛型的类型是不行的，我们在创建Retrofit时需要明确告知用于将<code>ResponseBody</code>转换我们泛型中的类型时需要使用的<code>Converter</code></p>
+<p>引入Gson支持:</p>
+<pre class="hljs bash"><code class="bash">compile <span class="hljs-string">'com.squareup.retrofit2:converter-gson:2.0.2'</span></code></pre>
+<p>通过GsonConverterFactory为Retrofit添加Gson支持：</p>
+<pre class="hljs java"><code class="java">Gson gson = <span class="hljs-keyword">new</span> GsonBuilder()
+      <span class="hljs-comment">//配置你的Gson</span>
+      .setDateFormat(<span class="hljs-string">"yyyy-MM-dd hh:mm:ss"</span>)
+      .create();
+
+Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+      .baseUrl(<span class="hljs-string">"http://localhost:4567/"</span>)
+      <span class="hljs-comment">//可以接收自定义的Gson，当然也可以不传</span>
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .build();</code></pre>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example06.java" target="_blank">Example06.java</a>  </p>
+<p>这样Retrofit就会使用Gson将<code>ResponseBody</code>转换我们想要的类型。</p>
+<p>这是时候我们终于可以演示如使创建一个Blog了！</p>
+<pre class="hljs java"><code class="java"><span class="hljs-annotation">@POST</span>(<span class="hljs-string">"blog"</span>)
+Call&lt;Result&lt;Blog&gt;&gt; createBlog(<span class="hljs-annotation">@Body</span> Blog blog);</code></pre>
+<p>被<code>@Body</code>注解的的Blog将会被Gson转换成RequestBody发送到服务器。</p>
+<pre class="hljs java"><code class="java">BlogService service = retrofit.create(BlogService.class);
+Blog blog = <span class="hljs-keyword">new</span> Blog();
+blog.content = <span class="hljs-string">"新建的Blog"</span>;
+blog.title = <span class="hljs-string">"测试"</span>;
+blog.author = <span class="hljs-string">"怪盗kidou"</span>;
+Call&lt;Result&lt;Blog&gt;&gt; call = service.createBlog(blog);</code></pre>
+<p>结果：</p>
+<pre class="hljs bash"><code class="bash">Result{code=<span class="hljs-number">200</span>, msg=<span class="hljs-string">'OK'</span>, data=B<span class="hljs-built_in">log</span>{id=<span class="hljs-number">20</span>, date=<span class="hljs-string">'2016-04-21 05:29:58'</span>, author=<span class="hljs-string">'怪盗kidou'</span>, title=<span class="hljs-string">'测试'</span>, content=<span class="hljs-string">'新建的Blog'</span>}, count=<span class="hljs-number">0</span>, page=<span class="hljs-number">0</span>}</code></pre>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example07.java" target="_blank">Example07.java</a>  </p>
+<p>如果你对Gson不熟悉可以参考我写的<a href="http://www.jianshu.com/p/e740196225a4" target="_blank">《你真的会用Gson吗?Gson使用指南》</a> 系列。</p>
+<h2>4、RxJava与CallAdapter</h2>
+<p>说到Retrofit就不得说到另一个火到不行的库<code>RxJava</code>，网上已经不少文章讲如何与Retrofit结合，但这里还是会有一个RxJava的例子，不过这里主要目的是介绍使用<code>CallAdapter</code>所带来的效果。</p>
+<p>第3节介绍的<code>Converter</code>是对于<code>Call&lt;T&gt;</code>中<code>T</code>的转换，而<code>CallAdapter</code>则可以对<code>Call</code>转换，这样的话<code>Call&lt;T&gt;</code>中的<code>Call</code>也是可以被替换的，而返回值的类型就决定你后续的处理程序逻辑，同样Retrofit提供了多个<code>CallAdapter</code>，这里以<code>RxJava</code>的为例，用<code>Observable</code>代替<code>Call</code>：</p>
+<p>引入RxJava支持:</p>
+<pre class="hljs bash"><code class="bash">compile <span class="hljs-string">'com.squareup.retrofit2:adapter-rxjava:2.0.2'</span></code></pre>
+<p>通过RxJavaCallAdapterFactory为Retrofit添加RxJava支持：</p>
+<pre class="hljs java"><code class="java">Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+      .baseUrl(<span class="hljs-string">"http://localhost:4567/"</span>)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+      .build();</code></pre>
+<p>接口设计：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BlogService</span> </span>{
+  <span class="hljs-annotation">@POST</span>(<span class="hljs-string">"/blog"</span>)
+  Observable&lt;Result&lt;List&lt;Blog&gt;&gt;&gt; getBlogs();
+}</code></pre>
+<p>使用：</p>
+<pre class="hljs java"><code class="java">BlogService service = retrofit.create(BlogService.class);
+service.getBlogs(<span class="hljs-number">1</span>)
+  .subscribeOn(Schedulers.io())
+  .subscribe(<span class="hljs-keyword">new</span> Subscriber&lt;Result&lt;List&lt;Blog&gt;&gt;&gt;() {
+      <span class="hljs-annotation">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCompleted</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"onCompleted"</span>);
+      }
+
+      <span class="hljs-annotation">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Throwable e)</span> </span>{
+        System.err.println(<span class="hljs-string">"onError"</span>);
+      }
+
+      <span class="hljs-annotation">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(Result&lt;List&lt;Blog&gt;&gt; blogsResult)</span> </span>{
+        System.out.println(blogsResult);
+      }
+  });</code></pre>
+<p>结果：</p>
+<pre class="hljs bash"><code class="bash">Result{code=<span class="hljs-number">200</span>, msg=<span class="hljs-string">'OK'</span>, data=[B<span class="hljs-built_in">log</span>{id=<span class="hljs-number">1</span>, date=<span class="hljs-string">'2016-04-15 03:17:50'</span>, author=<span class="hljs-string">'怪盗kidou'</span>, title=<span class="hljs-string">'Retrofit2 测试1'</span>, content=<span class="hljs-string">'这里是 Retrofit2 Demo 测试服务器1'</span>},.....], count=<span class="hljs-number">20</span>, page=<span class="hljs-number">1</span>}</code></pre>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example08.java" target="_blank">Example08.java</a></p>
+<p>「20160608补充」：像上面的这种情况最后我们无法获取到返回的Header和响应码的，如果我们需要这两者，提供两种方案：<br>1、用<code>Observable&lt;Response&lt;T&gt;&gt;``Observable&lt;T&gt;</code> ,这里的<code>Response</code>指<code>retrofit2.Response</code><br>2、用<code>Observable&lt;Result&lt;T&gt;&gt;</code> 代替<code>Observable&lt;T&gt;</code>，这里的<code>Result</code>是指<code>retrofit2.adapter.rxjava.Result</code>,这个Result中包含了<code>Response</code>的实例    </p>
+<h2>5、自定义Converter</h2>
+<p>本节的内容是教大家实现在一简易的Converter，这里以返回格式为<code>Call&lt;String&gt;</code>为例。</p>
+<p>在此之前先了解一下Converter接口及其作用：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Converter</span>&lt;<span class="hljs-title">F</span>, <span class="hljs-title">T</span>&gt; </span>{
+  <span class="hljs-comment">// 实现从 F(rom) 到 T(o)的转换</span>
+  <span class="hljs-function">T <span class="hljs-title">convert</span><span class="hljs-params">(F value)</span> <span class="hljs-keyword">throws</span> IOException</span>;
+
+  <span class="hljs-comment">// 用于向Retrofit提供相应Converter的工厂</span>
+  <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Factory</span> </span>{
+    <span class="hljs-comment">// 这里创建从ResponseBody其它类型的Converter，如果不能处理返回null</span>
+    <span class="hljs-comment">// 主要用于对响应体的处理</span>
+    <span class="hljs-keyword">public</span> Converter&lt;ResponseBody, ?&gt; responseBodyConverter(Type type, Annotation[] annotations,
+    Retrofit retrofit) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    <span class="hljs-comment">// 在这里创建 从自定类型到ResponseBody 的Converter,不能处理就返回null，</span>
+    <span class="hljs-comment">// 主要用于对Part、PartMap、Body注解的处理</span>
+    <span class="hljs-keyword">public</span> Converter&lt;?, RequestBody&gt; requestBodyConverter(Type type,
+    Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    <span class="hljs-comment">// 这里用于对Field、FieldMap、Header、Path、Query、QueryMap注解的处理</span>
+    <span class="hljs-comment">// Retrfofit对于上面的几个注解默认使用的是调用toString方法</span>
+    <span class="hljs-keyword">public</span> Converter&lt;?, String&gt; stringConverter(Type type, Annotation[] annotations,
+    Retrofit retrofit) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+  }
+}</code></pre>
+<p>我们要想从<code>Call&lt;ResponseBody&gt;</code> 转换为 <code>Call&lt;String&gt;</code> 那么对应的F和T则分别对应<code>ResponseBody</code>和<code>String</code>，我们定义一个<code>StringConverter</code>并实现Converter接口。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringConverter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Converter</span>&lt;<span class="hljs-title">ResponseBody</span>, <span class="hljs-title">String</span>&gt; </span>{
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> StringConverter INSTANCE = <span class="hljs-keyword">new</span> StringConverter();
+
+  <span class="hljs-annotation">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">convert</span><span class="hljs-params">(ResponseBody value)</span> <span class="hljs-keyword">throws</span> IOException </span>{
+    <span class="hljs-keyword">return</span> value.string();
+  }
+}</code></pre>
+<p>我们需要一个<code>Fractory</code>来向Retrofit注册<code>StringConverter</code></p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringConverterFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Converter</span>.<span class="hljs-title">Factory</span> </span>{
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> StringConverterFactory INSTANCE = <span class="hljs-keyword">new</span> StringConverterFactory();
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> StringConverterFactory <span class="hljs-title">create</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> INSTANCE;
+  }
+
+  <span class="hljs-comment">// 我们只关实现从ResponseBody 到 String 的转换，所以其它方法可不覆盖</span>
+  <span class="hljs-annotation">@Override</span>
+  <span class="hljs-keyword">public</span> Converter&lt;ResponseBody, ?&gt; responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+    <span class="hljs-keyword">if</span> (type == String.class) {
+      <span class="hljs-keyword">return</span> StringConverter.INSTANCE;
+    }
+    <span class="hljs-comment">//其它类型我们不处理，返回null就行</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+  }
+}</code></pre>
+<p>使用<code>Retrofit.Builder.addConverterFactory</code>向Retrofit注册我们<code>StringConverterFactory</code>：</p>
+<pre class="hljs java"><code class="java">Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+      .baseUrl(<span class="hljs-string">"http://localhost:4567/"</span>)
+      <span class="hljs-comment">// 如是有Gson这类的Converter 一定要放在其它前面</span>
+      .addConverterFactory(StringConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
+      .build();</code></pre>
+<p><strong>注：</strong><code>addConverterFactory</code>是有先后顺序的，如果有多个ConverterFactory都支持同一种类型，那么就是只有第一个才会被使用，而<code>GsonConverterFactory</code>是不判断是否支持的，所以这里交换了顺序还会有一个异常抛出，原因是类型不匹配。</p>
+<p>只要返回值类型的泛型参数就会由我们的<code>StringConverter</code>处理,不管是<code>Call&lt;String&gt;</code>还是<code>Observable&lt;String&gt;</code></p>
+<p>有没有很简单?如果你有其它的需求处理的就自己实现吧。</p>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example09.java" target="_blank">Example09.java</a></p>
+<h2>6、自定义CallAdapter</h2>
+<p>本节将介绍如何自定一个<code>CallAdapter</code>，并验证是否所有的String都会使用我们第5节中自定义的Converter。</p>
+<p>先看一下CallAdapter接口定义及各方法的作用：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CallAdapter</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+
+  <span class="hljs-comment">// 直正数据的类型 如Call&lt;T&gt; 中的 T</span>
+  <span class="hljs-comment">// 这个 T 会作为Converter.Factory.responseBodyConverter 的第一个参数</span>
+  <span class="hljs-comment">// 可以参照上面的自定义Converter</span>
+  <span class="hljs-function">Type <span class="hljs-title">responseType</span><span class="hljs-params">()</span></span>;
+
+  &lt;R&gt; <span class="hljs-function">T <span class="hljs-title">adapt</span><span class="hljs-params">(Call&lt;R&gt; call)</span></span>;
+
+  <span class="hljs-comment">// 用于向Retrofit提供CallAdapter的工厂类</span>
+  <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Factory</span> </span>{
+    <span class="hljs-comment">// 在这个方法中判断是否是我们支持的类型，returnType 即Call&lt;Requestbody&gt;和`Observable&lt;Requestbody&gt;`</span>
+    <span class="hljs-comment">// RxJavaCallAdapterFactory 就是判断returnType是不是Observable&lt;?&gt; 类型</span>
+    <span class="hljs-comment">// 不支持时返回null</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> CallAdapter&lt;?&gt; get(Type returnType, Annotation[] annotations,
+    Retrofit retrofit);
+
+    <span class="hljs-comment">// 用于获取泛型的参数 如 Call&lt;Requestbody&gt; 中 Requestbody</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> Type <span class="hljs-title">getParameterUpperBound</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, ParameterizedType type)</span> </span>{
+      <span class="hljs-keyword">return</span> Utils.getParameterUpperBound(index, type);
+    }
+
+    <span class="hljs-comment">// 用于获取泛型的原始类型 如 Call&lt;Requestbody&gt; 中的 Call</span>
+    <span class="hljs-comment">// 上面的get方法需要使用该方法。</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> Class&lt;?&gt; getRawType(Type type) {
+      <span class="hljs-keyword">return</span> Utils.getRawType(type);
+    }
+  }
+}</code></pre>
+<p>了解了<code>CallAdapter</code>的结构和其作用之后，我们就可以开始自定义我们的<code>CallAdapter</code>了，本节以<code>CustomCall&lt;String&gt;</code>为例。</p>
+<p>在此我们需要定义一个<code>CustomCall</code>，不过这里的<code>CustomCall</code>作为演示只是对<code>Call</code>的一个包装，并没有实际的用途。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomCall</span>&lt;<span class="hljs-title">R</span>&gt; </span>{
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> Call&lt;R&gt; call;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CustomCall</span><span class="hljs-params">(Call&lt;R&gt; call)</span> </span>{
+    <span class="hljs-keyword">this</span>.call = call;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> R <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>{
+    <span class="hljs-keyword">return</span> call.execute().body();
+  }
+}</code></pre>
+<p>有了<code>CustomCall</code>，我们还需要一个<code>CustomCallAdapter</code>来实现 <code>Call&lt;T&gt;</code> 到 <code>CustomCall&lt;T&gt;</code>的转换，这里需要注意的是最后的泛型，是我们要返回的类型。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomCallAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">CallAdapter</span>&lt;<span class="hljs-title">CustomCall</span>&lt;?&gt;&gt; </span>{
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Type responseType;
+
+  <span class="hljs-comment">// 下面的 responseType 方法需要数据的类型</span>
+  CustomCallAdapter(Type responseType) {
+    <span class="hljs-keyword">this</span>.responseType = responseType;
+  }
+
+  <span class="hljs-annotation">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> Type <span class="hljs-title">responseType</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> responseType;
+  }
+
+  <span class="hljs-annotation">@Override</span>
+  <span class="hljs-keyword">public</span> &lt;R&gt; <span class="hljs-function">CustomCall&lt;R&gt; <span class="hljs-title">adapt</span><span class="hljs-params">(Call&lt;R&gt; call)</span> </span>{
+    <span class="hljs-comment">// 由 CustomCall 决定如何使用</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CustomCall&lt;&gt;(call);
+  }
+}</code></pre>
+<p>提供一个<code>CustomCallAdapterFactory</code>用于向Retrofit提供<code>CustomCallAdapter</code>：</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomCallAdapterFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CallAdapter</span>.<span class="hljs-title">Factory</span> </span>{
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> CustomCallAdapterFactory INSTANCE = <span class="hljs-keyword">new</span> CustomCallAdapterFactory();
+
+  <span class="hljs-annotation">@Override</span>
+  <span class="hljs-keyword">public</span> CallAdapter&lt;?&gt; get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+    <span class="hljs-comment">// 获取原始类型</span>
+    Class&lt;?&gt; rawType = getRawType(returnType);
+    <span class="hljs-comment">// 返回值必须是CustomCall并且带有泛型</span>
+    <span class="hljs-keyword">if</span> (rawType == CustomCall.class &amp;&amp; returnType <span class="hljs-keyword">instanceof</span> ParameterizedType) {
+      Type callReturnType = getParameterUpperBound(<span class="hljs-number">0</span>, (ParameterizedType) returnType);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CustomCallAdapter(callReturnType);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+  }
+}</code></pre>
+<p>使用<code>addCallAdapterFactory</code>向Retrofit注册<code>CustomCallAdapterFactory</code></p>
+<pre class="hljs java"><code class="java">Retrofit retrofit = <span class="hljs-keyword">new</span> Retrofit.Builder()
+      .baseUrl(<span class="hljs-string">"http://localhost:4567/"</span>)
+      .addConverterFactory(Example09.StringConverterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(CustomCallAdapterFactory.INSTANCE)
+      .build();</code></pre>
+<p><strong>注：</strong> <code>addCallAdapterFactory</code>与<code>addConverterFactory</code>同理，也有先后顺序。</p>
+<p>示例源码见 <a href="https://github.com/ikidou/Retrofit2Demo/blob/master/client/src/main/java/com/github/ikidou/Example10.java" target="_blank">Example10.java</a></p>
+<h2>7、其它说明</h2>
+<h4>7.1 Retrofit.Builder</h4>
+<p>前面用到了 <code>Retrofit.Builder</code> 中的<code>baseUrl</code>、<code>addCallAdapterFactory</code>、<code>addConverterFactory</code>、<code>build</code>方法，还有<code>callbackExecutor</code>、<code>callFactory</code>、<code>client</code>、<code>validateEagerly</code>这四个方法没有用到，这里简单的介绍一下。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callbackExecutor(Executor)</td>
+<td style="text-align:left">指定<code>Call.enqueue</code>时使用的<code>Executor</code>，所以该设置只对返回值为<code>Call</code>的方法有效</td>
+</tr>
+<tr>
+<td>callFactory(Factory)</td>
+<td style="text-align:left">设置一个自定义的<code>okhttp3.Call.Factory</code>，那什么是Factory呢?<code>OkHttpClient</code>就实现了<code>okhttp3.Call.Factory</code>接口，下面的<code>client(OkHttpClient)</code>最终也是调用了该方法，也就是说两者不能共用</td>
+</tr>
+<tr>
+<td>client(OkHttpClient)</td>
+<td style="text-align:left">设置自定义的<code>OkHttpClient</code>,以前的Retrofit版本中不同的<code>Retrofit</code>对象共用同<code>OkHttpClient</code>,在2.0各对象各自持有不同的<code>OkHttpClient</code>实例，所以当你需要共用<code>OkHttpClient</code>或需要自定义时则可以使用该方法，如：处理<strong>Cookie</strong>、使用<a href="https://github.com/facebook/stetho" target="_blank">stetho</a> 调式等</td>
+</tr>
+<tr>
+<td>validateEagerly(boolean)</td>
+<td style="text-align:left">是否在调用<code>create(Class)</code>时检测接口定义是否正确，而不是在调用方法才检测，适合在开发、测试时使用</td>
+</tr>
+</tbody>
+</table>
+<h4>7.2 Retrofit的Url组合规则</h4>
+<table>
+<thead>
+<tr>
+<th>BaseUrl</th>
+<th>和URL有关的注解中提供的值</th>
+<th>最后结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://localhost:4567/path/to/other/" target="_blank">http://localhost:4567/path/to/other/</a></td>
+<td>/post</td>
+<td><a href="http://localhost:4567/post" target="_blank">http://localhost:4567/post</a></td>
+</tr>
+<tr>
+<td><a href="http://localhost:4567/path/to/other/" target="_blank">http://localhost:4567/path/to/other/</a></td>
+<td>post</td>
+<td><a href="http://localhost:4567/path/to/other/post" target="_blank">http://localhost:4567/path/to/other/post</a></td>
+</tr>
+<tr>
+<td><a href="http://localhost:4567/path/to/other/" target="_blank">http://localhost:4567/path/to/other/</a></td>
+<td><a href="https://github.com/ikidou" target="_blank">https://github.com/ikidou</a></td>
+<td><a href="https://github.com/ikidou" target="_blank">https://github.com/ikidou</a></td>
+</tr>
+</tbody>
+</table>
+<p>从上面不能难看出以下规则：  </p>
+<ul>
+<li>如果你在注解中提供的url是完整的url，则url将作为请求的url。</li>
+<li>如果你在注解中提供的url是不完整的url，且不以 / 开头，则请求的url为baseUrl+注解中提供的值</li>
+<li>如果你在注解中提供的url是不完整的url，且以 / 开头，则请求的url为baseUrl的主机部分+注解中提供的值</li>
+</ul>
+<h4>7.3 Retrofit提供的Converter</h4>
+<table>
+<thead>
+<tr>
+<th>Converter</th>
+<th>Gradle依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gson</td>
+<td>com.squareup.retrofit2:converter-gson:2.0.2</td>
+</tr>
+<tr>
+<td>Jackson</td>
+<td>com.squareup.retrofit2:converter-jackson:2.0.2</td>
+</tr>
+<tr>
+<td>Moshi</td>
+<td>com.squareup.retrofit2:converter-moshi:2.0.2</td>
+</tr>
+<tr>
+<td>Protobuf</td>
+<td>com.squareup.retrofit2:converter-protobuf:2.0.2</td>
+</tr>
+<tr>
+<td>Wire</td>
+<td>com.squareup.retrofit2:converter-wire:2.0.2</td>
+</tr>
+<tr>
+<td>Simple XML</td>
+<td>com.squareup.retrofit2:converter-simplexml:2.0.2</td>
+</tr>
+<tr>
+<td>Scalars</td>
+<td>com.squareup.retrofit2:converter-scalars:2.0.2</td>
+</tr>
+</tbody>
+</table>
+<h4>7.4 Retrofit提供的CallAdapter：</h4>
+<table>
+<thead>
+<tr>
+<th>CallAdapter</th>
+<th>Gradle依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>guava</td>
+<td>com.squareup.retrofit2:adapter-guava:2.0.2</td>
+</tr>
+<tr>
+<td>Java8</td>
+<td>com.squareup.retrofit2:adapter-java8:2.0.2</td>
+</tr>
+<tr>
+<td>rxjava</td>
+<td>com.squareup.retrofit2:adapter-rxjava:2.0.2</td>
+</tr>
+</tbody>
+</table>
+<h4>7.5 关于源码</h4>
+<p>看到这儿可能有小伙伴要问为什么源码没有把类拆分到单独的文件，命名也不能体现其用途，这里主要是因为方便大家看源码，而不是将注意力放在反复跳转上，另一方面也是因为同一个例子中不可避免的使用其它小节要介绍的内容，所以就直接用了<code>ExampleXX</code>的形式，不过在项目中千万不要使用这种方式，一定要好好命名，做到见名知意。</p>
+<h2>结语</h2>
+<p>其它本博客的内容早就已经完成好了，但由于当时HTTP、反射、注解的博客一篇也没有写，所以一直没有发，期间也有不少的博主写了Retrofit2的博文，不过呢没有自定义相关的内容也没有对各个注解进行详解，所以我还是决定发出来帮助一下那此对Retrofit2无从下手同鞋。</p>
+<p>这次Retrofit2的内容就到这里啦，下次再见。</p>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <!-- copyright -->
+          <div class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            <a><i class="fa fa-copyright"></i> 著作权归作者所有</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+            <a class="btn btn-pay" data-toggle="modal" href="http://www.jianshu.com/p/308f3c54abdd#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"><a href="http://www.jianshu.com/users/2d8d15ea7e03" class="avatar" data-nickname="haotie1990" data-created-at="2016-05-23T17:43:05+08:00" data-original-title="" title=""> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/19a262d9666b"></a><a href="http://www.jianshu.com/users/6ec584ce18db" class="avatar" data-nickname="小胡闹" data-created-at="2016-05-16T10:51:53+08:00" data-original-title="" title=""> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/83e912c2074c.jpeg"></a></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span id="likes-count" data-toggle="tooltip" data-placement="right" title="" data-original-title="查看所有喜欢的用户">138</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/3968715/weibo/image_a001179532b8.jpg&#39;, &#39;推荐 @怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/308f3c54abdd&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="http://www.jianshu.com/p/308f3c54abdd#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/3968715/weibo/image_a001179532b8.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li>
+                  <a data-name="tweibo" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/tweibo.png" alt="Tweibo"> 分享到腾讯微博
+</a>                </li>
+                <li>
+                  <a data-name="qzone" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/qzone.png" alt="Qzone"> 分享到QQ空间
+</a>                </li>
+                <li>
+                  <a data-name="twitter" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 怪盗kidou 的文章《你真的会用Retrofit2吗?Retrofit2完全教程》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/twitter.png" alt="Twitter"> 分享到Twitter
+</a>                </li>
+                <li>
+                  <a data-name="facebook" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/308f3c54abdd&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/facebook.png" alt="Facebook"> 分享到Facebook
+</a>                </li>
+                <li>
+                  <a data-name="google_plus" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/google_plus.png" alt="Google plus"> 分享到Google+
+</a>                </li>
+                <li>
+                  <a data-name="douban" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/308f3c54abdd&#39;)+&#39;&amp;title=&#39;+e(&#39;你真的会用Retrofit2吗?Retrofit2完全教程&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()">
+                    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/douban.png" alt="Douban"> 分享到豆瓣
+</a>                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body" title="http://www.jianshu.com/p/308f3c54abdd?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas width="170" height="170" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+        <li data-user-id="2172283"> <a class="avatar" href="http://www.jianshu.com/users/fec69a72b47f"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/10-f47ea4d685571bcb63f5b1ea99527d09.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/fec69a72b47f">sptanlp</a> <span class="time">2016.06.16 18:49</span></li><li data-user-id="1329563"> <a class="avatar" href="http://www.jianshu.com/users/325be83fa763"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/2df6a49c466f.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/325be83fa763">Sophitia</a> <span class="time">2016.06.15 16:11</span></li><li data-user-id="711820"> <a class="avatar" href="http://www.jianshu.com/users/38240b9fb20c"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/e275f6a75ecb"> </a> <a class="blue-link" href="http://www.jianshu.com/users/38240b9fb20c">Michaelhanji</a> <span class="time">2016.06.13 19:57</span></li><li data-user-id="1167710"> <a class="avatar" href="http://www.jianshu.com/users/3b3b0abb0d3b"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/8-77a9d346e43ea9a5ea58086d74909362.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/3b3b0abb0d3b">AyaC3J</a> <span class="time">2016.06.03 11:12</span></li><li data-user-id="2121510"> <a class="avatar" href="http://www.jianshu.com/users/1a132ad6f85b"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/6-c3a19bc117a55e66cd3be55684d8191c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/1a132ad6f85b">XiaoSe</a> <span class="time">2016.06.02 18:05</span></li><li data-user-id="1514058"> <a class="avatar" href="http://www.jianshu.com/users/071bc122df98"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/14-75d944a989bbbd5b92a639698c9b4a3c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/071bc122df98">As_Javen</a> <span class="time">2016.06.02 09:59</span></li><li data-user-id="807284"> <a class="avatar" href="http://www.jianshu.com/users/37797a1dbc84"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/15-57a3e97082943073824a3529187f31f9.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/37797a1dbc84">luck_fc</a> <span class="time">2016.05.30 10:57</span></li><li data-user-id="1334897"> <a class="avatar" href="http://www.jianshu.com/users/96b40bee9365"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/fca74e67e323"> </a> <a class="blue-link" href="http://www.jianshu.com/users/96b40bee9365">未来蚁族</a> <span class="time">2016.05.30 10:44</span></li><li data-user-id="18540"> <a class="avatar" href="http://www.jianshu.com/users/k5KyJ4"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/7a3795c7af82"> </a> <a class="blue-link" href="http://www.jianshu.com/users/k5KyJ4">xjwangliang</a> <span class="time">2016.05.26 22:06</span></li><li data-user-id="300660"> <a class="avatar" href="http://www.jianshu.com/users/c0a73bee4318"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/dc379f7642d8.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/c0a73bee4318">jasonkxs</a> <span class="time">2016.05.26 14:28</span></li><li data-user-id="301133"> <a class="avatar" href="http://www.jianshu.com/users/89bc72dd11e7"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/14-75d944a989bbbd5b92a639698c9b4a3c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/89bc72dd11e7">一生如梦初醒</a> <span class="time">2016.05.24 21:43</span></li><li data-user-id="1895022"> <a class="avatar" href="http://www.jianshu.com/users/2d2b8be11b17"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/03c23676c384.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/2d2b8be11b17">Vincent_4</a> <span class="time">2016.05.24 20:42</span></li><li data-user-id="1763278"> <a class="avatar" href="http://www.jianshu.com/users/b209db4f6a95"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/13-8072fce67829ce128ba5df823205516c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/b209db4f6a95">hysophia</a> <span class="time">2016.05.24 18:01</span></li><li data-user-id="1718829"> <a class="avatar" href="http://www.jianshu.com/users/3d8ff67b20b1"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/9c3ea1cae3ff"> </a> <a class="blue-link" href="http://www.jianshu.com/users/3d8ff67b20b1">ICS</a> <span class="time">2016.05.24 16:29</span></li><li data-user-id="875424"> <a class="avatar" href="http://www.jianshu.com/users/5a99ffc448cd"> <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/f961c76ccd3a"> </a> <a class="blue-link" href="http://www.jianshu.com/users/5a99ffc448cd">梦味亦秋</a> <span class="time">2016.05.24 11:14</span></li><a class="more hidden" data-max-id="19899618" href="javascript:void(null);"><i class="fa fa-ellipsis-h"></i></a></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          28条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[{"id":2391648,"children_count":0,"likes_count":0},{"id":2391870,"children_count":0,"likes_count":0},{"id":2391892,"children_count":1,"likes_count":0},{"id":2393610,"children_count":0,"likes_count":0},{"id":2395230,"children_count":0,"likes_count":0},{"id":2396889,"children_count":0,"likes_count":0},{"id":2412793,"children_count":0,"likes_count":0},{"id":2416686,"children_count":1,"likes_count":0},{"id":2427461,"children_count":1,"likes_count":0},{"id":2469138,"children_count":1,"likes_count":0},{"id":2521009,"children_count":0,"likes_count":0},{"id":2533852,"children_count":0,"likes_count":0},{"id":2602546,"children_count":0,"likes_count":0},{"id":2664977,"children_count":4,"likes_count":0},{"id":2686963,"children_count":3,"likes_count":0}]}
+</script>
+
+
+<div class="note-comment clearfix" id="comment-2391648">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/ed0514bfc950">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/c02d51254b71.JPG" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/ed0514bfc950">努力做到最好吧</a>
+        </p>
+        <span class="reply-time">
+          <small>2 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2391648#comment-2391648">2016.05.15 22:58</a></span>
+      </div>
+      <p>写的很好、建神。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2391648" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2391648" data-nickname="努力做到最好吧" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2391870">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/6ec584ce18db">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/83e912c2074c.jpeg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/6ec584ce18db">小胡闹</a>
+        </p>
+        <span class="reply-time">
+          <small>3 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2391870#comment-2391870">2016.05.15 23:09</a></span>
+      </div>
+      <p>先收藏</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2391870" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2391870" data-nickname="小胡闹" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2391892">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/8839306a5016">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/5-7cb2e7ce742a5c05b1a4fbebace48f1a.jpg" alt="5">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/8839306a5016">TestSuper</a>
+        </p>
+        <span class="reply-time">
+          <small>4 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2391892#comment-2391892">2016.05.15 23:10</a></span>
+      </div>
+      <p>很好！不过用的一些有趣的api接口，作为数据，会更吸引人</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2391892" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2391892" data-nickname="TestSuper" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-2427548" data-id="2427548">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+       <a href="http://www.jianshu.com/users/8839306a5016" class="maleskine-author" target="_blank" data-user-slug="8839306a5016">@TestSuper</a> 没想到什么合适的
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2391892" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2427548#comment-2427548">2016.05.17 23:40</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="2391892" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2393610">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/34c9b8d6ee36">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/14-75d944a989bbbd5b92a639698c9b4a3c.jpg" alt="14">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/34c9b8d6ee36">周末村官</a>
+        </p>
+        <span class="reply-time">
+          <small>5 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2393610#comment-2393610">2016.05.16 01:28</a></span>
+      </div>
+      <p>谢谢分享</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2393610" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2393610" data-nickname="周末村官" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2395230">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/85291e84da24">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/46fc6f9a839a.jpeg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/85291e84da24">nice_gh</a>
+        </p>
+        <span class="reply-time">
+          <small>6 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2395230#comment-2395230">2016.05.16 09:00</a></span>
+      </div>
+      <p>谢谢分享，写的很好~<br></p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2395230" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2395230" data-nickname="nice_gh" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2396889">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/671d92dbf6b4">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/835eafe18e10" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/671d92dbf6b4">夏天的风h</a>
+        </p>
+        <span class="reply-time">
+          <small>7 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2396889#comment-2396889">2016.05.16 10:50</a></span>
+      </div>
+      <p>非常感谢~</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2396889" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2396889" data-nickname="夏天的风h" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2412793">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/95c7025b3c4c">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/356dbf6e47c5" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/95c7025b3c4c">Guujii</a>
+        </p>
+        <span class="reply-time">
+          <small>8 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2412793#comment-2412793">2016.05.17 10:04</a></span>
+      </div>
+      <p>先mark，回家慢慢研究</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2412793" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2412793" data-nickname="Guujii" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2416686">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/7709643ec01d">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/9ba59624d90f" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/7709643ec01d">创迹者2014</a>
+        </p>
+        <span class="reply-time">
+          <small>9 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2416686#comment-2416686">2016.05.17 12:57</a></span>
+      </div>
+      <p>// 不同的是如果是Android系统回调方法执行在主线程<br>这句注释,能不能用更直白的话再解释一下.</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2416686" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2416686" data-nickname="创迹者2014" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-2416860" data-id="2416860">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+      <a href="http://www.jianshu.com/users/7709643ec01d" class="maleskine-author" target="_blank" data-user-slug="7709643ec01d">@创迹者2014</a> 在Android中可以直接更新UI
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2416686" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2416860#comment-2416860">2016.05.17 13:01</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="2416686" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2427461">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/8dc01461fe91">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/3-575b6d78d8c89400d30e4ed72c2675bf.jpg" alt="3">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/8dc01461fe91">game_zr</a>
+        </p>
+        <span class="reply-time">
+          <small>11 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2427461#comment-2427461">2016.05.17 23:35</a></span>
+      </div>
+      <p>最近也在看这个，官网上的也只是简单讲了一下。这篇真心写得不错</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2427461" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2427461" data-nickname="game_zr" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-2427526" data-id="2427526">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+       <a href="http://www.jianshu.com/users/8dc01461fe91" class="maleskine-author" target="_blank" data-user-slug="8dc01461fe91">@game_zr</a> 其实官网上只是省略了很多类似的，该有的都有
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2427461" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2427526#comment-2427526">2016.05.17 23:39</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="2427461" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2469138">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/8dea5ac34363">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/b1a0bc5521ef" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/8dea5ac34363">8dea5ac34363</a>
+        </p>
+        <span class="reply-time">
+          <small>12 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2469138#comment-2469138">2016.05.20 23:30</a></span>
+      </div>
+      <p>来给你加加人气哈，虽然看不懂，感觉NB的样子就行了 <br><br><br>----沈习文</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2469138" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2469138" data-nickname="8dea5ac34363" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-2472738" data-id="2472738">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+       <a href="http://www.jianshu.com/users/8dea5ac34363" class="maleskine-author" target="_blank" data-user-slug="8dea5ac34363">@8dea5ac34363</a> 哈哈，隔行如隔山啊
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2469138" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2472738#comment-2472738">2016.05.21 11:15</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="2469138" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2521009">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/5a87a35e0422">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/14-75d944a989bbbd5b92a639698c9b4a3c.jpg" alt="14">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/5a87a35e0422">acemurder</a>
+        </p>
+        <span class="reply-time">
+          <small>14 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2521009#comment-2521009">2016.05.25 09:13</a></span>
+      </div>
+      <p>很棒</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2521009" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2521009" data-nickname="acemurder" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2533852">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c0a73bee4318">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/dc379f7642d8.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c0a73bee4318">jasonkxs</a>
+        </p>
+        <span class="reply-time">
+          <small>15 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2533852#comment-2533852">2016.05.26 10:29</a></span>
+      </div>
+      <p>赞下</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2533852" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2533852" data-nickname="jasonkxs" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2602546">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/aa05f92ec35e">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/678beb280329.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/aa05f92ec35e">Eric胡</a>
+        </p>
+        <span class="reply-time">
+          <small>16 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2602546#comment-2602546">2016.06.01 14:39</a></span>
+      </div>
+      <p>又是一篇好文章,谢谢博主</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2602546" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2602546" data-nickname="Eric胡" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2664977">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/ec509f634662">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/91ce7d00783d" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/ec509f634662">小范屯</a>
+        </p>
+        <span class="reply-time">
+          <small>17 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2664977#comment-2664977">2016.06.06 18:10</a></span>
+      </div>
+      <p>在默认情况下Retrofit只支持将HTTP的响应体转换换为ResponseBody<br><br><br>如果，我的数据返回值，也要响应头里解析怎么办？</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2664977" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2664977" data-nickname="小范屯" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-2688123" data-id="2688123">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+      <a href="http://www.jianshu.com/users/ec509f634662" class="maleskine-author" target="_blank" data-user-slug="ec509f634662">@小范屯</a> 如果使用的Call，那你在回调中也可以获得响应头啊
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2664977" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2688123#comment-2688123">2016.06.08 15:03</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-2688173" data-id="2688173">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/ec509f634662">小范屯</a>：
+      <a href="http://www.jianshu.com/users/019f1cbb16e2" class="maleskine-author" target="_blank" data-user-slug="019f1cbb16e2">@怪盗kidou</a> 我用Rxjava和retrofit结合，像这样Observer&lt;User&gt; getUser()。不能使用call。就算使用call，也是在主线程，我想在子线程来做。
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2664977" data-nickname="小范屯" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2688173#comment-2688173">2016.06.08 15:08</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-2688334" data-id="2688334">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+      <a href="http://www.jianshu.com/users/ec509f634662" class="maleskine-author" target="_blank" data-user-slug="ec509f634662">@小范屯</a> 说错，其实只要是结果的地方，你都可以加一个Response，如用Response&lt;User&gt; 代替User，即Observer&lt;User&gt; 改为 Observer&lt;Response&lt;User&gt;&gt; ，这样就和Call一样了，这个时候你在使用observerable的map操作符，在那里取得Header并解析，最后才subscribe就行
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2664977" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2688334#comment-2688334">2016.06.08 15:23</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+            <span>
+              还有 <span class="count">1</span> 条评论，
+              <a class="blue-link" data-id="2664977" data-max-id="2688785" data-action="load-children-comments" href="javascript:void(null)">展开查看</a>
+            </span>
+          <span class="pull-right">
+            <a data-id="2664977" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-2686963">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/af1b8a9a95d0">
+          <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/12-07a584b5038a24cbb23b81dc673c18fd.jpg" alt="12">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/af1b8a9a95d0">柯翰辰K</a>
+        </p>
+        <span class="reply-time">
+          <small>18 楼 · </small>
+          <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2686963#comment-2686963">2016.06.08 13:08</a></span>
+      </div>
+      <p>我问下，这个不能打印日志，都看不了log</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="2686963" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="2686963" data-nickname="柯翰辰K" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-2688111" data-id="2688111">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/019f1cbb16e2">怪盗kidou</a>：
+      <a href="http://www.jianshu.com/users/af1b8a9a95d0" class="maleskine-author" target="_blank" data-user-slug="af1b8a9a95d0">@柯翰辰K</a> 没看懂你说的什么意思
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2686963" data-nickname="怪盗kidou" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2688111#comment-2688111">2016.06.08 15:01</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-2688925" data-id="2688925">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/af1b8a9a95d0">柯翰辰K</a>：
+      <a href="http://www.jianshu.com/users/019f1cbb16e2" class="maleskine-author" target="_blank" data-user-slug="019f1cbb16e2">@怪盗kidou</a> <br>我自己想定义一个okhttpclient，<br>Retrofit retrofit = new Retrofit.Builder()<br>                .baseUrl(BASE_URL)<br>                .client(mOkHttpClient)<br>                .addConverterFactory(GsonConverterFactory.create())<br>                .build();<br>这是我自己定义的okhttpclient，<br> mOkHttpClient = new OkHttpClient.Builder()<br>                            .cache(httpCache)<br>                            .addInterceptor(interceptor)<br>                            .addNetworkInterceptor(new StethoInterceptor())<br>                            .retryOnConnectionFailure(true)<br>                            .connectTimeout(15, TimeUnit.SECONDS)<br>                            .build();<br>我的需求是想打印下请求的url地址，但是我日志啥都没有，想请教下大腿 <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/smile.png" alt=":smile:" title=":smile:" class="emoji" width="20" height="20"> 
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2686963" data-nickname="柯翰辰K" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2688925#comment-2688925">2016.06.08 16:19</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-2688941" data-id="2688941">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/af1b8a9a95d0">柯翰辰K</a>：
+      <a href="http://www.jianshu.com/users/019f1cbb16e2" class="maleskine-author" target="_blank" data-user-slug="019f1cbb16e2">@怪盗kidou</a>   //http 日志打印请求到的json字符串和查看log<br>        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();<br>        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);<br>这是使用的日志拦截器
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="2686963" data-nickname="柯翰辰K" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/308f3c54abdd/comments/2688941#comment-2688941">2016.06.08 16:20</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="2686963" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+  <p class="load-more">
+    <a class="blue-link" data-type="html" data-action="load-comments" data-remote="true" href="http://www.jianshu.com/notes/3968715/comments?max_id=2791633&amp;order=asc&amp;page=2">加载更多 <i class="fa fa-arrow-down"></i></a>
+  </p>
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":3968715,"abbr":"作者：@怪盗kidou如需转载需在明显位置保留作者信息及原文链接Retrofit版本:2.0.2本文注目录：Retrofit入门Retrofit注解详解Gson与ConverterRxJava与CallAdapter自定义Converter自定义CallAdapter其它说明前言本文中的Retrofit均指代Retrofit2.0。本文涉及到的代码以及测试使用的接口可在Github上找到。测试接口服务器在server项目下，直接运行RESTServer.main()即可启动...","slug":"308f3c54abdd","url":"http://www.jianshu.com/p/308f3c54abdd","image_url":"http://cwb.assets.jianshu.io/notes/images/3968715/weibo/image_a001179532b8.jpg","wordage":4476,"has_further_readings":false,"views_count":4685,"likes_count":138,"comments_count":28,"rewards_total_count":2}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"f8283840-1699-0134-81b4-525400918cd7"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":1724103,"nickname":"怪盗kidou","slug":"019f1cbb16e2","public_notes_count":8,"followers_count":597,"total_likes_count":795,"is_current_user":false,"is_signed_author":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/bDHhpK"><img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/rdn_4ddb18fddd2e9_(1).jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/bDHhpK">首页投稿</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>107.4K</span>
+  </div>
+
+                <p class="description">玩转简书的第一步，从这个专题开始。
+
+想上首页热门榜么？好内容想被更多人看到么？来投稿吧！如果被拒也不要灰心哦～入选文章会进一个队...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/bDHhpK">66403篇文章</a> · 107453人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/NEt52a"><img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/computer_guy.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/NEt52a">程序员</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>97.9K</span>
+  </div>
+
+                <p class="description">简书程序员大本营
+
+投稿须知：
+1.本专题仅收录与程序有关的文章。
+2.请在代码框里写代码，尽量保证可看性。
+
+关注简书官...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/NEt52a">15714篇文章</a> · 97957人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/3fde3b545a35"><img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/3fde3b545a35">Android知识</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>16.4K</span>
+  </div>
+
+                <p class="description">android开发技巧，原理解析等等</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/3fde3b545a35">2466篇文章</a> · 16418人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="http://www.jianshu.com/notes/3968715/rewards" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="jRUwHSZt9CfIrVlW0blDFahwK89xTGJbm2nfRuCeMzUs7qaV6pAykdUBHwAWZrcvEj6EZOTBEaEdRbRaWNgNkw==">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/019f1cbb16e2">
+        <div class="avatar"><img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/585bc6be16ec.png" alt="100"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="2.00" type="text" name="reward[amount_in_yuan]" id="reward_amount_in_yuan">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div class="iradio_minimal checked" style="position: relative;"><input type="radio" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div class="iradio_minimal" style="position: relative;"><input type="radio" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/complete-pay-25426877089eb23bd76d9d0e6aad89c1.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  <div class="imagebubble-backmask image-package" style="z-index: 1000;"><div class="image-caption">HTTP请求方法注解</div><div class="image-caption">标记类注解</div><div class="image-caption">参数类注解</div><img class="imagebubble-ghost" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/1724103-db95c51539b62c96(1).png" style="top: 3336px; left: 202.4px; width: 527px; height: 348px;"><img class="imagebubble-ghost" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/1724103-073abf80aacf492e(1).png" style="top: 4685.2px; left: 155.9px; width: 620px; height: 417px;"><img class="imagebubble-ghost" src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/1724103-4d09b5595bfb3291(1).png" style="top: 4197px; left: 155.9px; width: 620px; height: 310px;"></div></div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/base-d3f9a709e5a4537b87b3eff40e94a46e.js"></script>
+  
+  <script src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/reading-base-9132a81390eb5b2cc4f21734b0e9cd08.js"></script>
+  <script src="./你真的会用Retrofit2吗_Retrofit2完全教程 - 简书_files/note_show-12e94137c3593b4c6278c57fead5ad33.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

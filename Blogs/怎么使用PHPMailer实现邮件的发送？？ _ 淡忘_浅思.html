@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://www.ido321.com/1103.html -->
+<html xmlns:wb="http://open.weibo.com/wb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="javascript|jquery|web|css|html|html5|css3|web前端开发|linux|php|mysql|lamp|分享|淡忘~浅思">
+<meta name="description" content="坚持Web分享,关注LAMP开发,专注web前端学习,分享web前端学习资料和学习心得技巧!">
+<meta name="author" content="淡忘~浅思">
+<meta name="subject" content="Web分享,WEB前端开发,LAMP学习">
+<meta name="robots" content="all">
+
+<meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="http://www.ido321.com/wp-content/themes/yusi1.0/img/si.ico">
+<!-- 百度site验证 -->
+<meta name="baidu-site-verification" content="LomTCMppeB">
+<!-- 无觅推荐验证 -->
+<meta name="wumiiVerification" content="727e5e83-9b7e-4edf-b44e-0b289d8cee67">
+
+<title>怎么使用PHPMailer实现邮件的发送？？ | 淡忘~浅思</title>
+<script>
+window._deel = {name: '淡忘~浅思',url: 'http://www.ido321.com/wp-content/themes/yusi1.0', ajaxpager: 'on', commenton: 1, roll: [0,0]}
+</script>
+<link rel="stylesheet" id="style-css" href="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/style.css" type="text/css" media="all">
+<script type="text/javascript" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/jquery.min.js"></script>
+<link rel="prev" title="如何在网站中添加支付宝支付功能？？？" href="http://www.ido321.com/1096.html">
+<link rel="next" title="你的大学，有多少遗憾？" href="http://www.ido321.com/1104.html">
+<link rel="canonical" href="http://www.ido321.com/1103.html">
+<link rel="shortlink" href="http://www.ido321.com/?p=1103">
+<meta name="keywords" content="php, phpmailer, PHP">
+<meta name="description" content="">
+
+<script type="text/javascript" async="" charset="UTF-8" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/embed.js"></script><link type="text/css" rel="stylesheet" href="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/embed.default.css"></head>
+<body class="single single-post postid-1103 single-format-standard" data-pinterest-extension-installed="cr1.39.1">
+
+<header id="header" class="header">
+<div class="container-inner">
+ <div class="yusi-logo">
+                    <a href="http://www.ido321.com/">
+                        <h1>
+                                                        <span class="yusi-mono">淡忘~浅思</span>
+                                                        <span class="yusi-bloger">分享是一种提高</span>
+                                                    </h1>
+                    </a>
+    </div>
+</div>
+
+	<div id="nav-header" class="navbar fixed">
+		
+		<ul class="nav">
+			<li id="menu-item-10" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-10"><a href="http://www.ido321.com/">首页</a></li>
+<li id="menu-item-11" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11"><a title="frontend" href="http://www.ido321.com/category/frontend">前端</a></li>
+<li id="menu-item-1479" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-1479"><a href="http://www.ido321.com/category/end">后端</a></li>
+<li id="menu-item-18" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-18"><a href="http://www.ido321.com/category/trivial">杂</a></li>
+<li id="menu-item-21" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-21"><a href="http://www.ido321.com/category/code">Coder</a></li>
+<li id="menu-item-23" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-23"><a href="http://www.ido321.com/category/life">ME</a></li>
+<li id="menu-item-33" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-33"><a href="http://www.ido321.com/message">留言</a></li>
+<li style="float:right;">
+                    <div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" onsubmit="location.href=&#39;http://www.ido321.com/search/&#39; + encodeURIComponent(this.s.value).replace(/%20/g, &#39;+&#39;); return false;" action="http://www.ido321.com/"><div> <input type="ext" class="search" name="s" onblur="if(this.value==&#39;&#39;)this.value=&#39;search...&#39;;" onfocus="if(this.value==&#39;search...&#39;)this.value=&#39;&#39;;" value="search..."></div></form></div></div>
+</li>
+		</ul><div class="screen-mini"><button data-type="screen-nav" class="btn btn-inverse screen-nav"><i class="fa fa-list"></i></button></div>
+	</div>
+	
+</header>
+<section class="container"><div class="speedbar">
+				<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> </strong> <span style="color:#1ABC9C;font-weight:bold">Web开发交流：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=457dead858ccbda1b670f91229e334695619cb9f891b433301ac3dd780d1ecaa"><img border="0" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/group.png" alt="程序爱好者" title="程序爱好者"></a>  </span>
+
+
+</div>
+	</div>
+	<div class="content-wrap">
+	<div class="content">
+<div class="breadcrumbs"><a title="返回首页" href="http://www.ido321.com/"><i class="fa fa-home"></i></a> <small>&gt;</small> <a href="http://www.ido321.com/category/end">后端</a> <small>&gt;</small> <a href="http://www.ido321.com/category/end/php">PHP</a> <small>&gt;</small> <span class="muted">怎么使用PHPMailer实现邮件的发送？？</span></div>
+				<header class="article-header">
+			<h1 class="article-title"><a href="http://www.ido321.com/1103.html">怎么使用PHPMailer实现邮件的发送？？</a></h1>
+			<div class="meta">
+				<span id="mute-category" class="muted"><i class="fa fa-list-alt"></i><a href="http://www.ido321.com/category/end/php"> PHP</a></span>				<span class="muted"><i class="fa fa-user"></i> <a href="http://www.ido321.com/author/dwqs">dwqs</a></span>
+				<time class="muted"><i class="fa fa-clock-o"></i> 2014-10-21 13:52</time>
+				<span class="muted"><i class="fa fa-eye"></i>  3,171 人阅读</span>
+				<span class="muted"><i class="fa fa-comments-o"></i> <a href="http://www.ido321.com/1103.html#comments">0评论</a></span>							</div>
+		</header>
+		<article class="article-content">
+			<p><a href="http://www.ido321.com/wp-content/uploads/2014/10/phpmailer.jpg" data-original-title="" title=""><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="phpmailer" border="0" alt="phpmailer" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/phpmailer_thumb.jpg" width="344" height="94"></a></p>
+<p>发送邮件是常用的功能，LZ今天在项目中也碰到了，特此分享一下。</p>
+<p>首先，去下载PHPMailer</p>
+<p>1、<a title="" href="https://github.com/dwqs/PHPMailer" data-original-title="https://github.com/dwqs/PHPMailer">https://github.com/dwqs/PHPMailer</a></p>
+<p>2、<a title="" href="http://download.csdn.net/detail/u011043843/8063583" data-original-title="http://download.csdn.net/detail/u011043843/8063583">http://download.csdn.net/detail/u011043843/8063583</a></p>
+<p>下载之后，将文件解压到项目目录的对应位置，将class.phpmailer.php和class.smtp.php引入项目中，看代码：（解压的文件不要删除，否则不行）</p>
+<div id="codeSnippetWrapper">
+<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; background-color: #f4f4f4; margin: 0em; border-left-style: none; padding-left: 0px; width: 100%; padding-right: 0px; font-family: &#39;Courier New&#39;, courier, monospace; direction: ltr; border-top-style: none; color: black; border-right-style: none; font-size: 12pt; overflow: visible; padding-top: 0px" id="codeSnippet">&lt;?php <br>    <span style="color: #008000">// 必要导入</span><br>  <span style="color: #0000ff">require</span>(<span style="color: #006080">"class.phpmailer.php"</span>);<br>  <span style="color: #0000ff">require</span>(<span style="color: #006080">"class.smtp.php"</span>);<br>  date_default_timezone_set(<span style="color: #006080">'Asia/Shanghai'</span>);<span style="color: #008000">//设定时区东八区</span><br>$mail = <span style="color: #0000ff">new</span> PHPMailer(); <span style="color: #008000">//建立邮件发送类</span><br><br>$address = <span style="color: #006080">"15602277510@163.com"</span>;<br>$mail-&gt;IsSMTP(); <span style="color: #008000">// 使用SMTP方式发送</span><br>$mail-&gt;CharSet =<span style="color: #006080">"UTF-8"</span>;<span style="color: #008000">//设置编码，否则发送中文乱码</span><br>$mail-&gt;Host = <span style="color: #006080">"smtp.qq.com"</span>; <span style="color: #008000">// 您的企业邮局域名</span><br>$mail-&gt;SMTPAuth = <span style="color: #0000ff">true</span>; <span style="color: #008000">// 启用SMTP验证功能</span><br>$mail-&gt;Username = <span style="color: #006080">"461147874@qq.com"</span>; <span style="color: #008000">// 邮局用户名(请填写完整的email地址)</span><br>$mail-&gt;Password = <span style="color: #006080">"**********"</span>; <span style="color: #008000">// 邮局密码</span><br><br>$mail-&gt;From = <span style="color: #006080">"461147874@qq.com"</span>; <span style="color: #008000">//邮件发送者email地址</span><br>$mail-&gt;FromName = <span style="color: #006080">"dwqs"</span>;<br>$mail-&gt;AddAddress($address, <span style="color: #006080">"dwqs"</span>);<span style="color: #008000">//收件人地址，可以替换成任何想要接收邮件的email信箱,格式是AddAddress("收件人email","收件人姓名")</span><br><span style="color: #008000">//$mail-&gt;AddReplyTo("", "");</span><br><br><span style="color: #008000">//$mail-&gt;AddAttachment("/var/tmp/file.tar.gz"); // 添加附件</span><br><span style="color: #008000">//$mail-&gt;IsHTML(true); // set email format to HTML //是否使用HTML格式</span><br><br>$mail-&gt;Subject = <span style="color: #006080">"验证邮件"</span>; <span style="color: #008000">//邮件标题</span><br>$mail-&gt;Body = <span style="color: #006080">"Hello,这是测试邮件"</span>; <span style="color: #008000">//邮件内容</span><br>$mail-&gt;AltBody = <span style="color: #006080">"This is the body in plain text for non-HTML mail clients"</span>; <span style="color: #008000">//附加信息，可以省略</span><br><br><span style="color: #0000ff">if</span>(!$mail-&gt;Send()) {<br>        <span style="color: #0000ff">echo</span> <span style="color: #006080">'Mailer Error: '</span> . $mail-&gt;ErrorInfo;<br>    } <span style="color: #0000ff">else</span> {<br>   <span style="color: #0000ff">echo</span> <span style="color: #006080">"Message sent!恭喜，邮件发送成功！"</span>;<br>    }<br>?&gt;</pre>
+<p></p></div>
+<p>测试结果：</p>
+<p><a href="http://www.ido321.com/wp-content/uploads/2014/10/mail2.png" data-original-title="" title=""><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="mail2" border="0" alt="mail2" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/mail2_thumb.png" width="302" height="99"></a></p>
+<p><a href="http://www.ido321.com/wp-content/uploads/2014/10/mail1.png" data-original-title="" title=""><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="mail1" border="0" alt="mail1" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/mail1_thumb.png" width="322" height="177"></a></p>
+<p>转载请注明：<a href="http://www.ido321.com/" data-original-title="" title="">淡忘~浅思</a> » <a href="http://www.ido321.com/1103.html" data-original-title="" title="">怎么使用PHPMailer实现邮件的发送？？</a></p>
+<!-- 百度嵌入式推荐 -->
+<script>document.write(unescape('%3Cdiv id="hm_t_41838"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://crs.baidu.com/t.js?siteId=b7f3484bf9a3eaa5eeaed21d7b1166a8&planId=41838&async=0&referer=') + encodeURIComponent(document.referrer) + '&title=' + encodeURIComponent(document.title) + '&rnd=' + (+new Date) + unescape('"%3E%3C/script%3E'));</script><div id="hm_t_41838"></div><script charset="utf-8" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/t.js"></script>
+<!-- end -->
+      
+<div class="article-social">
+			<a href="javascript:;" data-action="ding" data-id="1103" id="Addlike" class="action" data-original-title="" title=""><i class="fa fa-heart-o"></i>喜欢 (<span class="count">3</span>)</a>	
+</div>
+	</article>	
+				<footer class="article-footer">
+			<div class="article-tags"><i class="fa fa-tags"></i><a href="http://www.ido321.com/tag/php-2" rel="tag" data-original-title="" title="">php</a><a href="http://www.ido321.com/tag/phpmailer" rel="tag" data-original-title="" title="">phpmailer</a></div></footer>
+	<nav class="article-nav">
+			<span class="article-nav-prev"><i class="fa fa-angle-double-left"></i> <a href="http://www.ido321.com/1096.html" rel="prev">如何在网站中添加支付宝支付功能？？？</a></span>
+			<span class="article-nav-next"><a href="http://www.ido321.com/1104.html" rel="next">你的大学，有多少遗憾？</a>  <i class="fa fa-angle-double-right"></i></span>
+		</nav>
+
+		<div class="related_top">
+			<div class="related_posts">
+<!-- 	<ul class="related_img">
+
+		<li class="related_box"  >
+		<a href="http://www.ido321.com/1577.html" title="【译】解决AJAX请求使PHP反应时间过长的问题" target="_blank">
+<img src="http://www.ido321.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.ido321.com/wp-content/uploads/2015/04/018.jpg&h=110&w=185&q=90&zc=1&ct=1" alt="【译】解决AJAX请求使PHP反应时间过长的问题" />	<br><span class="r_title">【译】解决AJAX请求使PHP反应时间过长的问题</span></a>
+		</li>
+	
+		<li class="related_box"  >
+		<a href="http://www.ido321.com/1546.html" title="【译】PHP:40+开发工具推荐" target="_blank">
+<img src="http://www.ido321.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.ido321.com/wp-content/uploads/2015/01/php1.jpg.png&h=110&w=185&q=90&zc=1&ct=1" alt="【译】PHP:40+开发工具推荐" />	<br><span class="r_title">【译】PHP:40+开发工具推荐</span></a>
+		</li>
+	
+		<li class="related_box"  >
+		<a href="http://www.ido321.com/1541.html" title="【译】使用PHP检查URL是否存在" target="_blank">
+<img src="http://www.ido321.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.ido321.com/wp-content/uploads/2015/03/php_thumb.jpg&h=110&w=185&q=90&zc=1&ct=1" alt="【译】使用PHP检查URL是否存在" />	<br><span class="r_title">【译】使用PHP检查URL是否存在</span></a>
+		</li>
+	
+		<li class="related_box"  >
+		<a href="http://www.ido321.com/1478.html" title="json_encode()和json_decode()的用法" target="_blank">
+<img src="http://www.ido321.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.ido321.com/wp-content/uploads/2015/03/php_thumb.jpg&h=110&w=185&q=90&zc=1&ct=1" alt="json_encode()和json_decode()的用法" />	<br><span class="r_title">json_encode()和json_decode()的用法</span></a>
+		</li>
+	</ul> -->
+
+<div class="relates">
+<ul>
+<li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1577.html">【译】解决AJAX请求使PHP反应时间过长的问题</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1546.html">【译】PHP:40+开发工具推荐</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1541.html">【译】使用PHP检查URL是否存在</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1524.html">js和php区分移动设备和PC访问站点</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1478.html">json_encode()和json_decode()的用法</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1424.html">PDO学习笔记</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1398.html">10个必须收藏的PHP代码样例</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.ido321.com/1297.html">PHP：6种GET和POST请求发送方法</a></li>
+</ul></div></div>		</div>
+						<script type="text/javascript">
+var duoshuoQuery = {"short_name":"ido321","sso":{"login":"http:\/\/www.ido321.com\/wp-login.php?action=duoshuo_login","logout":"http:\/\/www.ido321.com\/wp-login.php?action=logout&_wpnonce=bfacef9c64"},"theme":"default","stylePatch":"wordpress\/dwqs"};
+duoshuoQuery.sso.login += '&redirect_to=' + encodeURIComponent(window.location.href);
+duoshuoQuery.sso.logout += '&redirect_to=' + encodeURIComponent(window.location.href);
+(function() {
+    var ds = document.createElement('script'); ds.type = 'text/javascript'; ds.async = true;
+    ds.charset = 'UTF-8';
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script><a name="comments"></a>
+
+<div class="ds-thread" data-thread-key="1103" data-author-key="1" data-title="怎么使用PHPMailer实现邮件的发送？？" data-url="http://www.ido321.com/1103.html" id="ds-thread"><div id="ds-reset"><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://ido321.duoshuo.com/login/weixin/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://ido321.duoshuo.com/login/weibo/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://ido321.duoshuo.com/login/qq/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://ido321.duoshuo.com/login/renren/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://ido321.duoshuo.com/login/douban/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://ido321.duoshuo.com/login/kaixin/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://ido321.duoshuo.com/login/baidu/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://ido321.duoshuo.com/login/google/?sso=1&amp;redirect_uri=http%3A%2F%2Fwww.ido321.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.ido321.com%252F1103.html" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/120156.jpg" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1389499023508897971">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="57034f6cd95b9"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="程序爱好者QQ群： 259280570，欢迎你哦O(∩_∩)O~"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发射</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc ds-current">最新</a><a class="ds-order-asc">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);"><span class="ds-highlight">15</span>条评论</a></li>  </ul></div><ul class="ds-comments"><li class="ds-post" data-post-id="1389499023508902202"><div class="ds-post-self" data-post-id="1389499023508902202" data-thread-id="1389499023508897971" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://www.wept.cn/" title="厦门微信营销"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/120156.jpg" alt="厦门微信营销"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.wept.cn/" rel="nofollow" target="_blank">厦门微信营销</a></div><p>mark</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-03-03T11:10:09+08:00" title="2015年3月3日 上午11:10:09">2015年3月3日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1389499023508902201"><div class="ds-post-self" data-post-id="1389499023508902201" data-thread-id="1389499023508897971" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="10803739"><a rel="nofollow author" target="_blank" href="http://www.wept.cn/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=10803739&#39;;" title="磐讯微平台"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/50" alt="磐讯微平台"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.wept.cn/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=10803739&#39;;" rel="nofollow" target="_blank" data-user-id="10803739">磐讯微平台</a></div><p>mark</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-03-03T11:07:12+08:00" title="2015年3月3日 上午11:07:12">2015年3月3日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1389499023508899074"><div class="ds-post-self" data-post-id="1389499023508899074" data-thread-id="1389499023508897971" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="1812203"><a rel="nofollow author" target="_blank" href="https://qifu.me/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=1812203&#39;;" title="瑾瑜"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/51a8de9239c063ed37bec437ed5e5739" alt="瑾瑜"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="https://qifu.me/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=1812203&#39;;" rel="nofollow" target="_blank" data-user-id="1812203">瑾瑜</a></div><p>这个以后用得着……</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-10-26T19:02:47+08:00" title="2014年10月26日 下午7:02:47">2014年10月26日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div><ul class="ds-children"><li class="ds-post" data-post-id="1389499023508899081"><div class="ds-post-self" data-post-id="1389499023508899081" data-thread-id="1389499023508897971" data-root-id="1389499023508899074" data-source="duoshuo"><div class="ds-avatar" data-user-id="8171559"><a rel="nofollow author" target="_blank" href="http://www.ido321.com/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=8171559&#39;;" title="淡忘~浅思"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/134111.jpg" alt="淡忘~浅思"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.ido321.com/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=8171559&#39;;" rel="nofollow" target="_blank" data-user-id="8171559">淡忘~浅思</a></div><p>恩恩</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-10-26T19:37:11+08:00" title="2014年10月26日 下午7:37:11">2014年10月26日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></li><li class="ds-post" data-post-id="1389499023508898926"><div class="ds-post-self" data-post-id="1389499023508898926" data-thread-id="1389499023508897971" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://www.pinxun.cc/" title="http://www.pinxun.cc"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/120156.jpg" alt="http://www.pinxun.cc"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.pinxun.cc/" rel="nofollow" target="_blank">http://www.pinxun.cc</a></div><p>折腾折腾</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-10-22T11:36:51+08:00" title="2014年10月22日 上午11:36:51">2014年10月22日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div><ul class="ds-children"><li class="ds-post" data-post-id="1389499023508898927"><div class="ds-post-self" data-post-id="1389499023508898927" data-thread-id="1389499023508897971" data-root-id="1389499023508898926" data-source="duoshuo"><div class="ds-avatar" data-user-id="8171559"><a rel="nofollow author" target="_blank" href="http://www.ido321.com/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=8171559&#39;;" title="淡忘~浅思"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/134111.jpg" alt="淡忘~浅思"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.ido321.com/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=8171559&#39;;" rel="nofollow" target="_blank" data-user-id="8171559">淡忘~浅思</a></div><p> <img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/laugh.gif" alt="[哈哈]" title="[哈哈]" class="ds-smiley"> </p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-10-22T12:46:46+08:00" title="2014年10月22日 下午12:46:46">2014年10月22日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></li><li class="ds-post" data-post-id="1389499023508898907"><div class="ds-post-self" data-post-id="1389499023508898907" data-thread-id="1389499023508897971" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><a rel="nofollow author" target="_blank" href="http://www.saycn.net/" title="www.saycn.net"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/120156.jpg" alt="www.saycn.net"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.saycn.net/" rel="nofollow" target="_blank">www.saycn.net</a></div><p>这个 很不错的样子</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-10-21T17:00:20+08:00" title="2014年10月21日 下午5:00:20">2014年10月21日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div><ul class="ds-children"><li class="ds-post" data-post-id="1389499023508898909"><div class="ds-post-self" data-post-id="1389499023508898909" data-thread-id="1389499023508897971" data-root-id="1389499023508898907" data-source="duoshuo"><div class="ds-avatar" data-user-id="8171559"><a rel="nofollow author" target="_blank" href="http://www.ido321.com/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=8171559&#39;;" title="淡忘~浅思"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/134111.jpg" alt="淡忘~浅思"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.ido321.com/" onclick="this.href=&#39;http://ido321.duoshuo.com/user-url/?user_id=8171559&#39;;" rel="nofollow" target="_blank" data-user-id="8171559">淡忘~浅思</a></div><p> <img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/tootha_org.gif" alt="[嘻嘻]" title="[嘻嘻]" class="ds-smiley"> </p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-10-21T17:45:11+08:00" title="2014年10月21日 下午5:45:11">2014年10月21日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>爆菊</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>带走</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></li></ul><div class="ds-paginator" style="display: block;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a> <a data-page="2" href="javascript:void(0);">2</a></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">淡忘~浅思正在使用多说</a></p></div></div>
+
+<script type="text/javascript">
+	if (typeof DUOSHUO !== 'undefined')
+		DUOSHUO.EmbedThread('.ds-thread');
+</script>
+	<div id="ds-ssr">
+
+		
+            <ol id="commentlist">
+                		<li class="post pingback">
+			<p>Pingback: <a href="http://www.mikwei.com/?p=26277" rel="external nofollow" class="url">怎么使用PHPMailer实现邮件的发送？？ | 可维博客</a></p>
+		</li><!-- #comment-## -->
+		<li class="post pingback">
+			<p>Pingback: <a href="http://www.havebug.com/archives/5792.html" rel="external nofollow" class="url">怎么使用PHPMailer实现邮件的发送？？ - 有Bug</a></p>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-4362">
+			<article id="comment-4362" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.wept.cn/" rel="external nofollow" class="url">厦门微信营销</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-4362"><time pubdate="" datetime="2015-03-03T11:10:09+00:00">2015年3月3日 at 上午11:10</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>mark</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-4361">
+			<article id="comment-4361" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.wept.cn/" rel="external nofollow" class="url">磐讯微平台</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-4361"><time pubdate="" datetime="2015-03-03T11:07:12+00:00">2015年3月3日 at 上午11:07</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>mark</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-1277">
+			<article id="comment-1277" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.huangqifu.com/" rel="external nofollow" class="url">瑾瑜</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1277"><time pubdate="" datetime="2014-10-26T19:02:47+00:00">2014年10月26日 at 下午7:02</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>这个以后用得着……</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment byuser comment-author-dwqs bypostauthor odd alt depth-2" id="li-comment-1284">
+			<article id="comment-1284" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.ido321.com/" rel="external nofollow" class="url">淡忘~浅思</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1284"><time pubdate="" datetime="2014-10-26T19:37:11+00:00">2014年10月26日 at 下午7:37</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>恩恩</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-1132">
+			<article id="comment-1132" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.pinxun.cc/" rel="external nofollow" class="url">http://www.pinxun.cc</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1132"><time pubdate="" datetime="2014-10-22T11:36:51+00:00">2014年10月22日 at 上午11:36</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>折腾折腾</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment byuser comment-author-dwqs bypostauthor odd alt depth-2" id="li-comment-1133">
+			<article id="comment-1133" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.ido321.com/" rel="external nofollow" class="url">淡忘~浅思</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1133"><time pubdate="" datetime="2014-10-22T12:46:46+00:00">2014年10月22日 at 下午12:46</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p> &lt;img src="<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/6a/laugh.gif&amp;quot" rel="nofollow">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/6a/laugh.gif&amp;quot</a>; alt="[哈哈]" title="[哈哈]" class="ds-smiley" /&gt; </p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-1113">
+			<article id="comment-1113" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.saycn.net/" rel="external nofollow" class="url">www.saycn.net</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1113"><time pubdate="" datetime="2014-10-21T17:00:20+00:00">2014年10月21日 at 下午5:00</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>这个 很不错的样子</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment byuser comment-author-dwqs bypostauthor odd alt depth-2" id="li-comment-1115">
+			<article id="comment-1115" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.ido321.com/" rel="external nofollow" class="url">淡忘~浅思</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1115"><time pubdate="" datetime="2014-10-21T17:45:11+00:00">2014年10月21日 at 下午5:45</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p> &lt;img src="<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif&amp;quot" rel="nofollow">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif&amp;quot</a>; alt="[嘻嘻]" title="[嘻嘻]" class="ds-smiley" /&gt; </p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-1110">
+			<article id="comment-1110" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://misswo.com/" rel="external nofollow" class="url">灰常记忆</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1110"><time pubdate="" datetime="2014-10-21T16:23:14+00:00">2014年10月21日 at 下午4:23</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>看着好高级 &lt;img src="<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/ac/smilea_org.gif&amp;quot" rel="nofollow">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/ac/smilea_org.gif&amp;quot</a>; alt="[呵呵]" title="[呵呵]" class="ds-smiley" /&gt;    不折腾</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment byuser comment-author-dwqs bypostauthor odd alt depth-2" id="li-comment-1112">
+			<article id="comment-1112" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.ido321.com/" rel="external nofollow" class="url">淡忘~浅思</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1112"><time pubdate="" datetime="2014-10-21T16:33:57+00:00">2014年10月21日 at 下午4:33</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>哈哈  不高级呢</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment even depth-3" id="li-comment-1120">
+			<article id="comment-1120" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://misswo.com/" rel="external nofollow" class="url">灰常记忆</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1120"><time pubdate="" datetime="2014-10-21T21:26:39+00:00">2014年10月21日 at 下午9:26</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>适合你折腾 &lt;img src="<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/6a/laugh.gif&amp;quot" rel="nofollow">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/6a/laugh.gif&amp;quot</a>; alt="[哈哈]" title="[哈哈]" class="ds-smiley" /&gt; </p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment byuser comment-author-dwqs bypostauthor odd alt depth-4" id="li-comment-1121">
+			<article id="comment-1121" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.ido321.com/" rel="external nofollow" class="url">淡忘~浅思</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1121"><time pubdate="" datetime="2014-10-21T21:40:03+00:00">2014年10月21日 at 下午9:40</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p> &lt;img src="<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif&amp;quot" rel="nofollow">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif&amp;quot</a>; alt="[嘻嘻]" title="[嘻嘻]" class="ds-smiley" /&gt; 因为你搞得是更高级的</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-1104">
+			<article id="comment-1104" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://t.qq.com/trestone" rel="external nofollow" class="url">夏磊</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1104"><time pubdate="" datetime="2014-10-21T14:22:06+00:00">2014年10月21日 at 下午2:22</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>我来冒个泡</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment byuser comment-author-dwqs bypostauthor odd alt depth-2" id="li-comment-1105">
+			<article id="comment-1105" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.ido321.com/" rel="external nofollow" class="url">淡忘~浅思</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1105"><time pubdate="" datetime="2014-10-21T14:34:53+00:00">2014年10月21日 at 下午2:34</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p> &lt;img src="<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif&amp;quot" rel="nofollow">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif&amp;quot</a>; alt="[嘻嘻]" title="[嘻嘻]" class="ds-smiley" /&gt; 欢迎欢迎</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-1103">
+			<article id="comment-1103" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://huanglv.me/p" rel="external nofollow" class="url">消灭星星</a></span> on <a rel="nofollow" href="http://www.ido321.com/1103.html/comment-page-1#comment-1103"><time pubdate="" datetime="2014-10-21T14:14:00+00:00">2014年10月21日 at 下午2:14</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>沙发，学习了，感谢分享。</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+            </ol>
+
+		            
+    </div>			</div>
+</div>
+<aside class="sidebar">	
+<div class="widget widget_text"><div class="textwidget"><div class="social">
+
+<a href="http://weibo.com/rebgin" rel="external nofollow" title="" target="_blank" data-original-title="新浪微博"><i class="sinaweibo fa fa-weibo"></i></a><a href="http://t.qq.com/yk0109hdy" rel="external nofollow" title="" target="_blank" data-original-title="腾讯微博"><i class="tencentweibo fa fa-tencent-weibo"></i></a><a class="weixin" data-original-title="" title=""><i class="weixins fa fa-weixin"></i><div class="weixin-popover"><div class="popover bottom in"><div class="arrow"></div><div class="popover-title">博主微信号“yk461147874”</div><div class="popover-content"><img src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/dwqs.png"></div></div></div></a><a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=jvf77_Dl7_Dpvr__t87o4fbj7_fioO3h4w" rel="external nofollow" title="" target="_blank" data-original-title="Email"><i class="email fa fa-envelope-o"></i></a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=461147874&amp;site=qq&amp;menu=yes" rel="external nofollow" title="" target="_blank" data-original-title="联系QQ"><i class="qq fa fa-qq"></i></a><a href="http://www.ido321.com/feed" rel="external nofollow" target="_blank" title="" data-original-title="订阅本站"><i class="rss fa fa-rss"></i></a>
+</div></div></div>
+
+<div class="widget widget_text">			<div class="textwidget"><iframe width="360" height="550" class="share_self" frameborder="0" scrolling="no" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/index.html"></iframe></div>
+		</div><div class="widget d_tag"><div class="title"><h2>标签云</h2></div><div class="d_tags"><a title="" href="http://www.ido321.com/tag/js" data-original-title="53个话题">js (53)</a><a title="" href="http://www.ido321.com/tag/css-2" data-original-title="53个话题">css (53)</a><a title="" href="http://www.ido321.com/tag/html-2" data-original-title="33个话题">html (33)</a><a title="" href="http://www.ido321.com/tag/php-2" data-original-title="31个话题">php (31)</a><a title="" href="http://www.ido321.com/tag/jquery" data-original-title="14个话题">Jquery (14)</a><a title="" href="http://www.ido321.com/tag/jq-2" data-original-title="13个话题">jq (13)</a><a title="" href="http://www.ido321.com/tag/web" data-original-title="12个话题">web (12)</a><a title="" href="http://www.ido321.com/tag/%e7%a8%8b%e5%ba%8f%e4%ba%ba%e7%94%9f" data-original-title="12个话题">程序人生 (12)</a><a title="" href="http://www.ido321.com/tag/college-2" data-original-title="12个话题">college (12)</a><a title="" href="http://www.ido321.com/tag/mysql-2" data-original-title="9个话题">mysql (9)</a><a title="" href="http://www.ido321.com/tag/linux" data-original-title="9个话题">Linux (9)</a><a title="" href="http://www.ido321.com/tag/html5" data-original-title="8个话题">HTML5 (8)</a><a title="" href="http://www.ido321.com/tag/javascript-2" data-original-title="8个话题">javascript (8)</a><a title="" href="http://www.ido321.com/tag/ajax-2" data-original-title="7个话题">ajax (7)</a><a title="" href="http://www.ido321.com/tag/css3" data-original-title="7个话题">css3 (7)</a><a title="" href="http://www.ido321.com/tag/git" data-original-title="6个话题">git (6)</a><a title="" href="http://www.ido321.com/tag/%e5%88%86%e4%ba%ab" data-original-title="6个话题">分享 (6)</a><a title="" href="http://www.ido321.com/tag/sentiment-2" data-original-title="6个话题">sentiment (6)</a><a title="" href="http://www.ido321.com/tag/%e8%af%bb%e5%90%8e%e6%84%9f%ef%bc%8creview" data-original-title="5个话题">读后感，review (5)</a><a title="" href="http://www.ido321.com/tag/dom" data-original-title="5个话题">dom (5)</a><a title="" href="http://www.ido321.com/tag/%e6%88%91%e7%9a%84%e6%94%b6%e8%97%8f%ef%bc%8c%e5%88%86%e4%ba%ab" data-original-title="4个话题">我的收藏，分享 (4)</a><a title="" href="http://www.ido321.com/tag/%e5%a4%a7%e5%ad%a6" data-original-title="4个话题">大学 (4)</a></div></div><div class="widget widget_calendar"><div class="title"><h2>博客日历</h2></div><div id="calendar_wrap"><table id="wp-calendar">
+	<caption>2016年六月</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="星期一">一</th>
+		<th scope="col" title="星期二">二</th>
+		<th scope="col" title="星期三">三</th>
+		<th scope="col" title="星期四">四</th>
+		<th scope="col" title="星期五">五</th>
+		<th scope="col" title="星期六">六</th>
+		<th scope="col" title="星期日">日</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="http://www.ido321.com/date/2016/05">« 五</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next" class="pad">&nbsp;</td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="2" class="pad">&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+	</tr>
+	<tr>
+		<td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td><a href="http://www.ido321.com/date/2016/06/11" title="从前端到伪全栈">11</a></td><td><a href="http://www.ido321.com/date/2016/06/12" title="有用的git建议">12</a></td>
+	</tr>
+	<tr>
+		<td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td>
+	</tr>
+	<tr>
+		<td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td>
+	</tr>
+	<tr>
+		<td>27</td><td>28</td><td id="today">29</td><td>30</td>
+		<td class="pad" colspan="3">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></div></aside></section>
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright pull-left">
+         	<a href="http://www.ido321.com/" title="淡忘~浅思">版权所有 © 2014-2016  淡忘~浅思</a> 
+         	版权所有，保留一切权利 &nbsp;&nbsp;|&nbsp;&nbsp;
+         	<a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备14062509</a>
+         	&nbsp;&nbsp;|&nbsp;&nbsp;托管于 <a rel="nofollow" target="_blank" href="http://buy.aliyun.com/">阿里云主机</a> &amp; 
+         	<a rel="nofollow" target="_blank" href="https://portal.qiniu.com/signup?code=3lqitigoybbrm">七牛</a>  
+         	<a href="http://www.ido321.com/sitemap.html" target="_blank">网站地图</a>
+        </div>
+        <div class="trackcode pull-right">
+                    </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="./怎么使用PHPMailer实现邮件的发送？？ _ 淡忘_浅思_files/jquery.js"></script>
+<script>function lc_get_cookie(name) {var c = document.cookie;if (c.indexOf(name) != -1) {var x = c.indexOf(name)+name.length+1;var y = c.indexOf(";",x);if (y < 0) y = c.length;return decodeURIComponent(c.substring(x,y));} else return "";}if ((d = document.getElementById("commentform")) != null) { e = d.elements;var z = lc_get_cookie("comment_author_email_4e2fc8b951cf53e2909b9461a3aa292f");if (z != "") e["email"].value = z;z = lc_get_cookie("comment_author_4e2fc8b951cf53e2909b9461a3aa292f");if (z != "") e["author"].value = z.replace(/\+/g, " ");z = lc_get_cookie("comment_author_url_4e2fc8b951cf53e2909b9461a3aa292f");if (z != "") e["url"].value = z;}</script><div class="rollto" style="display: block;"><button class="btn btn-inverse" data-type="totop" title="回顶部"><i class="fa fa-arrow-up"></i></button><button class="btn btn-inverse" data-type="torespond" title="发评论"><i class="fa fa-comment-o"></i></button></div><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

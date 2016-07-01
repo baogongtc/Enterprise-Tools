@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0067)http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="description" content="Leequangang">
+<meta name="keywords" content="life,PRML,software">
+<meta name="author" content="Leequangang">
+<link href="./LQG&#39;s Blog_files/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./LQG&#39;s Blog_files/default.css">
+<link rel="stylesheet" type="text/css" href="./LQG&#39;s Blog_files/pygments.css">
+<link href="./LQG&#39;s Blog_files/css" rel="stylesheet" type="text/css">
+<link href="./LQG&#39;s Blog_files/css(1)" rel="stylesheet" type="text/css">
+
+
+<!--  将google 字体换成360的CDN服务 就是把googleapis.com 换成 useso.com    <link href='http://fonts.googleapis.com/css?family=Tangerine:700|Gentium+Book+Basic' rel='stylesheet' type='text/css'>   -->
+
+<!--  <base target="_blank"> 这句用于所有链接都在新建窗口打开，但是每个帖子的目录也会新建窗口打开  -->
+
+<title>LQG's Blog</title>
+
+<script type="text/javascript" async="" src="./LQG&#39;s Blog_files/embed.js" charset="UTF-8"></script><link type="text/css" rel="stylesheet" href="./LQG&#39;s Blog_files/embed.dark.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body data-pinterest-extension-installed="cr1.39.1"><div id="MathJax_Message" style="display: none;"></div>
+<div id="wrap">
+	<div id="header">
+		<p id="toplinks">
+
+		</p>
+
+		<h1><a href="http://leequangang.github.io/"><div id="logo"></div>Lee<span class="fade">quangang</span></a></h1>
+		<div class="slogan">
+				<a style="font-family:Galdeano; " title="" href="http://leequangang.github.io/math.html" class="green">♣Math</a>				
+				<a style="font-family:Galdeano" title="" href="http://leequangang.github.io/tech.html" class="orange">♦Tech</a>
+				<a style="font-family:Galdeano" title="" href="http://leequangang.github.io/notes.html" class="blue">♠Notes</a>
+				<a style="font-family:Galdeano" title="" href="http://leequangang.github.io/life.html" class="pink">♥Life</a>
+				<a style="font-family:Galdeano" title="" href="http://leequangang.github.io/resource.html" class="cyan">¤Resource</a>
+				<a style="font-family:Galdeano" title="" href="http://leequangang.github.io/categories.html" class="brown">≡Archive</a>			
+		</div>
+
+</div>
+
+<div id="content">  
+  <div id="post">
+<h2 id="nodejsanywhere">node.js+anywhere构建静态文件服务器</h2>
+
+<ul id="markdown-toc">
+  <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#nodejsanywhere">node.js+anywhere构建静态文件服务器</a>    <ul>
+      <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#nodejs">node.js安装</a></li>
+      <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#npm">npm安装</a></li>
+      <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#anywhere">anywhere安装使用</a></li>
+      <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#nodejsweb">node.js编写web服务器</a></li>
+      <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#url">url特殊字符</a></li>
+      <li><a href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#references">References</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="nodejs">node.js安装</h3>
+<ul>
+  <li><strong>windows</strong></li>
+</ul>
+
+<p><a href="http://nodejs.org/download/">直接下载exe文件</a>或着.msi安装包。创建D:\nodejs目录，并将node.exe保存在这个目录中。并将”D:\nodejs”加入系统环境变量PATH中，便于在任意位置执行node.exe  <br>
+<code>node -v</code>查看版本</p>
+
+<ul>
+  <li><strong>Linux</strong></li>
+</ul>
+
+<p><a href="http://nodejs.org/download/">下载Node.js源代码</a>，解压，进入目录，编译安装，<code>node -v</code>查看版本。</p>
+
+<pre><code>./configure
+make
+sudo make install
+</code></pre>
+
+<h3 id="npm">npm安装</h3>
+<p><a href="https://github.com/isaacs/npm">npm</a>全名为Node Package Manager，是Node.js 的套件（package）管理工具，安装npm 后，使用<code>npm install module-name</code>指令即可安装新套件。基本命令如下：  </p>
+
+<pre><code>npm -v                   #显示版本，检查npm 是否正确安装。
+npm install xxx 		 #安装模块
+npm install xxx -g 	  #将模块安装到全局环境中
+npm uninstall XXX (-g)   #删除指定的模块
+npm rm XXX (-g)		  #删除指定的模块
+npm cache clean 		 #清理缓存
+npm ls 				  #查看安装的模块及依赖
+npm ls -g 			   #查看全局安装的模块及依赖
+npm list                 #列出已安装模块
+npm show XXX        	 #显示模块详情
+npm update               #升级所有套件
+npm update XXX           #升级指定的模块
+</code></pre>
+<ul>
+  <li><strong>windows</strong></li>
+</ul>
+
+<p><a href="http://nodejs.org/dist/npm/">下载zip文件</a>解压到node.exe所在目录中。运行npm.cmd  <br>
+<code>npm -v</code>查看版本</p>
+
+<ul>
+  <li><strong>Linux</strong></li>
+</ul>
+
+<p><a href="https://npmjs.org/install.sh">下载脚本运行</a></p>
+
+<h3 id="anywhere">anywhere安装使用</h3>
+<p><a href="https://npmjs.org/package/anywhere">anywhere</a>随时随地将你的当前目录变成一个静态文件服务器的根目录。</p>
+
+<p>安装<code>npm install anywhere -g</code>，然后进入任意目录在cmd下运行即可把该目录变成静态文件服务器的根目录（比apache简单多了）。例如可以本地编译本博客后进入_site文件夹，运行anywhere就可启动web服务。</p>
+
+<pre><code>anywhere
+// or with port
+anywhere 8000
+</code></pre>
+
+<h3 id="nodejsweb">node.js编写web服务器</h3>
+<p>node.js可以用javascript建立简单web服务器,可学习下下面三个博客：  <br>
+1、<a href="http://www.oschina.net/question/12_31866">Node.js静态文件服务器实战</a>  <br>
+2、<a href="http://www.jiangkunlun.com/2012/09/nodejs_%E9%9D%99%E6%80%81_%E6%9C%8D%E5%8A%A1%E5%99%A8/">node.js入门—-静态文件服务器</a>  <br>
+3、<a href="http://blog.csdn.net/zhangxin09/article/details/8133184">学习NodeJS第七天：安装静态的文件服务器</a>  </p>
+
+<p>其中我用本博客的_site来测试第二篇的代码时，Url解析有问题，主要是我的博客命名规则是a+b.html包含了特殊字符，当url请求中将+号转义成%2B，但是在本地html文本中没有这个名字，故需要在app.js中添加一句转义。同时以后的.md博客命名还是不要包含转义字符了。  <br>
+<code>pathname = pathname.replace(/\%2B/g, '+');//用来转义URL中特殊字符+</code></p>
+
+<h3 id="url">url特殊字符</h3>
+
+<p>URL特殊符号及对应的十六进制值编码：</p>
+
+<ol>
+  <li>+ 表示空格 %2B</li>
+  <li>空格 用+号或者编码  %20</li>
+  <li>/  分隔目录和子目录  %2F </li>
+  <li>?  分隔实际的URL和参数  %3F </li>
+  <li>% 指定特殊字符 %25 </li>
+  <li># 表示书签 %23 </li>
+  <li>&amp; URL中指定的参数间的分隔符 %26 </li>
+</ol>
+
+<h3 id="references">References</h3>
+<p>[1] <a href="http://google.com/" title="显示google主页">google</a></p>
+
+
+</div>
+
+<div class="go-top" style="display: block; right: 5%; position: fixed; bottom: 10px; ">
+<i class="pos-btn" onclick="window.scrollTo(&#39;0&#39;, &#39;0&#39;)"><i class="fa fa-angle-double-up"></i></i>
+</div>
+
+<div id="author">
+<p align="right">
+<span class="signature">
+  <a href="http://leequangang.github.io/about.html"><font color="orange">Leequangang</font></a>
+</span>
+<span class="time">
+  /
+  <time datetime="2013-10-25">2013-10-25</time>
+</span>
+
+<br>
+
+<span class="license">
+  Published under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(CC) BY-NC-SA</a>
+</span>
+</p>
+</div>
+
+<div class="post text">
+  <div class="body">
+    <i><b>Categories : &nbsp;</b></i>
+    
+    <a href="http://leequangang.github.io/categories.html#tech">tech</a>&nbsp; · &nbsp;
+    
+
+    <i><b>Tags : &nbsp;</b></i>
+    
+    <a href="http://leequangang.github.io/tags.html#node.js">node.js</a>&nbsp; · &nbsp;
+    
+    <a href="http://leequangang.github.io/tags.html#npm">npm</a>&nbsp; · &nbsp;
+    
+    <a href="http://leequangang.github.io/tags.html#web">web</a>&nbsp; · &nbsp;
+    
+  </div>
+</div>
+
+
+
+
+<div id="related">
+  <h3>Possibly Related Posts</h3>
+  <ul class="posts">
+    
+      <li><span>20 Oct 2014</span> » <a href="http://leequangang.github.io/life/2014/10/20/classic.html">文化经典</a></li>
+    
+      <li><span>04 Jun 2014</span> » <a href="http://leequangang.github.io/tech/2014/06/04/InverseSearch.html">tex与pdf之间搜索与反向搜索关联</a></li>
+    
+      <li><span>25 Feb 2014</span> » <a href="http://leequangang.github.io/notes/2014/02/25/Stephen_Wolfram.html">The Personal Analytics of My Life</a></li>
+    
+  </ul>
+</div>
+
+
+<!-- This is for Comments -->
+<a id="a_comments" href="http://leequangang.github.io/tech/2013/10/25/node.js_Linux_web.html#" onclick="javascript:toggleComments(); return false;"><h3>Hidden Comments »</h3></a>
+<div class="comments" id="div_comments" style="display: true">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="" data-title="" data-url="" id="ds-thread"><div id="ds-reset"><div class="ds-meta" style="display: none;"><a href="javascript:void(0)" class="ds-like-thread-button ds-rounded"><span class="ds-icon ds-icon-heart"></span> <span class="ds-thread-like-text">喜欢</span><span class="ds-thread-cancel-like">取消喜欢</span></a><span class="ds-like-panel"></span></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);">0条评论</a></li>  </ul></div><ul class="ds-comments"><li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://leequangang.duoshuo.com/login/weixin/" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://leequangang.duoshuo.com/login/weibo/" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://leequangang.duoshuo.com/login/qq/" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://leequangang.duoshuo.com/login/renren/" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://leequangang.duoshuo.com/login/douban/" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://leequangang.duoshuo.com/login/kaixin/" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://leequangang.duoshuo.com/login/baidu/" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://leequangang.duoshuo.com/login/google/" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./LQG&#39;s Blog_files/161917.jpg" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1205991632344711172">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="57034f6cd95b9"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">多说强力驱动</a></p></div></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"leequangang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+
+<!-- This is for show/hidden Comments -->
+
+<script type="text/javascript">
+// Toggle comments section. Show by default.
+function toggleComments() {
+    var d = document.getElementById('div_comments');
+    var a = document.getElementById('a_comments');
+    if (d.style['display'] == 'none') {
+        d.style['display'] = 'block';
+        a.innerHTML = 'Hide Comments &laquo';
+    } else {
+        d.style['display'] = 'none';
+        a.innerHTML='Show Comments &raquo';
+    }
+    return false;
+}
+</script>
+</div>
+
+<div class="sa_bookmark">
+	<a title="分享到新浪微博" href="javascript:void(0)" onclick="window.open(&#39;http://v.t.sina.com.cn/share/share.php?url=&#39;+encodeURI(document.location)+&#39;&amp;appkey=1960942321&amp;title=&#39;+encodeURI(document.title) , &#39;newwindow&#39;, &#39;height=330,width=550,top=&#39; + (screen.height - 280) / 2 + &#39;,left=&#39; + (screen.width - 550) / 2 + &#39;, toolbar=no, menubar=no, scrollbars=no,resizable=yes,location=no, status=no&#39;)"> </a>
+	<a href="javascript:void(0)" onclick="window.open(&#39;http://v.t.qq.com/share/share.php?title=&#39;+encodeURIComponent(document.title)+&#39;&amp;url=&#39;+encodeURIComponent(location.href)+&#39;&amp;source=bookmark&#39;,&#39;_blank&#39;,&#39;width=610,height=350&#39;)" title="分享到QQ微博"> </a>
+	<a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(d.location.href)+&#39;&amp;title=&#39;+e(d.title)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" title="分享到豆瓣"> </a>
+	<a href="javascript:void(0)" onclick="window.external.AddFavorite(document.location.href, document.title);return false;" title="收藏"> </a>
+</div>
+
+<div id="footer">
+
+  <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh"></a><i class="fa fa-cc"></i>&nbsp; 本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">知识共享署名-非商业性使用-相同方式共享 3.0 未本地化版本许可协议</a>进行许可</p>
+
+  <p>© 2013 <a href="http://leequangang.github.io/about.html" title="about me">Lee quangang</a>
+  <a href="http://leequangang.github.io/atom.xml"><img src="./LQG&#39;s Blog_files/rss16.png"></a>&nbsp; &nbsp; <i class="fa fa-envelope-o fa-1x"></i>:&nbsp; <b>leequangang[at]gmail.com</b> &nbsp; &nbsp; <a href="https://github.com/leequangang/leequangang.github.com"><i class="fa fa-github fa-2x"></i>&nbsp; Blog Code</a></p>
+
+  <p><a href="http://leequangang.github.io/timeline/timeline.html">Timeline of Chinese history</a> &nbsp; &nbsp; Powered by <a href="http://jekyllrb.com/">Jekyll</a>&nbsp; &amp; &nbsp; <a href="https://github.com/">GitHub</a>&nbsp; &nbsp; Theme by <a href="http://danhixon.github.com/">[Dan Hixon]</a></p>
+
+<!-- This is for cnzz -->
+<script src="./LQG&#39;s Blog_files/stat.php" language="JavaScript"></script><script src="./LQG&#39;s Blog_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=5521026" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./LQG&#39;s Blog_files/pic.gif"></a>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./LQG&#39;s Blog_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4105222-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<!-- This is for Mathjax -->
+
+<script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({
+        TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+        "HTML-CSS": {linebreaks: {automatic: true}},
+        SVG: {linebreaks: {automatic: true}}
+    });
+</script>
+
+<script type="text/javascript" src="./LQG&#39;s Blog_files/MathJax.js"></script>
+
+
+
+
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

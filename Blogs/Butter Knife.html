@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://jakewharton.github.io/butterknife/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Butter Knife</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Field and method binding for Android views.">
+    <link href="./Butter Knife_files/css" rel="stylesheet" title="roboto">
+    <link href="./Butter Knife_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./Butter Knife_files/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="./Butter Knife_files/prettify.css" rel="stylesheet">
+    <link href="./Butter Knife_files/app.css" rel="stylesheet">
+  </head>
+  <body data-pinterest-extension-installed="cr1.39.1">
+    <div class="container">
+      <div class="row">
+        <div class="span4 side">
+          <img src="./Butter Knife_files/logo.png">
+          <h1>Butter Knife</h1>
+          <h2>Field and method binding for Android views</h2>
+          <p><a href="http://jakewharton.github.io/butterknife/javadoc/">Javadoc</a> · <a href="http://stackoverflow.com/questions/ask?tags=butterknife">StackOverflow</a></p>
+        </div>
+        <div class="offset4 span8 main">
+          <div class="main-inner">
+            <h3 id="introduction">Introduction</h3>
+            <p>Annotate fields with <code>@BindView</code> and a view ID for Butter Knife to find and automatically cast the corresponding view in your layout.</p>
+            <pre class="prettyprint"><span class="kwd">class</span><span class="pln"> </span><span class="typ">ExampleActivity</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Activity</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">title</span><span class="pun">)</span><span class="pln"> </span><span class="typ">TextView</span><span class="pln"> title</span><span class="pun">;</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">subtitle</span><span class="pun">)</span><span class="pln"> </span><span class="typ">TextView</span><span class="pln"> subtitle</span><span class="pun">;</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">footer</span><span class="pun">)</span><span class="pln"> </span><span class="typ">TextView</span><span class="pln"> footer</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCreate</span><span class="pun">(</span><span class="typ">Bundle</span><span class="pln"> savedInstanceState</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">onCreate</span><span class="pun">(</span><span class="pln">savedInstanceState</span><span class="pun">);</span><span class="pln">
+    setContentView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">simple_activity</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">);</span><span class="pln">
+    </span><span class="com">// TODO Use fields...</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>Instead of slow reflection, code is generated to perform the view look-ups. Calling <code>bind</code> delegates to this generated code that you can see and debug.</p>
+            <p>The generated code for the above example is roughly equivalent to the following:</p>
+            <pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> bind</span><span class="pun">(</span><span class="typ">ExampleActivity</span><span class="pln"> activity</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  activity</span><span class="pun">.</span><span class="pln">subtitle </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">android</span><span class="pun">.</span><span class="pln">widget</span><span class="pun">.</span><span class="typ">TextView</span><span class="pun">)</span><span class="pln"> activity</span><span class="pun">.</span><span class="pln">findViewById</span><span class="pun">(</span><span class="lit">2130968578</span><span class="pun">);</span><span class="pln">
+  activity</span><span class="pun">.</span><span class="pln">footer </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">android</span><span class="pun">.</span><span class="pln">widget</span><span class="pun">.</span><span class="typ">TextView</span><span class="pun">)</span><span class="pln"> activity</span><span class="pun">.</span><span class="pln">findViewById</span><span class="pun">(</span><span class="lit">2130968579</span><span class="pun">);</span><span class="pln">
+  activity</span><span class="pun">.</span><span class="pln">title </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">android</span><span class="pun">.</span><span class="pln">widget</span><span class="pun">.</span><span class="typ">TextView</span><span class="pun">)</span><span class="pln"> activity</span><span class="pun">.</span><span class="pln">findViewById</span><span class="pun">(</span><span class="lit">2130968577</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+            <h4 id="resource">Resource Binding</h4>
+            <p>Bind pre-defined resources with <code>@BindBool</code>, <code>@BindColor</code>, <code>@BindDimen</code>, <code>@BindDrawable</code>, <code>@BindInt</code>, <code>@BindString</code>, which binds an <code>R.bool</code> ID (or your specified type) to its corresponding field.</p>
+            <pre class="prettyprint"><span class="kwd">class</span><span class="pln"> </span><span class="typ">ExampleActivity</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Activity</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@BindString</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="kwd">string</span><span class="pun">.</span><span class="pln">title</span><span class="pun">)</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> title</span><span class="pun">;</span><span class="pln">
+  </span><span class="lit">@BindDrawable</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">drawable</span><span class="pun">.</span><span class="pln">graphic</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Drawable</span><span class="pln"> graphic</span><span class="pun">;</span><span class="pln">
+  </span><span class="lit">@BindColor</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">color</span><span class="pun">.</span><span class="pln">red</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> red</span><span class="pun">;</span><span class="pln"> </span><span class="com">// int or ColorStateList field</span><span class="pln">
+  </span><span class="lit">@BindDimen</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">dimen</span><span class="pun">.</span><span class="pln">spacer</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Float</span><span class="pln"> spacer</span><span class="pun">;</span><span class="pln"> </span><span class="com">// int (for pixel size) or float (for exact value) field</span><span class="pln">
+  </span><span class="com">// ...</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+            <h4 id="non-activity">Non-Activity Binding</h4>
+            <p>You can also perform binding on arbitrary objects by supplying your own view root.</p>
+            <pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">FancyFragment</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Fragment</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">button1</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Button</span><span class="pln"> button1</span><span class="pun">;</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">button2</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Button</span><span class="pln"> button2</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">View</span><span class="pln"> onCreateView</span><span class="pun">(</span><span class="typ">LayoutInflater</span><span class="pln"> inflater</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ViewGroup</span><span class="pln"> container</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Bundle</span><span class="pln"> savedInstanceState</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">View</span><span class="pln"> view </span><span class="pun">=</span><span class="pln"> inflater</span><span class="pun">.</span><span class="pln">inflate</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">fancy_fragment</span><span class="pun">,</span><span class="pln"> container</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> view</span><span class="pun">);</span><span class="pln">
+    </span><span class="com">// TODO Use fields...</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> view</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>Another use is simplifying the view holder pattern inside of a list adapter.</p>
+            <pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">MyAdapter</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">BaseAdapter</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">View</span><span class="pln"> getView</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> position</span><span class="pun">,</span><span class="pln"> </span><span class="typ">View</span><span class="pln"> view</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ViewGroup</span><span class="pln"> parent</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">ViewHolder</span><span class="pln"> holder</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">view </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      holder </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">ViewHolder</span><span class="pun">)</span><span class="pln"> view</span><span class="pun">.</span><span class="pln">getTag</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      view </span><span class="pun">=</span><span class="pln"> inflater</span><span class="pun">.</span><span class="pln">inflate</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">whatever</span><span class="pun">,</span><span class="pln"> parent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+      holder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ViewHolder</span><span class="pun">(</span><span class="pln">view</span><span class="pun">);</span><span class="pln">
+      view</span><span class="pun">.</span><span class="pln">setTag</span><span class="pun">(</span><span class="pln">holder</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    holder</span><span class="pun">.</span><span class="pln">name</span><span class="pun">.</span><span class="pln">setText</span><span class="pun">(</span><span class="str">"John Doe"</span><span class="pun">);</span><span class="pln">
+    </span><span class="com">// etc...</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> view</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+  </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">ViewHolder</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">title</span><span class="pun">)</span><span class="pln"> </span><span class="typ">TextView</span><span class="pln"> name</span><span class="pun">;</span><span class="pln">
+    </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">job_title</span><span class="pun">)</span><span class="pln"> </span><span class="typ">TextView</span><span class="pln"> jobTitle</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">ViewHolder</span><span class="pun">(</span><span class="typ">View</span><span class="pln"> view</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> view</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>You can see this implementation in action in the provided sample.</p>
+            <p>Calls to <code>ButterKnife.bind</code> can be made anywhere you would otherwise put <code>findViewById</code> calls.</p>
+            <p>Other provided binding APIs:</p>
+            <ul>
+              <li>Bind arbitrary objects using an activity as the view root. If you use a pattern like MVC you can bind the controller using its activity with <code>ButterKnife.bind(this, activity)</code>.</li>
+              <li>Bind a view's children into fields using <code>ButterKnife.bind(this)</code>. If you use <code>&lt;merge&gt;</code> tags in a layout and inflate in a custom view constructor you can
+   call this immediately after. Alternatively, custom view types inflated from
+   XML can use it in the <code>onFinishInflate()</code> callback.</li>
+            </ul>
+
+            <h4 id="view-lists">View Lists</h4>
+            <p>You can group multiple views into a <code>List</code> or array.</p>
+            <pre class="prettyprint"><span class="lit">@BindViews</span><span class="pun">({</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">first_name</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">middle_name</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">last_name </span><span class="pun">})</span><span class="pln">
+</span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">EditText</span><span class="pun">&gt;</span><span class="pln"> nameViews</span><span class="pun">;</span></pre>
+            <p>The <code>apply</code> method allows you to act on all the views in a list at once.</p>
+            <pre class="prettyprint"><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">apply</span><span class="pun">(</span><span class="pln">nameViews</span><span class="pun">,</span><span class="pln"> DISABLE</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">apply</span><span class="pun">(</span><span class="pln">nameViews</span><span class="pun">,</span><span class="pln"> ENABLED</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span></pre>
+            <p><code>Action</code> and <code>Setter</code> interfaces allow specifying simple behavior.</p>
+            <pre class="prettyprint"><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="typ">Action</span><span class="pun">&lt;</span><span class="typ">View</span><span class="pun">&gt;</span><span class="pln"> DISABLE </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="typ">Action</span><span class="pun">&lt;</span><span class="typ">View</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> apply</span><span class="pun">(</span><span class="typ">View</span><span class="pln"> view</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> index</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    view</span><span class="pun">.</span><span class="pln">setEnabled</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+</span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="typ">Setter</span><span class="pun">&lt;</span><span class="typ">View</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Boolean</span><span class="pun">&gt;</span><span class="pln"> ENABLED </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="typ">Setter</span><span class="pun">&lt;</span><span class="typ">View</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Boolean</span><span class="pun">&gt;()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="kwd">set</span><span class="pun">(</span><span class="typ">View</span><span class="pln"> view</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Boolean</span><span class="pln"> value</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> index</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    view</span><span class="pun">.</span><span class="pln">setEnabled</span><span class="pun">(</span><span class="pln">value</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span></pre>
+            <p>An Android <a href="https://developer.android.com/reference/android/util/Property.html"><code>Property</code></a> can also be used with the <code>apply</code> method.</p>
+            <pre class="prettyprint"><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">apply</span><span class="pun">(</span><span class="pln">nameViews</span><span class="pun">,</span><span class="pln"> </span><span class="typ">View</span><span class="pun">.</span><span class="pln">ALPHA</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0.0f</span><span class="pun">);</span></pre>
+
+            <h4 id="listener-binding">Listener Binding</h4>
+            <p>Listeners can also automatically be configured onto methods.</p>
+            <pre class="prettyprint"><span class="lit">@OnClick</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">submit</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> submit</span><span class="pun">(</span><span class="typ">View</span><span class="pln"> view</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// TODO submit data to server...</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>All arguments to the listener method are optional.</p>
+            <pre class="prettyprint"><span class="lit">@OnClick</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">submit</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> submit</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// TODO submit data to server...</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>Define a specific type and it will automatically be cast.</p>
+            <pre class="prettyprint"><span class="lit">@OnClick</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">submit</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> sayHi</span><span class="pun">(</span><span class="typ">Button</span><span class="pln"> button</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  button</span><span class="pun">.</span><span class="pln">setText</span><span class="pun">(</span><span class="str">"Hello!"</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>Specify multiple IDs in a single binding for common event handling.</p>
+            <pre class="prettyprint"><span class="lit">@OnClick</span><span class="pun">({</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">door1</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">door2</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">door3 </span><span class="pun">})</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> pickDoor</span><span class="pun">(</span><span class="typ">DoorView</span><span class="pln"> door</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">door</span><span class="pun">.</span><span class="pln">hasPrizeBehind</span><span class="pun">())</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Toast</span><span class="pun">.</span><span class="pln">makeText</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> </span><span class="str">"You win!"</span><span class="pun">,</span><span class="pln"> LENGTH_SHORT</span><span class="pun">).</span><span class="pln">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Toast</span><span class="pun">.</span><span class="pln">makeText</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Try again"</span><span class="pun">,</span><span class="pln"> LENGTH_SHORT</span><span class="pun">).</span><span class="pln">show</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+            <p>Custom views can bind to their own listeners by not specifying an ID.</p>
+            <pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">FancyButton</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Button</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@OnClick</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onClick</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// TODO do something!</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+            <h4 id="reset">Binding Reset</h4>
+            <p>Fragments have a different view lifecycle than activities. When binding a fragment in <code>onCreateView</code>, set the views to <code>null</code> in <code>onDestroyView</code>. Butter Knife returns an <code>Unbinder</code> instance when you call <code>bind</code> to do this for you. Call its <code>unbind</code> method in the appropriate lifecycle callback.</p>
+            <pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">FancyFragment</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">Fragment</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">button1</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Button</span><span class="pln"> button1</span><span class="pun">;</span><span class="pln">
+  </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">button2</span><span class="pun">)</span><span class="pln"> </span><span class="typ">Button</span><span class="pln"> button2</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Unbinder</span><span class="pln"> unbinder</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">View</span><span class="pln"> onCreateView</span><span class="pun">(</span><span class="typ">LayoutInflater</span><span class="pln"> inflater</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ViewGroup</span><span class="pln"> container</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Bundle</span><span class="pln"> savedInstanceState</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">View</span><span class="pln"> view </span><span class="pun">=</span><span class="pln"> inflater</span><span class="pun">.</span><span class="pln">inflate</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">fancy_fragment</span><span class="pun">,</span><span class="pln"> container</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+    unbinder </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> view</span><span class="pun">);</span><span class="pln">
+    </span><span class="com">// TODO Use fields...</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> view</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+  </span><span class="lit">@Override</span><span class="pln"> </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onDestroyView</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">onDestroyView</span><span class="pun">();</span><span class="pln">
+    unbinder</span><span class="pun">.</span><span class="pln">unbind</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+            <h4 id="optional">Optional Bindings</h4>
+            <p>By default, both <code>@Bind</code> and listener bindings are required. An exception will be thrown if the target view cannot be found.</p>
+            <p>To suppress this behavior and create an optional binding, add a <code>@Nullable</code> annotation to fields or the <code>@Optional</code> annotation to methods.</p>
+            <p>Note: Any annotation named <code>@Nullable</code> can be used for fields. It is encouraged to use the <code>@Nullable</code> annotation from <a href="http://tools.android.com/tech-docs/support-annotations">Android's "support-annotations" library</a>.</p>
+            <pre class="prettyprint"><span class="lit">@Nullable</span><span class="pln"> </span><span class="lit">@BindView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">might_not_be_there</span><span class="pun">)</span><span class="pln"> </span><span class="typ">TextView</span><span class="pln"> mightNotBeThere</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@Optional</span><span class="pln"> </span><span class="lit">@OnClick</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">maybe_missing</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onMaybeMissingClicked</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// TODO ...</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+            <h4 id="multi-method-listeners">Multi-Method Listeners</h4>
+            <p>Method annotations whose corresponding listener has multiple callbacks can be used to bind to any one of them. Each annotation has a default callback that it binds to. Specify an alternate using the <code>callback</code> parameter.</p>
+            <pre class="prettyprint"><span class="lit">@OnItemSelected</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">list_view</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">void</span><span class="pln"> onItemSelected</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> position</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// TODO ...</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="lit">@OnItemSelected</span><span class="pun">(</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">maybe_missing</span><span class="pun">,</span><span class="pln"> callback </span><span class="pun">=</span><span class="pln"> NOTHING_SELECTED</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">void</span><span class="pln"> onNothingSelected</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// TODO ...</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+            <h4 id="bonus">Bonus</h4>
+            <p>Also included are <code>findById</code> methods which simplify code that still has to find views on a <code>View</code>, <code>Activity</code>, or <code>Dialog</code>. It uses generics to infer the return type and automatically performs the cast.</p>
+            <pre class="prettyprint"><span class="typ">View</span><span class="pln"> view </span><span class="pun">=</span><span class="pln"> </span><span class="typ">LayoutInflater</span><span class="pun">.</span><span class="kwd">from</span><span class="pun">(</span><span class="pln">context</span><span class="pun">).</span><span class="pln">inflate</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">thing</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">TextView</span><span class="pln"> firstName </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">findById</span><span class="pun">(</span><span class="pln">view</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">first_name</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">TextView</span><span class="pln"> lastName </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">findById</span><span class="pun">(</span><span class="pln">view</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">last_name</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">ImageView</span><span class="pln"> photo </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ButterKnife</span><span class="pun">.</span><span class="pln">findById</span><span class="pun">(</span><span class="pln">view</span><span class="pun">,</span><span class="pln"> R</span><span class="pun">.</span><span class="pln">id</span><span class="pun">.</span><span class="pln">photo</span><span class="pun">);</span></pre>
+            <p>Add a static import for <code>ButterKnife.findById</code> and enjoy even more fun.</p>
+
+            <h3 id="download">Download</h3>
+            <h4>Gradle</h4>
+            <pre class="prettyprint"><span class="pln">compile </span><span class="str">'com.jakewharton:butterknife:</span><span class="version">8.1.0</span><span class="str">'</span><span class="pln">
+apt </span><span class="str">'com.jakewharton:butterknife-compiler:</span><span class="version">8.1.0</span><span class="str">'</span></pre>
+
+            <h3 id="license">License</h3>
+            <pre class="license">Copyright 2013 Jake Wharton
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</pre>
+
+            <a id="ribbon" href="https://github.com/JakeWharton/butterknife"><img src="./Butter Knife_files/ribbon.png" alt="Fork me on GitHub" data-pin-nopin="true"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./Butter Knife_files/jquery.min.js"></script>
+    <script src="./Butter Knife_files/jquery-maven-artifact.min.js"></script>
+    <script src="./Butter Knife_files/prettify.js"></script>
+    <script>
+      prettyPrint();
+      $.fn.artifactVersion('com.jakewharton', 'butterknife', function(version, url) {
+        $('.version').text(version);
+      });
+    </script>
+  
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; top: 70px; left: 132px; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

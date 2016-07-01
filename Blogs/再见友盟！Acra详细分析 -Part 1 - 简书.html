@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/fd4d6a7c6175 -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="概述Acra是老牌的bug自动采集系统。接入sdk后，可以实现程序崩溃自动发送崩溃日志。发送自定义的错误日志等功能。具体详细介绍可以参见acra官网地址。整体来看,Acra就是通过sdk收集进程的崩溃日志，然后以http或mail(默认的两类Sender)的方式将数据发送出去。服务器则是一套基于json的restful的接口。服务端方面不是本次分析重点，暂不进行分析。本系列文章将基于Acra4.9.0RC2源码进行分析。Backend服务端方面我们需要先搭建一个server，才能更好的看到我们的崩溃信息，更直观的看到acra给我们提供了哪些针对崩溃的采...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/fd4d6a7c6175">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/3837284">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="再见友盟！Acra详细分析 -Part 1 " property="twitter:title">
+  <meta content="概述Acra是老牌的bug自动采集系统。接入sdk后，可以实现程序崩溃自动发送崩溃日志。发送自定义的错误日志等功能。具体详细介绍可以参见acra官网地址。整体来看,Acra就是通过sdk收集进程的崩溃日志，然后以http或mail(默认的两类Sender)的方式将数据发送出去。服务器则是一套基于json的restful的接口。服务端方面不是本次分析重点，暂不进行分析。本系列文章将基于Acra4.9.0RC2源码进行分析。Backend服务端方面我们需要先搭建一个server，才能更好的看到我们的崩溃信息，更直观的看到acra给我们提供了哪些针对崩溃的采..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/fd4d6a7c6175" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="再见友盟！Acra详细分析 -Part 1 ">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/fd4d6a7c6175">
+  <meta property="og:description" content="概述Acra是老牌的bug自动采集系统。接入sdk后，可以实现程序崩溃自动发送崩溃日志。发送自定义的错误日志等功能。具体详细介绍可以参见acra官网地址。整体来看,Acra就是通过sdk收集进程...">
+
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/136869-c15e2d98fb930d01.png">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/136869-79c4ed87b977ae24.png">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:image:type" content="image/png">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/3837284">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/3837284">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>再见友盟！Acra详细分析 -Part 1  - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="dGe/gNsRVEwPzIWTpxm/Wskrqo3+ZzmHOMNaB7m9ZRNV/9tVpSsK1YU7zezbfj5/AUmivop7fE8Ff6iTd1FfoA==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="./再见友盟！Acra详细分析 -Part 1 - 简书_files/base-f935477e8faba16f29c6f9e4f0e1d032.css">
+
+    <link rel="stylesheet" media="all" href="./再见友盟！Acra详细分析 -Part 1 - 简书_files/reading-note-4158a6eeb7c4e4a9fd15332778cfb52c.css">
+  <link rel="stylesheet" media="all" href="./再见友盟！Acra详细分析 -Part 1 - 简书_files/base-read-mode-64acccf6966299cfa3d580140a2582fe.css">
+  <script src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/push.js"></script><script type="text/javascript" async="" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/ga.js"></script><script src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/hm.js"></script><script src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="./再见友盟！Acra详细分析 -Part 1 - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png" sizes="152x152">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN" data-pinterest-extension-installed="cr1.39.1">
+  
+  <div class="navbar navbar-jianshu shrink hide-wrap-btn">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a class="ad-selector" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>    <div class="ad-container ">
+      <div class="ad-pop">
+        <img class="ad-logo" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" alt="114">
+        <p class="ad-title">简书</p>
+        <p class="ad-subtitle">交流故事，沟通想法</p>
+        <img class="ad-qrcode" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode">
+        <div>
+          <a class="ad-link" href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
+          <a class="ad-link" href="http://downloads.jianshu.io/apps/haruki/JianShu-1.11.1.apk">Android</a>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="nav-user">
+      <a href="http://www.jianshu.com/p/fd4d6a7c6175#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top" href="http://www.jianshu.com/p/fd4d6a7c6175#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title="" data-original-title="写篇文章"><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container" class="imagebubble-container imagebubble-mode-off">
+    
+<div class="post-bg" id="flag">
+  <div class="wrap-btn hide-wrap-btn" style="top: -1px;">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/ffb8daa1c0d9">
+              <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/91ebf2e6dc16" alt="100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/ffb8daa1c0d9">
+              <span>yftx_</span>
+</a>              <span data-toggle="tooltip" data-original-title="最后编辑于 2016.05.26 13:17">2016.05.26 12:00*</span>
+            <div>
+              <span>写了6232字</span>，<span>被4人关注</span>，<span>获得了5个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">再见友盟！Acra详细分析 -Part 1 </h1>
+          <div class="meta-top">
+            <span class="wordage">字数4804</span>
+            <span class="views-count">阅读314</span>
+            <span class="comments-count">评论0</span>
+            <span class="likes-count">喜欢5</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"><a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"> <i class="fa fa-bookmark-o"></i><span>收藏文章</span></a><span> <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a> <ul class="dropdown-menu arrow-top"> <li> <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/3837284/weibo/image_d19130f85035.jpg&#39;, &#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/weibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;title=&#39;+e(&#39;再见友盟！Acra详细分析 -Part 1 &#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/douban.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/tweibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/qzone.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/twitter.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/fd4d6a7c6175&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/facebook.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/google_plus.png"> </a> </li> <li> <a href="http://www.jianshu.com/p/fd4d6a7c6175"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/renren.png"> </a> </li> </ul></span></div>
+          <!-- -->
+
+          <div class="show-content"><h2>概述</h2>
+<p>Acra是老牌的bug自动采集系统。接入sdk后，可以实现程序崩溃自动发送崩溃日志。<br>发送自定义的错误日志等功能。具体详细介绍可以参见<a href="https://github.com/ACRA/acra" target="_blank">acra官网地址</a>。<br>整体来看,Acra就是通过sdk收集进程的崩溃日志，然后以http或mail(默认的两类Sender)的方式将数据发送出去。服务器则是一套基于json的restful的接口。<br>服务端方面不是本次分析重点，暂不进行分析。<br>本系列文章将基于Acra 4.9.0 RC2源码进行分析。</p>
+<h3>Backend</h3>
+<p>服务端方面我们需要先搭建一个server，才能更好的看到我们的崩溃信息，<br>更直观的看到acra给我们提供了哪些针对崩溃的采集内容。<br>官方提供了acralyzer以及一些针对acra的第三方开源实现。<br>关于世面上常用的server端的，该文章做了明确分析，<a href="https://blog.antoche.com/2013/03/05/crash-reports-and-logs-aggregation-for-android/" target="_blank">针对不同backend的比较</a>。<br><a href="https://github.com/ACRA/acralyzer" target="_blank">官方backend acralyzer</a>的搭建非常简单,具体可以参见该文章的<a href="https://inthecheesefactory.com/blog/how-to-install-and-use-acra-android/en" target="_blank">server配置部分</a>。<br>项目搭建完成后可以使用通过如下的url对server端进行访问。</p>
+<p>查看app崩溃的表结构<br><a href="http://ip:port/_utils/" target="_blank">http://ip:port/_utils/</a><br></p><div class="image-package imagebubble" widget="ImageBubble">
+<img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/136869-c15e2d98fb930d01.png" data-original-src="http://upload-images.jianshu.io/upload_images/136869-c15e2d98fb930d01.png?imageMogr2/auto-orient/strip%7CimageView2/2" class="imagebubble-image"><br><div class="image-caption">utils.png</div>
+</div>
+<p>查看崩溃日志<br><a href="http://ip:port/acralyzer/_design/acralyzer/index.html#/dashboard/" target="_blank">http://ip:port/acralyzer/_design/acralyzer/index.html#/dashboard/</a><br></p><div class="image-package imagebubble" widget="ImageBubble">
+<img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/136869-79c4ed87b977ae24.png" data-original-src="http://upload-images.jianshu.io/upload_images/136869-79c4ed87b977ae24.png?imageMogr2/auto-orient/strip%7CimageView2/2" class="imagebubble-image"><br><div class="image-caption">analyze dashboard.png</div>
+</div>
+<p>关于server端的介绍结束。不是重点。</p>
+<h3>Client</h3>
+<h4>项目构建</h4>
+<p>最新版本项目基于Gradle构建，了解Acra历史的肯定知道该项目是存在了很久了.<br>Android世界中项目最早是基于ant构建，后来是maven，现在是Gradle。<br>在没有Gradle的编译环境之前，基本上大部分是基于maven构建。<br>查看最新版本的代码可以看到仍然包含了之前maven的配置文件。<br>并且使用Gradle编译编译中使用到的version name等配置参数也都是从pom.xml中读取的。<br>具体可以参看<a href="https://github.com/ACRA/acra/blob/master/build.gradle" target="_blank">build.gradle</a>中关于版本号的相关配置。</p>
+<p>需要注意的是，从github clone下来的项目是无法直接使用Gradle进行编译的。<br>熟悉Gradle android 编译流程的人应该从build.gradle文件中可以找出错误的原因。<br>具体的编译文件需要修改的地方为，在build.gradle中开头位置添加编译android项目使用到的plugin。<br>如下所示：</p>
+<pre class="hljs json"><code class="json">//此部分添加到build.gradle开头
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+//此部分添加到build.gradle开头</code></pre>
+<p>添加之后，就可以执行<code>gradle build</code>命令打出需要使用的aar包。</p>
+<hr>
+<h2>项目配置及使用</h2>
+<p>首先需要注意一点,Acra使用独立进程<code>:acra</code>,进行采集数据的发送，保证当app崩溃时，采集仍然能发送出去。<br>由于使用独立的进程，所以会导致application被实例化多次，这样就需要注意app自身的某些业务逻辑，不要在application类中执行多次，从而导致app产生bug。<br>对Acra的相关配置一般在application中进行初始化。</p>
+<h3>初始化配置</h3>
+<p>在application中进行初始化配置。</p>
+<ol>
+<li>
+<p>使用注解初始化</p>
+<pre class="hljs java"><code class="java"> <span class="hljs-keyword">import</span> org.acra.*;
+ <span class="hljs-keyword">import</span> org.acra.annotation.*;
+
+ <span class="hljs-annotation">@ReportsCrashes</span>(
+     formUri = <span class="hljs-string">"http://www.backendofyourchoice.com/reportpath"</span>
+ )
+ <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> </span>{
+     <span class="hljs-annotation">@Override</span>
+     <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">attachBaseContext</span><span class="hljs-params">(Context base)</span> </span>{
+         <span class="hljs-keyword">super</span>.attachBaseContext(base);
+         <span class="hljs-comment">// 调用init方法,对acra进行初始化.</span>
+         ACRA.init(<span class="hljs-keyword">this</span>);
+     }
+ }</code></pre>
+</li>
+<li>
+<p>动态初始化配置</p>
+<pre class="hljs java"><code class="java"> <span class="hljs-keyword">import</span> org.acra.ACRA;
+ <span class="hljs-keyword">import</span> org.acra.configuration.*;
+
+ <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> </span>{
+     <span class="hljs-annotation">@Override</span>
+     <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">attachBaseContext</span><span class="hljs-params">(Context base)</span> </span>{
+         <span class="hljs-keyword">super</span>.attachBaseContext(base);
+         <span class="hljs-comment">//使用ConfigurationBuilder构建ACRAConfirueation</span>
+         <span class="hljs-keyword">final</span> ACRAConfiguration config = <span class="hljs-keyword">new</span> ConfigurationBuilder(<span class="hljs-keyword">this</span>)
+             .setFoo(foo)
+             .setBar(bar)
+             .build();
+         <span class="hljs-comment">// 传参的方式初始化acra</span>
+         ACRA.init(<span class="hljs-keyword">this</span>, config);
+     }
+ }</code></pre>
+</li>
+</ol>
+<p>一般使用acra我们的目的是采集崩溃，所以需要在manifest中申请网络权限，以保证crash的正常发送。<br><code>&lt;uses-permission android:name="android.permission.INTERNET"/&gt;</code></p>
+<h3>目标服务器配置</h3>
+<p>acra中发送crash数据是通过Sender实现的，Sender是通过ReportSenderFactory实例化出来的。<br>而ReportSenderFactory是可以在初始化时进行配置的。<br>acra默认提供了email及http 两种sender。<br>如果自定义Sender则需要两个步骤，</p>
+<ol>
+<li>实现ReportSender接口，用来执行发送报告操作。</li>
+<li>实现ReportSenderFactory接口，用来创建自定义sender。</li>
+</ol>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YourOwnSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ReportSender</span> </span>{
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">send</span><span class="hljs-params">(Context context, CrashReportData report)</span> <span class="hljs-keyword">throws</span> ReportSenderException </span>{
+        <span class="hljs-comment">// 遍历 CrashReportData 并做发送操作</span>
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YourOwnSenderfactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ReportSenderFactory</span> </span>{
+    <span class="hljs-comment">// 由于在SenderService中通过Class.newInstance()来实例化对象</span>
+    <span class="hljs-comment">// 所以需要保证实例化的类的构造函数有一个默认无参的构造函数</span>
+    <span class="hljs-comment">// 自定义的ReportSenderFactory必须包含一个不含参数的构造函数</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> ReportSender <span class="hljs-title">create</span><span class="hljs-params">(Context context, ACRAConfiguration config)</span> </span>{
+        ...
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> YourOwnSender(someConfigPerhaps);
+    }
+}</code></pre>
+<p>针对Sender的配置有两种形式，一种为注解，一种为通过代码进行设置。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-comment">//注解的方式设置Sender</span>
+<span class="hljs-annotation">@ReportCrashes</span>{
+   reportSenderFactoryClasses = {
+        your.funky.ReportSenderFactory.class, 
+        other.funky.ReportSenderFactory.class
+   } 
+}
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YourApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> </span>{
+   ...
+}
+
+<span class="hljs-comment">//代码的方式设置Sender</span>
+<span class="hljs-annotation">@ReportCrashes</span>{
+   ...
+}
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">YourApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> </span>{
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">attachBaseContext</span><span class="hljs-params">(Context base)</span> </span>{
+        <span class="hljs-keyword">super</span>.attachBaseContext(base);
+
+        <span class="hljs-keyword">final</span> Class&lt;? extends ReportSenderFactory&gt;[] myReportSenderFactoryClasses = ...
+
+        <span class="hljs-comment">// 初始化一个ConfigurationBuilder,并设置ReportSenderFactoryClasses.</span>
+        <span class="hljs-keyword">final</span> ACRAConfiguration config = <span class="hljs-keyword">new</span> ConfigurationBuilder(<span class="hljs-keyword">this</span>)
+            .setReportSenderFactoryClasses(myReportSenderFactoryClasses)
+            .build();
+        ACRA.init(<span class="hljs-keyword">this</span>, config);
+    }
+}</code></pre>
+<p>Acra中默认提供两个Sender</p>
+<ol>
+<li>
+<p>HttpSender</p>
+<ul>
+<li>提供了Post及Put两种提交crash到服务器的方式。</li>
+<li>提交的类型可以为JSON或Form表单两种方式。<blockquote><p>建议使用Put方式进行提交。<br>Put可以理解成已经知道了某个资源的位置.代表直接更新或创建该资源。<br>POST为不知道某个资源的位置，由server端来决定对该资源进行何种方式的存储。<br>所以在此场景下使用Put操作更合适，因为每一条bug实际上就应该对应与数据库中的一条，<br>只是该条记录还没有上传到服务器。<br>关于post与put的差别，具体可以查看该文档<a href="http://restcookbook.com/HTTP%20Methods/put-vs-post/" target="_blank">when should use PUT and when should use POST</a>     </p></blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>EmailIntentSender<br> 组拼crash Report 通过intent调用系统提供的发送email的app。</p>
+</li>
+</ol>
+<hr>
+<h2>流程分析及重点类分析</h2>
+<h3>初始化设置流程</h3>
+<p>Acra的初始化函数为init，所以使用入口函数ACRA.init()对acra进行初始化。<br>一般入口函数在application初始化时进行调用。</p>
+<h4>ACRA.init()</h4>
+<p>使用ReportsCrashes来初始化Acra。<br>ACRA提供多个init方法,经过内部调用,最终都会调用参数最多的init方法完成初始化相关逻辑。<br>下面对重要的init方法进行说明</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ACRA</span> </span>{
+    <span class="hljs-comment">//使用Application的注解进行初始化</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(Application app)</span></span>{
+        <span class="hljs-comment">//获取application上的注解</span>
+        <span class="hljs-keyword">final</span> ReportsCrashes reportsCrashes = 
+            app.getClass().getAnnotation(ReportsCrashes.class);
+        <span class="hljs-comment">//ConfigurationBuilder中通过注解获取application上配置的注解信息</span>
+        init(app, <span class="hljs-keyword">new</span> ConfigurationBuilder(app).build());
+    } 
+    <span class="hljs-comment">//参数 checkReportsOnApplicationStart 表示</span>
+    <span class="hljs-comment">//是否立即执行ErrorReporter.checkReportsOnApplicationStart()方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(Application app, ACRAConfiguration config, <span class="hljs-keyword">boolean</span> checkReportsOnApplicationStart)</span></span>{
+        <span class="hljs-comment">//根据process的名字判断执行当前方法执行时所在的进程是否是发送crash的进程</span>
+        <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> senderServiceProcess = isACRASenderServiceProcess(app);
+        <span class="hljs-comment">//ACRA只支持2.3以上的系统版本，所以预先做判断</span>
+        <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> supportedAndroidVersion = Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.FROYO;
+        <span class="hljs-comment">//保存config</span>
+        configProxy = config;
+        <span class="hljs-comment">//获取ACRA保存配置的SharedPreferences</span>
+        <span class="hljs-keyword">final</span> SharedPreferences prefs = <span class="hljs-keyword">new</span> SharedPreferencesFactory(mApplication, configProxy).create();
+        <span class="hljs-keyword">if</span> (!prefs.getBoolean(PREF__LEGACY_ALREADY_CONVERTED_TO_4_8_0, <span class="hljs-keyword">false</span>)) {
+            <span class="hljs-comment">//处理之前的版本的日志文件</span>
+        }
+        errorReporterSingleton = <span class="hljs-keyword">new</span> ErrorReporter(mApplication, configProxy, prefs, enableAcra, supportedAndroidVersion, !senderServiceProcess);   
+        <span class="hljs-comment">//当在非Sender进程，并设置app启动时发送report的情况下进行检测。</span>
+        <span class="hljs-comment">//当在Sender进程中，不需要进行检测，因为Sender进程中的逻辑自己会进行判断处理</span>
+        <span class="hljs-keyword">if</span> (checkReportsOnApplicationStart &amp;&amp; !senderServiceProcess) {
+        <span class="hljs-comment">//执行发送的相关业务逻辑</span>
+            <span class="hljs-keyword">final</span> ApplicationStartupProcessor startupProcessor = 
+                <span class="hljs-keyword">new</span> ApplicationStartupProcessor(mApplication,  config);
+                <span class="hljs-keyword">if</span> (config.deleteOldUnsentReportsOnApplicationStart()) {
+                    startupProcessor.deleteUnsentReportsFromOldAppVersion();
+                }
+                <span class="hljs-keyword">if</span> (config.deleteUnapprovedReportsOnApplicationStart()) {
+                    startupProcessor.deleteAllUnapprovedReportsBarOne();
+                }
+                <span class="hljs-keyword">if</span> (enableAcra) {
+                    startupProcessor.sendApprovedReports();
+                }
+         }
+    }
+}</code></pre>
+<h4>ConfigurationBuilder</h4>
+<p>主要用来封装构造ACRAConfiguration的相关属性。<br>提供了两种方式来设置相关属性的值。</p>
+<ol>
+<li>构造函数通过注解的方式，获取Application中定义注解的值,进行设置。</li>
+<li>通过set方法，设置每个不同的配置项。</li>
+</ol>
+<p>获取属性值之后，通过调用build()方法，创建ACRAConfiguration对象。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-comment">//通过app的注解所配置的值对builder对象本身进行初始化</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConfigurationBuilder</span><span class="hljs-params">(@NonNull Application app)</span> 
+</span>{
+    <span class="hljs-comment">//.....</span>
+}
+<span class="hljs-comment">//构建ACRAConfiguration对象</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> ACRAConfiguration <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ACRAConfiguration(<span class="hljs-keyword">this</span>);
+}
+
+....
+<span class="hljs-comment">//对外提供的设置相关属性的方法</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> ConfigurationBuilder <span class="hljs-title">setHttpHeaders</span><span class="hljs-params">(@NonNull Map&lt;String, String&gt; headers)</span> </span>{
+    <span class="hljs-keyword">this</span>.httpHeaders.clear();
+    <span class="hljs-keyword">this</span>.httpHeaders.putAll(headers);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+}</code></pre>
+<p>可能有些同学不太清楚注解的相关知识，可以参考该文章<a href="http://www.cnblogs.com/peida/archive/2013/04/24/3036689.html" target="_blank">注解知识的介绍</a>。</p>
+<h4>ACRAConfiguration</h4>
+<p>用来保存ACRA涉及到的所有配置。</p>
+<h4>SharedPreferencesFactory</h4>
+<p>用来获取ACRA所使用的SharedPreferences的文件。<br>通过这层封装可以对sp进行一些自定义的设置，比如sp的名字。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SharedPreferencesFactory</span> </span>{
+    <span class="hljs-comment">//获取默认sharedPreferences的流程为</span>
+    <span class="hljs-comment">//1.如果通过builder或ReportsCrashes配置所构建的类生成的config文件，</span>
+    <span class="hljs-comment">//  包含sp相关配置，则使用该配置项。</span>
+    <span class="hljs-comment">//2.如果不满足1的条件，则通过android api PreferenceManager返回默认的sp文件</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> SharedPreferences <span class="hljs-title">create</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (context == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-comment">//..</span>
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-string">""</span>.equals(config.sharedPreferencesName())) {
+            <span class="hljs-keyword">return</span> context.getSharedPreferences(
+                config.sharedPreferencesName(), config.sharedPreferencesMode()
+            );
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> PreferenceManager.getDefaultSharedPreferences(context);
+        }
+    }
+}</code></pre>
+<h4>ErrorReporter</h4>
+<p>ACRA最核心的类，该类用来捕获crash相关的信息，以及发送crash信息。<br>Android平台如果想要捕获java层代码的crash需要设置application Thread的UncaughtExceptionHandler。<br>ACRA会将ErrorReporter设置为Application Thread的UncaughtExceptionHandler。<br>从而实现对异常的捕获。</p>
+<blockquote><p>这里有一点需要注意的，Thread中的defaultUncaughtHandler为一个对象，<br>所以多次设置该属性，则会使用最后一个作为异常捕获的类。<br>比如现在市面上比较火的umeng等相关包含崩溃采集功能sdk。<br>使用的时候，需要注意查看文档或反编译其源码，查看sdk是怎么实现该部分功能的。<br>否则容易造成先设置的异常捕获类，无法被执行。</p></blockquote>
+<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ErrorReporter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Thread</span>.<span class="hljs-title">UncaughtExceptionHandler</span> </span>{
+    ErrorReporter(
+        <span class="hljs-annotation">@NonNull</span> Application context, <span class="hljs-annotation">@NonNull</span> ACRAConfiguration config, 
+        <span class="hljs-annotation">@NonNull</span> SharedPreferences prefs,<span class="hljs-keyword">boolean</span> enabled, 
+        <span class="hljs-keyword">boolean</span> supportedAndroidVersion, <span class="hljs-keyword">boolean</span> listenForUncaughtExceptions)
+    {
+        ...
+        <span class="hljs-comment">//通过ConfigurationCollector获取系统的相关环境信息</span>
+         <span class="hljs-keyword">if</span> (config.getReportFields().contains(ReportField.INITIAL_CONFIGURATION)) {
+            initialConfiguration = ConfigurationCollector.collectConfiguration(<span class="hljs-keyword">this</span>.context);
+        } <span class="hljs-keyword">else</span> {
+            initialConfiguration = <span class="hljs-keyword">null</span>;
+        }
+        <span class="hljs-comment">//获取系统时间，崩溃发生时上传</span>
+        <span class="hljs-keyword">final</span> Calendar appStartDate = <span class="hljs-keyword">new</span> GregorianCalendar();
+        crashReportDataFactory = <span class="hljs-keyword">new</span> CrashReportDataFactory(
+            <span class="hljs-keyword">this</span>.context, config, prefs, appStartDate, initialConfiguration);
+        <span class="hljs-keyword">final</span> Thread.UncaughtExceptionHandler defaultExceptionHandler;
+        <span class="hljs-comment">//listenForUncaughtExceptions为Acra初始化流程中传过来的。</span>
+        <span class="hljs-comment">//如果当前运行的进程是Sender进程则不监听崩溃。</span>
+        <span class="hljs-comment">//如果当前运行的进程是app主进程则对崩溃进行监听</span>
+        <span class="hljs-keyword">if</span> (listenForUncaughtExceptions) {
+            defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+            Thread.setDefaultUncaughtExceptionHandler(<span class="hljs-keyword">this</span>);
+        } <span class="hljs-keyword">else</span> {
+            defaultExceptionHandler = <span class="hljs-keyword">null</span>;
+        }
+        <span class="hljs-comment">//记录最后的activity</span>
+        <span class="hljs-keyword">final</span> LastActivityManager lastActivityManager = <span class="hljs-keyword">new</span> LastActivityManager(<span class="hljs-keyword">this</span>.context);
+        <span class="hljs-comment">//用来保存针对崩溃的一些用户自定义的信息</span>
+        <span class="hljs-keyword">final</span> ReportPrimer reportPrimer = getReportPrimer(config);
+
+        reportExecutor = <span class="hljs-keyword">new</span> ReportExecutor(
+            context, config, crashReportDataFactory, 
+            lastActivityManager, defaultExceptionHandler, reportPrimer);
+        reportExecutor.setEnabled(enabled);
+    }
+
+    <span class="hljs-comment">//崩溃采集需要实现UncaughtExceptionHandler为接口。</span>
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">uncaughtException</span><span class="hljs-params">(@Nullable Thread t, @NonNull Throwable e)</span> </span>{
+        <span class="hljs-comment">//未开启crash采集时，使用之前默认的ExceptionHandler处理</span>
+        <span class="hljs-keyword">if</span> (!reportExecutor.isEnabled()) {
+            reportExecutor.handReportToDefaultExceptionHandler(t, e);
+            <span class="hljs-keyword">return</span>;
+        }
+        <span class="hljs-keyword">try</span> {
+            ACRA.log.e(LOG_TAG, <span class="hljs-string">"ACRA caught a "</span> + e.getClass().getSimpleName() +
+                <span class="hljs-string">" for "</span> + context.getPackageName(), e);
+            <span class="hljs-keyword">if</span> (ACRA.DEV_LOGGING) ACRA.log.d(LOG_TAG, <span class="hljs-string">"Building report"</span>);
+            performDeprecatedReportPriming();
+            <span class="hljs-comment">// 生成并发送report</span>
+            <span class="hljs-keyword">new</span> ReportBuilder()
+                .uncaughtExceptionThread(t)
+                .exception(e)
+                .endApplication()
+                .build(reportExecutor);
+        } <span class="hljs-keyword">catch</span> (Throwable fatality) {
+            <span class="hljs-comment">// ACRA failed. Prevent any recursive call to ACRA.uncaughtException(), let the native reporter do its job.</span>
+            ACRA.log.e(LOG_TAG, <span class="hljs-string">"ACRA failed to capture the error - handing off to native error reporter"</span> , fatality);
+            reportExecutor.handReportToDefaultExceptionHandler(t, e);
+        }
+    }
+
+}</code></pre>
+<p>参见代码可以知道，acra通过设置默认ExceptionHandler来捕获异常。<br>并把自己设置为处理对象。</p>
+<h4>LastActivityManager</h4>
+<p>是用来记录最后展示的Activity的，通过<code>application.registerActivityLifecycleCallbacks</code>来实现记录功能的。ACRA可以在崩溃的时候弹出Dialog，所以需要记住最后的Activity。</p>
+<h4>ReportExecutor</h4>
+<p>主要业务逻辑关注execute()方法.<br>该类主要负责调用CrashReportDataFactory采集数据，<br>调用CrashReportPersister对崩溃数据进行持久化，<br>调用SenderServiceStarter运行Service发送的报告。</p>
+<h4>ApplicationStartupProcessor</h4>
+<p>封装一些App启动时可能执行的任务</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApplicationStartupProcessor</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteUnsentReportsFromOldAppVersion</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//app版本更新后，一般会修掉老的崩溃等问题，</span>
+        <span class="hljs-comment">//所以当老版本更新到新版本后,可以将老版本记录的日志全部删除掉</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteAllUnapprovedReportsBarOne</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//unapproved的文件夹内的文件，只保留最新创建的日志文件，其他的全部删除掉。</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sendApprovedReports</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//调用SenderServiceStarter开启Service进行崩溃日志的发送。</span>
+    }
+
+}</code></pre>
+<h4>ReportLocator</h4>
+<p>关于ACRA对日志文件位置的处理主要是<code>ReportLocator</code>来设置的。<br>acra内部使用文件对崩溃日志进行保存，该类用来获取文件夹的名字。<br>内部有两个文件夹<code>acra-unapproved(未处理),acra-approved(处理过)</code>分别用来保存未处理及处理过的崩溃文件。</p>
+<hr>
+<h3>采集内容</h3>
+<p>崩溃采集，必然需要采集崩溃及手机的相关信息。<br>ACRA中涉及到崩溃相关信息的主要有如下一些类。<br>ReportBuilder,ReportPrimer,CrashReportDataFactory,CrashReportData,<br>LogCatCollector,DropBoxCollector,ReportUtils,UUID,<br>Installation,ConfigurationCollector,DumpSysCollector,ReflectionCollector,<br>DisplayManagerCollector,DeviceFeaturesCollector,settingsCollector,<br>LogFileCollector,MediaCodecListCollector,ThreadCollector.<br>ACRA获取全部数据，涉及到的类比较多。下面逐个分析。</p>
+<h4>ReportBuilder</h4>
+<p>对throwable,message,自定义信息，以及exception的简单封装。<br>主要方法为build()，通过build方法调用ReportExecutor.execute()方法,<br>在ReportExcutor中进行真正的crash采集以及调用发送Service</p>
+<h4>ReportPrimer</h4>
+<p>用来设置崩溃时候，用户需要保存的一些用户自定义的信息。<br>比如崩溃时候在此类中设置一些用户账号等相关信息。<br>该类中设置的相关内容会一起发送到服务端，从而更好的定位一些崩溃信息。</p>
+<h4>CrashReportDataFactory，CrashReportData</h4>
+<p>CrashReportDataFactory类用来实例化CrashReportData。<br>其中最重要的方法为createCrashData()方法,使用该方法来组拼CrashReportData。<br>CrashReportData继承EnumMap,其中保存的数据的key为各种上传时候的key，<br>对应的值为崩溃的相关信息。后面的流程中该类中的值会通过CrashReportPersister类写入file文件。</p>
+<h4>LogCatCollector</h4>
+<p>用来获取logcat日志中的相关信息,执行Logcat命令，读取命令输出信息。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogCatCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">collectLogCat</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//根据所传参数不同组拼不同的logcat命令</span>
+        <span class="hljs-comment">//主要组拼出的命令为</span>
+        <span class="hljs-comment">//1.logcat -t 100 -v time </span>
+        <span class="hljs-comment">//2.logcat -t 100 -v time -b radio</span>
+        <span class="hljs-comment">//1.logcat -t 100 -v time -b events</span>
+    }
+}</code></pre>
+<pre class="hljs cpp"><code class="cpp">logcat -b events
+
+<span class="hljs-number">05</span>-<span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">45</span>:<span class="hljs-number">46.158</span> <span class="hljs-number">31191</span> <span class="hljs-number">31191</span> I auditd  : type=<span class="hljs-number">1400</span> audit(<span class="hljs-number">0.0</span>:<span class="hljs-number">505001</span>): avc: denied { search } <span class="hljs-keyword">for</span> comm=<span class="hljs-string">"PerfFgMonitor"</span> name=<span class="hljs-string">"1711"</span> dev=<span class="hljs-string">"proc"</span> ino=<span class="hljs-number">18618</span> scontext=u:r:untrusted_app:s0:c512,c768 tcontext=u:r:radio:s0 tclass=dir permissive=<span class="hljs-number">0</span>
+
+logcat -b radio
+
+<span class="hljs-number">05</span>-<span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">44</span>:<span class="hljs-number">39.343</span>  <span class="hljs-number">1711</span>  <span class="hljs-number">1785</span> D RILJ    : [<span class="hljs-number">9679</span>]&lt; RIL_REQUEST_GET_CELL_INFO_LIST [CellInfoWcdma:{mRegistered=YES mTimeStampType=oem_ril mTimeStamp=<span class="hljs-number">1283159923921792</span>ns CellIdentityWcdma:{ mMcc=<span class="hljs-number">460</span> mMnc=<span class="hljs-number">1</span> mLac=<span class="hljs-number">53529</span> mCid=<span class="hljs-number">101852154</span> mPsc=<span class="hljs-number">438</span>} CellSignalStrengthWcdma: ss=<span class="hljs-number">8</span> ber=<span class="hljs-number">99</span>}] [SUB0]
+<span class="hljs-number">05</span>-<span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">44</span>:<span class="hljs-number">39.345</span>  <span class="hljs-number">1711</span>  <span class="hljs-number">1975</span> D GsmSST  : [GsmSST] SST.getAllCellInfo(): X size=<span class="hljs-number">1</span> <span class="hljs-built_in">list</span>=[CellInfoWcdma:{mRegistered=YES mTimeStampType=oem_ril mTimeStamp=<span class="hljs-number">1283159923921792</span>ns CellIdentityWcdma:{ mMcc=<span class="hljs-number">460</span> mMnc=<span class="hljs-number">1</span> mLac=<span class="hljs-number">53529</span> mCid=<span class="hljs-number">101852154</span> mPsc=<span class="hljs-number">438</span>} CellSignalStrengthWcdma: ss=<span class="hljs-number">8</span> ber=<span class="hljs-number">99</span>}]
+<span class="hljs-number">05</span>-<span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">44</span>:<span class="hljs-number">39.346</span>  <span class="hljs-number">1711</span>  <span class="hljs-number">1975</span> D GsmSST  : [GsmSST] getCellLocation(): X ret WCDMA info=[<span class="hljs-number">53529</span>,<span class="hljs-number">101852154</span>,<span class="hljs-number">438</span>]
+<span class="hljs-number">05</span>-<span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">44</span>:<span class="hljs-number">43.068</span>  <span class="hljs-number">1711</span>  <span class="hljs-number">1927</span> D SubscriptionController: [getPhoneId]- no sims, returning <span class="hljs-keyword">default</span> phoneId=<span class="hljs-number">2147483647</span></code></pre>
+<p>其实相信大部分人不太清楚logcat的相关命令。<br>针对以上的三条命令做如下解释</p>
+<blockquote>
+<p>logcat -t 100 -v time<br>-t 限制打印100行内容<br>-v time 设置日志输出格式。打印日志的为:打印日期-&gt;触发时间-&gt;优先级(E,W,V)-&gt;tag-&gt;出问题进程的pid<br>关于日志输出格式的介绍参见此处<a href="https://developer.android.com/studio/debug/log.html#outputFormat" target="_blank">日志输出格式</a>。</p>
+<p>logcat -b [options] 切换打印log的内容级别</p>
+<ul>
+<li>radio   radio/telephony相关log</li>
+<li>events  events-related相关log</li>
+<li>main    默认的log</li>
+</ul>
+</blockquote>
+<h4>DropBoxCollector</h4>
+<p>通过DropBoxManager读取系统系统的日志信息<br>DropBoxManager,很多人应该也没接触过。<br>android系统实际上是有三种日志打印的。<code>log EventLog DropBox</code>,关于三种log的介绍参见此处。<br><a href="http://stackoverflow.com/questions/4434192/dropboxmanager-use-cases" target="_blank">三种log的介绍</a><br>关于DropBoxManager的相关内容可以参见此处。<a href="http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service/" target="_blank">dropboxManager介绍</a></p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DropBoxCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">read</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//通过DropBoxService获取系统的DropBoxManager</span>
+        <span class="hljs-comment">//读取所有预先定义的不同tag对应的日志内容</span>
+    }
+}</code></pre>
+<h4>ReportUtils</h4>
+<p>封装的各种工具类，用来获取系统相关的信息</p>
+<pre class="hljs java"><code class="java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">getAvailableInternalMemorySize</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//通过StatFs类获取可用内存block数量及每个block的size</span>
+    <span class="hljs-comment">//block_size * free_block_count ＝ 可用内存数</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">getTotalInternalMemorySize</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//通过StatFs类获取所有内存block数量及每个block的size</span>
+    <span class="hljs-comment">//block_size * total_block_count ＝ 总内存数</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">getDeviceId</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//通过TelephonyManager获取deviceId</span>
+    <span class="hljs-comment">//GSM手机对应与IMEI</span>
+    <span class="hljs-comment">//CDMA手机对应与ESN或MEID</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">getApplicationFilePath</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//通过context.getFilesDir()获取当前app的绝对路径</span>
+    <span class="hljs-comment">//'/data/user/0/yftx.net.oschina.git.gradlesample/files'</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">getLocalIpAddress</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//通过NetworkInterface 获取当前设备的ip</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">getTimeString</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//通过Calendar类获取当前时间</span>
+}</code></pre>
+<h4>UUID</h4>
+<p>java.util包中提供的类，用来生成唯一字符串的类。</p>
+<h4>Installation</h4>
+<p>用来生成唯一身份串的类。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Installation</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">id</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//获取的id用来标记用户的身份。</span>
+        <span class="hljs-comment">//具体算法可以参见android blog中的解释。</span>
+        <span class="hljs-comment">//http://android-developers.blogspot.com/2011/03/identifying-app-installations.html</span>
+    }
+}</code></pre>
+<h4>ConfigurationCollector</h4>
+<p>通过反射系统的<code>Configuration</code>类，获取系统相关参数。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConfigurationCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectConfiguration</span><span class="hljs-params">(Context context)</span></span>{
+        <span class="hljs-comment">//通过 context.getResources().getConfiguration()获取configration对象，</span>
+        <span class="hljs-comment">//并用反射获取该类中的相关信息</span>
+    }
+}</code></pre>
+<h4>DumpSysCollector</h4>
+<p>通过执行dumpsys meminfo xxxpid 来分析内存<br>关于dumpsys的介绍参见此:<a href="https://developer.android.com/studio/profile/investigate-ram.html" target="_blank">dumsys相关介绍</a></p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DumpSysCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectMemInfo</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-comment">//执行dumsys 相关命令</span>
+    }
+}</code></pre>
+<h4>ReflectionCollector</h4>
+<p>相当于Util类，主要通过反射获取传过来的类的一些信息。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReflectionCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectConstants</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//通过反射获取系统的相关信息</span>
+        <span class="hljs-comment">//acra中主要获取Build，Build.Version中的相关数据</span>
+    }
+}</code></pre>
+<h4>DisplayManagerCollector</h4>
+<p>主要用来获取手机显示相关的数据</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DisplayManagerCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectDisplays</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//通过Display类获取屏幕宽,高,方向等显示相关的参数</span>
+    }
+}</code></pre>
+<h4>DeviceFeaturesCollector</h4>
+<p>通过PackageManager获取系统相关特性。比如glEsVersion等</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeviceFeaturesCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getFeatures</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//通过PackageManager获取系统相关特性。比如glEsVersion等</span>
+    }
+}</code></pre>
+<h4>SettingsCollector</h4>
+<p>使用反射获取android.provider.Settings.x中的相关内容。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SettingsCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectSystemSettings</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//获取系统Settings类中的相关信息</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectSecureSettings</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//获取Settings.Secure中的相关信息</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collectGlobalSettings</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">//获取Settings.Global中的相关信息</span>
+    }
+}</code></pre>
+<h4>LogFileCollector</h4>
+<p>获取用户自己保存的相关的log文件,使用该接口可以让acra结合<a href="https://github.com/tony19/logback-android" target="_blank">logback-android</a>这类类库相结合。<br>很多做android的同学都没有做过java web开发，并且android的Log接口也还算好用，再加上客户端编程和服务端编程系统的不同，所以可能理解不了logback-android这样库的意义。<br>实际上logback-android这类库主要就是可以指定log输出的位置，以及log的打印级别。<br>关于java开发中log的重要性可以参见此文章，<a href="http://javarevisited.blogspot.com/2011/05/top-10-tips-on-logging-in-java.html" target="_blank">java log的意义</a></p>
+<h4>MediaCodecListCollector</h4>
+<p>主要用来获取系统支持哪些音视频类型等媒体相关的。</p>
+<h4>ThreadCollector</h4>
+<p>获取崩溃线程的相关信息。</p>
+<pre class="hljs java"><code class="java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadCollector</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collect</span><span class="hljs-params">(Thread t)</span></span>{
+        <span class="hljs-comment">//获取线程t的相关信息，id,name,priority,groupName</span>
+    }
+}</code></pre>
+<h4>ACRA中用到的其他一些获取异常的方法</h4>
+<pre class="hljs java"><code class="java">getStackTracehash(Throwable th){
+    <span class="hljs-comment">//通过组拼Error的className及MethodName生成的字符串</span>
+    <span class="hljs-comment">//获取该字符串的hash值</span>
+    <span class="hljs-comment">//服务端可以根据该值做崩溃分类</span>
+}</code></pre>
+<h3>结语</h3>
+<p>本部分内容主要包括</p>
+<ol>
+<li>ACRA如何配置(服务端，客户端的配置)</li>
+<li>崩溃信息相关内容如何采集，涉及到的关键类。</li>
+</ol>
+<p>后面的部分会继续分析如何将生成的file发送到服务端。</p>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <!-- copyright -->
+          <div class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            <a><i class="fa fa-copyright"></i> 著作权归作者所有</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+            <a class="btn btn-pay" data-toggle="modal" href="http://www.jianshu.com/p/fd4d6a7c6175#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span id="likes-count" data-toggle="tooltip" data-placement="right" title="" data-original-title="查看所有喜欢的用户">5</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/3837284/weibo/image_d19130f85035.jpg&#39;, &#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="http://www.jianshu.com/p/fd4d6a7c6175#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/3837284/weibo/image_d19130f85035.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li>
+                  <a data-name="tweibo" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/tweibo.png" alt="Tweibo"> 分享到腾讯微博
+</a>                </li>
+                <li>
+                  <a data-name="qzone" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/qzone.png" alt="Qzone"> 分享到QQ空间
+</a>                </li>
+                <li>
+                  <a data-name="twitter" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 yftx_ 的文章《再见友盟！Acra详细分析 -Part 1 》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/twitter.png" alt="Twitter"> 分享到Twitter
+</a>                </li>
+                <li>
+                  <a data-name="facebook" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/fd4d6a7c6175&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/facebook.png" alt="Facebook"> 分享到Facebook
+</a>                </li>
+                <li>
+                  <a data-name="google_plus" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/google_plus.png" alt="Google plus"> 分享到Google+
+</a>                </li>
+                <li>
+                  <a data-name="douban" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/fd4d6a7c6175&#39;)+&#39;&amp;title=&#39;+e(&#39;再见友盟！Acra详细分析 -Part 1 &#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()">
+                    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/douban.png" alt="Douban"> 分享到豆瓣
+</a>                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body" title="http://www.jianshu.com/p/fd4d6a7c6175?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas width="170" height="170" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+        <li data-user-id="1713392"> <a class="avatar" href="http://www.jianshu.com/users/c9b7df5bc818"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/4-ba9d62f772acabf0df353d9ce8b96ccb.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/c9b7df5bc818">平哥28</a> <span class="time">2016.05.31 23:58</span></li><li data-user-id="2180362"> <a class="avatar" href="http://www.jianshu.com/users/bfda0668c920"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/99b203202d88"> </a> <a class="blue-link" href="http://www.jianshu.com/users/bfda0668c920">madgoat</a> <span class="time">2016.05.30 00:10</span></li><li data-user-id="1281144"> <a class="avatar" href="http://www.jianshu.com/users/8a77e5d172a4"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/bbb1fc19722d"> </a> <a class="blue-link" href="http://www.jianshu.com/users/8a77e5d172a4">whilu</a> <span class="time">2016.05.27 17:34</span></li><li data-user-id="663840"> <a class="avatar" href="http://www.jianshu.com/users/913a8bb93d12"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/dedada5d3206"> </a> <a class="blue-link" href="http://www.jianshu.com/users/913a8bb93d12">Zaaach</a> <span class="time">2016.05.27 07:08</span></li><li data-user-id="1359048"> <a class="avatar" href="http://www.jianshu.com/users/0ef3dc77079c"> <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/36aa0f8880bd.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/0ef3dc77079c">键盘男kkmike999</a> <span class="time">2016.05.26 14:26</span></li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          0条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[]}
+</script>
+
+
+
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":3837284,"abbr":"概述Acra是老牌的bug自动采集系统。接入sdk后，可以实现程序崩溃自动发送崩溃日志。发送自定义的错误日志等功能。具体详细介绍可以参见acra官网地址。整体来看,Acra就是通过sdk收集进程的崩溃日志，然后以http或mail(默认的两类Sender)的方式将数据发送出去。服务器则是一套基于json的restful的接口。服务端方面不是本次分析重点，暂不进行分析。本系列文章将基于Acra4.9.0RC2源码进行分析。Backend服务端方面我们需要先搭建一个server，才能更好的看到我们的崩溃信息，更直观的看到acra给我们提供了哪些针对崩溃的采...","slug":"fd4d6a7c6175","url":"http://www.jianshu.com/p/fd4d6a7c6175","image_url":"http://cwb.assets.jianshu.io/notes/images/3837284/weibo/image_d19130f85035.jpg","wordage":4804,"has_further_readings":false,"views_count":314,"likes_count":5,"comments_count":0,"rewards_total_count":0}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"dd06465f-d78d-430a-abe2-ff731832f2bb"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":136869,"nickname":"yftx_","slug":"ffb8daa1c0d9","public_notes_count":2,"followers_count":4,"total_likes_count":5,"is_current_user":false,"is_signed_author":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/bDHhpK"><img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/rdn_4ddb18fddd2e9_(1).jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/bDHhpK">首页投稿</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>110.5K</span>
+  </div>
+
+                <p class="description">玩转简书的第一步，从这个专题开始。
+
+想上首页热门榜么？好内容想被更多人看到么？来投稿吧！如果被拒也不要灰心哦～入选文章会进一个队...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/bDHhpK">71036篇文章</a> · 110527人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/3fde3b545a35"><img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/android.graphics.Bitmap_3d178cba.jpeg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/3fde3b545a35">Android知识</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>16.9K</span>
+  </div>
+
+                <p class="description">android开发技巧，原理解析等等</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/3fde3b545a35">2619篇文章</a> · 16904人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/5139d555c94d"><img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/41919715_640_640.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/5139d555c94d">Android开发经验谈</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>9.1K</span>
+  </div>
+
+                <p class="description">Android老鸟给新人的建议、资源。</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/5139d555c94d">1945篇文章</a> · 9129人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="http://www.jianshu.com/notes/3837284/rewards" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="dGe/gNsRVEwPzIWTpxm/Wskrqo3+ZzmHOMNaB7m9ZRNV/9tVpSsK1YU7zezbfj5/AUmivop7fE8Ff6iTd1FfoA==">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/ffb8daa1c0d9">
+        <div class="avatar"><img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/91ebf2e6dc16" alt="100"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="3.00" type="text" name="reward[amount_in_yuan]" id="reward_amount_in_yuan">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div class="iradio_minimal checked" style="position: relative;"><input type="radio" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div class="iradio_minimal" style="position: relative;"><input type="radio" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/complete-pay-25426877089eb23bd76d9d0e6aad89c1.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  <div class="imagebubble-backmask image-package" style="z-index: 1000;"><div class="image-caption">utils.png</div><div class="image-caption">analyze dashboard.png</div><img class="imagebubble-ghost" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/136869-c15e2d98fb930d01(1).png" style="top: 802.997px; left: 201.591px; width: 620px; height: 349px;"><img class="imagebubble-ghost" src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/136869-79c4ed87b977ae24(1).png" style="top: 1292.54px; left: 201.591px; width: 620px; height: 349px;"></div></div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/base-d3f9a709e5a4537b87b3eff40e94a46e.js"></script>
+  
+  <script src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/reading-base-9132a81390eb5b2cc4f21734b0e9cd08.js"></script>
+  <script src="./再见友盟！Acra详细分析 -Part 1 - 简书_files/note_show-12e94137c3593b4c6278c57fead5ad33.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; top: 1303px; left: 257px; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

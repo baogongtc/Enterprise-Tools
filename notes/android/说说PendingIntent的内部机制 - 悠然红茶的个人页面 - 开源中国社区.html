@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://my.oschina.net/youranhongcha/blog/196933 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/ca-pub-1307862221338762.js"></script>
+    
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" type="image/x-icon" href="http://my.oschina.net/img/favicon.ico?t=1451964198000">
+    <title>说说PendingIntent的内部机制
+        -  悠然红茶的个人页面 - 开源中国社区</title>
+            <link rel="stylesheet" href="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/tip-yellowsimple.css" type="text/css">
+    <script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/space"></script>
+    <link rel="stylesheet" type="text/css" href="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/emoji.min.css">
+    <link rel="stylesheet" href="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/blog.min.css">
+    <script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/jquery.pjax.js"></script>
+    <script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/jquery.form.js"></script>
+<script src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/share.js"></script><link rel="stylesheet" href="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/share_style0_16.css"></head>
+<body data-pinterest-extension-installed="cr1.39.1">
+<div id="OSC_Screen">
+    <div class="header" id="navbar-header">
+    <div class="top">
+        <div class="container">
+            <div class="layout">
+                <div class="layout-left channel">
+                    <a href="http://www.oschina.net/">首页</a>
+                    <div class="control_select">
+                        <a href="http://www.oschina.net/project">开源项目</a>
+                        <ul class="cs_content">
+		                    <li><a href="http://www.oschina.net/project/lang/19/java">Java 开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/194/csharp">C# 开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/22/php">PHP 开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/21/c">C/C++ 开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/26/ruby">Ruby 开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/25/python">Python 开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/358/go">Go开源软件</a></li>
+		                    <li><a href="http://www.oschina.net/project/lang/28/javascript">JS开源软件</a></li>
+                        </ul>
+                    </div>
+                    <div class="control_select">
+                        <a href="http://www.oschina.net/question">问答</a>
+                        <ul class="cs_content">
+                            <li><a href="http://www.oschina.net/question?catalog=1"> 技术问答 » </a></li>
+                            <li><a href="http://www.oschina.net/question?catalog=2"> 技术分享 » </a></li>
+                            <li><a href="http://www.oschina.net/question?catalog=3"> IT大杂烩 » </a></li>
+                            <li><a href="http://www.oschina.net/question?catalog=100"> 职业生涯 » </a></li>
+                            <li><a href="http://www.oschina.net/question?catalog=4"> 站务/建议 » </a></li>
+                            <li><a href="http://www.oschina.net/alipay"> 支付宝专区 » </a></li>
+                            <li><a href="http://www.oschina.net/hardware"> 开源硬件专区 » </a></li>
+                        </ul>
+                    </div>
+                    <a href="http://www.oschina.net/code/list">代码</a>
+                    <a href="http://www.oschina.net/blog">博客</a>
+                    <a href="http://www.oschina.net/translate">翻译</a>
+                    <a href="http://www.oschina.net/news">资讯</a>
+                    <div class="control_select">
+                        <a href="http://www.oschina.net/android">移动开发</a>
+                        <ul class="cs_content cs_mobile">
+	                        <li class="android"><a href="http://www.oschina.net/android">Android开发专区</a></li>
+	                        <li class="ios"><a href="http://www.oschina.net/ios/home">iOS开发专区</a></li>
+		                    <li class="ios"><a href="http://www.oschina.net/ios/codingList">iOS代码库</a></li>
+		                    <li class="wp7"><a href="http://www.oschina.net/wp">Windows Phone</a></li>
+                        </ul>
+                    </div>
+                    <a href="http://job.oschina.net/">招聘</a>
+                    <div class="control_select">
+                                                                        <a id="MyCities" href="http://city.oschina.net/">城市圈</a>
+                        <ul class="cs_content">
+                                                    <li>你还没加入城市圈</li>
+                                                    <li class="split"></li>
+                            <li><a href="http://city.oschina.net/">全部城市圈</a></li>
+                                                </ul>
+                    </div>
+                </div>
+                                <div class="layout-column userbar">
+                                    当前访客身份：游客 [ <a href="http://www.oschina.net/home/login?goto_page=http%3A%2F%2Fmy.oschina.net%2Fyouranhongcha%2Fblog%2F196933">登录</a> | <a href="http://www.oschina.net/home/reg">加入开源中国</a> ]
+                                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.isEmpty = function(obj) {
+	    return (obj == null || typeof obj == "undefined" || obj.length == 0)
+	}
+    g_user = {
+	id:0,
+	name:'',
+	login:false};    $(function(){
+        if (!g_user.login || isEmpty(g_msg.total_count) || g_msg.total_count == 0){
+            return;
+        }
+        opt = {
+            className : 'tip-yellowsimple',
+            content : g_msg.text,
+            showOn : 'none',
+            alignTo : 'target',
+            alignX : 'center',
+            alignY : 'bottom',
+            offsetX : 0,
+            offsetY : 11,
+            fade : false,
+            slide : false
+        };
+        $("#MySpace").poshytip(opt).poshytip('show');
+    })
+</script>    <div id="OSC_Content">
+                    
+
+
+
+                                        				                
+
+
+
+<link href="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/solarized_light.css" rel="stylesheet">
+<script src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/highlight.pack.js" type="text/javascript"></script>
+<script src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/jquery.qrcode.min.js" type="text/javascript"></script>
+<!-- content     -->
+<div class="blog blog-article">
+    <div class="container">
+        <!-- 侧边栏-目录 -->
+                <!-- 文章内容 -->
+        <div class="blog-content">
+                <!-- 广告 -->
+                            <!--<p style="margin:0 0 10px 0;"><a style="color:#A00;font-weight:bold;" href="http://city.oschina.net/shanghai/event/2174260" target="_blank">上海源创会5月15日与你相约【玫瑰里】，赶快来约哦~！&gt;&gt;&gt;</a>&nbsp;&nbsp;<img src="http://my.oschina.net/img/hot3.png" align="absmiddle"></p>-->
+
+<a href="http://click.aliyun.com/m/4926/" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/140528_pLdk_2491310.jpg" style="width:780px;"></a>                        <div class="back-list">
+                <a href="http://my.oschina.net/youranhongcha/blog" class=" link"><i class="icon-svg icon-back"></i>返回博客列表</a>
+            </div>
+            <!-- 标题 -->
+            <div class="blog-heading">
+                <div class="title">
+                    <span class="status-tag original" title="原创博客">原</span>                    <span class="status-tag recommend" title="首页推荐过的博客">荐</span>                                                            说说PendingIntent的内部机制
+                </div>
+                <div class="user-info">
+                    <div class="icon">
+                        <a href="http://my.oschina.net/youranhongcha" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/174429_100.jpg" align="absmiddle" alt="悠然红茶" title="悠然红茶" class="LargePortrait"></a>
+                    </div>
+                    <div class="name">
+                        <a href="http://my.oschina.net/youranhongcha" target="_blank">悠然红茶</a>
+                    </div>
+                </div>
+                <div class="data-info text-gary">
+                    <ul>
+                        <li class="time">发布时间: <span id="">2014/01/30 17:35</span></li>
+                        <li class="read">阅读: <span id="read">14370</span></li>
+                                                <li class="favor">收藏: <span id="">73</span></li>
+                        <li class="vote">点赞: <span id="">16</span></li>
+                        <li class="comment">
+                            <a href="http://my.oschina.net/youranhongcha/blog/196933#comment-list" class="link" data-href="#comment-list">评论: <span id="comment">11</span></a>
+                        </li>
+                                            </ul>
+                </div>
+            </div>
+            <!-- 摘要 -->
+                        <!-- 正文 -->
+            <div class="blog-body">
+                
+                                            <div class="BlogContent">
+                        
+ 
+ 
+  <p align="center"><font size="6" face="华文行楷">说说<font face="Arial">PendingIntent</font>的内部机制</font></p> 
+  <p align="center">&nbsp;</p> 
+  <p align="center">侯 亮</p> 
+  <p align="center">&nbsp;</p> 
+  <h1>1 概述</h1> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在Android中，我们常常使用PendingIntent来表达一种“留待日后处理”的意思。从这个角度来说，PendingIntent可以被理解为一种特殊的异步处理机制。不过，单就命名而言，PendingIntent其实具有一定误导性，因为它既不继承于Intent，也不包含Intent，它的核心可以粗略地汇总成四个字——“异步激发”。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 很明显，这种异步激发常常是要跨进程执行的。比如说A进程作为发起端，它可以从系统“获取”一个PendingIntent，然后A进程可以将PendingIntent对象通过binder机制“传递”给B进程，再由B进程在未来某个合适时机，“回调”PendingIntent对象的send()动作，完成激发。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在Android系统中，最适合做集中性管理的组件就是AMS（Activity Manager Service）啦，所以它义不容辞地承担起管理所有PendingIntent的职责。这样我们就可以画出如下示意图：</p> 
+  <p><a href="http://static.oschina.net/uploads/img/201401/30173558_ULPV.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image001" border="0" alt="image001" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/30173558_QKN4.png" width="533" height="180"></a> </p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注意其中的第4步“递送相应的intent”。这一步递送的intent是从何而来的呢？简单地说，当发起端获取PendingIntent时，其实是需要同时提供若干intent的。这些intent和PendingIntent只是配套的关系，而不是聚合的关系，它们会被缓存在AMS中。日后，一旦处理端将PendingIntent的“激发”语义传递到AMS，AMS就会尝试找到与这个PendingIntent对应的若干intent，并递送出去。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当然，以上说的只是大概情况，实际的技术细节会更复杂一点儿。下面我们就来谈谈细节。</p> 
+  <p>&nbsp;</p> 
+  <h1>2 PendingIntent的技术细节</h1> 
+  <h2>2.1 发起端获取PendingIntent</h2> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我们先要理解，所谓的“发起端获取PendingIntent”到底指的是什么。难道只是简单new一个PendingIntent对象吗？当然不是。此处的“获取”动作其实还含有向AMS“注册”intent的语义。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在PendingIntent.java文件中，我们可以看到有如下几个比较常见的静态函数：</p> 
+  <ul> 
+   <li>public static PendingIntent <b>getActivity</b>(Context context, int requestCode, Intent intent, int flags) </li> 
+   <li>public static PendingIntent <b>getBroadcast</b>(Context context, int requestCode, Intent intent, int flags) </li> 
+   <li>public static PendingIntent <b>getService</b>(Context context, int requestCode, Intent intent, int flags) </li> 
+   <li>public static PendingIntent <b>getActivities</b>(Context context, int requestCode, Intent[] intents, int flags) </li> 
+   <li>public static PendingIntent <b>getActivities</b>(Context context, int requestCode, Intent[] intents, int flags, Bundle options) </li> 
+  </ul> 
+  <p>它们就是我们常用的获取PendingIntent的动作了。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 坦白说，这几个函数的命名可真不怎么样，所以我们简单解释一下。上面的getActivity()的意思其实是，获取一个PendingIntent对象，而且该对象日后激发时所做的事情是启动一个新activity。也就是说，当它异步激发时，会执行类似Context.startActivity()那样的动作。相应地，getBroadcast()和getService()所获取的PendingIntent对象在激发时，会分别执行类似Context..sendBroadcast()和Context.startService()这样的动作。至于最后两个getActivities()，用得比较少，激发时可以启动几个activity。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我们以getActivity()的代码来说明问题：</p> 
+  <pre class="csharpcode"><code class="hljs cs"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">static</span></span></span><span class="hljs-function"> PendingIntent <span class="hljs-title">getActivity</span>(<span class="hljs-params">Context context, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> requestCode,
+                                        Intent intent, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flags, Bundle options</span>) 
+</span>{
+    String packageName = context.getPackageName();
+    String resolvedType = intent != <span class="kwrd"><span class="hljs-literal">null</span></span> ? 
+                          intent.resolveTypeIfNeeded(context.getContentResolver()) : <span class="kwrd"><span class="hljs-literal">null</span></span>;
+    <span class="kwrd"><span class="hljs-keyword">try</span></span> 
+    {
+        intent.setAllowFds(<span class="kwrd"><span class="hljs-literal">false</span></span>);
+        IIntentSender target = ActivityManagerNative.getDefault().getIntentSender(
+                                    ActivityManager.INTENT_SENDER_ACTIVITY, packageName,
+                                    <span class="kwrd"><span class="hljs-literal">null</span></span>, <span class="kwrd"><span class="hljs-literal">null</span></span>, requestCode, <span class="kwrd"><span class="hljs-keyword">new</span></span> Intent[] { intent },
+                                    resolvedType != <span class="kwrd"><span class="hljs-literal">null</span></span> ? <span class="kwrd"><span class="hljs-keyword">new</span></span> String[] { resolvedType } : <span class="kwrd"><span class="hljs-literal">null</span></span>,
+                                    flags, options);
+        <span class="kwrd"><span class="hljs-keyword">return</span></span> target != <span class="kwrd"><span class="hljs-literal">null</span></span> ? <span class="kwrd"><span class="hljs-keyword">new</span></span> PendingIntent(target) : <span class="kwrd"><span class="hljs-literal">null</span></span>;
+    } 
+    <span class="kwrd"><span class="hljs-keyword">catch</span></span> (RemoteException e) 
+    {}
+    <span class="kwrd"><span class="hljs-keyword">return</span></span> <span class="kwrd"><span class="hljs-literal">null</span></span>;
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>其中那句new PendingIntent(target)创建了PendingIntent对象，其重要性自不待言。然而，这个对象的内部核心其实是由上面那个getIntentSender()函数得来的。而这个IIntentSender核心才是我们真正需要关心的东西。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 说穿了，此处的IIntentSender对象是个binder代理，它对应的binder实体是AMS中的PendingIntentRecord对象。PendingIntent对象构造之时，IIntentSender代理作为参数传进来，并记录在PendingIntent的mTarget域。日后，当PendingIntent执行异步激发时，其内部就是靠这个mTarget域向AMS传递语义的。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我们前文说过，PendingIntent常常会经由binder机制，传递到另一个进程去。而binder机制可以保证，目标进程得到的PendingIntent的mTarget域也是合法的IIntentSender代理，而且和发起端的IIntentSender代理对应着同一个PendingIntentRecord实体。示意图如下：</p> 
+  <p><a href="http://static.oschina.net/uploads/img/201401/30173558_gqZI.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image002" border="0" alt="image002" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/30173558_S3un.png" width="445" height="291"></a> </p> 
+  <h4>&nbsp;</h4> 
+  <h2>2.2 AMS里的PendingIntentRecord</h2> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 那么PendingIntentRecord里又有什么信息呢？它的定义截选如下：</p> 
+  <pre class="csharpcode"><code class="hljs scala"><span class="kwrd"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> <span class="hljs-title">PendingIntentRecord</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">IIntentSender</span>.<span class="hljs-title">Stub</span> </span>
+{
+    <span class="hljs-keyword">final</span> <span class="hljs-type">ActivityManagerService</span> owner;
+    <span class="hljs-keyword">final</span> <span class="hljs-type">Key</span> key;  <span class="rem"><span class="hljs-comment">// 最关键的key域</span></span>
+    <span class="hljs-keyword">final</span> <span class="kwrd">int</span> uid;
+    <span class="hljs-keyword">final</span> <span class="hljs-type">WeakReference</span>&lt;<span class="hljs-type">PendingIntentRecord</span>&gt; <span class="kwrd">ref</span>;
+    boolean sent = <span class="kwrd"><span class="hljs-literal">false</span></span>;
+    boolean canceled = <span class="kwrd"><span class="hljs-literal">false</span></span>;
+    <span class="hljs-type">String</span> stringName;
+    . . . . . .
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>请注意其中那个key域。这里的Key是个PendingIntentRecord的内嵌类，其定义截选如下：</p> 
+  <pre class="csharpcode"><code class="hljs java"><span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="kwrd"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> <span class="hljs-title">Key</span> 
+</span>{
+    <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> type;
+    <span class="hljs-keyword">final</span> String packageName;
+    <span class="hljs-keyword">final</span> ActivityRecord activity;
+    <span class="hljs-keyword">final</span> String who;
+    <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> requestCode;
+    <span class="hljs-keyword">final</span> Intent requestIntent;        <span class="rem"><span class="hljs-comment">// 注意！</span></span>
+    <span class="hljs-keyword">final</span> String requestResolvedType;
+    <span class="hljs-keyword">final</span> Bundle options;
+    Intent[] allIntents;    <span class="rem"><span class="hljs-comment">// 注意！记录了当初获取PendingIntent时，用户所指定的所有intent</span></span>
+    String[] allResolvedTypes;
+    <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> flags;
+    <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> hashCode;
+    . . . . . .
+    . . . . . .
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>请注意其中的allIntents[]数组域以及requestIntent域。前者记录了当初获取PendingIntent时，用户所指定的所有intent（虽然一般情况下只会指定一个intent，但类似getActivities()这样的函数还是可以指定多个intent的），而后者可以粗浅地理解为用户所指定的那个intent数组中的最后一个intent。现在大家应该清楚异步激发时用到的intent都存在哪里了吧。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Key的构造函数截选如下：</p> 
+  <pre class="csharpcode"><code class="hljs groovy">Key(<span class="kwrd"><span class="hljs-keyword">int</span></span> _t, String _p, ActivityRecord _a, String _w,
+    <span class="kwrd"><span class="hljs-keyword">int</span></span> _r, Intent[] _i, String[] _it, <span class="kwrd"><span class="hljs-keyword">int</span></span> _f, Bundle _o) 
+{
+    type = _t;
+    packageName = _p;
+    activity = _a;
+    who = _w;
+    requestCode = _r;
+    requestIntent = _i != <span class="kwrd"><span class="hljs-literal">null</span></span> ? _i[_i.length-1] : <span class="kwrd"><span class="hljs-literal">null</span></span>;    <span class="rem"><span class="hljs-comment">// intent数组中的最后一个</span></span>
+    requestResolvedType = _it != <span class="kwrd"><span class="hljs-literal">null</span></span> ? _it[_it.length-1] : <span class="kwrd"><span class="hljs-literal">null</span></span>;
+    allIntents = _i;    <span class="rem"><span class="hljs-comment">// 所有intent</span></span>
+    allResolvedTypes = _it;
+    flags = _f;
+    options = _o;
+    . . . . . .
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>Key不光承担着记录信息的作用，它还承担“键值”的作用。</p> 
+  <p>&nbsp;</p> 
+  <h2>2.3 AMS中的PendingIntentRecord总表</h2> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在AMS中，管理着系统中所有的PendingIntentRecord节点，所以需要把这些节点组织成一张表：</p> 
+  <pre class="csharpcode"><code class="hljs ruby">final HashMap&lt;PendingIntentRecord.Key, WeakReference&lt;PendingIntentRecord<span class="hljs-meta">&gt;&gt; 
+                                                         </span>mIntentSenderRecords</code></pre> 
+  <p>这张哈希映射表的键值类型就是刚才所说的PendingIntentRecord.Key。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 以后每当我们要获取PendingIntent对象时，PendingIntent里的mTarget是这样得到的：AMS会先查mIntentSenderRecords表，如果能找到符合的PendingIntentRecord节点，则返回之。如果找不到，就创建一个新的PendingIntentRecord节点。因为PendingIntentRecord是个binder实体，所以经过binder机制传递后，客户进程拿到的就是个合法的binder代理。如此一来，前文的示意图可以进一步修改成下图：</p> 
+  <p><a href="http://static.oschina.net/uploads/img/201401/30173559_SLxq.png"><img style="border-right-width: 0px; display: block; float: none; border-top-width: 0px; border-bottom-width: 0px; margin-left: auto; border-left-width: 0px; margin-right: auto" title="image003" border="0" alt="image003" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/30173559_bWjP.png" width="570" height="375"></a> </p> 
+  <h2>2.4 AMS里的getIntentSender()函数</h2> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 现在，我们回过头继续说前文的getActivity()，以及其调用的getIntentSender()。我们先列一遍getActivity()的原型：</p> 
+  <pre class="csharpcode"><code class="hljs cpp"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">static</span></span></span><span class="hljs-function"> PendingIntent <span class="hljs-title">getActivity</span><span class="hljs-params">(Context context, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> requestCode,
+                                        Intent intent, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flags, Bundle options)</span></span></code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <ul> 
+   <li>context参数是调用方的上下文。 </li> 
+   <li>requestCode是个简单的整数，起区分作用。 </li> 
+   <li>intent是异步激发时将发出的intent。 </li> 
+   <li>flags可以包含一些既有的标识，比如FLAG_ONE_SHOT、FLAG_NO_CREATE、FLAG_CANCEL_CURRENT、FLAG_UPDATE_CURRENT等等。不少同学对这个域不是很清楚，我们后文会细说。 </li> 
+   <li>options可以携带一些额外的数据。 </li> 
+  </ul> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; getActivity()的代码很简单，其参数基本上都传给了getIntentSender()。</p> 
+  <pre class="csharpcode"><code class="hljs nginx"><span class="hljs-attribute">IIntentSender</span> target = ActivityManagerNative.getDefault().getIntentSender(. . . . . .)</code></pre> 
+  <p>getIntentSender()的原型大体是这样的：</p> 
+  <pre class="csharpcode"><code class="hljs vbscript"><span class="kwrd"><span class="hljs-keyword">public</span></span> IIntentSender getIntentSender(<span class="kwrd"><span class="hljs-built_in">int</span></span> type,
+            <span class="hljs-built_in">String</span> packageName, IBinder token, <span class="hljs-built_in">String</span> resultWho,
+            <span class="kwrd"><span class="hljs-built_in">int</span></span> requestCode, Intent[] intents, <span class="hljs-built_in">String</span>[] resolvedTypes,
+            <span class="kwrd"><span class="hljs-built_in">int</span></span> flags, Bundle options) throws RemoteException;</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>其参数比getActivity()要多一些，我们逐个说明。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type参数表明PendingIntent的类型。getActivity()和getActivities()动作里指定的类型值是INTENT_SENDER_ACTIVITY，getBroadcast()和getService()和动作里指定的类型值分别是INTENT_SENDER_BROADCAST和INTENT_SENDER_SERVICE。另外，在Activity.java文件中，我们还看到一个createPendingResult()函数，这个函数表达了发起方的activity日后希望得到result回馈的意思，所以其内部调用getIntentSender()时指定的类型值为INTENT_SENDER_ACTIVITY_RESULT。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packageName参数表示发起端所属的包名。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; token参数是个指代回馈目标方的代理。这是什么意思呢？我们常用的getActivity()、getBroadcast()和getService()中，只是把这个参数简单地指定为null，表示这个PendingIntent激发时，是不需要发回什么回馈的。不过当我们希望获取类型为INTENT_SENDER_ACTIVITY_RESULT的PendingIntent时，就需要指定token参数了。具体可参考createPendingResult()的代码：</p> 
+  <pre class="csharpcode"><code class="hljs cs"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> PendingIntent <span class="hljs-title">createPendingResult</span>(</span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> requestCode, Intent data, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flags</span>) 
+</span>{
+    String packageName = getPackageName();
+    <span class="kwrd"><span class="hljs-keyword">try</span></span> 
+    {
+        data.setAllowFds(<span class="kwrd"><span class="hljs-literal">false</span></span>);
+        IIntentSender target = ActivityManagerNative.getDefault().getIntentSender(
+                                    ActivityManager.INTENT_SENDER_ACTIVITY_RESULT, 
+                                    packageName,
+                                    mParent == <span class="kwrd"><span class="hljs-literal">null</span></span> ? mToken : mParent.mToken,
+                                    mEmbeddedID, requestCode, <span class="kwrd"><span class="hljs-keyword">new</span></span> Intent[] { data }, 
+                                    <span class="kwrd"><span class="hljs-literal">null</span></span>, flags, <span class="kwrd"><span class="hljs-literal">null</span></span>);
+        <span class="kwrd"><span class="hljs-keyword">return</span></span> target != <span class="kwrd"><span class="hljs-literal">null</span></span> ? <span class="kwrd"><span class="hljs-keyword">new</span></span> PendingIntent(target) : <span class="kwrd"><span class="hljs-literal">null</span></span>;
+    } <span class="kwrd"><span class="hljs-keyword">catch</span></span> (RemoteException e) {
+        <span class="rem"><span class="hljs-comment">// Empty</span></span>
+    }
+    <span class="kwrd"><span class="hljs-keyword">return</span></span> <span class="kwrd"><span class="hljs-literal">null</span></span>;
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>看到了吗？传入的token为Activity的mToken或者其mParent.mToken。说得简单点儿，AMS内部可以根据这个token找到其对应的ActivityRecord，日后当PendingIntent激发时，AMS可以根据这个ActivityRecord确定出该向哪个目标进程的哪个Activity发出result语义。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resultWho参数和token参数息息相关，一般也是null啦。在createPendingResult()中，其值为Activity的mEmbeddedID字符串。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requestCode参数是个简单的整数，可以在获取PendingIntent时由用户指定，它可以起区分的作用。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intents数组参数是异步激发时希望发出的intent。对于getActivity()、getBroadcast()和getService()来说，都只会指定一个intent而已。只有getActivities()会尝试一次传入若干intent。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resolvedTypes参数基本上和intent是相关的。一般是这样得到的：</p> 
+  <pre class="csharpcode"><code class="hljs vbscript"><span class="hljs-built_in">String</span> resolvedType = intent != <span class="kwrd"><span class="hljs-literal">null</span></span> ? intent.resolveTypeIfNeeded(
+                context.getContentResolver()) : <span class="kwrd"><span class="hljs-literal">null</span></span>;</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>这个值常常和intent内部的mData URI有关系，比如最终的值可能是URI对应的MIME类型。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags参数可以指定PendingIntent的一些行为特点。它的取值是一些既有的比特标识的组合。目前可用的标识有：FLAG_ONE_SHOT、FLAG_NO_CREATE、FLAG_CANCEL_CURRENT、FLAG_UPDATE_CURRENT等等。有时候，flags中还可以附带若干FILL_IN_XXX标识。我们把常见的标识定义列举如下：</p> 
+  <p>【PendingIntent中】</p> 
+  <pre class="csharpcode"><code class="hljs java"><span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FLAG_ONE_SHOT = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">30</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FLAG_NO_CREATE = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">29</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FLAG_CANCEL_CURRENT = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">28</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FLAG_UPDATE_CURRENT = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">27</span>;</code></pre> 
+  <p>【Intent中】</p> 
+  <pre class="csharpcode"><code class="hljs java"><span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_ACTION = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">0</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_DATA = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">1</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_CATEGORIES = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">2</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_COMPONENT = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">3</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_PACKAGE = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">4</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_SOURCE_BOUNDS = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">5</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_SELECTOR = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">6</span>;
+<span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-keyword">static</span></span> <span class="hljs-keyword">final</span> <span class="kwrd"><span class="hljs-keyword">int</span></span> FILL_IN_CLIP_DATA = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">7</span>;</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>这些以FILL_IN_打头的标志位，主要是在intent对象的fillIn()函数里起作用：</p> 
+  <pre class="csharpcode"><code class="hljs cpp"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> <span class="hljs-title">fillIn</span><span class="hljs-params">(Intent other, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flags)</span></span></code></pre> 
+  <p>我们以FILL_IN_ACTION为例来说明，当我们执行类似srcIntent.fillIn(otherIntent, ...)的句子时，如果otherIntent的mAction域不是null值，那么fillIn()会在以下两种情况下，用otherIntent的mAction域值为srcIntent的mAction域赋值：</p> 
+  <p>1） 当srcIntent的mAction域值为null时； <br>2） 如果fillIn的flags参数里携带了FILL_IN_ACTION标志位，那么即便srcIntent的mAction已经有值了，此时也会用otherIntent的mAction域值强行替换掉srcIntent的mAction域值。</p> 
+  <p>其他FILL_IN_标志位和FILL_IN_ACTION的处理方式类似，我们不再赘述。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; options参数可以携带一些额外数据。</p> 
+  <p>&nbsp;</p> 
+  <h3>2.4.1 getIntentSender()函数</h3> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; getIntentSender()函数摘录如下：</p> 
+  <pre class="csharpcode"><code class="hljs cs"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> IIntentSender <span class="hljs-title">getIntentSender</span>(</span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> type, String packageName, 
+                                     IBinder token, String resultWho,
+                                     </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> requestCode, Intent[] intents, 
+                                     String[] resolvedTypes,
+                                     </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flags, Bundle options</span>) 
+</span>{
+    . . . . . .    
+    <span class="rem"><span class="hljs-comment">// 先判断intents数组，可以用伪代码checkIntents(intents)来表示</span></span>
+    <span class="rem"><span class="hljs-comment">// checkIntents(intents);</span></span>
+    . . . . . .    
+    <span class="kwrd"><span class="hljs-keyword">int</span></span> callingUid = Binder.getCallingUid();
+    . . . . . .
+    <span class="kwrd"><span class="hljs-keyword">if</span></span> (callingUid != <span class="hljs-number">0</span> &amp;&amp; callingUid != Process.SYSTEM_UID) 
+    {
+        <span class="kwrd"><span class="hljs-keyword">int</span></span> uid = AppGlobals.getPackageManager().getPackageUid(packageName, 
+                                                               UserId.getUserId(callingUid));
+        <span class="kwrd"><span class="hljs-keyword">if</span></span> (!UserId.isSameApp(callingUid, uid)) 
+        {
+            . . . . . .
+            <span class="kwrd"><span class="hljs-keyword">throw</span></span> <span class="kwrd"><span class="hljs-keyword">new</span></span> SecurityException(msg);
+        }
+    }
+    . . . . . .
+    <span class="kwrd"><span class="hljs-keyword">return</span></span> getIntentSenderLocked(type, packageName, Binder.getOrigCallingUid(),
+            token, resultWho, requestCode, intents, resolvedTypes, flags, options);
+    . . . . . .
+}</code></pre> 
+  <p>getIntentSender()函数中有一段逐条判断intents[]的代码，我用伪代码checkIntents(intents)来表示，这部分对应的实际代码如下：</p> 
+  <pre class="csharpcode"><code class="hljs scala"><span class="kwrd"><span class="hljs-keyword">for</span></span> (<span class="kwrd">int</span> i=<span class="hljs-number">0</span>; i&lt;intents.length; i++) 
+{
+    <span class="hljs-type">Intent</span> intent = intents[i];
+    <span class="kwrd"><span class="hljs-keyword">if</span></span> (intent != <span class="kwrd"><span class="hljs-literal">null</span></span>) 
+    {
+        <span class="kwrd"><span class="hljs-keyword">if</span></span> (intent.hasFileDescriptors()) 
+        {
+            <span class="kwrd"><span class="hljs-keyword">throw</span></span> <span class="kwrd"><span class="hljs-keyword">new</span></span> <span class="hljs-type">IllegalArgumentException</span>(<span class="str"><span class="hljs-string">"File descriptors passed in Intent"</span></span>);
+        }
+        <span class="kwrd"><span class="hljs-keyword">if</span></span> (<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">==</span> <span class="hljs-title">ActivityManager</span>.<span class="hljs-title">INTENT_SENDER_BROADCAST</span> <span class="hljs-title">&amp;&amp;</span></span>
+            (intent.getFlags()&amp;<span class="hljs-type">Intent</span>.<span class="hljs-type">FLAG_RECEIVER_BOOT_UPGRADE</span>) != <span class="hljs-number">0</span>) 
+        {
+            <span class="kwrd"><span class="hljs-keyword">throw</span></span> <span class="kwrd"><span class="hljs-keyword">new</span></span> <span class="hljs-type">IllegalArgumentException</span>(<span class="str"><span class="hljs-string">"Can't use FLAG_RECEIVER_BOOT_UPGRADE here"</span></span>);
+        }
+        intents[i] = <span class="kwrd"><span class="hljs-keyword">new</span></span> <span class="hljs-type">Intent</span>(intent);
+    }
+}</code></pre> 
+  <p>这段代码说明在获取PendingIntent对象时，intent中是不能携带文件描述符的。而且如果这个PendingIntent是那种要发出广播的PendingIntent，那么intent中也不能携带FLAG_RECEIVER_BOOT_UPGRADE标识符。“BOOT_UPGRADE”应该是“启动并升级”的意思，它不能使用PendingIntent。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; getIntentSender()中最核心的一句应该是调用getIntentSenderLocked()的那句。</p> 
+  <p>&nbsp;</p> 
+  <h3>2.4.2 getIntentSenderLocked()函数</h3> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; getIntentSenderLocked()的代码截选如下：</p> 
+  <p>【frameworks/base/services/java/com/android/server/am/ActivityManagerService.java】</p> 
+  <pre class="csharpcode"><code class="hljs cs"><span class="hljs-function">IIntentSender <span class="hljs-title">getIntentSenderLocked</span>(</span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> type, String packageName, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> callingUid, 
+                                    IBinder token, String resultWho,
+                                    </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> requestCode, Intent[] intents, 
+                                    String[] resolvedTypes, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flags,
+                                    Bundle options</span>) 
+</span>{
+    . . . . . .
+    <span class="rem"><span class="hljs-comment">// 如果是INTENT_SENDER_ACTIVITY_RESULT类型，那么要判断token所</span></span>
+    <span class="rem"><span class="hljs-comment">// 代表的activity是否还在activity栈中</span></span>
+    
+    . . . . . .
+    <span class="rem"><span class="hljs-comment">// 整理flags中的信息</span></span>
+    
+    . . . . . .
+    PendingIntentRecord.Key key = <span class="kwrd"><span class="hljs-keyword">new</span></span> PendingIntentRecord.Key(type, packageName, 
+                                                              activity, resultWho,
+                                                              requestCode, intents, 
+                                                              resolvedTypes, flags, options);
+    <span class="rem"><span class="hljs-comment">// 尽力从哈希映射表中查找key对应的PendingIntentRecord，如果找不到就创建一个新的节点。</span></span>
+    WeakReference&lt;PendingIntentRecord&gt; <span class="kwrd"><span class="hljs-keyword">ref</span></span>;
+    <span class="kwrd"><span class="hljs-keyword">ref</span></span> = mIntentSenderRecords.<span class="hljs-keyword">get</span>(key);    
+    PendingIntentRecord rec = <span class="kwrd"><span class="hljs-keyword">ref</span></span> != <span class="kwrd"><span class="hljs-literal">null</span></span> ? <span class="kwrd"><span class="hljs-keyword">ref</span></span>.<span class="hljs-keyword">get</span>() : <span class="kwrd"><span class="hljs-literal">null</span></span>;
+    <span class="kwrd"><span class="hljs-keyword">if</span></span> (rec != <span class="kwrd"><span class="hljs-literal">null</span></span>) 
+    {
+        <span class="rem"><span class="hljs-comment">// 找到了匹配的PendingIntent，现在考虑要不要更新它，或者取消它。</span></span>
+        <span class="kwrd"><span class="hljs-keyword">if</span></span> (!cancelCurrent) 
+        {
+            <span class="kwrd"><span class="hljs-keyword">if</span></span> (updateCurrent) 
+            {
+                <span class="rem"><span class="hljs-comment">// 如果明确指定了FLAG_UPDATE_CURRENT，那么更新找到的节点</span></span>
+                <span class="kwrd"><span class="hljs-keyword">if</span></span> (rec.key.requestIntent != <span class="kwrd"><span class="hljs-literal">null</span></span>) {
+                    rec.key.requestIntent.replaceExtras(intents != <span class="kwrd"><span class="hljs-literal">null</span></span> ?
+                            intents[intents.length - <span class="hljs-number">1</span>] : <span class="kwrd"><span class="hljs-literal">null</span></span>);
+                }
+                <span class="kwrd"><span class="hljs-keyword">if</span></span> (intents != <span class="kwrd"><span class="hljs-literal">null</span></span>) {
+                    intents[intents.length<span class="hljs-number">-1</span>] = rec.key.requestIntent;
+                    rec.key.allIntents = intents;
+                    rec.key.allResolvedTypes = resolvedTypes;
+                } <span class="kwrd"><span class="hljs-keyword">else</span></span> {
+                    rec.key.allIntents = <span class="kwrd"><span class="hljs-literal">null</span></span>;
+                    rec.key.allResolvedTypes = <span class="kwrd"><span class="hljs-literal">null</span></span>;
+                }
+            }
+            <span class="rem"><span class="hljs-comment">// 凡是能找到对应的节点，而且又不取消该节点的，那么就return这个节点</span></span>
+            <span class="kwrd"><span class="hljs-keyword">return</span></span> rec;
+        }
+        <span class="rem"><span class="hljs-comment">// 如果PendingIntent的标志中带有FLAG_CANCEL_CURRENT，则从哈希映射表中删除之</span></span>
+        rec.canceled = <span class="kwrd"><span class="hljs-literal">true</span></span>;
+        mIntentSenderRecords.remove(key);
+    }
+    <span class="kwrd"><span class="hljs-keyword">if</span></span> (noCreate) 
+    {
+        <span class="rem"><span class="hljs-comment">// 如果明确表示了不创建新节点，也就是说标志中带有FLAG_NO_CREATE，</span></span>
+        <span class="rem"><span class="hljs-comment">// 那么不管是不是Cancel了PendingIntent，此时一概直接返回。</span></span>
+        <span class="kwrd"><span class="hljs-keyword">return</span></span> rec;
+    }
+    
+    <span class="rem"><span class="hljs-comment">// 从哈希映射表中找不到，而且又没有写明FLAG_NO_CREATE，此时创建一个新节点</span></span>
+    rec = <span class="kwrd"><span class="hljs-keyword">new</span></span> PendingIntentRecord(<span class="kwrd"><span class="hljs-keyword">this</span></span>, key, callingUid);
+    mIntentSenderRecords.put(key, rec.<span class="kwrd"><span class="hljs-keyword">ref</span></span>);
+    <span class="kwrd"><span class="hljs-keyword">if</span></span> (type == ActivityManager.INTENT_SENDER_ACTIVITY_RESULT) 
+    {
+        <span class="rem"><span class="hljs-comment">// 如果intent需要返回结果，那么修改token对应的ActivityRecord</span></span>
+        <span class="rem"><span class="hljs-comment">// 的pendingResults域。</span></span>
+        <span class="kwrd"><span class="hljs-keyword">if</span></span> (activity.pendingResults == <span class="kwrd"><span class="hljs-literal">null</span></span>) 
+        {
+            activity.pendingResults = <span class="kwrd"><span class="hljs-keyword">new</span></span> HashSet&lt;WeakReference&lt;PendingIntentRecord&gt;&gt;();
+        }
+        activity.pendingResults.add(rec.<span class="kwrd"><span class="hljs-keyword">ref</span></span>);
+    }
+    <span class="kwrd"><span class="hljs-keyword">return</span></span> rec;
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>&nbsp;</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 上面这段代码主要做的事情有：</p> 
+  <p>1） 将传进来的多个参数信息整理成一个PendingIntentRecord.Key对象（key）； <br>2） 尝试从mIntentSenderRecords总表中查找和key相符的PendingIntentRecord节点； <br>3） 根据flags参数所含有的意义，对得到的PendingIntentRecord进行加工。有时候修改之，有时候删除之。 <br>4） 如果在总表中没有找到对应的PendingIntentRecord节点，或者根据flags的语义删除了刚找到的节点，那么此时的默认行为是创建一个新的PendingIntentRecord节点，并插入总表。除非flags中明确指定了FLAG_NO_CREATE，此时不会创建新节点。</p> 
+  <h5>&nbsp;</h5> 
+  <h3>2.4.3 说说flags</h3> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从getIntentSenderLocked()的代码中，我们终于搞明白了flags中那些特定比特值的意义了。我们现在总结一下。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 应该说这些flags比特值基本上都是在围绕着mIntentSenderRecords总表说事的。其中，FLAG_CANCEL_CURRENT的意思是，当我们获取PendingIntent时，如果可以从总表中查到一个相符的已存在的PendingIntentRecord节点的话，那么需要把这个节点从总表中清理出去。而在没有指定FLAG_CANCEL_CURRENT的大前提下，如果用户指定了FLAG_UPDATE_CURRENT标识，那么会用新的intents参数替掉刚查到的PendingIntentRecord中的旧intents。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 而不管是刚清理了已存在的PendingIntentRecord，还是压根儿就没有找到符合的PendingIntentRecord，只要用户没有明确指定FLAG_NO_CREATE标识，系统就会尽力创建一个新的PendingIntentRecord节点，并插入总表。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 至于FLAG_ONE_SHOT标识嘛，它并没有在getIntentSenderLocked()中露脸儿。它的名字是“FLAG_ONE_SHOT”，也就是“只打一枪”的意思，那么很明显，这个标识起作用的地方应该是在“激发”函数里。在最终的激发函数（sendInner()）里，我们可以看到下面的代码：</p> 
+  <p>【frameworks/base/services/java/com/android/server/am/PendingIntentRecord.java】</p> 
+  <pre class="csharpcode"><code class="hljs java"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> <span class="hljs-title">sendInner</span><span class="hljs-params">(</span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> code, Intent intent, String resolvedType,
+        IIntentReceiver finishedReceiver, String requiredPermission,
+        IBinder resultTo, String resultWho, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> requestCode,
+        </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flagsMask, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> flagsValues, Bundle options)</span> 
+</span>{
+    <span class="hljs-keyword">synchronized</span>(owner) {
+        <span class="kwrd"><span class="hljs-keyword">if</span></span> (!canceled) 
+        {
+            sent = <span class="kwrd"><span class="hljs-keyword">true</span></span>;
+            <span class="kwrd"><span class="hljs-keyword">if</span></span> ((key.flags &amp; PendingIntent.FLAG_ONE_SHOT) != <span class="hljs-number">0</span>) {
+                owner.cancelIntentSenderLocked(<span class="kwrd"><span class="hljs-keyword">this</span></span>, <span class="kwrd"><span class="hljs-keyword">true</span></span>);
+                canceled = <span class="kwrd"><span class="hljs-keyword">true</span></span>;
+            }
+            . . . . . .
+            . . . . . .
+        }
+    }
+    <span class="kwrd"><span class="hljs-keyword">return</span></span> ActivityManager.START_CANCELED;
+}</code></pre> 
+  <p>意思很简单，一进行激发就把相应的PendingIntentRecord节点从总表中清理出去，而且把PendingIntentRecord的canceled域设为true。这样，以后即便外界再调用send()动作都没用了，因为再也无法进入if (!canceled)判断了。</p> 
+  <p>&nbsp;</p> 
+  <h3>2.4.4 将PendingIntentRecord节点插入总表</h3> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 接下来getIntentSenderLocked()函数new了一个PendingIntentRecord节点，并将之插入mIntentSenderRecords总表中。</p> 
+  <p>&nbsp;</p> 
+  <h2>2.5 PendingIntent的激发动作</h2> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下面我们来看PendingIntent的激发动作。在前文我们已经说过，当需要激发PendingIntent之时，主要是通过调用PendingIntent的send()函数来完成激发动作的。PendingIntent提供了多个形式的send()函数，然而这些函数的内部其实调用的是同一个send()，其函数原型如下：</p> 
+  <pre class="csharpcode"><code class="hljs java"><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">public</span></span></span><span class="hljs-function"> </span><span class="kwrd"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> <span class="hljs-title">send</span><span class="hljs-params">(Context context, </span></span><span class="kwrd"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> code, Intent intent,
+                    OnFinished onFinished, Handler handler, String requiredPermission)</span> 
+                    <span class="hljs-keyword">throws</span> CanceledException</span></code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>该函数内部最关键的一句是：</p> 
+  <pre class="csharpcode"><code class="hljs cs"><span class="kwrd"><span class="hljs-keyword">int</span></span> res = mTarget.send(code, intent, resolvedType,
+                    onFinished != <span class="kwrd"><span class="hljs-literal">null</span></span> ? <span class="kwrd"><span class="hljs-keyword">new</span></span> FinishedDispatcher(<span class="kwrd"><span class="hljs-keyword">this</span></span>, onFinished, handler) : <span class="kwrd"><span class="hljs-literal">null</span></span>,
+                    requiredPermission);</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>我们前文已经介绍过这个mTarget域了，它对应着AMS中的某个PendingIntentRecord。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 所以我们要看一下PendingIntentRecord一侧的send()函数，其代码如下：</p> 
+  <pre class="csharpcode"><code class="hljs vbscript"><span class="kwrd"><span class="hljs-keyword">public</span></span> <span class="kwrd"><span class="hljs-built_in">int</span></span> send(<span class="kwrd"><span class="hljs-built_in">int</span></span> code, Intent intent, <span class="hljs-built_in">String</span> resolvedType,
+                   IIntentReceiver finishedReceiver, <span class="hljs-built_in">String</span> requiredPermission) 
+{
+    <span class="kwrd">return</span> sendInner(code, intent, resolvedType, finishedReceiver,
+                requiredPermission, <span class="kwrd"><span class="hljs-literal">null</span></span>, <span class="kwrd"><span class="hljs-literal">null</span></span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="kwrd"><span class="hljs-literal">null</span></span>);
+}</code></pre> 
+  <style type="text/css">
+
+.csharpcode, .csharpcode pre
+{
+	font-size: small;
+	color: black;
+	font-family: consolas, "Courier New", courier, monospace;
+	background-color: #ffffff;
+	/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }</style> 
+  <p>其中sendInner()才是真正做激发动作的函数。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sendInner()完成的主要逻辑动作有：</p> 
+  <p>1） 如果当前PendingIntentRecord节点已经处于canceled域为true的状态，那么说明这个节点已经被取消掉了，此时sendInner()不会做任何实质上的激发动作，只是简单地return ActivityManager.START_CANCELED而已。 <br>2） 如果当初在创建这个节点时，使用者已经指定了FLAG_ONE_SHOT标志位的话，那么此时sendInner()会把这个PendingIntentRecord节点从AMS中的总表中摘除，并且把canceled域设为true。而后的操作和普通激发时的动作是一致的，也就是说也会走下面的第3）步。 <br>3） 关于普通激发时应执行的逻辑动作是，根据当初创建PendingIntentRecord节点时，用户指定的type类型，进行不同的处理。这个type其实就是我们前文所说的INTENT_SENDER_ACTIVITY、INTENT_SENDER_BROADCAST、INTENT_SENDER_SERVICE等类型啦，大家如有兴趣，可自己参考本文一开始所说的getActivity()、getBroadcast()、getService()等函数的实现代码。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 现在还有一个问题是，既然我们在当初获取PendingIntent时，已经指定了日后激发时需要递送的intent（或intent数组），那么为什么send()动作里还有一个intent参数呢？它们的关系又是什么呢？我猜想，PendingIntent机制的设计者是希望给激发端一个修改“待激发的intent”的机会。比如当初我们获取PendingIntent对象时，如果在flags里设置了FILL_IN_ACTION标志位，那么就说明我们允许日后在某个激发点，用新的intent的mAction域值，替换掉我们最初给的intent的mAction域值。如果一开始没有设置FILL_IN_ACTION标志位，而且在最初的intent里已经有了非空的mAction域值的话，那么即使在激发端又传入了新intent，它也不可能修改用新intent的mAction域值替换旧intent的mAction域值。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 细心的读者一定记得，当初获取PendingIntent对象时，我们可是向AMS端传递了一个intent数组噢，虽然一般情况下这个数组里只有一个intent元素，但有时候我们也是有可能一次性传递多个intent的。比如getActivities()函数就可以一次传递多个intent。可是现在激发动作send()却只能传递一个intent参数，这该如何处理呢？答案很简单，所传入的intent只能影响已有的intent数组的最后一个intent元素。大家可以看看sendInner里allIntents[allIntents.length-1] = finalIntent;一句。</p> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ok，intent说完了，下面就该做具体的激发了。我们以简单的INTENT_SENDER_BROADCAST型PendingIntentRecord来说明，此时的激发动作就是发送一个广播：</p> 
+  <pre class="csharpcode"><code class="hljs scala">owner.broadcastIntentInPackage(key.packageName, uid, finalIntent, resolvedType,
+                               finishedReceiver, code, <span class="kwrd"><span class="hljs-literal">null</span></span>, <span class="kwrd"><span class="hljs-literal">null</span></span>,
+                               requiredPermission, (finishedReceiver != <span class="kwrd"><span class="hljs-literal">null</span></span>),
+                               <span class="kwrd"><span class="hljs-literal">false</span></span>, <span class="hljs-type">UserId</span>.getUserId(uid));</code></pre> 
+  <p>至于其他类型的PendingIntentRecord的激发动作，大家可以自行查阅代码，它们的基本代码格局都是差不多的。</p> 
+  <p>&nbsp;</p> 
+  <h1>3 小结</h1> 
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 本文是基于我早先的一点儿笔记整理而成的。当时为了搞清楚PendingIntent的机理，也查阅了一些网上的相关文章，只是都不大满足我的要求，后来只好自己看代码，终于得了些自己的浅见。现在把我过去的一点儿认识整理出来，希望能对学习PendingIntent的同学有点儿帮助。</p>
+ 
+                        </div>
+                        <script>
+                            hljs.initHighlightingOnLoad();
+                        </script>
+                                    
+            </div>
+            <!-- 版权 -->
+            <div class="blog-copyright">
+                                    <span title="OSCHINA 博客文章版权属于作者，受法律保护。未经作者同意不得转载。">© 著作权归作者所有</span>
+                            </div>
+            <!-- 分类、标签、字数 -->
+            <div class="related-info">
+                <ul>
+                                                            <li class="classify">分类：<span id="classify"><a href="http://my.oschina.net/youranhongcha/blog?catalog=373547">Android Frameworks 4.0</a></span></li>
+                                                            <li class="Words">字数：<span id="Words">4970</span></li>
+                </ul>
+            </div>
+            <!-- 赞、收藏、分享 -->
+            <div class="operate">
+                <ul>
+                    <!-- 点赞 -->
+                    <li class="like">
+                                                <a href="javascript:void(0);" onclick="vote2(196933);">
+                            <svg viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path d="M27.2121973,9.76488281 C26.047793,9.45911133 23.3066016,9.46271484 19.2988477,9.35709961 C19.4891895,8.48208984 19.531875,7.69365234 19.531875,6.29349609 C19.531875,2.94864258 17.0956055,0.00249023437 14.9396777,0.00249023437 C13.4175879,0.00249023437 12.162041,1.24708008 12.1428516,2.7778418 C12.1219336,4.65477539 11.5419727,7.89764648 8.41379883,9.5419043 C8.18431641,9.66304687 7.52794922,9.9862207 7.43229492,10.0289355 L7.48148437,10.0708594 C6.99166992,9.64895508 6.31341797,9.3252832 5.61706055,9.3252832 L2.82011719,9.3252832 C1.27790039,9.3252832 0.0234082031,10.5803027 0.0234082031,12.1219922 L0.0234082031,27.0387598 C0.0234082031,28.5810352 1.27790039,29.8354687 2.82011719,29.8354687 L5.61706055,29.8354687 C6.72688477,29.8354687 7.65445312,29.1654492 8.10424805,28.2259863 C8.11511719,28.2295605 8.13509766,28.2350391 8.14792969,28.2368262 C8.20980469,28.2532324 8.28169922,28.2714258 8.37087891,28.2951562 C8.38728516,28.2987305 8.39633789,28.3005176 8.41374023,28.3059961 C8.95092773,28.4388574 9.98425781,28.6865332 12.1937988,29.1944824 C12.6681445,29.3019434 15.1690137,29.8354102 17.7628125,29.8354102 L22.858418,29.8354102 C24.4125293,29.8354102 25.564248,29.2560059 26.1979102,28.0382227 C26.8171289,26.9543848 29.8589355,21.1489453 29.8560352,12.9666797 C29.8555371,11.7891797 29.041084,10.2873633 27.2120801,9.76476562 L27.2120801,9.76476562 L27.2121973,9.76488281 Z M6.54925781,27.0388184 C6.54925781,27.5541211 6.13236328,27.9711328 5.61708984,27.9711328 L2.82014648,27.9711328 C2.30487305,27.9711328 1.88786133,27.5540918 1.88786133,27.0388184 L1.88786133,12.1219922 C1.88786133,11.6067187 2.30490234,11.1901465 2.82014648,11.1901465 L5.61708984,11.1901465 C6.13236328,11.1901465 6.54925781,11.6067187 6.54925781,12.1219922 L6.54925781,27.0388184 L6.54925781,27.0388184 Z M27.9705176,13.5531738 C27.581748,22.9226953 24.5555566,27.1571777 24.5555566,27.1571777 C24.2733398,27.665127 23.8198828,27.9710742 22.8585059,27.9710742 L17.7628711,27.9710742 C15.2018848,27.9710742 12.6626953,27.3901758 12.5970703,27.3755859 C8.72428711,26.4834082 8.52035156,26.414209 8.2771875,26.3450684 L8.41374023,12.6474023 C8.41374023,11.2302246 8.44561523,11.5880859 8.41374023,11.6057812 C12.6727441,9.84237305 13.9691016,5.97495117 14.0072754,2.79928711 C14.0128125,2.35318359 14.3569043,1.86700195 14.9395898,1.86700195 C15.9256641,1.86700195 17.6673047,3.84547852 17.6673047,6.29349609 C17.6673047,8.50400391 17.5789746,8.88629883 16.8041895,11.1901758 C26.1269824,11.1901758 26.0613281,11.3235059 26.8843359,11.5393652 C27.9040137,11.8307227 27.991377,12.6756445 27.991377,12.9667969 C27.991377,13.2863379 27.9822949,13.2399316 27.9704297,13.5531738 L27.9704297,13.5531738 L27.9705176,13.5531738 Z" id="Shape"></path>
+                            </svg>
+                             <span id="">
+                                                                    点赞
+                                                             </span>
+                        </a>
+                    </li>
+                                        <!-- 收藏 -->
+                    <li class="favor hover">
+                        <a href="javascript:void(0);" data-blogid="196933" data-blogtype="3" data-userid="">
+                            <svg viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path d="M14.8921735,29.8156064 C6.68085151,29.8156064 0.000168594614,23.1349236 0.000168594614,14.9236015 C0.000168594614,6.71227948 6.68085148,0.0315965988 14.8921735,0.0315965988 C23.1034956,0.0315965988 29.7841784,6.71227948 29.7841784,14.9236015 C29.7841784,23.1349236 23.1034955,29.8156064 14.8921735,29.8156064 L14.8921735,29.8156064 Z M14.8921735,1.32655357 C7.39480444,1.32655357 1.29512556,7.42623244 1.29512556,14.9236015 C1.29512556,22.4209706 7.39480444,28.5206495 14.8921735,28.5206495 C22.3895426,28.5206495 28.4892215,22.4209706 28.4892215,14.9236015 C28.4892215,7.42623244 22.3895426,1.32655357 14.8921735,1.32655357 L14.8921735,1.32655357 Z M7.73710472,25.7956284 L9.10285265,17.8277583 L3.31439509,12.1847676 L11.3142075,11.0223279 L14.8921735,3.77229557 L18.4701396,11.0223279 L26.4699519,12.1847676 L20.6814944,17.8273266 L21.1964556,20.8324901 L19.9200597,21.0513378 L19.2898473,17.3758183 L23.6870895,13.0886475 L17.6102881,12.2059185 L14.8921735,6.69846664 L12.1740589,12.2059185 L6.09725756,13.0886475 L10.4944997,17.3753867 L9.45680756,23.4280155 L14.8921735,20.5696138 L21.4886842,24.0388035 L20.8860976,25.1848404 L14.8921735,22.0324835 L7.73710472,25.7956284 Z" id="Shape"></path>
+                            </svg>
+                             <span id="">
+                                                                    收藏
+                                                             </span>
+                        </a>
+                        <div class="operate-dropdown favor-dropdown">
+                            <div class="favor-form">
+    <form class="favor_blog" action="http://my.oschina.net/action/favorite/add" method="POST">
+        <input type="hidden" name="id" value="196933">
+        <input type="hidden" name="type" value="3">
+        <input type="hidden" name="user" value="">
+        <p>多个标签使用逗号 , 隔开，最多三个</p>
+        <input type="text" placeholder="可点击下面标签设置" name="tags" class="favor-input">
+                <div class="btn-group">
+            
+                <input type="submit" value="收藏" class="btn btn-green">
+            
+        </div></form>
+    
+        
+</div>                        </div>
+                    </li>
+                                        <!-- 分享 -->
+                    <li class="share hover">
+                        <a href="javascript:void(0);">
+                            <svg viewBox="0 0 30 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <path d="M24.3243243,19.95842 C22.0765073,19.95842 20.1455301,21.2956341 19.2498961,23.2116424 L10.0640333,18.972973 C10.7825364,18.0324324 11.2266112,16.8673597 11.2266112,15.5925156 C11.2266112,14.3126819 10.7775467,13.1451143 10.0540541,12.1995842 L19.1126819,7.66902286 C19.9359667,9.74719336 21.9567568,11.2266112 24.3243243,11.2266112 C27.4178794,11.2266112 29.9376299,8.70686069 29.9376299,5.61330561 C29.9376299,2.51975052 27.4178794,0 24.3243243,0 C21.2307692,0 18.7110187,2.51975052 18.7110187,5.61330561 C18.7110187,5.89521829 18.7559252,6.16465696 18.7933472,6.43409563 L9.13846156,11.2615385 C8.17297297,10.4731809 6.95550934,9.97920998 5.61330561,9.97920998 C2.51725572,9.97920998 0,12.4989605 0,15.5925156 C0,18.6860707 2.51725572,21.2058212 5.61330561,21.2058212 C6.95800414,21.2058212 8.17546777,20.7118503 9.14345115,19.9209979 L18.8407484,24.391684 C18.7609147,24.7733888 18.7110187,25.1675676 18.7110187,25.5717256 C18.7110187,28.6652806 21.2307692,31.1850312 24.3243243,31.1850312 C27.4178794,31.1850312 29.9376299,28.6652807 29.9376299,25.5717256 C29.9376299,22.4781704 27.4178794,19.95842 24.3243243,19.95842 L24.3243243,19.95842 Z M24.3243243,1.24740124 C26.7318087,1.24740124 28.6902287,3.20582119 28.6902287,5.61330561 C28.6902287,8.02079002 26.7318087,9.97920998 24.3243243,9.97920998 C21.9168399,9.97920998 19.95842,8.02079002 19.95842,5.61330561 C19.95842,3.20582119 21.9168399,1.24740124 24.3243243,1.24740124 L24.3243243,1.24740124 Z M5.61330561,19.95842 C3.20582122,19.95842 1.24740124,18 1.24740124,15.5925156 C1.24740124,13.1850312 3.20582122,11.2266112 5.61330561,11.2266112 C8.02078999,11.2266112 9.97920998,13.1850312 9.97920998,15.5925156 C9.97920998,18 8.02079002,19.95842 5.61330561,19.95842 L5.61330561,19.95842 Z M24.3243243,29.9376299 C21.9168399,29.9376299 19.95842,27.97921 19.95842,25.5717256 C19.95842,23.1642411 21.9168399,21.2058212 24.3243243,21.2058212 C26.7318087,21.2058212 28.6902287,23.1642412 28.6902287,25.5717256 C28.6902287,27.97921 26.7318087,29.9376299 24.3243243,29.9376299 L24.3243243,29.9376299 Z" id="Shape"></path>
+                            </svg>
+                            分享
+                        </a>
+                        <div class="operate-dropdown share-dropdown">
+                            <span class="share-title">分享到：</span>
+                            <div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1466393043440">
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享">一键分享</a>
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">QQ好友</a>
+                                <a href="http://my.oschina.net/youranhongcha/blog/196933#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记">有道云笔记</a>
+                            </div>
+                           <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","weixin","tqq","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 个人名片 -->
+            <div class="user-card">
+                <div class="layout">
+                    <div class="layout-right">
+                        <!-- 技能雷达 -->
+                        <div class="user-radar hide" data-user="174429">
+    <div id="radar-skill" style="width: 200px;height: 120px; margin: auto;" data-detail="http://www.oschina.net/radar/youranhongcha">
+    </div>
+    <div class="explain"></div>
+    </div>
+<script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/echarts3-radar.js"></script>
+<script>
+    function sendRequest() {
+        var user_id = $(".user-radar").data("user");
+        $.ajax({
+            type: "POST",
+            url: "/action/radar/searchUserRadarMap",
+            data: {user_id: user_id},
+            dataType: "json",
+            success: function (msg) {
+                if (msg.result) {
+                    $(".user-radar").removeClass("hide");
+                    var radar = echarts.init(document.getElementById('radar-skill'));
+                    radar.setOption(getRadarOption(msg.data.tags, msg.data.skillsLevel, msg.data.maxSkillLevel));
+                    var radarDetailLink = $('#radar-skill').data("detail");
+                    if (radarDetailLink) {
+                        $('#radar-skill').on('click', function (params) {
+                            window.open(radarDetailLink);
+                        });
+                    }
+                } else {
+                    console.log(msg.msg);
+                }
+            }
+        });
+    }
+
+    function getRadarOption(tags, values, maxSkillLevel) {
+        tags = tags || [];
+        values = values || [];
+        var indicator = [];
+        for (var i = 0; i < tags.length; i++) {
+            var map = {
+                name: tags[i],
+                max: maxSkillLevel
+            };
+            indicator.push(map);
+        }
+
+        return {
+            tooltip: {trigger: 'axis'},
+            legend: {
+                show: false,
+                width: 0,
+                hight: 0
+            },
+            radar: {
+                splitNumber: 5,
+                radius: 30,
+                center: ['50%', '50%'],
+                indicator: indicator,
+                name: {
+                    formatter: '{value}',
+                    textStyle: {
+                        color: '#000'
+                    }
+                }
+            },
+            series: [{
+                name: '',
+                type: 'radar',
+                data: [{name: "", value: values}]
+            }]
+        };
+    }
+
+    $(document).ready(function () {
+        sendRequest();
+    });
+</script>
+                    </div>
+                    <div class="layout-column">
+                        <div class="user-info">
+                            <div class="icon">
+                                <a href="http://my.oschina.net/youranhongcha" class="article_editor_head_img" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/174429_100.jpg" align="absmiddle" alt="悠然红茶" title="悠然红茶" class="LargePortrait"></a>
+                            </div>
+                            <div class="name">
+                                <a href="http://my.oschina.net/youranhongcha" target="_blank">悠然红茶</a>
+                            </div>
+                            <div class="follow-status">
+
+                                                          
+                                                                            <script type="text/javascript">
+    var nologin = "<a href='javascript:_follow_nologin()' title='成为TA的粉丝'>关注此人</a>"
+    var follow0 = "<a href='javascript:_follow_user(174429,true)' title='成为TA的粉丝'>关注此人</a>";
+    var follow1 = "已关注 | <a href='javascript:_follow_user(174429,false)' title='取消关注后，此人的更新信息将不会出现在你的首页'>取消</a>";
+    var follow2 = "互相关注 | <a href='javascript:_follow_user(174429,false)' title='取消关注后，此人的更新信息将不会出现在你的首页'>取消</a>";
+    var follow4 = "<a href='javascript:_follow_user(174429,true)' title='成为TA的粉丝'>+关注此人</a>";
+
+    document.write("<span id='_follow_174429_action_' class='follow ' >");
+                document.write(nologin);
+            document.write("</span>");
+
+    function _follow_nologin() {
+        if (confirm('必须登录后才能关注，是否现在登录？')) {
+            location.href = "http://www.oschina.net/home/login?goto_page=" + location.href;
+        }
+    }
+
+    function _follow_user(uid, follow) {
+        var action = follow ? "/action/user/follow" : "/action/user/unfollow";
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: action,
+            data: "id=" + uid + "&user=${g_user.id}",
+            success: function (result) {
+                var act = $('#_follow_174429_action_');
+                if (result == '0') {
+                    _follow_nologin();
+                }
+                else if (result == '1') {
+                    act.html(follow0).removeClass('followed');
+                }
+                else if (result == '2') {
+                    act.html(follow1).addClass('followed');
+                }
+                else if (result == '3') {
+                    act.html(follow2).addClass('followed');  
+                }
+                else if (result == '4') {
+                    act.html(follow4).removeClass('followed');
+                }
+            }
+        });
+    }
+</script><span id="_follow_174429_action_" class="follow "><a href="javascript:_follow_nologin()" title="成为TA的粉丝">关注此人</a></span>                                
+                                                                    
+
+                            </div>
+                        </div>
+                                                <ul class="opus-info">
+                            <li>
+                                <span>粉丝: 226</span>
+                                <span>博客数: 14</span>
+                                <span>共码了 78012 字</span>
+                            </li>
+                                                    </ul>
+                    </div>
+                </div>
+            </div>
+                            <div style="margin:10px 0;">
+                    <script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/blog"></script><script async="" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/adsbygoogle.js"></script>
+<!-- blog-ad -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1307862221338762" data-ad-slot="4302558928" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+                </div>
+            
+
+            <!-- 评论 -->
+            <div class="panel panel-comments" id="comment-list">
+                <div class="panel-heading" id="blog-comments-list">评论（<span class="reply_count">11</span>）</div>
+                <div class="panel-list" id="BlogComments">
+                                                            
+            
+                <div class="comment-item" id="cmt_196933_261246_278239700">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/261246" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/261246_50.jpg" align="absmiddle" alt="铂金蛋蛋" title="铂金蛋蛋" class="SmallPortrait" user="261246"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/261246" target="_blank" name="rpl_278239700" class="user">铂金蛋蛋</a></div>
+                            <div class="user-info"><span>1</span>楼 2014/02/01 04:01</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        非常有帮助，最近用ams做定时推送的功能 这一块一直不是很了解，看了楼主的文章，清晰了很多，不知道楼主有没有碰到ams不能正常cancel任务的时候？ 
+                    </div>
+                    <div id="inline_reply_of_196933_261246_278239700" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_261246_278239749">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/261246" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/261246_50.jpg" align="absmiddle" alt="铂金蛋蛋" title="铂金蛋蛋" class="SmallPortrait" user="261246"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/261246" target="_blank" name="rpl_278239749" class="user">铂金蛋蛋</a></div>
+                            <div class="user-info"><span>2</span>楼 2014/02/01 04:05</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        是AlarmManager<img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/1.gif" alt="1">
+                    </div>
+                    <div id="inline_reply_of_196933_261246_278239749" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_1029033_278242293">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/folyd" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/1029033_50.jpg" align="absmiddle" alt="Glide" title="Glide" class="SmallPortrait" user="1029033"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/folyd" target="_blank" name="rpl_278242293" class="user">Glide</a></div>
+                            <div class="user-info"><span>3</span>楼 2014/02/01 07:37</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        学习了。 
+                    </div>
+                    <div id="inline_reply_of_196933_1029033_278242293" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_174429_278253933">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/youranhongcha" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/174429_50.jpg" align="absmiddle" alt="悠然红茶" title="悠然红茶" class="SmallPortrait" user="174429"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/youranhongcha" target="_blank" name="rpl_278253933" class="user">悠然红茶</a></div>
+                            <div class="user-info"><span>4</span>楼 2014/02/01 23:47</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        <div class="ref"><h4>引用来自“铂金蛋蛋”的评论</h4><p>非常有帮助，最近用ams做定时推送的功能 这一块一直不是很了解，看了楼主的文章，清晰了很多，不知道楼主有没有碰到ams不能正常cancel任务的时候？ </p></div>一般这种问题出现在cancel时传入的PendingIntent身上。有些同学在调用AlarmManager的cancel()动作时，是直接调用类似getActivity()等函数重新拿到一个PendingIntent的。这种做法其实并不标准。正常的做法应该是在同一进程内使用当初设置alarm时传入的那个PendingIntent对象，而跨进程时，则需要通过binder机制，将当初那个PendingIntent对象“传递”到目标进程。原则只有一个，这个PendingIntent对象在AMS里对应的PendingIntentRecord必须匹配上，才能够cancel成功。
+                    </div>
+                    <div id="inline_reply_of_196933_174429_278253933" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_197996_278296397">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/197996" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/197996_50.JPG" align="absmiddle" alt="哪一天" title="哪一天" class="SmallPortrait" user="197996"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/197996" target="_blank" name="rpl_278296397" class="user">哪一天</a></div>
+                            <div class="user-info"><span>5</span>楼 2014/02/04 10:46</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        多谢分享 ！
+                    </div>
+                    <div id="inline_reply_of_196933_197996_278296397" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_248884_278415096">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/248884" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/248884_50.jpg" align="absmiddle" alt="yangwendaxia" title="yangwendaxia" class="SmallPortrait" user="248884"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/248884" target="_blank" name="rpl_278415096" class="user">yangwendaxia</a></div>
+                            <div class="user-info"><span>6</span>楼 2014/02/11 07:38</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        这么复杂啊 
+                    </div>
+                    <div id="inline_reply_of_196933_248884_278415096" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_857752_283432701">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/sammy1990" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/857752_50.png" align="absmiddle" alt="码农明明" title="码农明明" class="SmallPortrait" user="857752"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/sammy1990" target="_blank" name="rpl_283432701" class="user">码农明明</a></div>
+                            <div class="user-info"><span>7</span>楼 2014/11/28 16:31</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        干货， 多谢分享
+                    </div>
+                    <div id="inline_reply_of_196933_857752_283432701" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_2283056_284728451">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/2283056" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/portrait.gif" align="absmiddle" alt="jeky2015" title="jeky2015" class="SmallPortrait" user="2283056"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/2283056" target="_blank" name="rpl_284728451" class="user">jeky2015</a></div>
+                            <div class="user-info"><span>8</span>楼 2015/02/11 16:10</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        讲得很仔细，学习了~~~
+                    </div>
+                    <div id="inline_reply_of_196933_2283056_284728451" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_2255189_286231645">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/Asiam" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/2255189_50.jpg" align="absmiddle" alt="Asiam" title="Asiam" class="SmallPortrait" user="2255189"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/Asiam" target="_blank" name="rpl_286231645" class="user">Asiam</a></div>
+                            <div class="user-info"><span>9</span>楼 2015/05/09 15:57</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        谢谢分享    
+                    </div>
+                    <div id="inline_reply_of_196933_2255189_286231645" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_1983160_287252314">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/1983160" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/1983160_50.jpg" align="absmiddle" alt="bin_android" title="bin_android" class="SmallPortrait" user="1983160"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/1983160" target="_blank" name="rpl_287252314" class="user">bin_android</a></div>
+                            <div class="user-info"><span>10</span>楼 2015/07/07 17:32</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        <div class="ref"><h4>引用来自“铂金蛋蛋”的评论</h4>是AlarmManager<img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/1.gif" alt="1"></div>请问在使用AlarmManager的时候是用的getReciver吗？为啥我的AlarmManager在程序被杀死后，提示不了啊？（我用的是getService，但是也试过getReciver，结果都一样）
+                    </div>
+                    <div id="inline_reply_of_196933_1983160_287252314" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+                
+                <div class="comment-item" id="cmt_196933_1385301_288564156">
+            <div class="layout">
+                <div class="layout-left">
+                    <!-- 头像 -->
+                    <div class="icon">
+                        <a href="http://my.oschina.net/u/1385301" target="_blank"><img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/1385301_50.jpg" align="absmiddle" alt="布瓜的世界" title="布瓜的世界" class="SmallPortrait" user="1385301"></a>
+                    </div>
+                </div>
+                <div class="layout-column right">
+                    <div class="layout">
+                                                <div class="layout-column">
+                            <div class="user-name"><a href="http://my.oschina.net/u/1385301" target="_blank" name="rpl_288564156" class="user">布瓜的世界</a></div>
+                            <div class="user-info"><span>11</span>楼 2015/09/21 15:33</div>
+                        </div>
+                    </div>
+
+                    <!-- 评论内容 -->
+                    <div class="comment-content">
+                        谢谢分享，大略看了下学到了很多，先保存了留着慢慢细看
+                    </div>
+                    <div id="inline_reply_of_196933_1385301_288564156" class="inline_reply"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="pages sm-hide">
+        </div>
+                                                    </div>
+            </div>
+            <!-- 发表评论表单 -->
+            <div id="inline_reply_editor" style="display:none;">
+    <div class="BlogCommentForm blog-comment-form">
+        <form id="form_inline_comment" action="http://my.oschina.net/action/blog/add_comment?blog=196933" method="POST">
+          <input type="hidden" id="inline_reply_id" name="reply_id" value="">
+          <textarea name="content" id="ccom_content"></textarea>
+          <div class="layout">
+              <div class="layout-right">
+                <input type="button" value="关闭" class="btn btn-text" id="btn_close_inline_reply">
+                <input type="submit" value="回复" id="btn_comment" class="btn btn-green"> 
+              </div>
+              <div class="layout-column">
+                  插入：
+                    <a href="javascript:;" onclick="javascript:insert_emotions(&#39;ccom_content&#39;,this);" class="blog_emotion">表情</a>
+                    <a href="javascript:insert_projects_c();" class="blog_soft">开源软件</a>
+                    <span class="NoData" id="ficmp_msg" style="color:#F00"></span>
+              </div>
+          </div>
+        </form>
+    </div>
+</div>
+<div class="SpaceList">
+    <a name="comments" id="postform"></a>
+        <div class="layout BlogCommentForm blog-comment-form">
+        <form id="form_comment" action="http://my.oschina.net/action/blog/add_comment?blog=196933" method="POST">
+            <div class="comment_portrait layout-left">
+                <div class="icon">
+                    <img src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/portrait.gif" align="absmiddle" alt="布瓜的世界" title="布瓜的世界" class="LargePortrait">                </div>
+            </div>
+            <div class="comment_form layout-column ">
+                <textarea name="content" id="wmd-input" placeholder=""></textarea>
+                <div class="layout">
+                    <div class="layout-right">
+                        <button type="submit" class="btn btn-green blg_submit_btn">发表评论</button>
+                    </div>
+                    <div class="layout-column">
+                        插入：
+                        <a href="javascript:insert_emotions();" class="blog_emotion">表情</a>
+                        <a href="javascript:insert_projects();" class="blog_soft">开源软件</a>
+                        <span class="NoData" id="cmt_tip"></span>
+                    </div>
+                </div>
+                <div id="TweetFormPopupWraper">
+                    <div id="TweetFormPopupArrow">
+                        <div id="TweetFormPopup">
+                            <div id="TweetEmotions">
+                                <div class="TweetPopupTitle"><a href="javascript:;" onclick="$(&#39;#TweetFormPopupWraper&#39;).hide();return false;">关闭</a>插入表情</div>
+                                                                <a href="javascript:;" onclick="return ins_e(0);" class="emotion" style="background-position: -0px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(1);" class="emotion" style="background-position: -24px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(2);" class="emotion" style="background-position: -48px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(3);" class="emotion" style="background-position: -72px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(4);" class="emotion" style="background-position: -96px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(5);" class="emotion" style="background-position: -120px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(6);" class="emotion" style="background-position: -144px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(7);" class="emotion" style="background-position: -168px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(8);" class="emotion" style="background-position: -192px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(9);" class="emotion" style="background-position: -216px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(10);" class="emotion" style="background-position: -240px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(11);" class="emotion" style="background-position: -264px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(12);" class="emotion" style="background-position: -288px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(13);" class="emotion" style="background-position: -312px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(14);" class="emotion" style="background-position: -336px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(15);" class="emotion" style="background-position: -360px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(16);" class="emotion" style="background-position: -384px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(17);" class="emotion" style="background-position: -408px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(18);" class="emotion" style="background-position: -432px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(19);" class="emotion" style="background-position: -456px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(20);" class="emotion" style="background-position: -480px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(21);" class="emotion" style="background-position: -504px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(22);" class="emotion" style="background-position: -528px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(23);" class="emotion" style="background-position: -552px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(24);" class="emotion" style="background-position: -576px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(25);" class="emotion" style="background-position: -600px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(26);" class="emotion" style="background-position: -624px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(27);" class="emotion" style="background-position: -648px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(28);" class="emotion" style="background-position: -672px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(29);" class="emotion" style="background-position: -696px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(30);" class="emotion" style="background-position: -720px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(31);" class="emotion" style="background-position: -744px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(32);" class="emotion" style="background-position: -768px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(33);" class="emotion" style="background-position: -792px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(34);" class="emotion" style="background-position: -816px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(35);" class="emotion" style="background-position: -840px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(36);" class="emotion" style="background-position: -864px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(37);" class="emotion" style="background-position: -888px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(38);" class="emotion" style="background-position: -912px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(39);" class="emotion" style="background-position: -936px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(40);" class="emotion" style="background-position: -960px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(41);" class="emotion" style="background-position: -984px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(42);" class="emotion" style="background-position: -1008px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(43);" class="emotion" style="background-position: -1032px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(44);" class="emotion" style="background-position: -1056px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(45);" class="emotion" style="background-position: -1080px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(46);" class="emotion" style="background-position: -1104px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(47);" class="emotion" style="background-position: -1128px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(48);" class="emotion" style="background-position: -1152px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(49);" class="emotion" style="background-position: -1176px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(50);" class="emotion" style="background-position: -1200px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(51);" class="emotion" style="background-position: -1224px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(52);" class="emotion" style="background-position: -1248px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(53);" class="emotion" style="background-position: -1272px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(54);" class="emotion" style="background-position: -1296px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(55);" class="emotion" style="background-position: -1320px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(56);" class="emotion" style="background-position: -1344px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(57);" class="emotion" style="background-position: -1368px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(58);" class="emotion" style="background-position: -1392px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(59);" class="emotion" style="background-position: -1416px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(60);" class="emotion" style="background-position: -1440px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(61);" class="emotion" style="background-position: -1464px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(62);" class="emotion" style="background-position: -1488px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(63);" class="emotion" style="background-position: -1512px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(64);" class="emotion" style="background-position: -1536px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(65);" class="emotion" style="background-position: -1560px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(66);" class="emotion" style="background-position: -1584px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(67);" class="emotion" style="background-position: -1608px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(68);" class="emotion" style="background-position: -1632px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(69);" class="emotion" style="background-position: -1656px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(70);" class="emotion" style="background-position: -1680px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(71);" class="emotion" style="background-position: -1704px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(72);" class="emotion" style="background-position: -1728px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(73);" class="emotion" style="background-position: -1752px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(74);" class="emotion" style="background-position: -1776px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(75);" class="emotion" style="background-position: -1800px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(76);" class="emotion" style="background-position: -1824px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(77);" class="emotion" style="background-position: -1848px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(78);" class="emotion" style="background-position: -1872px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(79);" class="emotion" style="background-position: -1896px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(80);" class="emotion" style="background-position: -1920px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(81);" class="emotion" style="background-position: -1944px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(82);" class="emotion" style="background-position: -1968px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(83);" class="emotion" style="background-position: -1992px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(84);" class="emotion" style="background-position: -2016px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(85);" class="emotion" style="background-position: -2040px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(86);" class="emotion" style="background-position: -2064px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(87);" class="emotion" style="background-position: -2088px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(88);" class="emotion" style="background-position: -2112px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(89);" class="emotion" style="background-position: -2136px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(90);" class="emotion" style="background-position: -2160px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(91);" class="emotion" style="background-position: -2184px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(92);" class="emotion" style="background-position: -2208px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(93);" class="emotion" style="background-position: -2232px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(94);" class="emotion" style="background-position: -2256px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(95);" class="emotion" style="background-position: -2280px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(96);" class="emotion" style="background-position: -2304px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(97);" class="emotion" style="background-position: -2328px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(98);" class="emotion" style="background-position: -2352px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(99);" class="emotion" style="background-position: -2376px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(100);" class="emotion" style="background-position: -2400px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(101);" class="emotion" style="background-position: -2424px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(102);" class="emotion" style="background-position: -2448px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(103);" class="emotion" style="background-position: -2472px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(104);" class="emotion" style="background-position: -2496px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(105);" class="emotion" style="background-position: -2520px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(106);" class="emotion" style="background-position: -2544px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(107);" class="emotion" style="background-position: -2568px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(108);" class="emotion" style="background-position: -2592px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(109);" class="emotion" style="background-position: -2616px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(110);" class="emotion" style="background-position: -2640px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(111);" class="emotion" style="background-position: -2664px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(112);" class="emotion" style="background-position: -2688px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(113);" class="emotion" style="background-position: -2712px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(114);" class="emotion" style="background-position: -2736px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(115);" class="emotion" style="background-position: -2760px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(116);" class="emotion" style="background-position: -2784px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(117);" class="emotion" style="background-position: -2808px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(118);" class="emotion" style="background-position: -2832px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(119);" class="emotion" style="background-position: -2856px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(120);" class="emotion" style="background-position: -2880px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(121);" class="emotion" style="background-position: -2904px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(122);" class="emotion" style="background-position: -2928px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(123);" class="emotion" style="background-position: -2952px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(124);" class="emotion" style="background-position: -2976px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(125);" class="emotion" style="background-position: -3000px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(126);" class="emotion" style="background-position: -3024px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(127);" class="emotion" style="background-position: -3048px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(128);" class="emotion" style="background-position: -3072px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(129);" class="emotion" style="background-position: -3096px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(130);" class="emotion" style="background-position: -3120px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(131);" class="emotion" style="background-position: -3144px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(132);" class="emotion" style="background-position: -3168px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(133);" class="emotion" style="background-position: -3192px 0px;"></a>
+                                                                <a href="javascript:;" onclick="return ins_e(134);" class="emotion" style="background-position: -3216px 0px;"></a>
+                                                                    <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/oschina.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#form_comment textarea").on("keydown",function(event){
+            if((event.metaKey || event.ctrlKey) && event.keyCode==13){
+                $("#form_comment").submit();
+            }
+        });
+    });
+    var textbox = $("#wmd-input").textbox({
+        maxLength: 1000,
+        onInput: function(event, status) {
+            var txt = jQuery.trim($("#wmd-input").val());
+        }
+    });
+    function insert_projects() {
+        textbox.insertText('#此处输入软件名#');
+        $('#TweetEmotions').removeAttr('txt_id');
+    }
+    function insert_projects_c() {
+        var combox = $("#ccom_content").textbox({
+            maxLength: 1000,
+            onInput: function(event, status) {
+                var txt = jQuery.trim($("#ccom_content").val());
+            }
+        });
+        combox.insertText('#此处输入软件名#');
+        $('#TweetEmotions').removeAttr('txt_id');
+    }
+    function insert_emotions(id,obj) {
+        if(id) {
+            $('#TweetEmotions').attr('txt_id',id);
+            var thiz = $(obj);
+            var offset = thiz.offset();
+            var poffset = thiz.offsetParent().offset();
+            var left = offset.left-poffset.left;
+            var top = offset.top-poffset.top;
+            $('#TweetFormPopupWraper').css({'top':top+25 +'px','left':left+'px'});
+        }
+        else {
+            $('#TweetFormPopupWraper').css({'top':'','left':''});
+            $('#TweetEmotions').removeAttr('txt_id');
+        }
+        $('#TweetEmotions').show();
+        $('#TweetImages').hide();
+        $('#TweetFormPopupArrow').removeClass('projects');
+        $('#TweetFormPopupArrow').removeClass('images');
+        $('#TweetFormPopupArrow').addClass('emotions');
+        $('#TweetFormPopupWraper').slideDown('fast');
+    }
+    function ins_e(idx){
+        var txt_id = $('#TweetEmotions').attr('txt_id');
+        if(!txt_id)
+            textbox.insertText('['+idx+']');
+        else {
+            insertAtCursor(txt_id,'['+idx+']');
+        }
+        $('#TweetFormPopupWraper').hide();
+        return false;
+    }
+    function insertAtCursor(tbid,str) {
+        var tb = document.getElementById(tbid);
+        if (document.selection){
+            tb.focus();
+            var r = document.selection.createRange();
+            document.selection.empty();
+            r.text = str;
+            r.collapse();
+            r.select();
+        }
+        else{
+            var newstart = tb.selectionStart+str.length;
+            tb.value=tb.value.substr(0,tb.selectionStart)+str+tb.value.substring(tb.selectionEnd);
+            tb.selectionStart = newstart;
+            tb.selectionEnd = newstart;
+        }
+    }
+    $('#form_comment').ajaxForm({
+        dataType: 'json',
+        beforeSubmit: function(){
+            posting = true;
+        },
+        success: function(json) {
+            if(json.msg){
+                $('#cmt_tip').html("<span style='color:#C00;'>"+json.msg+"</span>");
+                $('#wmd-input').focus();
+            }else{
+                var url = "http://my.oschina.net/youranhongcha/blog_post?_cmt_blog="+json.blog+"&_cmt_user="+json.user+"&_cmt_id="+json.id;
+                jQuery.get(url, function(data){
+                    $("#form_comment .NoData").hide();
+                    $("#BlogComments .NoData").remove();
+                    if($("#BlogComments .pages").length == 0){
+                        $("#BlogComments").append(data);
+                    }else{
+                        $("#BlogComments .pages").before(data);
+                    }
+                    $("#form_comment").resetForm();
+                    updateCommentCount(1);
+                });
+            }
+        }
+    });
+    var replyinline_dup = false;
+    function ReplyInline(blog,user,reply){
+        $('.inline_reply').empty();
+        var div_id = '#inline_reply_of_'+blog+'_'+user+'_'+reply;
+        $('#inline_reply_id').val(user+'_'+reply);
+        $(div_id).html($('#inline_reply_editor').html());
+        $('#ccom_content').focus().on("keydown",function(event){
+            if((event.metaKey || event.ctrlKey) && event.keyCode==13){
+                $("#form_inline_comment").submit();
+            }
+        });
+
+        $('#btn_close_inline_reply').click(function(){
+            $(div_id).empty();
+        });
+        var li_id = '#cmt_'+blog+'_'+user+'_'+reply;
+        var p_li = $(li_id);
+        var tip = $("#ficmp_msg");
+
+        $('#form_inline_comment').ajaxForm({
+            dataType: 'json',
+            beforeSubmit:function(){
+                if(replyinline_dup){
+                    tip.html("正在发表评论，请勿重复提交");
+                    return false;
+                }
+                replyinline_dup = true;
+                return true;
+            },
+            success: function(json) {
+                tip.html("");
+                if(json.msg){
+                    tip.html(json.msg);
+                    replyinline_dup = false;
+                }
+                else if(json.id){
+                    ajax_post("http://my.oschina.net/blog/show_post","_cmt_user="+"&_cmt_id="+json.id,function(html){
+                        if(html.length > 0){
+                            $(html).insertAfter(p_li);
+                            updateCommentCount(1);
+                            $(div_id).empty();
+                        }else{
+                            tip.html("获取评论失败");
+                        }
+                        setTimeout(function(){
+                            replyinline_dup = false;
+                        },5000)
+                    });
+                }
+            }
+        });
+    }
+    function updateCommentCount(addCount){
+        var commentSpan = $(".blog-heading .text-gary ul li.comment span");
+        var originCommentCount = commentSpan.html();
+        var newCommentCount = parseInt(originCommentCount) + addCount;
+        commentSpan.html(newCommentCount);
+        $("#blog-comments-list .reply_count").html(newCommentCount);
+    }
+</script>        </div>
+
+        <!-- 微信分享二维码 -->
+        <div class="float-share md-hide" style="top: 81px;">
+            <div class="weixin-share" id="weixin-share">
+            <canvas width="100" height="100"></canvas></div>
+            <span>微信分享</span>
+        </div>
+
+        <!-- 右侧工具条 -->
+        <div class="tool-bar blog-tool-bar md-hide">
+                <div class="item tool-top" style="display: block;">
+                    <a href="http://my.oschina.net/youranhongcha/blog/196933#navbar-header" data-href="#navbar-header" class="over">
+                        <div class="icon">
+                            <i class="icon-svg icon-go-top"></i>
+                        </div>
+                        <div class="txt">顶部</div>
+                    </a>
+                </div>
+                
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.radar.hide-radar').addClass('author_skill_info');
+        $(document).pjax('.pages ul li a', '#BlogComments');
+        $(document).on('pjax:success', function() {
+            location.hash="#blog-comments-list";
+        })
+        // 微信分享
+        $('#weixin-share').qrcode({
+            text: location.href,
+            width: 100,
+            height: 100,
+            colorDark : "#000000",
+            colorLight : "#ffffff"
+        });
+
+        if(window.console&&window.console.log){
+            console.info("\n      ___           ___           ___                    ___                       ___           ___     \n" +
+                    "     /  /\\         /  /\\         /  /\\                  /__/\\        ___          /  /\\         /  /\\    \n" +
+                    "    /  /::\\       /  /:/_       /  /:/                  \\  \\:\\      /  /\\        /  /::\\       /  /:/_   \n" +
+                    "   /  /:/\\:\\     /  /:/ /\\     /  /:/                    \\__\\:\\    /  /:/       /  /:/\\:\\     /  /:/ /\\  \n" +
+                    "  /  /:/  \\:\\   /  /:/ /::\\   /  /:/  ___            ___ /  /::\\  /__/::\\      /  /:/~/:/    /  /:/ /:/_ \n" +
+                    " /__/:/ \\__\\:\\ /__/:/ /:/\\:\\ /__/:/  /  /\\          /__/\\  /:/\\:\\ \\__\\/\\:\\__  /__/:/ /:/___ /__/:/ /:/ /\\\n" +
+                    " \\  \\:\\ /  /:/ \\  \\:\\/:/~/:/ \\  \\:\\ /  /:/          \\  \\:\\/:/__\\/    \\  \\:\\/\\ \\  \\:\\/:::::/ \\  \\:\\/:/ /:/\n" +
+                    "  \\  \\:\\  /:/   \\  \\::/ /:/   \\  \\:\\  /:/            \\  \\::/          \\__\\::/  \\  \\::/~~~~   \\  \\::/ /:/ \n" +
+                    "   \\  \\:\\/:/     \\__\\/ /:/     \\  \\:\\/:/              \\  \\:\\          /__/:/    \\  \\:\\        \\  \\:\\/:/  \n" +
+                    "    \\  \\::/        /__/:/       \\  \\::/                \\  \\:\\         \\__\\/      \\  \\:\\        \\  \\::/   \n" +
+                    "     \\__\\/         \\__\\/         \\__\\/                  \\__\\/                     \\__\\/         \\__\\/    \n" +
+                    " 想加入platform team? 发简历过来:zhaizhijun AT oschina.cn 注明:from console\n");
+        }
+
+    })
+
+    function delete_c(nid,uid,cid){
+        if(confirm("您确认要删除此篇评论？")){
+            var args = "cmt="+cid+"#"+uid+"#"+nid;
+            ajax_post("/action/blog/delete_blog_comments?space=174429",args,function(){$("#cmt_"+nid+"_"+uid+"_"+cid).fadeOut();updateCommentCount(-1);});
+        }
+    }
+    function vote(blogid){
+                    alert("必须登录后才能操作 :)");
+            }
+    function updateVoteCount(voteCount){
+        $(".blog-heading .text-gary ul li.vote span").html(voteCount);
+    }
+    function vote2(blogid){
+                    alert("必须登录后才能操作 :)");
+            }
+    $(".favor-form").on("click", "a.tag", function(event){
+        var tagName = $(this).data("tagname");
+        var targetInput = $(this).parents(".favor-form").find("input[name='tags']");
+        setTag(tagName, targetInput);
+    })
+    function setTag(tagName, targetInput){
+        var value = targetInput.val();
+        var tags = value.replace(/，/ig,',').split(',');
+        var exist = false;
+        value = $.map(tags,function(v,i){
+            if($.trim(tagName) == $.trim(v)){
+                exist = true;
+                return undefined;
+            }
+            return v;
+        }).join(',');
+        if(exist){
+            targetInput.val(value);
+            return;
+        }
+        if(value!=""){
+            targetInput.val(value+","+tagName);
+        }else{
+            targetInput.val(tagName)
+        }
+    }
+    $("body").on("click", ".cancelVote", function(event){
+        var blogId = $(this).data("blogid");
+        var blogType = $(this).data("blogtype");
+        var userId = $(this).data("userid");
+        ajax_post("/action/favorite/cancel","id="+blogId+"&type="+blogType+"&user="+userId,function(result, status){
+            if(status=="success"){
+                updateFavorCountAndToggleStatus(result);
+            }
+        });
+    })
+    var option_favor_blog = {
+        type: $(this).attr("method"),
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        beforeSubmit: function(formData, jqForm, options){
+            return true;
+        },
+        success: function (msg, status) {
+            if(status == "success"){
+                updateFavorCountAndToggleStatus(msg);
+            }
+        },
+        error: function(html){
+            alert("提交数据失败，代码:" +html.status+ "，请稍候再试");
+        }
+    }
+    $("form.favor_blog").ajaxForm(option_favor_blog);
+    function updateFavorCountAndToggleStatus(favorCount){
+        $(".blog-heading .text-gary ul li.favor span").html(favorCount);
+        $(".blog-tool-bar .tool-favor").toggleClass("active");
+        $(".blog-tool-bar .tool-favor").toggleClass("hover");
+        $(".blog-tool-bar .tool-favor>a").toggleClass("cancelVote");
+        $(".operate .favor").toggleClass("hover");
+        $(".operate .favor").toggleClass("active");
+        $(".operate .favor>a").toggleClass("cancelVote");
+                var favor_button_name = $(".operate .favor").find("span");
+        favor_button_name.html(favor_button_name.html().trim() =="收藏" ? "已收藏" : "收藏");
+    }
+    
+    function delete_blog(blog_id){
+        if(!confirm("文章删除后无法恢复，请确认是否删除此篇文章？")) return;
+        ajax_post("/action/blog/delete?id="+blog_id+"&user=${g_user.id}&user_code=${g_user.activate_code}","",function(html){
+            location.href="http://my.oschina.net/youranhongcha/blog";
+        });
+    }
+    
+    function self_recommend_blog(blogid){
+        if (confirm("自荐的博客将通过私信方式通知管理员\n优秀的博客文章审核通过后将在博客推荐列表中显示！")) {
+            ajax_post("/action/blog/self_recommend", "id=" + blogid, function(){
+                $('#self_recomm').text("已自荐");
+            });
+        }
+    }
+
+    function toggle_recomm(blogid) {
+        ajax_post("/action/blog/toggle_recomm", "id=" + blogid, function (html) {
+            if (html == '-1'){
+                alert("文章不存在");
+            }else if (html == 0){
+                $('#lnk_recomm_' + blogid).removeClass('recommend');
+                $('#lnk_recomm_' + blogid).text("未推荐");
+            }else if (html == 1){
+                $('#lnk_recomm_' + blogid).addClass('recommend');
+                $('#lnk_recomm_' + blogid).text("已推荐");
+            }
+        });
+    }
+</script>
+<script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/blog(1)" defer="defer"></script>
+
+
+                            </div>
+    <div class="clear"></div>
+    <div id="OSC_Footer">
+    <div class="footer">
+    <div class="container">
+        <div class="layout">
+        	<div class="layout-right">
+        		<div class="oscapp">
+					<span>开源中国手机客户端：</span>
+					<a href="http://www.oschina.net/app" class="android" title="Android客户端">Android</a>
+					<a href="http://www.oschina.net/app" class="iphone" title="iPhone 客户端">iPhone</a>
+					<a href="http://www.oschina.net/app" class="wp7" title="Windows Phone 客户端">WP7</a>
+				</div>
+        	</div>
+        	<div class="layout-column">
+        		<div>
+	        		© 开源中国(OSChina.NET) | <a href="http://www.oschina.net/home/aboutosc">关于我们</a> | <a href="mailto:market@oschina.cn">广告联系</a> | <a href="http://weibo.com/oschina2010" target="_blank">@新浪微博</a> | <a href="http://m.oschina.net/">开源中国手机版</a> | <a href="http://www.miitbeian.gov.cn/" target="_blank" style="color:#737573;text-decoration:none;">粤ICP备12009483号-3</a></div>
+	       		 <div>开源中国社区(OSChina.net)是工信部 <a href="http://www.copu.org.cn/" target="_blank">开源软件推进联盟</a> 指定的官方社区</div>
+	        </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    <!--
+    if (top.location != self.location)top.location=self.location;
+    //-->
+</script>
+    </div>
+</div>
+<script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="./说说PendingIntent的内部机制 - 悠然红茶的个人页面 - 开源中国社区_files/blog.min.js"></script>
+
+
+
+<!-- Generated by OsChina.NET (init:1[ms],page:32[ms],ip:183.239.175.66) --><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; top: 839px; left: 358px; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

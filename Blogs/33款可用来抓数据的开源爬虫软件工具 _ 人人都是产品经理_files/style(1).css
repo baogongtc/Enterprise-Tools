@@ -1,0 +1,785 @@
+@charset "UTF-8";
+/*
+Theme Name: woshipm2015
+Theme URI: http://www.woshipm.com
+Version: 1.0
+Author: Changmeng Hu
+Author URI: http://www.cmhello.com
+Description: The 2015 new theme for woshipm.com.
+*/
+/*样式重置*/
+html,body,p,dl,dt,dd,table,td,th,input,img,form,div,span,ul,ol,li,h1,h2,h3,h4,h5,h6,select,fieldset,fieldset,button,sub,sup,textarea{margin:0;padding:0;font-family:"Microsoft YaHei","WenQuanYi Micro Hei","Open Sans","Hiragino Sans GB",Arial,Verdana,Tahoma,sans-serif;}
+body{font:14px/1.5 \5FAE\8F6F\96C5\9ED1,Arial,\5b8b\4f53,Tahoma,sans-serif;font-family:"Microsoft YaHei","WenQuanYi Micro Hei","Open Sans","Hiragino Sans GB",Arial,Verdana,Tahoma,sans-serif;background-color:#f3f3f3;color:#333;}
+table{width:100%;border-collapse:collapse;border-spacing:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+iframe,img{border:0 none;vertical-align:middle;}
+em,i{font-style:normal;}
+ul,li,ol{list-style:none outside none;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;line-height:0;font-size:0;}
+.clearfix{*zoom:1;}
+a{color:#333;text-decoration:none;}
+a:hover{color:#295698;text-decoration:none;}
+:focus{outline:0;}
+.clear{clear:both;overflow:hidden;font-size:0;height:0;line-height:0;}
+input{font-family:"Microsoft YaHei","WenQuanYi Micro Hei","Open Sans","Hiragino Sans GB",Arial,Verdana,Tahoma,sans-serif;}
+
+.white-font{color:#fff;}
+.gray-font{color:#666;}
+
+/*首页*/
+.top-box{width:100%; height:76px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/nav-bj.png") repeat-x; line-height:70px;}
+.fixed{position:fixed;top:0;left:0;right:0;z-index:9999;}
+.top-main,.content-box{width:1202px; margin:0 auto; position:relative;}
+.top-main .logo{width:206px; height:44px; float:left; margin:14px 90px 0 0;}
+.top-main .nav{float:left; width:780px; height:70px;z-index:999;}
+.top-main .nav li a{min-width:70px; text-align:center; color:#fff; font-size:16px; float:left; margin-right:20px; padding-left: 5px;padding-right: 5px; text-shadow: -1px 2px 1px #4a6893;}
+.top-main .nav > li > a:hover{ background-color:#6781a4; height:68px; border-bottom:2px #fff solid; text-decoration:none;}
+.top-main .nav > li.top-menu-item >a,
+.top-main .nav > li.children-menu-hover >a,
+.top-main .nav > li.current_page_item > a,
+.top-main .nav > li.current-menu-item > a,
+.top-main .nav > li.current-menu-ancestor > a,
+.top-main .nav > li.current-post-ancestor > a,
+.top-main .nav > li.current-post-parent > a{background-color:#6781a4; height:68px; border-bottom:2px #fff solid; text-decoration:none;}
+.top-main .nav > li .icon1{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon.jpg") no-repeat 10px 21px; width:20px; height:70px; padding:10px;}
+/*导航“分类”下拉菜单*/
+.top-main .nav > li{display:inline-block;position:relative;}
+.top-main .nav li ul.sub-menu{display: none; background-color:#fff; box-shadow: -1px 2px 1px #6781a5; border-right:rgba(103, 129, 165, 0.7) 1px solid;  position:absolute; z-index:9999; left:0; min-width:270px; top:70px;border-bottom:1px #f5f5f5 solid; padding:10px 5px 10px 15px; }
+.top-main .nav li:hover ul.sub-menu{display: block;}
+.top-main .nav li ul.sub-menu li{float:left; line-height:30px;}
+.top-main .nav li ul.sub-menu li a{text-shadow: none;color: #333;font-size: 16px;background: none;margin-right:10px;}
+.top-main .nav li ul.sub-menu li a:hover{color: #295698;}
+.top-main .nav li ul.sub-menu li.current-menu-item a,
+.top-main .nav li ul.sub-menu li.current_page_item a,
+.top-main .nav li ul.sub-menu li.current-menu-ancestor a,
+.top-main .nav li ul.sub-menu li.current-post-ancestor a,
+.top-main .nav li ul.sub-menu li.current-post-parent a{color: #295698;font-weight: 700;}
+
+
+.top-main .login-r{float:right; color:#fff;}
+.login-r .toggle-search{width:40px; height:70px; float:left; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") 10px -247px no-repeat;}
+.login-r .toggle-search:hover,
+.login-r .toggle-search.search-active{background-color:#6781a5; cursor:pointer;}
+.search-expand{display: none; position:absolute; padding:10px 15px; background-color:#6781a5; top:70px; right:78px; width:225px;line-height: 30px; z-index:99999;}
+.search-expand .input{ border:0; border-radius:2px; width:190px; height:28px; height:28px; padding:0 5px;margin: 0;}
+.search-expand button{position: absolute; top: 10px; right: 15px; width: 28px;height: 28px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") #fff no-repeat 6px -537px;border: none;border-radius:2px;}
+.search-expand button:hover{background-position:6px -564px;cursor: pointer;}
+
+/*登录前*/
+.top-main .login-box{position:relative; float:left; padding:20px 10px; width:58px; height:30px;}
+.top-main .login-box:hover{background-color:#6781a5; cursor:pointer;}
+.top-main .login-box .avatar{border-radius:350px; -webkit-border-radius:350px;-moz-border-radius:350px; width:35px; height:35px; border:1px #58749C solid; float:left;}
+.top-main .login-box .more{ background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon.jpg") no-repeat; float:left; width:10px; height:10px; margin:20px 0 0 10px;}
+
+/*导航“分类”下拉菜单*/
+.fl-nav{display: none; background-color:#6781A5;position:absolute; z-index:9999; right:0;top:70px; width: 120px;}
+.login-box:hover .fl-nav{display: block;}
+.fl-ul{padding:0; overflow:hidden;}
+.fl-ul li{height:36px; line-height:36px;text-align: center;width: 120px;}
+.fl-ul li:hover{background-color:#7AA6D4;}
+.fl-ul li a{color: #fff;width: 120px;display: inline-block;}
+.fl-ul li:first-child{border-bottom:1px #8297B5 solid;}
+.fl-ul li:last-child{border-top:1px #8297B5 solid;}
+.fl-ul li.no-line{border:none;}
+
+/*导航"分类"下拉菜单*/
+.hd-ul{width: 400px;}
+.top-main .nav li ul.sub-menu li ul.hd-ul li{width: 390px;line-height: 28px;}
+.top-main .nav li ul.sub-menu li ul.hd-ul a{font-size: 14px;text-align: left;padding: 0;line-height: 22px;width: 100%;margin-bottom: 10px;margin-top: 10px;}
+.top-main .nav li ul.sub-menu li ul.hd-ul a.g-an{margin-top: 2px; min-width:56px;width:56px; height:24px; line-height:24px;text-align:center; color:#fff; background-color:#62b651; float:left; border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;margin-bottom: 0;padding: 0;font-size: 12px;}
+.top-main .nav li ul.sub-menu li ul.hd-ul a.g-an:hover{background-color:#6781a5; color:#fff;}
+.hd-ul .h-an{width:56px; height:24px; line-height:24px; text-align:center; color:#fff; background-color:#ccc; float:left; border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;}
+.top-main .nav li ul.sub-menu li p.hd-more{ display:block; width:120px; height:32px; line-height:32px; background-color:#d8e3f2;float: none;margin:10px auto;}
+.top-main .nav li ul.sub-menu li p.hd-more a{text-align: center;padding: 0 25px;font-size: 14px;}
+.top-main .nav li ul.sub-menu li p.hd-more:hover{background-color:#6781a5; color:#fff; cursor:pointer;}
+.top-main .nav li ul.sub-menu li p.hd-more a{color:#6781a5;}
+.top-main .nav li ul.sub-menu li p.hd-more:hover a{color:#fff;}
+
+.float-l{float:left;}
+.content-box .left{width:874px; float:left;}
+.mar-t35{margin-top:35px;}
+.L-mainbox1{width:870px; background-color:#FDFDFD; box-shadow:1px 1px 3px #e6e6e6; }
+
+/* ------------------------------------------------------------------------- *
+* Section:slider
+/* ------------------------------------------------------------------------- */
+.owl-carousel .owl-wrapper:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
+.owl-carousel{display:none;position:relative;width:100%;-ms-touch-action:pan-y;}
+.owl-carousel .owl-wrapper{display:none;position:relative;-webkit-transform:translate3d(0px,0px,0px);}
+.owl-carousel .owl-wrapper-outer{overflow:hidden;position:relative;width:100%;zoom:1;}
+.owl-carousel .owl-wrapper-outer.autoHeight{-webkit-transition:height 500ms ease-in-out;-moz-transition:height 500ms ease-in-out;-ms-transition:height 500ms ease-in-out;-o-transition:height 500ms ease-in-out;transition:height 500ms ease-in-out;}
+.owl-carousel .owl-item{float:left;}
+.owl-controls .owl-page,
+.owl-controls .owl-buttons div{cursor:pointer;}
+.owl-controls{-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.grabbing{cursor:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/grabbing.png") 8 8,move;}
+.owl-carousel .owl-wrapper,
+.owl-carousel .owl-item{-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);}
+.owl-theme .owl-controls{margin-top:10px;text-align:center;}
+.owl-theme .owl-controls .owl-buttons div{color:#FFF;display:inline-block;zoom:1;*display:inline;margin:5px;padding:3px 10px;font-size:12px;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;background:#869791;opacity:0.5;}
+.owl-theme .owl-controls.clickable .owl-buttons div:hover{opacity:1;text-decoration:none;}
+.owl-theme .owl-controls .owl-page{display:inline-block;zoom:1;*display:inline;}
+.owl-theme .owl-controls .owl-page span{display:block;width:12px;height:12px;margin:5px 7px;opacity:0.5;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px;background:#869791;}
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span{opacity:1;}
+.owl-theme .owl-controls .owl-page span.owl-numbers{height:auto;width:auto;color:#FFF;padding:2px 10px;font-size:12px;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
+.owl-item.loading{min-height:150px;background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/AjaxLoader.gif") no-repeat center center}
+#top-carousel{padding: 22px;width:828px;}
+#top-carousel .item{margin: 6px;}
+#top-carousel .item img{display: block; width:259px; height:145px; border: 2px #fff solid;}
+#top-carousel .item img:hover{border: 2px #7aa6d4 solid; }
+#top-carousel .item h3{line-height:40px; font-size:15px;height: 40px;overflow: hidden;}
+#top-carousel .item .slider-excerpt{height: 40px;overflow: hidden;}
+#top-carousel .owl-controls .owl-page span{width:9px; height:9px;background:#fff; border:#ababab 1px solid; }
+#top-carousel .owl-controls .owl-page.active span,
+#top-carousel .owl-controls.clickable .owl-page:hover span{width:11px; height:11px; background-color:#58749c; border:0;}
+
+#event-carousel .owl-controls{position: absolute; width: 100%; bottom: 10px;right: 0;}
+#event-carousel .owl-controls .owl-page span{width:10px; height:10px;background:#fff; border:#fff 1px solid; opacity:1;}
+#event-carousel .owl-controls .owl-page.active span,
+#event-carousel .owl-controls.clickable .owl-page:hover span{width:10px; height:10px; background-color:#58749c; border:#fff 1px solid;}
+
+.good-book{margin-left:14px; padding-top:15px;width: 286px;}
+.good-book dl{ overflow:hidden;border-bottom:#f2f1f1 1px dashed; padding-bottom:20px;padding-top: 20px;}
+.good-book dl:first-child{padding-top: 5px;}
+.good-book dl dd{width:100px; height:130px; margin-right:15px; float:left;}
+.good-book dl dt{width:165px; float:left; font-size:13px; color:#666;}
+.good-book dl dt.tit-h3{font-size:16px; color:#000;}
+.good-book dl dt .d-left{ background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px -99px; width:20px; height:15px; float:left;}
+.good-book dl dt .d-right{ background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 3px -132px; width:20px; height:15px; padding:0px 10px;}
+
+.float-r{float:right;}
+
+.hot-text{margin-left:14px; padding-top:15px;width: 286px;}
+.hot-text dl{ margin-bottom:11px; padding-bottom:11px; overflow:hidden; border-bottom:#f2f1f1 1px dashed;}
+.hot-text dl dd{width:90px; height:66px; float:left; margin-right:10px;}
+.hot-text dl dt{width:173px; float:left;}
+.mar-t5{margin-top:5px;}
+.a-unline{text-decoration:underline}
+
+.owl-bt .owl-controls .owl-buttons{position:absolute; right:0; width:36px; top:-29px;}
+.owl-bt .owl-controls .owl-buttons div{width:15px; height:15px;margin:0;padding:0;font-size:12px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;opacity:1;}
+.owl-bt .owl-controls .owl-buttons .owl-prev{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px -54px; width:15px; height:15px; text-indent:-99999px; float:left;}
+.owl-bt .owl-controls .owl-buttons .owl-prev:hover{ background-position:0px -75px;}
+.owl-bt .owl-controls .owl-buttons .owl-next{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat -19px -54px; width:15px; height:15px; text-indent:-99999px; float:right;}
+.owl-bt .owl-controls .owl-buttons .owl-next:hover{background-position:-19px -75px;}
+
+.home-list{text-align:center; padding:15px 15px;}
+.list-dl{width:818px; display:inline-block; border-bottom:#d1d1d1 1px dashed; text-align:left; padding-bottom:20px; margin-bottom:20px; position:relative;}
+.list-dl dd{width:580px; float:left; line-height:22px;}
+.list-dl dt{float:right; border:2px #fff solid;}
+.list-dl dt:hover{border:2px #7aa6d4 solid;}
+.list-dl .post-thumb img{width: 202px;height: 150px;}
+.zd-top{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/top.png") no-repeat; width:50px; height:50px; position:absolute; z-index:9;}
+.top-one{left: -26px; top: -15px;}
+.top-two{left: -26px; top: -36px;}
+
+.list-main{width:100%; margin-bottom:5px; margin-top: -15px;position: relative;}
+.list-main .list-excerpt{padding-top: 10px;}
+.up-box,.down-box{ width:100%;}
+.down-box li{ height: 30px;}
+.list-photo{padding-top: 15px;position: relative;width:80px;}
+.list-photo > a.lazy{width:67px; height:62px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/photo-bj.jpg") no-repeat; float:left; margin-right:12px;}
+.list-photo img{width:60px; height:60px;}
+.list-photo .zlzj-mouse{display: none; position:absolute; z-index:99999; border:#e2e2e2 1px solid; width:330px; height:122px; background-color:#fff; padding:20px 15px; bottom: 15px; left:-15px;}
+.list-photo:hover .zlzj-mouse{display: block;position:absolute; bottom: 15px; left:-15px;}
+.list-photo .zlzj-mouse .sanj{width:14px; height:15px; position:absolute; z-index:999999999; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0 -338px; left:40px; bottom:-12px;}
+.list-photo .zlzj-mouse img{float: left;margin: 20px auto;}
+.list-lable a{width:84px; height:25px; line-height:25px; color:#fff; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/pink-tit.jpg") #d9534f no-repeat right; float:left; padding-left:20px; margin-right:12px;}
+.list-h3{font-size:20px; font-weight:normal; line-height:30px;}
+.down-box li{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon2.png") no-repeat; float:left; margin-right:20px; color:#b2b2b2; font-size:12px; padding-left:23px; margin-top:8px; line-height:18px;}
+.down-box li.time{background-position:0px 1px;}
+.down-box li.read{background-position:0px -27px;}
+.down-box li.pinglun{background-position:0px -56px;}
+.down-box li.pinglun a, .down-box li.like a{color:#b2b2b2;}
+.down-box li.like{background-position:0px -84px;}
+
+.list-more{width:869px; border:1px #e0e0e0 solid; height:44px; text-align:center; line-height:44px; background-color:#fff;}
+.list-more:hover{color:#295698; border:1px solid #295698;}
+.list-more a{width:869px;display: inline-block;}
+.list-more .loading {background: url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/loading.gif") 370px center no-repeat;padding-left: 20px}
+
+.content-box .right{width:314px; float:right;}
+.R-mainbox1{width:310px; background-color:#fff; box-shadow:1px 1px 3px #e6e6e6; position:relative; }
+.R-app-box{text-align:center;}
+.R-app-title{width:156px; height:43px; line-height:43px; display:inline-block; color:#fff; background-color:#7aa6d4; font-size:16px;}
+.R-app{height:66px; border-top:1px dashed #cadbee; border-bottom:1px dashed #cadbee; margin:10px 0; padding:16px 0 0 17px;}
+.R-app a{ float:left; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/app-icon.png") no-repeat; width:45px; height:45px; display:inline-block;}
+.R-app a.R-app-wechat{ background-position:0px 0px; margin-right:12px;}
+.R-app a.R-app-wechat:hover{background-position:0px -75px;}
+.R-app a.R-app-wechat .wechat-img{display: none;width: 120px;height: 120px;}
+.R-app a.R-app-wechat:hover .wechat-img{display: block;position: absolute;top: 120px;left: -20px;}
+
+.R-app a.R-app-sina{ background-position:-57px 0px; margin-right:12px;}
+.R-app a.R-app-sina:hover{background-position:-57px -75px;}
+
+.R-app a.R-app-qweibo{ background-position:-114px 0px; margin-right:12px;}
+.R-app a.R-app-qweibo:hover{background-position:-114px -75px;}
+
+.R-app a.R-app-dingyue{ background-position:-170px 0px; margin-right:12px;}
+.R-app a.R-app-dingyue:hover{background-position:-170px -75px;}
+
+.R-app a.R-app-qq{ background-position:-227px 0px;}
+.R-app a.R-app-qq:hover{background-position:-227px -75px;}
+
+.R-app a.wpfp-link{ background-position:-284px 0px;  margin-right:12px; text-indent: -9999px;}
+.R-app a.wpfp-link:hover{background-position:-284px -75px;}
+.R-app a.wpfp-no-login{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/star.png") no-repeat; width:45px; height:45px;}
+
+.wpfp-hide { display: none; }
+.SG-app .wpfp-hide { display: none; }
+.SG-app .wpfp-img { border: 0; margin-top: 16px; margin-left: -43px;}
+.SG-app .wpfp-span img{width: 16px;}
+.SG-app { height:66px; border-top:1px dashed #cadbee; border-bottom:1px dashed #cadbee; margin:10px 0; padding:25px 0 0 17px; }
+.SG-app a{ float:left; background:url("//www.woshipm.com/wp-content/themes/woshipm-2015/images/pm-icons.png") no-repeat; height:27px; display:inline-block;font-size: 12px;line-height: 27px;padding-left: 35px;padding-right: 6px;border-radius: 2px;color: #fff;background-color: #7AA6D4;margin-right: 5px;}
+.SG-app a.SG-app-wechat{ background-position:6px 6px;}
+.SG-app a.SG-app-wechat:hover{background-position:6px -16px;}
+.SG-app a.SG-app-wechat .wechat-img{display: none;width: 120px;height: 120px;}
+.SG-app a.SG-app-wechat:hover .wechat-img{display: block;position: absolute;top: 120px;left: -20px;}
+
+.SG-app a.SG-app-sina{ background-position:6px -82px; }
+.SG-app a.SG-app-sina:hover{background-position:6px -105px;}
+
+.SG-app a.SG-app-qweibo{ background-position:-114px 0px; margin-right:12px;}
+.SG-app a.SG-app-qweibo:hover{background-position:-114px -75px;}
+
+.SG-app a.SG-app-dingyue{ background-position:-170px 0px; margin-right:12px;}
+.SG-app a.SG-app-dingyue:hover{background-position:-170px -75px;}
+
+.SG-app a.SG-app-qq{ background-position:-227px 0px;}
+.SG-app a.SG-app-qq:hover{background-position:-227px -75px;}
+
+.SG-app a.wpfp-link{ background-position:6px -38px;}
+.SG-app a.wpfp-link:hover{background-position:6px -60px;}
+.SG-app a.wpfp-no-login{ background-position: 6px -38px; padding-left: 33px;}
+
+
+
+
+.R-code-box{width:252px; background-color:#e9eff7; border-radius:4px; padding:20px 10px; display:inline-block; margin-bottom:20px; font-size:12px;}
+.code-dl{width:92px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/fg.jpg") no-repeat right; float:left;}
+.code-dl dd{width:79px; height:79px;}
+.code-dl dt{line-height:35px; width:79px;}
+
+.code-ul{float:left; margin-left:8px;}
+.code-ul li{line-height:21px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px -364px; padding-left:8px;}
+
+.mar-b20{margin-bottom:20px;}
+
+.R-ad{width:309px; height:auto;}
+.R-ad img{width:309px; height:auto;}
+
+.zlzj-title{height:42px; line-height:42px; border-bottom:#f2f1f1 1px solid;  background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px 0px; font-size:16px; font-weight:normal; padding-left:25px; position:relative;}
+.widget-content{padding: 15px;}
+.widget-content li{line-height: 28px;}
+
+.zlzj-box{margin-left:14px; padding:15px 0; width: 294px;overflow: visible;}
+.zlzj-box .tab-ul{position:absolute; right:10px; width:auto; top:13px;}
+.zlzj-box .tab-ul li{float: left;margin-left: 6px;}
+.zlzj-box .tab-ul li{width:15px; height:15px;font-size:12px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;opacity:1;}
+.zlzj-box .tab-ul li .t-prev{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px -54px; width:15px; height:15px; text-indent:-99999px; float:left;}
+.zlzj-box .tab-ul li .t-prev:hover,
+.zlzj-box .tab-ul li .t-prev.selected{ background-position:0px -75px;}
+.zlzj-box .tab-ul li .t-next{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat -19px -54px; width:15px; height:15px; text-indent:-99999px; float:right;}
+.zlzj-box .tab-ul li .t-next:hover,
+.zlzj-box .tab-ul li .t-next.selected{background-position:-19px -75px;}
+.zlzj-box-inner{position: relative;width: 73px;height: 130px;float: left;margin-top: -20px;}
+.zlzj-box dl{width:66px; margin:0 7px 0 0; padding-top: 20px;}
+.zlzj-box dl:hover{cursor:pointer;}
+.zlzj-box dl dd{width:60px; height:60px; border:#fff 1px solid;}
+.zlzj-box dl dd img{width:60px; height:60px;}
+.zlzj-box dl dd:hover{border:#e2e2e2 1px solid;}
+.zlzj-box dl dt{text-align:center; margin-top:8px;}
+.zlzj-box dl dt a{line-height: 26px; height: 26px;display:inline-block; overflow: hidden;width: 98%;text-overflow:ellipsis;white-space:nowrap;}
+.zlzj-box dl:hover dt{color:#295698; text-decoration:underline;}
+
+.zlzj-box-inner .zlzj-mouse{display: none; position:absolute; z-index:99999; border:#e2e2e2 1px solid; width:330px; height:122px; background-color:#fff; padding:20px 15px; bottom: 122px; right:-5px;}
+.zlzj-box-inner:hover .zlzj-mouse{display: block;position:absolute;bottom: 122px; right:-5px;}
+
+.zlzj-mouse .sanj{width:14px; height:15px; position:absolute; z-index:999999999; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0 -338px; right:40px; bottom:-12px;}
+.zlzj-mouse dl{width:64px; margin-right:20px; float:left; text-align:center;}
+.zlzj-mouse dl dd img{width:60px; height:60px; border-radius:100%;}
+.zlzj-mouse dl dt{text-align:center; margin:10px 0 0 0; width:52px; height:27px; line-height:27px; color:#fff; background-color:#7aa6d4; display:inline-block; border-radius:2px;}
+.zlzj-mouse dl dt:hover{background-color:#346fad; cursor:pointer;}
+
+.zlzj-mouse ul{float:left; width:246px; font-size:12px;}
+.zlzj-mouse ul li{height:27px; line-height:27px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px -361px; padding-left:8px;}
+.zlzj-mouse ul li.zj-li a{display:inline-block; overflow: hidden;width: 98%;text-overflow:ellipsis;white-space:nowrap;}
+.zlzj-mouse ul h3{float:left; margin-right:8px; font-size:14px;}
+.wpp-list li {float:none;clear:left;}
+.wpp-list .wpp-thumbnail {float:left;margin:0 10px 0 0;border:none;width:90px;height: 66px;}
+.wpp-list .post-stats {display:block;float:left;}
+.wpp-list .thumb-a{line-height: 20px;width: 180px; max-height: 40px; overflow: hidden;float:left;}
+.wpp-list .wpp-author{text-decoration: underline;}
+.wpp-list .wpp-author a{font-size: 14px;}
+.wpp-list .thumb-li{padding-bottom: 10px; margin-bottom: 10px;display: inline-block;border-bottom:#f2f1f1 1px dashed;}
+.wpp-list .thumb-li:last-child{margin-bottom: -5px;}
+.wpp-list .title-li{display:inline-block; overflow: hidden;width: 98%;text-overflow:ellipsis;white-space:nowrap;line-height:18px; height:28px;}
+
+.top-list{margin-left:14px; padding-top:15px;display: block;}
+.top-list-ul{ position:absolute; right:0; width:auto; top:15px;}
+.top-list-ul li { float:left;margin-right:9px;}
+.top-list-ul li a{padding:0 7px; line-height:18px; border:1px #d1dff2 solid; text-align:center; color:#7aa6d4; font-size:12px;}
+.top-list-ul li a:hover{padding:1px 8px; background-color:#7aa6d4; color:#fff; border:0; line-height:19px;}
+.top-list-ul li a.over,.top-list-ul li a.selected{padding:1px 8px; background-color:#7aa6d4; color:#fff; border:0; line-height:19px;}
+.top-list ul{}
+.top-list li{line-height:18px; height:32px;}
+li .q-number{width:19px; height:19px; line-height:19px; background-color:#a6c6e6; color:#fff; text-align:center; float:left; margin-right:8px;}
+li .s-number,li .s-1,li .s-2,li .s-3{width:19px; height:19px; line-height:19px; background-color:#58749c; color:#fff; text-align:center; float:left; margin-right:8px;}
+
+.footer{width: 100%;display: inline-block;}
+.blue-foot{width:100%; background-color:#58749c; overflow:hidden;}
+.f-tit-h3{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat; height:26px; margin-bottom:15px; padding-left:36px; float:left; font-weight:normal; font-size:18px; color:#fff; width:100%;}
+.f-tit-h3.icon1{ background-position:0px -163px;}
+.f-tit-h3.icon2{ background-position:0px -207px;}
+.blue-pic-ul{width:1230px;margin-left: -30px; }
+.blue-pic-ul li{width:143px; height:64px; border:#738db1 1px solid; margin:0 0 15px 30px; float:left;}
+.blue-pic-ul li img{width:143px; height:64px;}
+.blue-link-box{width:100%;}
+.blue-link-box ul li{float:left; width: 133px;}
+.blue-link-box ul li a{height:30px; line-height:30px; color:#8da6c7;}
+.blue-link-box ul li a:hover{color:#fff;}
+
+.black-foot{width:100%; background-color:#383838; overflow:hidden; color:#fff; padding:20px 0 30px 0;}
+.black-left{width:150px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/f-fg.jpg") no-repeat right; float:left;  padding-right:70px;}
+.black-left .f-logo{width:78px; height:78px; margin-left:30px;}
+.black-left .a-font{float:left; line-height:35px; color:#fff;}
+.black-left .a-font:hover{ text-decoration:underline;}
+.mar-r27{margin-right:27px;}
+
+.black-center{width:480px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/f-fg.jpg") no-repeat right; float:left; margin:0 64px; line-height:35px; padding-right:70px;}
+.black-right{width:302px; float:right;}
+.black-right li{width:145px; height:81px; float:left; margin-bottom:12px;}
+.mar-r12{margin-right:12px;}
+
+.foot-box{width:1202px; margin:0 auto; padding:20px 0px;}
+.copyright{text-align:center;}
+
+/*文章详细页*/
+.list-detail-box{padding:15px 15px;}
+.blue-lable{width:84px; height:25px; line-height:25px; color:#fff; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/blue-tit.jpg") #498fcd no-repeat right; float:left; padding-left:20px;  margin-right:12px;}
+.mar-t10{margin-top:10px;}
+.x-line{border-bottom: 1px dashed #eaeaea; padding-bottom:15px;}
+.entry{width: auto;line-height:26px;}
+.entry .searchform {padding:30px;}
+.entry h2{border-bottom:1px #eee solid; padding-bottom:15px; margin-bottom:15px; font-size: 18px;font-weight:bold;}
+.entry h3{border-left:#eee solid 8px; margin:0 0 15px 20px; padding-left:10px;font-size:16px;font-weight:bold;}
+.entry h4{margin:10px 0;padding-left:20px;border-bottom:1px solid #f2f2f2;color:#666;font-size:14px;line-height:26px;font-weight:bold;}
+.entry h5{margin:10px 0;padding-left:30px;border-bottom:1px solid #f2f2f2;color:#666;font-weight:normal;font-size:14px;line-height:24px;}
+.entry p{margin:5px 15px 10px;color:#555;text-indent:2em;font-size:16px;line-height:180%;}
+.entry a{color:#295698;text-decoration:none;}
+.entry a:hover{color:#E14D43;}
+.entry em{padding:0 2px;color:#A40000;}
+.entry strong{color:#666;font-weight:bold;}
+.entry blockquote{width:800px; padding:15px; margin:20px 0; background-color:#fcfcfc; border-left:#eee solid 10px; border-top:#eee solid 1px; border-right:#eee solid 1px; border-bottom:#eee solid 1px;}
+.user-content blockquote{width:92%; padding:15px; margin:20px; background-color:#fcfcfc; border-left:#eee solid 10px; border-top:#eee solid 1px; border-right:#eee solid 1px; border-bottom:#eee solid 1px;}
+.entry blockquote p,.user-content blockquote p{text-indent: 0;}
+.entry ol,.entry ul{padding:5px 10px;}
+.entry ol li{font-size:15px;margin-left:56px;line-height:22px;padding:5px;list-style:decimal;}
+.entry ul li{font-size:15px;margin-left:56px;line-height:22px;padding:5px;list-style:circle;}
+.entry th,.entry td{padding:8px;}
+.entry th{background:#fff;}
+.entry img{margin:5px 0;padding:5px;max-width:96%;height:auto;background:#fcfcfc;-moz-border-radius: 3px;-khtml-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
+.entry .aligncenter{display:block;margin-right:auto;margin-left:auto;}
+.entry .alignright{display:inline;float:right;margin:0 0 5px 10px;}
+.entry .alignleft{display:inline;float:left;margin:0 10px 5px 0;}
+.entry .wp-caption {border: 1px solid #eee;text-align: center;background: #fcfcfc;padding-top: 5px;margin: 10px 1%;-moz-border-radius: 3px;-khtml-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;max-width: 98%;}
+.entry .wp-caption img {margin: 0;padding: 0;border: 0 none;max-width: 98%;}
+.entry .wp-caption p.wp-caption-text {font-size: 12px;line-height: 18px;padding: 0 4px 5px;margin: 0;text-indent:0;}
+.entry .aligncenter{display:block;margin-right:auto;margin-left:auto;text-align:center;}
+.entry input#s{padding:3px;min-width:200px;border:1px solid #EDEDED;background:#fff;line-height:22px;}
+.entry input#searchsubmit{padding:3px;width:50px;border:1px solid #EDEDED;background:#fcfcfc;line-height:22px;cursor:pointer;}
+.entry ul.menu:after{display: block;clear: both;height: 0; content: "";}
+.entry ul.menu li{ float: left; min-width: 150px;width: 22%;}
+.entry table {background: #fff;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #eee;margin:auto;margin-bottom: 15px;}
+.entry table tr th{border: 1px solid #eee;}
+.entry table thead, .entry table tfoot { background: #f5f5f5; }
+.entry table thead tr th,
+.entry table tfoot tr th,
+.entry table tbody tr td,
+.entry table tr td,
+.entry table tfoot tr td { line-height: 18px; text-align: left;border: 1px solid #eee;}
+.entry table thead tr th,
+.entry table tfoot tr td { padding: 10px; color: #444; }
+.entry table thead tr th:first-child, .entry table tfoot tr td:first-child { border-left: none; }
+.entry table thead tr th:last-child, .entry table tfoot tr td:last-child { border-right: none; }
+.entry table tbody tr.even,
+.entry table tbody tr.alt { background: #F8F8F8; }
+.entry table tbody tr:nth-child(even) { background: #F8F8F8; }
+.entry table tbody tr td { padding: 9px 10px;}
+.sc-box{border:0; width:306px; position:relative;}
+.s-wechat-hover{ display: none; position:absolute; z-index:999999; bottom:60px; left:0; width:127px; padding:10px; border:1px #51C332 solid; background-color:#fff;}
+.s-wechat-hover .t{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/b-sj.png") no-repeat 0 0px; width:14px; height:14px; position:absolute; z-index:9999999999; left:30px; bottom:-13px;}
+.post_icon_wx:hover .s-wechat-hover{display: block;}
+.detail-lable li{height:27px; line-height:27px; padding:0px 10px; float:left; margin:0 10px 10px 0; border-radius:2px;background-color:#7aa6d4; color:#fff;}
+.detail-lable li a{color:#fff; }
+.detail-lable li:hover {background-color:#346FAD; color:#fff;}
+.ad870{width:100%; height:120px; text-align:center; line-height:120px;}
+/*.comment-box{width:100%;}*/
+.detail-hot-pic{width:272px; height:160px; position:relative; margin-bottom:15px;}
+.detail-hot-pic img{width:272px; height:160px;}
+.detail-hot-pic .tit a{position:absolute; left:0; bottom:0; width:100%; height:35px; line-height:35px; font-size:16px; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); color:#fff; text-align:center;}
+.detail-hot-pic:hover .tit a{position:absolute; bottom:0; width:100%; height:35px; line-height:35px; font-size:16px; background-color:#7aa6d4; color:#fff; text-align:center;}
+
+.detail-writer-box{padding:15px;margin-bottom: 10px;}
+.detail-writer-dl{overflow:hidden;}
+.detail-writer-dl dd img{width:80px; height:80px; border-radius:100%; float:left; margin-right:12px;}
+.detail-writer-dl dt{line-height:30px;}
+.writer-sina{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0 -403px; width:23px; height:20px; float:left;}
+.writer-sina:hover{background-position: -37px -403px;}
+.writer-ie{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0 -440px; width:23px; height:20px; float:left;}
+.writer-ie:hover{background-position:-37px -440px; }
+
+.writer-ul{ overflow:hidden;}
+.writer-ul li{line-height:28px; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0px -359px; padding-left:10px;display:inline-block; overflow: hidden;width: 98%;text-overflow:ellipsis;white-space:nowrap;}
+
+.green-tit{min-width:33px; height:22px; padding:0px 8px; background-color:#008000; text-align:center; line-height:22px; color:#fff; border-radius:2px; margin:4px 8px 0 0;}
+.red-tit{min-width:33px; height:22px; padding:0px 8px;  background-color:#cc0033; text-align:center; line-height:22px; color:#fff; border-radius:2px; margin:4px 8px 0 0;}
+
+.tips-box{width:810px; border:#ffcc99 1px solid; background-color:#fffcef; color:#ff9966; padding:0 15px; height:40px; line-height:40px;}
+.tips-box a{ text-decoration:underline;}
+
+/*.font-bold{font-weight:bold;}*/
+
+.news-l-box{overflow:hidden; padding:15px; width:840px; background-color: #FFF; box-shadow: 1px 1px 3px #E6E6E6;}
+.news-l-dl{width:186px; float:left; margin-right:30px;}
+.news-l-dl.news-last{margin-right:0;}
+.news-l-dl dt{width:186px; height:124px; border:2px #fff solid;}
+.news-l-dl dt a img{width:186px; height:124px;}
+.news-l-dl dt:hover{border: 2px #7aa6d4 solid;}
+.news-l-dl dd{margin-top:10px;}
+
+/* CommentList */
+.comments-loading{display:none;width:100%;line-height:30px; padding:20px; text-align: center;}
+.commentlist{margin:10px 20px;width:auto;}
+.commentlist .comment{padding:2%;border:1px solid #f2f2f2;list-style:none;font-size:14px;}
+.commentlist .comment blockquote{margin:15px 0;padding:10px;border-top:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;border-left:8px solid #eee;background:#fcfcfc;}
+.commentlist .comment:hover{border-color:#E1E1E1;}
+.commentlist ul.children{margin:2%;}
+.commentlist .depth-1,.commentlist .depth-3,.commentlist .depth-5,.commentlist .depth-7,.commentlist .depth-9{margin:10px 0;background:#fcfcfc;}
+.commentlist .depth-2,.commentlist .depth-4,.commentlist .depth-6,.commentlist .depth-8,.commentlist .depth-10{margin:10px 0;background:#fff;}
+.commentlist li{position:relative;display:inline-block;width:95.6%;}
+.commentlist .comment-body{padding:5px 0;}
+.commentlist .comment-body p{margin:10px 0;margin-left:65px;line-height:24px;}
+.commentlist a{color:#7AA6D3;}
+.reply a:link,.reply a:visited{text-align:center;}
+.datetime{margin-left:65px;color:#aaa;}
+.commentmetadata{margin-left:70px;color:#aaa;}
+.commentlist li div.vcard img.avatar{ position:relative;float:left;margin-right:10px; padding: 4px;width:54px;height:54px;border:1px solid #eee;-webkit-border-radius:36px;-moz-border-radius:36px; border-radius:36px;background: #fff;-webkit-box-shadow:inset 0 -1px 0 #3333sf;box-shadow:inset 0 -1px 0 #3333sf;-webkit-transition:0.4s;-webkit-transition:-webkit-transform 0.4s ease-out;-moz-transition:-moz-transform 0.4s ease-out;transition:transform 0.4s ease-out;}
+.commentlist li div.vcard img.avatar:hover{border:1px solid #ccc;-webkit-box-shadow:0 0 10px #fff;box-shadow:0 0 10px #fff;-webkit-transform:rotateZ(360deg);-moz-transform:rotateZ(360deg);transform:rotateZ(360deg);rgba(255,255,255,.6),inset 0 0 20px rgba(255,255,255,1);-webkit-rgba(255,255,255,.6),inset 0 0 20px rgba(255,255,255,1);}
+.commentlist li .floor{float:right;color:#FFA300;font-weight:700;font-size:18px;}
+.comment-reply-title{margin-bottom: 15px;}
+.comment-reply-link{margin-left: 40px;}
+#comment{background:#fff;}
+.comment-nav{margin-left: 20px;}
+.heading,
+.heading i{font-size:22px;margin-right:6px;}
+.form-allowed-tags{display:none;}
+.logged-in-as{font-size:14px;}
+#respond{position:relative;margin: 15px 20px;}
+#reply-title{font-weight:normal;font-size:18px;text-transform:uppercase;margin-bottom:20px;height: 20px;}
+li #reply-title{font-size:0;margin:0!important;padding:0;height:0;border-top:0;}
+#cancel-comment-reply-link{color:#E77068;display:block;position:absolute;top:-34px;right:20px;font-size:14px;}
+#cancel-comment-reply-link:hover{color:#777;}
+.comment-form{position:relative;}
+#commentform{background:#fff;padding:10px 20px 20px;margin-bottom:15px;-webkit-border-radius:2px;border-radius:2px;border:1px #eee solid;}
+li #commentform{margin-top:-1px;}
+#commentform:before{content:'';display:inline-block;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #eee;position:absolute;top:-10px;left:24px;}
+#commentform:after{content:'';display:inline-block;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid #fff;position:absolute;top:-8px;left:26px;}
+#commentform p.comment-form-author{width:48%;float:left;}
+#commentform p.comment-form-email{width:48%;float:right;}
+#commentform p.comment-form-url,
+#commentform p.comment-form-comment{clear:both;}
+#commentform label{padding:6px 0;display:block;}
+#commentform input[type="text"],
+#commentform textarea{padding:8px 1.8%;width:96%;border:1px solid #eee;font-size:14px;background: #FCFCFC;}
+#commentform textarea{height:100px;margin-top: 10px;}
+#commentform p.form-submit{margin-top:10px;}
+#commentform input#submit,#commentform input#reset{margin:10px 10px 0 0;width:120px;height:36px;border:none;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background:#7AA6D3;color:#fff;text-align:center;font-size:14px;line-height:16px;cursor: pointer;}
+#commentform #submit:hover,#commentform #reset:hover{background:#8463A9;}
+.logged-in #reply-title{margin-bottom:20px;}
+.logged-in #commentform p.comment-form-comment{margin-top:10px;}
+.logged-in #commentform p.comment-form-comment label{display:none;}
+#commentform #smilies{margin:10px 0;display: inline-block;}
+.quicktags-toolbar input{border:1px #eee solid;min-width:40px;padding:4px 5px;font-size:12px;margin:0 5px 5px 0;background:#f8f8f8;}
+.quicktags-toolbar input:hover{border-color:#ccc;background:#f1f1f1;cursor:pointer;}
+.comment-closed{background: #fff;padding:15px;border:1px #eee solid;margin-bottom: 15px;}
+
+/* ------------------------------------ */
+/* Archive:page-nav
+/* ------------------------------------ */
+.page-nav{padding:0;text-align:center;display: inline-block;}
+.page-nav a{float:left;margin-right:20px;color:#999;-moz-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
+.page-nav a,.page-nav span{display:inline-block;float:left;margin-right:5px;padding:2px 9px;border:1px solid #ccc;background:#fff;color:#999;-moz-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;text-align:center;-webkit-transition:all .4s ease-out;-moz-transition:all .4s ease-out;-o-transition:all .4s ease-out;}
+.page-nav span.current,
+.page-nav a:hover{background:#346FAD;color:#fff;border:1px solid #346FAD;}
+.page-nav a.page{width:auto;background:#E0E0E0;color: #333;border:1px solid #E0E0E0;}
+.page-nav a.page:hover{background:#346FAD;color:#fff;border:1px solid #346FAD;}
+.user-content .page-nav{margin: 10px 0 10px 20px;}
+.user-content .wpfp-span .page-nav{margin: 20px 0 10px 20px;}
+
+/*标签页*/
+.lable-tit{width:100%; font-size:20px; line-height:25px; color:#346fad; text-align:left;margin-bottom: -15px;}
+.lable-icon{width:28px; height:28px; float:left; background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/title.png") no-repeat 0 -489px;}
+.lable-box2{overflow:hidden; padding:15px;}
+.lable-box2 a{float:left; margin:0 10px 0px 0px; line-height:34px; }
+.lable-box2 a:hover{text-decoration:underline;}
+.font12{font-size:12px;}
+.font16{font-size:16px;}
+.font18{font-size:18px;}
+.font20{font-size:20px;}
+
+.tagcloud a{margin: 8px 3px;}
+
+/*活动列表页*/
+.active-dl{width:818px; display:inline-block; border-bottom:#d1d1d1 1px dashed; text-align:left; padding-bottom:20px; margin-bottom:20px; position:relative;}
+.active-dl dd{width:270px; height:160px; float:left; margin-right:11px; border:2px #fff solid;}
+.active-dl dd:hover{border:2px #7aa6d4 solid;}
+.active-dl dt{width:520px; float:left;}
+.active-dl img{width: 270px;height: 160px;}
+.active-dl .time-icon{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon2.png") no-repeat 0 3px; float:left; width:18px; height:18px;}
+.active-dl .addres-icon{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon2.png") no-repeat 0 -113px; float:left; width:18px; height:18px;}
+.active-dl .green-an{width:90px; height:32px; line-height:32px; text-align:center; color:#fff; background-color:#62b651; position:absolute; z-index:99; bottom:25px; right:0;}
+.active-dl .green-an:hover{ background:#6781a5; color:#fff; text-decoration:underline;}
+.active-dl .gray-an{width:90px; height:32px; line-height:32px; text-align:center; color:#fff; background-color:#ccc; position:absolute; z-index:9; bottom:25px; right:0;}
+
+.big-green-an{width:120px; height:40px; line-height:40px; text-align:center; color:#fff; background-color:#62b651; font-size:18px; margin:0 auto; margin-bottom: 20px;}
+.big-green-an:hover{background-color:#6781a5; color:#fff;}
+.big-green-an a{color:#fff;}
+.big-green-an a:hover{color:#fff;}
+
+.big-gray-an{width:120px; height:40px; line-height:40px; text-align:center; color:#fff; background-color:#ccc; font-size:18px; margin:0 auto; margin-bottom: 20px;}
+
+.lun-ad870{width:870px; position:relative; text-align:center;}
+.lun-ad870 img{width:870px; height:346px;}
+/*banner翻图*/
+.yuan-ul{width:85px; height:20px; display:inline-block; position:absolute; bottom:10px;}
+.yuan-ul li a{border-radius:100%; width:10px; height:10px; background-color:#fff; border:1px #fff solid; float:left; margin-right:10px;}
+.yuan-ul li a:hover{background-color:#58749c;}
+.yuan-ul li a.over{background-color:#58749c;}
+
+/*作家详细页*/
+.detail-writer-box1{padding:15px; text-align:left; overflow:hidden;}
+.detail-writer-dl1{overflow:hidden; float:left; width:540px;}
+.detail-writer-dl1 dd img{width:120px; height:120px; border-radius:100%; float:left; margin-right:12px;}
+.detail-writer-dl1 dt{line-height:30px;}
+
+.detail-r{width:210px; float:right; color:#B2B2B2;}
+.detail-r li{ padding:15px; float:left;}
+.detail-r .r-line{border-right:1px solid #ececec;}
+
+.mian-box100{width:1202px; margin:0 auto; background-color:#fff;box-shadow:1px 1px 3px #e6e6e6; text-align:center; margin-top:35px; margin-bottom:20px; min-height:600px; overflow:hidden;}
+.div-404{padding-top:100px;}
+.div-404 .img{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/404.jpg") no-repeat; width:414px; height:254px; display:inline-block;}
+.div-404 .back-home{ background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/button.png") no-repeat; height:38px; width:122px; line-height:38px; display:block; color:#58749c; text-align:center; margin:0 auto;}
+.div-404 .back-home:hover{background-position:0px -39px; color:#fff;}
+
+/*关于我们*/
+.a-line{border-bottom:1px #eee solid;}
+.s-font{border-left:#eee solid 8px; margin:0 0 15px 20px; padding-left:10px;}
+.about-box{padding:15px 15px 25px 15px;}
+.about-ul{width:100%; margin-top:20px;}
+.about-ul li{ line-height:30px; text-align:center; text-align:left; padding-left:20px;}
+.about-ul li a{width:240px; padding:9px 0; height:30px; display:inline-block; font-size:16px; border-bottom:1px #f5f5f5 solid;}
+.about-ul li a:hover{border-bottom:1px #58749c solid;}
+.about-ul li.current-menu-item{border-left:4px #58749c solid; background-color:#f5f5f5; position:relative; padding-left:35px; width:275px;  left:-19px;}
+.about-ul li.current-menu-item a{font-weight: 700;color: #58749C;}
+.about-ul li.over a:hover{border-bottom:1px #f5f5f5 solid;}
+
+/*用户中心*/
+.login-left{width:200px;margin-bottom: -30000px; padding-bottom: 30000px; border-right:1px #f1f1f1 solid; background-color:#f9f9f9; float:left; text-align:center;}
+.login-left .photo{width:127px; display:inline-block; margin-top:20px;}
+.login-left .photo dd{position:relative;}
+.login-left .photo img{width:127px; height:127px; border-radius:100%;}
+.login-left .photo dt{ margin-top:10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+
+.lo-nav-ul{ position:relative; margin-top:30px;}
+.lo-nav-ul li{height: 50px; line-height:50px; font-size: 16px; border-right: 4px solid #f9f9f9;}
+.lo-nav-ul li a{border-bottom:#f1f1f1 1px solid; display:block;}
+.lo-nav-ul li:hover{border-right: 4px solid #58749C; background-color: #F5F5F5;}
+.lo-nav-ul li.current-menu-item{border-right: 4px solid #58749C; background-color: #F5F5F5;}
+
+.lo-nav-ul li.current-menu-item a{color:#58749C;}
+.w-icon{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/w-icon.png") no-repeat; width:5px; height:5px; padding:8px 15px;}
+.w-sc{background-position:0 9px;}
+.w-sc-over{background-position:-45px 9px;}
+.lo-nav-ul li:hover .w-sc,
+.lo-nav-ul li.current-menu-item .w-sc{background-position:-45px 9px;}
+
+.w-xx{background-position:0 -25px;}
+.lo-nav-ul li:hover .w-xx,
+.lo-nav-ul li.current-menu-item .w-xx{background-position:-45px -25px;}
+
+.w-my{background-position:0 -61px;}
+.lo-nav-ul li:hover .w-my,
+.lo-nav-ul li.current-menu-item .w-my{background-position:-45px -61px;}
+
+.w-wz{background-position:0 -96px;}
+.lo-nav-ul li:hover .w-wz,
+.lo-nav-ul li.current-menu-item .w-wz{background-position:-45px -96px;}
+
+.w-hd{background-position:0 -164px;}
+.lo-nav-ul li:hover .w-hd,
+.lo-nav-ul li.current-menu-item .w-hd{background-position:-45px -164px;}
+
+.w-sz{background-position:0 -129px;}
+.lo-nav-ul li:hover .w-sz,
+.lo-nav-ul li.current-menu-item .w-sz{background-position:-45px -129px;}
+
+.login-right{width:1001px; float:right; text-align:left;}
+.lo-r-h3{ padding-left:20px;}
+.w-line{border-bottom:1px #eee solid; padding-bottom:15px; margin-bottom:15px;}
+.mar-t15{margin-top:15px;}
+.user-content p{margin: 10px 20px;}
+.user-content .success,.user-content .error{margin-left: 20px;}
+.user-content .wpuf-form-add{margin: 0 10px;}
+.wpuf-message{background-color:#fef5be;border:1px solid #fdd425;padding:8px 10px;margin:10px 20px;font-size:14px;}
+.lo-r-table{width:100%; line-height:46px;border-top:1px #f1f1f1 solid;}
+.lo-r-table tr{border-bottom:1px #f1f1f1 solid;}
+.lo-r-table tr:hover{background-color:#f5f5f5;}
+.lo-r-table td{padding:0 20px;}
+.delete{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/delete.png") no-repeat 0px 0px; width:11px; height:12px; float:left;}
+.delete:hover{background-position:0 -20px;}
+.w-time{background: url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon2.png") no-repeat 0px 2px; padding-left:23px; color:#b2b2b2;}
+.w-read{background: url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/icon2.png") no-repeat 0px -26px; padding-left:23px; color:#b2b2b2;}
+
+/*登录注册页面*/
+#wpuf-login-form{width: 360px;margin:20px auto;}
+#wpuf-login-form p{text-indent: 0;line-height: 40px;font-size: 14px;}
+#wpuf-login-form input{background: #fff;border: 1px solid #e1e1e1;color: #666;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;padding: 5px;}
+#wpuf-login-form label{display: inline-block;width: 60px;font-size: 14px;}
+#wpuf-login-form .forgetmenot label{display: inline-block;width: 300px;}
+#wpuf-login-form p.submit input{min-width: 130px;padding: 8px 30px;border: none;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;background: #7AA6D4;color: #fff;cursor: pointer;}
+#wpuf-login-form p.submit input:hover{background: #346FAD;}
+#lostpasswordform label{display: inline-block;width: 160px;}
+.wpuf-user-loggedin{width: 300px;margin:20px auto;text-align: center;}
+.wpuf-user-loggedin img{width: 96px;height: 96px;}
+.entry .wpuf-user-loggedin li{list-style: none;padding: 0;margin: 0}
+#wpuf-login-form .wpuf-message{margin-left: 14px;}
+/*我的文章*/
+.op-icon{background:url("//d.woshipm.com/wp-files/themes/woshipm-2015/images/op-icon.png") no-repeat; padding:0px 10px;}
+.op-a{background-position:0 4px;}/*草稿*/
+.op-b{background-position:0 -26px;}/*待审核*/
+.op-c{background-position:0 -58px;}/*定时发布*/
+.op-d{background-position:0 -89px;}/*已发布*/
+.op-e{background-position:0 -120px;}/*编辑*/
+.op-f{background-position:0 -150px;}/*删除*/
+/*top*/
+.returnTop{position:fixed;right:20px;bottom:40px;z-index: 9999;display:none;width:40px;height:40px;background:#58749C;box-shadow:0 0 5px #F5F5F5;text-indent:-9999px;cursor:pointer;_position:absolute;_bottom:auto;}
+.returnTop .s{position:absolute;top:-2px;left:10px;width:0;height:0;border-width:10px;border-style:dashed dashed solid;border-color:transparent transparent #fff;_top:-20px;}
+.returnTop .b{position:absolute;top:18px;left:16px;width:8px;height:12px;background:#fff;}
+#geetest_unique_id {position: relative; height: 50px; margin-left: 206px; padding-top: 10px;}
+
+
+/*登录弹窗*/
+#pm_tc_login {
+	display:none;
+}
+.pm_black_body {
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.pm_tc_login {
+    border: 6px solid #58749C;
+    width: 440px;
+    background: #FFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -220px;
+    margin-top: -160px;
+    padding-bottom: 20px;
+}
+.pm_tc_login_wp {
+    width: 345px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.pm_tc_close {
+    width: 12px;
+    height: 13px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+.pm_tc_title {
+    font-size: 30px;
+    text-align: left;
+}
+.pm_tc_ipt {
+    margin-top: 10px;
+}
+.pm_tc_ipt input {
+    border: 1px solid #E3E3E3;
+    height: 20px;
+    padding: 10px 12px;
+    width: 90%;
+}
+.pm_tc_other {
+    overflow: hidden;
+    margin-top: 10px;
+}
+.pm_tc_fpw {
+    color: #999;
+    float: left;
+}
+.pm_tc_forget {
+    color: #999;
+    float: right;
+}
+.pm_tc_login_btn {
+    overflow: hidden;
+    margin-top: 10px;
+}
+.pm_tc_submit {
+    border: none;
+    padding: 0 20px;
+    min-width: 88px;
+    background: #58749C;
+    float: left;
+    font-size: 20px;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    text-align: center;
+    cursor:pointer;
+}
+.pm_tc_tips {
+    line-height: 40px;
+    margin-left: 10px;
+    color: #999;
+}
+.pm_tc_tips a {
+    color: #ff8a00;
+    margin-left: 10px;
+}
+
+
+.post_icons {margin-top:30px;}
+.post_icons a {display: inline-block;position: relative;border-radius: 999em;padding: 8px 15px 8px 45px; }
+.post_icon_wb {background: url('./images/post_icon_wb.png') no-repeat 12px;border: 1px solid #d74039; border-color: #d74039 !important; color: #d74039 !important;}
+.post_icon_wx {background: url('./images/post_icon_wx.png') no-repeat 12px;border: 1px solid #51C332; border-color: #51C332 !important; color: #51C332 !important;}
+.post_btns {margin: 20px 0; text-align:center;}
+
+.post_btns .wpfp-span {background-position: 10px 6px; display: inline-block; border: 1px solid #eee; border-radius: 2px; padding: 5px 20px 5px 40px; color: #999; background: #F7F7F7 url('./images/post_icon_sc.png') no-repeat 10px 6px;}
+.post_btns .highslide-image {display:none;padding:0;border:none;margin:0;width:auto;}
+.post_btns .wpfp-span > .wpfp-link{background: none; padding: 0; width: auto; border: none;}
+.post_btns .wpfp-span img {padding:0;background: transparent;}
+
+.post_btns .wpfp-link,.post_btns a {background-color: #F7F7F7; background-position: 10px 6px; display: inline-block; border: 1px solid #eee; border-radius: 2px; padding: 5px 20px 5px 40px; color: #999;}
+.post_btns a:hover {color:#ff8a00;}
+.post_btns .wpfp-link,.post_icon_sc {background: url('./images/post_icon_sc.png') no-repeat;}
+.post_icon_zan {background: url('./images/post_icon_zan.png') no-repeat;}
+
+/*.wpuf-form-add ul.wpuf-form li .wpuf-label { width: 10%;}
+.wpuf-form-add ul.wpuf-form li .wpuf-fields {width: 86%!important;}
+.wpuf-form-add ul.wpuf-form li .wpuf-fields input {width: 86%!important;}
+*/
+

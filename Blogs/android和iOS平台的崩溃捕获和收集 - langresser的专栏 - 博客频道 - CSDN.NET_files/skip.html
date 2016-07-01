@@ -1,0 +1,40 @@
+
+<!-- saved from url=(0231)http://ads.csdn.net/skip.php?subject=Vz4NJVplVDBWcghUVD8HM1E4VWUCZlVlACYCYwA2VnJUN1x0CiUNZQAlUzUGWwI7AzMHOwVjUmEENFRyUGtQZlc0DTZaXlQ8VmQINlRuB2NRPVVyAiVVOwBhAmwADVZ0VCRcOwpgDTwAZlNgBjQCYgNnByAFJlIpBHRUMVA/UHQ=&r=0.20669491638319348 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><input type="hidden" value="30" name="ad_geek_href_text_hidden">
+<input type="hidden" value="140" name="ad_geek_href_text_content_hidden">
+<div style="padding:0;margin:0;border:0;">
+
+<dt><a href="https://www.ibm.com/developerworks/cn/cloud/bluemix/?cm_mmc=dwchina-_-bluemixcenter-_-cs-_-csdn" name="show_geek_link_text" target="_blank">免费试用IBM Bluemix，开始云上的开发！</a></dt><dd name="show_geek_content_text">Bluemix是来自IBM的最新的云产品，它是一个基于Cloud Foundry开源项目的平台即服务（Paas）产品，快来注册试用吧！</dd>
+</div>
+<script type="text/javascript">
+    function get_length(s){
+        var char_length = 0;
+        for (var i = 0; i < s.length; i++){
+            var son_char = s.charAt(i);
+            encodeURI(son_char).length > 2 ? char_length += 1 : char_length += 0.5;
+        }
+        return char_length;
+    }
+    function cut_str(str, len){
+    	if(get_length(str)<len){
+    		return str;
+    	}else{
+	        var char_length = 0;
+	        for (var i = 0; i < str.length; i++){
+	            var son_str = str.charAt(i);
+	            encodeURI(son_str).length > 2 ? char_length += 1 : char_length += 0.5;
+	            if (char_length >= len){
+	                var sub_len = char_length == len ? i+1 : i;
+	                return str.substr(0, sub_len);
+	                break;
+	            }
+	        }
+    	}
+    }
+for(var i=0;i<=document.getElementsByName("show_geek_link_text").length-1;i++){
+  document.getElementsByName("show_geek_link_text")[i].innerHTML=cut_str(document.getElementsByName("show_geek_link_text")[i].innerHTML,document.getElementsByName("ad_geek_href_text_hidden")[i].value);
+}
+for(var i=0;i<=document.getElementsByName("show_geek_content_text").length-1;i++){
+  document.getElementsByName("show_geek_content_text")[i].innerHTML=cut_str(document.getElementsByName("show_geek_content_text")[i].innerHTML,document.getElementsByName("ad_geek_href_text_content_hidden")[i].value);
+}
+</script></body></html>
