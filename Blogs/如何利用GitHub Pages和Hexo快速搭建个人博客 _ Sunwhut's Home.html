@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://sunwhut.com/2015/10/30/buildBlog/ -->
+<html class="theme-next use-motion theme-next-mist"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+  <meta name="google-site-verification" content="qpDveJeET5MpcOHzwwqwBQPGyFzEjlNbgZMeniqV9EA">
+
+
+
+  <meta name="baidu-site-verification" content="ZbD0JmBtYK">
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/jquery.fancybox.css">
+
+
+
+  
+    <link href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/css" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/main.css">
+
+
+    <meta name="description" content="生命不息，奋斗不止">
+
+
+
+  <meta name="keywords" content="Hexo,NexT,">
+
+
+
+  <link rel="alternate" href="http://sunwhut.com/atom.xml" title="Sunwhut&#39;s Home" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://sunwhut.com/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="纸上得来终觉浅，绝知此事要躬行
+前言“工欲善其事，必先利其器”，在搭建个人博客的过程中，我深刻体会到这句话的含义。虽然早就决定了要搭建个人博客，但是我并没有草草动手，而是提前做了大量的调研工作，包括采用哪种博客系统、选择哪种主题、怎么购买并绑定个性域名等等。事实证明，正因为前期的充分准备，搭建过程才能按部就班地进行。下面先介绍为何选择GitHub Pages和Hexo来搭建博客，然后介绍搭建博客的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何利用GitHub Pages和Hexo快速搭建个人博客">
+<meta property="og:url" content="http://sunwhut.com/2015/10/30/buildBlog/index.html">
+<meta property="og:site_name" content="Sunwhut&#39;s Home">
+<meta property="og:description" content="纸上得来终觉浅，绝知此事要躬行
+前言“工欲善其事，必先利其器”，在搭建个人博客的过程中，我深刻体会到这句话的含义。虽然早就决定了要搭建个人博客，但是我并没有草草动手，而是提前做了大量的调研工作，包括采用哪种博客系统、选择哪种主题、怎么购买并绑定个性域名等等。事实证明，正因为前期的充分准备，搭建过程才能按部就班地进行。下面先介绍为何选择GitHub Pages和Hexo来搭建博客，然后介绍搭建博客的">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogsignupGithub.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogcreateRepo1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogcreateRepo2.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogsignin1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogsignin2.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogsignin3.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogssh1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogssh2.jpg">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo1.jpg">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo2.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo3.jpg">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo4.jpg">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo5.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo6.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo7.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo8.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloghexo9.jpg">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogwrite1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogwrite2.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggodaddy.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogdnspod1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogdnspod3.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogdnspod2.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogdnspod4.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitcafe1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitssh1.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitcafe2.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitcafe3.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitcafe4.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitcafe7.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/bloggitcafe6.png">
+<meta property="og:image" content="http://7xnuu7.com1.z0.glb.clouddn.com/blogqiniu.png">
+<meta property="og:updated_time" content="2015-11-19T08:57:18.606Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何利用GitHub Pages和Hexo快速搭建个人博客">
+<meta name="twitter:description" content="纸上得来终觉浅，绝知此事要躬行
+前言“工欲善其事，必先利其器”，在搭建个人博客的过程中，我深刻体会到这句话的含义。虽然早就决定了要搭建个人博客，但是我并没有草草动手，而是提前做了大量的调研工作，包括采用哪种博客系统、选择哪种主题、怎么购买并绑定个性域名等等。事实证明，正因为前期的充分准备，搭建过程才能按部就班地进行。下面先介绍为何选择GitHub Pages和Hexo来搭建博客，然后介绍搭建博客的">
+
+
+<script async="" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/st.js"></script><script src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/hm.js"></script><script async="" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/analytics.js"></script><script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 如何利用GitHub Pages和Hexo快速搭建个人博客 | Sunwhut's Home </title>
+<script type="text/javascript" async="" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/embed.js" charset="UTF-8"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style><link type="text/css" rel="stylesheet" href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/embed.default.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">#ds-reset .ds-avatar img{   
+    width:40px;height:40px; /*设置图像的长和宽，这里要根据自己的评论框情况更改*/  
+    border-radius: 20px;/*设置图像圆角效果,在这里我直接设置了超过width/2的像素，即为圆形了*/  
+    -webkit-border-radius: 20px;/*圆角效果：兼容webkit浏览器*/  
+    -moz-border-radius:20px;   
+    box-shadow: inset 0 -1px 0 #3333sf;/*设置图像阴影效果*/  
+    -webkit-box-shadow: inset 0 -1px 0 #3333sf;   
+    -webkit-transition: 0.4s;      
+    -webkit-transition: -webkit-transform 0.4s ease-out;   
+    transition: transform 0.4s ease-out;/*变化时间设置为0.4秒(变化动作即为下面的图像旋转360读）*/  
+    -moz-transition: -moz-transform 0.4s ease-out;   
+}
+    
+#ds-reset .ds-avatar img:hover{/*设置鼠标悬浮在头像时的CSS样式*/  
+    box-shadow: 0 0 10px #fff; rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);   
+    -webkit-box-shadow: 0 0 10px #fff; rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);   
+    transform: rotateZ(360deg);/*图像旋转360度*/  
+    -webkit-transform: rotateZ(360deg);   
+    -moz-transform: rotateZ(360deg);   
+}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans" data-pinterest-extension-installed="cr1.39.2"><div id="MathJax_Message" style="display: none;"></div>
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-69146660-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d29f5ed390d7e4525f10004fc190de2d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="http://sunwhut.com/" class="brand" rel="start" style="opacity: 1;">
+      <span class="logo-line-before"><i class="" style="transform: translateX(100%);"></i></span>
+      <span class="site-title" style="opacity: 1; top: 0px;">Sunwhut's Home</span>
+      <span class="logo-line-after"><i class="" style="transform: translateX(-100%);"></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle" style="opacity: 1; top: 0px;"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://sunwhut.com/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://sunwhut.com/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://sunwhut.com/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://sunwhut.com/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input">
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '8KBpkHoqsNzXHNsRCRsB','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article" style="opacity: 1; display: block; transform: translateY(0px);">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何利用GitHub Pages和Hexo快速搭建个人博客
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-10-30T11:04:07+08:00" content="2015-10-30">
+              2015-10-30
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope="" itemtype="https://schema.org/Thing">
+                  <a href="http://sunwhut.com/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="http://sunwhut.com/2015/10/30/buildBlog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/30/buildBlog/" itemprop="commentsCount">暂无评论</span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><blockquote>
+<h5 id="纸上得来终觉浅，绝知此事要躬行">纸上得来终觉浅，绝知此事要躬行</h5></blockquote>
+<h2 id="前言">前言</h2><p>“工欲善其事，必先利其器”，在搭建个人博客的过程中，我深刻体会到这句话的含义。虽然早就决定了要搭建个人博客，但是我并没有草草动手，而是提前做了大量的调研工作，包括采用哪种博客系统、选择哪种主题、怎么购买并绑定个性域名等等。事实证明，正因为前期的充分准备，搭建过程才能按部就班地进行。下面先介绍为何选择GitHub Pages和Hexo来搭建博客，然后介绍搭建博客的详细过程。这篇文章可能长的让人想哭，但如果你坚持看完了，肯定会有收获的。此外，本教程不仅面向计算机专业的同学，任何想搭建个人独立博客的同学，都可以来看看。</p>
+<h2 id="why_GitHub_Pages_and_Hexo">why GitHub Pages and Hexo</h2><p>之前在<a href="http://sunwhut.com/about/">关于我</a>里面提到过，搭建博客会有三个阶段，我选择的是第三种方法。因为<a href="http://baike.baidu.com/link?url=-ue-1Zi7Pr8gRs5CAfE_rrl3MJsaRpFa-7lJ3E6nrnLPic2r3BXEmcs_W_6pbzLmvdzBpYTJhrp8Y-AzxMKIbq" target="_blank" rel="external">GitHub</a>的存在，我们得以简单快速地搭建个人博客。</p>
+<h3 id="GitHub">GitHub</h3><p><a href="https://github.com/" target="_blank" rel="external">GitHub</a>，是一个代码托管网站和社交编程网站。这里聚集了世界上各路技术牛叉的大牛，和最优秀的代码库。把你的博客托管在这里，还有什么不放心的呢O(∩_∩)O。</p>
+<h3 id="GitHub_Pages">GitHub Pages</h3><p><a href="https://pages.github.com/" target="_blank" rel="external">GitHub Pages</a>，是用来托管GitHub上静态网页的免费站点，那GitHub Pages具体有哪些功能呢：</p>
+<ul>
+<li><p>有300M免费空间，资料自己管理，保存可靠；</p>
+</li>
+<li><p>享受 GitHub 的便利，上面有很多大牛，眼界会开阔很多；</p>
+</li>
+<li><p>可以使用很多现成的博客框架，搭建过程简单快速。</p>
+</li>
+</ul>
+<h3 id="Hexo">Hexo</h3><p><a href="https://github.com/hexojs/hexo" target="_blank" rel="external">Hexo</a>是一个简单、快速、强大的静态博客框架,出自台湾大学生<a href="http://zespia.tw/" target="_blank" rel="external">tommy351</a>之手。我也看过使用Jekyll、Octopress搭建个人博客的过程，确实要繁琐许多。相比之下Hexo更轻便更快捷，下面是<a href="https://hexo.io/" target="_blank" rel="external">Hexo官网</a>强调Hexo的四大特点：</p>
+<ul>
+<li><p>极速生成静态页面</p>
+</li>
+<li><p>支持Markdown</p>
+</li>
+<li><p>一键部署博客</p>
+</li>
+<li><p>丰富的插件支持</p>
+</li>
+</ul>
+<hr>
+<p>相信大家对GitHub Pages和Hexo有了一定的了解，下面进入正题。</p>
+<h2 id="使用GitHub_Pages建立博客站点">使用GitHub Pages建立博客站点</h2><h3 id="注册GitHub">注册GitHub</h3><p>访问<a href="https://github.com/" target="_blank" rel="external">GitHub</a>,注册十分简单，一定要记住注册时使用的邮箱，因为 GitHub 上很多通知都是通过邮箱的。如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignupGithub.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignupGithub.png" alt="注册GitHub"></a></li>
+</ul>
+<p>申请成功后，在GitHub官网上登录，并验证邮箱即可。</p>
+<h3 id="在GitHub上建立仓库">在GitHub上建立仓库</h3><p>与 GitHub 建立好连接之后，就可以方便的使用它提供的 Pages 服务，GitHub Pages 分两种，一种是用你的GitHub用户名建立的username.github.io这样的用户&amp;组织站点，另一种是依附项目的Pages。</p>
+<p>想建立个人博客是用的第一种，形如username.github.io这样的可访问的站点，每个用户名下面只能建立一个。如下图所示：</p>
+<ul>
+<li><p><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogcreateRepo1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogcreateRepo1.png" alt="建立仓库1"></a></p>
+</li>
+<li><p><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogcreateRepo2.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogcreateRepo2.png" alt="建立仓库2"></a></p>
+</li>
+</ul>
+<h2 id="搭建环境">搭建环境</h2><h3 id="安装软件">安装软件</h3><p>依次下载并安装下面两个软件，一直点击下一步即可：</p>
+<ul>
+<li><p><a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></p>
+</li>
+<li><p><a href="https://desktop.github.com/" target="_blank" rel="external">GitHub for Windows</a></p>
+</li>
+</ul>
+<h3 id="使用GitHub_for_Windows登录GitHub">使用GitHub for Windows登录GitHub</h3><ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignin1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignin1.png" alt="登录1"></a></li>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignin2.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignin2.png" alt="登录2"></a></li>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignin3.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogsignin3.png" alt="登录3"></a></li>
+</ul>
+<h3 id="配置SSH_Key">配置SSH Key</h3><p>我们如何让本地git项目与远程的GitHub建立联系呢？用SSH key。在桌面或开始菜单中找到 Git Shell，打开后输入以下命令：</p>
+<p><code>ssh -T git@github.com</code></p>
+<p>如图：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogssh1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogssh1.png" alt="ssh1"></a></li>
+</ul>
+<p>如果是下面之类的反馈（或者显示 Hi xxx）：</p>
+<p><code>The authenticity of host 'github.com (207.97.227.239)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)?</code></p>
+<p>不用紧张，输入 yes 之后,看到下图的结果，就配置成功了：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogssh2.jpg" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogssh2.jpg" alt="ssh2"></a></li>
+</ul>
+<h2 id="使用Hexo创建博客框架">使用Hexo创建博客框架</h2><h3 id="Hexo安装">Hexo安装</h3><p>打开 Git Shell，启动后依次输入以下命令：<br></p><figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /</span><br><span class="line">npm install hexo-<span class="keyword">cli</span> -<span class="keyword">g</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>如图：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo1.jpg" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo1.jpg" alt="Hexo1"></a></li>
+</ul>
+<p><strong>提示：cd / 作用是返回根目录，Git Shell 默认装在 C盘，启动时默认路径为 C:\Users\xxx(用户名)\Documents\GitHub，输入 cd / 命令后就返回到了 C盘根目录下，需不需要使用 cd / 看个人习惯（下同）</strong></p>
+<h3 id="Hexo部署">Hexo部署</h3><p>Hexo的部署可采用如下方法，输入命令： hexo init [文件名]。</p>
+<p>打开Git Shell，启动后依次输入以下命令：<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">hexo init Hexo</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>回车后出现该提示则表示正确：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo2.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo2.png" alt="Hexo2"></a></li>
+</ul>
+<p>这时会发现 C盘根目录下（或是 Git Shell 里指定的目录下）会多出一个文件夹，名为 Hexo。再输入以下命令，安装依赖文件：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Hexo</span><br><span class="line">npm install</span><br></pre></td></tr></tbody></table></figure>
+<p>回车后出现该提示则表示正确：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo3.jpg" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo3.jpg" alt="Hexo3"></a></li>
+</ul>
+<p>部署成功之后，Hexo 会自动在目标文件夹建立博客网站所需要的所有文件。此时可以通过输入以下命令在本地进行预览（在刚才创建的文件夹里）：<br></p><figure class="highlight axapta"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate </span><br><span class="line">hexo <span class="keyword">server</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>系统可能会出现提示，请点击允许。如下图所示则表示正确：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo4.jpg" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo4.jpg" alt="Hexo4"></a></li>
+</ul>
+<p>此时打开浏览器，在浏览器地址栏输入 <a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> （默认端口为4000）, 便可以看到最原始的博客了。以后发表博文想先预览，也可以通过 hexo server 在本地先跑起来，看看效果。(我在进行这步的时候由于端口号冲突始终没能成功显示，修改端口号也没用，所以最后直接发布到博客预览)。</p>
+<p>效果如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo5.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo5.png" alt="Hexo5"></a></li>
+</ul>
+<p>恭喜，到目前为止个人博客的雏形已经有了。</p>
+<p>在 Git Shell 中按 Ctrl + C 并输入 y 可以停止该服务。</p>
+<h3 id="将本地文件部署到_GitHub">将本地文件部署到 GitHub</h3><h4 id="修改_Hexo_中的__config-yml_文件">修改 Hexo 中的 _config.yml 文件</h4><p>在 Hexo 文件夹下找到 _config.yml 文件,如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo6.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo6.png" alt="Hexo6"></a></li>
+</ul>
+<p>找到其中的 deploy 标签，改成下图所示形式，并保存。<strong>注意：冒号后面要加上一个空格，否则会报错。</strong></p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo7.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo7.png" alt="Hexo7"></a></li>
+</ul>
+<h4 id="将其_deploy_到仓库中">将其 deploy 到仓库中</h4><p>打开 Git Shell 进入创建的文件夹，依次输入以下命令：<br></p><figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">hexo</span> clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>如果出现下图错误，不要着急：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo8.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo8.png" alt="Hexo8" data-pin-nopin="true"></a></li>
+</ul>
+<p>将deploy 的 type 改成 git，然后再在 Git Shell 中运行以下命令:</p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<p>再重新来一遍：<br></p><figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">hexo</span> clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>出现以下提示则表示正确：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo9.jpg" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloghexo9.jpg" alt="Hexo9"></a></li>
+</ul>
+<p>恭喜，到这一步，个人博客就已经部署到 GitHub 上了，你可以到你的<a href="https://github.com/" target="_blank" rel="external">GitHub</a>仓库查看是否已经更新。此时,通过 your_user_name.github.io（即你那个仓库的名称，形如：”你的 GitHub 用户名”.github.io）,就可以看到你的个人博客了。</p>
+<hr>
+<p><strong>提示：上述搭建步骤大量参考了<a href="http://yangruihan.com/" target="_blank" rel="external">yangruihan</a>的博客，如果你对搭建过程还有疑问，可以查看他的原创博文：<a href="http://yangruihan.com/2015/03/22/Windows%E4%B8%8B%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20GitHub%20Pages%20+%20Hexo%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="external">Windows下一步步搭建自己的独立博客——使用 GitHub Pages + Hexo 基础教程（一）</a>。</strong></p>
+<h2 id="发表博文">发表博文</h2><p>辛苦了这么久，终于回到我们搭建博客最初的目标–写作，现在来看看怎么写博文并发表吧(^__^)。</p>
+<h3 id="新建博文">新建博文</h3><p>我们可以使用命令新建一篇博文,使用 Git Shell 进入 Hexo 文件夹，输入以下命令：</p>
+<p><code>hexo new "文章题目"</code></p>
+<p>命令执行完后，就会发现在 Hexo\source_posts 目录中多了一个文件博文名.md，这就是我们刚才新建的博文。</p>
+<p>此外，我们也可以直接进入 Hexo\source_posts 目录中，右键新建一个文本文档，将名字改为博文名.md,这样也新建了一篇博文。</p>
+<h3 id="新建页面">新建页面</h3><p>上面新建的博文是显示在单个文章界面，这里新建的页面是作为单个页面显示的，比如下图的分类、标签、归档和关于我，你点击后都是显示为单个页面。</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogwrite1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogwrite1.png" alt="write1"></a></li>
+</ul>
+<p>你只需要记住新建博文是用上面的方法，新建页面是用这里的方法就行了，这里也采用命令新建页面：</p>
+<p><code>hexo new page "页面名称"</code></p>
+<p>命令执行完后，就会发现在在 Hexo\source 目录中多了一个文件夹，里面还有一个index.md,这就代表我们新建了一个页面。</p>
+<h3 id="写博文">写博文</h3><p>用文本编辑器打开上面新建的博文，如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogwrite2.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogwrite2.png" alt="write2"></a></li>
+</ul>
+<p>新建的页面略有不同，没有tags和categories标签。</p>
+<p>三个”-“后面就是博文的正文内容，接下来就是正儿八经地撰写博文了。</p>
+<p>因为我们的博文都是用<a href="http://baike.baidu.com/link?url=IbmQI2KgUUPKG7au6ae9bYTbSZl2ctDyPmHF2RZh2j4tPMKYjjyqERYyqCMHp5rdE5G-x9y7BLyNvBXMpi9tsK" target="_blank" rel="external">Markdown</a>语言写的，所以首先，你需要一个好用的Markdown编辑器。其实好用的Markdown编辑器一大堆，这里就给大家推荐两个，如果你用的不习惯也可以换其它的。</p>
+<ul>
+<li><p>本地编辑器：<a href="http://pad.haroopress.com/user.html" target="_blank" rel="external">Haroopad</a>,非常小众的一款Markdown编辑器，左边编辑右边实时预览效果，非常轻便；</p>
+</li>
+<li><p>在线编辑器：<a href="http://mahua.jser.me/" target="_blank" rel="external">MaHua</a>,也是比较小众的一款Markdown编辑器，但效果确实很棒，我的这篇博文就是用MaHua写的。</p>
+</li>
+</ul>
+<p>现在你可以打开新建的博文了，然而还不造怎么下手对吧。其实很简单，除了特殊格式，其它的你就当做在word里面写文章就行了，具体请看这里的Markdown教程：<a href="http://www.jianshu.com/p/1e402922ee32/#" target="_blank" rel="external">Markdown——入门指南</a>。</p>
+<h3 id="发博文">发博文</h3><p>呼啦啦，博文写好了，你得发表出去别人才看得到呀。依然在 Git Shell 中进入 Hexo 文件夹，执行下面几条命令，将博客部署到 GitHub 上：<br></p><figure class="highlight axapta"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">(若要本地预览就先执行 hexo <span class="keyword">server</span>)</span><br><span class="line">hexo deploy</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>快捷命令：<br></p><figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">g</span> == hexo <span class="keyword">generate</span></span><br><span class="line">hexo <span class="keyword">d</span> == hexo deploy</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo <span class="keyword">n</span> == hexo new</span><br><span class="line"># 还能组合使用，如：</span><br><span class="line">hexo <span class="keyword">d</span> -<span class="keyword">g</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>刷新你的个人博客，就可以看到新鲜出炉的博文了，赶紧邀请小伙伴们来欣赏吧。</p>
+<hr>
+<p>话外音:其实到这里，你已经学会了怎么搭建并发表博客，所以最初的目标已经实现，可以happy地写博客去啦。后面是我自己的选修课，如果你也愿意像我一样折腾，就继续往下看吧O(∩_∩)O。</p>
+<h2 id="安装NexT主题">安装NexT主题</h2><h3 id="选择主题">选择主题</h3><p>我们刚才使用Hexo生成的博客使用的是Hexo的默认主题：<a href="https://hexo.io/hexo-theme-landscape/" target="_blank" rel="external">Landscape</a>。怎么说呢，这个主题猛地一看还行，仔细一看还不如猛地一看，所以我决定另寻归宿。</p>
+<p>然后，我来到了这里：<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">Themes·Hexo</a>,瞬间有了一种村姑进城的感觉。我是一个一个地看，看得我眼花缭乱也没一个抉择，最后综合网友的评价，选择了这个主题：<a href="http://notes.iissnan.com/" target="_blank" rel="external">NexT</a>。</p>
+<ul>
+<li><p>简洁大方，比较符合我的品位；</p>
+</li>
+<li><p>作者<a href="http://notes.iissnan.com/" target="_blank" rel="external">iissnan</a>很勤快，持续更新主题，作者博客的样式就是他正在开发而未上线的NexT主题新样式。</p>
+</li>
+</ul>
+<p>当然，每个人的品位都不一样，你也可以选择其它的主题，当然也欢迎你选择NexT主题，这样就能继续一起愉快地折腾啦。</p>
+<h3 id="安装NexT主题-1">安装NexT主题</h3><p>Hexo 有两份主要的配置文件（_config.yml），一份位于站点根目录下，另一份位于主题目录下。为了描述方便，在以下说明中，将前者称为 <strong>站点配置文件</strong>，后者称为 <strong>主题配置文件</strong>。</p>
+<h4 id="下载_NexT_主题">下载 NexT 主题</h4><p>使用 Git Shell 进入 Hexo 文件夹，输入以下两条命令：<br></p><figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> Hexo</span><br><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="启用NexT主题">启用NexT主题</h4><p>下载完成后，打开 站点配置文件，找到 theme 字段，并将其值更改为 next。</p>
+<h4 id="验证主题是否启用">验证主题是否启用</h4><p>执行上面发博文的命令，刷新你的个人博客，就能看到你设置的主题是否启用。</p>
+<h2 id="设置NexT主题和第三方服务">设置NexT主题和第三方服务</h2><p>安装完NexT之后，还是发现不够漂亮对不对，所以下面我们来慢慢地润色你的个人博客。</p>
+<h3 id="选择样式">选择样式</h3><p>NexT默认的样式其实也比较丑，幸好作者提供了一款十分漂亮的样式:Mist。启用 Mist 很简单，仅需在 主题配置文件 中将 #scheme: Mist 前面的 # 注释去掉即可。</p>
+<h3 id="菜单设置">菜单设置</h3><p>菜单配置在 主题配置文件 的 menu，下面是菜单配置示例：<br></p><figure class="highlight less"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">menu</span>:</span><br><span class="line">  #<span class="attribute">home</span>: /</span><br><span class="line">  <span class="attribute">archives</span>: /archives</span><br><span class="line">  <span class="attribute">about</span>: /about</span><br><span class="line">  <span class="attribute">categories</span>: /categories</span><br><span class="line">  <span class="attribute">tags</span>: /tags</span><br><span class="line">  #<span class="attribute">commonweal</span>: /<span class="number">404</span>.html</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>其它的很多在<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">NexT官方文档</a>里面已经讲的很清楚了，我就不在这里重复造轮子了，下面我只讲下NexT官方文档里没有提到过的地方。</p>
+<ul>
+<li><p>sitemap : <a href="http://baike.baidu.com/link?url=Hvuhn8v3mmoNI6iVHm_NrZilTuHxsvLfpZJWZQwlZ4mjAAw_Bd4M_M8AnlPMj_L1Jv2tjFCdTdsV32iuwo_Qwq" target="_blank" rel="external">sitemap</a>是什么,就是一个包含网站中的所有网址以及每个网址的其他元数据的文件，以便搜索引擎可以更加智能地抓取网站。我们先来看看Hexo支持哪些插件：<a href="https://hexo.io/plugins/" target="_blank" rel="external">Plugins | Hexo</a>,可以看到有<a href="https://github.com/hexojs/hexo-generator-sitemap" target="_blank" rel="external">hexo-generator-sitemap</a>这个插件，在README.md文件中已经讲述了安装方法，只是要注意sitemap这个标签要加在主题配置文件中。再次部署你的博客，看到你的GitHub仓库中多了sitemap.xml文件，那么sitemap就部署成功了。</p>
+</li>
+<li><p>多说评论框 : 多说评论框默认的样式确实比较丑，请看这里美哭的效果：<a href="http://www.vsay.cn/one-more-custom-css-lets-you-say-comments-city.html" target="_blank" rel="external">多说自定义CSS 让你的多说评论动感起来</a>；另外，在设置<strong>评论显示样式</strong>时，可以设置为<strong>嵌套显示</strong>，美观了不少。</p>
+</li>
+<li><p>生成favicon : 所谓<a href="http://baike.baidu.com/link?url=shMog2srG2OphNuZNmQ8LseNMOWIrNwyppJ1YP0TwDp3VUYnzBjiPqb41Cqjr-84wwhZnG55cN_-Cp40ybKjNa" target="_blank" rel="external">favicon</a>,即Favorites Icon,顾名思义，就是收藏夹图标，也是地址栏左边的图标。如果没有设置favicon,地址栏左边就是一片空白，把favicon成你喜欢的图片，打造个性化标志，博客瞬间生动了不少。这里推荐一个网站，可以在线生成favicon,简单实用：<a href="http://www.atool.org/ico.php" target="_blank" rel="external">在线透明favicon ico图标文件制作 - aTool在线工具</a>。生成favcion后，再按照NexT官方文档的方法，就能设置favicon了。</p>
+</li>
+</ul>
+<h2 id="购买并绑定域名">购买并绑定域名</h2><p>哈哈，震撼人心的时刻终于到来了，之前一直都是用的GitHub的二级域名，总有一种又臭又长的感觉。现在，我们就来看看怎么购买自己喜欢的个性化域名，并绑定到你的个人博客上面去。当然，不想花钱购买域名的同学，可以跳过这个步骤，GitHub 提供的二级域名[username.github.io]，平常自己写写博客也够用了。</p>
+<h3 id="购买域名">购买域名</h3><p>经过广大网友的推广，我选择使用<a href="https://www.godaddy.com/" target="_blank" rel="external">GoDaddy</a>(音译：狗爹)购买域名，比较安全，最重要的是可以使用支付宝！</p>
+<p>购买域名可以参考这里：<a href="http://yangruihan.com/2015/03/22/Windows%E4%B8%8B%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8%20GitHub%20Pages%20+%20Hexo%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank" rel="external">Windows下一步步搭建自己的独立博客——使用 GitHub Pages + Hexo 基础教程（二）</a>,要注意下面几点：</p>
+<ul>
+<li><p>GoDaddy上有很多优惠码，比如这里:<a href="http://www.goyouhuima.com/" target="_blank" rel="external">GoDaddy优惠码</a>；</p>
+</li>
+<li><p>如果没有支付宝支付选项，有可能是使用的优惠码不支持支付宝，请尝试别的优惠码；</p>
+</li>
+<li><p>买完域名之后一定要记得去自己的邮箱查看激活邮件，否则域名激活不了。</p>
+</li>
+</ul>
+<p>如果你在DOMAINS里面看到你购买的域名，如下图所示，则域名购买成功：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggodaddy.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggodaddy.png" alt="godaddy1"></a></li>
+</ul>
+<h3 id="将个人域名与_GitHub_Pages_的空间绑定">将个人域名与 GitHub Pages 的空间绑定</h3><p>在 Hexo\source 文件夹里新建一个名为 CNAME 的文件，用文本编辑器打开，添加内容 yourwebsite.com （你刚才购买的个人域名 ）。保存后，部署你的博客即可。</p>
+<h3 id="DNS设置">DNS设置</h3><p>同样经过广大网友的推广， 我选择<a href="https://www.dnspod.cn/" target="_blank" rel="external">DNSpod</a>来设置DNS,速度快、免费、且稳定。</p>
+<p>注册DNSpod，添加域名，如下图设置:</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod1.png" alt="DNSpod1"></a></li>
+</ul>
+<p>其中两条A记录指向的IP地址是GitHub Pages的提供的IP:</p>
+<ul>
+<li><p>192.30.252.153</p>
+</li>
+<li><p>192.30.252.154</p>
+</li>
+</ul>
+<p>如果博客不能访问，有可能是GitHub更改了空间服务的ip地址，及时到<a href="https://help.github.com/articles/tips-for-configuring-an-a-record-with-your-dns-provider/" target="_blank" rel="external">GitHub Pages</a>查看最新的IP即可。</p>
+<p>www指定的记录是你在GitHub托管博客的仓库。</p>
+<h3 id="去GoDaddy修改DNS地址">去GoDaddy修改DNS地址</h3><p>更改GoDaddy的Nameservers为DNSpod的NameServers,点击域名管理：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod3.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod3.png" alt="DNSpod2"></a></li>
+</ul>
+<p>将GoDaddy的Nameservers更改成f1g1ns1.dnspod.net和f1g1ns2.dnspod.net:</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod2.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod2.png" alt="DNSpod3"></a></li>
+</ul>
+<p>最后修改成下图所示即可：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod4.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogdnspod4.png" alt="DNSpod4"></a></li>
+</ul>
+<p>如果还有疑问可以看：<a href="https://support.dnspod.cn/Kb/showarticle/tsid/42/" target="_blank" rel="external">DNSpod提供的官方帮助</a>。</p>
+<p>提示：设置DNS之后短时间内可能无法访问你的个人博客，因为要等待全球递归DNS服务器刷新（最多72小时），不过没问题的话几小时内就可以访问了。</p>
+<h2 id="同时将博客部署在GitHub和GitCafe上">同时将博客部署在GitHub和GitCafe上</h2><p><a href="https://gitcafe.com/?locale=zh-CN" target="_blank" rel="external">GitCafe</a>是什么？就是Github 国内山寨版。为了提高博客访问速度，同时将博客做一个备份，可以同时将博客部署在GitHub和GitCafe上。大家有了活跃在GitHub上的经验，那么GitCafe的使用也自然不在话下了。</p>
+<h3 id="注册GitCafe">注册GitCafe</h3><p>访问<a href="https://gitcafe.com/?locale=zh-CN" target="_blank" rel="external">GitCafe</a>，快速完成注册。</p>
+<h3 id="在GitCafe上建立仓库">在GitCafe上建立仓库</h3><p>在GitHub 和 GitCafe 上建立Pages仓库略有不同，前者的项目必须名为 username.github.io，后者则名为 username，所以你要新建一个项目命名为你的用户名，如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe1.png" alt="gitcafe1"></a></li>
+</ul>
+<h3 id="配置SSH_Key-1">配置SSH  Key</h3><p>这一步，我先按照GitCafe的帮助文档<a href="https://help.gitcafe.com/manuals/help/ssh-key" target="_blank" rel="external">添加 SSH 公钥</a>进行操作，却始终没有成功，应该是本地已经生成的GitHub的密钥造成的影响。然后各种百度，最后终于成功了，下面是我配置的方法。</p>
+<h4 id="生成指定名字的密钥">生成指定名字的密钥</h4><p>使用下面命令进入 ssh 目录：<br><code>cd  ~/.ssh</code></p>
+<p>你会发现里面已经生成了GitHub的密钥，下面我们来生成指定名字的密钥：<br><code>ssh-keygen -t rsa -C "YOUR_EMAIL@YOUREMAIL.COM" -f ~/.ssh/gitcafe</code></p>
+<p>上面输入的是你注册GitCafe的邮箱，文件命名为gitcafe（这里叫什么随意，不要重名即可），然后会生成gitcafe和gitcafe.pub这两个文件。</p>
+<p>打开公钥文件（上面输入的是你注册GitCafe的邮箱，文件命名为gitcafe（这里叫什么随意，不要重名即可），然后会生成gitcafe和gitcafe.pub），并把内容复制至GitCafe上。</p>
+<h4 id="修改config文件">修改config文件</h4><p>查看ssh目录下是否有config文件，如果没有，新建一个即可，添加如下代码：<br></p><figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Host gitcafe<span class="class">.com</span> www<span class="class">.gitcafe</span><span class="class">.com</span></span><br><span class="line">  IdentityFile ~/.ssh/gitcafe</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>最后，你的ssh目录下会有5文件，如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitssh1.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitssh1.png" alt="gitssh1"></a></li>
+</ul>
+<h4 id="测试">测试</h4><p>完成上面的操作后，可以通过下面的命令来测试一下是否可以连接 GitCafe 服务器:<br><code>ssh -T git@gitcafe.com</code><br>成功就会提示：<br><code>Hi xxxxxx! You've successfully authenticated, but GitCafe does not provide shell access.</code></p>
+<hr>
+<p><strong>提示：如果你还有疑问，可以查看这里：<a href="http://segmentfault.com/a/1190000002627706" target="_blank" rel="external">让你的Git使用上ssh协议授权</a></strong></p>
+<h3 id="部署到GitHub和GitCafe">部署到GitHub和GitCafe</h3><p>在这里,进入你的Hexo博客目录下面的’.deploy’目录，创建gitcafe-pages分支，输入以下命令：<br><code>git checkout -b gitcafe-pages</code></p>
+<p>添加到GitCafe的远程仓库:<br><code>git remote add origin 'git@gitcafe.com:yourname/yourname.git'</code></p>
+<p>push到GitCafe仓库:<br><code>git push -u origin gitcafe-pages</code></p>
+<p>想同时同步到GitHub请执行以下命令(注意这里的git操作需要在.deploy目录),首先切换git工作分支为master：<br><code>git checkout master</code></p>
+<p>然后就直接像之前一样使用’hexo d’即可直接提交到GitHub。如果再想提交到GitCafe直接再切换回gitcafe-pages分支即可:<br><code>git checkout gitcafe-pages</code></p>
+<h3 id="在GitCafe_Pages上绑定自定义域名">在GitCafe Pages上绑定自定义域名</h3><p>GitCafe Pages 支持绑定自定义域名。进入项目主页，点击右上角的 项目设置 ，在新打开的页面里点击 Pages 服务 一项可以看到自定义域名相关的设置。</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe2.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe2.png" alt="gitcafe2"></a></li>
+</ul>
+<p>填入你要绑定的域名，点击「新增」即可。</p>
+<h3 id="在DNSpod上添加记录">在DNSpod上添加记录</h3><p>在DNSpod上添加一条CNAME记录，指向gitcafe.io,如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe3.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe3.png" alt="gitcafe3"></a></li>
+</ul>
+<p>再添加一条A记录，设置为gitcafe.io的IP地址，如下图所示：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe4.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe4.png" alt="gitcafe4"></a></li>
+</ul>
+<p>设置完成后，等待一段时间，测试一下，国内IP访问个人博客访问的是GitCafe的空间：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe7.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe7.png" alt="gitcafe7"></a></li>
+</ul>
+<p>翻个墙，国外IP访问个人博客访问的是GitHub的空间：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe6.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bloggitcafe6.png" alt="gitcafe6"></a></li>
+</ul>
+<p>到这里，同时将博客部署在GitHub和GitCafe就成功了。</p>
+<h2 id="图床">图床</h2><p>如何在博文中插图，使用<a href="http://baike.baidu.com/link?url=a3kLK124T2aLvgGO4Y8t-2KPVBzFp1dZ09WHV894-r7ZFzAjUvZr42cIoaz_w-FnZPMPQya688z_0qsjJ132C_#1" target="_blank" rel="external">图床</a>即可。现在有不少免费的图床，我使用的是<a href="http://www.qiniu.com/" target="_blank" rel="external">七牛云存储</a>，体验用户免费1G空间，认证免费用户10G空间，已经足够使用了，并且很稳定，具体用法可以查看七牛官方文档：<a href="https://portal.qiniu.com/tutorial/index" target="_blank" rel="external">新手上路</a>。此外，这里是七牛的外链地址：</p>
+<ul>
+<li><a href="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogqiniu.png" class="fancybox" rel="group"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/blogqiniu.png" alt="qiniu"></a></li>
+</ul>
+<h2 id="后记">后记</h2><p>对于没有写作习惯的我，第一篇博文的撰写过程确实非常痛苦，总共花了差不多两天时间。毕竟是名程序猿，没有逃脱厌恶写文档的通病。这几天也比较忙，曾经一度想过放弃，因为搭建的过程太繁琐了，感觉要写的东西太多了。最后想想我搭建个人博客的初衷，又咬咬牙坚持下来了。一来记下大半个星期搭建博客的过程，开始锻炼写作能力;二来给后来者一个参考，大家相互学习。</p>
+<ul>
+<li><p>鸣谢：最后，再次向Hexo的作者<a href="http://zespia.tw/" target="_blank" rel="external">tommy351</a> 和 NexT的作者<a href="http://notes.iissnan.com/" target="_blank" rel="external">iissnan</a>表示衷心的感谢，没有他们造的轮子，就没有我的博客。搭建博客过程中<a href="http://jcf94.com/" target="_blank" rel="external">辰帆同学</a>提供了不少帮助，博文也参考了<a href="http://yangruihan.com/" target="_blank" rel="external">yangruihan</a>的原创文章，谢谢你们！！！</p>
+</li>
+<li><p>后续：如果你在搭建个人博客过程中还有疑问，或者对我的文章还有好的建议，欢迎在这里留言，或者与我联系。</p>
+</li>
+</ul>
+<hr>
+<p><strong>原创文章，请尊重作者劳动成果，转载请与作者联系。</strong></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="http://sunwhut.com/tags/Hexo/" rel="tag">#Hexo</a>
+          
+            <a href="http://sunwhut.com/tags/NexT/" rel="tag">#NexT</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="http://sunwhut.com/2015/11/15/batchDataImport/" rel="prev">
+                <i class="fa fa-chevron-left"></i> JSP页面批量导入数据到数据库
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="http://sunwhut.com/2015/10/19/hello-world/" rel="next">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/10/30/buildBlog/" data-title="如何利用GitHub Pages和Hexo快速搭建个人博客" data-content="" data-url="http://sunwhut.com/2015/10/30/buildBlog/" id="ds-share">
+  <div class="ds-share-inline" id="ds-reset">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more flat" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone flat" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt flat" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more" style="display: none;"><div class="ds-share-icons"> <div class="ds-share-icons-inner"> <ul class="ds-share-icons-16">  <li> <a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>  <li> <a class="ds-qzone flat" href="javascript:void(0);" data-service="qzone">QQ空间</a> </li>  <li> <a class="ds-sohu flat" href="javascript:void(0);" data-service="sohu">搜狐微博</a> </li>  <li> <a class="ds-renren flat" href="javascript:void(0);" data-service="renren">人人网</a> </li>  <li> <a class="ds-netease flat" href="javascript:void(0);" data-service="netease">undefined</a> </li>  <li> <a class="ds-qqt flat" href="javascript:void(0);" data-service="qqt">腾讯微博</a> </li>  <li> <a class="ds-kaixin flat" href="javascript:void(0);" data-service="kaixin">开心网</a> </li>  <li> <a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣网</a> </li>  <li> <a class="ds-qq flat" href="javascript:void(0);" data-service="qq">QQ</a> </li>  <li> <a class="ds-meilishuo flat" href="javascript:void(0);" data-service="meilishuo">undefined</a> </li>  <li> <a class="ds-mogujie flat" href="javascript:void(0);" data-service="mogujie">undefined</a> </li>  <li> <a class="ds-baidu flat" href="javascript:void(0);" data-service="baidu">百度</a> </li>  <li> <a class="ds-taobao flat" href="javascript:void(0);" data-service="taobao">undefined</a> </li>  <li> <a class="ds-google flat" href="javascript:void(0);" data-service="google">谷歌</a> </li>  <li> <a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a> </li>  <li> <a class="ds-diandian flat" href="javascript:void(0);" data-service="diandian">undefined</a> </li>  <li> <a class="ds-huaban flat" href="javascript:void(0);" data-service="huaban">undefined</a> </li>  <li> <a class="ds-duitang flat" href="javascript:void(0);" data-service="duitang">undefined</a> </li>  <li> <a class="ds-youdao flat" href="javascript:void(0);" data-service="youdao">undefined</a> </li>  <li> <a class="ds-pengyou flat" href="javascript:void(0);" data-service="pengyou">undefined</a> </li>  <li> <a class="ds-facebook flat" href="javascript:void(0);" data-service="facebook">Facebook</a> </li>  <li> <a class="ds-twitter flat" href="javascript:void(0);" data-service="twitter">Twitter</a> </li>  <li> <a class="ds-linkedin flat" href="javascript:void(0);" data-service="linkedin">Linkedin</a> </li>  <li> <a class="ds-msn flat" href="javascript:void(0);" data-service="msn">undefined</a> </li>  </ul> </div> <div class="ds-share-icons-footer">多说分享插件</div></div></div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/10/30/buildBlog/" data-title="如何利用GitHub Pages和Hexo快速搭建个人博客" data-url="http://sunwhut.com/2015/10/30/buildBlog/" id="ds-thread">
+              <div id="ds-reset"><div class="ds-meta" style="display: none;"><a href="javascript:void(0)" class="ds-like-thread-button ds-rounded"><span class="ds-icon ds-icon-heart"></span> <span class="ds-thread-like-text">喜欢</span><span class="ds-thread-cancel-like">取消喜欢</span></a><span class="ds-like-panel"><span class="ds-highlight">8</span> 人喜欢</span></div><div class="ds-rounded" id="ds-hot-posts"><div class="ds-header ds-gradient-bg">被顶起来的评论</div><ul><li class="ds-post" data-post-id="6213195219148473089"><div class="ds-post-self" data-post-id="6213195219148473089" data-thread-id="6211274015761302274" data-root-id="6212822814420894465" data-source="duoshuo"><div class="ds-avatar" data-user-id="13984372"><a rel="nofollow author" target="_blank" href="http://sunwhut.com/" onclick="this.href=&#39;http://sunwhut.duoshuo.com/user-url/?user_id=13984372&#39;;" title="指尖上的榴莲"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/1" alt="指尖上的榴莲"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://sunwhut.com/" onclick="this.href=&#39;http://sunwhut.duoshuo.com/user-url/?user_id=13984372&#39;;" rel="nofollow" target="_blank" data-user-id="13984372">指尖上的榴莲</a></div><p><a class="ds-comment-context" data-post-id="6213195219148473089" data-parent-id="6212822814420894465">回复 vickkyy: </a>三克油 <img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/tza_org.gif" alt="[可爱]" title="[可爱]" class="ds-smiley"> </p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-11-04T15:30:42+08:00" title="2015年11月4日 下午3:30:42">2015年11月4日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶(1)</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);"><span class="ds-highlight">2</span>条评论</a></li> <li class="ds-tab"><a class="ds-comments-tab-weibo" href="javascript:void(0);"><span class="ds-highlight">4</span>条新浪微博</a></li> </ul></div><ul class="ds-comments"><li class="ds-post" data-post-id="6212822814420894465"><div class="ds-post-self" data-post-id="6212822814420894465" data-thread-id="6211274015761302274" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/noavatar_default.png" alt="vickkyy"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">vickkyy</span></div><p>简直太赞了，谢谢分享~</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-11-03T15:25:34+08:00" title="2015年11月3日 下午3:25:34">2015年11月3日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div><ul class="ds-children"><li class="ds-post" data-post-id="6213195219148473089"><div class="ds-post-self" data-post-id="6213195219148473089" data-thread-id="6211274015761302274" data-root-id="6212822814420894465" data-source="duoshuo"><div class="ds-avatar" data-user-id="13984372"><a rel="nofollow author" target="_blank" href="http://sunwhut.com/" onclick="this.href=&#39;http://sunwhut.duoshuo.com/user-url/?user_id=13984372&#39;;" title="指尖上的榴莲"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/1" alt="指尖上的榴莲"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://sunwhut.com/" onclick="this.href=&#39;http://sunwhut.duoshuo.com/user-url/?user_id=13984372&#39;;" rel="nofollow" target="_blank" data-user-id="13984372">指尖上的榴莲</a></div><p>三克油 <img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/tza_org.gif" alt="[可爱]" title="[可爱]" class="ds-smiley"> </p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-11-04T15:30:42+08:00" title="2015年11月4日 下午3:30:42">2015年11月4日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶(1)</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://sunwhut.duoshuo.com/login/weixin/" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://sunwhut.duoshuo.com/login/weibo/" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://sunwhut.duoshuo.com/login/qq/" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://sunwhut.duoshuo.com/login/renren/" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://sunwhut.duoshuo.com/login/douban/" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://sunwhut.duoshuo.com/login/kaixin/" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://sunwhut.duoshuo.com/login/baidu/" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://sunwhut.duoshuo.com/login/google/" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/noavatar_default.png" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="6211274015761302274">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="57034f6cd95b9"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">多说</a></p></div></div>
+            
+          </div>
+        
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/kawayi.jpg" alt="sunwhut" itemprop="image">
+          <p class="site-author-name" itemprop="name">sunwhut</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">生命不息，奋斗不止</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="http://sunwhut.com/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="http://sunwhut.com/categories">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="http://sunwhut.com/tags">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="http://sunwhut.com/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sunwhut" target="_blank">
+                  <i class="fa fa-github"></i> github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2438057183" target="_blank">
+                  <i class="fa fa-weibo"></i> weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/sun-su-92" target="_blank">
+                  <i class="fa fa-zhihu"></i> zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/104507499/" target="_blank">
+                  <i class="fa fa-douban"></i> douban
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5 active active-current"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#纸上得来终觉浅，绝知此事要躬行"><span class="nav-number">1.</span> <span class="nav-text">纸上得来终觉浅，绝知此事要躬行</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#前言"><span class="nav-number"></span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#why_GitHub_Pages_and_Hexo"><span class="nav-number"></span> <span class="nav-text">why GitHub Pages and Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#GitHub"><span class="nav-number"></span> <span class="nav-text">GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#GitHub_Pages"><span class="nav-number"></span> <span class="nav-text">GitHub Pages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#Hexo"><span class="nav-number"></span> <span class="nav-text">Hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#使用GitHub_Pages建立博客站点"><span class="nav-number"></span> <span class="nav-text">使用GitHub Pages建立博客站点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#注册GitHub"><span class="nav-number"></span> <span class="nav-text">注册GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#在GitHub上建立仓库"><span class="nav-number"></span> <span class="nav-text">在GitHub上建立仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#搭建环境"><span class="nav-number"></span> <span class="nav-text">搭建环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#安装软件"><span class="nav-number"></span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#使用GitHub_for_Windows登录GitHub"><span class="nav-number"></span> <span class="nav-text">使用GitHub for Windows登录GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#配置SSH_Key"><span class="nav-number"></span> <span class="nav-text">配置SSH Key</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#使用Hexo创建博客框架"><span class="nav-number"></span> <span class="nav-text">使用Hexo创建博客框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#Hexo安装"><span class="nav-number"></span> <span class="nav-text">Hexo安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#Hexo部署"><span class="nav-number"></span> <span class="nav-text">Hexo部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#将本地文件部署到_GitHub"><span class="nav-number"></span> <span class="nav-text">将本地文件部署到 GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#修改_Hexo_中的__config-yml_文件"><span class="nav-number"></span> <span class="nav-text">修改 Hexo 中的 _config.yml 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#将其_deploy_到仓库中"><span class="nav-number"></span> <span class="nav-text">将其 deploy 到仓库中</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#发表博文"><span class="nav-number"></span> <span class="nav-text">发表博文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#新建博文"><span class="nav-number"></span> <span class="nav-text">新建博文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#新建页面"><span class="nav-number"></span> <span class="nav-text">新建页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#写博文"><span class="nav-number"></span> <span class="nav-text">写博文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#发博文"><span class="nav-number"></span> <span class="nav-text">发博文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#安装NexT主题"><span class="nav-number"></span> <span class="nav-text">安装NexT主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#选择主题"><span class="nav-number"></span> <span class="nav-text">选择主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#安装NexT主题-1"><span class="nav-number"></span> <span class="nav-text">安装NexT主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#下载_NexT_主题"><span class="nav-number"></span> <span class="nav-text">下载 NexT 主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#启用NexT主题"><span class="nav-number"></span> <span class="nav-text">启用NexT主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#验证主题是否启用"><span class="nav-number"></span> <span class="nav-text">验证主题是否启用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#设置NexT主题和第三方服务"><span class="nav-number"></span> <span class="nav-text">设置NexT主题和第三方服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#选择样式"><span class="nav-number"></span> <span class="nav-text">选择样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#菜单设置"><span class="nav-number"></span> <span class="nav-text">菜单设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#购买并绑定域名"><span class="nav-number"></span> <span class="nav-text">购买并绑定域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#购买域名"><span class="nav-number"></span> <span class="nav-text">购买域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#将个人域名与_GitHub_Pages_的空间绑定"><span class="nav-number"></span> <span class="nav-text">将个人域名与 GitHub Pages 的空间绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#DNS设置"><span class="nav-number"></span> <span class="nav-text">DNS设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#去GoDaddy修改DNS地址"><span class="nav-number"></span> <span class="nav-text">去GoDaddy修改DNS地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#同时将博客部署在GitHub和GitCafe上"><span class="nav-number"></span> <span class="nav-text">同时将博客部署在GitHub和GitCafe上</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#注册GitCafe"><span class="nav-number"></span> <span class="nav-text">注册GitCafe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#在GitCafe上建立仓库"><span class="nav-number"></span> <span class="nav-text">在GitCafe上建立仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#配置SSH_Key-1"><span class="nav-number"></span> <span class="nav-text">配置SSH  Key</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#生成指定名字的密钥"><span class="nav-number"></span> <span class="nav-text">生成指定名字的密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#修改config文件"><span class="nav-number"></span> <span class="nav-text">修改config文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#测试"><span class="nav-number"></span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#部署到GitHub和GitCafe"><span class="nav-number"></span> <span class="nav-text">部署到GitHub和GitCafe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#在GitCafe_Pages上绑定自定义域名"><span class="nav-number"></span> <span class="nav-text">在GitCafe Pages上绑定自定义域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#在DNSpod上添加记录"><span class="nav-number"></span> <span class="nav-text">在DNSpod上添加记录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#图床"><span class="nav-number"></span> <span class="nav-text">图床</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://sunwhut.com/2015/10/30/buildBlog/#后记"><span class="nav-number"></span> <span class="nav-text">后记</span></a></li></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  © 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <a class="theme-link" href="http://sunwhut.com/about/index.html">
+    <span class="author" itemprop="copyrightHolder">sunwhut</span>
+  </a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io/">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/index.js"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sunwhut"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/velocity.min.js"></script>
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/motion_global.js" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/nav-toggle.js"></script>
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/fastclick.min.js"></script>
+
+  
+  
+<script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/MathJax.js"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="./如何利用GitHub Pages和Hexo快速搭建个人博客 _ Sunwhut&#39;s Home_files/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; top: 11143px; left: 213px; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

@@ -1,0 +1,14 @@
+prefix=/media/l_work/soft/android/android-h264-decoder/jni/ffmpeg-android/i686
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libswscale
+Description: FFmpeg image rescaling library
+Version: 2.5.102
+Requires: libavutil = 52.66.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lswscale -lm
+Libs.private: 
+Cflags: -I${includedir}

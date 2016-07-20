@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://jitpack.io/#DroidKOF/UpdateEngine/5cd47bc7b8 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>JitPack | Publish JVM and Android libraries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="JitPack.io">
+    <link rel="stylesheet" href="./JitPack _ Publish JVM and Android libraries_files/bootstrap.min.css">
+    <link href="./JitPack _ Publish JVM and Android libraries_files/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./JitPack _ Publish JVM and Android libraries_files/prism.css" media="screen">
+    <link rel="stylesheet" href="./JitPack _ Publish JVM and Android libraries_files/main.css" media="screen">
+    <link rel="icon" href="https://jitpack.io/favicon.ico" type="image/x-icon">
+
+    <!-- <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'> -->
+    <meta name="description" content="JitPack makes it easy to release your Java or Android library. Publish straight from GitHub or BitBucket.">
+    <meta itemprop="description" content="JitPack makes it easy to release your Java or Android library. Publish straight from GitHub or BitBucket.">
+
+    <meta name="keywords" content="publish android library, deploy to maven central, fast release to maven central, how to deploy to maven central, how to release to maven central, maven central release, publish from github to maven central, release to maven central, gradle, library, android, java">
+    <meta itemprop="keywords" content="publish android library, deploy to maven central, fast release to maven central, how to deploy to maven central, how to release to maven central, maven central release, publish from github to maven central, release to maven central, gradle, library, android, java">
+    <meta itemprop="keywords">
+
+    <meta itemprop="name" content="Publish JVM and Android libraries with ease">
+    <meta itemprop="author" content="JitPack.io">
+    <meta itemprop="breadcrumb" content="https://jitpack.io">
+
+    <meta property="twitter:account_id" content="2969442957">
+    <meta property="og:url" content="https://jitpack.io">
+    <meta property="og:site_name" content="jitpack">
+    <meta property="og:title" content="Publish JVM and Android libraries with ease">
+    <meta property="og:description" content="JitPack makes it easy to release your Java or Android library. Publish straight from GitHub.">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:site" content="@jitpack">
+    <meta name="twitter:creator" content="@jitpack">
+    <meta name="twitter:url" content="https://jitpack.io">
+    <meta name="google-site-verification" content="VSdgpJGGFYWHk1r6jJ1sAf0p3le1_Yir0QZRY4dSl-I">
+<script id="doorbellScript" type="text/javascript" async="" src="https://embed.doorbell.io/button/1871?t=1468304488706"></script></head>
+
+<body data-pinterest-extension-installed="cr1.39.1">
+
+<nav class="navbar topNavbar navbar-default navbar-inverse" role="navigation" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+    <div class="container-fluid" id="navfluid">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigationbar">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div class="pull-right collapse navbar-collapse" id="navigationbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navLink" itemprop="url" href="https://jitpack.io/docs/"><span class="navLink">Docs</span></a></li>
+
+                <li><a class="navLink" itemprop="url" href="https://jitpack.io/private#subscribe"><span class="navLink">Pricing</span></a>
+                </li>
+                <li><a class="navLink" itemprop="url" href="https://jitpack.io/private"><span class="navLink">Private</span></a>
+                </li>
+                <li><a class="navLink" href="https://jitpack.io/w/user.html"><span class="navLink" id="username"></span></a></li>
+                <li>
+                    <button class="btn btn-nav btn-login" type="button" id="signIn"><i class="fa fa-github"></i> | Sign
+                        In
+                    </button>
+                </li>
+                <li>
+                    <button class="btn btn-nav" type="button" title="Sign out" id="signOut" style="display: none;">
+                        <i class="fa fa-sign-out"></i></button>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="jumbotron" id="headerwrap">
+    <div class="container">
+        <h1>
+            <a href="https://jitpack.io/">JitPack</a>
+        </h1>
+        <h3>Easy to use package repository for Git</h3>
+        <p>Publish your JVM and Android libraries</p>
+    </div>
+</div>
+
+
+	<div class="container space">
+
+		<div class="bs-docs-section clearfix">
+			<div class="row ">
+				<div class="col-lg-3 mid"></div>
+				<div class="col-lg-6">
+					  <form method="POST" id="lookupForm">
+					<div class="input-group mid">
+						<input type="text" class="form-control url" id="repoUrl" alt="https://github.com/User/Repo" placeholder="Git repo url" value="">
+					  
+					  <span class="input-group-btn ">
+							<button class="btn btn-success lookupBtn" id="lookupBtn" type="button"> Look
+								up </button>
+						</span>
+					</div>
+					</form> 
+				</div>
+				<div class="col-lg-3"></div>
+			</div>
+		</div>
+
+		<div class="bs-docs-section">
+			<div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <p></p>
+                    <p id="title" class="text-center">DroidKOF / UpdateEngine<p></p><div class="alert alert-info">No releases found. Try a commit or `-SNAPSHOT`</div></p>
+                    <p></p>
+                </div>
+                <div class="col-lg-2"><div id="settings"></div>
+                </div>
+			</div>
+		</div>
+
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
+
+			<div id="projDetails" style="display: none;"></div>
+
+			<table class="table table-striped table-hover" id="versionTable" style="">
+				<thead>
+					<tr>
+						<th>Version</th>
+						<th></th>
+						<th>Log</th>
+						<th class="statusCol">Status</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody><tr class="verRow"><td class="verCell">-SNAPSHOT</td><td class="verFill"></td><td></td><td class="statusCol"><a href="https://jitpack.io/#DroidKOF/UpdateEngine/-SNAPSHOT"><button class="btn btn-default btn-xs getBtn" ver="-SNAPSHOT">Get it</button></a></td><td class="del"><div class="removeCol"></div></td></tr><tr class="verRow"><td class="verCell">5cd47bc7b8</td><td class="verFill"></td><td></td><td class="statusCol"><a href="https://jitpack.io/#DroidKOF/UpdateEngine/5cd47bc7b8"><button class="btn btn-default btn-xs getBtn" ver="5cd47bc7b8">Get it</button></a></td><td class="del"><div class="removeCol"></div></td></tr><tr class="verRow"><td class="verCell">fabd597a9c</td><td class="verFill"></td><td></td><td class="statusCol"><a href="https://jitpack.io/#DroidKOF/UpdateEngine/fabd597a9c"><button class="btn btn-default btn-xs getBtn" ver="fabd597a9c">Get it</button></a></td><td class="del"><div class="removeCol"></div></td></tr><tr class="verRow"><td class="verCell">f1ceb6a9fb</td><td class="verFill"></td><td></td><td class="statusCol"><a href="https://jitpack.io/#DroidKOF/UpdateEngine/f1ceb6a9fb"><button class="btn btn-default btn-xs getBtn" ver="f1ceb6a9fb">Get it</button></a></td><td class="del"><div class="removeCol"></div></td></tr><tr class="verRow"><td class="verCell">dc53053e37</td><td class="verFill"></td><td></td><td class="statusCol"><a href="https://jitpack.io/#DroidKOF/UpdateEngine/dc53053e37"><button class="btn btn-default btn-xs getBtn" ver="dc53053e37">Get it</button></a></td><td class="del"><div class="removeCol"></div></td></tr><tr><td colspan="2"><a href="https://jitpack.io/" id="commitsLink">Releases</a></td><td class="verFill"></td><td colspan="2"><a href="https://jitpack.io/" id="buildsLink">Builds</a></td></tr></tbody>
+			</table>
+		</div>
+		<div class="col-lg-1"></div>
+		<div class="col-lg-2">
+			<table class="table borderless" id="statsTable" style="display: none;">
+				<thead>
+					<tr> <th colspan="2">Downloads</th> </tr>
+				</thead>
+				<tbody>
+					<tr> <td>Week</td><td id="weekDl" class="rightCell">12</td> </tr>
+					<tr> <td>Month</td><td id="monthDl" class="rightCell">3</td> </tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="row"></div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header" id="howto">How to</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+					<p>To get a Git project into your build:</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<p>
+					<b>Step 1.</b> Add the JitPack repository to your build file
+				</p>
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs">
+						<li role="presentation" class="active"><a data-toggle="tab" class="dep gradle" href="https://jitpack.io/#gradle">gradle</a></li>
+						<li role="presentation"><a class="dep maven" data-toggle="tab" href="https://jitpack.io/#maven">maven</a></li>
+						<li role="presentation"><a class="dep sbt" data-toggle="tab" href="https://jitpack.io/#sbt">sbt</a></li>
+                         <li role="presentation"><a class="dep lein" data-toggle="tab" href="https://jitpack.io/#lein">leiningen</a></li>
+					</ul>
+
+					<div class="tab-content">
+					      <div role="tabpanel" class="tab-pane active" id="gradle">
+                              <p>Add it in your root build.gradle at the end of repositories:</p>
+                            <pre class=" kode language-css"><code class=" kode language-css">	<span class="token selector">allprojects </span><span class="token punctuation">{</span>
+		<span class="token selector">repositories </span><span class="token punctuation">{</span>
+			<span class="token selector">...
+			maven </span><span class="token punctuation">{</span> url <span class="token string">"https://jitpack.io"</span> <span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span></code></pre>
+                        </div>
+                        
+						<div role="tabpanel" class="tab-pane" id="maven">
+							<pre class=" kode language-markup"><code class=" kode language-markup">	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">&gt;</span></span>
+		    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">&gt;</span></span>jitpack.io<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">&gt;</span></span>
+		    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">&gt;</span></span>https://jitpack.io<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">&gt;</span></span></code></pre>
+						</div>
+
+						
+						<div role="tabpanel" class="tab-pane" id="sbt">
+
+                              <p>Add it in your build.sbt at the end of resolvers:</p>
+                            <pre class=" kode language-css"><code class=" kode language-css"> 
+    resolvers += <span class="token string">"jitpack"</span> at <span class="token string">"https://jitpack.io"</span>
+        
+    </code></pre>
+                        </div>
+                        
+                        <div role="tabpanel" class="tab-pane" id="lein">
+
+                              <p>Add it in your project.clj at the end of repositories:</p>
+                            <pre class=" kode language-css"><code class=" kode language-css"> 
+    <span class="token punctuation">:</span>repositories [[<span class="token string">"jitpack"</span> <span class="token string">"https://jitpack.io"</span>]]
+        
+    </code></pre>
+                        </div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-2">
+								<p><b>Step 2.</b> Add the dependency</p> 
+			</div>
+			<div class="col-lg-2 text-right">
+				<div class="dropdown" id="subprojects" style="display: none;">
+					  <button class="btn btn-default dropdown-toggle" type="button" id="moduleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					    Subproject
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" aria-labelledby="moduleDropdown" id="modulesList"></ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+
+				<div role="tabpanel">
+					<div class="tab-content depTabs">
+					   <div role="tabpanel" class="tab-pane depTab gradle active">
+                            <pre class=" kode  language-css"><code id="depCodeGradle" class=" kode  language-css">	<span class="token selector">dependencies </span><span class="token punctuation">{</span>
+	        compile <span class="token string">'com.github.DroidKOF:UpdateEngine:5cd47bc7b8'</span>
+	<span class="token punctuation">}</span>
+</code></pre>
+                        </div>
+                        
+						<div role="tabpanel" class="tab-pane depTab maven">
+							<pre class=" kode  language-markup"><code id="depCode" class="kode  language-markup">	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.github.DroidKOF<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>UpdateEngine<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+	    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>5cd47bc7b8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+						</div>
+
+						<div role="tabpanel" class="tab-pane depTab sbt">
+                            <pre class=" kode  language-css"><code id="depCodeSbt" class="kode  language-css">	
+	libraryDependencies += <span class="token string">"com.github.DroidKOF"</span> % <span class="token string">"UpdateEngine"</span> % <span class="token string">"5cd47bc7b8"</span>	
+</code></pre>
+                        </div>
+                        
+                        <div role="tabpanel" class="tab-pane depTab lein">
+                            <pre class=" kode  language-css"><code id="depCodeLein" class="kode  language-css">	
+	<span class="token punctuation">:</span>dependencies [[com.github.DroidKOF/UpdateEngine <span class="token string">"5cd47bc7b8"</span>]]	
+</code></pre>
+                        </div>
+					</div>
+				</div>
+			</div>
+</div>
+		
+
+			<div class="row" id="shareDiv" style="">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>Share this release:</p>
+
+					<div class="row">
+						<div class="col-lg-4" id="twitterDiv"><a id="share" href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-url="http://jitpack.io/#DroidKOF/UpdateEngine/5cd47bc7b8" data-text="Version 5cd47bc7b8 of UpdateEngine is now available on ">Tweet</a></div>
+						<div class="col-lg-4 centered" id="badgeDiv">
+							<a id="badgeA" class="nolink collapsed" href="https://jitpack.io/#" data-toggle="collapse" data-target="#markdown"><img id="badge" src="./JitPack _ Publish JVM and Android libraries_files/UpdateEngine.svg"></a>
+						</div>
+						<div class="col-lg-4">
+							<p class="pull-right">
+								<a id="versionA" href="https://jitpack.io/#DroidKOF/UpdateEngine/5cd47bc7b8">Link</a>
+							</p>
+						</div>
+					</div>
+					<div class="row collapse" id="markdown">
+						Paste this in your README.md to add a badge:
+						<pre id="badgeMarkdown">[![](https://jitpack.io/v/DroidKOF/UpdateEngine.svg)](https://jitpack.io/#DroidKOF/UpdateEngine)</pre>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row space">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>
+						<strong>That's it!</strong> The first time you request a project
+						JitPack checks out the code, builds it and serves the build artifacts.
+					</p>
+					<p>If the project doesn't have any <a href="https://github.com/blog/1547-release-your-software">GitHub
+							Releases</a> you can use the short commit hash or 'anyBranch-SNAPSHOT' as the version.
+					</p>
+					
+					<p>See also </p>
+					   <ul>
+                        <li><p><a href="https://jitpack.io/docs/">Documentation</a></p></li>
+                        <li><p><a href="https://jitpack.io/private#auth">Private Repositories</a></p></li>
+                        </ul>
+                   
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Features</h1>
+				</div>
+			</div>
+	
+	<div class="row centered">
+				<h1></h1>
+				<br>
+				<br>
+				<div class="col-lg-4">
+					<i class="fa fa-bolt featureIco"></i>
+					<h3>Snapshots</h3>
+					<p>Build a specific commit or the latest</p> 
+					<p>Works on any branch</p>
+					<p><a href="https://jitpack.io/docs/#snapshots">More info →</a></p>
+				</div>
+				
+				<div class="col-lg-4">
+					<i class="fa fa-book featureIco"></i>
+					<h3>Doc publishing</h3>
+					<p>Library javadocs are published and hosted automatically</p>
+					<p><a href="https://jitpack.io/docs/#other-features" target="_blank">More info →</a></p>
+				</div>
+				
+				<div class="col-lg-4">
+					<i class="fa fa-tachometer featureIco"></i>
+					<h3>Stats</h3>
+					<p>Track your downloads</p>
+					<p>Weekly and monthly stats available to maintainers</p>
+				</div>
+
+	</div>
+	
+	<div class="row centered space">
+				<h1></h1>
+				<br>
+				<br>
+				<div class="col-lg-4">
+					<i class="fa fa-cloud-download featureIco"></i>
+					<h3>CDN powered</h3>
+					<p>Artifacts are served via a global CDN</p>
+					<p>Fast downloads for you and your users</p>
+				</div>
+				<div class="col-lg-4">
+					<i class="fa fa-lock featureIco"></i>
+					<h3>Private repositories</h3>
+					<p>Private builds remain private</p>
+					<p>Share them when needed. <a href="https://jitpack.io/private">More info →</a></p>
+				</div>
+				<div class="col-lg-4">
+					<i class="fa fa-globe featureIco"></i>
+					<h3>Custom domains</h3>
+					<p>Match artifact names with your domain</p> 
+					<p><a href="https://jitpack.io/docs/#custom-domain-name" target="_blank">More info →</a></p>
+				</div>
+	</div>
+
+	</div> 	 <!-- container -->
+   			<div class="testimonials"><div class="container">
+		<div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header testimonials" id="buttons">What developers say</h2>
+                </div>
+        </div>
+        
+        <div class="row space">
+            <section id="testimonials">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="carousel slide" data-ride="carousel" id="quote-carousel"><!--  http://jsfiddle.net/jitpack/24q9c390/1/ -->
+        <ol class="carousel-indicators">
+          <li data-target="#quote-carousel" data-slide-to="0" class=""></li>
+          <li data-target="#quote-carousel" data-slide-to="1" class=""></li>
+          <li data-target="#quote-carousel" data-slide-to="2" class=""></li>
+          <li data-target="#quote-carousel" data-slide-to="3" class="active"></li>
+          <li data-target="#quote-carousel" data-slide-to="4" class=""></li>
+          <li data-target="#quote-carousel" data-slide-to="5" class=""></li>
+          <li data-target="#quote-carousel" data-slide-to="6" class=""></li>
+          <li data-target="#quote-carousel" data-slide-to="7" class=""></li> 
+        </ol>
+
+<div class="carousel-inner">
+
+    <div class="item">
+        <blockquote>
+            <div class="row">
+                <div class="user col-sm-3 text-center">
+                    <a href="https://twitter.com/hamen" aria-label="Ivan Morgillo (screen name: hamen)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/hZrdGwua_normal.jpeg" data-src-2x="https://pbs.twimg.com/profile_images/435229432752517120/hZrdGwua_bigger.jpeg" data-scribe="element:avatar"> <span> <span data-scribe="element:name">Ivan Morgillo</span>
+                    </span> <span data-scribe="element:screen_name">@hamen</span>
+
+                    </a>
+                </div>
+                <p class="tweet col-sm-9">
+                    <a href="https://twitter.com/jitpack" data-scribe="element:mention">@jitpack</a>
+                    "Private repository" feature is one of the most useful things of
+                    this year! <a href="http://t.co/88J5lvwbgJ" data-expanded-url="http://buff.ly/1R0ZSuz" target="_blank" title="http://buff.ly/1R0ZSuz" data-scribe="element:url"><span>http://</span><span>buff.ly/1R0ZSuz</span><span></span><span><span>&nbsp;</span></span></a>
+                </p>
+                <span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=594802581899190272" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=594802581899190272" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=594802581899190272" class="twitter_fav_icon">  </a></span>
+            </div>
+        </blockquote>
+    </div>
+
+    <div class="item">
+        <blockquote>
+            <div class="row">
+                <div class="user col-sm-3 text-center">
+                    <a href="https://twitter.com/JamesMoger" aria-label="James Moger (screen name: JamesMoger)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/0c40ce8ad43556b702f75c67dcbad74a_normal.jpeg" data-src-2x="https://pbs.twimg.com/profile_images/378800000138648683/0c40ce8ad43556b702f75c67dcbad74a_bigger.jpeg" data-scribe="element:avatar"> <span> <span data-scribe="element:name">James Moger</span>
+                    </span> <span data-scribe="element:screen_name">@JamesMoger</span>
+
+                    </a>
+                </div>
+                <p class="tweet col-sm-9">
+                    Very cool service. Put Java artifact publishing power back into the
+                    hands of the developer (or fork-er). <a href="https://twitter.com/jitpack" data-scribe="element:mention">@jitpack</a>
+                    <a href="https://t.co/ISkxofXY06" data-expanded-url="https://jitpack.io/" target="_blank" title="https://jitpack.io/" data-scribe="element:url"><span>https://</span><span>jitpack.io</span><span>/</span><span><span>&nbsp;</span></span></a>
+                </p>
+                <span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=593772484119371777" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=593772484119371777" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=593772484119371777" class="twitter_fav_icon">  </a></span>
+            </div>
+        </blockquote>
+    </div>
+
+	<div class="item">
+		<blockquote>
+			<div class="row">
+				<div class="user col-sm-3 text-center">
+					<a href="https://twitter.com/BuccaneerTech" aria-label="Buccaneer Tech, INC (screen name: BuccaneerTech)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/vzcP58K6_normal.png" data-src-2x="https://pbs.twimg.com/profile_images/598621271799148544/vzcP58K6_bigger.png" data-scribe="element:avatar"> <span> <span data-scribe="element:name">Buccaneer Tech, INC</span>
+					</span> <span data-scribe="element:screen_name">@BuccaneerTech</span>
+
+					</a>
+				</div>
+				<p class="tweet col-sm-9">
+					Check out one of our favorite new tools <a href="https://twitter.com/jitpack" data-scribe="element:mention">@jitpack</a>
+					<a href="https://twitter.com/hashtag/AndroidDev?src=hash" data-scribe="element:hashtag">#AndroidDev</a> <a href="https://twitter.com/hashtag/java?src=hash" data-scribe="element:hashtag">#java</a> <a href="https://twitter.com/hashtag/gradle?src=hash" data-scribe="element:hashtag">#gradle</a>
+				</p>
+				<span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=588160512086638593" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=588160512086638593" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=588160512086638593" class="twitter_fav_icon">  </a></span>
+			</div>
+		</blockquote>
+	</div>
+
+	<div class="item active">
+		<blockquote>
+			<div class="row">
+				<div class="user col-sm-3 text-center">
+					<a href="https://twitter.com/leorossetto_" aria-label="Leonardo Rossetto (screen name: leorossetto_)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/VRIWxnJz_normal.jpg" data-src-2x="https://pbs.twimg.com/profile_images/592702380606681088/VRIWxnJz_bigger.jpg" data-scribe="element:avatar"> <span> <span data-scribe="element:name">Leonardo Rossetto</span>
+					</span> <span data-scribe="element:screen_name">@leorossetto_</span>
+
+					</a>
+				</div>
+				<p class="tweet col-sm-9">One friend said to me that jitpack.io
+					is the future. So now I believe, just push to git and vuola. Very
+					nice.</p>
+				<span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=586124860578988032" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=586124860578988032" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=586124860578988032" class="twitter_fav_icon">  </a></span>
+			</div>
+		</blockquote>
+	</div>
+	
+    <div class="item">
+        <blockquote>
+            <div class="row">
+                <div class="user col-sm-3 text-center">
+                    <a href="https://twitter.com/lokkju" aria-label="Lokkju Brennr (screen name: lokkju)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/HyNv2lKQ_normal.jpeg" data-src-2x="https://pbs.twimg.com/profile_images/499754608458084352/HyNv2lKQ_bigger.jpeg" data-scribe="element:avatar"> <span> <span data-scribe="element:name">Lokkju Brennr</span>
+                    </span> <span data-scribe="element:screen_name">@lokkju</span>
+
+                    </a>
+                </div>
+                <p class="tweet col-sm-9">
+                    <a href="https://t.co/KGgPHwtWCj" data-expanded-url="https://jitpack.io" target="_blank" title="https://jitpack.io" data-scribe="element:url"><span>https://</span><span>jitpack.io</span><span></span><span><span>&nbsp;</span></span></a>
+                    is plain awesome. Maven dependencies directly from github projects.
+                    Works with all maven/gradle/etc build tools.
+                </p>
+                <span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=594950427319271424" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=594950427319271424" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=594950427319271424" class="twitter_fav_icon">  </a></span>
+            </div>
+        </blockquote>
+    </div>
+	
+	<div class="item">
+		<blockquote>
+			<div class="row">
+				<div class="user col-sm-3 text-center">
+					<a href="https://twitter.com/passos" aria-label="Daniel Passos (screen name: passos)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/2qdd9NhO_normal.jpeg" data-src-2x="https://pbs.twimg.com/profile_images/452656410778927105/2qdd9NhO_bigger.jpeg" data-scribe="element:avatar"> <span> <span data-scribe="element:name">Daniel Passos</span>
+					</span> <span data-scribe="element:screen_name">@passos</span>
+
+					</a>
+				</div>
+				<p class="tweet col-sm-9">
+					<a href="https://twitter.com/jitpack" data-scribe="element:mention">@jitpack</a>
+					A very nice idea when you need to use a library (or a version of
+					that) and it is not released in Maven central yet
+				</p>
+				<span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=592397744100253696" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=592397744100253696" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=592397744100253696" class="twitter_fav_icon">  </a></span>
+			</div>
+		</blockquote>
+	</div>
+	
+	<div class="item">
+        <blockquote>
+            <div class="row">
+                <div class="user col-sm-3 text-center">
+                    <a href="https://twitter.com/mariotaku" aria-label="宅里奥一边捣鼓着Twidere一边 (screen name: mariotaku)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/nOaWmx-8_normal.png" data-src-2x="https://pbs.twimg.com/profile_images/686791089076834304/nOaWmx-8_bigger.png" data-scribe="element:avatar"> <span> <span data-scribe="element:name">宅里奥一边捣鼓着Twidere一边</span>
+                    </span> <span data-scribe="element:screen_name">@mariotaku</span>
+
+                    </a>
+                </div>
+                <p class="tweet col-sm-9">
+                    <a href="https://twitter.com/jitpack" data-scribe="element:mention">@jitpack</a>
+                    you guys are awesome! jitpack saved a lot of time for me! (up to 40%
+                    build time for a clean build of an android project)
+                </p>
+                <span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=579947602952650753" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=579947602952650753" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=579947602952650753" class="twitter_fav_icon">  </a></span>
+            </div>
+        </blockquote>
+    </div>
+    
+			
+	<div class="item">
+        <blockquote>
+            <div class="row">
+                <div class="user col-sm-3 text-center">
+                    <a href="https://twitter.com/twarko" aria-label="Marko A. Rodriguez (screen name: twarko)" data-scribe="element:user_link"> <img alt="" src="./JitPack _ Publish JVM and Android libraries_files/exterminator_normal.png" data-src-2x="https://pbs.twimg.com/profile_images/395313322/exterminator_bigger.png" data-scribe="element:avatar"> <span> <span data-scribe="element:name">Marko A. Rodriguez</span>
+                    </span> <span data-scribe="element:screen_name">@twarko</span>
+
+                    </a>
+                </div>
+                <p class="tweet col-sm-9">
+                    This is really clever: <a href="https://t.co/Anx2q6MqHZ" data-expanded-url="https://jitpack.io/" target="_blank" title="https://jitpack.io/" data-scribe="element:url"><span>https://</span><span>jitpack.io</span><span>/</span><span><span>&nbsp;</span></span></a>
+                </p>
+                <span class="interact"><a href="https://twitter.com/intent/tweet?in_reply_to=591598648888135680" class="twitter_reply_icon">  </a>|<a href="https://twitter.com/intent/retweet?tweet_id=591598648888135680" class="twitter_retweet_icon">  </a>|<a href="https://twitter.com/intent/favorite?tweet_id=591598648888135680" class="twitter_fav_icon">  </a></span>
+            </div>
+        </blockquote>
+    </div>
+</div>
+
+     <!-- Carousel Buttons Next/Prev -->
+        <a data-slide="prev" href="https://jitpack.io/#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+        <a data-slide="next" href="https://jitpack.io/#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+      
+</div>
+                </div>                     
+            </section>     
+        </div>
+        
+        <div class="row">
+            <div class="text-center">
+            <a href="https://twitter.com/jitpack" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jitpack</a>
+            
+            <iframe src="./JitPack _ Publish JVM and Android libraries_files/github-btn.html" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+            
+            </div>
+        </div>
+        
+        </div>
+        </div>
+  		
+		<div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header" id="buttons"></h2>
+                </div>
+        </div>
+		 	  	
+	<div class="container worksWith">
+			<div class="row space">
+		        <div class="col-lg-1 tool-logo-div">
+				    <span class="pull-right">Works with</span>
+				</div> 
+				<div class="col-lg-2 tool-logo-div">
+					<img src="./JitPack _ Publish JVM and Android libraries_files/github-logo.png" class="tool-logo pull-right">
+				</div>
+				<div class="col-lg-2 tool-logo-div">
+					<a href="https://android-arsenal.com/">
+						<img src="./JitPack _ Publish JVM and Android libraries_files/android-arsenal-logo.png" class="tool-logo pull-right" style="margin-right: 35px">
+					</a>
+				</div>
+				<div class="col-lg-2 tool-logo-div">
+					<img src="./JitPack _ Publish JVM and Android libraries_files/gradle_logo.png" class="tool-logo  pull-right">
+				</div>
+				<div class="col-lg-2 tool-logo-div">
+					<img src="./JitPack _ Publish JVM and Android libraries_files/maven-logo.png" class="tool-logo  pull-right">
+				</div>
+				<div class="col-lg-1 tool-logo-div">
+				    <span class="pull-right">Powered by</span>
+				</div>
+				<div class="col-lg-2 tool-logo-div">	
+					<img src="./JitPack _ Publish JVM and Android libraries_files/docker-logo.png" class="tool-logo pull-right">	
+				</div>
+			</div>
+	</div>
+
+	
+<div class="footer" id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-8"><span>© 2015-2016 JitPack.io</span> |
+                <span>jitpack@jitpack.io</span> |
+                <a href="https://twitter.com/jitpack"><i class="fa fa-twitter"></i> Twitter</a> |
+                <a href="https://github.com/jitpack/jitpack.io"><i class="fa fa-github"></i> GitHub</a> |
+                <a href="https://jitpack.io/private#subscribe" target="_blank">Pricing</a> |
+                <a href="https://jitpack.io/enterprise" target="_blank">Enterprise</a> |
+                <a href="https://jitpack.io/w/terms.html" target="_blank">Terms</a> |
+                <a href="https://jitpack.io/w/privacy.html" target="_blank">Privacy</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script async="" src="./JitPack _ Publish JVM and Android libraries_files/analytics.js"></script><script id="twitter-wjs" src="./JitPack _ Publish JVM and Android libraries_files/widgets.js"></script><script src="./JitPack _ Publish JVM and Android libraries_files/jquery.min.js"></script>
+<script src="./JitPack _ Publish JVM and Android libraries_files/bootstrap.min.js"></script>
+<script src="./JitPack _ Publish JVM and Android libraries_files/prism.js"></script>
+<script src="./JitPack _ Publish JVM and Android libraries_files/handlebars.min.js"></script>
+<script>
+		defaultDomain = "github.com";
+		defaultGitServer = "https://github.com";
+		apiHost = "";
+      	defaultAuth = false;
+ </script>
+<script src="./JitPack _ Publish JVM and Android libraries_files/site.js"></script>
+
+<script type="text/javascript">
+				window.twttr = (function(d, s, id) {
+					var t, js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) {
+						return
+					}
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "https://platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js, fjs);
+					return window.twttr || (t = {
+						_e : [],
+						ready : function(f) {
+							t._e.push(f)
+						}
+					})
+				}(document, "script", "twitter-wjs"));
+
+
+
+</script>
+
+<script>
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+
+</script>
+
+<script>
+     if( (self.parent && !(self.parent===self)) && (self.parent.frames.length!=0)) {
+    	    self.parent.location=document.location
+     }
+
+
+
+</script>
+
+<script>
+				(function(i, s, o, g, r, a, m) {
+					i['GoogleAnalyticsObject'] = r;
+					i[r] = i[r] || function() {
+						(i[r].q = i[r].q || []).push(arguments)
+					}, i[r].l = 1 * new Date();
+					a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+					a.async = 1;
+					a.src = g;
+					m.parentNode.insertBefore(a, m)
+				})(window, document, 'script',
+						'//www.google-analytics.com/analytics.js', 'ga');
+
+				ga('create', 'UA-58645551-1', 'auto');
+				ga('send', 'pageview');
+
+
+
+</script>
+
+
+<script type="text/javascript">
+    window.doorbellOptions = {
+        appKey: "uuRaSAEVsWdemPj0euDqsGI3xZUD4bkuTNIbt72NalhndWnyaFrIS4CKwRinkYiC"
+    };
+    (function(d, t) {
+        var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/1871?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g);
+    }(document, 'script'));
+
+
+
+</script>
+
+
+
+
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

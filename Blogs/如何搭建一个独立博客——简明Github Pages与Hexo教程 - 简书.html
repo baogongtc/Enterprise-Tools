@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/05289a4bc8b2 -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="摘要：这是一篇很详尽的独立博客搭建教程，里面介绍了域名注册、DNS设置、github和Hexo设置等过程，这是我写得最长的一篇教程。我想将我搭建独立博客的过程在一篇文章中尽可能详细地写出来，希望能给后来者一个明确的指引，同时用这篇教程开篇，正式开始我的第八大洲之旅。前言作为一个技...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/05289a4bc8b2">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/154777">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="如何搭建一个独立博客——简明Github Pages与Hexo教程" property="twitter:title">
+  <meta content="摘要：这是一篇很详尽的独立博客搭建教程，里面介绍了域名注册、DNS设置、github和Hexo设置等过程，这是我写得最长的一篇教程。我想将我搭建独立博客的过程在一篇文章中尽可能详细地写出来，希望能给后来者一个明确的指引，同时用这篇教程开篇，正式开始我的第八大洲之旅。前言作为一个技..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/05289a4bc8b2" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="如何搭建一个独立博客——简明Github Pages与Hexo教程">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/05289a4bc8b2">
+  <meta property="og:description" content="摘要：这是一篇很详尽的独立博客搭建教程，里面介绍了域名注册、DNS设置、github和Hexo设置等过程，这是我写得最长的一篇教程。我想将我搭建独立博客的过程在一篇文章中尽可能详细地写出来，希望...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/154777">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/154777">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="NLSY8oAvHLap9s3KmrmBBGmEzdBSnmMTcVhGPRag7/4lYR+ycQqtulzK0Rtdrg2TyaPpj7mwmTBsmGXq+g86Lw==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/base-28859e35d389885d08837bc971ff742c.css">
+
+    <link rel="stylesheet" media="all" href="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/reading-note-cc35f3caf1b79498ea4800b856bcf8a6.css">
+  <link rel="stylesheet" media="all" href="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/base-read-mode-64acccf6966299cfa3d580140a2582fe.css">
+  <script src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/push.js"></script><script type="text/javascript" async="" src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/ga.js"></script><script src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/hm.js"></script><script src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png" sizes="152x152">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN" data-pinterest-extension-installed="cr1.39.2">
+  
+  <div class="navbar navbar-jianshu shrink hide-wrap-btn">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a class="ad-selector" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>    <div class="ad-container ">
+      <div class="ad-pop">
+        <img class="ad-logo" src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/114-8dae53b3bcea3f06bb139e329d1edab3.png" alt="114">
+        <p class="ad-title">简书</p>
+        <p class="ad-subtitle">交流故事，沟通想法</p>
+        <img class="ad-qrcode" src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode">
+        <div>
+          <a class="ad-link" href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
+          <a class="ad-link" href="http://downloads.jianshu.io/apps/haruki/JianShu-1.11.1.apk">Android</a>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="nav-user">
+      <a href="http://www.jianshu.com/p/05289a4bc8b2#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="http://www.jianshu.com/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top hide-go-top" href="http://www.jianshu.com/p/05289a4bc8b2#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title="" data-original-title="写篇文章"><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container">
+    
+<div class="post-bg" id="flag">
+  <div class="wrap-btn hide-wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+              <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/c30afb47d730">
+              <span>CNFeat</span>
+</a>              <span data-toggle="tooltip" data-original-title="最后编辑于 2014.08.06 04:05">2014.05.11 18:59*</span>
+            <div>
+              <span>写了524414字</span>，<span>被3773人关注</span>，<span>获得了11623个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">如何搭建一个独立博客——简明Github Pages与Hexo教程</h1>
+          <div class="meta-top">
+            <span class="wordage">字数5191</span>
+            <span class="views-count">阅读86572</span>
+            <span class="comments-count">评论62</span>
+            <span class="likes-count">喜欢362</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"><a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"> <i class="fa fa-bookmark-o"></i><span>收藏文章</span></a><span> <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a> <ul class="dropdown-menu arrow-top"> <li> <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/154777/weibo/image_63b6332a671f.jpeg&#39;, &#39;推荐 @Feat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/weibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;title=&#39;+e(&#39;如何搭建一个独立博客——简明Github Pages与Hexo教程&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/douban.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 CNFeat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/tweibo.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 CNFeat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/qzone.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 CNFeat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/twitter.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/05289a4bc8b2&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/facebook.png"> </a> </li> <li> <a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/google_plus.png"> </a> </li> <li> <a href="http://www.jianshu.com/p/05289a4bc8b2"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/renren.png"> </a> </li> </ul></span></div>
+          <!-- -->
+
+          <div class="show-content"><p>摘要：这是一篇很详尽的独立博客搭建教程，里面介绍了域名注册、DNS设置、github和Hexo设置等过程，这是我写得最长的一篇教程。我想将我搭建独立博客的过程在一篇文章中尽可能详细地写出来，希望能给后来者一个明确的指引，同时用这篇教程开篇，正式开始我的第八大洲之旅。</p>
+<h2>前言</h2>
+<p>作为一个技术小白，没有技术基础，看网上的教程也云里雾里，看程序员的教程相当不容易，稍微有些细节描述得不清楚自己就要绕弯路去找答案（善用搜索引擎），所以，在自己的博客搭建完成之后，我决定要将我搭建博客的过程全记录下来，以供后期和我一样的小白参考（是的，我坚信还有很多一样和我一样的人），我会尽可能详细的整理这个教程，其中的资料可能会摘录到其他人的教程，我会在后面列出了参考资料，感谢这些作者们。</p>
+<p>为什么要开博客？可以看看我的这篇<a href="http://zhuanlan.zhihu.com/cnfeat/19743861" target="_blank" rel="nofollow">《为什么你要写博客？》</a></p>
+<p>也可以看看这篇<a href="http://zhuanlan.zhihu.com/cnfeat/19743255" target="_blank" rel="nofollow">《我的博客时代》</a></p>
+<p>以下以我的博客:www.cnfeat.com为例，教大家如何搭建一个独立博客。</p>
+<h2>为什么要搭建一个独立博客?</h2>
+<p>独立的才是自己的。</p>
+<h2>小白进入门槛</h2>
+<ul>
+<li>1、非常折腾，需要耐心；</li>
+<li>2、也需要一定的学习能力和钻研精神；</li>
+<li>3、懂一些网页基础知识，不懂也重要，参看第二和第三条；</li>
+</ul>
+<h2>小白白请看</h2>
+<p>2014年5月15日更新：发现一个更简单的方法：<a href="http://isnowfy.github.io/about-simple-cn.html" target="_blank" rel="nofollow">用静态页面生成静态博客</a> byisnowfy</p>
+<p>按此教程操作即可。</p>
+<h2>为什么选择GitHub Pages？</h2>
+<p>很多人用wordpress，你为什么要用github pages来搭建？</p>
+<ul>
+<li>1、github pages有300M免费空间，资料自己管理，保存可靠；</li>
+<li>2、学着用github，享受github的便利，上面有很多大牛，眼界会开阔很多；</li>
+<li>3、顺便看看github工作原理，最好的团队协作流程；</li>
+<li>4、github是趋势；</li>
+<li>5、你不觉得一个文科生用github很geek吗？瞬间跻身技术界；</li>
+<li>6、就算github被墙了，我可以搬到国内的gitcafe中去。</li>
+</ul>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/bg2012082502.jpg" alt=""></p>
+<h2>GitHub Pages是什么？</h2>
+<p>GitHub Pages本用于介绍托管在GitHub的项目， 不过，由于他的空间免费稳定，用来做搭建一个博客再好不过了。</p>
+<blockquote>
+<p>github Pages可以被认为是用户编写的、托管在github上的静态网页。</p>
+</blockquote>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/1.png" alt=""></p>
+<h2>购买域名</h2>
+<p>只推荐上godaddy购买，安全，而且可以使用支付宝。</p>
+<p>教程（截止至2014年5月10日）如下</p>
+<p><strong>1、查你想要的域名</strong>；</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/2.png" alt=""></p>
+<p><strong>2、查到适合的域名之后选择「continue to Cart」</strong>；</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/3.png" alt=""></p>
+<p><strong>3、godaddy附加收费服务，不要管，继续「continue to Cart」</strong>；</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/4.png" alt=""></p>
+<p><strong>4、确认购买。</strong>修改购买年限，默认是两年，可以修改成1/2/3/5/10年，随自己喜欢。现在godaddy上com每年的默认费用是12.99美元，附加上ICANN的管理费用就是13.17美元。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/5.png" alt=""></p>
+<p>如果你不是土豪，可以上网搜godaddy的优惠码，一大堆，找一个填进这里，填完之后，一年的费用会变成8.99美元。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/61.png" alt=""></p>
+<p><strong>说明一下</strong>：一般来讲，使用网上的优惠码第一年收费8.99美元，以后每年的收费是10.99美元，不过在网上可以搜到合适的优惠码，可以每年的收费都是8.99美元，记得多测试自行鉴别。</p>
+<p>如图，我买了五年的费用就是45.85美元，随后点击「Proceed to Checkout」</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/6.png" alt=""></p>
+<p><strong>5、结算。</strong>登录或注册界面，填完必要的信息之后，选择用支付宝结算。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/7.png" alt=""></p>
+<p>如果以上的教程如果不够清晰，可以参照这一份<a href="http://www.admin5.com/article/20131014/527495.shtml" target="_blank" rel="nofollow">《2013年10月新版godaddy域名注册图文教程》</a>。</p>
+<p><strong>6、检查。</strong>结算后，重新登录，去「My Account」，域名已经显示在你的账户了。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/8.png" alt=""></p>
+<p><strong>7、补充一些注意事项：</strong></p>
+<ul>
+<li>输入优惠码没有优惠或者优惠幅度较低，请清除浏览器cookies再尝试；</li>
+<li>如果没有支付宝支付选项，有可能是使用的优惠码不支持支付宝，请重新清除浏览器cookies再尝试；</li>
+<li>注册时用户填写信息时一定要输入正确的邮箱名字，否则修改十分麻烦。</li>
+<li>买完域名之后一定要记得去自己的邮箱查看激活邮件，否则域名激活不了。</li>
+</ul>
+<h2>安装准备软件</h2>
+<p>依次下载安装。</p>
+<ul>
+<li>1、<a href="http://nodejs.org/" target="_blank" rel="nofollow">Node.js</a>
+</li>
+<li>2、<a href="http://git-scm.com/" target="_blank" rel="nofollow">Git</a>
+</li>
+</ul>
+<h2>怎么打开Git？</h2>
+<ul>
+<li>1、开始菜单Git Bash。</li>
+<li>
+</li>
+<li><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/9.jpg" alt=""></li>
+<li>
+</li>
+<li>2、鼠标右键打开Git Bash。</li>
+<li><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/s10.jpg" alt=""></li>
+</ul>
+<h2>注册GitHub</h2>
+<p>访问：<a href="http://www.github.com/" target="_blank" rel="nofollow">http://www.github.com/</a> </p>
+<p>注册你的username和邮箱，邮箱十分重要，GitHub上很多通知都是通过邮箱的。</p>
+<p>注册过程比较简单，详细也可以看：</p>
+<p><a href="http://pchou.info/web-build/2013/01/03/build-github-blog-page-01.html" target="_blank" rel="nofollow">一步步在GitHub上创建博客主页 全系列</a> by pchou（推荐）</p>
+<h2>配置和使用Github</h2>
+<p>以下教程主要参考beiyuu的<a href="http://beiyuu.com/github-pages/" target="_blank" rel="nofollow">《使用Github Pages建独立博客》</a>写成。</p>
+<h2>配置SSH keys</h2>
+<p>我们如何让本地git项目与远程的github建立联系呢？用SSH keys。</p>
+<h3>检查SSH keys的设置</h3>
+<p>首先我们需要检查你电脑上现有的ssh key：</p>
+<pre class="hljs bash"><code class="bash">$ <span class="hljs-built_in">cd</span> ~/. ssh 检查本机的ssh密钥</code></pre>
+<p>如果提示：No such file or directory 说明你是第一次使用git。</p>
+<h3>生成新的SSH Key：</h3>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>ssh-keygen -t rsa -<span class="hljs-constant">C</span> <span class="hljs-string">"邮件地址@youremail.com"</span>
+<span class="hljs-constant">Generating</span> public/private rsa key pair.
+<span class="hljs-constant">Enter</span> file <span class="hljs-keyword">in</span> which to save the key (<span class="hljs-regexp">/Users/your</span>_user_directory/.ssh/id_rsa)<span class="hljs-symbol">:&lt;</span>回车就好&gt;</code></pre>
+<p>注意1: 此处的邮箱地址，你可以输入自己的邮箱地址；注意2: 此处的「-C」的是大写的「C」</p>
+<p>然后系统会要你输入密码：</p>
+<pre class="hljs xml"><code class="xml">Enter passphrase (empty for no passphrase):<span class="hljs-tag">&lt;<span class="hljs-title">输入加密串</span>&gt;</span>
+Enter same passphrase again:<span class="hljs-tag">&lt;<span class="hljs-title">再次输入加密串</span>&gt;</span></code></pre>
+<p>在回车中会提示你输入一个密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入。这个设置是防止别人往你的项目里提交内容。</p>
+<p>注意：输入密码的时候没有*字样的，你直接输入就可以了。</p>
+<p>最后看到这样的界面，就成功设置ssh key了：</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/11.png" alt=""></p>
+<h3>添加SSH Key到GitHub</h3>
+<p>在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。</p>
+<ul>
+<li>
+<p>1、打开本地C:\Documents and Settings\Administrator.ssh\id_rsa.pub文件。此文件里面内容为刚才生成人密钥。如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。</p>
+</li>
+<li>
+<p>2、登陆github系统。点击右上角的 Account Settings---&gt;SSH Public keys ---&gt; add another public keys</p>
+</li>
+<li>
+<p>3、把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了</p>
+</li>
+</ul>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/s12.jpg" alt=""></p>
+<h3>测试</h3>
+<p>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>ssh -<span class="hljs-constant">T</span> git<span class="hljs-variable">@github</span>.com</code></pre>
+<p>如果是下面的反馈：</p>
+<pre class="hljs scala"><code class="scala"><span class="hljs-type">The</span> authenticity of host <span class="hljs-symbol">'github</span>.com (<span class="hljs-number">207.97</span><span class="hljs-number">.227</span><span class="hljs-number">.239</span>)' can<span class="hljs-symbol">'t</span> be established.
+<span class="hljs-type">RSA</span> key fingerprint is <span class="hljs-number">16</span>:<span class="hljs-number">27</span>:ac:a5:<span class="hljs-number">76</span>:<span class="hljs-number">28</span>:<span class="hljs-number">2</span>d:<span class="hljs-number">36</span>:<span class="hljs-number">63</span>:<span class="hljs-number">1</span>b:<span class="hljs-number">56</span>:<span class="hljs-number">4</span>d:eb:df:a6:<span class="hljs-number">48.</span>
+<span class="hljs-type">Are</span> you sure you want to <span class="hljs-keyword">continue</span> connecting (yes/no)?</code></pre>
+<p>不要紧张，输入yes就好，然后会看到：</p>
+<pre class="hljs scala"><code class="scala"><span class="hljs-type">Hi</span> cnfeat! <span class="hljs-type">You</span><span class="hljs-symbol">'ve</span> successfully authenticated, but <span class="hljs-type">GitHub</span> does not provide shell access.</code></pre>
+<h3>设置用户信息</h3>
+<p>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。</p>
+<p>Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的，名字必须是你的真名，而不是GitHub的昵称。</p>
+<pre class="hljs php"><code class="php">$ git config --<span class="hljs-keyword">global</span> user.name <span class="hljs-string">"cnfeat"</span><span class="hljs-comment">//用户名</span>
+$ git config --<span class="hljs-keyword">global</span> user.email  <span class="hljs-string">"cnfeat@gmail.com"</span><span class="hljs-comment">//填写自己的邮箱</span></code></pre>
+<h3>SSH Key配置成功</h3>
+<p>本机已成功连接到github。</p>
+<p>若有问题，请重新设置。常见错误请参考：</p>
+<p><a href="http://help.github.com/articles/generating-ssh-keys" target="_blank" rel="nofollow">GitHub Help - Generating SSH Keys</a></p>
+<p><a href="http://help.github.com/articles/error-permission-denied-publickey" target="_blank" rel="nofollow">GitHub Help - Error Permission denied (publickey)</a></p>
+<h2>使用GitHub Pages建立博客</h2>
+<p>与GitHub建立好链接之后，就可以方便的使用它提供的Pages服务，GitHub Pages分两种，一种是你的GitHub用户名建立的username.github.io这样的用户&amp;组织页（站），另一种是依附项目的pages。</p>
+<p>想建立个人博客是用的第一种，形如cnfeat.github.io这样的可访问的站，每个用户名下面只能建立一个。</p>
+<h3>github上建立仓库</h3>
+<p>登录后系统，在github首页，点击页面右下角「New Repository」</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/13.png" alt=""></p>
+<p>填写项目信息：</p>
+<p><strong>project name：</strong>cnfeat.github.io  </p>
+<p><strong>description：</strong> Writing 1000 Words a Day Changed My Life</p>
+<p>注：Github Pages的Repository名字是特定的，比如我Github账号是cnfeat，那么我Github Pages Repository名字就是cnfeat.github.io。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/14.png" alt=""></p>
+<p>点击「Create Repository」 完成创建。</p>
+<p>详细可以看这里：<a href="http://pchou.info/web-build/2013/01/05/build-github-blog-page-02.html" target="_blank" rel="nofollow">一步步在GitHub上创建博客主页(2)</a></p>
+<h2>用Hexo克隆主题</h2>
+<h3>Hexo介绍</h3>
+<p>Hexo的作者是<a href="https://github.com/tommy351/hexo" target="_blank" rel="nofollow">tommy351</a>，根据<a href="http://hexo.io/docs/index.html" target="_blank" rel="nofollow">官方介绍</a>，Hexo是一个简单、快速、强大的博客发布工具，支持Markdown格式。</p>
+<h3>安装Hexo</h3>
+<p>打开git。</p>
+<pre class="hljs sql"><code class="sql">$ npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> hexo</span></code></pre>
+<h3>部署Hexo</h3>
+<p>在我的电脑中建立一个名字叫「Hexo」的文件夹，然后在此文件夹中右键打开Git Bash。</p>
+<pre class="hljs swift"><code class="swift">$ hexo <span class="hljs-keyword">init</span></code></pre>
+<p>Hexo随后会自动在目标文件夹建立网站所需要的所有文件。</p>
+<p>现在我们已经搭建起本地的hexo博客了，执行以下命令(在H:\hexo)，然后到浏览器输入localhost:4000看看。</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo g
+<span class="hljs-variable">$ </span>hexo s</code></pre>
+<h3>复制cnfeat的主题</h3>
+<p>以下进入复制主题环节，如果那一步出现问题，或者修改后没有显示修改的结果，建议来来一个，再看看，可以解决很多问题。</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo clean
+<span class="hljs-variable">$ </span>hexo g
+<span class="hljs-variable">$ </span>hexo s</code></pre>
+<p>建立了Hexo文件之后就可以复制我的主题了</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>git clone <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/cnfeat</span><span class="hljs-regexp">/cnfeat.git themes/jacman</span></code></pre>
+<p>如果不行，可以复制wuchong的修改的主题，我的就是复制他的修改的。</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>git clone <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/wuchong</span><span class="hljs-regexp">/jacman.git themes/jacman</span></code></pre>
+<p>或者复制yangjian的</p>
+<pre class="hljs php"><code class="php">$ git <span class="hljs-keyword">clone</span> https:<span class="hljs-comment">//github.com/A-limon/pacman.git themes/pacman</span></code></pre>
+<h3>启用cnfeat的主题</h3>
+<p>修改Hexo目录下的config.yml配置文件中的theme属性，将其设置为jacman。同时请设置stylus属性中的compress值为true。</p>
+<pre class="hljs css"><code class="css"><span class="hljs-rule"><span class="hljs-attribute">theme</span>:<span class="hljs-value"> jacman</span></span></code></pre>
+<p>注意：Hexo有两个config.yml文件，一个在根目录，一个在theme下，此时修改的是在根目录下的。</p>
+<h3>更新主题</h3>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>cd themes/jacman
+<span class="hljs-variable">$ </span>git pull</code></pre>
+<p>注意：为避免出错，请先备份你的_config.yml 文件后再升级</p>
+<h3>本地查看调试</h3>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo g <span class="hljs-comment">#生成</span>
+<span class="hljs-variable">$ </span>hexo s <span class="hljs-comment">#启动本地服务，进行文章预览调试</span></code></pre>
+<p>或者直接作用组合命令</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo d -g</code></pre>
+<p>浏览器输入<a href="http://localhost:4000%EF%BC%8C%E6%9F%A5%E7%9C%8B%E6%90%AD%E5%BB%BA%E6%95%88%E6%9E%9C%E3%80%82%E6%AD%A4%E5%90%8E%E7%9A%84%E6%AF%8F%E6%AC%A1%E5%8F%98%E6%9B%B4_config.yml/" target="_blank" rel="nofollow">http://localhost:4000，查看搭建效果。此后的每次变更_config.yml</a> 文件或者上传文件都可以先用此命令调试，非常好用，尤其是当你想调试出自己想要的主题时。</p>
+<h2>将独立域名与GitHub Pages的空间绑定</h2>
+<h3>GitHub Pages的设置</h3>
+<p>方法一：在Repository的根目录下面，新建一个名为CNAME的文本文件，里面写入你要绑定的域名，比如cnfeat.com。</p>
+<p>方法二：到我的github仓库，点击右下角的「Download ZIP」，下载源文件，解压，找到CNAME文件，用记事本打开，将cnfeat.com修改成你的域名，放进Hexo\source目录下，用hexo命令提交上去。</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo d -g</code></pre>
+<h3>DNS设置</h3>
+<p>用DNSpod，快，免费，稳定。</p>
+<p>注册<a href="http://www.jianshu.com/p/www.dnspod.cn" target="_blank" rel="nofollow">DNSpod</a>，添加域名，如下图设置。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/15.png" alt=""></p>
+<p>其中A的两条记录指向的ip地址是github Pages的提供的ip</p>
+<ul>
+<li>192.30.252.153</li>
+<li>192.30.252.154</li>
+</ul>
+<p>如博客不能登录，有可能是github更改了空间服务的ip地址，记得及时到在<a href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages" target="_blank" rel="nofollow">GitHub Pages</a>查看最新的ip即可</p>
+<p>www指定的记录是你在github注册的仓库。</p>
+<h3>去Godaddy修改DNS地址</h3>
+<p>更改godaddy的Nameservers为DNSpod的NameServers。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/16.png" alt=""></p>
+<p>1、点击「My Account」，管理我的域名。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/17.jpg" alt=""></p>
+<p>2、点击域名。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/18.jpg" alt=""></p>
+<p>3、将godaddy的Nameservers更改成f1g1ns1.dnspod.net和f1g1ns2.dnspod.net</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/19.jpg" alt=""></p>
+<p>如有不详看可以看<a href="https://support.dnspod.cn/Kb/showarticle/tsid/42/" target="_blank" rel="nofollow">DNSpod提供的官方帮助</a></p>
+<p>详细也可以看这里：<a href="http://pchou.info/web-build/2013/01/05/build-github-blog-page-03.html" target="_blank" rel="nofollow">一步步在GitHub上创建博客主页(3)</a></p>
+<h2>搭建完成</h2>
+<p>至此，独立博客就算搭建完成，如需进步一完善请在参看以下文章或博客下留言。</p>
+<p><a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank" rel="nofollow">Pacman主题介绍</a> by yangjian</p>
+<p><a href="http://yangjian.me/workspace/building-blog-with-hexo/" target="_blank" rel="nofollow">使用hexo搭建博客</a> by yangjian</p>
+<p><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="nofollow">hexo系列教程：（二）搭建hexo博客</a> by zippera（推荐）</p>
+<p><a href="http://zipperary.com/2013/05/29/hexo-guide-3/" target="_blank" rel="nofollow">hexo系列教程：（三）hexo博客的配置、使用</a>by zippera（推荐）</p>
+<h2>进阶篇：Hexo设置</h2>
+<p>网站搭建完成后，就可以根据自己爱好来对Hexo生成的网站进行设置了，对整站的设置，只要修改项目目录的_config.yml就可以了，这是我的设置，可供参考。</p>
+<pre class="hljs cpp"><code class="cpp"><span class="hljs-preprocessor"># Hexo Configuration</span>
+<span class="hljs-preprocessor">## Docs: http:<span class="hljs-comment">//hexo.io/docs/configuration.html</span></span>
+<span class="hljs-preprocessor">## Source: https:<span class="hljs-comment">//github.com/tommy351/hexo/</span></span>
+
+<span class="hljs-preprocessor"># Site #整站的基本信息</span>
+title: <span class="hljs-number">1000</span> words a Day <span class="hljs-preprocessor">#网站标题</span>
+subtitle: Writing <span class="hljs-number">1000</span> Words a Day Changes My Life <span class="hljs-preprocessor">#网站副标题</span>
+description: 学习总结 思考感悟 知识管理 <span class="hljs-preprocessor">#网站描述</span>
+author:  cnFeat <span class="hljs-preprocessor">#网站作者，在下方显示</span>
+email: cnFeat@gmail.com <span class="hljs-preprocessor">#联系邮箱</span>
+language: zh-CN
+
+<span class="hljs-preprocessor"># URL</span>
+<span class="hljs-preprocessor">## If your site is put in a subdirectory</span>
+url: http:<span class="hljs-comment">//www.cnfeat.com #你的域名</span>
+root: /
+permalink: :year/:month/:day/:title/
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+
+<span class="hljs-preprocessor"># Directory</span>
+source_dir: source
+public_dir: <span class="hljs-keyword">public</span>
+
+<span class="hljs-preprocessor"># Writing</span>
+new_post_name: :title.md <span class="hljs-preprocessor"># File name of new posts</span>
+default_layout: post
+auto_spacing: <span class="hljs-literal">false</span> <span class="hljs-preprocessor"># Add spaces between asian characters and western characters</span>
+titlecase: <span class="hljs-literal">false</span> <span class="hljs-preprocessor"># Transform title into titlecase</span>
+external_link: <span class="hljs-literal">true</span> <span class="hljs-preprocessor"># Open external links in new tab</span>
+max_open_file: <span class="hljs-number">100</span>
+multi_thread: <span class="hljs-literal">true</span>
+filename_case: <span class="hljs-number">0</span>
+render_drafts: <span class="hljs-literal">false</span>
+post_asset_folder: <span class="hljs-literal">false</span>
+highlight:
+  enable: <span class="hljs-literal">true</span>
+  line_number: <span class="hljs-literal">true</span>
+  tab_replace:
+
+<span class="hljs-preprocessor"># Category &amp; Tag</span>
+default_category: uncategorized
+category_map:
+tag_map:
+
+<span class="hljs-preprocessor"># Archives</span>
+<span class="hljs-preprocessor">## <span class="hljs-number">2</span>: Enable pagination</span>
+<span class="hljs-preprocessor">## <span class="hljs-number">1</span>: Disable pagination</span>
+<span class="hljs-preprocessor">## <span class="hljs-number">0</span>: Fully Disable</span>
+archive: <span class="hljs-number">2</span>
+category: <span class="hljs-number">2</span>
+tag: <span class="hljs-number">2</span>
+
+<span class="hljs-preprocessor"># Server</span>
+<span class="hljs-preprocessor">## Hexo uses Connect as a server</span>
+<span class="hljs-preprocessor">## You can customize the logger format as defined in</span>
+<span class="hljs-preprocessor">## http:<span class="hljs-comment">//www.senchalabs.org/connect/logger.html</span></span>
+port: <span class="hljs-number">4000</span>
+server_ip: <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>
+logger: <span class="hljs-literal">false</span>
+logger_format:
+
+<span class="hljs-preprocessor"># Date / Time format</span>
+<span class="hljs-preprocessor">## Hexo uses Moment.js to parse and display date</span>
+<span class="hljs-preprocessor">## You can customize the date format as defined in</span>
+<span class="hljs-preprocessor">## http:<span class="hljs-comment">//momentjs.com/docs/#/displaying/format/</span></span>
+date_format: YYYY-MM-DD
+time_format: H:mm:ss
+
+<span class="hljs-preprocessor"># Pagination</span>
+<span class="hljs-preprocessor">## Set per_page to <span class="hljs-number">0</span> to disable pagination</span>
+per_page: <span class="hljs-number">15</span> <span class="hljs-preprocessor">#每页<span class="hljs-number">15</span>篇文章</span>
+pagination_dir: page
+
+<span class="hljs-preprocessor"># Disqus #社会化评论disqus，我使用多说，在主题中配置</span>
+disqus_shortname:
+
+<span class="hljs-preprocessor"># Extensions</span>
+<span class="hljs-preprocessor">## Plugins: https:<span class="hljs-comment">//github.com/tommy351/hexo/wiki/Plugins</span></span>
+<span class="hljs-preprocessor">## Themes: https:<span class="hljs-comment">//github.com/tommy351/hexo/wiki/Themes</span></span>
+theme: jacman
+exclude_generator:
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+<span class="hljs-preprocessor">#sitemap</span>
+sitemap:
+  path: sitemap.xml
+
+<span class="hljs-preprocessor">#Feed Atom</span>
+feed:
+  type: atom
+  path: atom.xml
+  limit: <span class="hljs-number">20</span>
+
+<span class="hljs-preprocessor"># Markdown</span>
+<span class="hljs-preprocessor">## https:<span class="hljs-comment">//github.com/chjj/marked</span></span>
+markdown:
+  gfm: <span class="hljs-literal">true</span>
+  pedantic: <span class="hljs-literal">false</span>
+  sanitize: <span class="hljs-literal">false</span>
+  tables: <span class="hljs-literal">true</span>
+  breaks: <span class="hljs-literal">true</span>
+  smartLists: <span class="hljs-literal">true</span>
+  smartypants: <span class="hljs-literal">true</span>
+
+<span class="hljs-preprocessor"># Stylus</span>
+stylus:
+  compress: <span class="hljs-literal">false</span>
+
+<span class="hljs-preprocessor"># Deployment</span>
+<span class="hljs-preprocessor">## Docs: http:<span class="hljs-comment">//hexo.io/docs/deployment.html</span></span>
+deploy:
+  type: github
+  repository: https:<span class="hljs-comment">//github.com/cnfeat/cnfeat.github.io.git</span>
+  branch: master        </code></pre>
+<h3>修改局部页面</h3>
+<p>页面展现的全部逻辑都在每个主题中控制，源代码在hexo\themes\jacman\中：</p>
+<pre class="hljs objectivec"><code class="objectivec">.
+├── languages  <span class="hljs-preprocessor">#多语言</span>
+|   ├── <span class="hljs-keyword">default</span><span class="hljs-variable">.yml</span><span class="hljs-preprocessor">#默认语言</span>
+|   └── zh-CN<span class="hljs-variable">.yml</span>  <span class="hljs-preprocessor">#中文语言</span>
+├── layout <span class="hljs-preprocessor">#布局，根目录下的*.ejs文件是对主页，分页，存档等的控制</span>
+|   ├── _partial   <span class="hljs-preprocessor">#局部的布局，此目录下的*.ejs是对头尾等局部的控制</span>
+|   └── _widget<span class="hljs-preprocessor">#小挂件的布局，页面下方小挂件的控制</span>
+├── source <span class="hljs-preprocessor">#源码</span>
+|   ├── css<span class="hljs-preprocessor">#css源码 </span>
+|   |   ├── _base  <span class="hljs-preprocessor">#*.styl基础css</span>
+|   |   ├── _partial   <span class="hljs-preprocessor">#*.styl局部css</span>
+|   |   ├── fonts  <span class="hljs-preprocessor">#字体</span>
+|   |   ├── images <span class="hljs-preprocessor">#图片</span>
+|   |   └── style<span class="hljs-variable">.styl</span> <span class="hljs-preprocessor">#*.styl引入需要的css源码</span>
+|   ├── fancybox   <span class="hljs-preprocessor">#fancybox效果源码</span>
+|   └── js <span class="hljs-preprocessor">#javascript源代码</span>
+├── _config<span class="hljs-variable">.yml</span><span class="hljs-preprocessor">#主题配置文件</span>
+└── README<span class="hljs-variable">.md</span>  <span class="hljs-preprocessor">#用GitHub的都知道</span></code></pre>
+<h3>发表新文章</h3>
+<p>用hexo发表新文章</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo n <span class="hljs-comment">#写文章 </span></code></pre>
+<p>其中my new post为文章标题，执行命令后，会在项目\source_posts中生成my new post.md文件，用编辑器打开编写即可。</p>
+<p>当然，也可以直接在\source_posts中新建一个md文件，我就是这么做的。</p>
+<p>写完后，推送到服务器上，执行</p>
+<pre class="hljs ruby"><code class="ruby"><span class="hljs-variable">$ </span>hexo g <span class="hljs-comment">#生成</span>
+<span class="hljs-variable">$ </span>hexo d <span class="hljs-comment">#部署 # 可与hexo g合并为 hexo d -g</span></code></pre>
+<h3>用Hexo发表文章的Markdown语法</h3>
+<p>使用jacman或pacman主题，建议按此标准语法写：</p>
+<pre class="hljs cpp"><code class="cpp">title: postName <span class="hljs-preprocessor">#文章页面上的显示名称，可以任意修改，不会出现在URL中</span>
+date: <span class="hljs-number">2013</span>-<span class="hljs-number">12</span>-<span class="hljs-number">02</span> <span class="hljs-number">15</span>:<span class="hljs-number">30</span>:<span class="hljs-number">16</span> <span class="hljs-preprocessor">#文章生成时间，一般不改，当然也可以任意修改</span>
+categories: example <span class="hljs-preprocessor">#分类</span>
+tags: [tag1,tag2,tag3] <span class="hljs-preprocessor">#文章标签，可空，多标签请用格式，注意:后面有个空格</span>
+description: 附加一段文章摘要，字数最好在<span class="hljs-number">140</span>字以内。
+---
+
+以下正文</code></pre>
+<h3>为什么我的博客有目录？</h3>
+<p>我用的是Markdown语法，Markdown语法怎么用？</p>
+<p>请看这里：<a href="http://jianshu.io/p/q81RER" target="_blank" rel="nofollow">献给写作者的 Markdown 新手指南</a></p>
+<p>或者看这里：<a href="https://www.google.com.hk/#hl=zh-CN&amp;q=site:jianshu.io+Markdown" target="_blank" rel="nofollow">Markdown</a></p>
+<h3>Hexo命令</h3>
+<p>常用命令：</p>
+<pre class="hljs cs"><code class="cs">hexo <span class="hljs-keyword">new</span> <span class="hljs-string">"postName"</span> <span class="hljs-preprocessor">#新建文章</span>
+hexo <span class="hljs-keyword">new</span> page <span class="hljs-string">"pageName"</span> <span class="hljs-preprocessor">#新建页面</span>
+hexo generate <span class="hljs-preprocessor">#生成静态页面至public目录</span>
+hexo server <span class="hljs-preprocessor">#开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span>
+hexo deploy <span class="hljs-preprocessor">#将.deploy目录部署到GitHub</span></code></pre>
+<p>常用复合命令：</p>
+<pre class="hljs objectivec"><code class="objectivec">hexo d -g <span class="hljs-preprocessor">#生成加部署</span>
+hexo s -g <span class="hljs-preprocessor">#预览加部署</span></code></pre>
+<p>简写：</p>
+<pre class="hljs scala"><code class="scala">hexo n == hexo <span class="hljs-keyword">new</span>
+hexo g == hexo generate
+hexo s == hexo server
+hexo d == hexo deploy</code></pre>
+<h2>安装插件</h2>
+<p>添加sitemap和feed插件</p>
+<pre class="hljs sql"><code class="sql">$ npm <span class="hljs-operator"><span class="hljs-keyword">install</span> hexo-generator-sitemap
+$ npm <span class="hljs-keyword">install</span> hexo-generator-feed</span></code></pre>
+<p>修改_config.yml，增加以下内容</p>
+<pre class="hljs bash"><code class="bash"><span class="hljs-comment"># Extensions</span>
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+<span class="hljs-comment">#Feed Atom</span>
+feed:
+  <span class="hljs-built_in">type</span>: atom
+  path: atom.xml
+  <span class="hljs-built_in">limit</span>: <span class="hljs-number">20</span>
+
+<span class="hljs-comment">#sitemap</span>
+sitemap:
+  path: sitemap.xml</code></pre>
+<h2>Hexo上传README文件</h2>
+<p>Github的版本库通常建议同时附上README.md说明文件，但是hexo默认情况下会把所有md文件解析成html文件，所以即使你在线生成了README.md，它也会在你下一次部署时被删去。怎么解决呢？</p>
+<p>在执行hexo deploy前把在本地写好的README.md文件复制到.deploy文件夹中，再去执行hexo deploy。</p>
+<h2>404页面</h2>
+<p>GitHub Pages有提供制作404页面的指引：<a href="https://help.github.com/articles/custom-404-pages" target="_blank" rel="nofollow">Custom 404 Pages</a>。</p>
+<p>直接在根目录下创建自己的404.html或者404.md就可以。但是自定义404页面仅对绑定顶级域名的项目才起作用，GitHub默认分配的二级域名是不起作用的，使用hexo server在本机调试也是不起作用的。</p>
+<p>推荐使用<a href="http://www.qq.com/404" target="_blank" rel="nofollow">腾讯公益404</a>。</p>
+<h2>图床</h2>
+<p>推荐使用七牛（10G空间，免费），还可以使用Yupoo（100m免费空间）</p>
+<h2>参考资料：</h2>
+<p>[1]<a href="http://pchou.info/web-build/2013/01/03/build-github-blog-page-01.html" target="_blank" rel="nofollow">一步步在GitHub上创建博客主页 全系列</a> by pchou（推荐）</p>
+<p>[2]网站优化：<a href="http://pchou.info/web-build/2013/01/09/build-github-blog-page-06.html" target="_blank" rel="nofollow">一步步在GitHub上创建博客主页(6)</a> by pchou （推荐）</p>
+<p>[3]<a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="nofollow">搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门</a> by 阮一峰（推荐）</p>
+<p>[4]<a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="nofollow">hexo系列教程：（二）搭建hexo博客</a> by zippera（推荐）</p>
+<p>[5]<a href="http://zipperary.com/2013/05/29/hexo-guide-3/" target="_blank" rel="nofollow">hexo系列教程：（三）hexo博客的配置、使用</a>by zippera（推荐）</p>
+<p>[6]<a href="http://zipperary.com/2013/05/30/hexo-guide-4/" target="_blank" rel="nofollow">hexo系列教程：（四）hexo博客的优化技巧</a> by zippera（推荐）</p>
+<p>[7]<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="nofollow">hexo你的博客</a> by ibruce（推荐） </p>
+<p>[8]<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank" rel="nofollow">Pacman主题介绍</a> by yangjian（推荐）</p>
+<p>[9]<a href="http://yangjian.me/workspace/building-blog-with-hexo/" target="_blank" rel="nofollow">使用hexo搭建博客</a> by yangjian（推荐）</p>
+<p>[10]<a href="http://wuchong.me/blog/2014/01/24/change-to-pacman/" target="_blank" rel="nofollow">折腾了个Pacman主题</a> by wuchong（推荐）</p>
+<p>[11]hexo官方写作教程<a href="http://hexo.io/docs/writing.html" target="_blank" rel="nofollow">「Writing」</a></p>
+<p>[12]知乎上的教程：<a href="http://www.zhihu.com/question/20463581" target="_blank" rel="nofollow">如何搭建个人独立博客？</a></p>
+<p>[13]在GitHub Pages设置独立域名的官方教程：<a href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages" target="_blank" rel="nofollow">[Setting up a custom domain with GitHub Pages]</a></p>
+<p>[14]<a href="http://beiyuu.com/github-pages/" target="_blank" rel="nofollow">使用Github Pages建独立博客</a> by beiyuu</p>
+<p>[15]<a href="http://www.cnblogs.com/fnng/archive/2012/01/07/2315685.html" target="_blank" rel="nofollow">git/github初级运用自如</a> by 虫师</p>
+<p>[16]<a href="http://code.wileam.com/build-a-hexo-blog-and-optimize/" target="_blank" rel="nofollow">hexo搭建静态博客以及优化</a> by Joanna Wu</p>
+<p>[17]<a href="http://c4fun.cn/blog/2014/03/03/use-hexo-blog/" target="_blank" rel="nofollow">使用Hexo搭建个人博客</a> by c4fun</p>
+<p>[18]<a href="http://kescoode.com/2013/11/17/github-page-and-hexo-guide/" target="_blank" rel="nofollow">Github Pages与Hexo建个人博客流程</a> by Kesco</p>
+<p>[19]<a href="http://zipperary.com/2013/05/26/ssh-errors-with-github/" target="_blank" rel="nofollow">Git push时重复输入用户名密码的问题</a> by zippera</p>
+<p>[20]<a href="http://www.solarck.com/" target="_blank" rel="nofollow">hexo文件结构及网站优化</a> by kevin chen</p>
+<h2>相关链接</h2>
+<p>[1]<a href="https://pages.github.com/" target="_blank" rel="nofollow">GitHub Pages主页</a></p>
+<p>[2]<a href="http://www.godaddy.com/" target="_blank" rel="nofollow">godaddy域名商</a></p>
+<p>[3]<a href="http://www.jianshu.com/p/www.dnspod.cn" target="_blank" rel="nofollow">DNSPOD</a></p>
+<p>[4]<a href="http://hexo.io/" target="_blank" rel="nofollow">Hexo官方主页</a></p>
+<p>[5]<a href="http://www.worldhello.net/gotgithub/index.html" target="_blank" rel="nofollow">GotGitHub：GitHub介绍</a>（推荐）</p>
+<p>[5]<a href="http://www.faviconer.com/" target="_blank" rel="nofollow">图标制作网站：faviconer</a></p>
+<p>[6]本地测试页<a href="http://localhost:4000/" target="_blank" rel="nofollow">localhost:4000</a></p>
+<h2>鸣谢</h2>
+<p><a href="http://wuchong.me/" target="_blank" rel="nofollow">wuchong</a></p>
+<p><a href="http://yangjian.me/" target="_blank" rel="nofollow">yangjian</a></p>
+<p>Van Cheng</p>
+<h2><a href="http://cnfeat.com/about/" target="_blank" rel="nofollow">关于我</a></h2>
+<p>这里有我的个人简介：<a href="http://cnfeat.com/about/" target="_blank" rel="nofollow">关于我</a></p>
+<p>如果你想看到我最新的文章，可以关注我的微信公众号「cnfeat」。</p>
+<p><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/1000.png" alt=""></p>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <!-- copyright -->
+          <div class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            <a><i class="fa fa-copyright"></i> 著作权归作者所有</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>思想也是生产力。</p>
+            <a class="btn btn-pay" data-toggle="modal" href="http://www.jianshu.com/p/05289a4bc8b2#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"><a href="http://www.jianshu.com/users/e2cbb930b0dc" class="avatar" data-nickname="huyanshan" data-created-at="2015-11-18T16:08:15+08:00" data-original-title="" title=""> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/f442d61cf11c.jpg"></a></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span id="likes-count" data-toggle="tooltip" data-placement="right" title="" data-original-title="查看所有喜欢的用户">362</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/154777/weibo/image_63b6332a671f.jpeg&#39;, &#39;推荐 @Feat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="http://www.jianshu.com/p/05289a4bc8b2#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/154777/weibo/image_63b6332a671f.jpeg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li>
+                  <a data-name="tweibo" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 CNFeat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/tweibo.png" alt="Tweibo"> 分享到腾讯微博
+</a>                </li>
+                <li>
+                  <a data-name="qzone" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 CNFeat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/qzone.png" alt="Qzone"> 分享到QQ空间
+</a>                </li>
+                <li>
+                  <a data-name="twitter" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 CNFeat 的文章《如何搭建一个独立博客——简明Github Pages与Hexo教程》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/twitter.png" alt="Twitter"> 分享到Twitter
+</a>                </li>
+                <li>
+                  <a data-name="facebook" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/05289a4bc8b2&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/facebook.png" alt="Facebook"> 分享到Facebook
+</a>                </li>
+                <li>
+                  <a data-name="google_plus" href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();">
+                    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/google_plus.png" alt="Google plus"> 分享到Google+
+</a>                </li>
+                <li>
+                  <a data-name="douban" href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/05289a4bc8b2&#39;)+&#39;&amp;title=&#39;+e(&#39;如何搭建一个独立博客——简明Github Pages与Hexo教程&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()">
+                    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/douban.png" alt="Douban"> 分享到豆瓣
+</a>                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body" title="http://www.jianshu.com/p/05289a4bc8b2?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas width="170" height="170" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/tiny.gif" alt="Tiny"></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+        <li data-user-id="2516088"> <a class="avatar" href="http://www.jianshu.com/users/ff6973e51f67"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/876f6c70e142.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/ff6973e51f67">Cynthia_xie</a> <span class="time">2016.07.19 09:28</span></li><li data-user-id="1626039"> <a class="avatar" href="http://www.jianshu.com/users/196669949439"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/6-c3a19bc117a55e66cd3be55684d8191c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/196669949439">Hustlion</a> <span class="time">2016.07.14 19:59</span></li><li data-user-id="2414107"> <a class="avatar" href="http://www.jianshu.com/users/b176bf4f3c9d"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/6-c3a19bc117a55e66cd3be55684d8191c.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/b176bf4f3c9d">rouor</a> <span class="time">2016.07.14 01:40</span></li><li data-user-id="1932012"> <a class="avatar" href="http://www.jianshu.com/users/a8e8907e922f"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/9fa69640e316"> </a> <a class="blue-link" href="http://www.jianshu.com/users/a8e8907e922f">悲伤谁懂得</a> <span class="time">2016.07.13 18:30</span></li><li data-user-id="1514030"> <a class="avatar" href="http://www.jianshu.com/users/838dfaff7618"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/7a1355330656.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/838dfaff7618">Lee2Go</a> <span class="time">2016.07.13 11:26</span></li><li data-user-id="1060188"> <a class="avatar" href="http://www.jianshu.com/users/944373344fd6"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/9c56db4d0d36.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/944373344fd6">Byron_Walden</a> <span class="time">2016.07.12 13:44</span></li><li data-user-id="476714"> <a class="avatar" href="http://www.jianshu.com/users/747ca6c7e1a7"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/d388f58d65bc"> </a> <a class="blue-link" href="http://www.jianshu.com/users/747ca6c7e1a7">Justin_95</a> <span class="time">2016.07.12 00:51</span></li><li data-user-id="57635"> <a class="avatar" href="http://www.jianshu.com/users/0af0ba81c849"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/4911a76e1465"> </a> <a class="blue-link" href="http://www.jianshu.com/users/0af0ba81c849">Galory</a> <span class="time">2016.07.11 23:29</span></li><li data-user-id="656733"> <a class="avatar" href="http://www.jianshu.com/users/7f77569053f1"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/e80abb68e27f.png"> </a> <a class="blue-link" href="http://www.jianshu.com/users/7f77569053f1">Liberalism</a> <span class="time">2016.07.09 08:30</span></li><li data-user-id="2378041"> <a class="avatar" href="http://www.jianshu.com/users/918dbc71a8a8"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/d799475f1db7"> </a> <a class="blue-link" href="http://www.jianshu.com/users/918dbc71a8a8">yesgaga</a> <span class="time">2016.07.06 12:42</span></li><li data-user-id="563460"> <a class="avatar" href="http://www.jianshu.com/users/6dbd22fed661"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/8887bf0bfb47"> </a> <a class="blue-link" href="http://www.jianshu.com/users/6dbd22fed661">utopiaforever</a> <span class="time">2016.07.06 07:14</span></li><li data-user-id="2247969"> <a class="avatar" href="http://www.jianshu.com/users/f7e72de8c3a6"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/353417093961.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/f7e72de8c3a6">夏后昭言</a> <span class="time">2016.07.03 16:57</span></li><li data-user-id="2242606"> <a class="avatar" href="http://www.jianshu.com/users/821ec213b940"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/e6a278974b7d"> </a> <a class="blue-link" href="http://www.jianshu.com/users/821ec213b940">毛毛虫羽</a> <span class="time">2016.07.02 21:17</span></li><li data-user-id="40941"> <a class="avatar" href="http://www.jianshu.com/users/25af31ef80ff"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/5e86eb8fe188.jpg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/25af31ef80ff">Fowse</a> <span class="time">2016.07.02 20:14</span></li><li data-user-id="952865"> <a class="avatar" href="http://www.jianshu.com/users/47b384fd918f"> <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/ee3cdac47e94.jpeg"> </a> <a class="blue-link" href="http://www.jianshu.com/users/47b384fd918f">三三皇子</a> <span class="time">2016.06.28 11:15</span></li><a class="more hidden" data-max-id="22438685" href="javascript:void(null);"><i class="fa fa-ellipsis-h"></i></a></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          62条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list">
+
+
+<div class="note-comment clearfix" id="comment-24089">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/faa44ac9e895">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/e68d865e43e0" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/faa44ac9e895">Gnat</a>
+        </p>
+        <span class="reply-time">
+          <small>2 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24089#comment-24089">2014.05.12 18:00</a></span>
+      </div>
+      <p>cool~ 赞一个。我还没用过 Hexo， 哪天试试~ 先 mark 。By the way， “你不觉得一个文科生用github很greek吗？瞬间跻身技术界"，geek 拼错了。 <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/scream.png" alt=":scream:" title=":scream:" class="emoji" width="20" height="20"> (我喜欢这个表情~~）</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24089" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24089" data-nickname="Gnat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24122">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c30afb47d730">CNFeat</a>
+        </p>
+        <span class="reply-time">
+          <small>3 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24122#comment-24122">2014.05.12 20:37</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/faa44ac9e895" class="maleskine-author" target="_blank" data-user-slug="faa44ac9e895">@Gnat</a> 对哦 <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/scream.png" alt=":scream:" title=":scream:" class="emoji" width="20" height="20"> </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24122" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24122" data-nickname="CNFeat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24156">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/1fe2be4a8ca6">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/a36b69bd224c.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/1fe2be4a8ca6">瑜公瑾</a>
+        </p>
+        <span class="reply-time">
+          <small>4 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24156#comment-24156">2014.05.12 23:36</a></span>
+      </div>
+      <p>满满的诚意</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24156" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24156" data-nickname="瑜公瑾" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24169">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/5128f725b5d8">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/03a9acadaa37.png" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/5128f725b5d8">ili</a>
+        </p>
+        <span class="reply-time">
+          <small>5 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24169#comment-24169">2014.05.13 06:36</a></span>
+      </div>
+      <p>在学习制作的时候看到这个真是太好了。 <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/clap.png" alt=":clap:" title=":clap:" class="emoji" width="20" height="20"> </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24169" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24169" data-nickname="ili" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24193">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/da19b19f55d8">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/a4db7ed05e93" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/da19b19f55d8">古噜噜</a>
+        </p>
+        <span class="reply-time">
+          <small>6 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24193#comment-24193">2014.05.13 08:53</a></span>
+      </div>
+      <p>楼主是文科生?我这个工科女脆弱的心。。。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24193" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24193" data-nickname="古噜噜" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24203">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c30afb47d730">CNFeat</a>
+        </p>
+        <span class="reply-time">
+          <small>7 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24203#comment-24203">2014.05.13 10:07</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/1fe2be4a8ca6" class="maleskine-author" target="_blank" data-user-slug="1fe2be4a8ca6">@瑜公瑾</a> 多谢支持。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24203" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24203" data-nickname="CNFeat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24204">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c30afb47d730">CNFeat</a>
+        </p>
+        <span class="reply-time">
+          <small>8 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24204#comment-24204">2014.05.13 10:08</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/5128f725b5d8" class="maleskine-author" target="_blank" data-user-slug="5128f725b5d8">@不是</a> 找教程的时候伤透了我的心，奋发之后就酱子了。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24204" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24204" data-nickname="CNFeat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24205">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c30afb47d730">CNFeat</a>
+        </p>
+        <span class="reply-time">
+          <small>9 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24205#comment-24205">2014.05.13 10:09</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/da19b19f55d8" class="maleskine-author" target="_blank" data-user-slug="da19b19f55d8">@兔子扶苏</a> 哎呀，不小心扫杀无辜，不过这教程也简单，哈哈。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24205" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24205" data-nickname="CNFeat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24474">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/091ebbe936a0">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/0eb50618e200.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/091ebbe936a0">wuyanbo</a>
+        </p>
+        <span class="reply-time">
+          <small>10 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24474#comment-24474">2014.05.14 12:45</a></span>
+      </div>
+      <p>拜托，还是不要把github墙了吧。。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24474" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24474" data-nickname="wuyanbo" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24682">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/af0ce54ccee5">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/a31210a90921" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/af0ce54ccee5">曹楠志</a>
+        </p>
+        <span class="reply-time">
+          <small>11 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24682#comment-24682">2014.05.15 12:04</a></span>
+      </div>
+      <p>不得不上来说一句，你写的这个，让很多人（包括我）必须把草稿删掉了 T_T ~</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24682" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(1)</span>
+</a>        
+
+        <a data-id="24682" data-nickname="曹楠志" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24686">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/ee7919325e10">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/14dd78bcf3c5" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/ee7919325e10">超儿</a>
+        </p>
+        <span class="reply-time">
+          <small>12 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24686#comment-24686">2014.05.15 12:24</a></span>
+      </div>
+      <p>[error] Error: Theme landscape does not exist. <br><br>__<br><br>我已经在根目录的theme:pacman 改好了 但是还是显示说找不到原来的landscape主题？</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24686" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24686" data-nickname="超儿" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24687">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c30afb47d730">CNFeat</a>
+        </p>
+        <span class="reply-time">
+          <small>13 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24687#comment-24687">2014.05.15 12:30</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/ee7919325e10" class="maleskine-author" target="_blank" data-user-slug="ee7919325e10">@超儿</a> 运行 hexo clean，接着hexo d -g 再试试。</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24687" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24687" data-nickname="CNFeat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24688">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/c30afb47d730">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/c30afb47d730">CNFeat</a>
+        </p>
+        <span class="reply-time">
+          <small>14 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24688#comment-24688">2014.05.15 12:31</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/af0ce54ccee5" class="maleskine-author" target="_blank" data-user-slug="af0ce54ccee5">@曹楠志</a> 有那么严重吗？ <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/scream.png" alt=":scream:" title=":scream:" class="emoji" width="20" height="20"> </p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24688" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24688" data-nickname="CNFeat" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24703">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/af0ce54ccee5">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/a31210a90921" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/af0ce54ccee5">曹楠志</a>
+        </p>
+        <span class="reply-time">
+          <small>15 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24703#comment-24703">2014.05.15 13:15</a></span>
+      </div>
+      <p><a href="http://www.jianshu.com/users/c30afb47d730" class="maleskine-author" target="_blank" data-user-slug="c30afb47d730">@Feat</a> 哈哈，是呀，非常全面，非常周到呀</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24703" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24703" data-nickname="曹楠志" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list hide">
+      
+      <div data-state="remaining-child-comments"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-comment clearfix" id="comment-24722">
+  <div class="content">
+      <div class="meta-top">
+        <a class="avatar" href="http://www.jianshu.com/users/dgUC1z">
+          <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/53009ddd0171" alt="100">
+</a>        <p>
+          <a class="author-name" href="http://www.jianshu.com/users/dgUC1z">非鱼</a>
+        </p>
+        <span class="reply-time">
+          <small>16 楼 · </small>
+          <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/24722#comment-24722">2014.05.15 14:36</a></span>
+      </div>
+      <p>真心不推荐大家用github的page搭建个人博客，page的初衷是为一些公用的项目提供一个免费方便的项目官网搭建服务，但是国人一看到免费，马上蜂拥而至，每个人领了300m空间，占了个坑就完事了。这样有意思吗？ <br>大家还是省省心，散了吧，别让github也专门封杀中国的ip了吧。<br>求放过github，这么多公用的博客系统干嘛不用！！！</p>
+      <div class="comment-footer clearfix text-right">
+        <a data-id="24722" class="like pull-left" href="javascript:void(0)">
+          <i class="fa fa-heart-o"></i>喜欢<span>(0)</span>
+</a>        
+
+        <a data-id="24722" data-nickname="非鱼" class="reply" href="javascript:void(0)">回复</a>
+        
+        
+      </div>
+    <div class="child-comment-list ">
+        <div class="child-comment" id="comment-1413809" data-id="1413809">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/0788b446ce75">Mr_Yeast</a>：
+      <a href="http://www.jianshu.com/users/dgUC1z" class="maleskine-author" target="_blank" data-user-slug="dgUC1z">@非鱼</a> 同感
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="24722" data-nickname="Mr_Yeast" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/1413809#comment-1413809">2016.02.08 14:57</a></span>
+      
+    </div>
+  </div>
+  <div class="child-comment" id="comment-3200655" data-id="3200655">
+    <p>
+      <a class="blue-link" href="http://www.jianshu.com/users/d43f20a6e534">cmd_not_found</a>：
+      摘自github pages官网说明:<br>**GitHub Pages is designed to host your personal, organization, or project pages directly from a GitHub repository.**<br>说的很明白了, 可以用于个人
+    </p>
+    <div class="child-comment-footer text-right clearfix">
+      
+      <a data-id="24722" data-nickname="cmd_not_found" class="reply" href="javascript:void(null)">回复</a>
+      
+      
+      <span class="reply-time pull-left">
+        <a href="http://www.jianshu.com/p/05289a4bc8b2/comments/3200655#comment-3200655">2016.07.20 14:33</a></span>
+      
+    </div>
+  </div>
+
+      <div data-state="remaining-child-comments"></div>
+        <div class="comment-toolbar clearfix">
+          <span class="pull-right">
+            <a data-id="24722" class="reply" href="javascript:void(null)"><i class="fa fa-pencil"></i> 添加新回复</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+  <p class="load-more">
+    <a class="blue-link" data-type="html" data-action="load-comments" data-remote="true" href="http://www.jianshu.com/notes/154777/comments?max_id=3200655&amp;order=asc&amp;page=2">加载更多 <i class="fa fa-arrow-down"></i></a>
+  </p>
+</div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":154777,"abbr":"摘要：这是一篇很详尽的独立博客搭建教程，里面介绍了域名注册、DNS设置、github和Hexo设置等过程，这是我写得最长的一篇教程。我想将我搭建独立博客的过程在一篇文章中尽可能详细地写出来，希望能给后来者一个明确的指引，同时用这篇教程开篇，正式开始我的第八大洲之旅。前言作为一个技...","slug":"05289a4bc8b2","url":"http://www.jianshu.com/p/05289a4bc8b2","image_url":"http://cwb.assets.jianshu.io/notes/images/154777/weibo/image_63b6332a671f.jpeg","wordage":5191,"has_further_readings":false,"views_count":86572,"likes_count":362,"comments_count":62,"rewards_total_count":1}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"92d2e6f0-c04c-44ad-adb1-363417670e0e"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":32598,"nickname":"CNFeat","slug":"c30afb47d730","public_notes_count":347,"followers_count":3773,"total_likes_count":11623,"is_current_user":false,"is_signed_author":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/f16b3d483ec2"><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/干-order.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/f16b3d483ec2">干货</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>21.3K</span>
+  </div>
+
+                <p class="description">欢迎投稿 将实用的知识共享</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/f16b3d483ec2">2283篇文章</a> · 21306人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/fe68d7f9c13b"><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/搜狗截图20160417105240.png" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/fe68d7f9c13b">大学生世界</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>19.3K</span>
+  </div>
+
+                <p class="description">年轻的你，在这里遇见更好的她/他和自己</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/fe68d7f9c13b">3472篇文章</a> · 19332人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="http://www.jianshu.com/collection/e2a2a0073e2d"><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/github-logo1.jpg" alt="180"></a>              <div class="collections-info">
+                <h5>
+                  <a href="http://www.jianshu.com/collection/e2a2a0073e2d">GitHub上有趣的资源</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>16.7K</span>
+  </div>
+
+                <p class="description">主题是Github上有趣的资源。
+
+当然写Github周边也可以～
+
+本专题的初衷是发现/介绍GitHub上优秀的Repo，欢...</p>
+                <p>
+                  <a class="blue-link" href="http://www.jianshu.com/collection/e2a2a0073e2d">283篇文章</a> · 16766人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="http://www.jianshu.com/notes/154777/rewards" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="NLSY8oAvHLap9s3KmrmBBGmEzdBSnmMTcVhGPRag7/4lYR+ycQqtulzK0Rtdrg2TyaPpj7mwmTBsmGXq+g86Lw==">
+    <div class="modal-body">
+      <a href="http://www.jianshu.com/users/c30afb47d730">
+        <div class="avatar"><img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/红心海贼团__正.jpg" alt="100"></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>思想也是生产力。<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="2.00" type="text" name="reward[amount_in_yuan]" id="reward_amount_in_yuan">
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message"></textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <div class="iradio_minimal checked" style="position: relative;"><input type="radio" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <div class="iradio_minimal" style="position: relative;"><input type="radio" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/complete-pay-25426877089eb23bd76d9d0e6aad89c1.png" alt="Complete pay">
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  </div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/base-ded41764c207f7ff545c28c670922d25.js"></script>
+  
+  <script src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/reading-base-7fc5fa7c6a3993128e61499f23be276d.js"></script>
+  <script src="./如何搭建一个独立博客——简明Github Pages与Hexo教程 - 简书_files/note_show-1805bf39f59948b52870922039360dbb.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

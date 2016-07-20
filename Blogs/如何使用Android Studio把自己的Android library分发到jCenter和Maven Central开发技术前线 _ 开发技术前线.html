@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://www.devtf.cn/?p=760 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><div class="fit-vids-style">­<style>               .fluid-width-video-wrapper {                 width: 100%;                              position: relative;                       padding: 0;                            }                                                                                   .fluid-width-video-wrapper iframe,        .fluid-width-video-wrapper object,        .fluid-width-video-wrapper embed {           position: absolute;                       top: 0;                                   left: 0;                                  width: 100%;                              height: 100%;                          }                                       </style></div><script src="http://id.jiathis.com/id.php?u=http%3A%2F%2Fwww.devtf.cn%2F%3Fp%3D760&amp;t=%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Android%20Studio%E6%8A%8A%E8%87%AA%E5%B7%B1%E7%9A%84Android%20library%E5%88%86%E5%8F%91%E5%88%B0jCenter%E5%92%8CMaven%20Central%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%89%8D%E7%BA%BF%20%7C%20%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%89%8D%E7%BA%BF&amp;r=https%3A%2F%2Fwww.google.com.hk%2F&amp;k=&amp;s=google&amp;jiathis=1&amp;uyan=0&amp;ujian=0&amp;time=1468302414122" charset="utf-8"></script><script src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/shares.php" charset="utf-8"></script>
+
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.devtf.cn/xmlrpc.php">
+<script data-pagespeed-no-defer="">(function(){function d(b){var a=window;if(a.addEventListener)a.addEventListener("load",b,!1);else if(a.attachEvent)a.attachEvent("onload",b);else{var c=a.onload;a.onload=function(){b.call(this);c&&c.call(this)}}}var p=Date.now||function(){return+new Date};window.pagespeed=window.pagespeed||{};var q=window.pagespeed;function r(){this.a=!0}r.prototype.c=function(b){b=parseInt(b.substring(0,b.indexOf(" ")),10);return!isNaN(b)&&b<=p()};r.prototype.hasExpired=r.prototype.c;r.prototype.b=function(b){return b.substring(b.indexOf(" ",b.indexOf(" ")+1)+1)};r.prototype.getData=r.prototype.b;r.prototype.f=function(b){var a=document.getElementsByTagName("script"),a=a[a.length-1];a.parentNode.replaceChild(b,a)};r.prototype.replaceLastScript=r.prototype.f;
+r.prototype.g=function(b){var a=window.localStorage.getItem("pagespeed_lsc_url:"+b),c=document.createElement(a?"style":"link");a&&!this.c(a)?(c.type="text/css",c.appendChild(document.createTextNode(this.b(a)))):(c.rel="stylesheet",c.href=b,this.a=!0);this.f(c)};r.prototype.inlineCss=r.prototype.g;
+r.prototype.h=function(b,a){var c=window.localStorage.getItem("pagespeed_lsc_url:"+b+" pagespeed_lsc_hash:"+a),f=document.createElement("img");c&&!this.c(c)?f.src=this.b(c):(f.src=b,this.a=!0);for(var c=2,k=arguments.length;c<k;++c){var g=arguments[c].indexOf("=");f.setAttribute(arguments[c].substring(0,g),arguments[c].substring(g+1))}this.f(f)};r.prototype.inlineImg=r.prototype.h;
+function t(b,a,c,f){a=document.getElementsByTagName(a);for(var k=0,g=a.length;k<g;++k){var e=a[k],m=e.getAttribute("data-pagespeed-lsc-hash"),h=e.getAttribute("data-pagespeed-lsc-url");if(m&&h){h="pagespeed_lsc_url:"+h;c&&(h+=" pagespeed_lsc_hash:"+m);var l=e.getAttribute("data-pagespeed-lsc-expiry"),l=l?(new Date(l)).getTime():"",e=f(e);if(!e){var n=window.localStorage.getItem(h);n&&(e=b.b(n))}e&&(window.localStorage.setItem(h,l+" "+m+" "+e),b.a=!0)}}}
+function u(b){t(b,"img",!0,function(a){return a.src});t(b,"style",!1,function(a){return a.firstChild?a.firstChild.nodeValue:null})}
+q.i=function(){if(window.localStorage){var b=new r;q.localStorageCache=b;d(function(){u(b)});d(function(){if(b.a){for(var a=[],c=[],f=0,k=p(),g=0,e=window.localStorage.length;g<e;++g){var m=window.localStorage.key(g);if(!m.indexOf("pagespeed_lsc_url:")){var h=window.localStorage.getItem(m),l=h.indexOf(" "),n=parseInt(h.substring(0,l),10);if(!isNaN(n))if(n<=k){a.push(m);continue}else if(n<f||0==f)f=n;c.push(h.substring(l+1,h.indexOf(" ",l+1)))}}k="";f&&(k="; expires="+(new Date(f)).toUTCString());
+document.cookie="_GPSLSC="+c.join("!")+k;g=0;for(e=a.length;g<e;++g)window.localStorage.removeItem(a[g]);b.a=!1}})}};q.localStorageCacheInit=q.i;})();
+pagespeed.localStorageCacheInit();</script><link rel="shortcut icon" href="http://www.devtf.cn/favicon.ico">
+<title>如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 | 开发技术前线</title>
+<link rel="alternate" type="application/rss+xml" title="开发技术前线 » Feed" href="http://www.devtf.cn/?feed=rss2">
+<link rel="alternate" type="application/rss+xml" title="开发技术前线 » 评论Feed" href="http://www.devtf.cn/?feed=comments-rss2">
+<link rel="alternate" type="application/rss+xml" title="开发技术前线 » 如何使用Android Studio把自己的Android library分发到jCenter和Maven Central评论Feed" href="http://www.devtf.cn/?feed=rss2&amp;p=760">
+<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-.1em!important;background:none!important;padding:0!important}</style><link rel="stylesheet" id="styles-css" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/A.styles.css,qver=4.3.5.pagespeed.cf.8OYPNRTV3V.css" type="text/css" media="all"><link rel="stylesheet" id="crayon-css" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/A.crayon.min.css,qver=2.7.1.pagespeed.cf.YDZeGAYDn7.css" type="text/css" media="all"><link rel="stylesheet" id="crayon-theme-eclipse-css" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/A.eclipse.css,qver=2.7.1.pagespeed.cf.97OZgaHS-9.css" type="text/css" media="all"><style id="crayon-font-monaco-css" media="all" data-pagespeed-lsc-url="http://www.devtf.cn/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css?ver=2.7.1" data-pagespeed-lsc-hash="CojuSW_6bB" data-pagespeed-lsc-expiry="Sat, 08 Jul 2017 17:07:53 GMT">@font-face{font-family:'MonacoRegular';src:url(wp-content/plugins/crayon-syntax-highlighter/fonts/monaco/monaco-webfont.eot);src:url(wp-content/plugins/crayon-syntax-highlighter/fonts/monaco/monaco-webfont.eot?#iefix) format('embedded-opentype') , url(wp-content/plugins/crayon-syntax-highlighter/fonts/monaco/monaco-webfont.woff) format('woff') , url(wp-content/plugins/crayon-syntax-highlighter/fonts/monaco/monaco-webfont.ttf) format('truetype') , url(wp-content/plugins/crayon-syntax-highlighter/fonts/monaco/monaco-webfont.svg#MonacoRegular) format('svg');font-weight:normal;font-style:normal}.crayon-font-monaco *{font-family:Monaco,'MonacoRegular','Courier New',monospace!important}</style><style id="usp_style-css" media="all" data-pagespeed-lsc-url="http://www.devtf.cn/wp-content/plugins/user-submitted-posts/resources/usp.css" data-pagespeed-lsc-hash="R-zS9bJqXb" data-pagespeed-lsc-expiry="Sat, 08 Jul 2017 17:11:59 GMT">.parsley-errors-list{display:none}.form-group label{display:none}.usp-select{width:100%;overflow:hidden;height:30px;text-align:center}.usp-select option{width:30%;display:inline-block;height:30px;padding:6px 10px;box-sizing:border-box;text-align:center}.wp-editor-container{border:1px solid #ececec}.form-control.parsley-error{border-color:red}.parsley-error{border-color:red}.btn{width:200px;color:#1abc9c;background:#fafafa}.exclude.btn:hover{width:200px;background:#1abc9c;color:#fafafa}</style><link rel="stylesheet" id="bootstrap-css" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/A.bootstrap.min.css,qver=0.1.pagespeed.cf.jfLbuhCNp4.css" type="text/css" media="screen"><link rel="stylesheet" id="blog-css" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/A.blog.css,qver=0.1.pagespeed.cf.AkVwxbdZ48.css" type="text/css" media="screen"><link rel="stylesheet" id="font_awesome_css-css" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/A.font-awesome.min.css,qver=0.1.pagespeed.cf.nijQTnn0_o.css" type="text/css" media="screen"><style type="text/css">h1 a,.h1 a,h2 a,.h2 a,h3 a,.h3 a,h4 a,.h4 a,h5 a,.h5 a,h6 a,.h6 a,h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,.site-description{font-weight:200}h1 a,.h1 a,h2 a,.h2 a,h3 a,.h3 a,h4 a,.h4 a,h5 a,.h5 a,h6 a,.h6 a,h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,.site-description{font-family:Times\ New\ Roman}body{font-family:Helvetica\ Neue}.blog-header{padding-top:20px;padding-bottom:20px;text-align:center}time.post-meta-date{display:none}</style><script type="text/javascript">window._wpemojiSettings={"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/www.devtf.cn\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.5"}};!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);</script><script src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/wp-emoji-release.min.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='html5-shiv-css'  href='http://www.devtf.cn/wp-content/themes/coeur/framework/js/html5shiv.min.js?ver=4.3.5' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='respond-js-css'  href='http://www.devtf.cn/wp-content/themes/coeur/framework/js/respond.min.js?ver=4.3.5' type='text/css' media='all' />
+<![endif]-->
+<script type="text/javascript">window.ParsleyConfig={excluded:".exclude"};var usp_case_sensitivity="false";var usp_challenge_response="2";</script>
+<script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jquery.js,qver=1.11.3.pagespeed.jm.zixJPNMRNN.js"></script>
+<script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jquery-migrate.min.js,qver=1.2.1.pagespeed.jm.mhpNjdU8Wl.js"></script>
+<script type="text/javascript">var CrayonSyntaxSettings={"version":"2.7.1","is_admin":"0","ajaxurl":"http:\/\/www.devtf.cn\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};var CrayonSyntaxStrings={"copy":"\u4f7f\u7528 %s \u590d\u5236\uff0c\u4f7f\u7528 %s \u7c98\u8d34\u3002","minimize":"\u70b9\u51fb\u5c55\u5f00\u4ee3\u7801"};</script>
+<script src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/plugins,_crayon-syntax-highlighter,_js,_min,_crayon.min.js,qver==2.7.1+plugins,_user-submitted-posts,_resources,_jquery.cookie.js+plu.js"></script><script>eval(mod_pagespeed_v0hZbYZslB);</script>
+<script>eval(mod_pagespeed_eGCOPo9GR6);</script>
+<script>eval(mod_pagespeed_LHvE3RZW07);</script>
+<script>eval(mod_pagespeed_58sga_Cc51);</script>
+<script>eval(mod_pagespeed_5KwYQOpOM5);</script>
+<script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/bootstrap.min.js,qver=4.3.5.pagespeed.jm._71g7qV96k.js"></script>
+<script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jquery.fitvids.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.devtf.cn/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.devtf.cn/wp-includes/wlwmanifest.xml">
+<link rel="prev" title="为watchOS 2而生的WatchKit: 初印象" href="http://www.devtf.cn/?p=758">
+<link rel="next" title="Android 百分比布局库(percent-support-lib) 解析与扩展" href="http://www.devtf.cn/?p=762">
+<meta name="generator" content="WordPress 4.3.5">
+<link rel="canonical" href="http://www.devtf.cn/?p=760">
+<link rel="shortlink" href="http://www.devtf.cn/?p=760">
+<meta name="robots" content="index,follow,noodp,noydir">
+<meta name="description" content="原文链接 : How to distribute your own Android library through jCenter and Maven Central from Android Studio 译文出自 : 开发技术前线">
+<link rel="canonical" href="http://www.devtf.cn/?p=760">
+<script type="text/javascript" async="" charset="UTF-8" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/embed.js"></script><link type="text/css" rel="stylesheet" href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/embed.bluebox.css"></head>
+<body class="single single-post postid-760 single-format-standard" data-pinterest-extension-installed="cr1.39.1"><link href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jiathis_counter.css" rel="stylesheet" type="text/css"><link href="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jiathis_share.css" rel="stylesheet" type="text/css"><iframe frameborder="0" style="position: absolute; display: none; opacity: 0;" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/saved_resource.html"></iframe><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;"></div><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; overflow: auto;"></div><iframe frameborder="0" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jiathis_utility.html" style="display: none;"></iframe><noscript>&lt;meta HTTP-EQUIV="refresh" content="0;url='http://www.devtf.cn/?p=760&amp;amp;PageSpeed=noscript'" /&gt;&lt;style&gt;&lt;!--table,div,span,font,p{display:none} --&gt;&lt;/style&gt;&lt;div style="display:block"&gt;Please click &lt;a href="http://www.devtf.cn/?p=760&amp;amp;PageSpeed=noscript"&gt;here&lt;/a&gt; if you are not redirected within a few seconds.&lt;/div&gt;</noscript>
+<div class="wrap">
+<nav class="navbar navbar-default" role="navigation">
+<div class="container">
+<div id="bs-example-navbar-collapse-2" class="collapse navbar-collapse">
+<ul id="menu-menu-1" class="nav navbar-nav">
+<li class="menu-item menu-item-type-post_type menu-item-object-page">
+<a href="http://www.devtf.cn/" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><i class="fa fa-home"></i></a>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.devtf.cn/?p=758" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><i class="fa fa-angle-down"></i> Previous Post</a></li> <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.devtf.cn/?p=762" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Next Post <i class="fa fa-angle-up"></i></a></li> </ul>
+<ul id="menu-menu-1" class="nav navbar-nav pull-right">
+<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.devtf.cn/?p=760#com_container" data-placement="bottom" rel="tooltip" title="" data-original-title="Show Comments" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><i class="fa fa-comment-o"></i> 7</a></li> <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.devtf.cn/?author=1" data-placement="bottom" rel="tooltip" title="" data-original-title="Author&#39;s profile" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">MrSimple</a></li> </ul>
+</div>
+</div>
+</nav>
+<nav class="navbar navbar-default mobile-menu" role="navigation">
+<div class="container">
+<div class="mobile-search">
+<form role="search" method="get" class="search-form" action="http://www.devtf.cn/">
+<label>
+<span class="screen-reader-text">搜索：</span>
+<input type="search" class="search-field" placeholder="搜索…" value="" name="s" title="搜索：">
+</label>
+<input type="submit" class="search-submit" value="搜索">
+</form> </div>
+<div class="mobile-toggle navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mobile-navbar-collapse">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+</div>
+<div id="mobile-navbar-collapse" class="collapse navbar-collapse"><ul id="menu-header" class="nav navbar-nav"><li id="menu-item-9" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-9"><a title="首页" href="http://www.devtf.cn/" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">首页</a></li>
+<li id="menu-item-8" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-8"><a title="Android" href="http://www.devtf.cn/?cat=2" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Android</a></li>
+<li id="menu-item-7" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-7"><a title="iOS" href="http://www.devtf.cn/?cat=3" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">iOS</a></li>
+<li id="menu-item-251" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-251"><a title="投稿" href="http://www.devtf.cn/?page_id=198" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">投稿</a></li>
+<li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22"><a title="招聘信息" href="http://www.devtf.cn/?page_id=21" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">招聘信息</a></li>
+<li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23"><a title="关于" href="http://www.devtf.cn/?page_id=19" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">关于</a></li>
+<li id="menu-item-148" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-148"><a title="RSS" href="http://www.devtf.cn/?feed=rss2" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">RSS</a></li>
+</ul></div></div>
+</nav>
+<div class="blog-header" style="background-image:url(&#39;&#39;);background-size: cover;background-repeat: no-repeat;background-position: center;">
+<h1 id="site-title" class="blog-title"><a href="http://www.devtf.cn/" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">开发技术前线</a></h1>
+<p class="site-description">高质量技术文章的聚合网站</p>
+</div>
+<div class="container">
+<div class="row">
+<main class="col-md-9 col-sm-8 col-xs-12 blog" style="float:left">
+<article class="post-760 post type-post status-publish format-standard hentry category-android tag-android">
+<header>
+<h2 class="blog-post-title"><a href="http://www.devtf.cn/?p=760" rel="bookmark" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">如何使用Android Studio把自己的Android library分发到jCenter和Maven Central</a></h2>	<p class="blog-post-meta"><time class="post-meta-date">Posted on <a href="http://www.devtf.cn/?m=20150701" title="如何使用Android Studio把自己的Android library分发到jCenter和Maven Central" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">2015年7月1日</a></time> </p>
+</header>
+<div class="post-content">
+<blockquote>
+<ul>
+<li>原文链接 : <a href="http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">How to distribute your own Android library through jCenter and Maven Central from Android Studio</a></li>
+<li>译文出自 : <a href="http://www.devtf.cn/" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">开发技术前线 www.devtf.cn</a>与 <a href="http://www.jcodecraeer.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">泡在网上的日子http://www.jcodecraeer.com/</a></li>
+<li>译者 : <a href="https://github.com/jianghejie" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">jianghejie</a> </li>
+</ul>
+</blockquote>
+<p>如果你想在Android Studio中引入一个library到你的项目，你只需添加如下的一行代码到模块的build.gradle文件中。</p>
+<p></p>
+<div id="crayon-5784845dce775216646273" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">dependencies {
+    compile 'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce775216646273-1">1</div><div class="crayon-num" data-line="crayon-5784845dce775216646273-2">2</div><div class="crayon-num" data-line="crayon-5784845dce775216646273-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce775216646273-1"><span class="crayon-e">dependencies</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce775216646273-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</span></div><div class="crayon-line" id="crayon-5784845dce775216646273-3"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>就是如此简单的一行代码，你就可以使用这个library了。</p>
+<p>酷呆了。不过你可能很好奇Android Studio是从哪里得到这个library的。这篇文章将详细讲解这是怎么回事，包括如何把你的库发布出去分享给世界各地的其他开发者，这样不仅可以让世界更美好，还可以耍一次酷。</p>
+<h2>Android studio 是从哪里得到库的？</h2>
+<p>先从这个简单的问题开始，我相信不是每个人都完全明白Android studio 是从哪里得到这些library的。莫非就是Android studio 从google搜索然后下载了一个合适的给我们？</p>
+<p>呵呵，没那么复杂。Android Studio是从build.gradle里面定义的Maven 仓库服务器上下载library的。Apache Maven是Apache开发的一个工具，提供了用于贡献library的文件服务器。总的来说，只有两个标准的Android&nbsp;library文件服务器：jcenter&nbsp;和 &nbsp;Maven Central。</p>
+<h2>jcenter</h2>
+<p>jcenter是一个由&nbsp;bintray.com维护的Maven仓库 。你可以在<a href="http://jcenter.bintray.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">这里</a>看到整个仓库的内容。</p>
+<p>我们在项目的build.gradle&nbsp;文件中如下定义仓库，就能使用jcenter了：</p>
+<p></p>
+<div id="crayon-5784845dce785035710633" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">allprojects {
+    repositories {
+        jcenter()
+    }
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce785035710633-1">1</div><div class="crayon-num" data-line="crayon-5784845dce785035710633-2">2</div><div class="crayon-num" data-line="crayon-5784845dce785035710633-3">3</div><div class="crayon-num" data-line="crayon-5784845dce785035710633-4">4</div><div class="crayon-num" data-line="crayon-5784845dce785035710633-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce785035710633-1"><span class="crayon-e">allprojects</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce785035710633-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">repositories</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce785035710633-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">jcenter</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5784845dce785035710633-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5784845dce785035710633-5"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<h2>Maven Central</h2>
+<p>Maven Central 则是由<a href="https://sonatype.org/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">sonatype.org</a>维护的Maven仓库。你可以在<a href="https://oss.sonatype.org/content/repositories/releases/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">这里</a>看到整个仓库。</p>
+<p>注：不管是jcenter还是Maven Central ，两者都是Maven仓库</p>
+<p>我们在项目的build.gradle&nbsp;文件中如下定义仓库，就能使用Maven Central了：</p>
+<p></p>
+<div id="crayon-5784845dce78c797090540" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">allprojects {
+    repositories {
+        mavenCentral()
+    }
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce78c797090540-1">1</div><div class="crayon-num" data-line="crayon-5784845dce78c797090540-2">2</div><div class="crayon-num" data-line="crayon-5784845dce78c797090540-3">3</div><div class="crayon-num" data-line="crayon-5784845dce78c797090540-4">4</div><div class="crayon-num" data-line="crayon-5784845dce78c797090540-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce78c797090540-1"><span class="crayon-e">allprojects</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce78c797090540-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">repositories</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce78c797090540-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">mavenCentral</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5784845dce78c797090540-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5784845dce78c797090540-5"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>注意，虽然jcenter和Maven Central 都是标准的&nbsp;android library仓库，但是它们维护在完全不同的服务器上，由不同的人提供内容，两者之间毫无关系。在jcenter上有的可能&nbsp;Maven Central 上没有，反之亦然。</p>
+<p>除了两个标准的服务器之外，如果我们使用的library的作者是把该library放在自己的服务器上，我们还可以自己定义特有的Maven仓库服务器。Twitter的Fabric.io 就是这种情况，它们在<a href="https://maven.fabric.io/public" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">https://maven.fabric.io/public</a>上维护了一个自己的Maven仓库。如果你想使用Fabric.io的library，你必须自己如下定义仓库的url。</p>
+<p></p>
+<div id="crayon-5784845dce793797235638" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce793797235638-1">1</div><div class="crayon-num" data-line="crayon-5784845dce793797235638-2">2</div><div class="crayon-num" data-line="crayon-5784845dce793797235638-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce793797235638-1"><span class="crayon-e">repositories</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce793797235638-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">maven</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-i">url</span><span class="crayon-h"> </span><span class="crayon-s">'https://maven.fabric.io/public'</span><span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5784845dce793797235638-3"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>然后在里面使用相同的方法获取一个library。</p>
+<p></p>
+<div id="crayon-5784845dce797303242633" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">dependencies {
+    compile 'com.crashlytics.sdk.android:crashlytics:2.2.4@aar'
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce797303242633-1">1</div><div class="crayon-num" data-line="crayon-5784845dce797303242633-2">2</div><div class="crayon-num" data-line="crayon-5784845dce797303242633-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce797303242633-1"><span class="crayon-e">dependencies</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce797303242633-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.crashlytics.sdk.android:crashlytics:2.2.4@aar'</span></div><div class="crayon-line" id="crayon-5784845dce797303242633-3"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>但是将library上传到标准的服务器与自建服务器，哪种方法更好呢？当然是前者。<span style="color:#0070c0">如果将我们的library公开，其他开发者除了一行定义依赖名的代码之外不需要定义任何东西。因此这篇文章中，我们将只关注对开发者更友好的jcenter 和 Maven Central </span>。</p>
+<p>实际上可以在Android Studio上使用的除了Maven 仓库之外还有另外一种仓库：<a href="http://ant.apache.org/ivy/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Ivy 仓库</a>&nbsp;。但是根据我的经验来看，我还没看到任何人用过它，包括我，因此本文就直接忽略了。</p>
+<h2>理解jcenter和Maven Central</h2>
+<p>为何有两个标准的仓库？</p>
+<p>事实上两个仓库都具有相同的使命：提供Java或者Android&nbsp;library服务。上传到哪个（或者都上传）取决于开发者。</p>
+<p>起初，Android Studio 选择Maven Central作为默认仓库。如果你使用老版本的Android Studio创建一个新项目，mavenCentral()会自动的定义在build.gradle中。</p>
+<p>但是Maven Central的最大问题是对开发者不够友好。上传library异常困难。上传上去的开发者都是某种程度的极客。同时还因为诸如安全方面的其他原因，Android Studio团队决定把默认的仓库替换成jcenter。正如你看到的，一旦使用最新版本的Android Studio创建一个项目，jcenter()自动被定义，而不是mavenCentral()。</p>
+<p>有许多将Maven Central替换成jcenter的理由，下面是几个主要的原因。</p>
+<p></p>
+<div id="crayon-5784845dce7a0038802432" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">- jcenter通过CDN发送library，开发者可以享受到更快的下载体验。
+
+- jcenter是全世界最大的Java仓库，因此在Maven Central 上有的，在jcenter上也极有可能有。换句话说jcenter是Maven Central的超集。
+
+- 上传library到仓库很简单，不需要像在&amp;nbsp;Maven Central上做很多复杂的事情。
+
+- 友好的用户界面
+
+- 如果你想把library上传到&amp;nbsp;Maven Central ，你可以在bintray网站上直接点击一个按钮就能实现。
+</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-2">2</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-3">3</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-4">4</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-5">5</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-6">6</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-7">7</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-8">8</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-9">9</div><div class="crayon-num" data-line="crayon-5784845dce7a0038802432-10">10</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7a0038802432-1"><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-i">jcenter</span>通过<span class="crayon-i">CDN</span>发送<span class="crayon-i">library</span>，开发者可以享受到更快的下载体验。</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-2">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-3"><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-i">jcenter</span>是全世界最大的<span class="crayon-i">Java</span>仓库，因此在<span class="crayon-e">Maven </span><span class="crayon-i">Central</span><span class="crayon-h"> </span>上有的，在<span class="crayon-i">jcenter</span>上也极有可能有。换句话说<span class="crayon-i">jcenter</span>是<span class="crayon-e">Maven </span><span class="crayon-i">Central</span>的超集。</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-4">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-5"><span class="crayon-o">-</span><span class="crayon-h"> </span>上传<span class="crayon-i">library</span>到仓库很简单，不需要像在<span class="crayon-o">&amp;</span><span class="crayon-v">nbsp</span><span class="crayon-sy">;</span><span class="crayon-e">Maven </span><span class="crayon-i">Central</span>上做很多复杂的事情。</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-6">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-7"><span class="crayon-o">-</span><span class="crayon-h"> </span>友好的用户界面</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-8">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-9"><span class="crayon-o">-</span><span class="crayon-h"> </span>如果你想把<span class="crayon-i">library</span>上传到<span class="crayon-o">&amp;</span><span class="crayon-v">nbsp</span><span class="crayon-sy">;</span><span class="crayon-e">Maven </span><span class="crayon-i">Central</span><span class="crayon-h"> </span>，你可以在<span class="crayon-i">bintray</span>网站上直接点击一个按钮就能实现。</div><div class="crayon-line" id="crayon-5784845dce7a0038802432-10">&nbsp;</div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>基于上面的原因以及我自己的经验，可以说替换到jcenter是明智之举。</p>
+<p>所以我们这篇文章将把重心放在jcenter，反正如果你能成功把library放在jcenter，转到&nbsp;Maven Central 是非常容易的事情。</p>
+<h2>gradle是如何从仓库上获取一个library的？</h2>
+<p>在讨论如何上传library到jcenter之前，我们先看看gradle是如何从仓库获取library的。比如我们在&nbsp;build.gradle输入如下代码的时候，这些库是如果奇迹般下载到我们的项目中的。</p>
+<p></p>
+<div id="crayon-5784845dce7a8776619766" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">compile 'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7a8776619766-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7a8776619766-1"><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>一般来说，我们需要知道library的字符串形式，包含3部分</p>
+<p></p>
+<div id="crayon-5784845dce7ae255554777" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">GROUP_ID:ARTIFACT_ID:VERSION</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7ae255554777-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7ae255554777-1"><span class="crayon-v">GROUP_ID</span><span class="crayon-o">:</span><span class="crayon-v">ARTIFACT_ID</span><span class="crayon-o">:</span><span class="crayon-v">VERSION</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>上面的例子中，GROUP_ID是com.inthecheesefactory.thecheeselibrary&nbsp;，ARTIFACT_ID是fb-like，VERSION是0.9.3。</p>
+<p>GROUP_ID定义了library的group。有可能在同样的上下文中存在多个不同功能的library。如果library具有相同的group，那么它们将共享一个GROUP_ID。通常我们以开发者包名紧跟着library的group名称来命名，比如com.squareup.picasso。然后ARTIFACT_ID中是library的真实名称。至于VERSION，就是版本号而已，虽然可以是任意文字，但是我建议设置为x.y.z的形式，如果喜欢还可以加上beta这样的后缀。</p>
+<p>下面是Square&nbsp;library的一个例子。你可以看到每个都可以很容易的分辨出library和开发者的名称。</p>
+<p></p>
+<div id="crayon-5784845dce7b4088771666" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">dependencies {
+  compile 'com.squareup:otto:1.3.7'
+  compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.squareup.okhttp:okhttp:2.4.0'
+  compile 'com.squareup.retrofit:retrofit:1.9.0'
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7b4088771666-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7b4088771666-2">2</div><div class="crayon-num" data-line="crayon-5784845dce7b4088771666-3">3</div><div class="crayon-num" data-line="crayon-5784845dce7b4088771666-4">4</div><div class="crayon-num" data-line="crayon-5784845dce7b4088771666-5">5</div><div class="crayon-num" data-line="crayon-5784845dce7b4088771666-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7b4088771666-1"><span class="crayon-e">dependencies</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce7b4088771666-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.squareup:otto:1.3.7'</span></div><div class="crayon-line" id="crayon-5784845dce7b4088771666-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.squareup.picasso:picasso:2.5.2'</span></div><div class="crayon-line" id="crayon-5784845dce7b4088771666-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.squareup.okhttp:okhttp:2.4.0'</span></div><div class="crayon-line" id="crayon-5784845dce7b4088771666-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.squareup.retrofit:retrofit:1.9.0'</span></div><div class="crayon-line" id="crayon-5784845dce7b4088771666-6"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>那么在添加了上面的依赖之后会发生什么呢？简单。Gradle会询问Maven仓库服务器这个library是否存在，如果是，gradle会获得请求library的路径，一般这个路径都是这样的形式：GROUP_ID/ARTIFACT_ID/VERSION_ID。比如可以在<a href="http://jcenter.bintray.com/com/squareup/otto/1.3.7" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">http://jcenter.bintray.com/com/squareup/otto/1.3.7</a>和<a href="https://oss.sonatype.org/content/repositories/releases/com/squareup/otto/1.3.7/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">https://oss.sonatype.org/content/repositories/releases/com/squareup/otto/1.3.7/</a></p>
+<p>下获得com.squareup:otto:1.3.7的library文件。</p>
+<p>然后Android Studio 将下载这些文件到我们的电脑上，与我们的项目一起编译。整个过程就是这么简单，一点都不复杂。</p>
+<p>我相信你应该清楚的知道从仓库上下载的library只是存储在仓库服务器上的jar&nbsp;或者aar文件而已。有点类似于自己去下载这些文件，拷贝然后和项目一起编译。但是使用gradle依赖管理的最大好处是你除了添加几行文字之外啥也不做。library一下子就可以在项目中使用了。</p>
+<h2>了解aar文件</h2>
+<p>等等，我刚才说了仓库中存储的有两种类型的library：jar&nbsp;和&nbsp;aar。jar文件大家都知道，但是什么是aar文件呢？</p>
+<p>aar文件时在jar文件之上开发的。之所以有它是因为有些Android&nbsp;Library需要植入一些安卓特有的文件，比如AndroidManifest.xml，资源文件，Assets或者JNI。这些都不是jar文件的标准。</p>
+<p>因此aar文件就时发明出来包含所有这些东西的。总的来说它和jar一样只是普通的zip文件，不过具有不同的文件结构。jar文件以classes.jar的名字被嵌入到aar文件中。其余的文件罗列如下：<br>
+– /AndroidManifest.xml (mandatory)<br>
+– /classes.jar (mandatory)<br>
+– /res/ (mandatory)<br>
+– /R.txt (mandatory)<br>
+– /assets/ (optional)<br>
+– /libs/<em>.jar (optional)<br>
+– /jni/<abi>/</abi></em>.so (optional)<br>
+– /proguard.txt (optional)<br>
+– /lint.jar (optional)<br>
+可以看到.aar文件是专门为安卓设计的。因此这篇文章将教你如何创建与上传一个aar形式的library。</p>
+<h2>如何上传library到jcenter</h2>
+<p>我相信你已经知道了仓库系统的大体工作原理。现在我们来开始最重要的部分：上传。这个任务和如何上传library文件到<a href="http://jcenter.bintray.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">http://jcenter.bintray.com</a>一样简单。如果做到，这个library就算发布了。好吧，有两个需要考虑：如何创建aar文件以及如何上传构建的文件到仓库。</p>
+<p>虽然需要若干步骤，但是我还是想强调这事并不复杂，因为已经准备好了所有事情。整个过程如下图：</p>
+<p><script data-pagespeed-no-defer="" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/_,Mjo.ZO8cAeD-_b.js.pagespeed.jm.p1DOqnVVYs.js"></script><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434678347320974.png" alt="" data-pagespeed-url-hash="3403892407" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>因为细节比较多，我分为7部分，一步一步的详细解释清楚。</p>
+<h2>第一部分：在bintray上创建package</h2>
+<p>首先，你需要在bintray上创建一个package。为此，你需要一个bintray账号，并在网站上创建一个package。</p>
+<p>第一步：在<a href="https://bintray.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">bintray.com</a>上注册一个账号。（注册过程很简单，自己完成）</p>
+<p>第二步：完成注册之后，登录网站，然后点击maven。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434678368900440.png" alt="blob.png" data-pagespeed-url-hash="1944944012" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>第三步：点击Add New Package，为我们的library创建一个新的package。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434707028338100.png" alt="maven2" data-pagespeed-url-hash="975732136" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>第四步：输入所有需要的信息</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434707031430619.png" alt="maven3" data-pagespeed-url-hash="1120295960" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>虽然如何命名包名没有什么限定，但是也有一定规范。所有字母应该为小写，单词之间用－分割，比如，fb-like。</p>
+<p>当每项都填完之后，点击Create Package。</p>
+<p>第五步：网页将引导你到&nbsp;Package编辑页面。点击&nbsp;Edit Package文字下的Package名字，进入Package详情界面。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434707035128807.png" alt="maven4" data-pagespeed-url-hash="1333201127" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>完工！现在你有了自己在Bintray上的Maven仓库，可以准备上传library到上面了。&nbsp;</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434707039327170.png" alt="maven5" data-pagespeed-url-hash="2414654277" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>Bintray账户的注册就完成了。下一步是Sonatype，Maven Central 的提供者。</p>
+<h2>第二部分：为Maven Central创建个Sonatype帐号</h2>
+<p></p>
+<div id="crayon-5784845dce7c9292146038" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">注：如果你不打算把library上传到Maven Central，可以跳过第二和第三部分。不过我建议你不要跳过，因为仍然有许多开发者在使用这个仓库。
+</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7c9292146038-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7c9292146038-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7c9292146038-1">注：如果你不打算把<span class="crayon-i">library</span>上传到<span class="crayon-e">Maven </span><span class="crayon-i">Central</span>，可以跳过第二和第三部分。不过我建议你不要跳过，因为仍然有许多开发者在使用这个仓库。</div><div class="crayon-line" id="crayon-5784845dce7c9292146038-2">&nbsp;</div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>和jcenter一样，如果你想通过Maven Central,贡献自己的library，你需要在提供者的网站Sonatype上注册一个帐号。</p>
+<p>你需要知道的就是这个帐号，你需要在Sonatype网站上创建一个IRA Issue Tracker 帐号。请到<a href="https://issues.sonatype.org/secure/Dashboard.jspa" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Sonatype Dashboard</a>&nbsp;注册这个帐号。</p>
+<p>完成之后。你需要请求得到贡献library到Maven Central的权限。不过这个过程对我来说有点无厘头，因为你需要做的就是在JIRA中创建一个issue，让它们允许你上传匹配Maven Central提供的GROUP_ID的library。</p>
+<p>要创建上述所讲到的issue，访问<a href="https://issues.sonatype.org/secure/Dashboard.jspa" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Sonatype Dashboard</a>，用创建的帐号登录。然后点击顶部菜单的Create。</p>
+<p>填写如下信息：</p>
+<blockquote>
+<ul>
+<li>Project:&nbsp;Community Support – Open Source Project Repository Hosting</li>
+<li>Issue Type:&nbsp;New Project</li>
+<li>Summary:&nbsp;你的&nbsp;library名称的概要，比如The Cheese Library。</li>
+<li>Group Id: 输入根GROUP_ID，比如，com.inthecheeselibrary 。一旦批准之后，每个以com.inthecheeselibrary开始的library都允许被上传到仓库，比如com.inthecheeselibrary.somelib。</li>
+<li>Project URL: 输入任意一个你想贡献的library的URL，比如，&nbsp;<a href="https://github.com/nuuneoi/FBLikeAndroid" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">https://github.com/nuuneoi/FBLikeAndroid</a>。</li>
+<li>SCM URL:&nbsp;版本控制的URL，比如&nbsp;<a href="https://github.com/nuuneoi/FBLikeAndroid.git" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">https://github.com/nuuneoi/FBLikeAndroid.git</a>。</li>
+</ul>
+</blockquote>
+<p>其余的不用管，然后点击Create。现在是最难的部分…耐心等待…平均大概1周左右，你会获准把自己的library分享到&nbsp;Maven Central。</p>
+<p>最后一件事是在<a href="https://bintray.com/profile/edit" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Bintray Profile</a>的帐户选项中填写自己的Sonatype OSS用户名。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434820514748752.png" alt="sonatypeusername" data-pagespeed-url-hash="3612547102" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>点击Update，完成。</p>
+<h2>第三部分：启用bintray里的自动注册</h2>
+<p>就如我上面提到的，我们可以通过jcenter上传library到Maven Central ，不过我们需要先注册这个library。bintray提供了通过用户界面让library一旦上传后自动注册的机制。</p>
+<p>第一步是使用下面的命令行产生一个key。（如果你用的是windows，请在<a href="https://www.cygwin.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">cygwin</a>下做这件事情）</p>
+<p></p>
+<div id="crayon-5784845dce7d8261092466" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">gpg --gen-key</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7d8261092466-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7d8261092466-1"><span class="crayon-v">gpg</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-v">gen</span><span class="crayon-o">-</span><span class="crayon-v">key</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>有几个必填项。部分可以采用默认值，但是某些项需要你自己输入恰当的内容，比如，你的真实名字，密码 等等。</p>
+<p>创建了key之后，调用如下的命令查看被创建key的信息。</p>
+<p></p>
+<div id="crayon-5784845dce7dd196258830" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">gpg --list-keys</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7dd196258830-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7dd196258830-1"><span class="crayon-v">gpg</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-v">list</span><span class="crayon-o">-</span><span class="crayon-v">keys</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>如果没没问题的话，可以看到下面的信息：</p>
+<p></p>
+<div id="crayon-5784845dce7e1869132126" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">pub   2048R/01ABCDEF 2015-03-07
+uid                  Sittiphol Phanvilai &lt;yourmail@email.com&gt;
+sub   2048R/98765432 2015-03-07</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7e1869132126-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7e1869132126-2">2</div><div class="crayon-num" data-line="crayon-5784845dce7e1869132126-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7e1869132126-1"><span class="crayon-i">pub</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-cn">2048R</span><span class="crayon-o">/</span><span class="crayon-cn">01ABCDEF</span><span class="crayon-h"> </span><span class="crayon-cn">2015</span><span class="crayon-o">-</span><span class="crayon-cn">03</span><span class="crayon-o">-</span><span class="crayon-cn">07</span></div><div class="crayon-line" id="crayon-5784845dce7e1869132126-2"><span class="crayon-e">uid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">Sittiphol </span><span class="crayon-v">Phanvilai</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-v">yourmail</span><span class="crayon-sy">@</span><span class="crayon-v">email</span><span class="crayon-sy">.</span><span class="crayon-v">com</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-5784845dce7e1869132126-3"><span class="crayon-i">sub</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-cn">2048R</span><span class="crayon-o">/</span><span class="crayon-cn">98765432</span><span class="crayon-h"> </span><span class="crayon-cn">2015</span><span class="crayon-o">-</span><span class="crayon-cn">03</span><span class="crayon-o">-</span><span class="crayon-cn">07</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>现在你需要把key上传到keyserver让它发挥作用。为此，请调用如下的命令并且将其中的PUBLIC_KEY_ID替换成上面pub一行中2048R/ 后面的&nbsp;8位16进制值，譬如本例是01ABCDEF。</p>
+<p></p>
+<div id="crayon-5784845dce7e6788747365" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">gpg --keyserver hkp://pool.sks-keyservers.net --send-keys PUBLIC_KEY_ID</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7e6788747365-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7e6788747365-1"><span class="crayon-v">gpg</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-e">keyserver </span><span class="crayon-v">hkp</span><span class="crayon-o">:</span><span class="crayon-c">//pool.sks-keyservers.net --send-keys PUBLIC_KEY_ID</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>然后，使用如下的命令以ASCII形式导出公共和私有的key，请将yourmail@email.com替换成你前面用于创建key的email。</p>
+<p></p>
+<div id="crayon-5784845dce7ea174316993" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">gpg -a --export yourmail@email.com &gt; public_key_sender.asc
+gpg -a --export-secret-key yourmail@email.com &gt; private_key_sender.asc</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7ea174316993-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7ea174316993-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7ea174316993-1"><span class="crayon-v">gpg</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">a</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-e">export </span><span class="crayon-v">yourmail</span><span class="crayon-sy">@</span><span class="crayon-v">email</span><span class="crayon-sy">.</span><span class="crayon-v">com</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">public_key_sender</span><span class="crayon-sy">.</span><span class="crayon-e">asc</span></div><div class="crayon-line" id="crayon-5784845dce7ea174316993-2"><span class="crayon-v">gpg</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">a</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-v">export</span><span class="crayon-o">-</span><span class="crayon-v">secret</span><span class="crayon-o">-</span><span class="crayon-e">key </span><span class="crayon-v">yourmail</span><span class="crayon-sy">@</span><span class="crayon-v">email</span><span class="crayon-sy">.</span><span class="crayon-v">com</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">private_key_sender</span><span class="crayon-sy">.</span><span class="crayon-v">asc</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>打开Bintray的<a href="https://bintray.com/profile/edit" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Edit Profile</a>页面点击GPG 注册。分别在Public Key和&nbsp;Private Key中填入上一步导出的public_key_sender.asc和&nbsp;private_key_sender.asc文件中的内容。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434992443352430.png" alt="1434992443352430.png" title="1434992443352430.png" data-pagespeed-url-hash="1323621883" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>点击Update保存这些key。</p>
+<p>最后一步就是启用自动注册。到<a href="https://bintray.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Bintray</a>的主页点击maven。<br>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434992792183444.png" alt="blob.png" title="1434992792183444.png" data-pagespeed-url-hash="546316395" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>点击编辑<br>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434992817106843.png" alt="blob.png" title="1434992817106843.png" data-pagespeed-url-hash="3422202621" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>勾选中GPG Sign uploaed files automatically以启用自动注册。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1434992984179141.png" alt="blob.png" title="1434992984179141.png" data-pagespeed-url-hash="826930759" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>点击Update保存这些步骤。完成。现在只需点击一下，每个上传到我们Maven仓库的东西都会自动注册并做好转向Maven Central 。</p>
+<p>请注意这是一次性的操作，以后创建的每一个library都要应用此操作。</p>
+<p>Bintray和Maven Central 已经准备好了。现在转到Android Studio部分。</p>
+<h2>第四部分：准备一个Android Studio项目</h2>
+<p>很多情况下，我们需要同时上传一个以上的library到仓库，也可能不需要上传东西。因此我建议最好将每部分分成一个Module。最好分成两个module，一个Application Module一个Library Module。Application Module用于展示库的用法，Library Module是library的源代码。如果你的项目有一个以上的library，尽管创建另外的module：1个 module对应1 个library。<br>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435029593473349.png" alt="blob.png" title="1435029593473349.png" data-pagespeed-url-hash="110783338" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>我相信大家知道如何创建一个新的module，因此就不会深入讲解这个问题了。其实很简单，基本就是选择creating an&nbsp;Android Library&nbsp;module ，然后就完了。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435029727305525.png" alt="blob.png" title="1435029727305525.png" data-pagespeed-url-hash="1666934375" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>下一步是把bintray插件应用在项目中。我们需要修改项目的build.gradle文件中的依赖部分，如下：</p>
+<p></p>
+<div id="crayon-5784845dce7f7288768260" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">dependencies {
+    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+    classpath 'com.github.dcendents:android-maven-plugin:1.2'
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7f7288768260-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7f7288768260-2">2</div><div class="crayon-num" data-line="crayon-5784845dce7f7288768260-3">3</div><div class="crayon-num" data-line="crayon-5784845dce7f7288768260-4">4</div><div class="crayon-num" data-line="crayon-5784845dce7f7288768260-5">5</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7f7288768260-1"><span class="crayon-e">dependencies</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce7f7288768260-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">classpath</span><span class="crayon-h"> </span><span class="crayon-s">'com.android.tools.build:gradle:1.2.3'</span></div><div class="crayon-line" id="crayon-5784845dce7f7288768260-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">classpath</span><span class="crayon-h"> </span><span class="crayon-s">'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'</span></div><div class="crayon-line" id="crayon-5784845dce7f7288768260-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">classpath</span><span class="crayon-h"> </span><span class="crayon-s">'com.github.dcendents:android-maven-plugin:1.2'</span></div><div class="crayon-line" id="crayon-5784845dce7f7288768260-5"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>有一点非常重要，那就是gradle build tools的版本设置成1.1.2以上，因为以前的版本有严重的bug，我们将使用的是最新的版本1.2.3。</p>
+<p>接下来我们将修改local.properties。在里面定义api key的用户名以及被创建key的密码，用于bintray的认证。之所以要把这些东西放在这个文件是因为这些信息时比较敏感的，不应该到处分享，包括版本控制里面。幸运的是在创建项目的时候local.properties文件就已经被添加到.gitignore了。因此这些敏感数据不会被误传到git服务器。</p>
+<p>下面是要添加的三行代码：</p>
+<p></p>
+<div id="crayon-5784845dce7fe330818261" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">bintray.user=YOUR_BINTRAY_USERNAME
+bintray.apikey=YOUR_BINTRAY_API_KEY
+bintray.gpg.password=YOUR_GPG_PASSWORD</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce7fe330818261-1">1</div><div class="crayon-num" data-line="crayon-5784845dce7fe330818261-2">2</div><div class="crayon-num" data-line="crayon-5784845dce7fe330818261-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce7fe330818261-1"><span class="crayon-v">bintray</span><span class="crayon-sy">.</span><span class="crayon-v">user</span><span class="crayon-o">=</span><span class="crayon-e">YOUR_BINTRAY_USERNAME</span></div><div class="crayon-line" id="crayon-5784845dce7fe330818261-2"><span class="crayon-v">bintray</span><span class="crayon-sy">.</span><span class="crayon-v">apikey</span><span class="crayon-o">=</span><span class="crayon-e">YOUR_BINTRAY_API_KEY</span></div><div class="crayon-line" id="crayon-5784845dce7fe330818261-3"><span class="crayon-v">bintray</span><span class="crayon-sy">.</span><span class="crayon-v">gpg</span><span class="crayon-sy">.</span><span class="crayon-v">password</span><span class="crayon-o">=</span><span class="crayon-v">YOUR_GPG_PASSWORD</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>bintray username 放在第一行，&nbsp;API Key放在第二行，&nbsp;API Key可以在<a href="https://bintray.com/profile/edit" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Edit Profile</a>页面的API Key 选项卡中找到。</p>
+<p>最后一行是创建&nbsp;GPG key的密码。保存并关闭这个文件。</p>
+<p>最后要修改的是module的build.gradle文件。注意前面修改的是项目的build.gradle文件。打开它，在apply plugin: 'com.android.library'之后添加这几行，如下：</p>
+<p></p>
+<div id="crayon-5784845dce804925885274" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'fb-like'
+
+    publishedGroupId = 'com.inthecheesefactory.thecheeselibrary'
+    libraryName = 'FBLike'
+    artifact = 'fb-like'
+
+    libraryDescription = 'A wrapper for Facebook Native Like Button (LikeView) on Android'
+
+    siteUrl = 'https://github.com/nuuneoi/FBLikeAndroid'
+    gitUrl = 'https://github.com/nuuneoi/FBLikeAndroid.git'
+
+    libraryVersion = '0.9.3'
+
+    developerId = 'nuuneoi'
+    developerName = 'Sittiphol Phanvilai'
+    developerEmail = 'sittiphol@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce804925885274-1">1</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-2">2</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-3">3</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-4">4</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-5">5</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-6">6</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-7">7</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-8">8</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-9">9</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-10">10</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-11">11</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-12">12</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-13">13</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-14">14</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-15">15</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-16">16</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-17">17</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-18">18</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-19">19</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-20">20</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-21">21</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-22">22</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-23">23</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-24">24</div><div class="crayon-num" data-line="crayon-5784845dce804925885274-25">25</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce804925885274-1"><span class="crayon-e">apply </span><span class="crayon-v">plugin</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'com.android.library'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-2">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-3"><span class="crayon-e">ext</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">bintrayRepo</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'maven'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">bintrayName</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'fb-like'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-6">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">publishedGroupId</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'com.inthecheesefactory.thecheeselibrary'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">libraryName</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'FBLike'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">artifact</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'fb-like'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-10">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">libraryDescription</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'A wrapper for Facebook Native Like Button (LikeView) on Android'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-12">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">siteUrl</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'https://github.com/nuuneoi/FBLikeAndroid'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">gitUrl</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'https://github.com/nuuneoi/FBLikeAndroid.git'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-15">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">libraryVersion</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'0.9.3'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-17">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">developerId</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'nuuneoi'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">developerName</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'Sittiphol Phanvilai'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">developerEmail</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'sittiphol@gmail.com'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-21">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce804925885274-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">licenseName</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'The Apache Software License, Version 2.0'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">licenseUrl</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'http://www.apache.org/licenses/LICENSE-2.0.txt'</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">allLicenses</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">"Apache-2.0"</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5784845dce804925885274-25"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>bintrayRepo使用默认的，即maven。bintrayName修改成你上面创建的&nbsp;package name。其余的项也修改成和你library信息相匹配的值。有了上面的脚本，每个人都能通过下面的一行gradle脚本使用这个library。</p>
+<p></p>
+<div id="crayon-5784845dce80c025497435" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">compile 'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce80c025497435-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce80c025497435-1"><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>最后在文件的后面追加两行如下的代码来应用两个脚本，用于构建library文件和上传文件到bintray（为了方便，我直接使用了github上连接到相关文件的链接）：</p>
+<p></p>
+<div id="crayon-5784845dce811453843886" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce811453843886-1">1</div><div class="crayon-num" data-line="crayon-5784845dce811453843886-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce811453843886-1"><span class="crayon-e">apply </span><span class="crayon-v">from</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'</span></div><div class="crayon-line" id="crayon-5784845dce811453843886-2"><span class="crayon-e">apply </span><span class="crayon-v">from</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>完成！你的项目现在设置好了，准备上传到bintray吧！</p>
+<h2>第五部分：把library上传到你的bintray空间</h2>
+<p>现在是上传library到你自己的bintray仓库上的时候了。请到Android Studio的终端（Terminal）选项卡。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435031390224841.png" alt="terminal" title="terminal" data-pagespeed-url-hash="1335891523" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>第一步是检查代码的正确性，以及编译library文件（aar，pom等等），输入下面的命令：</p>
+<p></p>
+<div id="crayon-5784845dce817333666644" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">&gt; gradlew install</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce817333666644-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce817333666644-1"><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-e">gradlew </span><span class="crayon-v">install</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>如果没有什么问题，会显示：</p>
+<p></p>
+<div id="crayon-5784845dce81b459825444" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">BUILD SUCCESSFUL</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce81b459825444-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce81b459825444-1"><span class="crayon-e">BUILD </span><span class="crayon-v">SUCCESSFUL</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>现在我们已经成功一半了。下一步是上传编译的文件到bintray，使用如下的命令：</p>
+<p></p>
+<div id="crayon-5784845dce81e164370030" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">gradlew bintrayUpload</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce81e164370030-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce81e164370030-1"><span class="crayon-e">gradlew </span><span class="crayon-v">bintrayUpload</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>如果显示如下你就大喊一声eureka吧！</p>
+<p></p>
+<div id="crayon-5784845dce822572548241" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">SUCCESSFUL</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce822572548241-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce822572548241-1"><span class="crayon-v">SUCCESSFUL</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>在bintray的网页上检查一下你的package。你会发现在版本区域的变化。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435032943140911.png" alt="blob.png" title="1435032943140911.png" data-pagespeed-url-hash="1159001347" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>点击进去，进入Files选项卡，你会看见那里有我们所上传的library文件。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435033005347653.png" alt="blob.png" title="1435033005347653.png" data-pagespeed-url-hash="1149901113" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>恭喜，你的library终于放在了互联网上，任何人都可以使用了！</p>
+<p>不过也别高兴过头，library现在仍然只是在你自己的Maven仓库，而不是在jcenter上。如果有人想使用你的library，他必须定义仓库的url，如下：</p>
+<p></p>
+<div id="crayon-5784845dce828971819470" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">repositories {
+    maven {
+        url 'https://dl.bintray.com/nuuneoi/maven/'
+    }
+}
+
+...
+
+dependencies {
+    compile 'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'
+}</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce828971819470-1">1</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-2">2</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-3">3</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-4">4</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-5">5</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-6">6</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-7">7</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-8">8</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-9">9</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-10">10</div><div class="crayon-num" data-line="crayon-5784845dce828971819470-11">11</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce828971819470-1"><span class="crayon-e">repositories</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">maven</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">url</span><span class="crayon-h"> </span><span class="crayon-s">'https://dl.bintray.com/nuuneoi/maven/'</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-5"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-6">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce828971819470-7"><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-8">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce828971819470-9"><span class="crayon-e">dependencies</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</span></div><div class="crayon-line" id="crayon-5784845dce828971819470-11"><span class="crayon-sy">}</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p></p>
+<div id="crayon-5784845dce82c666497494" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">译者注：前面都没怎么看懂，看到上面的代码之后一下子全懂了，呵呵。
+</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce82c666497494-1">1</div><div class="crayon-num" data-line="crayon-5784845dce82c666497494-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce82c666497494-1">译者注：前面都没怎么看懂，看到上面的代码之后一下子全懂了，呵呵。</div><div class="crayon-line" id="crayon-5784845dce82c666497494-2">&nbsp;</div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>你可以在bintray的web界面找到自己Maven仓库的url，或者直接吧nuuneoi替换成你的bintray用户名（因为前面部分其实都是一样的）。我还建议你直接访问那个链接，看看里面到底是什么。</p>
+<p>但是，就如我们前面所讲的那样，让开发者去定义url这种复杂的事情并不是分享library的最佳方式。想象一下，使用10个library不得添加10个url？所以为了更好的体验，我们把library从自己的仓库传到jcenter上。</p>
+<h2>第六部分：同步bintray用户仓库到jcenter</h2>
+<p>把library同步到jcenter非常容易。只需访问网页并点击Add to JCenter</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435033973124955.png" alt="blob.png" title="1435033973124955.png" data-pagespeed-url-hash="358065089" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>什么也不做直接点击Send。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435033989118978.png" alt="blob.png" title="1435033989118978.png" data-pagespeed-url-hash="223555478" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>现在我们所能做的就是等待bintray团队审核我们的请求，大概2-3个小时。一旦同步的请求审核通过，你会收到一封确认此更改的邮件。现在我们去网页上确认，你会在&nbsp;Linked To&nbsp;部分看到一些变化。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435034011137594.png" alt="blob.png" title="1435034011137594.png" data-pagespeed-url-hash="3864693312" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>从此之后，任何开发者都可以使用jcenter() repository 外加一行gradle脚本来使用我们的library了</p>
+<p></p>
+<div id="crayon-5784845dce836187964898" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">compile 'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce836187964898-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce836187964898-1"><span class="crayon-i">compile</span><span class="crayon-h"> </span><span class="crayon-s">'com.inthecheesefactory.thecheeselibrary:fb-like:0.9.3'</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>想检查一下自己的library在jcenter上是否存在？你可以直接访问<a href="http://jcenter.bintray.com/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">http://jcenter.bintray.com</a>，然后进入和你library的group id 以及artifact id匹配的目录。在本例中就是com&nbsp;-&gt;&nbsp;inthecheesefactory -&gt; thecheeselibrary -&gt; fb-like -&gt; 0.9.3。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435034049131913.png" alt="blob.png" title="1435034049131913.png" data-pagespeed-url-hash="303093042" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>请注意链接到jcenter是一个只需做一次的操作。如果你对你的package做了任何修改，比如上传了一个新版本的binary，删除了旧版本的binary等等，这些改变也会影响到jcenter。不过毕竟你自己的仓库和jcenter在不同的地方，所以需要等待2－3分钟让jcenter同步这些修改。</p>
+<p>同时注意，如果你决定删除整个package，放在jcenter仓库上的library不会被删除。它们会像僵尸一样的存在，没有人再能删除它了。因此我建议，如果你想删除整个package，请在移除package之前先在网页上删除每一个版本。</p>
+<h2>第七部分：上传library到Maven Central</h2>
+<p>并不是每个安卓开发者都使用jcenter。仍然有部分开发者还在使用mavenCentral()&nbsp;，因此让我们也把library上传到Maven Central 吧。</p>
+<p></p>
+<div id="crayon-5784845dce83e505104926" class="crayon-syntax crayon-theme-eclipse crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">要从jcenter到Maven Central，首先需要完成两个任务：
+
+1) Bintray package 已经连接到jcenter。
+
+2) Maven Central上的仓库已经认证通过
+</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size:12px!important;line-height:15px!important"><div class="crayon-num" data-line="crayon-5784845dce83e505104926-1">1</div><div class="crayon-num" data-line="crayon-5784845dce83e505104926-2">2</div><div class="crayon-num" data-line="crayon-5784845dce83e505104926-3">3</div><div class="crayon-num" data-line="crayon-5784845dce83e505104926-4">4</div><div class="crayon-num" data-line="crayon-5784845dce83e505104926-5">5</div><div class="crayon-num" data-line="crayon-5784845dce83e505104926-6">6</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size:12px!important;line-height:15px!important;-moz-tab-size:4;-o-tab-size:4;-webkit-tab-size:4;tab-size:4"><div class="crayon-line" id="crayon-5784845dce83e505104926-1">要从<span class="crayon-i">jcenter</span>到<span class="crayon-e">Maven </span><span class="crayon-i">Central</span>，首先需要完成两个任务：</div><div class="crayon-line" id="crayon-5784845dce83e505104926-2">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce83e505104926-3"><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-e">Bintray </span><span class="crayon-t">package</span><span class="crayon-h"> </span>已经连接到<span class="crayon-i">jcenter</span>。</div><div class="crayon-line" id="crayon-5784845dce83e505104926-4">&nbsp;</div><div class="crayon-line" id="crayon-5784845dce83e505104926-5"><span class="crayon-cn">2</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-e">Maven </span><span class="crayon-i">Central</span>上的仓库已经认证通过</div><div class="crayon-line" id="crayon-5784845dce83e505104926-6">&nbsp;</div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<p></p>
+<p>如果你已经通过了这些授权，上传library&nbsp;package到Maven Central就异常简单了，只需在package的详情页面点击Maven Central 的链接。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435034730371235.png" alt="syncmavencentral" data-pagespeed-url-hash="3481438272" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>输入你的Sonatype用户名和密码并点击Sync。</p>
+<p><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/1435034732252381.png" alt="syncmavencentral2" data-pagespeed-url-hash="1722385100" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></p>
+<p>如果成功，在Last Sync Status中会显示Successfully synced and closed repo（见图），但是如果遇到任何问题，则会在Last Sync Errors显示出来。你需要根据情况修复问题，能上传到Maven Central 的library的条件是相当严格的，比如+ 号是不能在ibrary版本的依赖定义中使用的。</p>
+<p>完成之后，你可以在&nbsp;&nbsp;<a href="https://oss.sonatype.org/content/repositories/releases/" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Maven Central Repository</a>&nbsp;上找到你的library。在那些匹配你ibrary的group id以及artifact id的目录中。比如本例中就是com&nbsp;-&gt;&nbsp;inthecheesefactory -&gt; thecheeselibrary -&gt; fb-like -&gt; 0.9.3。</p>
+<p>恭喜！虽然需要许多步骤，但是每一步都很简单。而且大部分操作都是一劳永逸的。</p>
+<p>如此长篇的文章！希望对你有所帮助。我的英语也许有点晦涩，不过希望至少内容是可以理解的。</p>
+<p>期待能在上面看到你的library大作！</p>
+<div style="clear:both;margin-top:5px;margin-bottom:5px"></div><div style="float:right">
+<div id="jiathis_style_32x32">
+<a class="jiathis_button_qzone" title="分享到QQ空间" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"><span class="jiathis_txt jtico jtico_qzone"></span></a>
+<a class="jiathis_button_tsina" title="分享到微博" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+<a class="jiathis_button_tqq" title="分享到腾讯微博" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"><span class="jiathis_txt jtico jtico_tqq"></span></a>
+<a class="jiathis_button_renren" title="分享到人人网" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"><span class="jiathis_txt jtico jtico_renren"></span></a>
+<a class="jiathis_button_kaixin001" title="分享到开心网" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"><span class="jiathis_txt jtico jtico_kaixin001"></span></a>
+<a href="http://www.jiathis.com/share/" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false"></a>
+<a class="jiathis_counter_style" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_46" title="累计分享6次">6</span></a>
+</div>
+<script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/jia.js" charset="utf-8"></script><script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/plugin.client.js" charset="utf-8"></script>
+</div><div style="clear:both;margin-top:5px;margin-bottom:5px"></div>	</div>
+<p class="post-tags">标签：<a href="http://www.devtf.cn/?tag=android" rel="tag" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">android</a></p>
+
+</article> <ul id="menu-menu-1" class="nav navbar-nav">
+<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.devtf.cn/?p=758" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><i class="fa fa-angle-down"></i> Previous Post</a></li> <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.devtf.cn/?p=762" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Next Post <i class="fa fa-angle-up"></i></a></li> </ul>
+<div id="com_container" class="comment-container">
+<script type="text/javascript">var duoshuoQuery={"short_name":"devtf","sso":{"login":"http:\/\/www.devtf.cn\/wp-login.php?action=duoshuo_login","logout":"http:\/\/www.devtf.cn\/wp-login.php?action=logout&_wpnonce=fbacbfd318"},"theme":"bluebox","stylePatch":"wordpress\/Coeur"};duoshuoQuery.sso.login+='&redirect_to='+encodeURIComponent(window.location.href);duoshuoQuery.sso.logout+='&redirect_to='+encodeURIComponent(window.location.href);(function(){var ds=document.createElement('script');ds.type='text/javascript';ds.async=true;ds.charset='UTF-8';ds.src='http://static.duoshuo.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(ds);})();</script><a name="comments" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"></a>
+<div class="ds-thread" data-thread-key="760" data-author-key="1" data-title="如何使用Android Studio把自己的Android library分发到jCenter和Maven Central" data-url="http://www.devtf.cn/?p=760" id="ds-thread"><div id="ds-waiting"></div></div>
+<script type="text/javascript">if(typeof DUOSHUO!=='undefined')DUOSHUO.EmbedThread('.ds-thread');</script>
+<div id="ds-ssr">
+<ol id="commentlist">
+<li class="comment even thread-even depth-1" id="li-comment-342">
+<article id="comment-342" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn"><a href="http://weibo.com/huangtieyong" rel="external nofollow" class="url" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">不取名就不让玩</a></span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-342" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-07-01T09:37:33+00:00">2015年7月1日 at 上午9:37</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>好文！ <img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/geili_org.gif" data-pagespeed-url-hash="852808997" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"> </p>
+</div>
+</article>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-350">
+<article id="comment-350" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn"><a href="http://weibo.com/2132298702" rel="external nofollow" class="url" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">大兵beyond</a></span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-350" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-07-02T10:06:52+00:00">2015年7月2日 at 上午10:06</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>要多看几次。 <img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/laugh.gif" data-pagespeed-url-hash="3025336554" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"> </p>
+</div>
+</article>
+</li>
+<li class="comment even thread-even depth-1" id="li-comment-387">
+<article id="comment-387" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn"><a href="http://codecloud.net/" rel="external nofollow" class="url" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">程序媛媛</a></span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-387" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-07-07T20:15:40+00:00">2015年7月7日 at 下午8:15</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>mark</p>
+</div>
+</article>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-425">
+<article id="comment-425" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn"><a href="http://weibo.com/alancheeen" rel="external nofollow" class="url" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">程序亦非猿</a></span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-425" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-07-15T11:32:34+00:00">2015年7月15日 at 上午11:32</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>@我的印象笔记</p>
+</div>
+</article>
+</li>
+<li class="comment even thread-even depth-1" id="li-comment-426">
+<article id="comment-426" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn"><a href="http://weibo.com/alancheeen" rel="external nofollow" class="url" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">程序亦非猿</a></span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-426" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-07-15T11:32:40+00:00">2015年7月15日 at 上午11:32</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>好长</p>
+</div>
+</article>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-444">
+<article id="comment-444" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn">aa</span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-444" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-07-17T16:20:41+00:00">2015年7月17日 at 下午4:20</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>sss</p>
+</div>
+</article>
+</li>
+<li class="comment even thread-even depth-1" id="li-comment-727">
+<article id="comment-727" class="comment">
+<footer class="comment-meta">
+<cite class="comment-author vcard">
+<span class="fn">守望者</span> on <a rel="nofollow" href="http://www.devtf.cn/?p=760#comment-727" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><time pubdate="" datetime="2015-12-22T17:51:34+00:00">2015年12月22日 at 下午5:51</time></a> <span class="says">said:</span>	</cite>
+</footer>
+<div class="comment-content"><p>干货 ！！！谢谢撸主！！！</p>
+</div>
+</article>
+</li>
+</ol>
+</div>	</div>
+</main>
+<aside class="sidebar col-md-3 col-sm-4 col-xs-12" style="float:right">
+<aside id="text-4" class="widget widget_text"><h1 class="widget-title">邮箱订阅</h1>	<div class="textwidget"> <form action="https://tinyletter.com/devtechfrontier" method="post" target="popupwindow" onsubmit="window.open(&#39;https://tinyletter.com/devtechfrontier&#39;, &#39;popupwindow&#39;, &#39;scrollbars=yes,width=800,height=600&#39;);return true"><p><input type="text" style="width:140px" name="email" id="tlemail"></p><input type="hidden" value="1" name="embed"><input type="submit" value="订阅!" style="width:140px;background-color:#27cbab;color:#fff"></form></div>
+</aside><aside id="text-5" class="widget widget_text"><h1 class="widget-title">扫码订阅微信公众号</h1>	<div class="textwidget"><img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/20160322152741221" width="160" data-pagespeed-url-hash="2565520886" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></div>
+</aside><aside id="text-2" class="widget widget_text"><h1 class="widget-title">每周推荐</h1>	<div class="textwidget"><ul class="list">
+<li>
+<a href="http://www.umeng.com/wsq?from=devtf" target="_blank" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">友盟微社区,一个可以嵌入App的微博SDK</a>
+</li>
+<li>
+<a href="http://toutiao.io/download" target="_blank" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false"> <font color="#FF6666">开发者头条：程序员必装的 App</font></a>
+</li>
+<li>
+<a href="mailto:simplecoder.h@gmail.com" target="_blank" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"> 广告位招商,邮件 : simplecoder.h@gmail.com </a>
+</li>
+</ul></div>
+</aside><aside id="text-3" class="widget widget_text"><h1 class="widget-title">好书推荐</h1>	<div class="textwidget"><ul class="list">
+<li>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/20160113183528099" width="60" height="60" data-pagespeed-url-hash="3389723636" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"><a href="http://item.jd.com/11793928.html" target="_blank" class="book" style="font-size:7pt" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">《Android设计模式解析与实战》</a>
+</li>
+<li>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/20160318210305543" width="60" height="60" data-pagespeed-url-hash="3346331617" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"><a href="http://item.jd.com/11880368.html" target="_blank" class="book" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">《Android开发进阶》</a>
+</li>
+<li>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/20160113183752884" width="60" height="60" data-pagespeed-url-hash="4109439979" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"><a href="http://item.jd.com/1709011859.html" target="_blank" class="book" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">《Android开发艺术探索》</a>
+</li>
+<li>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/20160113183835268" width="60" height="60" data-pagespeed-url-hash="3451865173" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"><a href="http://item.jd.com/1703654820.html" target="_blank" class="book" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">《Android群英传》</a>
+</li>
+<li>
+<img src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/20160113183956547" width="60" height="60" data-pagespeed-url-hash="3967948313" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"><a href="http://item.jd.com/11431307.html" target="_blank" class="book" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">《Android编程权威指南》</a>
+</li>
+</ul></div>
+</aside><aside id="post-views-2" class="widget widget_post-views"><h1 class="widget-title">热门文章</h1><ul>
+<li> <a href="http://www.devtf.cn/?p=323" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">NotRxJava懒人专用指南</a> </li><li> <a href="http://www.devtf.cn/?p=405" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Android 如何直播RTMP流</a> </li><li> <a href="http://www.devtf.cn/?p=174" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">那些年我们错过的响应式编程</a> </li><li> <a href="http://www.devtf.cn/?p=1315" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Mockito 中文文档 一</a> </li><li> <a href="http://www.devtf.cn/?p=585" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">优化android studio编译效率...</a> </li><li> <a href="http://www.devtf.cn/?p=1268" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Android下雪动画</a> </li><li> <a href="http://www.devtf.cn/?p=1264" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">高效地配置OkHttp</a> </li><li> <a href="http://www.devtf.cn/?p=565" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">当复仇者联盟遇上Dragger2、RxJ...</a> </li><li> <a href="http://www.devtf.cn/?p=551" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">MVP框架 – Ted Mosby的软件...</a> </li><li> <a href="http://www.devtf.cn/?p=1277" class="dashedline" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Google Study Jams，30...</a> </li></ul>
+</aside><aside id="tag_cloud-2" class="widget widget_tag_cloud"><h1 class="widget-title">热门话题</h1><div class="tagcloud"><a href="http://www.devtf.cn/?tag=android" class="tag-link-5" title="189个话题" style="font-size:22pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">android</a>
+<a href="http://www.devtf.cn/?tag=aop" class="tag-link-30" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">AOP</a>
+<a href="http://www.devtf.cn/?tag=dagger" class="tag-link-20" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">dagger</a>
+<a href="http://www.devtf.cn/?tag=espresso" class="tag-link-32" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">espresso</a>
+<a href="http://www.devtf.cn/?tag=eventbus" class="tag-link-28" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">EventBus</a>
+<a href="http://www.devtf.cn/?tag=framework" class="tag-link-40" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Framework</a>
+<a href="http://www.devtf.cn/?tag=gradle" class="tag-link-26" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Gradle</a>
+<a href="http://www.devtf.cn/?tag=ios" class="tag-link-7" title="40个话题" style="font-size:17.262626262626pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">iOS</a>
+<a href="http://www.devtf.cn/?tag=jcenter" class="tag-link-24" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Jcenter</a>
+<a href="http://www.devtf.cn/?tag=kotlin" class="tag-link-19" title="4个话题" style="font-size:10.828282828283pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">kotlin</a>
+<a href="http://www.devtf.cn/?tag=mvp" class="tag-link-13" title="5个话题" style="font-size:11.393939393939pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">MVP</a>
+<a href="http://www.devtf.cn/?tag=mvvm" class="tag-link-33" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">MVVM</a>
+<a href="http://www.devtf.cn/?tag=okhttp" class="tag-link-41" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">okhttp</a>
+<a href="http://www.devtf.cn/?tag=rxjava" class="tag-link-12" title="16个话题" style="font-size:14.575757575758pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">RxJava</a>
+<a href="http://www.devtf.cn/?tag=swift" class="tag-link-18" title="17个话题" style="font-size:14.787878787879pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">Swift</a>
+<a href="http://www.devtf.cn/?tag=tdd" class="tag-link-34" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">TDD</a>
+<a href="http://www.devtf.cn/?tag=%e5%86%85%e5%ad%98%e4%bc%98%e5%8c%96" class="tag-link-39" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">内存优化</a>
+<a href="http://www.devtf.cn/?tag=%e5%8a%a8%e7%94%bb" class="tag-link-42" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">动画</a>
+<a href="http://www.devtf.cn/?tag=%e5%8d%95%e5%85%83%e6%b5%8b%e8%af%95" class="tag-link-29" title="8个话题" style="font-size:12.59595959596pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">单元测试</a>
+<a href="http://www.devtf.cn/?tag=%e5%91%a8%e6%8a%a5" class="tag-link-16" title="31个话题" style="font-size:16.555555555556pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">周报</a>
+<a href="http://www.devtf.cn/?tag=%e5%93%8d%e5%ba%94%e5%bc%8f%e7%bc%96%e7%a8%8b" class="tag-link-17" title="9个话题" style="font-size:12.949494949495pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">响应式编程</a>
+<a href="http://www.devtf.cn/?tag=%e6%80%a7%e8%83%bd" class="tag-link-21" title="2个话题" style="font-size:9.2727272727273pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">性能</a>
+<a href="http://www.devtf.cn/?tag=%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96" class="tag-link-38" title="2个话题" style="font-size:9.2727272727273pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">性能优化</a>
+<a href="http://www.devtf.cn/?tag=%e6%8d%a2%e8%82%a4" class="tag-link-35" title="3个话题" style="font-size:10.121212121212pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">换肤</a>
+<a href="http://www.devtf.cn/?tag=%e6%95%b0%e6%8d%ae%e7%bb%91%e5%ae%9a" class="tag-link-37" title="3个话题" style="font-size:10.121212121212pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">数据绑定</a>
+<a href="http://www.devtf.cn/?tag=%e6%9e%b6%e6%9e%84" class="tag-link-10" title="10个话题" style="font-size:13.232323232323pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">架构</a>
+<a href="http://www.devtf.cn/?tag=%e6%b5%8b%e8%af%95" class="tag-link-6" title="7个话题" style="font-size:12.242424242424pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">测试</a>
+<a href="http://www.devtf.cn/?tag=%e7%a7%81%e6%9c%89maven" class="tag-link-36" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">私有Maven</a>
+<a href="http://www.devtf.cn/?tag=%e7%bd%91%e7%bb%9c" class="tag-link-31" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">网络</a>
+<a href="http://www.devtf.cn/?tag=%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99" class="tag-link-23" title="3个话题" style="font-size:10.121212121212pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">设计原则</a>
+<a href="http://www.devtf.cn/?tag=%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="tag-link-11" title="3个话题" style="font-size:10.121212121212pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">设计模式</a>
+<a href="http://www.devtf.cn/?tag=%e9%87%8d%e6%9e%84" class="tag-link-27" title="1个话题" style="font-size:8pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">重构</a>
+<a href="http://www.devtf.cn/?tag=%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1" class="tag-link-22" title="3个话题" style="font-size:10.121212121212pt" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">面向对象</a></div>
+</aside>	</aside>
+</div>
+</div>
+<div class="blog-footer">
+<div class="container">
+<p>© 2016 - <a href="http://www.devtf.cn/" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false">© 2015-2016 devtf.cn , All Rights Reserved.</a></p>
+<p><a href="http://www.devtf.cn/?p=760#" data-slimstat-clicked="false" data-slimstat-type="2" data-slimstat-tracking="false" data-slimstat-async="false" data-slimstat-callback="false"><i class="fa fa-angle-up"></i> Back to top</a><a data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true"></a></p><a data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">
+</a></div><a data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">
+</a></div><a data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">
+</a></div><a data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">
+<script type="text/javascript">var SlimStatParams={"ajaxurl":"http:\/\/www.devtf.cn\/wp-admin\/admin-ajax.php","extensions_to_track":"pdf,doc,xls,zip","outbound_classes_rel_href_to_not_track":"noslimstat,ab-item","ci":"YTo0OntzOjEyOiJjb250ZW50X3R5cGUiO3M6NDoicG9zdCI7czo4OiJjYXRlZ29yeSI7czozOiIyLDUiO3M6MTA6ImNvbnRlbnRfaWQiO2k6NzYwO3M6NjoiYXV0aG9yIjtzOjg6Ik1yU2ltcGxlIjt9.32bbfd8d1c5220d455fd6fa2cd0a7472"};</script>
+<script type="text/javascript" src="./如何使用Android Studio把自己的Android library分发到jCenter和Maven Central开发技术前线 _ 开发技术前线_files/wp-slimstat.min.js"></script>
+<script type="text/javascript">var addComment={moveForm:function(a,b,c,d){var e,f=this,g=f.I(a),h=f.I(c),i=f.I("cancel-comment-reply-link"),j=f.I("comment_parent"),k=f.I("comment_post_ID");if(g&&h&&i&&j){f.respondId=c,d=d||!1,f.I("wp-temp-form-div")||(e=document.createElement("div"),e.id="wp-temp-form-div",e.style.display="none",h.parentNode.insertBefore(e,h)),g.parentNode.insertBefore(h,g.nextSibling),k&&d&&(k.value=d),j.value=b,i.style.display="",i.onclick=function(){var a=addComment,b=a.I("wp-temp-form-div"),c=a.I(a.respondId);if(b&&c)return a.I("comment_parent").value="0",b.parentNode.insertBefore(c,b),b.parentNode.removeChild(b),this.style.display="none",this.onclick=null,!1};try{f.I("comment").focus()}catch(l){}return!1}},I:function(a){return document.getElementById(a)}};</script>
+</a><div style="position:absolute;top:-999px;left:-999px"><a data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="false" data-slimstat-callback="true">Links：当社は日本で最高品質は</a><a href="http://www.jpdanji.com/" target="_blank" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">ブランドコピー</a> 代引き対応N級時計/財布/バッグ通販を主な業務として,弊店はスーパーコピー代引き時計業界で最大な<a href="http://www.wahooys.com/" target="_blank" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">ブランドコピー</a> 代引き時計/<a href="http://www.mdivf.com/" target="_blank" data-slimstat-clicked="false" data-slimstat-type="0" data-slimstat-tracking="true" data-slimstat-async="true" data-slimstat-callback="false">ブランドコピー</a>、スーパーコピー代引き時計/コピーブランド 代引き/スーパーコピーブランド代引きバッグ/コピー時計代引き販売専門店です</div>
+
+<span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; top: 13927px; left: 153px; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

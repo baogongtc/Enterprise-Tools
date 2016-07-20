@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://www.codexiu.cn/android/blog/20147/ -->
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" class=" js no-touch csstransforms csstransitions"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta -->
+    
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 关于X-UA-Compatible -->
+    <meta http-equiv="X-UA-Compatible" content="IE=6"><!-- 使用IE6 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=7"><!-- 使用IE7 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8"><!-- 使用IE8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="OTA制作及升级过程笔记,Android">
+    
+    
+    <meta name="description" content="OTA制作及升级过程笔记
+1、概述
+1.1   文档概要
+前段时间学习了AndroidRecovery模式及OTA升级过程，为加深理解和防止以后遗忘，所以写这篇文档进行一个总结和梳理，以便日后查阅回顾。文档主要包括两部分，第一部分为OTA升级包的制作过程分析，第二部分为Recovery模式下OTA升级包安装过程的分析，其中包括Reco">
+    
+    <meta name="robots" content="all">
+    <title>OTA制作及升级过程笔记-codexiu.cn</title>
+    <!-- CSS Global Compulsory-->
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/style.css">
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/header2.css">
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/style_responsive.css">
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/font-awesome.css">
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="./OTA制作及升级过程笔记-codexiu.cn_files/default.css" id="style_color">
+    
+    
+    
+    <!-- CSS Implementing Plugins -->
+    <link href="./OTA制作及升级过程笔记-codexiu.cn_files/monokai_sublime.min.css" rel="stylesheet">
+    <script src="./OTA制作及升级过程笔记-codexiu.cn_files/hm.js"></script><script src="./OTA制作及升级过程笔记-codexiu.cn_files/push.js"></script><script src="./OTA制作及升级过程笔记-codexiu.cn_files/highlight.pack.js"></script>
+    
+    
+    <link rel="icon" href="http://www.codexiu.cn/static/favicon.ico">
+    <link rel="icon" href="http://www.codexiu.cn/static/favicon.ico" type="image/x-icon">
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?c1e1c39124c8745dfd4e9d4320927e69";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+
+<body data-pinterest-extension-installed="cr1.39.1">
+<div id="home">
+    
+
+
+
+
+<div id="header">
+    <div class="container"> 
+        <!-- Logo -->       
+        <div class="logo">                                             
+            <a href="http://www.codexiu.cn/"><img id="logo-header" src="./OTA制作及升级过程笔记-codexiu.cn_files/logo2-default.png" alt="Logo"></a>
+        </div><!-- /logo -->
+        <!-- Menu -->
+        <div class="navbar">                                
+            <div class="navbar-inner">                                  
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a><!-- /nav-collapse -->                                  
+                <div class="nav-collapse collapse">                                     
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="http://www.codexiu.cn/" class="" data-toggle="s">首页
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/" class="dropdown-toggle" data-toggle="dropdown">后端开发
+                                <b class="caret"></b>                            
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/python/">python</a></li>
+                            </ul>
+                            <b class="caret-out"></b>                        
+                        </li>
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/" class="dropdown-toggle" data-toggle="dropdown">前端开发
+                                <b class="caret"></b>                            
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/jquery/">jquery</a></li>
+                                <li><a href="http://www.codexiu.cn/javascript/">javascript</a></li>
+                            </ul>
+                            <b class="caret-out"></b>                        
+                        </li>
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/#" class="dropdown-toggle" data-toggle="dropdown">服务器
+                                <b class="caret"></b>                            
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/linux/">Linux</a></li>
+                                <li><a href="http://www.codexiu.cn/nginx/">Nginx</a></li>
+                                <li><a href="http://www.codexiu.cn/openstack/">OpenStack</a></li>
+                                <li><a href="http://www.codexiu.cn/spark/">Spark</a></li>
+                                <li><a href="http://www.codexiu.cn/cloud_computing/">云计算</a></li>
+                            </ul>
+                            <b class="caret-out"></b>                        
+                        </li>
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/#" class="dropdown-toggle" data-toggle="dropdown">移动开发
+                                <b class="caret"></b>                            
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/android/">Android</a></li>
+                                <li><a href="http://www.codexiu.cn/ios/">IOS</a></li>
+                                <li><a href="http://www.codexiu.cn/embedded/">嵌入式</a></li>
+                            </ul>
+                            <b class="caret-out"></b>                        
+                        </li>
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/#" class="dropdown-toggle" data-toggle="dropdown">开发工具<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/git/">GIT</a></li>
+                                <li><a href="http://www.codexiu.cn/svn/">SVN</a></li>
+                            </ul>
+                            <b class="caret-out"></b>                        
+                        </li>
+
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/#" class="dropdown-toggle" data-toggle="dropdown">数据库<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/mysql/">MySQL</a></li>
+                                <li><a href="http://www.codexiu.cn/oracle/">Oracle</a></li>
+                                <li><a href="http://www.codexiu.cn/nosql/">NoSQL</a></li>
+                            </ul>
+                            <b class="caret-out"></b>
+                        </li>
+
+
+
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/#" class="dropdown-toggle" data-toggle="dropdown">技术文档
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://doc.codexiu.cn/">文档首页</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/python2.7/index.html">python2.7中文官方文档</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/python/python3/index.html">python3中文官方文档</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/flask/index.html">Flask中文官方文档</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/flask-restful/index.html">Flask-restful中文文档</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/flask-login/index.html">Flask-login中文官方文档</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/flask-sqlalchemy/index.html">Flask-sqlalchemy中文官方文档</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/python3-cookbook/index.html">python3-cookbook第三版</a></li>
+                                <li><a href="http://doc.codexiu.cn/python/sphinx/index.html">sphinx中文文档</a></li>
+                            </ul>
+                            <b class="caret-out"></b>
+                        </li>
+
+                        <li>
+                            <a href="http://www.codexiu.cn/android/blog/20147/#" class="dropdown-toggle" data-toggle="dropdown">福利
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://www.codexiu.cn/%E8%BF%85%E9%9B%B7%E4%BC%9A%E5%91%98/vip/xunlei/list/">免费迅雷会员</a></li>
+                            </ul>
+                            <b class="caret-out"></b>
+                        </li>
+
+                    </ul>
+
+
+
+
+
+
+
+
+                </div><!-- /nav-collapse -->                                
+            </div><!-- /navbar-inner -->
+        </div><!-- /navbar -->                          
+    </div><!-- /container -->               
+</div><!--/header -->
+
+    <div class="breadcrumbs margin-bottom-20">
+        <div class="container">
+            
+                <h1 class="color-green pull-left">android</h1>
+            
+            <ul class="pull-right breadcrumb">
+                <li><a href="http://www.codexiu.cn/">首页</a> <span class="divider">/</span></li>
+                <li>
+                    <a href="http://www.codexiu.cn/android/">Android</a><span class="divider">/</span></li>
+                <li class="active"><a href="http://www.codexiu.cn/android/blog/20147/">OTA制作及升级过程笔记</a>
+                </li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+
+    <div id="main" class="container">
+        <div id="main_middle" class="row-fluid blog-page blog-item">
+            <div id="main_content" class="span9">
+                <div class="margin-bottom-30">
+                    <h3>OTA制作及升级过程笔记 </h3>
+
+                    <div>
+                        <div class="content_description">
+                            
+                        </div>
+                        <br>
+                         <div class="article_c">
+<h1>1、概述</h1>
+<h2>1.1&nbsp;&nbsp; 文档概要</h2>
+<p>前段时间学习了AndroidRecovery模式及OTA升级过程，为加深理解和防止以后遗忘，所以写这篇文档进行一个总结和梳理，以便日后查阅回顾。文档主要包括两部分，第一部分为OTA升级包的制作过程分析，第二部分为Recovery模式下OTA升级包安装过程的分析，其中包括Recovery模式分析及服务流程。</p>
+<h2>1.2&nbsp;&nbsp; 参考文献</h2>
+<p>《Recovery 开发指导》</p>
+<p>《<a href="http://blog.csdn.net/kevinx_xu/article/details/8589853" target="_blank"><span style="color:windowtext">Android</span><span style="color:windowtext">系统</span><span style="color:windowtext">Recovery</span><span style="color:windowtext">工作原理之使用</span><span style="color:windowtext">update.zip</span><span style="color:windowtext">升级过程分析</span></a>》</p>
+<p>《<a href="http://blog.csdn.net/bi511304183/article/details/9340175" target="_blank"><span style="color:windowtext">OTA</span><span style="color:windowtext">本质与实现流程分析</span></a>》</p>
+<p>《Android系统启动过程分析》</p>
+<h1>2、OTA升级包制作工程</h1>
+<h2>2.1&nbsp; OTA升级简介</h2>
+<p>所谓OTA（Over-the-AirTechnology）是指手机终端通过无线网络下载远程服务器上的升级包，对系统或应用进行升级的技术。有关网络部分不做过多讨论，本文重点放在系统升级这一概念上。</p>
+
+<p align="center">图1 某android手机存储设备结构图</p>
+<p>以PC机进行类比，假设计算机操作系统装在C盘，当加电启动时，引导程序会将C盘的系统程序装入内存并运行，而系统升级或重装系统，则是将C盘中原来的系统文件部分或全部重写。对于手机及其上的ANDROID系统而言，同样如此，需要一个存储系统文件的“硬盘”。</p>
+<p>图1 是某款手机的存储设备结构图，其存储区（红色框图部分）分为四部分：SRAM、Nand Flash、SDRAM及外设地址空间。其中Nand Flash中存储着全部系统数据（通过专门的烧写工具将编译后的映象文件download到Nand Flash中，工具由IC厂商提供），包括boot.img、system.img、recovery.img等，<span style="color:red">因此</span><span style="color:red">Nand Flash</span><span style="color:red">即是上文所说的手机上的</span><span style="color:red">“</span><span style="color:red">硬盘</span><span style="color:red">”</span>。图1最右部分（图中绿色框图部分）是Nand
+ Flash存储区更详细的划分，我们将<span style="color:red">主要关注</span><span style="color:red">system</span><span style="color:red">分区（蓝色框图），因为</span><span style="color:red">OTA</span><span style="color:red">升级主要是对这部分系统数据的重写</span>（当然boot分区也可升级）。除此之外，蓝黑色区域标示的<span style="background:yellow">misc</span><span style="background:yellow">分区</span>也应值得注意，它在OTA升级中发挥着重要的作用。</p>
+<p>OK，一言以蔽之，所谓OTA就是将升级包（zip压缩包）写入到系统存储区，因此我们需要考虑两个问题：1、升级包是如何生成的？2、升级包是如何写入到system分区的？</p>
+<h2>2.2&nbsp; OTA升级包update.zip结构</h2>
+<p align="left"><strong>2.2.1、&nbsp;update.zip包的目录结构</strong></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; |----boot.img</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; |----system/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; |----recovery/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `|----recovery-from-boot.p</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `|----etc/</span><span style="color:#666666"><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `|----install-recovery.sh</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; |---META-INF/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; `|CERT.RSA</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; `|CERT.SF</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; `|MANIFEST.MF</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; `|----com/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`|----google/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;`|----android/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+<span style="background:yellow">`|----update-binary</span></span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+<span style="background:yellow">`|----updater-script</span></span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;`|----android/</span></p>
+<p align="left"><span style="color:rgb(102,102,102)">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; `|----metadata</span></p>
+<p align="left"><strong>2.2.2、&nbsp;update.zip包目录结构详解</strong></p>
+<p>以上是我们用命令makeotapackage 制作的update.zip包的标准目录结构。<span style="color:red">（和实际的略有不同）</span></p>
+<p>1、boot.img是更新boot分区所需要的文件。这个boot.img主要包括kernel+ramdisk，包括应用会用到的一些库等等。可以将Android源码编译out/target/product/ xxxx /system/中的所有文件拷贝到这个目录来代替。</p>
+<p>2、system/目录的内容在升级后会放在系统的system分区。主要用来更新系统的一些应用或则应用会用到的一些库等等。可以将Android源码编译out/target/product/xxxx/system/中的所有文件拷贝到这个目录来代替。</p>
+<p>3、recovery/目录中的recovery-from-boot.p是boot.img和recovery.img的补丁(patch),主要用来更新recovery分区，其中etc/目录下的install-recovery.sh是执行更新的脚本。</p>
+<p>4、update-binary是一个二进制文件，相当于一个<span style="color:red">脚本解释器</span>，<span style="color:red">能够识别</span><span style="color:red">updater-script</span><span style="color:red">中描述的操作</span>。它是Android源码编译后生成的out/target/product/xxxx/system&nbsp;bin/updater文件，可将updater重命名为update-binary得到。该文件在具体的更新包中的名字由源码中bootable/recovery/install.c中的宏ASSUMED_UPDATE_BINARY_NAME的值而定。</p>
+<p>5、updater-script：此文件是一个脚本文件，具体描述了更新过程。我们可以根据具体情况编写该脚本来适应我们的具体需求。该文件的命名由源码中bootable/recovery/updater/updater.c文件中的宏SCRIPT_NAME的值而定。</p>
+<p>6、&nbsp;metadata文件是描述设备信息及环境变量的元数据。主要包括一些编译选项，签名公钥，时间戳以及设备型号等。</p>
+<p>7、我们还可以在包中添加userdata目录，来更新系统中的用户数据部分。这部分内容在更新后会存放在系统的/data目录下。</p>
+<p>8、update.zip包的签名：update.zip更新包在制作完成后需要对其签名，否则在升级时会出现认证失败的错误提示。而且签名要使用和目标板一致的加密公钥。加密公钥及加密需要的三个文件在Android源码编译后生成的具体路径为：</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;out/host/linux-x86/framework/signapk.jar&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;build/target/product/security/testkey.x509.pem &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;build/target/product/security/testkey.pk8。</p>
+<p>我们用命令makeotapackage制作生成的update.zip包是已签过名的，如果自己做update.zip包时必须手动对其签名。具体的加密方法：</p>
+<p>$ java –jar gingerbread/out/host/linux/framework/signapk.jar –wgingerbread/build/target/product/security/testkey.x509.pem &nbsp; &nbsp; &nbsp;gingerbread/build/target/product/security/testkey.pk8update.zip update_signed.zip</p>
+<p>以上命令在update.zip包所在的路径下执行，其中signapk.jartestkey.x509.pem以及testkey.pk8文件的引用使用绝对路径。update.zip 是我们已经打好的包，update_signed.zip包是命令执行完生成的已经签过名的包。</p>
+<p>9、MANIFEST.MF：这个manifest文件定义了与包的组成结构相关的数据。类似Android应用的mainfest.xml文件。</p>
+<p>10、CERT.RSA：与签名文件相关联的签名程序块文件，它存储了用于签名JAR文件的公共签名。</p>
+<p>11、CERT.SF：这是JAR文件的签名文件，其中前缀CERT代表签名者。</p>
+<p><span style="color:red">另外，在具体升级时，对</span><span style="color:red">update.zip</span><span style="color:red">包检查时大致会分三步：①检验</span><span style="color:red">SF</span><span style="color:red">文件与</span><span style="color:red">RSA</span><span style="color:red">文件是否匹配。②检验</span><span style="color:red">MANIFEST.MF</span><span style="color:red">与签名文件中的</span><span style="color:red">digest</span><span style="color:red">是否一致。③检验包中的文件与</span><span style="color:red">MANIFEST</span><span style="color:red">中所描述的是否一致。</span></p>
+<p>12、在做的MTK平台的项目（如8670、9976），需要增加与项目强相关的适配文件（scatter.txt、SEC_VER.txt、type.txt），scatter.txt分散加载文件，将可执行映像文件分散加载到不同的内存段（文件内容：指定不同内存段的起始地址）。</p>
+<p align="left"><span style="color:#C00000">type.txt</span><span style="color:#C00000">是</span><span style="color:#C00000">build</span><span style="color:#C00000">升级包过程生成的，里面的值</span><span style="color:#C00000">1</span><span style="color:#C00000">代表</span><span style="color:#C00000">FullOTA</span><span style="color:#C00000">，</span><span style="color:#C00000">0</span><span style="color:#C00000">代表</span><span style="color:#C00000">DiffOTA</span><span style="color:#C00000">，</span><span style="color:#C00000">android</span><span style="color:#C00000">的上层的</span><span style="color:#C00000">update</span><span style="color:#C00000">流程中会</span><span style="color:#C00000">check</span><span style="color:#C00000">这个值。</span></p>
+<p align="left"><span style="color:#C00000">scatter.txt</span><span style="color:#C00000">也是</span><span style="color:#C00000">build</span><span style="color:#C00000">升级包过程生成的，里面的内容来自于</span><span style="color:#C00000">/mediatek/misc/ota_scatter.txt</span><span style="color:#C00000">。具体</span><span style="color:#C00000">code</span><span style="color:#C00000">可见脚本</span><span style="color:#C00000">ota_from_target_files</span><span style="color:#C00000">。而</span><span style="color:#C00000">mediatek/misc/ota_scatter.txt</span><span style="color:#C00000">是在</span><span style="color:#C00000">build
+ full ota</span><span style="color:#C00000">时会产生。该文件主要用于在升级的时候</span><span style="color:#C00000">check</span><span style="color:#C00000">升级前后</span><span style="color:#C00000">parition layout</span><span style="color:#C00000">是否有改变。</span></p>
+<p align="left"><span style="color:#C00000">SEC_VER.TXT</span><span style="color:#C00000">是在编译时从</span><span style="color:#C00000">alps\mediatek\custom\$PROJECT\security\recovery</span><span style="color:#C00000">下</span><span style="color:#C00000">copy</span><span style="color:#C00000">过来的，用于在打开</span><span style="color:#C00000">SUPPORT_SBOOT_UPDATE</span><span style="color:#C00000">之后会使用，具体可以参考</span><span style="color:#C00000">[FAQ05739]
+ SD</span><span style="color:#C00000">或者</span><span style="color:#C00000">OTA</span><span style="color:#C00000">升级</span><span style="color:#C00000">secutiry device</span><span style="color:#C00000">和</span><span style="color:#C00000">non-security device</span><span style="color:#C00000">的区别。</span></p>
+<p align="left"><span style="color:#C00000">在</span><span style="color:#C00000">./mk new</span><span style="color:#C00000">时，会执行</span><span style="color:#C00000">ptgen</span><span style="color:#C00000">，执行</span><span style="color:#C00000">ptgen</span><span style="color:#C00000">会依赖</span><span style="color:#C00000">OTA_SCATTER_FILE</span><span style="color:#C00000">，见</span><span style="color:#C00000">mediatek/build/libs/pregen.mk</span><span style="color:#C00000">：</span><span style="color:#C00000">218</span><span style="color:#C00000">，然后再</span><span style="color:#C00000">build/tools/makeMtk.mk</span><span style="color:#C00000">中的</span><span style="color:#C00000">142
+</span><span style="color:#C00000">以及</span><span style="color:#C00000"> 692</span><span style="color:#C00000">会生成</span><span style="color:#C00000">ota_scatter.txt</span><span style="color:#C00000">。</span></p>
+<h2>2.3&nbsp; OTA升级包制作工程分析</h2>
+<p>升级包有整包与差分包之分。顾名思义，所谓整包即包含整个system分区中的数据文件；而差分包则仅包含两个版本之间改动的部分。利用整包升级好比对电脑进行重作系统，格式化系统分区，并将新系统数据写入分区；而利用差分包升级不会格式化system分区，只是对其中部分存储段的内容进行重写。除升级包之外，制作过程中还会涉及到另一种zip包，代码中称之为8675-cota-target_files-xxx.zip，我称之为差分资源包。首先阐述下整包的制作过程。</p>
+<h3>2.3.1&nbsp; 整包的制作</h3>
+<p>系统经过整编后，执行makeotapackage命令，即可完成整包的制作，而此命令可分为两个阶段进行。首先执行./build/core/Makefile中的代码：</p>
+<p align="left">#-----------------------------------------------------------------</p>
+<p align="left"># OTA update package</p>
+
+<p align="left">name := $(TARGET_PRODUCT)</p>
+<p align="left">ifeq ($(TARGET_BUILD_TYPE),debug)</p>
+<p align="left">&nbsp; name :=$(name)_debug</p>
+<p align="left">endif</p>
+<p align="left">name := $(name)-ota-$(FILE_NAME_TAG)</p>
+
+<p align="left"><strong><span style="color:red">INTERNAL_OTA_PACKAGE_TARGET:= $(PRODUCT_OUT)/$(name).zip</span></strong></p>
+<p align="left">$(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR :=$(DEFAULT_KEY_CERT_PAIR)</p>
+<p align="left"><span style="background:yellow">$(INTERNAL_OTA_PACKAGE_TARGET):$(BUILT_TARGET_FILES_PACKAGE) $(OTATOOLS)</span></p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @echo"Package OTA: $@"</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $(hide) ./build/tools/releasetools/ota_from_target_files-v \</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -n \</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -p$(HOST_OUT) \</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -k$(KEY_CERT_PAIR) \</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(ota_extra_flag) \</p>
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(BUILT_TARGET_FILES_PACKAGE) $@</p>
+<p align="left">.PHONY: otapackage</p>
+<p align="left">otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)</p>
+<p align="left">#-----------------------------------------------------------------</p>
+<p align="center">代码段1 make otapackage目标代码</p>
+<p>如上代码是Makefile文件中目标otapackage的执行代码&nbsp;。首先，make otapackage命令会执行Makefile(./build/core/Makefile)中otapackage的目标代码(如代码1所示)。由代码可知，otapackage目标的执行只依赖于$(INTERNAL_OTA_PACKAGE_TARGET)，而不存在任何规则(根据Makefile语法，规则必须以TAB键开始，而目标otapackage的定义之后却是变量name的声明，因此不存在规则)，因此只需要关注目标$(INTERNAL_OTA_PACKAGE_TARGET)的生成。显然，此目标的生成依赖于目标文件：<strong><span style="color:#CC0000">$(BUILT_TARGET_FILES_PACKAGE)</span></strong>和<strong><span style="color:#CC66CC">$(OTATOOLS)</span></strong>，且其执行的命令为<strong><span style="color:red">./build/tools/releasetools/ota_from_target_files</span></strong>。也就是说，make
+ otapackage所完成的功能全是通过这两个目标文件和执行的命令完成的，我们将分别对这三个关键点进行分析。</p>
+<p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color:#CC66CC">$(OTATOOLS)</span></strong></p>
+<p>目标文件OTATOOLS的编译规则如下所示</p>
+<p align="left"><span style="color:#5C5C5C">1.&nbsp;&nbsp;&nbsp;</span>OTATOOLS&nbsp;:=&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/minigzip&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">2.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/mkbootfs&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">3.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/mkbootimg&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">4.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/fs_config&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">5.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/mkyaffs2image&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">6.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/zipalign&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">7.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/aapt&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">8.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/bsdiff&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">9.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/imgdiff&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">10.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_JAVA_LIBRARIES)/dumpkey.jar&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">11.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_JAVA_LIBRARIES)/signapk.jar&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">12.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/mkuserimg.sh&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">13.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/genext2fs&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">14.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/tune2fs&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">15.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/e2fsck&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">16.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/make_ext4fs&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">17.&nbsp; </span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">18.&nbsp; </span>.PHONY:&nbsp;otatools&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">19.&nbsp; </span>otatools:&nbsp;$(OTATOOLS)&nbsp;&nbsp;</p>
+<p>可以看出变量OTATOOLS为系统中一系列文件的集合。那么这些文件又有什么用处呢？ 事实上，这些文件用于压缩(minigzip：用于gzip文件；make_ext4fs：将文件转换为ext4类型；mkyaffs2image：用于yaffs文件系统；......)、解压缩、差分(bsdiff，imgdiff)、签名(singapk.jar)等功能，结合代码段1可得到如下结论：目标$(INTERNAL_OTA_PACKAGE_TARGET)的执行依赖于这一系列系统工具－－仅此而已。也就是说，目标文件$(OTATOOLS)仅仅指定了命令执行所需要的工具，并未执行任何操作。</p>
+<p>注：变量$(HOST_OUT_EXECUTABLES)指代的是out/host/linux-x86/bin目录，而变量$(HOST_OUT_JAVA_LIBRARIES)/表示的是out/host/linux-x86/framework目录，这意味着我们可以从此目录下找到上述工具，并为我们所用。</p>
+<p><strong>b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(204,0,0)">$(BUILT_TARGET_FILES_PACKAGE)</span></strong></p>
+<p>目标OTATOOLS指明了执行makeotapackage命令所需要的系统工具，而目标$(BUILT_TARGE_FILES_PACKAGE)的生成则完成了两件事：重新打包system.img文件和生成差分资源包。$(BUILT_TARGE_FILES_PACKAGE)的编译规则如下所示：</p>
+<p align="left"><span style="color:#5C5C5C">1.&nbsp;</span>#&nbsp;-----------------------------------------------------------------&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">2.&nbsp;</span>#&nbsp;A&nbsp;zip&nbsp;of&nbsp;the&nbsp;directories&nbsp;that&nbsp;map&nbsp;to&nbsp;the&nbsp;target&nbsp;filesystem.&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">3.&nbsp;</span>#&nbsp;This&nbsp;zip&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;create&nbsp;an&nbsp;OTA&nbsp;package&nbsp;or&nbsp;filesystem&nbsp;image&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">4.&nbsp;</span>#&nbsp;as&nbsp;a&nbsp;post-build&nbsp;step.&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">5.&nbsp;</span>#&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">6.&nbsp;</span>name&nbsp;:=&nbsp;$(TARGET_PRODUCT)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">7.&nbsp;</span>ifeq&nbsp;($(TARGET_BUILD_TYPE),debug)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">8.&nbsp;</span>&nbsp;&nbsp;name&nbsp;:=&nbsp;$(name)_debug&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">9.&nbsp;</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">10.</span>name&nbsp;:=&nbsp;$(name)-target_files-$(FILE_NAME_TAG)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">11.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">12.</span>intermediates&nbsp;:=&nbsp;$(call&nbsp;intermediates-dir-for,PACKAGING,target_files)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">13.</span>BUILT_TARGET_FILES_PACKAGE&nbsp;:=&nbsp;$(intermediates)/$(name).zip&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">14.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;intermediates&nbsp;:=&nbsp;$(intermediates)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">15.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">16.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zip_root&nbsp;:=&nbsp;$(intermediates)/$(name)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">17.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">18.</span>#&nbsp;$(1):&nbsp;Directory&nbsp;to&nbsp;copy&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">19.</span>#&nbsp;$(2):&nbsp;Location&nbsp;to&nbsp;copy&nbsp;it&nbsp;to&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">20.</span>#&nbsp;The&nbsp;"ls&nbsp;-A"&nbsp;is&nbsp;to&nbsp;prevent&nbsp;"acp&nbsp;s/*&nbsp;d"&nbsp;from&nbsp;failing&nbsp;if&nbsp;s&nbsp;is&nbsp;empty.&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">21.</span>define&nbsp;package_files-copy-root&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">22.</span>&nbsp;&nbsp;if&nbsp;[&nbsp;-d&nbsp;"$(strip&nbsp;$(1))"&nbsp;-a&nbsp;"$$(ls&nbsp;-A&nbsp;$(1))"&nbsp;];&nbsp;then&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">23.</span>&nbsp;&nbsp;&nbsp;&nbsp;mkdir&nbsp;-p&nbsp;$(2)&nbsp;&amp;&amp;&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">24.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(ACP)&nbsp;-rd&nbsp;$(strip&nbsp;$(1))/*&nbsp;$(2);&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">25.</span>&nbsp;&nbsp;fi&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">26.</span>endef&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">27.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">28.</span>built_ota_tools&nbsp;:=&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">29.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,applypatch)/applypatch&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">30.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,applypatch_static)/applypatch_static&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">31.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,check_prereq)/check_prereq&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">32.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,sqlite3)/sqlite3&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">33.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,updater)/updater&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">34.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;PRIVATE_OTA_TOOLS&nbsp;:=&nbsp;$(built_ota_tools)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">35.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">36.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;PRIVATE_RECOVERY_API_VERSION&nbsp;:=&nbsp;$(RECOVERY_API_VERSION)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">37.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">38.</span>ifeq&nbsp;($(TARGET_RELEASETOOLS_EXTENSIONS),)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">39.</span>#&nbsp;default&nbsp;to&nbsp;common&nbsp;dir&nbsp;for&nbsp;device&nbsp;vendor&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">40.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;tool_extensions&nbsp;:=&nbsp;$(TARGET_DEVICE_DIR)/../common&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">41.</span>else&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">42.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;tool_extensions&nbsp;:=&nbsp;$(TARGET_RELEASETOOLS_EXTENSIONS)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">43.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">44.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">45.</span>#&nbsp;Depending&nbsp;on&nbsp;the&nbsp;various&nbsp;images&nbsp;guarantees&nbsp;that&nbsp;the&nbsp;underlying&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">46.</span>#&nbsp;directories&nbsp;are&nbsp;up-to-date.&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">47.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">48.</span>ifeq&nbsp;($(TARGET_USERIMAGES_USE_EXT4),true)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">49.</span>$(BUILT_TARGET_FILES_PACKAGE):&nbsp;$(INSTALLED_CACHEIMAGE_TARGET)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">50.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">51.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:red">52.</span><span style="color:red">$(BUILT_TARGET_FILES_PACKAGE):&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">53.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_BOOTIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">54.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_RADIOIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">55.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_RECOVERYIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">56.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_FACTORYIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">57.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_SYSTEMIMAGE)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">58.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_CACHEIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">59.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_USERDATAIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">60.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_SECROIMAGE_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">61.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_ANDROID_INFO_TXT_TARGET)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">62.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(built_ota_tools)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">63.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(APKCERTS_FILE)&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">64.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(HOST_OUT_EXECUTABLES)/fs_config&nbsp;\&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:red">65.</span><span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;$(ACP)&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:#5C5C5C; background:yellow">66. </span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background:yellow">@echo&nbsp;"Package&nbsp;target&nbsp;files:&nbsp;$@"&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:#5C5C5C">67.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;rm&nbsp;-rf&nbsp;$@&nbsp;$(zip_root)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">68.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(dir&nbsp;$@)&nbsp;$(zip_root)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C; background:yellow">69. </span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background:yellow">@#&nbsp;Components&nbsp;of&nbsp;the&nbsp;recovery&nbsp;image&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:#5C5C5C">70.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/RECOVERY&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">71.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(call&nbsp;package_files-copy-root,&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">72.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(TARGET_RECOVERY_ROOT_OUT),$(zip_root)/RECOVERY/RAMDISK)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">73.</span>ifdef&nbsp;INSTALLED_KERNEL_TARGET&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">74.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(INSTALLED_KERNEL_TARGET)&nbsp;$(zip_root)/RECOVERY/kernel&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">75.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(recovery_ramdisk)&nbsp;$(zip_root)/RECOVERY/ramdisk&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">76.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">77.</span>ifdef&nbsp;INSTALLED_2NDBOOTLOADER_TARGET&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">78.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">79.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_2NDBOOTLOADER_TARGET)&nbsp;$(zip_root)/RECOVERY/second&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">80.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">81.</span>ifdef&nbsp;BOARD_KERNEL_CMDLINE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">82.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_CMDLINE)"&nbsp;&gt;&nbsp;$(zip_root)/RECOVERY/cmdline&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">83.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">84.</span>ifdef&nbsp;BOARD_KERNEL_BASE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">85.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_BASE)"&nbsp;&gt;&nbsp;$(zip_root)/RECOVERY/base&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">86.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C; background:yellow">87. </span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background:yellow">@#&nbsp;Components&nbsp;of&nbsp;the&nbsp;factory&nbsp;image&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:#5C5C5C">88.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/FACTORY&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">89.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(call&nbsp;package_files-copy-root,&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">90.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(TARGET_FACTORY_ROOT_OUT),$(zip_root)/FACTORY/RAMDISK)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">91.</span>ifdef&nbsp;INSTALLED_KERNEL_TARGET&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">92.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(INSTALLED_KERNEL_TARGET)&nbsp;$(zip_root)/FACTORY/kernel&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">93.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">94.</span>ifdef&nbsp;BOARD_KERNEL_PAGESIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">95.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_PAGESIZE)"&nbsp;&gt;&nbsp;$(zip_root)/RECOVERY/pagesize&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">96.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">97.</span>ifdef&nbsp;INSTALLED_2NDBOOTLOADER_TARGET&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">98.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">99.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_2NDBOOTLOADER_TARGET)&nbsp;$(zip_root)/FACTORY/second&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">100.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">101.</span>ifdef&nbsp;BOARD_KERNEL_CMDLINE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">102.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_CMDLINE)"&nbsp;&gt;&nbsp;$(zip_root)/FACTORY/cmdline&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">103.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">104.</span>ifdef&nbsp;BOARD_KERNEL_BASE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">105.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_BASE)"&nbsp;&gt;&nbsp;$(zip_root)/FACTORY/base&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">106.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">107.</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background:yellow">@#&nbsp;Components&nbsp;of&nbsp;the&nbsp;boot&nbsp;image</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">108.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/BOOT&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">109.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(call&nbsp;package_files-copy-root,&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">110.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(TARGET_ROOT_OUT),$(zip_root)/BOOT/RAMDISK)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">111.</span>ifdef&nbsp;INSTALLED_KERNEL_TARGET&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">112.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(INSTALLED_KERNEL_TARGET)&nbsp;$(zip_root)/BOOT/kernel&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">113.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(INSTALLED_RAMDISK_TARGET)&nbsp;$(zip_root)/BOOT/ramdisk&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">114.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">115.</span>ifdef&nbsp;INSTALLED_2NDBOOTLOADER_TARGET&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">116.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">117.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(INSTALLED_2NDBOOTLOADER_TARGET)&nbsp;$(zip_root)/BOOT/second&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">118.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">119.</span>ifdef&nbsp;BOARD_KERNEL_CMDLINE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">120.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_CMDLINE)"&nbsp;&gt;&nbsp;$(zip_root)/BOOT/cmdline&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">121.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">122.</span>ifdef&nbsp;BOARD_KERNEL_BASE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">123.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_BASE)"&nbsp;&gt;&nbsp;$(zip_root)/BOOT/base&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">124.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">125.</span>ifdef&nbsp;BOARD_KERNEL_PAGESIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">126.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(BOARD_KERNEL_PAGESIZE)"&nbsp;&gt;&nbsp;$(zip_root)/BOOT/pagesize&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">127.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">128.</span>#wschen&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">129.</span>ifneq&nbsp;""&nbsp;"$(CUSTOM_BUILD_VERNO)"&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">130.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(CUSTOM_BUILD_VERNO)"&nbsp;&gt;&nbsp;$(zip_root)/BOOT/board&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">131.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">132.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">133.</span>#[eton&nbsp;begin]:&nbsp;added&nbsp;by&nbsp;LiuDekuan&nbsp;for&nbsp;u-boot&nbsp;update&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">134.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(PRODUCT_OUT)/uboot_eyang77_ics2.bin&nbsp;$(zip_root)/uboot.bin&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">135.</span>#[eton&nbsp;end]&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">136.</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">137.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(foreach&nbsp;t,$(INSTALLED_RADIOIMAGE_TARGET),\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">138.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/RADIO;&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">139.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(ACP)&nbsp;$(t)&nbsp;$(zip_root)/RADIO/$(notdir&nbsp;$(t));)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">140.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;Contents&nbsp;of&nbsp;the&nbsp;system&nbsp;image&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">141.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(call&nbsp;package_files-copy-root,&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">142.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(SYSTEMIMAGE_SOURCE_DIR),$(zip_root)/SYSTEM)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">143.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;Contents&nbsp;of&nbsp;the&nbsp;data&nbsp;image&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">144.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(call&nbsp;package_files-copy-root,&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">145.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(TARGET_OUT_DATA),$(zip_root)/DATA)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">146.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;Extra&nbsp;contents&nbsp;of&nbsp;the&nbsp;OTA&nbsp;package&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">147.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/OTA/bin&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">148.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(INSTALLED_ANDROID_INFO_TXT_TARGET)&nbsp;$(zip_root)/OTA/&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">149.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(PRIVATE_OTA_TOOLS)&nbsp;$(zip_root)/OTA/bin/&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">150.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;Security&nbsp;information&nbsp;of&nbsp;the&nbsp;OTA&nbsp;package&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">151.</span>&nbsp;&nbsp;&nbsp;&nbsp;@echo&nbsp;"[SEC&nbsp;OTA]&nbsp;Adding&nbsp;Security&nbsp;information&nbsp;to&nbsp;OTA&nbsp;package"&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">152.</span>&nbsp;&nbsp;&nbsp;&nbsp;@echo&nbsp;"[SEC&nbsp;OTA]&nbsp;path&nbsp;:&nbsp;mediatek/custom/$(MTK_PROJECT)/security/recovery/SEC_VER.txt"&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">153.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;mediatek/custom/$(MTK_PROJECT)/security/recovery/SEC_VER.txt&nbsp;$(zip_root)/OTA/&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">154.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;Files&nbsp;that&nbsp;do&nbsp;not&nbsp;end&nbsp;up&nbsp;in&nbsp;any&nbsp;images,&nbsp;but&nbsp;are&nbsp;necessary&nbsp;to&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">155.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;build&nbsp;them.&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">156.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/META&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">157.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(APKCERTS_FILE)&nbsp;$(zip_root)/META/apkcerts.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">158.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"$(PRODUCT_OTA_PUBLIC_KEYS)"&nbsp;&gt;&nbsp;$(zip_root)/META/otakeys.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">159.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"recovery_api_version=$(PRIVATE_RECOVERY_API_VERSION)"&nbsp;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">160.</span>ifdef&nbsp;BOARD_FLASH_BLOCK_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">161.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"blocksize=$(BOARD_FLASH_BLOCK_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">162.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">163.</span>ifdef&nbsp;BOARD_BOOTIMAGE_PARTITION_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">164.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"boot_size=$(BOARD_BOOTIMAGE_PARTITION_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">165.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">166.</span>ifdef&nbsp;BOARD_RECOVERYIMAGE_PARTITION_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">167.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"recovery_size=$(BOARD_RECOVERYIMAGE_PARTITION_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">168.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">169.</span>ifdef&nbsp;BOARD_SYSTEMIMAGE_PARTITION_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">170.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"system_size=$(BOARD_SYSTEMIMAGE_PARTITION_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">171.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">172.</span>ifdef&nbsp;BOARD_SECROIMAGE_PARTITION_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">173.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"secro_size=$(BOARD_SECROIMAGE_PARTITION_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">174.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">175.</span>ifdef&nbsp;BOARD_CACHEIMAGE_PARTITION_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">176.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"cache_size=$(BOARD_CACHEIMAGE_PARTITION_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">177.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">178.</span>ifdef&nbsp;BOARD_USERDATAIMAGE_PARTITION_SIZE&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">179.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"userdata_size=$(BOARD_USERDATAIMAGE_PARTITION_SIZE)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">180.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">181.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"tool_extensions=$(tool_extensions)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">182.</span>ifdef&nbsp;mkyaffs2_extra_flags&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">183.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"mkyaffs2_extra_flags=$(mkyaffs2_extra_flags)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">184.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">185.</span>ifdef&nbsp;INTERNAL_USERIMAGES_SPARSE_EXT_FLAG&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">186.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"extfs_sparse_flag=$(INTERNAL_USERIMAGES_SPARSE_EXT_FLAG)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">187.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">188.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"default_system_dev_certificate=$(DEFAULT_KEY_CERT_PAIR)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">189.</span>ifdef&nbsp;PRODUCT_EXTRA_RECOVERY_KEYS&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">190.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;echo&nbsp;"extra_recovery_keys=$(PRODUCT_EXTRA_RECOVERY_KEYS)"&nbsp;&gt;&gt;&nbsp;$(zip_root)/META/misc_info.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">191.</span>endif&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C; background:yellow">192. </span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background:yellow">@#&nbsp;Zip&nbsp;everything&nbsp;up,&nbsp;preserving&nbsp;symlinks&nbsp;&nbsp;</span></p>
+<p align="left"><span style="color:#5C5C5C">193.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;(cd&nbsp;$(zip_root)&nbsp;&amp;&amp;&nbsp;zip&nbsp;-qry&nbsp;../$(notdir&nbsp;$@)&nbsp;.)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">194.</span>&nbsp;&nbsp;&nbsp;&nbsp;@#&nbsp;Run&nbsp;fs_config&nbsp;on&nbsp;all&nbsp;the&nbsp;system,&nbsp;boot&nbsp;ramdisk,&nbsp;and&nbsp;recovery&nbsp;ramdisk&nbsp;files&nbsp;in&nbsp;the&nbsp;zip,&nbsp;and&nbsp;save&nbsp;the&nbsp;output&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">195.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;zipinfo&nbsp;-1&nbsp;$@&nbsp;|&nbsp;awk&nbsp;'BEGIN&nbsp;{&nbsp;FS="SYSTEM/"&nbsp;}&nbsp;/^SYSTEM\//&nbsp;{print&nbsp;"system/"&nbsp;$$2}'&nbsp;|&nbsp;$(HOST_OUT_EXECUTABLES)/fs_config&nbsp;&gt;&nbsp;$(zip_root)/META/filesystem_config.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">196.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;zipinfo&nbsp;-1&nbsp;$@&nbsp;|&nbsp;awk&nbsp;'BEGIN&nbsp;{&nbsp;FS="BOOT/RAMDISK/"&nbsp;}&nbsp;/^BOOT\/RAMDISK\//&nbsp;{print&nbsp;$$2}'&nbsp;|&nbsp;$(HOST_OUT_EXECUTABLES)/fs_config&nbsp;&gt;&nbsp;$(zip_root)/META/boot_filesystem_config.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">197.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;zipinfo&nbsp;-1&nbsp;$@&nbsp;|&nbsp;awk&nbsp;'BEGIN&nbsp;{&nbsp;FS="RECOVERY/RAMDISK/"&nbsp;}&nbsp;/^RECOVERY\/RAMDISK\//&nbsp;{print&nbsp;$$2}'&nbsp;|&nbsp;$(HOST_OUT_EXECUTABLES)/fs_config&nbsp;&gt;&nbsp;$(zip_root)/META/recovery_filesystem_config.txt&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">198.</span>&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;(cd&nbsp;$(zip_root)&nbsp;&amp;&amp;&nbsp;zip&nbsp;-q&nbsp;../$(notdir&nbsp;$@)&nbsp;META/*filesystem_config.txt)&nbsp;&nbsp;</p>
+
+<p align="left"><span style="color:#5C5C5C">199.</span>target-files-package:&nbsp;$(BUILT_TARGET_FILES_PACKAGE)&nbsp;&nbsp;</p>
+
+<p align="left"><span style="color:#5C5C5C">200.</span>ifneq&nbsp;($(TARGET_PRODUCT),sdk)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">201.</span>ifeq&nbsp;($(filter&nbsp;generic%,$(TARGET_DEVICE)),)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">202.</span>ifneq&nbsp;($(TARGET_NO_KERNEL),true)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">203.</span>ifneq&nbsp;($(recovery_fstab),)&nbsp;&nbsp;</p>
+<p>system.img文件的重新打包是通过$(BUILT_TARGE_FILES_PACKAGE)的依赖条件$(INSTALLED_SYSTEMIMAGE)目标文件的编译来完成的，而$(BUILT_TARGE_FILES_PACKAGE)所有的执行命令(代码第66行至最后)都只为完成一件事，<span style="background:yellow">生成差分资源包所对应的目录并将其打包为</span><span style="background:yellow">ZIP</span><span style="background:yellow">包</span>。具体的操作包括：</p>
+<p align="left">·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建$(zip_root)目录(代码第66~68行)，$(zip_root)即out/target/product/&lt;product-name&gt;/obj/PACKAGING/target_files_from_intermedias/&lt;product-name&gt;-target_files-&lt;version-name&gt;；</p>
+<p align="left">·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建/$(zip_root)/RECOVERY目录并将COPY相关文件(代码69~86)；</p>
+<p align="left">·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建/$(zip_root)/FACTORY目录并将COPY相关文件(代码87~106)；</p>
+<p align="left">·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建/$(zip_root)/BOOT目录并将COPY相关文件(代码107~131)；</p>
+<p align="left">·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建其他目录并COPY文件(代码132~191)；</p>
+<p align="left">·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将$(zip_root)目录压缩为资源差分包(代码192~198)等。</p>
+<p>经过目标文件$(BUILT_TARGE_FILES_PACKAGE)的执行后，system.img已经被重新打包，且差分资源包也已经生成，剩下的工作就是将差分资源包（即target-files zipfile，下文将统一使用“差分资源包”这一概念）传递给ota_ from _target _files代码，由它来生成OTA整包。</p>
+<p>总之，前述代码的作用就在于<span style="color:red">将系统资源（包括</span><span style="color:red">system</span><span style="color:red">、</span><span style="color:red">recovery</span><span style="color:red">、</span><span style="color:red">boot</span><span style="color:red">等目录）重新打包，生成差分资源包</span>。我们可以看下差分资源包中的文件结构，如下：</p>
+
+<p align="center">图2 target-fileszipfile目录结构</p>
+<p>其中，OTA目录值得关注，因为在此目录下存在着一个至关重要的文件：OTA/bin/updater（后文会有详述）。生成的差分资源包被传递给./build/tools/releasetools/</p>
+<p>ota_from_target_files执行第二阶段的操作：制作升级包。</p>
+
+<p align="center">图3./build/tools/releasetools目录下的文件</p>
+<p>图3是./build/tools/releasetools目录下所包含的文件，这组文件是Google提供的用来制作升级包的代码工具，核心文件为：ota_from_target_files和img_from_target_files。其中，前者用来制作recovery模式下的升级包；后者则用来制作fastboot下的升级包（fastboot貌似是一种更底层的刷机操作，不太懂）。其他文件则是为此二者提供服务的，<span style="color:red">比如，</span><span style="color:red">common.py</span><span style="color:red">中包含有制作升级包所需操作的代码</span><span style="color:red">,</span><span style="color:red">各种工具类</span><span style="color:red">,</span><span style="color:red">参数处理</span><span style="color:red">/META</span><span style="color:red">文件处理</span><span style="color:red">/image</span><span style="color:red">生成</span><span style="color:red">/signcertification/patch
+ file </span><span style="color:red">操作等等</span><span style="background:yellow">；</span><span style="background:yellow">edify_generator.py</span><span style="background:yellow">则用于生成</span><span style="background:yellow">recovery</span><span style="background:yellow">模式下升级的脚本文件</span>：&lt;升级包&gt;.zip/META-INF/com/google/android/updater-script。</p>
+<p>文件ota_from_target_files是本文所关注的重点，其中定义了两个主要的方法：WriteFullOTAPackage和WriteIncrementalOTAPackage。前者用于生成整包，后者用来生成差分包。接着上文，当Makefile调用ota_from_target_files，并将差分资源包传递进来时，会执行WriteFullOTAPackage。此方法完成的工作包括：（1）将system目录，boot.img等文件添加到整包中；（2）生成升级包中的脚本文件：&lt;升级包&gt;.zip/META-INF/com/google/android/updater-script；（3）将上文提到的可执行文件：OTA/bin/updater添加到升级包中：META-INF/com/google/android/updater-binary。摘取部分代码片段如下：</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">1.&nbsp;&nbsp;&nbsp;</span>script.FormatPartition(<span style="color:blue">"/system"</span>)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">2.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;script.&nbsp;FormatPartition&nbsp;(<span style="color:blue">"/system"</span>)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">3.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;script.UnpackPackageDir(<span style="color:blue">"recovery"</span>,&nbsp;<span style="color:blue">"/system"</span>)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">4.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;script.UnpackPackageDir(<span style="color:blue">"system"</span>,&nbsp;<span style="color:blue">"/system"</span>)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">5.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;(symlinks,&nbsp;retouch_files)&nbsp;=&nbsp;CopySystemFiles(input_zip,&nbsp;output_zip)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">6.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;script.MakeSymlinks(symlinks)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">7.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;<strong><span style="color:#006699">if</span></strong>&nbsp;OPTIONS.aslr_mode:&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">8.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;script.RetouchBinaries(retouch_files)&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">9.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;<strong><span style="color:#006699">else</span></strong>:&nbsp;&nbsp;</p>
+<p align="left" style="background:rgb(255,255,236)"><span style="color:#5C5C5C">10.&nbsp;
+</span>&nbsp;&nbsp;&nbsp;&nbsp;script.UndoRetouchBinaries(retouch_files)&nbsp;&nbsp;</p>
+<p align="center">代码2&nbsp;WriteFullOTAPackage代码片段</p>
+<p>其中的script为edify_generator对象，其FormatPartition、UnpackPackageDir等方法分别是向脚本文件update-script中写入格式化分区、解压包等指令</p>
+<p align="left"><span style="color:#5C5C5C">1.&nbsp;&nbsp;</span><strong><span style="color:#006699">def</span></strong>&nbsp;AddToZip(self,&nbsp;input_zip,&nbsp;output_zip,&nbsp;input_path=None):&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">2.&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008200">"""Write&nbsp;the&nbsp;accumulated&nbsp;script&nbsp;to&nbsp;the&nbsp;output_zip&nbsp;file.&nbsp;&nbsp;input_zip</span>&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">3.&nbsp;&nbsp;</span><span style="color:#008200">&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;used&nbsp;as&nbsp;the&nbsp;source&nbsp;for&nbsp;the&nbsp;'updater'&nbsp;binary&nbsp;needed&nbsp;to&nbsp;run</span>&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">4.&nbsp;&nbsp;</span><span style="color:#008200">&nbsp;&nbsp;&nbsp;&nbsp;script.&nbsp;&nbsp;If&nbsp;input_path&nbsp;is&nbsp;not&nbsp;None,&nbsp;it&nbsp;will&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;local</span>&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">5.&nbsp;&nbsp;</span><span style="color:#008200">&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;for&nbsp;the&nbsp;binary&nbsp;instead&nbsp;of&nbsp;input_zip."""</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">6.&nbsp;&nbsp;</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">7.&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;self.UnmountAll()&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">8.&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;common.ZipWriteStr(output_zip,&nbsp;<span style="color:blue">"META-INF/com/google/android/updater-script"</span>,&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">9.&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">"\n"</span>.join(self.script)&nbsp;+&nbsp;<span style="color:blue">"\n"</span>)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">10.&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color:#006699">if</span></strong>&nbsp;input_path&nbsp;<strong><span style="color:#006699">is</span></strong>&nbsp;None:&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">11.&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;=&nbsp;input_zip.read(<span style="color:blue">"OTA/bin/updater"</span>)&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">12.&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color:#006699">else</span></strong>:&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">13.&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;=&nbsp;open(os.path.join(input_path,&nbsp;<span style="color:blue">"updater"</span>)).read()&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">14.&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;common.ZipWriteStr(output_zip,&nbsp;<span style="color:blue">"META-INF/com/google/android/update-binary"</span>,&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">15.&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data,&nbsp;perms=0755)&nbsp;&nbsp;</p>
+<p align="center">代码段3&nbsp;edify_generator中的AddToZip方法</p>
+<p>WriteFullOTAPackage执行的最后会调用此方法。将资源差分包中OTA/bin/updater文件copy到升级包中META-INF/com/google/android/update-binary。此文件是OTA升级的关键，<span style="color:red">其将在</span><span style="color:red">recovery</span><span style="color:red">模式下被执行，用来将代码段</span><span style="color:red">2</span><span style="color:red">中生成的指令转换为相应的函数去执行</span>，从而完成对系统数据的重写。</p>
+<h3>2.3.2&nbsp; 差分包的制作</h3>
+<p>生成差分包调用的是文件./build/tools/releasetools/ota_from_target_files中的WriteIncrementalOTA方法，调用时需要将<span style="background:yellow">两个版本的差分资源包</span>作为参数传进来，形如：./build/tools/releasetools/ota_from_target_files–n –i ota_v1.zip ota_v2.zip update.zip</p>
+<p>其中，参数n表示忽略时间戳；i表示生成增量包（即差分包）；ota_v1.zip与ota_v2.zip分别代表前后两个版本的差分资源包；而update.zip则表示最终生成的差分包。<span style="color:red">WriteIncrementalOTA</span><span style="color:red">函数会计算输入的两个差分资源包中版本的差异，并将其写入到差分包中；同时，将</span><span style="color:red">updater</span><span style="color:red">及生成脚本文件</span><span style="color:red">udpate-script</span><span style="color:red">添加到升级包中。</span></p>
+<p>制作完升级包后，之后便是将其写入到相应存储区中，这部分工作是在recovery模式下完成的。在这先简单描述一下这个过程。recovery模式下通过创建一个新的进程读取并执行脚本文件META-INF/com/google/android/updater-script。见如下代码：</p>
+<p align="left"><span style="color:#5C5C5C">1.&nbsp;&nbsp;&nbsp;</span><strong><span style="color:#006699">const</span>&nbsp;<span style="color:seagreen">char</span></strong>**&nbsp;args&nbsp;=&nbsp;(<strong><span style="color:#006699">const</span>&nbsp;<span style="color:seagreen">char</span></strong>**)malloc(<strong><span style="color:#006699">sizeof</span></strong>(<strong><span style="color:seagreen">char</span></strong>*)&nbsp;*&nbsp;5);&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">2.&nbsp;&nbsp;&nbsp;</span>args[0]&nbsp;=&nbsp;binary;&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">3.&nbsp;&nbsp;&nbsp;</span>args[1]&nbsp;=&nbsp;EXPAND(RECOVERY_API_VERSION);&nbsp;&nbsp;&nbsp;<span style="color:#008200">//&nbsp;defined&nbsp;in&nbsp;Android.mk</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">4.&nbsp;&nbsp;&nbsp;</span><strong><span style="color:seagreen">char</span></strong>*&nbsp;temp&nbsp;=&nbsp;(<strong><span style="color:seagreen">char</span></strong>*)malloc(10);&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">5.&nbsp;&nbsp;&nbsp;</span>sprintf(temp,&nbsp;<span style="color:blue">"%d"</span>,&nbsp;pipefd[1]);&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">6.&nbsp;&nbsp;&nbsp;</span>args[2]&nbsp;=&nbsp;temp;&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">7.&nbsp;&nbsp;&nbsp;</span>args[3]&nbsp;=&nbsp;(<strong><span style="color:seagreen">char</span></strong>*)path;&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">8.&nbsp;&nbsp;&nbsp;</span>args[4]&nbsp;=&nbsp;NULL;&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">9.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">10.&nbsp; </span>pid_t&nbsp;pid&nbsp;=&nbsp;fork();&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">11.&nbsp; </span><strong><span style="color:#006699">if</span></strong>&nbsp;(pid&nbsp;==&nbsp;0)&nbsp;{&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">12.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;close(pipefd[0]);&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">13.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;execv(binary,&nbsp;(<strong><span style="color:seagreen">char</span></strong>*&nbsp;<strong><span style="color:#006699">const</span></strong>*)args);&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">14.&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;_exit(-1);&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">15.&nbsp; </span>}&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">16.&nbsp; </span>close(pipefd[1]);&nbsp;&nbsp;</p>
+<p align="center">代码段4创建新进程安装升级包</p>
+<p>分析代码之前，首先介绍linux中函数fork与execv的用法。</p>
+<p><em>pid_t fork</em>(&nbsp;<strong>void)</strong>用于创建新的进程，fork调用的一个奇妙之处就是它仅仅被调用一次，却能够返回两次，它可能有三种不同的返回值：</p>
+<p>1)在父进程中，fork返回新创建子进程的进程ID;</p>
+<p>2)在子进程中，fork返回0;</p>
+<p>3)如果出现错误，fork返回一个负值;</p>
+<p>在fork函数执行完毕后，如果创建新进程成功，则出现两个进程，一个是子进程，一个是父进程。在子进程中，fork函数返回0，在父进程中，fork返回新创建子进程的进程ID。我们可以通过fork返回的值来判断当前进程是子进程还是父进程。</p>
+<p>int execv(const char *progname, char *constargv[])</p>
+<p>execv会停止执行当前的进程，并且以progname应用进程替换被停止执行的进程，进程ID没有改变。progname:被执行的应用程序。argv: 传递给应用程序的参数列表， 注意，这个数组的第一个参数应该是应用程序名字本身，并且最后一个参数应该为NULL，不参将多个参数合并为一个参数放入数组。</p>
+<p><span style="color:red">&nbsp;</span><span style="color:red">代码</span><span style="color:red">4</span><span style="color:red">见于</span><span style="color:red">bootable/recovery/install.c</span><span style="color:red">的</span><span style="color:red">try_update_binary</span><span style="color:red">函数中，</span>是OTA升级的核心代码之一。通过对fork及execv函数的介绍可知，代码4<span style="color:red">创建了一个新的进程并在新进程中运行升级包中的</span><span style="color:red">META-INF/com/google/android/updater-binary</span><span style="color:red">文件</span>（参数binary已在此前赋值），此文件将按照META-INF/com/google/android/updater-script中的指令将升级包里的数据写入到存储区中。OK，我们来看下META-INF/com/google/android/updater-binary文件的来历。</p>
+<p>在源代码的./bootable/recovery/updater目录下，存在着如下几个文件：</p>
+
+<p>通过查看Android.mk代码可知，文件install.c、updater.c将会被编译为可执行文件updater存放到目录out/target/product/&lt;product-name&gt;/obj/EXECUTABLES/updater_intermediates/中；而在生成差分资源包（target-fileszipfile）时，会将此文件添加到压缩包中。</p>
+<p align="left"><span style="color:#5C5C5C">1.&nbsp;&nbsp;&nbsp;</span>built_ota_tools&nbsp;:=&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">2.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,applypatch)/applypatch&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">3.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,applypatch_static)/applypatch_static&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">4.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,check_prereq)/check_prereq&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="color:#5C5C5C">5.&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;$(call&nbsp;intermediates-dir-for,EXECUTABLES,sqlite3)/sqlite3&nbsp;\&nbsp;&nbsp;</p>
+<p align="left"><span style="background:yellow">6.&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background:yellow">$(call&nbsp;intermediates-dir-for,EXECUTABLES,updater)/updater&nbsp;&nbsp;</span></p>
+<p align="left">7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;mkdir&nbsp;-p&nbsp;$(zip_root)/OTA/bin&nbsp;&nbsp;</p>
+<p align="left">8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(INSTALLED_ANDROID_INFO_TXT_TARGET)&nbsp;$(zip_root)/OTA/&nbsp;&nbsp;</p>
+<p align="left">9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(hide)&nbsp;$(ACP)&nbsp;$(PRIVATE_OTA_TOOLS)&nbsp;$(zip_root)/OTA/bin/&nbsp;&nbsp;</p>
+<p align="center">代码段5 Makefile中定义的变量built_ota_tools</p>
+<p>如代码段5，Makefile中定义了执行OTA所需要的一组工具（built_ota_tools），其中便包括由图4中文件编译而成的文件updater；而在生成差分资源包时，会将这组工具拷贝到差分资源包的OTA/bin目录中（见代码段6）；在生成升级包时（无论是执行WriteFullOTAPackage还是WriteIncrementalOTAPackage），最后都会调用edify_generator的AddToZip方法，将updater添加到升级包中（更名为"META-INF/com/google/android/update-binary"）；最终在recovery模式下被执行，这便是其来龙去脉。而关于updater的执行，也大致的描述下吧。</p>
+<p>由前文可知，updater主要由bootable/recovery/updater目录下的install.c和updater.c编译而成，主函数位于updater.c。其中，在<span style="color:red">install.c</span><span style="color:red">中定义了读写系统存储区的操作函数（这才是重写系统数据的真正代码）</span>并将这些函数与updater-script中的指令映射起来。而在updater.c会首先装载install.c定义的函数，之后便解析升级脚本updater-script，执行其对应的操作命令。与此同<span style="background:yellow">时，执行</span><span style="background:yellow">updater</span><span style="background:yellow">的进程还会与父进程通信，通知父进程进行</span><span style="background:yellow">UI</span><span style="background:yellow">的相关操作（代码见</span><span style="background:yellow">bootable/recovery/install.c</span><span style="background:yellow">中的</span><span style="background:yellow">try_update_binary</span><span style="background:yellow">函数）。</span></p>
+<h1>3、OTA升级过程分析</h1>
+<h2>3.1 &nbsp;Recovery模式简介</h2>
+<p>所谓 Recovery 是智能手机的一种特殊工作模式，有点类似于 Windows 下的 DOS 工具箱，系统进入到这种模式下时，可以通过按键选择相应的操作菜单，从而实现相应的功能，比如 android 系统数据区的快速格式化（即恢复出厂设置）；通过 SD 卡进行OTA系统升级及固件（firmware）升级等。我们公司的手机一般进入 recovery 模式的方法是电源键加音量上键。后面会详细分析系统进入Recovery模式的过程以及在Recovery模式下进行OTA升级的过程。</p>
+
+<p>设置模块中进行恢复出厂设置，OTA升级，patch升级及firmware升级等操作，系统一共做了两件事：</p>
+<p>1. 往 /cache/recovery/command 文件中写入命令字段；&nbsp; </p>
+<p>2. 重启系统</p>
+<p>重启系统后必须进入Recovery模式，接下来分析进入Recovery模式的流程。</p>
+<h2>3.2&nbsp; Recovery模式解析</h2>
+<h3>3.2.1&nbsp; 如何进入Recovery模式</h3>
+<p>手机开机后，硬件系统上电，首先是完成一系列的初始化过程，如 CPU、串口、中断、timer、DDR 等硬件设备，然后接着加载 bootloader，为后面内核的加载作好准备。在一些系统启动必要的初始完成之后，系统会通过检测三个条件来判断要进入何种工作模式，流程如图。这一部分代码的源文件在\bootable\bootloader\lk\app\aboot\aboot.c 文件的aboot_init()函数中:</p>
+
+<p>从源代码中可以看出，开机时按住HOME键或音量上键（不同手机对此会有修改），会进入Recovery模式；按着返回键或音量下键会进入fastboot模式。如果没有组合键（代码中成为magic key）按下，则会检测SMEM中reboot_mode变量的值，代码如下：</p>
+
+<p>reboot_mode可取的值为RECOVERY_MODE和FASTBOOT_MODE的宏定义，分别为：</p>
+
+<p>reboot_mode的取值由check_reboot_mode()函数返回，接下来我们看该函数在\bootable\bootloader\lk\target\msm8660_surf\init.c中的定义：</p>
+
+<p>可以看到该函数先读取地址restart_reason_addr处的值，最后返回該值，restart_reason_addr地址定义为0x2A05F65C，从此处读完值后会向改地址写入0x00，即将其内容擦除，这样做是为了防止下次进入时又进入Recovery模式。</p>
+<p><span style="background:yellow">如果</span><span style="background:yellow">restart_reason_addr</span><span style="background:yellow">处没有值被读到，则会继续读取</span><span style="background:yellow">MISC</span><span style="background:yellow">分区的</span><span style="background:yellow">BCB</span><span style="background:yellow">段进行判断，调用的函数为</span><span style="backgr"></span></p></div> 
+                        <br><br>
+
+                        <div style="margin:10px 0; padding: 15px;border: 1px solid transparent;border-radius: 4px;color: #31708f;background-color: #d9edf7;border-color: #bce8f1;">
+                            生活的真谛在于创新，生活的理想在于远大，生活的艺术在于选择，生活的步履在于踏实，生活的乐趣在于追求，生活的安乐在于平淡。过于欣赏自己，就发现不了别人的优点；过于赞赏别人的优点，就会看不见自己的长处。
+                        </div>
+                    </div>
+                </div>
+            </div><!--/main_content-->
+            <div id="side_right" class="span3">
+                <div class="blog-twitter">
+                    <div class="headline"><h3>热门文章</h3></div>
+                    <ul>
+                        
+                            
+                                <li><p><a href="http://www.codexiu.cn/android/blog/5634/">1.&nbsp;&nbsp;android Activity的启动模式</a>
+                                </p></li>
+                            
+                                <li><p><a href="http://www.codexiu.cn/android/blog/5635/">2.&nbsp;&nbsp;Java通过JsApi方式实现微信支付</a>
+                                </p></li>
+                            
+                                <li><p><a href="http://www.codexiu.cn/android/blog/5636/">3.&nbsp;&nbsp;Java通过JsApi方式实现微信支付</a>
+                                </p></li>
+                            
+                                <li><p><a href="http://www.codexiu.cn/jquery/blog/5637/">4.&nbsp;&nbsp;Bootstrap V4自学之路------组件---提示</a>
+                                </p></li>
+                            
+                                <li><p><a href="http://www.codexiu.cn/jquery/blog/5643/">5.&nbsp;&nbsp;Bootstrap V4组件---表单</a>
+                                </p></li>
+                            
+                                <li><p><a href="http://www.codexiu.cn/android/blog/5631/">6.&nbsp;&nbsp;android自定义View相关总结</a>
+                                </p></li>
+                            
+                                <li><p><a href="http://www.codexiu.cn/ios/blog/5632/">7.&nbsp;&nbsp;ios app数据的存储总结</a>
+                                </p></li>
+                            
+                        
+                    </ul>
+                </div>
+                <!--文章类型分割线-->
+                <div class="blog-twitter">
+                    <div class="headline"><h3>最新文章</h3></div>
+                    <ul>
+                        
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/%E8%BF%85%E9%9B%B7%E4%BC%9A%E5%91%98/vip/xunlei/26200/">1.&nbsp;&nbsp;最新迅雷会员账号:2016年07月11日  06点00分 发布</a>
+                                </p></li>
+
+                                
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/android/blog/26230/">2.&nbsp;&nbsp;管理App的内存</a>
+                                </p></li>
+                                
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/oracle/blog/26229/">3.&nbsp;&nbsp;OCM成长之旅</a>
+                                </p></li>
+                                
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/ios/blog/26228/">4.&nbsp;&nbsp;iOS-悬浮按钮</a>
+                                </p></li>
+                                
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/android/blog/26227/">5.&nbsp;&nbsp;Android界面编程——日期时间组件（五）</a>
+                                </p></li>
+                                
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/android/blog/26226/">6.&nbsp;&nbsp;Android ActivityManagerService（AMS）的Activity管理</a>
+                                </p></li>
+                                
+                            
+                                
+
+                                <li><p><a href="http://www.codexiu.cn/ios/blog/26225/">7.&nbsp;&nbsp;IOS 开发大牛首选之路</a>
+                                </p></li>
+                                
+                            
+                        
+                    </ul>
+                </div>
+            </div><!--side_right-->
+        </div><!--/main_middle-->
+    </div>
+    <!--/main-->
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="footer" class="copyright">
+	<div class="container">
+		<div class="row-fluid">
+
+			<div class="span8">						
+	            <p>严禁网站镜像，否则追究法律责任 Copyright © 2015.<a href="http://www.codexiu.cn/">码嗅 codeXiu.cn</a> , All Rights Reserved.  &nbsp;&nbsp;<a href="http://www.miitbeian.gov.cn/">鲁ICP备15043163号</a>
+			<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257022758'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257022758%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1257022758"><a href="http://www.cnzz.com/stat/website.php?web_id=1257022758" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./OTA制作及升级过程笔记-codexiu.cn_files/pic.gif"></a></span><script src="./OTA制作及升级过程笔记-codexiu.cn_files/z_stat.php" type="text/javascript"></script><script src="./OTA制作及升级过程笔记-codexiu.cn_files/core.php" charset="utf-8" type="text/javascript"></script>
+                </p>
+            </div>
+			<div class="span4">	
+                <a href="http://www.codexiu.cn/"><img id="logo-footer" src="./OTA制作及升级过程笔记-codexiu.cn_files/logo2-default.png" class="pull-right" alt=""></a>
+			</div>
+		</div><!--/row-fluid-->
+	</div><!--/container-->	
+</div><!--/footer-->
+</div>
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="./OTA制作及升级过程笔记-codexiu.cn_files/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="./OTA制作及升级过程笔记-codexiu.cn_files/modernizr.custom.js"></script>
+<script type="text/javascript" src="./OTA制作及升级过程笔记-codexiu.cn_files/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="./OTA制作及升级过程笔记-codexiu.cn_files/back-to-top.js"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" src="./OTA制作及升级过程笔记-codexiu.cn_files/app.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        App.init();
+    });
+</script>
+<!--[if lt IE 9]>
+    <script src="assets/js/respond.js"></script>
+<![endif]-->
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<div id="topcontrol" title="Scroll Back to Top" style="position: fixed; bottom: 5px; right: 5px; opacity: 1; cursor: pointer;"><img src="./OTA制作及升级过程笔记-codexiu.cn_files/up.png" style="width:51px; height:42px"></div><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>
