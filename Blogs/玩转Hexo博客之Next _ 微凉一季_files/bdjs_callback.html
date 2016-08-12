@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)http://app.baidu.com/static/appstore/html/bdjs_callback.html#stamp=1ao5jo1pm&method=loader&flag=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<title>platform_relay</title>
+</head>
+<body>
+	<script>
+    var baidu = baidu || {version: "1-2-0"}; 
+    baidu.url = baidu.url || {};
+    baidu.url.queryToJson = function (url) {
+        var query   = url.substr(url.indexOf('?') + 1),
+            params  = query.split('&'),
+            len     = params.length,
+            result  = {},
+            key, value, item, param;
+        
+        for (i = 0; i < len; i++) {
+            param   = params[i].split('=');
+            key     = param[0];
+            value   = param[1];
+            
+            item = result[key];
+            if ('undefined' == typeof item) {
+                result[key] = value;
+            } else if (Object.prototype.toString.call(item) == '[object Array]') {
+                item.push(value);
+            } else {
+                result[key] = [item, value];
+            }
+        }
+        
+        return result;
+    };
+
+
+	var hashIndex = document.URL.indexOf('#');
+	if (hashIndex > 0) {
+		var hashQuery = document.URL.substring(hashIndex + 1);
+        /* example:
+        hashData = {
+            'method': 'resize',
+            'height': 500
+        }
+        */
+        var hashData = baidu.url.queryToJson(hashQuery);
+        parent.parent.bdjs.app_callback(hashData.method, hashData);
+	}
+	</script>
+
+
+</body></html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://mail.163.com/app/cloudmusic/proxy.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>proxy</title>
+</head>
+<body>
+<script>function isHashChangeSupported(){var a="onhashchange",b=a in document.body;return b||(document.body.setAttribute(a,"return;"),b="function"==typeof document.body[a]),b&&(void 0===document.documentMode||document.documentMode>7)}function hashToObject(a){var b,c,d,e,f,g;if("[object String]"===Object.prototype.toString.call(a)){for(0===a.indexOf("#")&&(a=a.substr(1)),b={},c=a.split("&"),f=0,g=c.length;g>f;f++)d=c[f],e=d.split("="),e[0]&&(b[decodeURIComponent(e[0])]=decodeURIComponent(e[1]));return b}}function onHashChange(){var b,c,d,e;location.hash&&1!==location.hash.length&&(b=location.hash.slice(1),c=hashToObject(b),c.to&&c.message&&(d=top.document.getElementById(c.to),e=d.src,d.contentWindow.location.replace(e.replace(/#.*$/,"")+"#"+encodeURIComponent(c.message))))}var monitor=function(){var a=location.href;return function(){var b=location.href;b!==a&&(onHashChange({type:"hashchange",oldURL:a,newURL:b}),a=b)}}();isHashChangeSupported()?window.onhashchange=onHashChange:window.setInterval(monitor,100);</script>
+
+</body></html>

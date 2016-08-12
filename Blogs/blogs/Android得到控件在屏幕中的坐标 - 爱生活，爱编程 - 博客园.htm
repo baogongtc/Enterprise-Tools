@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Android得到控件在屏幕中的坐标 - 爱生活，爱编程 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-coffee.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/snake-hand/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/snake-hand/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/snake-hand/wlwmanifest.xml">
+<script src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'snake-hand', cb_enable_mathjax=false;</script>
+<script src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/snake-hand/"><img id="blogLogo" src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/snake-hand/">小C爱学习</a></h1>
+<h2><a title="程序员休闲,程序员放松,程序员笑话,程序员段子" href="http://www.itmmd.com/boke.html" target="_blank"><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/041405283617635.gif" alt=""></a><p></p></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<!--done-->
+			<ul id="navList">
+				<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+				<li><a id="MyLinks1_IngLink" class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+				<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/snake-hand/">首页</a></li>
+				<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+				<li><a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B">联系</a></li>
+				<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+				<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/snake-hand/rss">订阅</a>
+				<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/snake-hand/rss"><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/xml.gif" alt="订阅"></a></li>
+			</ul>
+
+
+			<div class="blogStats">
+				
+				
+<!--done-->
+随笔- 2383&nbsp;
+文章- 0&nbsp;
+评论- 74&nbsp;
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/snake-hand/archive/2012/02/29/2454382.html">Android得到控件在屏幕中的坐标</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/0_1330501131yc9c.gif" alt=""></p>
+<p>&nbsp;</p>
+<p><strong>getLocationOnScreen</strong> ，计算该视图在全局坐标系中的x，y值，（注意这个值是要从屏幕顶端算起，也就是索包括了通知栏的高度）//获取在当前屏幕内的绝对坐标 <br>
+<br>
+<strong>getLocationInWindow</strong> ，计算该视图在它所在的widnow的坐标x，y值，//获取在整个窗口内的绝对坐标 (不是很理解= =、)<br>
+<br>
+<strong>getLeft</strong> , <strong>getTop</strong>, <strong>getBottom</strong>,
+<strong>getRight</strong>, 这一组是获取相对在它父亲里的坐标<br>
+<br>
+如果在Activity的OnCreate()事件输出那些参数，是全为0，要等UI控件都加载完了才能获取到这些。<br>
+<br>
+</p>
+<p><textarea class="java" style="width: 819px; height: 164px; margin: 1.11111px;" name="code" readonly="readonly">package xiaosi.location;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class LocationActivity extends Activity {
+    /** Called when the activity is first created. */
+	private ImageView t = null;
+	private Button button = null;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        t = (ImageView)findViewById(R.id.l);
+        button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(new buttonListener());
+    }   
+    public class buttonListener implements OnClickListener{
+
+		public void onClick(View v)
+		{
+			int[] location = new int[2];
+	        t.getLocationOnScreen(location);
+	        int x = location[0];
+	        int y = location[1];
+	        System.out.println("x:"+x+"y:"+y);
+            System.out.println("图片各个角Left："+t.getLeft()+"Right："+t.getRight()+"Top："+t.getTop()+"Bottom："+t.getBottom());
+		}
+    }
+}</textarea></p>
+<p><br>
+&nbsp;</p>
+<p><textarea class="java" style="width: 818px; height: 111px; margin: 1.11111px;" name="code" readonly="readonly">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" &gt;
+
+    &lt;Button
+        android:id="@+id/button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="button"/&gt;
+    &lt;ImageView
+        android:id="@+id/l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/a" /&gt;
+&lt;/LinearLayout&gt;</textarea></p>
+<p><br>
+&nbsp;</p>
+<p><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/0_1330501506i72W.gif" alt=""></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/snake-hand/category/372974.html">Android开发技巧</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/snake-hand/tag/android/">android</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2454382,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/snake-hand/" target="_blank"><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/sample_face.gif" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/snake-hand/">爱生活，爱编程</a><br>
+<a href="http://home.cnblogs.com/u/snake-hand/followees">关注 - 1</a><br>
+<a href="http://home.cnblogs.com/u/snake-hand/followers">粉丝 - 143</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(2454382,'Digg')">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(2454382,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/28/2454383.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/snake-hand/archive/2012/02/28/2454383.html" title="发布于2012-02-28 19:45">SP2-1503: 无法初始化 Oracle 调用界面 SP2-1503: 无法初始化 Oracle 问题</a><br><a href="http://www.cnblogs.com/snake-hand/archive/2012/03/20/2454381.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/snake-hand/archive/2012/03/20/2454381.html" title="发布于2012-03-20 21:55">android开发我的新浪微博客户端-用户首页面UI篇(5.1)</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-02-29 15:42</span> <a href="http://www.cnblogs.com/snake-hand/">爱生活，爱编程</a> 阅读(<span id="post_view_count">2884</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2454382" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2454382);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=114849,cb_entryId=2454382,cb_blogApp=currentBlogApp,cb_blogUserGuid='05e2271d-a386-e111-aa3f-842b2b196315',cb_entryCreatedDate='2012/2/29 15:42:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jpush.cn/" target="_blank">【推荐】极光推送30多万开发者的选择，SDK接入量超过30亿了，你还没注册？</a><br><a href="http://click.aliyun.com/m/3037/" target="_blank">【阿里云SSD云盘】速度行业领先</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://q.cnblogs.com/" target="_blank"><img src="Android%E5%BE%97%E5%88%B0%E6%8E%A7%E4%BB%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%20-%20%E7%88%B1%E7%94%9F%E6%B4%BB%EF%BC%8C%E7%88%B1%E7%BC%96%E7%A8%8B%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/not-to-stop-questioning.jpg" alt="博问" title="博问" height="250" width="300"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/537691/" target="_blank">红遍朋友圈的Faceu 原来是脸萌团队做的</a><br> ·  <a href="http://news.cnblogs.com/n/537690/" target="_blank">亚马逊美国金牌会员已达5400万 同比增长35%</a><br> ·  <a href="http://news.cnblogs.com/n/537689/" target="_blank">2015年仅5%在线教育企业盈利 80%项目将会死去</a><br> ·  <a href="http://news.cnblogs.com/n/537688/" target="_blank">马斯克超级高铁角逐：资本游戏的噩梦？</a><br> ·  <a href="http://news.cnblogs.com/n/537687/" target="_blank">电商凭什么 春节“不打烊”</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/536779/" target="_blank">编程每一天（Write Code Every Day）</a><br> ·  <a href="http://kb.cnblogs.com/page/536387/" target="_blank">Docker简介</a><br> ·  <a href="http://kb.cnblogs.com/page/536115/" target="_blank">Docker简明教程</a><br> ·  <a href="http://kb.cnblogs.com/page/535581/" target="_blank">Git协作流程</a><br> ·  <a href="http://kb.cnblogs.com/page/535355/" target="_blank">企业计算的终结</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><span style="padding:0px; margin:0px; font-family:微软雅黑,'Microsoft YaHei'">其他精彩文章文章</span><p></p><h2 style="margin:0px; padding:0px; line-height:26px; font-size:14px; font-family:Verdana,Arial,Helvetica,sans-serif; color:#2f649a"><a target="_blank" name="t0" style="color:#ca0000"></a><a target="_blank" name="t0" style="color:#ca0000"></a><a target="_blank" href="http://www.itmmd.com/201501/447.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px">jQuery教程(9)-DOM树操作之复制元素</a><a target="_blank" href="http://www.itmmd.com/201501/439.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px"></a></h2><h2 style="margin:0px; padding:0px; line-height:26px; font-size:14px; font-family:Verdana,Arial,Helvetica,sans-serif; color:#2f649a"><a target="_blank" name="t1" style="color:#ca0000"></a><a target="_blank" name="t1" style="color:#ca0000"></a><a target="_blank" href="http://www.itmmd.com/201501/446.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px">android学习笔记（35）android
+ AlertDialog创建列表对话框[2]</a></h2><h2 style="margin:0px; padding:0px; line-height:26px; font-size:14px; font-family:Verdana,Arial,Helvetica,sans-serif; color:#2f649a"><a target="_blank" name="t2" style="color:#ca0000"></a><a target="_blank" name="t2" style="color:#ca0000"></a><a target="_blank" href="http://www.itmmd.com/201501/444.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px">android
+ shareSDK sso登录新浪和微信</a></h2><h2 style="margin:0px; padding:0px; line-height:26px; font-size:14px; font-family:Verdana,Arial,Helvetica,sans-serif; color:#2f649a"><a target="_blank" name="t3" style="color:#ca0000"></a><a target="_blank" name="t3" style="color:#ca0000"></a><a target="_blank" href="http://www.itmmd.com/201501/443.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px">mysql
+ 索引类型详解-B-Tree索引</a><a target="_blank" href="http://www.itmmd.com/201501/435.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px"></a></h2><h2 style="margin:0px; padding:0px; line-height:26px; font-size:14px; font-family:Verdana,Arial,Helvetica,sans-serif; color:#2f649a"><a target="_blank" name="t4" style="color:#ca0000"></a><a target="_blank" name="t4" style="color:#ca0000"></a><a target="_blank" href="http://www.itmmd.com/201501/442.html" class="title" style="color:#2f649a; text-decoration:none; margin:0px; padding:0px">BroadcastReceiver
+ 使用AlertDialog后 app奔溃了</a></h2><p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; font-size:14px; line-height:26px"></p><p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-size:14px; clear:both; height:auto; overflow:hidden; font-family:宋体,'Arial Narrow',arial,serif; line-height:28px"><span style="padding:0px; margin:0px; font-family:微软雅黑,'Microsoft YaHei'"><span style="color:#666666">更多关于<a target="_blank" href="http://www.itmmd.com/mobile.html" style="color:#ca0000; text-decoration:none; font-family:Arial; line-height:26px">android开发</a>文章</span></span></p><br><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/snake-hand/">爱生活，爱编程</a><br>园龄：<a href="http://home.cnblogs.com/u/snake-hand/" title="入园时间：2012-04-15">3年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/snake-hand/followers/">143</a><br>关注：<a href="http://home.cnblogs.com/u/snake-hand/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('05e2271d-a386-e111-aa3f-842b2b196315')">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" title="Calendar" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2012/01/01');return false;">&lt;</a></td><td align="center">2012年2月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2012/03/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/17.html"><u>17</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/18.html"><u>18</u></a></td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/20.html"><u>20</u></a></td><td align="center">21</td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/22.html"><u>22</u></a></td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/23.html"><u>23</u></a></td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/24.html"><u>24</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/25.html"><u>25</u></a></td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/27.html"><u>27</u></a></td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/28.html"><u>28</u></a></td><td align="center"><a href="http://www.cnblogs.com/snake-hand/archive/2012/02/29.html"><u>29</u></a></td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/snake-hand/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/snake-hand/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/snake-hand/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/snake-hand/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/snake-hand/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/snake-hand/tag/android/">android</a>(43)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/%E8%81%8C%E5%9C%BA%E4%BA%BA%E7%94%9F/">职场人生</a>(9)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/java/">java</a>(3)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/jdbc/">jdbc</a>(2)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/.NET/">.NET</a>(2)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/asp.net/">asp.net</a>(2)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>(2)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%20Android/">设计模式 Android</a>(1)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/">书籍推荐</a>(1)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BA%A6%E6%9D%9F/">数据库约束</a>(1)</li><li><a href="http://www.cnblogs.com/snake-hand/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(149)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/snake-hand/category/372979.html">ACM(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/snake-hand/category/372612.html">AIX(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/snake-hand/category/372615.html">Ajax Web技术(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/snake-hand/category/372971.html">Android(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/snake-hand/category/372975.html">Android（转载）(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/snake-hand/category/372972.html">Android进阶</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/snake-hand/category/372973.html">Android进阶2(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/snake-hand/category/372974.html">Android开发技巧(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/snake-hand/category/372986.html">Android总结</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/snake-hand/category/372980.html">c#</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/snake-hand/category/372613.html">J2EE企业应用(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/snake-hand/category/372970.html">Java(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/snake-hand/category/372610.html">Linux</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/snake-hand/category/372618.html">Oracle RAC(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/snake-hand/category/372619.html">ORACLE RMAN</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/snake-hand/category/372621.html">Oracle 备份与恢复</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/snake-hand/category/372623.html">Oracle 工具(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/snake-hand/category/372625.html">Oracle 字符集(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/snake-hand/category/372626.html">oracle11g(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/snake-hand/category/372609.html">Oracle基础(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/snake-hand/category/372622.html">Oracle认证</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/snake-hand/category/372624.html">Oracle文档(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/snake-hand/category/372620.html">ORACLE性能优化</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/snake-hand/category/372614.html">Weblogic中间件专题(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/snake-hand/category/372977.html">windows(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/snake-hand/category/372611.html">Windows Server</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/snake-hand/category/372976.html">杭电</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/snake-hand/category/372984.html">计算机(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/snake-hand/category/372981.html">计算机组成原理(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/snake-hand/category/372616.html">架构设计(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/snake-hand/category/372983.html">南阳理工</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/snake-hand/category/372978.html">算法(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/snake-hand/category/372982.html">我的工具</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/snake-hand/category/372985.html">杂谈(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/snake-hand/category/372617.html">杂文(16)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(2382)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/snake-hand/archive/2013/07.html">2013年7月 (701)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/snake-hand/archive/2013/06.html">2013年6月 (1202)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/snake-hand/archive/2013/02.html">2013年2月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/snake-hand/archive/2012/08.html">2012年8月 (51)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/snake-hand/archive/2012/06.html">2012年6月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/snake-hand/archive/2012/05.html">2012年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/snake-hand/archive/2012/04.html">2012年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/snake-hand/archive/2012/03.html">2012年3月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/snake-hand/archive/2012/02.html">2012年2月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/snake-hand/archive/2012/01.html">2012年1月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/snake-hand/archive/2011/12.html">2011年12月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/snake-hand/archive/2011/11.html">2011年11月 (29)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/snake-hand/archive/2011/10.html">2011年10月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/snake-hand/archive/2011/09.html">2011年9月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/snake-hand/archive/2011/08.html">2011年8月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/snake-hand/archive/2011/07.html">2011年7月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/snake-hand/archive/2011/06.html">2011年6月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/snake-hand/archive/2011/05.html">2011年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/snake-hand/archive/2011/04.html">2011年4月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/snake-hand/archive/2011/02.html">2011年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/snake-hand/archive/2010/08.html">2010年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/snake-hand/archive/2010/06.html">2010年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/snake-hand/archive/2010/05.html">2010年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/snake-hand/archive/2010/04.html">2010年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/snake-hand/archive/2010/03.html">2010年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/snake-hand/archive/2009/11.html">2009年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/snake-hand/archive/2009/07.html">2009年7月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/snake-hand/archive/2009/05.html">2009年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/snake-hand/archive/2009/03.html">2009年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/snake-hand/archive/2009/02.html">2009年2月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/snake-hand/archive/2008/12.html">2008年12月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/snake-hand/archive/2008/10.html">2008年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/snake-hand/archive/2008/09.html">2008年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/snake-hand/archive/2008/07.html">2008年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/snake-hand/archive/2008/06.html">2008年6月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/snake-hand/archive/2008/05.html">2008年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/snake-hand/archive/2008/04.html">2008年4月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/snake-hand/archive/2008/03.html">2008年3月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/snake-hand/archive/2008/01.html">2008年1月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/snake-hand/archive/2007/12.html">2007年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/snake-hand/archive/2007/11.html">2007年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/snake-hand/archive/2007/08.html">2007年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/snake-hand/archive/2007/07.html">2007年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/snake-hand/archive/2007/06.html">2007年6月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/snake-hand/archive/2007/05.html">2007年5月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/snake-hand/archive/2007/03.html">2007年3月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/snake-hand/archive/2007/02.html">2007年2月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/snake-hand/archive/2007/01.html">2007年1月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/snake-hand/archive/2006/12.html">2006年12月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/snake-hand/archive/2006/11.html">2006年11月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_50" href="http://www.cnblogs.com/snake-hand/archive/2006/10.html">2006年10月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_51" href="http://www.cnblogs.com/snake-hand/archive/2006/09.html">2006年9月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_52" href="http://www.cnblogs.com/snake-hand/archive/2006/08.html">2006年8月 (13)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">我的收藏</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.javady.com/" rel="nofollow">java进阶博客</a> </li>
+<li class="c_b_p_link_desc"><a href="http://blog.csdn.net/dyllove98" target="_blank"> </a>
+<a href="http://jlins.iteye.com/" target="_blank"> </a>
+<a href="http://jlins.blogbus.com/" target="_blank"> </a>
+<a href="http://mixer-a.iteye.com/" target="_blank"> </a>
+<a href="http://mixer-b.iteye.com/" target="_blank"> </a>
+<a href="http://xpp02.iteye.com/" target="_blank"> </a>
+<a href="http://jlins-you.iteye.com/" target="_blank"> </a>
+<a href="http://test-touch.iteye.com/" target="_blank"> </a>
+<a href="http://touch-123.iteye.com/" target="_blank"> </a>
+<a href="http://qcyycom.iteye.com/" target="_blank"> </a>
+<a href="http://dengyll.iteye.com/" target="_blank"> </a>
+<a href="http://long-yu2.iteye.com/" target="_blank"> </a>
+<a href="http://zjlpp.iteye.com/" target="_blank"> </a>
+<a href="http://bk-lin.iteye.com/" target="_blank"> </a>
+<a href="http://aijuans.iteye.com/" target="_blank"> </a></li>
+<li><a id="CatList_LinkList_2_Link_1" href="http://jlins.iteye.com/" rel="nofollow">其他</a> </li>
+<li class="c_b_p_link_desc">
+<a href="http://aijuans8.iteye.com/" target="_blank"> </a>
+<a href="http://aijuans9.iteye.com/" target="_blank"></a>
+<a href="http://www.cnblogs.com/snake-hand/" target="_blank"> </a>
+<a href="http://www.cnblogs.com/mixer-a/" target="_blank"> </a>
+<a href="http://www.cnblogs.com/dyllove98/" target="_blank"> </a>
+<a href="http://www.cnblogs.com/javawebsoa/" target="_blank"> </a>
+<a href="http://www.cnblogs.com/wodeyitian/" target="_blank"> </a>
+<a href="http://www.cnblogs.com/zlja/" target="_blank"></a>
+<a href="http://www.blogjava.net/mixer-a/" target="_blank"> </a>
+<a href="http://www.blogjava.net/jlins-you/" target="_blank"> </a>
+<a href="http://www.blogjava.net/qcyycom/" target="_blank"> </a>
+<a href="http://www.blogjava.net/dyllove98/" target="_blank"> </a>
+<a href="http://www.blogjava.net/zljpp/" target="_blank"> </a>
+</li>
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/snake-hand/p/3178070.html#3351657">1. Re:Cocoa Touch事件处理流程--响应者链</a></li>
+    <li class="recent_comment_body">难得的好文</li>
+    <li class="recent_comment_author">--cysummery</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/16/3138669.html#3349069">2. Re:带分数 - 蓝桥杯</a></li>
+    <li class="recent_comment_body">刚随意试了一下“24765”这个数据，用时44秒，超时了挺多的。</li>
+    <li class="recent_comment_author">--hiter2016</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/05/3119946.html#3347717">3. Re:windows mobile 键盘钩子 屏蔽按键</a></li>
+    <li class="recent_comment_body">当窗体重新刷新后，钩子就失败了。</li>
+    <li class="recent_comment_author">--张志国</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/05/3119946.html#3347072">4. Re:windows mobile 键盘钩子 屏蔽按键</a></li>
+    <li class="recent_comment_body">还没试,明天试试看看.</li>
+    <li class="recent_comment_author">--张志国</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/08/3127406.html#3343889">5. Re:Python调用DLL实现部分ADB功能</a></li>
+    <li class="recent_comment_body">请问怎么使用python调用AdbWinApi.dll通过手机，搜集手机被用户操作的信息，如:滑动，单击....并且发送指令呢？？</li>
+    <li class="recent_comment_author">--fulai_xy</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/snake-hand/p/3167787.html">1. Java学习笔记50：JSONObject与JSONArray的使用(16485)</a></li><li><a href="http://www.cnblogs.com/snake-hand/p/3206655.html">2. Android中ListView异步加载数据(16122)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2012/04/16/2452219.html">3. Oracle从10g升级到11g详细步骤(13696)</a></li><li><a href="http://www.cnblogs.com/snake-hand/p/3143041.html">4. linux route命令的使用详解(13522)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/10/3131145.html">5. 机器学习经典书籍小结(12450)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/snake-hand/p/3206655.html">1. Android中ListView异步加载数据(8)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2011/12/22/2454421.html">2. 某机字长为32位,存储容量为64MB,若按字节编址.它的寻址范围是多少?(4)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/16/3138669.html">3. 带分数 - 蓝桥杯(3)</a></li><li><a href="http://www.cnblogs.com/snake-hand/p/3188374.html">4. [置顶] Android AlarmManager实现不间断轮询服务(3)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/10/3131219.html">5. 【Android应用开发详解】第01期：第三方授权认证（一）实现第三方授权登录、分享以及获取用户资料(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/10/3131145.html">1. 机器学习经典书籍小结(5)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/09/3129915.html">2. WebService流行框架之Axis和CXF(3)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2013/06/10/3131219.html">3. 【Android应用开发详解】第01期：第三方授权认证（一）实现第三方授权登录、分享以及获取用户资料(3)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2012/05/30/2526780.html">4. 跟我学习记忆数据库的约束(2)</a></li><li><a href="http://www.cnblogs.com/snake-hand/archive/2012/08/13/2636227.html">5. wpf下实现图片的放大缩小和平移(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 爱生活，爱编程
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

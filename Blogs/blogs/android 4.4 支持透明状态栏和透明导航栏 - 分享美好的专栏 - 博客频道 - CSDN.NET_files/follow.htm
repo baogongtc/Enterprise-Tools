@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="icon" href="http://zhida.baidu.com/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://zhida.baidu.com/favicon.ico" type="image/x-icon">
+    <title></title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        html * {
+            box-sizing: border-box;
+        }
+        body{
+            position: relative;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            background: transparent;
+         }
+
+        .follow {
+            position: relative;
+            font-size: 16px;
+            height: 44px;
+            width: 100%;
+
+            text-align: center;
+            color: #f43b3b;
+        }
+
+
+        .cross-wrap {
+            display: inline-block;
+            width: 15px;
+        }
+
+        .cross-wrap .cross {
+            display: inline-block;
+            top: 1px;
+            background: #f43b3b;
+            height: 14px;
+            position: relative;
+            width: 1px;
+        }
+        .cross-wrap .cross:after {
+            background: #f43b3b;
+            content: "";
+            height: 1px;
+            left: -7px;
+            position: absolute;
+            top: 6px;
+            width: 15px;
+        }
+
+
+        .text-char {
+            /*display: inline-block; */
+            display: none;
+            text-align: center;
+            text-shadow: 0 1px #fff;
+            line-height: 31px;
+            height: 43px;
+            padding: 6px 0 4px;
+        }
+        .text-char.followed {
+            color: #999;
+        }
+
+
+    </style>
+
+</head>
+<body data-login="0" data-tk="" data-tm="1448349210">
+
+<div class="follow">
+    <div class="text-char"> 
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var imURL = 'https://pim.baidu.com/rest/2.0/im/zhidahao';
+
+
+    var getValueFromKvString = function (key, kvString) {
+            var paramList = kvString.split('&');
+            var kvMap = {};
+            paramList.forEach(function (param) {
+                var kv = param.split('=');
+                if (kv.length === 1) {
+                    kvMap[kv[0]] = '';
+                }
+                else if (kv.length === 2) {
+                    kvMap[kv[0]] = kv[1];
+                }
+            });
+
+            return kvMap[key];
+    };
+
+    var getValueFromLocationSearch = function (key) {
+            var search = window.location.search;
+            search = search.slice(1);
+            return this.getValueFromKvString(key, search);
+    };
+
+
+
+    window.siteAppid = getValueFromLocationSearch('appid');
+
+    window.baiduIMRef = getValueFromLocationSearch('ref');
+
+
+    var body = document.body;
+    var dataset = typeof body.dataset !== 'undefined';
+    var setting = function(key, value) {
+        if (!dataset) {
+            if (typeof value !== 'undefined') {
+                body.setAttribute('data-' + key, value);
+            } else {
+                return body.getAttribute('data-' + key);
+            }
+        } else {
+            if (typeof value !== 'undefined') {
+                body.dataset[key] = value;
+            } else {
+                return body.dataset[key];
+            }
+        }
+    };
+
+
+    var jsonpRequest = function (options) {
+
+        var injectScript = function (reqUrl,cb){
+            var script = document.createElement('script');
+            script.setAttribute('src', reqUrl);
+            document.head.appendChild(script);
+            script.onload = function(){
+                if(cb){cb(script);}
+            };
+        };
+
+
+        var url = options.url;
+        var data = options.data;
+
+        var query = [];
+        for (var k in data) {
+            if (data.hasOwnProperty(k)) {
+                query.push(k + '=' + data[k]);
+            }
+        }
+
+        var cbName = "followcallback" + (+new Date()) + parseInt(Math.random() * 100, 10);
+        query.push ('callback=' + cbName );
+
+        var query = query.join('&');
+        var reqUrl = url + '?' + query ;
+
+
+        window[cbName] = function(respData){
+
+            if(typeof respData.error_code !== "undefined" && respData.error_code !== 0){
+                if (options.onFail) {
+                    if (respData.response_params === undefined) {
+                        respData.response_params = {
+                            error_code: respData.error_code,
+                            error_msg: respData.error_msg
+                        };
+                    }
+                    options.onFail(respData);
+                }
+            } else {
+                if (options.onSuccess) {
+                    options.onSuccess(respData);
+                }
+            }
+        };
+
+        // use https or http?
+        injectScript(reqUrl, function(script){
+            document.head.removeChild(script);
+        });
+
+    };
+
+
+    var _innnerFollow = function (method, successCallback, failCallback) {
+        var options = {
+            url: imURL,
+            data: {
+                method: method,
+                hsc: 1,
+                appid: window.siteAppid,
+                sponsor: 4,
+                sign: setting('tk'),
+                timestamp: setting('tm'),
+                src: 'web',
+                ref: window.baiduIMRef
+            },
+            onSuccess: successCallback,
+            onFail: failCallback
+        };
+
+        jsonpRequest(options);
+    };
+
+
+    var followSite = function (successCallback, failCallback) {
+        _innnerFollow('subscribe', successCallback, failCallback);
+    };
+
+    var isSiteFollowed = function (successCallback, failCallback) {
+        _innnerFollow('is_subscribe', successCallback, failCallback);
+    };
+
+
+    var updateText = function (textFlag) {
+        var textMap = {
+            followed: '已关注',
+            unfollowed: '<span class="cross-wrap"><span class="cross"></span></span>关注'
+        };
+
+        var textDom = document.body.querySelector('.follow .text-char');
+        textDom.innerHTML = textMap[textFlag];
+        if (textFlag === 'followed' && !textDom.classList.contains('followed')) {
+            textDom.classList.add('followed');
+        }
+        else if (textFlag === 'unfollowed' && textDom.classList.contains('followed')) {
+            textDom.classList.remove('followed');
+        }
+    };
+
+
+
+    var sendMsgToParent = function(action) {
+        window.parent.postMessage({type: 'bottomBarFollow', action: action}, '*');
+    };
+
+
+    document.querySelector('.follow').addEventListener('click', function () {
+
+        var isLogin = setting('login');
+        if (isLogin === '1') {
+
+            isSiteFollowed(
+                function (data) {
+
+                    var data = data.response_params;
+                    if (data.error_code === 0 && data.is_subscribe) {
+
+                        sendMsgToParent('hasFollowed');
+
+                        // cancel follow just for test
+                        // todo: remove the code for unsubscribe
+                        // _innnerFollow('unsubscribe');
+                    }
+                    else if (data.error_code === 0 && !data.is_subscribe) {
+                        followSite(
+                            function (data) {
+                                console.log('follow success');
+                                console.log(data);
+                                sendMsgToParent('followed');
+                                sendMsgToParent('followSuccess');
+                                updateText('followed');
+                            },
+                            function (data) {
+                                console.log('follow failed');
+                                sendMsgToParent('followFailed');
+                            }
+                        );
+                    }
+                    else {
+                        // fail to get the status of is_subscribe
+                        console.log('fail to get the status of is_subscribe');
+                        sendMsgToParent('followFailed');
+                    }
+                },
+                function (data) {
+                    // fail to get the status of is_subscribe
+                    console.log('fail to get the status of is_subscribe');
+                    var data = data.response_params;
+                    if ((data.error_code === 50011 && data.error_msg === 'user not login') || data.error_code === 30602) {
+                        sendMsgToParent('login');
+                    }
+                    else {
+                        sendMsgToParent('followFailed');
+                    }
+                }
+            );
+        }
+        else {
+            sendMsgToParent('login');
+        }
+    });
+
+    var isLogin = setting('login');
+    if (isLogin === '1') {
+
+            isSiteFollowed(
+                function (data) {
+
+                    var data = data.response_params;
+                    if (data.error_code === 0 && data.is_subscribe) {
+                        console.log('page loaded followed');
+                        updateText('followed');
+                        sendMsgToParent('followed');
+                    }
+                    else if (data.error_code === 0 && !data.is_subscribe) {
+
+                        console.log('page loaded unfollowed');
+                        updateText('unfollowed');
+                        sendMsgToParent('unfollowed');
+                    }
+                    else {
+                        // fail to get the status of is_subscribe
+                        console.log('page loaded fail to get the status of is_subscribe');
+                        sendMsgToParent('unfollowed');
+                    }
+                },
+                function (data) {
+                    // fail to get the status of is_subscribe
+                    console.log('page loaded fail to get the status of is_subscribe');
+                    updateText('unfollowed');
+                    sendMsgToParent('unfollowed');
+                }
+            );
+    }
+    else {
+        sendMsgToParent('unfollowed');
+    }
+
+</script>
+
+
+
+
+</body></html>

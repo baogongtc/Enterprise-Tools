@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/ -->
+<html class="theme-next use-motion theme-next-mist"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="./玩转Hexo博客之Next _ 微凉一季_files/jquery.fancybox.css">
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./玩转Hexo博客之Next _ 微凉一季_files/main.css">
+
+
+    <meta name="description" content="往事如烟，随风而逝">
+
+
+
+  <meta name="keywords" content="经验,">
+
+
+
+  <link rel="alternate" href="http://jijiaxin89.com/atom.xml" title="微凉一季" type="application/atom+xml">
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="http://jijiaxin89.com/favicon.ico?v=0.4.5.1">
+
+
+<meta name="description" content="今天把jacman博客样式换成了next，主要是突然感觉jacman太过鲜艳了，像一个孩子，不够朴素，看久了感觉肤浅，之前用是因为一眼看上去有点android materials design的感觉，jacman博客用手机看或许有更好的体验。相反next，初看简约无华多看两眼又觉得厚重，像一个老者，符合技术博客的风格，虽说我的博客顶多只会一半用来技术笔记，更多想用来发展文学爱好，但还是先用来装装比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩转Hexo博客之Next">
+<meta property="og:url" content="http://jijiaxin89.com/2015/08/21/玩转hexo博客之next/index.html">
+<meta property="og:site_name" content="微凉一季">
+<meta property="og:description" content="今天把jacman博客样式换成了next，主要是突然感觉jacman太过鲜艳了，像一个孩子，不够朴素，看久了感觉肤浅，之前用是因为一眼看上去有点android materials design的感觉，jacman博客用手机看或许有更好的体验。相反next，初看简约无华多看两眼又觉得厚重，像一个老者，符合技术博客的风格，虽说我的博客顶多只会一半用来技术笔记，更多想用来发展文学爱好，但还是先用来装装比">
+<meta property="og:updated_time" content="2015-08-31T15:21:12.542Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="玩转Hexo博客之Next">
+<meta name="twitter:description" content="今天把jacman博客样式换成了next，主要是突然感觉jacman太过鲜艳了，像一个孩子，不够朴素，看久了感觉肤浅，之前用是因为一眼看上去有点android materials design的感觉，jacman博客用手机看或许有更好的体验。相反next，初看简约无华多看两眼又觉得厚重，像一个老者，符合技术博客的风格，虽说我的博客顶多只会一半用来技术笔记，更多想用来发展文学爱好，但还是先用来装装比">
+
+
+<script async="" src="./玩转Hexo博客之Next _ 微凉一季_files/st.js"></script><script src="./玩转Hexo博客之Next _ 微凉一季_files/hm.js"></script><script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+  <title> 玩转Hexo博客之Next | 微凉一季 </title>
+<script type="text/javascript" async="" src="./玩转Hexo博客之Next _ 微凉一季_files/embed.js" charset="UTF-8"></script><link rel="stylesheet" type="text/css" href="./玩转Hexo博客之Next _ 微凉一季_files/new_embed-28251278dfbb54588d68fbd8d7cc72ba.css"><style type="text/css">.st-install-xcz9uwxqQgDBJFAfxd7n .st-ui-result .st-ui-type-heading { color:#0089d7 !important }
+.st-install-xcz9uwxqQgDBJFAfxd7n .st-ui-result em {font-style:normal; font-weight:bold; background-color:#f6fcfe !important}</style><link type="text/css" rel="stylesheet" href="./玩转Hexo博客之Next _ 微凉一季_files/embed.default.css"><style type="text/css">
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+/*Head Start*/
+#ds-thread #ds-reset ul.ds-comments-tabs li.ds-tab a.ds-current {
+    border: 0px;
+    color: #6D6D6B;
+    text-shadow: none;
+    background: #F3F3F3;
+}
+
+
+#ds-thread #ds-reset .ds-highlight {
+    font-family: Microsoft YaHei, "Helvetica Neue", Helvetica, Arial, Sans-serif;
+    ;font-size: 100%;
+    color: #6D6D6B !important;
+}
+
+
+#ds-thread #ds-reset ul.ds-comments-tabs li.ds-tab a.ds-current:hover {
+    color: #696a52;
+    background: #F2F2F2;
+}
+
+
+#ds-thread #ds-reset a.ds-highlight:hover {
+    color: #696a52 !important;
+}
+
+
+#ds-thread {
+    padding-left: 30px;
+}
+
+
+#ds-thread #ds-reset li.ds-post,#ds-thread #ds-reset #ds-hot-posts {
+    overflow: visible;
+}
+
+
+#ds-thread #ds-reset .ds-post-self {
+    padding: 10px 0 10px 10px;
+}
+
+
+#ds-thread #ds-reset li.ds-post,#ds-thread #ds-reset .ds-post-self {
+    border: 0 !important;
+}
+
+
+#ds-reset .ds-avatar, #ds-thread #ds-reset ul.ds-children .ds-avatar {
+    top: 15px;
+    left: -20px;
+    padding: 5px;
+    width: 36px;
+    height: 36px;
+    box-shadow: -1px 0 1px rgba(0,0,0,.15) inset;
+    border-radius: 46px;
+    background: #FAFAFA;
+}
+
+
+#ds-thread .ds-avatar a {
+    display: inline-block;
+    padding: 1px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #b9baa6;
+    border-radius: 50%;
+    background-color: #fff !important;
+}
+
+
+#ds-thread .ds-avatar a:hover {
+}
+
+
+#ds-thread .ds-avatar > img {
+    margin: 2px 0 0 2px;
+}
+
+
+#ds-thread #ds-reset .ds-replybox {
+    box-shadow: none;
+}
+
+
+#ds-thread #ds-reset ul.ds-children .ds-replybox.ds-inline-replybox a.ds-avatar,
+#ds-reset .ds-replybox.ds-inline-replybox a.ds-avatar {
+    left: 0;
+    top: 0;
+    padding: 0;
+    width: 32px !important;
+    height: 32px !important;
+    background: none;
+    box-shadow: none;
+}
+
+
+#ds-reset .ds-replybox.ds-inline-replybox a.ds-avatar img {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50%;
+}
+
+
+#ds-reset .ds-replybox a.ds-avatar,
+#ds-reset .ds-replybox .ds-avatar img {
+    padding: 0;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 5px;
+}
+
+
+#ds-reset .ds-avatar img {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+    -webkit-transition: .8s all ease-in-out;
+    -moz-transition: .4s all ease-in-out;
+    -o-transition: .4s all ease-in-out;
+    -ms-transition: .4s all ease-in-out;
+    transition: .4s all ease-in-out;
+}
+
+
+.ds-post-self:hover .ds-avatar img {
+    -webkit-transform: rotateX(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+
+#ds-thread #ds-reset .ds-comment-body {
+    -webkit-transition-delay: initial;
+    -webkit-transition-duration: 0.4s;
+    -webkit-transition-property: all;
+    -webkit-transition-timing-function: initial;
+    background: #F7F7F7;
+    padding: 15px 15px 15px 47px;
+    border-radius: 5px;
+    box-shadow: #B8B9B9 0 1px 3px;
+    border: white 1px solid;
+}
+
+
+#ds-thread #ds-reset ul.ds-children .ds-comment-body {
+    padding-left: 15px;
+}
+
+
+#ds-thread #ds-reset .ds-comment-body p {
+    color: #787968;
+}
+
+
+#ds-thread #ds-reset .ds-comments {
+    border-bottom: 0px;
+}
+
+
+#ds-thread #ds-reset .ds-powered-by {
+    display: none;
+}
+
+
+#ds-thread #ds-reset .ds-comments a.ds-user-name {
+    font-weight: normal;
+    color: #3D3D3D !important;
+}
+
+
+#ds-thread #ds-reset .ds-comments a.ds-user-name:hover {
+    color: #D32 !important;
+}
+
+
+#ds-thread #ds-reset #ds-bubble {
+    display: none !important;
+}
+
+
+#ds-thread #ds-reset #ds-hot-posts {
+    border: 0;
+}
+
+
+#ds-reset #ds-hot-posts .ds-gradient-bg {
+    background: none;
+}
+
+
+#ds-thread #ds-reset .ds-comment-body:hover {
+    background-color: #F1F1F1;
+    -webkit-transition-delay: initial;
+    -webkit-transition-duration: 0.4s;
+    -webkit-transition-property: all;
+    -webkit-transition-timing-function: initial;
+}
+
+/*Head End*/</style><style type="text/css">.fancybox-margin{margin-right:17px;}</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans" data-pinterest-extension-installed="cr1.39.2" class="" style="padding-right: 320px;"><div id="MathJax_Message" style="display: none;"></div>
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?965a6e7fe7dbf925b4191360c79b5e64";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i class="" style="transform: translateX(100%);"></i></span>
+  <a href="http://jijiaxin89.com/" class="brand" rel="start" style="opacity: 1;">
+      <span class="logo" style="opacity: 1; top: 0px;">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title" style="opacity: 1; top: 0px;">微凉一季</span>
+  </a>
+  <span class="logo-line-after"><i class="" style="transform: translateX(-100%);"></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://jijiaxin89.com/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br>
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://jijiaxin89.com/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br>
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://jijiaxin89.com/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br>
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://jijiaxin89.com/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br>
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about" style="opacity: 1; transform: translateY(0px);">
+          <a href="http://jijiaxin89.com/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br>
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+
+
+
+        <li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href="javascript:(function() {
+            function c() {
+              var e = document.createElement(&quot;link&quot;);
+              e.setAttribute(&quot;type&quot;, &quot;text/css&quot;);
+              e.setAttribute(&quot;rel&quot;, &quot;stylesheet&quot;);
+              e.setAttribute(&quot;href&quot;, f);
+              e.setAttribute(&quot;class&quot;, l);
+              document.body.appendChild(e)
+            }
+           
+            function h() {
+              var e = document.getElementsByClassName(l);
+              for (var t = 0; t &lt; e.length; t++) {
+                document.body.removeChild(e[t])
+              }
+            }
+           
+            function p() {
+              var e = document.createElement(&quot;div&quot;);
+              e.setAttribute(&quot;class&quot;, a);
+              document.body.appendChild(e);
+              setTimeout(function() {
+                document.body.removeChild(e)
+              }, 100)
+            }
+           
+            function d(e) {
+              return {
+                height : e.offsetHeight,
+                width : e.offsetWidth
+              }
+            }
+           
+            function v(i) {
+              var s = d(i);
+              return s.height &gt; e &amp;&amp; s.height &lt; n &amp;&amp; s.width &gt; t &amp;&amp; s.width &lt; r
+            }
+           
+            function m(e) {
+              var t = e;
+              var n = 0;
+              while (!!t) {
+                n += t.offsetTop;
+                t = t.offsetParent
+              }
+              return n
+            }
+           
+            function g() {
+              var e = document.documentElement;
+              if (!!window.innerWidth) {
+                return window.innerHeight
+              } else if (e &amp;&amp; !isNaN(e.clientHeight)) {
+                return e.clientHeight
+              }
+              return 0
+            }
+           
+            function y() {
+              if (window.pageYOffset) {
+                return window.pageYOffset
+              }
+              return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+            }
+           
+            function E(e) {
+              var t = m(e);
+              return t &gt;= w &amp;&amp; t &lt;= b + w
+            }
+           
+            function S() {
+              var e = document.createElement(&quot;audio&quot;);
+              e.setAttribute(&quot;class&quot;, l);
+              e.src = i;
+              e.loop = false;
+              e.addEventListener(&quot;canplay&quot;, function() {
+                setTimeout(function() {
+                  x(k)
+                }, 500);
+                setTimeout(function() {
+                  N();
+                  p();
+                  for (var e = 0; e &lt; O.length; e++) {
+                    T(O[e])
+                  }
+                }, 15500)
+              }, true);
+              e.addEventListener(&quot;ended&quot;, function() {
+                N();
+                h()
+              }, true);
+              e.innerHTML = &quot; &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;&quot;;
+              document.body.appendChild(e);
+              e.play()
+            }
+           
+            function x(e) {
+              e.className += &quot; &quot; + s + &quot; &quot; + o
+            }
+           
+            function T(e) {
+              e.className += &quot; &quot; + s + &quot; &quot; + u[Math.floor(Math.random() * u.length)]
+            }
+           
+            function N() {
+              var e = document.getElementsByClassName(s);
+              var t = new RegExp(&quot;\\b&quot; + s + &quot;\\b&quot;);
+              for (var n = 0; n &lt; e.length; ) {
+                e[n].className = e[n].className.replace(t, &quot;&quot;)
+              }
+            }
+           
+            var e = 30;
+            var t = 30;
+            var n = 350;
+            var r = 350;
+            var i = &quot;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3&quot;;
+            var s = &quot;mw-harlem_shake_me&quot;;
+            var o = &quot;im_first&quot;;
+            var u = [&quot;im_drunk&quot;, &quot;im_baked&quot;, &quot;im_trippin&quot;, &quot;im_blown&quot;];
+            var a = &quot;mw-strobe_light&quot;;
+            var f = &quot;//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css&quot;;
+            var l = &quot;mw_added_css&quot;;
+            var b = g();
+            var w = y();
+            var C = document.getElementsByTagName(&quot;*&quot;);
+            var k = null;
+            for (var L = 0; L &lt; C.length; L++) {
+              var A = C[L];
+              if (v(A)) {
+                if (E(A)) {
+                  k = A;
+                  break
+                }
+              }
+            }
+            if (A === null) {
+              console.warn(&quot;Could not find a node of the right size. Please try a different page.&quot;);
+              return
+            }
+            c();
+            S();
+            var O = [];
+            for (var L = 0; L &lt; C.length; L++) {
+              var A = C[L];
+              if (v(A)) {
+                O.push(A)
+              }
+            }
+          })()    ">诗酒趁年华</a> </li>
+
+
+
+      </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'xcz9uwxqQgDBJFAfxd7n','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article" style="opacity: 1; display: block; transform: translateY(0px);">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              玩转Hexo博客之Next
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-21T20:02:54+08:00" content="2015-08-21">
+            2015-08-21
+          </time>
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope="" itemtype="https://schema.org/Thing">
+                <a href="http://jijiaxin89.com/categories/%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                  <span itemprop="name">使用心得</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/21/玩转hexo博客之next/" itemprop="commentsCount">25条评论</span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>今天把jacman博客样式换成了next，主要是突然感觉jacman太过鲜艳了，像一个孩子，不够朴素，看久了感觉肤浅，之前用是因为一眼看上去有点android materials design的感觉，jacman博客用手机看或许有更好的体验。相反next，初看简约无华多看两眼又觉得厚重，像一个老者，符合技术博客的风格，虽说我的博客顶多只会一半用来技术笔记，更多想用来发展文学爱好，但还是先用来装装比吧！<br>博客，是站在巨人肩膀上搭建的，感谢开源，让我尽情享受拿来主义，但毕竟不是做前端的，有一些坑掉进去爬出来还是费了一些力气的，所以做个记录，利人利己。<br>总的来说，有了使用jacman的爬坑经验，这次更换next还是非常顺利的，几乎没有什么阻碍，一会就更换完毕了，虽然没啥技术含量，但是毕竟是自己一点一滴填充进去的，看到页面出来的时候，是很欣欣然滴，博客就像是自己的孩子，需要好好呵护，对，<strong> 我不为输赢，我就是认真 </strong> ^_^。</p>
+<h2 id="废话不多说了，开始吐辅">废话不多说了，开始吐辅</h2><p>以next为例记录一下润色静态博客的方法，可能方法不止适用于next<br>next使用文档比jacman详尽清楚地多，基本看着手册一步一步来就能很顺利的搭建起来<br>这里只选择性记录下<br><a id="more"></a></p>
+<h2 id="添加云标签">添加云标签</h2><p>添加分类也类似,其他基本跟jacman大同小异，有一些点统计之类的配置由主题配置移到了主目录配置。</p>
+<ul>
+<li>hexo new page “tags”</li>
+<li><p>编辑刚新建的页面，将页面的类型设置为 tags ，主题将自动为这个页面显示标签云。页面内容如下：</p>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: Tagcloud</span><br><span class="line">date: 2014-12-22 12:39:04</span><br><span class="line">type: "tags"</span><br><span class="line">comments: false # 关闭这个页面的多说或者 Disqus 评论</span><br><span class="line">---</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>在菜单中添加链接。编辑 主题配置文件 ，添加 tags 到 menu 中，如下:</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  archives: /archives</span><br><span class="line">  tags: /tags</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<h2 id="添加音乐播放器">添加音乐播放器</h2><p>以前觉得网页嵌入播放器很牛逼的感觉，原来就是一句代码的事儿！感谢外连接，感谢开源，让这个世界变得更美好。<br><strong> markdown语法是完全兼容html代码的，直接把html代码扔进去就oook咯。</strong></p>
+<ul>
+<li>添加豆瓣音乐<br>复制下面代码到你的博文任意位置，然后Hexo s预览。<br>加入豆瓣音乐 歌曲是随机播放，游客可切歌，不能定制播哪首歌，而且不能按钮停止，只能音量调到0，无语，有利有弊的吧。<br>尽量放在最下面，如果你放在最上面，很有可能别人还未点击进入博文，你的博客就有了背景音乐了，要想赶紧播放音乐的另说。<center> <iframe name="iframe_canvas" src="./玩转Hexo博客之Next _ 微凉一季_files/doubanradio.html" scrolling="no" frameborder="0" width="400" height="200"></iframe> </center>
+
+</li>
+</ul>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">center</span>&gt;</span> <span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">name</span>=<span class="value">"iframe_canvas"</span> <span class="attribute">src</span>=<span class="value">"http://douban.fm/partner/baidu/doubanradio"</span> <span class="attribute">scrolling</span>=<span class="value">"no"</span> <span class="attribute">frameborder</span>=<span class="value">"0"</span> <span class="attribute">width</span>=<span class="value">"400"</span> <span class="attribute">height</span>=<span class="value">"200"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span> <span class="tag">&lt;/<span class="title">center</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>添加网易云音乐<blockquote>
+<p>打开网页版网易云音乐。<br>如果只是加入单曲，只需要搜索歌曲，点开歌曲名，点击生成外链播放器，复制html代码（可以选择是否自动播放），将html代码无需任何修改放入markdown文章里就OK了。<br>如果想要加入歌单，就需要自己创建歌单，然后分享歌单，找到自己的分享动态，点进去可以看到有“生成外链播放器”这些字眼，其余操作就和上面一样了。不过，你的歌单有变化的话，这个外链的歌曲同样跟着变，这一点挺棒的。<br>例如，播放待你长发及腰这首歌，自动播放只需要嵌入一下代码</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">frameborder</span>=<span class="value">"no"</span> <span class="attribute">border</span>=<span class="value">"0"</span> <span class="attribute">marginwidth</span>=<span class="value">"0"</span> <span class="attribute">marginheight</span>=<span class="value">"0"</span> <span class="attribute">width</span>=<span class="value">330</span> <span class="attribute">height</span>=<span class="value">86</span> <span class="attribute">src</span>=<span class="value">"http://music.163.com/outchain/player?type=2&amp;id=28947001&amp;auto=1&amp;height=66"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+</li>
+</ul>
+<p>嵌入不自动播放只需要把以上代码中的auto改为=0即可，样子是这样的</p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="./玩转Hexo博客之Next _ 微凉一季_files/player.html"></iframe><br>类似方法还可以嵌入虾米播播</p>
+<h2 id="添加high一下">添加high一下</h2><p>再次感谢开源<br>效果很赞，整个页面渐进式摇摆，摇摆，还有音乐<br>在 Hexo\themes\next\layout_partials\header.swig 中的 ul 标签加入如下 li 代码：<br></p><figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">li</span>&gt;</span> <span class="tag">&lt;<span class="title">a</span> <span class="attribute">title</span>=<span class="value">"把这个链接拖到你的Chrome收藏夹工具栏中"</span> <span class="attribute">href</span>=<span class="value">'javascript:(function() {</span><br><span class="line">    function c() {</span><br><span class="line">        var e = document.createElement("link");</span><br><span class="line">        e.setAttribute("type", "text/css");</span><br><span class="line">        e.setAttribute("rel", "stylesheet");</span><br><span class="line">        e.setAttribute("href", f);</span><br><span class="line">        e.setAttribute("class", l);</span><br><span class="line">        document.body.appendChild(e)</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function h() {</span><br><span class="line">        var e = document.getElementsByClassName(l);</span><br><span class="line">        for (var t = 0; t &lt; e.length; t++) {</span><br><span class="line">            document.body.removeChild(e[t])</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function p() {</span><br><span class="line">        var e = document.createElement("div");</span><br><span class="line">        e.setAttribute("class", a);</span><br><span class="line">        document.body.appendChild(e);</span><br><span class="line">        setTimeout(function() {</span><br><span class="line">            document.body.removeChild(e)</span><br><span class="line">        }, 100)</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function d(e) {</span><br><span class="line">        return {</span><br><span class="line">            height : e.offsetHeight,</span><br><span class="line">            width : e.offsetWidth</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function v(i) {</span><br><span class="line">        var s = d(i);</span><br><span class="line">        return s.height &gt; e &amp;&amp; s.height &lt; n &amp;&amp; s.width &gt; t &amp;&amp; s.width &lt; r</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function m(e) {</span><br><span class="line">        var t = e;</span><br><span class="line">        var n = 0;</span><br><span class="line">        while (!!t) {</span><br><span class="line">            n += t.offsetTop;</span><br><span class="line">            t = t.offsetParent</span><br><span class="line">        }</span><br><span class="line">        return n</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function g() {</span><br><span class="line">        var e = document.documentElement;</span><br><span class="line">        if (!!window.innerWidth) {</span><br><span class="line">            return window.innerHeight</span><br><span class="line">        } else if (e &amp;&amp; !isNaN(e.clientHeight)) {</span><br><span class="line">            return e.clientHeight</span><br><span class="line">        }</span><br><span class="line">        return 0</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function y() {</span><br><span class="line">        if (window.pageYOffset) {</span><br><span class="line">            return window.pageYOffset</span><br><span class="line">        }</span><br><span class="line">        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function E(e) {</span><br><span class="line">        var t = m(e);</span><br><span class="line">        return t &gt;= w &amp;&amp; t &lt;= b + w</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function S() {</span><br><span class="line">        var e = document.createElement("audio");</span><br><span class="line">        e.setAttribute("class", l);</span><br><span class="line">        e.src = i;</span><br><span class="line">        e.loop = false;</span><br><span class="line">        e.addEventListener("canplay", function() {</span><br><span class="line">            setTimeout(function() {</span><br><span class="line">                x(k)</span><br><span class="line">            }, 500);</span><br><span class="line">            setTimeout(function() {</span><br><span class="line">                N();</span><br><span class="line">                p();</span><br><span class="line">                for (var e = 0; e &lt; O.length; e++) {</span><br><span class="line">                    T(O[e])</span><br><span class="line">                }</span><br><span class="line">            }, 15500)</span><br><span class="line">        }, true);</span><br><span class="line">        e.addEventListener("ended", function() {</span><br><span class="line">            N();</span><br><span class="line">            h()</span><br><span class="line">        }, true);</span><br><span class="line">        e.innerHTML = " &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;";</span><br><span class="line">        document.body.appendChild(e);</span><br><span class="line">        e.play()</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function x(e) {</span><br><span class="line">        e.className += " " + s + " " + o</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function T(e) {</span><br><span class="line">        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    function N() {</span><br><span class="line">        var e = document.getElementsByClassName(s);</span><br><span class="line">        var t = new RegExp("\\b" + s + "\\b");</span><br><span class="line">        for (var n = 0; n &lt; e.length; ) {</span><br><span class="line">            e[n].className = e[n].className.replace(t, "")</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    var e = 30;</span><br><span class="line">    var t = 30;</span><br><span class="line">    var n = 350;</span><br><span class="line">    var r = 350;</span><br><span class="line">    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";</span><br><span class="line">    var s = "mw-harlem_shake_me";</span><br><span class="line">    var o = "im_first";</span><br><span class="line">    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];</span><br><span class="line">    var a = "mw-strobe_light";</span><br><span class="line">    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";</span><br><span class="line">    var l = "mw_added_css";</span><br><span class="line">    var b = g();</span><br><span class="line">    var w = y();</span><br><span class="line">    var C = document.getElementsByTagName("*");</span><br><span class="line">    var k = null;</span><br><span class="line">    for (var L = 0; L &lt; C.length; L++) {</span><br><span class="line">        var A = C[L];</span><br><span class="line">        if (v(A)) {</span><br><span class="line">            if (E(A)) {</span><br><span class="line">                k = A;</span><br><span class="line">                break</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    if (A === null) {</span><br><span class="line">        console.warn("Could not find a node of the right size. Please try a different page.");</span><br><span class="line">        return</span><br><span class="line">    }</span><br><span class="line">    c();</span><br><span class="line">    S();</span><br><span class="line">    var O = [];</span><br><span class="line">    for (var L = 0; L &lt; C.length; L++) {</span><br><span class="line">        var A = C[L];</span><br><span class="line">        if (v(A)) {</span><br><span class="line">            O.push(A)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">})()    '</span>&gt;</span>High一下<span class="tag">&lt;/<span class="title">a</span>&gt;</span> <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="多说自定义css">多说自定义css</h2><p><a href="http://www.vsay.cn/one-more-custom-css-lets-you-say-comments-city.html" target="_blank" rel="external">更详尽资源</a><br>在多说后台 -&gt; 设置 -&gt; 基本设置 -&gt; 自定义CSS -&gt; copy上边资源拿来的代码<br>另外使用多说前需要先在 多说 创建一个站点。这点跟jacman有所不同，jacman不需要创建站点，只需要用户名就行了<br><a href="http://theme-next.iissnan.com/third-party-services.html#多说" target="_blank" rel="external">配置多说以及统计等等第三方服务</a></p>
+<h2 id="站内搜索">站内搜索</h2><p>jaman配置搜索失效了，我看很多其他jacman的博客搜索也没效果，我先后换了google，百度， Swiftype tinysou微搜都不好用，然而next一下就起效了，真的很赞<br>Swiftype</p>
+<ul>
+<li>注册Swiftype <a href="https://swiftype.com/home" target="_blank" rel="external">Swiftype 注册页面</a></li>
+<li>注册完成后，创建一个新的搜索引擎，并按照提示完成创建步骤。</li>
+<li>搜索引擎创建完成后，在菜单中选择 Integrate -&gt; Install Search开启搜索定制，安装步骤完成定制。最后一步记得点击 Active 按钮。</li>
+<li>返回定制引擎的第二个步骤 INSTALL CODE，复制出你的 swiftype_key。 install 和2.0.0之间的</li>
+<li>关键！ 编辑站点配置文件，新增字段 swiftype_key，值设置成第四步中赋值出来的 key<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Swiftype Search Key</span><br><span class="line">swiftype_key: xxxxxxxxx</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<p>呃呃，还有很多好玩的东西基本通过官方的手册都能成功，就不赘述了.<br>总体感觉，next比jacman好用一点，也更有极客范儿。</p>
+<p><a href="http://theme-next.iissnan.com/" target="_blank" rel="external"></a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="http://jijiaxin89.com/tags/%E7%BB%8F%E9%AA%8C/" rel="tag">#经验</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="http://jijiaxin89.com/2015/08/25/todayIsTuesday/" rel="prev">今天是个周二呀</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="http://jijiaxin89.com/2015/08/18/%E5%86%8D%E7%94%A8fiddler%20&amp;&amp;%20%E5%86%8D%E7%9C%8Bjava%E6%B3%9B%E5%9E%8B/" rel="next">Java泛型 &amp;&amp; Fiddler抓包</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/08/21/玩转hexo博客之next/" data-title="玩转Hexo博客之Next" data-content="" data-url="http://jijiaxin89.com/2015/08/21/玩转hexo博客之next/" id="ds-share">
+  <div class="ds-share-inline" id="ds-reset">
+    <ul class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more flat" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone flat" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt flat" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more" style="display: none;"><div class="ds-share-icons"> <div class="ds-share-icons-inner"> <ul class="ds-share-icons-16">  <li> <a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>  <li> <a class="ds-qzone flat" href="javascript:void(0);" data-service="qzone">QQ空间</a> </li>  <li> <a class="ds-sohu flat" href="javascript:void(0);" data-service="sohu">搜狐微博</a> </li>  <li> <a class="ds-renren flat" href="javascript:void(0);" data-service="renren">人人网</a> </li>  <li> <a class="ds-netease flat" href="javascript:void(0);" data-service="netease">undefined</a> </li>  <li> <a class="ds-qqt flat" href="javascript:void(0);" data-service="qqt">腾讯微博</a> </li>  <li> <a class="ds-kaixin flat" href="javascript:void(0);" data-service="kaixin">开心网</a> </li>  <li> <a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣网</a> </li>  <li> <a class="ds-qq flat" href="javascript:void(0);" data-service="qq">QQ</a> </li>  <li> <a class="ds-meilishuo flat" href="javascript:void(0);" data-service="meilishuo">undefined</a> </li>  <li> <a class="ds-mogujie flat" href="javascript:void(0);" data-service="mogujie">undefined</a> </li>  <li> <a class="ds-baidu flat" href="javascript:void(0);" data-service="baidu">百度</a> </li>  <li> <a class="ds-taobao flat" href="javascript:void(0);" data-service="taobao">undefined</a> </li>  <li> <a class="ds-google flat" href="javascript:void(0);" data-service="google">谷歌</a> </li>  <li> <a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a> </li>  <li> <a class="ds-diandian flat" href="javascript:void(0);" data-service="diandian">undefined</a> </li>  <li> <a class="ds-huaban flat" href="javascript:void(0);" data-service="huaban">undefined</a> </li>  <li> <a class="ds-duitang flat" href="javascript:void(0);" data-service="duitang">undefined</a> </li>  <li> <a class="ds-youdao flat" href="javascript:void(0);" data-service="youdao">undefined</a> </li>  <li> <a class="ds-pengyou flat" href="javascript:void(0);" data-service="pengyou">undefined</a> </li>  <li> <a class="ds-facebook flat" href="javascript:void(0);" data-service="facebook">Facebook</a> </li>  <li> <a class="ds-twitter flat" href="javascript:void(0);" data-service="twitter">Twitter</a> </li>  <li> <a class="ds-linkedin flat" href="javascript:void(0);" data-service="linkedin">Linkedin</a> </li>  <li> <a class="ds-msn flat" href="javascript:void(0);" data-service="msn">undefined</a> </li>  </ul> </div> <div class="ds-share-icons-footer">多说分享插件</div></div></div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/08/21/玩转hexo博客之next/" data-title="玩转Hexo博客之Next" data-url="http://jijiaxin89.com/2015/08/21/玩转hexo博客之next/" id="ds-thread">
+              <div id="ds-reset"><div class="ds-meta" style="display: none;"><a href="javascript:void(0)" class="ds-like-thread-button ds-rounded"><span class="ds-icon ds-icon-heart"></span> <span class="ds-thread-like-text">喜欢</span><span class="ds-thread-cancel-like">取消喜欢</span></a><span class="ds-like-panel"></span></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);"><span class="ds-highlight">26</span>条评论</a></li> <li class="ds-tab"><a class="ds-comments-tab-weibo" href="javascript:void(0);"><span class="ds-highlight">1</span>条新浪微博</a></li> </ul></div><ul class="ds-comments"><li class="ds-post" data-post-id="1404513954297806854"><div class="ds-post-self" data-post-id="1404513954297806854" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="8080310"><a rel="nofollow author" target="_blank" href="http://unee.wang/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=8080310&#39;;" title="Unee"><img src="./玩转Hexo博客之Next _ 微凉一季_files/1" alt="Unee"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://unee.wang/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=8080310&#39;;" rel="nofollow" target="_blank" data-user-id="8080310">Unee</a><span class="this_ua platform Chromium OS">Chromium OS 6812.75.2</span><span class="this_ua browser Chrome">Chrome | 42.0.2311.87</span></div><p>音乐吓着我了</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-08-28T08:22:10+08:00" title="2015年8月28日 上午8:22:10">2015年8月28日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1404513954297806869"><div class="ds-post-self" data-post-id="1404513954297806869" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="10406007"><a rel="nofollow author" target="_blank" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" title="微凉ぐ季"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50" alt="微凉ぐ季"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" rel="nofollow" target="_blank" data-user-id="10406007">微凉ぐ季</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 44.0.2403.130</span></div><p><a href="http://www.jianshu.com/ui?t=09f840426bc9&amp;utm_campaign=haruki&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qq" target="_blank" rel="nofollow">http://www.jianshu.com/ui?t=09f840426bc9&amp;utm_campaign=haruki&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qq</a></p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-08-31T10:45:50+08:00" title="2015年8月31日 上午10:45:50">2015年8月31日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1404513954297806870"><div class="ds-post-self" data-post-id="1404513954297806870" data-thread-id="1404513954297806859" data-root-id="1404513954297806854" data-source="duoshuo"><div class="ds-avatar" data-user-id="10406007"><a rel="nofollow author" target="_blank" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" title="微凉ぐ季"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50" alt="微凉ぐ季"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" rel="nofollow" target="_blank" data-user-id="10406007">微凉ぐ季</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 44.0.2403.130</span></div><p><a class="ds-comment-context" data-post-id="1404513954297806870" data-parent-id="1404513954297806854">回复 Unee: </a>sorry。。。</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-08-31T10:46:24+08:00" title="2015年8月31日 上午10:46:24">2015年8月31日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1404513954297806933"><div class="ds-post-self" data-post-id="1404513954297806933" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./玩转Hexo博客之Next _ 微凉一季_files/183860.jpg" alt="哦哦"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">哦哦</span><span class="this_ua platform Mac OS">Mac OS 10.10.5</span><span class="this_ua browser Chrome">Chrome | 45.0.2454.85</span></div><p>你</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-09-13T01:50:40+08:00" title="2015年9月13日 上午1:50:40">2015年9月13日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1404513954297806934"><div class="ds-post-self" data-post-id="1404513954297806934" data-thread-id="1404513954297806859" data-root-id="1404513954297806933" data-source="duoshuo"><div class="ds-avatar"><img src="./玩转Hexo博客之Next _ 微凉一季_files/183860.jpg" alt="哦哦"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">哦哦</span><span class="this_ua platform Mac OS">Mac OS 10.10.5</span><span class="this_ua browser Chrome">Chrome | 45.0.2454.85</span></div><p><a class="ds-comment-context" data-post-id="1404513954297806934" data-parent-id="1404513954297806933">回复 哦哦: </a>ii</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-09-13T01:50:52+08:00" title="2015年9月13日 上午1:50:52">2015年9月13日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6207653920971211522"><div class="ds-post-self" data-post-id="6207653920971211522" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="13967924"><a rel="nofollow author" target="_blank" href="http://weibo.com/2389780804" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=13967924&#39;;" title="木木牛奶"><img src="./玩转Hexo博客之Next _ 微凉一季_files/1(1)" alt="木木牛奶"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/2389780804" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=13967924&#39;;" rel="nofollow" target="_blank" data-user-id="13967924">木木牛奶</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 31.0.1650.63</span></div><p>赞一下</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-10-20T17:07:38+08:00" title="2015年10月20日 下午5:07:38">2015年10月20日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6225892206444544769"><div class="ds-post-self" data-post-id="6225892206444544769" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6225069180572402434"><a rel="nofollow author" target="_blank" href="http://domicat.me/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6225069180572402434&#39;;" title="卡撒布兰卡"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50(1)" alt="卡撒布兰卡"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://domicat.me/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6225069180572402434&#39;;" rel="nofollow" target="_blank" data-user-id="6225069180572402434">卡撒布兰卡</a><span class="this_ua platform Windows">Windows 8.1</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.73</span></div><p>哈哈，这个high一下，好欢乐，博主，我收下了，谢谢 ，么么哒</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-12-08T20:41:29+08:00" title="2015年12月8日 下午8:41:29">2015年12月8日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6226424010905748225"><div class="ds-post-self" data-post-id="6226424010905748225" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6226416460340658945"><a rel="nofollow author" target="_blank" href="http://www.douban.com/people/138808672/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6226416460340658945&#39;;" title="橙子 ®"><img src="./玩转Hexo博客之Next _ 微凉一季_files/0" alt="橙子 ®"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.douban.com/people/138808672/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6226416460340658945&#39;;" rel="nofollow" target="_blank" data-user-id="6226416460340658945">橙子 ®</a><span class="this_ua platform Mac OS">Mac OS 10.11.1</span><span class="this_ua browser Safari">Safari | 9.0.1</span></div><p>学习了，哈哈哈</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-12-10T07:05:10+08:00" title="2015年12月10日 上午7:05:10">2015年12月10日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6226424993626981121"><div class="ds-post-self" data-post-id="6226424993626981121" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6226416460340658945"><a rel="nofollow author" target="_blank" href="http://www.douban.com/people/138808672/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6226416460340658945&#39;;" title="橙子 ®"><img src="./玩转Hexo博客之Next _ 微凉一季_files/0" alt="橙子 ®"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.douban.com/people/138808672/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6226416460340658945&#39;;" rel="nofollow" target="_blank" data-user-id="6226416460340658945">橙子 ®</a><span class="this_ua platform Mac OS">Mac OS 10.11.1</span><span class="this_ua browser Safari">Safari | 9.0.1</span></div><p>为什么你的评论可以转圈，我的不可以。求方法！！先谢一个，么么哒。</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-12-10T07:08:58+08:00" title="2015年12月10日 上午7:08:58">2015年12月10日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6233602430441882370"><div class="ds-post-self" data-post-id="6233602430441882370" data-thread-id="1404513954297806859" data-root-id="6226424993626981121" data-source="duoshuo"><div class="ds-avatar" data-user-id="6225069180572402434"><a rel="nofollow author" target="_blank" href="http://domicat.me/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6225069180572402434&#39;;" title="卡撒布兰卡"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50(1)" alt="卡撒布兰卡"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://domicat.me/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6225069180572402434&#39;;" rel="nofollow" target="_blank" data-user-id="6225069180572402434">卡撒布兰卡</a><span class="this_ua platform Windows">Windows 8.1</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.73</span></div><p><a class="ds-comment-context" data-post-id="6233602430441882370" data-parent-id="6226424993626981121">回复 橙子 ®: </a>你么我，我就告诉你，看我的 blog  <a href="http://domicat.me/" target="_blank" rel="nofollow">http://domicat.me</a></p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-12-29T15:21:06+08:00" title="2015年12月29日 下午3:21:06">2015年12月29日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6233880119870489346"><div class="ds-post-self" data-post-id="6233880119870489346" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6233635206738215681"><a rel="nofollow author" target="_blank" href="http://weibo.com/3562983664" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6233635206738215681&#39;;" title="_周畅_"><img src="./玩转Hexo博客之Next _ 微凉一季_files/1(2)" alt="_周畅_"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/3562983664" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6233635206738215681&#39;;" rel="nofollow" target="_blank" data-user-id="6233635206738215681">_周畅_</a><span class="this_ua platform Mac OS">Mac OS 10.11.2</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.73</span></div><p>博主，你好~你的评论上面显示系统和浏览器的东西是怎么设置的啊？</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-12-30T09:18:40+08:00" title="2015年12月30日 上午9:18:40">2015年12月30日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6240338461589504770"><div class="ds-post-self" data-post-id="6240338461589504770" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="14176184"><a rel="nofollow author" target="_blank" href="http://weibo.com/3911241332" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=14176184&#39;;" title="小黄黄黄黄_"><img src="./玩转Hexo博客之Next _ 微凉一季_files/1(3)" alt="小黄黄黄黄_"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/3911241332" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=14176184&#39;;" rel="nofollow" target="_blank" data-user-id="14176184">小黄黄黄黄_</a><span class="this_ua platform Mac OS">Mac OS 10.10.5</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.111</span></div><p>bgm很好听 <img src="./玩转Hexo博客之Next _ 微凉一季_files/mb_org.gif" alt="[太开心]" title="[太开心]" class="ds-smiley"> </p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-01-16T19:00:20+08:00" title="2016年1月16日 下午7:00:20">1月16日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6242621432270947073"><div class="ds-post-self" data-post-id="6242621432270947073" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6242145815968613121"><a rel="nofollow author" target="_blank" href="http://weibo.com/waxcjj" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6242145815968613121&#39;;" title="Vampireboy丶"><img src="./玩转Hexo博客之Next _ 微凉一季_files/100" alt="Vampireboy丶"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/waxcjj" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6242145815968613121&#39;;" rel="nofollow" target="_blank" data-user-id="6242145815968613121">Vampireboy丶</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.111</span></div><p>博主，怎么自动打开右侧的文章目录？？</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-01-22T22:39:26+08:00" title="2016年1月22日 下午10:39:26">1月22日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6244001466600653569"><div class="ds-post-self" data-post-id="6244001466600653569" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./玩转Hexo博客之Next _ 微凉一季_files/183860.jpg" alt="zzreg"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">zzreg</span><span class="this_ua platform Windows">Windows 10</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.111</span></div><p>博主，求问怎么自动打开右侧的目录啊。我按照作者的说法改配置文件没用啊</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-01-26T15:54:40+08:00" title="2016年1月26日 下午3:54:40">1月26日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6253597431989011202"><div class="ds-post-self" data-post-id="6253597431989011202" data-thread-id="1404513954297806859" data-root-id="6233880119870489346" data-source="duoshuo"><div class="ds-avatar" data-user-id="10406007"><a rel="nofollow author" target="_blank" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" title="微凉ぐ季"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50" alt="微凉ぐ季"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" rel="nofollow" target="_blank" data-user-id="10406007">微凉ぐ季</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 48.0.2564.82</span></div><p><a class="ds-comment-context" data-post-id="6253597431989011202" data-parent-id="6233880119870489346">回复 _周畅_: </a>多说自带的功能</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-02-21T12:31:55+08:00" title="2016年2月21日 下午12:31:55">2月21日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6253597995355341570"><div class="ds-post-self" data-post-id="6253597995355341570" data-thread-id="1404513954297806859" data-root-id="6244001466600653569" data-source="duoshuo"><div class="ds-avatar" data-user-id="10406007"><a rel="nofollow author" target="_blank" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" title="微凉ぐ季"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50" alt="微凉ぐ季"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" rel="nofollow" target="_blank" data-user-id="10406007">微凉ぐ季</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 48.0.2564.82</span></div><p><a class="ds-comment-context" data-post-id="6253597995355341570" data-parent-id="6244001466600653569">回复 zzreg: </a>主题的配置文件里面，设置上sidebar: always 就可以了</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-02-21T12:34:06+08:00" title="2016年2月21日 下午12:34:06">2月21日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6253598048841106178"><div class="ds-post-self" data-post-id="6253598048841106178" data-thread-id="1404513954297806859" data-root-id="6242621432270947073" data-source="duoshuo"><div class="ds-avatar" data-user-id="10406007"><a rel="nofollow author" target="_blank" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" title="微凉ぐ季"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50" alt="微凉ぐ季"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" rel="nofollow" target="_blank" data-user-id="10406007">微凉ぐ季</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 48.0.2564.82</span></div><p><a class="ds-comment-context" data-post-id="6253598048841106178" data-parent-id="6242621432270947073">回复 Vampireboy丶: </a>主题的配置文件里面，设置上sidebar: always 就可以了</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-02-21T12:34:18+08:00" title="2016年2月21日 下午12:34:18">2月21日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6253598220274893570"><div class="ds-post-self" data-post-id="6253598220274893570" data-thread-id="1404513954297806859" data-root-id="6226424993626981121" data-source="duoshuo"><div class="ds-avatar" data-user-id="10406007"><a rel="nofollow author" target="_blank" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" title="微凉ぐ季"><img src="./玩转Hexo博客之Next _ 微凉一季_files/50" alt="微凉ぐ季"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/jjx89" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=10406007&#39;;" rel="nofollow" target="_blank" data-user-id="10406007">微凉ぐ季</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 48.0.2564.82</span></div><p><a class="ds-comment-context" data-post-id="6253598220274893570" data-parent-id="6226424993626981121">回复 橙子 ®: </a>上面说的方法里面选的一个样式</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-02-21T12:34:58+08:00" title="2016年2月21日 下午12:34:58">2月21日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6262264272751952641"><div class="ds-post-self" data-post-id="6262264272751952641" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="11643472"><a rel="nofollow author" target="_blank" href="http://t.qq.com/paratroopt" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=11643472&#39;;" title="Blue"><img src="./玩转Hexo博客之Next _ 微凉一季_files/100(1)" alt="Blue"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://t.qq.com/paratroopt" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=11643472&#39;;" rel="nofollow" target="_blank" data-user-id="11643472">Blue</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 48.0.2564.116</span></div><p>怎么打开评论呢？</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-03-15T21:03:41+08:00" title="2016年3月15日 下午9:03:41">3月15日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6287848968097366785"><div class="ds-post-self" data-post-id="6287848968097366785" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6274094388016579330"><a rel="nofollow author" target="_blank" href="javascript:void(0)" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6274094388016579330&#39;;" title="汉成"><img src="./玩转Hexo博客之Next _ 微凉一季_files/231652.jpg" alt="汉成"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="javascript:void(0)" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6274094388016579330&#39;;" rel="nofollow" target="_blank" data-user-id="6274094388016579330">汉成</a><span class="this_ua platform Windows">Windows 10</span><span class="this_ua browser Firefox">Firefox | 46.0</span></div><p>请问博主，多说头像旋转的效果是在哪里设置的啊？</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-05-23T19:45:22+08:00" title="2016年5月23日 下午7:45:22">5月23日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6289199897182733057"><div class="ds-post-self" data-post-id="6289199897182733057" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6283363888452862722"><a rel="nofollow author" target="_blank" href="http://weibo.com/2164004692" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6283363888452862722&#39;;" title="Huazhi_xi"><img src="./玩转Hexo博客之Next _ 微凉一季_files/80fc1754jw1e8qgp5bmzyj2050050aa8.jpg" alt="Huazhi_xi"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/2164004692" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6283363888452862722&#39;;" rel="nofollow" target="_blank" data-user-id="6283363888452862722">Huazhi_xi</a><span class="this_ua platform Mac OS">Mac OS 10.11</span><span class="this_ua browser Safari">Safari | 9.0</span></div><p>再添音乐就能空间啦，对于技术博客不太实用。</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-05-27T11:07:40+08:00" title="2016年5月27日 上午11:07:40">5月27日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6289203223987225345"><div class="ds-post-self" data-post-id="6289203223987225345" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./玩转Hexo博客之Next _ 微凉一季_files/183860.jpg" alt="kor"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">kor</span><span class="this_ua platform Mac OS">Mac OS 10.11.5</span><span class="this_ua browser Chrome">Chrome | 50.0.2661.102</span></div><p>效果真的好棒！！！</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-05-27T11:20:34+08:00" title="2016年5月27日 上午11:20:34">5月27日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6292180393722381058"><div class="ds-post-self" data-post-id="6292180393722381058" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./玩转Hexo博客之Next _ 微凉一季_files/183860.jpg" alt="trywarrior"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">trywarrior</span><span class="this_ua platform Windows">Windows 10</span><span class="this_ua browser Chrome">Chrome | 47.0.2526.106</span></div><p>技术博客，整点音乐不合适</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-06-04T11:53:31+08:00" title="2016年6月4日 上午11:53:31">6月4日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6302622363917746945"><div class="ds-post-self" data-post-id="6302622363917746945" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6302554605620298497"><a rel="nofollow author" target="_blank" href="http://weibo.com/1846995671" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6302554605620298497&#39;;" title="LinusJason"><img src="./玩转Hexo博客之Next _ 微凉一季_files/6e16ead7gw1e9rgu700t6j20hs0dcwfy.jpg" alt="LinusJason"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/1846995671" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6302554605620298497&#39;;" rel="nofollow" target="_blank" data-user-id="6302554605620298497">LinusJason</a><span class="this_ua platform Mac OS">Mac OS 10.11.5</span><span class="this_ua browser Chrome">Chrome | 51.0.2704.103</span></div><p>博主，你好，我想问一下哪个tags文件生成之后，除了你添加你上面说的东西之外，还要添加些什么其它内容吗？我按照你的步骤弄了，但是标签页面是空白的。</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-07-02T15:13:41+08:00" title="2016年7月2日 下午3:13:41">7月2日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6306342135889134338"><div class="ds-post-self" data-post-id="6306342135889134338" data-thread-id="1404513954297806859" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6303316489181070082"><a rel="nofollow author" target="_blank" href="http://mac.xin/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6303316489181070082&#39;;" title="春风吹又生"><img src="./玩转Hexo博客之Next _ 微凉一季_files/0(1)" alt="春风吹又生"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://mac.xin/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=6303316489181070082&#39;;" rel="nofollow" target="_blank" data-user-id="6303316489181070082">春风吹又生</a><span class="this_ua platform Mac OS">Mac OS 10.11.3</span><span class="this_ua browser Chrome">Chrome | 44.0.2403.125</span></div><p>high一下位置怎么调整 并到meue里好看一点</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-07-12T15:48:18+08:00" title="2016年7月12日 下午3:48:18">7月12日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6308618146311832321"><div class="ds-post-self" data-post-id="6308618146311832321" data-thread-id="1404513954297806859" data-root-id="6306342135889134338" data-source="duoshuo"><div class="ds-avatar" data-user-id="13788476"><a rel="nofollow author" target="_blank" href="http://iamlj.com/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=13788476&#39;;" title="刘靖"><img src="./玩转Hexo博客之Next _ 微凉一季_files/247794.jpg" alt="刘靖"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://iamlj.com/" onclick="this.href=&#39;http://jijiaxin.duoshuo.com/user-url/?user_id=13788476&#39;;" rel="nofollow" target="_blank" data-user-id="13788476">刘靖</a><span class="this_ua platform Windows">Windows 7</span><span class="this_ua browser Chrome">Chrome | 51.0.2704.103</span></div><p><a class="ds-comment-context" data-post-id="6308618146311832321" data-parent-id="6306342135889134338">回复 春风吹又生: </a>我加好了。效果还不错。<br>
+<a href="http://www.iamlj.com/" target="_blank" rel="nofollow">http://www.iamlj.com/</a></p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2016-07-18T19:00:23+08:00" title="2016年7月18日 下午7:00:23">7月18日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://jijiaxin.duoshuo.com/login/weixin/" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://jijiaxin.duoshuo.com/login/weibo/" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://jijiaxin.duoshuo.com/login/qq/" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://jijiaxin.duoshuo.com/login/renren/" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://jijiaxin.duoshuo.com/login/douban/" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://jijiaxin.duoshuo.com/login/kaixin/" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://jijiaxin.duoshuo.com/login/baidu/" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://jijiaxin.duoshuo.com/login/google/" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./玩转Hexo博客之Next _ 微凉一季_files/183860.jpg" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1404513954297806859">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="57034f6cd95b9"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">jijiaxin正在使用多说</a></p></div></div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first" style="top: 5px; transform: rotateZ(-45deg); width: 100%;"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="opacity: 0;"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last" style="top: -5px; transform: rotateZ(45deg); width: 100%;"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar sidebar-active" style="display: block; width: 320px;">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person" style="opacity: 1; display: block; transform: translateX(0px);">
+          <img class="site-author-image" src="./玩转Hexo博客之Next _ 微凉一季_files/logo.png" alt="季訫" itemprop="image">
+          <p class="site-author-name" itemprop="name">季訫</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description" style="opacity: 1; display: block; transform: translateX(0px);">往事如烟，随风而逝</p>
+        <nav class="site-state motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <div class="site-state-item site-state-posts">
+            <a href="http://jijiaxin89.com/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="http://jijiaxin89.com/categories">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="http://jijiaxin89.com/tags">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+            <a href="http://jijiaxin89.com/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/jiaxin.ji.94" target="_blank">facebook</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jjx89" target="_blank">weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/09f840426bc9/latest_articles" target="_blank">jianshu</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/JJxinhero" target="_blank">twitter</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          
+            <p class="site-author-name">中国最大的IT技能学习平台</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.imooc.com/myclub/myquestion/t/ques" target="_blank">慕课网</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/jijiaxin1989" target="_blank">笔记本</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <div class="post-toc-indicator-top post-toc-indicator" style="opacity: 0;"></div>
+          <div class="post-toc" style="height: 623px;">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#废话不多说了，开始吐辅"><span class="nav-number">1.</span> <span class="nav-text">废话不多说了，开始吐辅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#添加云标签"><span class="nav-number">2.</span> <span class="nav-text">添加云标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#添加音乐播放器"><span class="nav-number">3.</span> <span class="nav-text">添加音乐播放器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#添加high一下"><span class="nav-number">4.</span> <span class="nav-text">添加high一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#多说自定义css"><span class="nav-number">5.</span> <span class="nav-text">多说自定义css</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="http://jijiaxin89.com/2015/08/21/%E7%8E%A9%E8%BD%AChexo%E5%8D%9A%E5%AE%A2%E4%B9%8Bnext/#站内搜索"><span class="nav-number">6.</span> <span class="nav-text">站内搜索</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator" style="opacity: 0;"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  © &nbsp;  2011 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">季訫</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io/">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+
+<script async="" src="./玩转Hexo博客之Next _ 微凉一季_files/busuanzi.pure.mini.js">
+</script>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/index.js"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jijiaxin"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="./玩转Hexo博客之Next _ 微凉一季_files/ua-parser.min.js"></script>
+  	<script src="./玩转Hexo博客之Next _ 微凉一季_files/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/fancy-box.js"></script>
+
+
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/helpers.js"></script>
+  
+
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/velocity.min.js"></script>
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/motion_global.js" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/nav-toggle.js"></script>
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/fastclick.min.js"></script>
+
+  
+  
+<script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/bootstrap.scrollspy.js" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/MathJax.js"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="./玩转Hexo博客之Next _ 微凉一季_files/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+
+
+<div class="st-injected-content-generated st-install-xcz9uwxqQgDBJFAfxd7n" data-st-install-key="xcz9uwxqQgDBJFAfxd7n" id="st-injected-content">
+<div class="st-ui-embed st-search-chrome-overlay-output st-search-escape-hide-outputs st-search-zoom-on-mobile" style="display: none;">
+    <div class="st-ui-overlay st-search-hide-outputs"></div>
+  <!-- Swiftype input and results overlay -->
+  <div class="st-ui-container st-ui-container-overlay  st-ui-injected-overlay-container ">
+    <!-- HEADER -->
+    <div class="st-ui-container-header_bar st-position-container">
+        <section class="st-ui-header">
+          <form>
+            <input class="st-default-search-input st-search-set-focus" type="text" value="" placeholder="Search this site" id="st-overlay-search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+          </form>
+          <span class="st-ui-search-icon"></span>
+
+            <a class="st-ui-close-button st-search-hide-outputs">Close</a>
+
+            <a class="st-ui-stamp" href="https://swiftype.com/" target="_blank">search by swiftype</a>
+        </section>
+    </div>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="st-ui-container-left_sidebar st-position-container">
+      <div class="st-ui-injected-search-controls">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="st-ui-container-right_sidebar st-position-container">
+      <div class="st-ui-injected-container-right_sidebar">
+        <div class="st-ui-injected-search-controls">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMARY CONTENT -->
+    <div class="st-ui-container-primary_content st-position-container">
+        <section class="st-ui-slide-autocomplete st-autocomplete-keyboard-navigable st-autocomplete-transient-on-select-and-results" data-st-target-element="#st-overlay-search-input" data-st-active-query-class="active" style="display: none;">
+          <span class="st-ui-type-heading-small">suggested results</span>
+          <div class="st-autocomplete-results"><div class="st-query-present" style="display: none;"></div></div>
+        </section>
+
+        <section class="st-ui-content st-search-results"><div class="st-query-not-present">
+          <span class="st-ui-fallback"></span>
+        </div><div class="st-query-present" style="display: none;"></div></section>
+
+      <section class="st-ui-no-results st-search-suggestions"><div class="st-query-not-present">
+      </div></section>
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <div class="st-ui-container-footer_bar st-position-container">
+      <section class="st-ui-footer">
+          <span class="st-ui-search-summary st-search-summary"></span>
+        <span class="st-ui-pagination st-search-pagination"></span>
+      </section>
+    </div>
+  </div>
+</div>
+<div class="st-default-autocomplete" data-st-target-element=".st-default-search-input" style="display: none; position: absolute; top: 549px; left: 0px; z-index: 999999;">
+  <div class="st-autocomplete-results st-ui-autocomplete"><div class="st-query-present" style="display: none;"></div></div>
+</div>
+</div><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

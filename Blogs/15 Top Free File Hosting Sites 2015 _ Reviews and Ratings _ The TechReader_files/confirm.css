@@ -1,0 +1,140 @@
+/*
+ * SimpleModal Confirm Modal Dialog
+ * http://simplemodal.com
+ *
+ * Copyright (c) 2013 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ */
+
+#confirm {
+	display:none;}
+
+/* Overlay */
+#confirm-overlay {
+	background-color:#eee;
+}
+
+/* Container */
+#confirm-container {
+	height:140px; width:420px; font: 16px/22px 'Trebuchet MS', Verdana, Arial; text-align:left; background:#fff; border:2px solid #336699;
+	border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+	-webkit-border-radius: 5px !important;
+}
+#confirm-container .header {
+	height:30px; line-height:30px; width:100%; background:url(http://thetechreader.com/images/confirm/header.gif) repeat-x; color:#fff; font-weight:bold;
+}
+#confirm-container .header span {
+	padding-left:8px;
+}
+#confirm-container .message {
+	color:#333; font-size:14px; margin:0; padding:17px 14px 22px 18px;	
+}
+#confirm-container .buttons {line-height:26px; /* width:160px; */ float:right; padding:10px 8px 0;
+	margin-top: -90px !important;
+	margin-right: 11px !important;
+} 
+#confirm-container .buttons div {
+	float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(http://thetechreader.com/images/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;
+} 
+#confirm-container a.modal-close,
+#confirm-container a.modal-close:link,
+#confirm-container a.modal-close:active,
+#confirm-container a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:2px; color:#fff;}
+#confirm-container a.modal-close:hover {color:#ccc;}
+.simplemodal-container {
+	width: 702px !important;
+	height: 326px !important;
+	left: 355px !important;
+	box-shadow: 0px 2px 10px #888;
+	-moz-box-shadow: 0px 2px 10px #888;
+	-webkit-box-shadow: 0px 2px 10px #888;
+}
+.yes {
+	float: left !important;
+	margin-top: -11px !important;
+	margin-right: 5px !important;
+	width: 304px !important;
+	height: 50px !important;
+	color: #777 !important;
+	font-weight: bold !important;
+	text-align: center !important;
+	background: url(http://thetechreader.com/images/confirm/button.gif) repeat-x !important;
+	/* border: 1px solid #bbb !important; */
+	border: 2px solid #60bd93 !important;
+	cursor: pointer !important;
+	color: #fff !important;
+	font: 22px "Roboto Slab", Arial, Helvetica, sans-serif !important;
+	line-height: 27px !important;
+	padding: 10px !important;
+	border-radius: 7px !important;
+	-moz-border-radius: 7px !important;
+	-webkit-border-radius: 7px !important;
+
+
+	/* background: #58a582 !important; */
+/*
+	background: #77ddbd !important;
+	background: -moz-linear-gradient(top,  #77ddbd 10%, #58a582 100%) !important;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,#77ddbd), color-stop(100%,#58a582)) !important;
+	background: -webkit-linear-gradient(top,  #77ddbd 10%,#58a582 100%) !important;
+	background: -o-linear-gradient(top,  #77ddbd 10%,#58a582 100%) !important;
+	background: -ms-linear-gradient(top,  #77ddbd 10%,#58a582 100%) !important;
+	background: linear-gradient(to bottom,  #77ddbd 10%,#58a582 100%) !important;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77ddbd', endColorstr='#58a582',GradientType=0 ) !important;
+*/
+
+	background: #72d3b4 !important; /* Old browsers */
+	background: -moz-linear-gradient(top, #72d3b4 0%, #40a587 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#72d3b4), color-stop(100%,#40a587)) !important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #72d3b4 0%,#40a587 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #72d3b4 0%,#40a587 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #72d3b4 0%,#40a587 100%) !important; /* IE10+ */
+	background: linear-gradient(to bottom, #72d3b4 0%,#40a587 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#72d3b4', endColorstr='#40a587',GradientType=0 ) !important; /* IE6-9 */
+}
+
+.yes:hover {
+	background: #7be0c2 !important; /* Old browsers */
+	background: -moz-linear-gradient(top, #7be0c2 1%, #4abf9c 100%) !important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#7be0c2), color-stop(100%,#4abf9c)) !important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7be0c2 1%,#4abf9c 100%) !important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7be0c2 1%,#4abf9c 100%) !important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7be0c2 1%,#4abf9c 100%) !important; /* IE10+ */
+	background: linear-gradient(to bottom, #7be0c2 1%,#4abf9c 100%) !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7be0c2', endColorstr='#4abf9c',GradientType=0 ) !important; /* IE6-9 */
+}
+.dialog-text {
+	padding-top: 9px;
+	padding-right: 12px;
+	padding-left: 25px;
+	line-height: 19px;
+	width: 321px !important;
+	height: 171px !important;
+}
+.cat-gif {
+	border: 3px solid #999;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.simplemodal-data .header span {
+	font-family: "Roboto Slab", Arial, Helvetica, sans-serif !important;
+}
+.nice-font {
+	font: 14px bold "Roboto Slab", Arial, Helvetica, sans-serif !important;
+}
+.nice-font b {
+	color: #60bd93;
+}
+.nice-font a {
+	color: #3d84c6;
+	font-weight: bold;
+}
+.nice-font a:hover {
+	text-decoration: none;
+	color: #4d98de;
+	cursor: pointer;
+}

@@ -1,0 +1,1216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jni.h头文件详解(二) - 好库文摘</title>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://doc.okbase.net/doclist/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://doc.okbase.net/doclist/rsd.xml"> 
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://doc.okbase.net/doclist/wlwmanifest.xml">
+</head>
+<body>
+<link type="text/css" href="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/common.css" rel="stylesheet">
+<link type="text/css" href="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/style.css" rel="stylesheet">
+<style type="text/css">
+
+</style>
+<a name="top"></a>
+<div id="home">
+<div id="header">
+	<div id="dlogTitle">
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://doc.okbase.net/" title="好库文摘"><img src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/dlogtitle.png" border="0" height="45" width="200"></a></div>
+<div class="subtitle"></div>
+	</div>
+	<div id="navigator">
+<ul id="navList">
+<li><a id="MyLinks_HomeLink" href="http://doc.okbase.net/">好库文摘</a></li>&nbsp;&nbsp;
+<li><a id="MyLinks_NewPostLink" href="http://doc.okbase.net/achv/newarchive">新文摘</a></li>&nbsp;
+<li><a id="MyLinks_Feed" href="http://doc.okbase.net/doclist/rss">订阅</a></li>&nbsp;
+<li><a id="MyLinks_Admin" href="http://doc.okbase.net/admin/index">管理</a></li>&nbsp;
+<li><a id="MyLinks_Logon" href="http://www.okbase.net/account/logon">登录</a></li>&nbsp;
+</ul>
+<div class="dlogStats">
+<!--done-->
+文摘 - 2083&nbsp;
+评论 - 0&nbsp;
+访问 - 99480&nbsp;
+		</div><!--end: dlogStats -->
+	</div><!--end: navigator 文摘导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+	<link type="text/css" rel="stylesheet" href="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/shThemeDefault.css">
+<script type="text/javascript" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/jquery.js"></script>
+<script type="text/javascript" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/shCore.js"></script>
+<script type="text/javascript" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/shAutoloader.js"></script>
+<script type="text/javascript">
+function path()
+{
+  var args = arguments, result = [];
+  for(var i = 0; i < args.length; i++)
+      result.push(args[i].replace('@', '/js/SyntaxHighlighter/scripts/'));
+  return result;
+};
+    $(document).ready(function () {
+        SyntaxHighlighter.defaults['toolbar'] = false;
+        SyntaxHighlighter.autoloader.apply(null, path(
+  'applescript            @shBrushAppleScript.js',
+  'actionscript3 as3      @shBrushAS3.js',
+  'bash shell             @shBrushBash.js',
+  'coldfusion cf          @shBrushColdFusion.js',
+  'cpp c                  @shBrushCpp.js',
+  'c# c-sharp csharp      @shBrushCSharp.js',
+  'css                    @shBrushCss.js',
+  'delphi pascal          @shBrushDelphi.js',
+  'diff patch pas         @shBrushDiff.js',
+  'erl erlang             @shBrushErlang.js',
+  'groovy                 @shBrushGroovy.js',
+  'java                   @shBrushJava.js',
+  'jfx javafx             @shBrushJavaFX.js',
+  'js jscript javascript  @shBrushJScript.js',
+  'perl pl                @shBrushPerl.js',
+  'php                    @shBrushPhp.js',
+  'text plain             @shBrushPlain.js',
+  'py python              @shBrushPython.js',
+  'ruby rails ror rb      @shBrushRuby.js',
+  'sass scss              @shBrushSass.js',
+  'scala                  @shBrushScala.js',
+  'sql                    @shBrushSql.js',
+  'vb vbnet               @shBrushVb.js',
+  'xml xhtml xslt html    @shBrushXml.js'
+));
+SyntaxHighlighter.all();
+    });</script>
+<div class="archive_contents">
+<div class="postTitle"><span class="icon icoattr4"></span><a href="http://doc.okbase.net/shaohuazuo/archive/125489.html">jni.h头文件详解(二)</a></div>
+<div class="archive_manage">
+    <span>shaohuazuo</span>
+    <span class="link_postdate">2015-1-25 21:44:53</span>
+    <span class="link_view" title="阅读次数">阅读(2039)</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(0)</span>
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-4159669282587342";
+/* 728x90, 创建于 09-4-19 */
+google_ad_slot = "4947706540";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/show_ads.js">
+</script>
+<div class="postTextBox"><div class="postText">
+
+
+<h2><span style="color:#009900"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">一：struct JNINativeInterface_｛｝</span></span></span></h2>
+<p>　　结构体的作用:它有点像我们char字符驱动的 file_ops结构体，它定义各种函数对在(jni.h头文件详解一)中定义的各种数据的操作函数集体．</p>
+<h2><span style="color:#009900"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">二：它包含那些针对Java中类和对象的相关操作呢如下图．</span></span></span></h2>
+<p>　　<img alt="" style="cursor:pointer" onclick="window.open('/picture/addon/2015/01/25/A214453541-125489.png')" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/A214453541-125489.png" border="0"><br>
+</p>
+<h2><span style="color:#009900"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">三：下面我们讲详细介绍14个部分方法的用法和解析</span></span></span><span style="color:#339999"><span style="background-color:rgb(255,255,255)"></span></span></h2>
+<h2><span style="color:#339999"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">3.1.版本信息操作函数.</span></span></span></h2>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="color:#339999"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">一.</span></span></span></span></span><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF">GetVersion</span></span></span></h3>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;jint (JNICALL *GetVersion)(JNIEnv *env)</span></span><br>
+</span></span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF">&nbsp;--模块信息:该模块主要针对的JNI接口的版本信息操作函数.</span></span></span></p>
+<span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><br>
+函数原型：jint (JNICALL *GetVersion)(JNIEnv *env)<br>
+<br>
+　描　述:它用来返回jni的版本信息.version = (*env)-&gt;GetVersion(env);&nbsp; &nbsp;<br>
+　　　　　我们通过这个方法获取版本信息.并通过回调java的getVersion()方法显示版本号. <br>
+　参　数:这个JNIEnv是JNI的运行环境．这个环境中包含了上图的14大块的操作函数等等.<br>
+　返回值:返回一个0-65535大小的数.他是一个16位的正整数.高八位是主版本号.低八位是次版本号.<br>
+&nbsp; 例 程:</span></span>
+<h5><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;<span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">--1.1 函数使用Demo流程介绍．</span></span></span></span></h5>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　&nbsp; &nbsp; 通过Java对象的构造方法，把当前对象传递到C中．Ｃ获取到该对象之后，保存Java对象的引用，并获取相应的方法等．</span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　&nbsp;&nbsp;&nbsp; 获取该对象之后，C会调用获取JNI版本的函数．获取版本号，并调用Java层的getVersion()函数，将版本号显示出来．如图:</span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;<br>
+</span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;<img alt="" style="cursor:pointer" onclick="window.open('/picture/addon/2015/01/25/A214455806-125489.png')" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/A214455806-125489.png" border="0"><br>
+</span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;<br>
+</span></span></p>
+<h5><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;<span style="color:#6600CC">--1.2 代码</span></span></span></h5>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_1_3300116" name="code" class="cpp">package com.octopus.test03;
+import android.os.Bundle;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class Act1 extends Activity implements OnClickListener {
+	private final int WC = LinearLayout.LayoutParams.WRAP_CONTENT;
+	private final int FP = LinearLayout.LayoutParams.FILL_PARENT;
+	private Button btn, btn3;
+	public static Act1 ref;
+	public TextView tv;
+
+	@Override
+	protected void onCreate(Bundle icicle) {
+		super.onCreate(icicle);
+		ref = this;
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		btn = new Button(this);
+		btn.setId(101);
+		btn.setText("run(Adder)");
+		btn.setBackgroundResource(R.drawable.ic_launcher);
+		btn.setOnClickListener(this);
+		LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(120, 50);
+		param.topMargin = 10;
+		layout.addView(btn, param);
+		btn3 = new Button(this);
+		btn3.setId(103);
+		btn3.setText("exit");
+		btn3.setBackgroundResource(R.drawable.ic_launcher);
+		btn3.setOnClickListener(this);
+		layout.addView(btn3, param);
+		tv = new TextView(this);
+		tv.setTextColor(Color.WHITE);
+		tv.setText("");
+		LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(FP, WC);
+		param2.topMargin = 10;
+		layout.addView(tv, param2);
+		setContentView(layout);
+	}
+
+	public void onClick(View v) {
+		if (v == btn) {
+			int a = 1, b = 1;
+			GetVersion adder = new GetVersion();
+		} else if (v == btn3) {
+			finish();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}
+&nbsp;&nbsp; 
+</pre><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span>
+<h5><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;<span style="color:#6600CC"> --1.3 Jni层代码</span></span></span></h5>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_2_856335" name="code" class="cpp">package com.octopus.test03;
+
+import java.lang.ref.WeakReference;
+
+import android.os.Handler;
+import android.os.Message;
+
+public class GetVersion {
+	
+	private static Handler h;
+	static {
+		System.loadLibrary("HelloNdk");
+	}
+
+	public GetVersion() {
+	
+		h = new Handler() {
+			public void handleMessage(Message msg) {
+				Act1.ref.setTitle(msg.obj.toString());
+			}
+		};
+		nativeSetup(new WeakReference&lt;GetVersion&gt;(this));
+	}
+	
+	private static void getVersion(Object version_ref, int what,int message)
+	{
+		
+		String obj1 = "Jni Version is : "+ message;
+		Message m = h.obtainMessage(what, obj1);
+		h.sendMessage(m);
+	}
+	
+	private native void nativeSetup(Object weak_this);
+
+}
+</pre>
+<h5><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;<span style="color:#6600CC">--1.4 C 层代码</span></span></span></h5>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_3_5971121" name="code" class="cpp">  1 /* DO NOT EDIT THIS FILE - it is machine generated */
+  2 #include "com_octopus_test03_GetVersion.h"
+  3 /* Header for class com_octopus_test03_GetVersion */
+  4 
+  5 /*
+  6  * Class:     com_octopus_test03_GetVersion
+  7  * Method:    nativeSetup
+  8  * Signature: (Ljava/lang/Object;)V
+  9  */
+ 10 
+ 11 jclass mClass;
+ 12 jobject mObject;
+ 13 jmethodID mid;
+ 14 
+ 15 JNIEXPORT void JNICALL Java_com_octopus_test03_GetVersion_nativeSetup
+ 16   (JNIEnv *env, jobject this, jobject weak_this)
+ 17 {
+ 18     jint version =0;
+ 19     jclass class = (*env)-&gt;GetObjectClass(env,this);
+ 20     mClass =  (jclass)(*env)-&gt;NewGlobalRef(env,class);
+ 21     mObject = (*env)-&gt;NewGlobalRef(env,weak_this); 
+ 22     mid = (*env)-&gt;GetStaticMethodID(env, mClass,"getVersion","(Ljava/lang/Object;II)V");
+ 23     
+ 24     version = (*env)-&gt;GetVersion(env);   //我们通过这个方法获取版本信息.并通过回调java的getVersion()方法显示版本号. 
+ 25     (*env)-&gt;CallStaticVoidMethod(env,mClass,mid,mObject,1,version);
+ 26     return ;
+ 27 }                                                                                                                                                                                   
+                                                                                                                                                                                      
+</pre>
+<h5><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#993399">1.5.Android.mk文件如下:</span><br>
+</span></span></h5>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_4_4433194" name="code" class="cpp">SRC_PATH_ROOT:=$(LOCAL_PATH)/../../src
+LOCAL_PATH := $(call my-dir)  
+include $(CLEAR_VARS)
+LOCAL_MODULE    := HelloNdk
+LOCAL_SRC_FILES := com_octopus_test03_GetVersion.c
+include $(BUILD_SHARED_LIBRARY)
+</pre>
+<h5 name="code" class="cpp"><span style="color:#993399">--1.6 测试当前JNI的版本为65542</span></h5>
+<span style="background-color:rgb(255,255,255)"><br>
+</span>
+<p><span style="background-color:rgb(255,255,255)">.</span></p>
+<p><span style="color:#FF0000"><span style="background-color:rgb(255,255,255)">转载请说明出处:&nbsp; http://blog.csdn.net/shaohuazuo/</span></span></p>
+<p><span style="background-color:rgb(255,255,255)">.<br>
+</span></p>
+<span style="background-color:rgb(255,255,255)"></span>
+<p><br>
+</p>
+<p><br>
+</p>
+<h2><span style="color:#339999"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">3.2<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="color:#339999"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">.
+ 类模块相关操作.</span></span></span></span></span></span></span></span></h2>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF">（DefineClass，FindClass）</span></span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">&nbsp;jclass (JNICALL *DefineClass)&nbsp; (JNIEnv *env, const char
+ *name, jobject loader, const jbyte *buf, jsize len);</span></span></span></span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New">&nbsp;jclass (JNICALL *FindClass) (JNIEnv *env, const char
+ *name);</span></span><br>
+</span></span></span></p>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#3333FF">&nbsp;--模块信息:这个模块主要是C或者C++中如何获取Java的Class类对象<span style="color:#000000">.<span style="background-color:rgb(204,0,0)"> 这个接口再Android上没有得到支持.</span></span><br>
+</span></span></span></p>
+<h3><span style="color:#993399">一<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">：DefineClass</span></span></span></span></span></h3>
+<p><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">函数原型:jclass (JNICALL *DefineClass)&nbsp; (JNIEnv *env, const char *name, jobject loader,
+ const jbyte *buf, jsize len);<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　描　述: 从二进制的.class的数据缓冲区中加载类.<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　参　数: env&nbsp;&nbsp;&nbsp; java本地接口指针.</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name&nbsp;&nbsp; 需要加载类的简短名称.比如下载需要加载一个com/zuoshaohua/Test.java这个类,那么该名称就是 Test</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loader 类加载器对象.该类用来加载java字节码.class文件</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf&nbsp;&nbsp;&nbsp; 这个是字节码缓冲区数组.</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; len&nbsp;&nbsp;&nbsp; 该数组的长度.<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 返回值:<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 返回一个jclass类型的结构体.他对应的是Java中的类相关信息.<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 例 程:</span></span></span></span></p>
+<h5><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;<span style="background-color:rgb(51,51,153)"> --1.1 相关的java背景知识说.可以参考http://blog.csdn.net/lovingprince/article/details/4317069博客,</span></span></span></span></span></h5>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Java类加载器.也就是我们的loader参数的详细介绍.</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在这里我们简单的说说loader的作用.在Java语言中loader是一个将 .class文件加载到内存的一个类加载器.</span></span></span></span></p>
+<h5><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;<span style="color:#6600CC"> --1.2 例程的业务逻辑介绍:</span><br>
+</span></span></span></span></h5>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 写一个测试的java类.他用来输出一个字符串..我们把他编译成一个.class文件.然后使用DefineClass进行加载.</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 并再Activity中输出该字符串.</span></span></span></span></p>
+<p><br>
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></p>
+<p><img alt="" style="cursor:pointer" onclick="window.open('/picture/addon/2015/01/25/A214458009-125489.png')" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/A214458009-125489.png" border="0"><br>
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></p>
+<p><br>
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><br>
+</span></span></span></span></p>
+<h5><span style="font-family:Courier New"><span style="color:#6600CC">--1.3代码&nbsp; (注释 界面代码和上一个实例是一样的.)</span><br>
+</span></h5>
+<p>&nbsp;&nbsp;&nbsp; </p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_5_9655881" name="code" class="java">package com.octopus.test03;
+
+import java.lang.ref.WeakReference;
+
+import android.os.Handler;
+import android.os.Message;
+
+public class DefindClassTest {
+	ClassLoader loader;
+	private static Handler h;
+	static {
+		System.loadLibrary("HelloNdk");
+	}
+
+	public DefindClassTest() {
+	
+		h = new Handler() {
+			public void handleMessage(Message msg) {
+				Act1.ref.setTitle(msg.obj.toString());
+			}
+		};
+		loader = DefindClassTest.class.getClassLoader();
+		if(loader==null){
+			System.out.println("loader error\n");
+		}
+                //将获得的类加载器,传入到C层.
+&nbsp;               nativeSetup(new WeakReference&lt;ClassLoader&gt;(loader));
+	   
+	}
+	
+	private static void getVersion(Object version_ref, Object test, int what,int message)
+  	{
+		String obj1 = "Jni Version is : "+ message+ "C Create obj is"+ test;
+		Message m = h.obtainMessage(what, obj1);
+		h.sendMessage(m);
+	}
+	
+	private native void nativeSetup(Object weak_this);
+
+}</pre><br>
+<h5><span style="font-family:Courier New; color:#6600CC">--１.4 jni中c端实现代码</span></h5>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_6_2054670" name="code" class="cpp">/* DO NOT EDIT THIS FILE - it is machine generated */
+#include "com_octopus_test03_DefindClassTest.h"
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+
+/*
+ * Class:     com_octopus_test03_DefindClassTest
+ * Method:    nativeSetup
+ * Signature: (Ljava/lang/Object;)V
+ */
+
+/*
+   jclass (JNICALL *DefineClass) (JNIEnv *env, const char *name, jobject loader, const jbyte *buf,jsize len);
+   */
+
+jclass mClass;
+jobject mObject;
+jmethodID mid;
+
+JNIEXPORT void JNICALL Java_com_octopus_test03_DefindClassTest_nativeSetup
+(JNIEnv *env, jobject this, jobject weak_this){
+
+
+	int fd;
+	off_t len;
+	jint ret;	
+	int pos;	
+	off_t tmplen;
+	jbyte *buf = NULL;	
+        jclass testclass;
+	jint version =0;
+	jobject mOjbect1;
+	jobject obj1;
+	jclass class = (*env)-&gt;GetObjectClass(env,this);
+	mClass =  (jclass)(*env)-&gt;NewGlobalRef(env,class);
+	
+	//我们需要获取到DefineClassTest该类的类加载器.
+	mObject = (*env)-&gt;NewGlobalRef(env,weak_this); 
+
+	//使用c读取我们需要加载的文件.
+	fd = open("/system/Test.class",O_RDONLY);	 	
+	len = lseek(fd, 0, SEEK_END);
+	buf = calloc(len,1);
+	if(buf == NULL){
+		printf("calloc error \n");	
+		return;
+	}
+	lseek(fd, 0,SEEK_SET);
+	pos = 0;
+	tmplen = len;
+	while(tmplen &gt; 0){
+		ret += read(fd,buf+ret,tmplen-ret);
+		pos +=ret;
+		tmplen -=ret;
+	}
+	close(fd);
+   
+	//使用DefineClass函数加载这个类
+	testclass = (*env)-&gt;DefineClass(env,"Test",mObject,buf,len);
+&nbsp;       
+        if(testclass == NULL)
+	{
+		return;
+	}
+&nbsp;       free(buf);
+       
+       &nbsp;obj1 = (*env)-&gt;AllocObject(env,testclass);
+	//生成一个对象,并调用该对象的方法.
+	mid = (*env)-&gt;GetStaticMethodID(env, mClass,"getVersion","(Ljava/lang/Object;Ljava/lang/Object;II)V");
+	version = (*env)-&gt;GetVersion(env);
+	(*env)-&gt;CallStaticVoidMethod(env,mClass,mid,this,obj1,1,version);
+
+	return ;
+
+}</pre>
+<p><br>
+<br>
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></p>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="color:#993399"><span style="background-color:rgb(255,255,255)">二：　FindClass</span></span></span></span></h3>
+<p><span style="font-family:Courier New"><span style="color:#993399">函数原型:jclass (JNICALL *FindClass) (JNIEnv *env, const char *name);</span><br>
+<br>
+　描　述: 该函数用于加载本地定义的类。它将搜索由CLASSPATH 环境变量为具有指定名称的类所指定的目录和 zip 文件。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 该CLASSPATH一般为:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #set java environment<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JAVA_HOME=/home/xxx/java/jdk1.6.0_12<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; export JRE_HOME=/home/xxx/java/jdk1.6.0_12/jre<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findClass函数的java背景知识在我的博客由介绍:<br>
+<br>
+　参　数: env&nbsp;&nbsp;&nbsp; java本地接口指针.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name&nbsp;&nbsp; 
+需要加载类的简短名称.比如下载需要加载一个com/zuoshaohua/Test.java这个类,该参数就是 
+"com/zuoshaohua/Test"<br>
+<br>
+&nbsp; 返回值:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 返回一个jclass类型的结构体.他对应的是Java中的类相关信息.它是类的字节码对象.</span>　<br>
+</p>
+<p>　<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">例 程:<br>
+</span></span></span></span></p>
+<h5><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;<span style="color:#993399"> --2.1 流程:</span></span></span></span></span></h5>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　　　　１.MainActivity的onCreate()方法中初始化一个ManPerson.</span></span></span></span></p>
+<p><span style="font-family:Courier New">　　　　２.在ManPerson的构造函数最后我们会调用nativeSetup把ManPerson对象传递到C中．</span></p>
+<p><span style="font-family:Courier New">　　　　３.我们会再C中得到ManPerson的属性Id信息，并保存起来．并使用findClass()方法获取Person类字节码对象，并生成Person对象的全集引用．<br>
+</span></p>
+<p><span style="font-family:Courier New">　　　　４．当我们点击应用层的btn时，C会获取ManPerson的信息．使用bean的setXxx()给Person对象赋值．并返回给对象到java层．</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+</span></p>
+<h5><span style="font-family:Courier New">　<span style="color:#993399">　 --2.2类图:</span></span></h5>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; <br>
+</span></p>
+<img alt="" style="cursor:pointer" onclick="window.open('/picture/addon/2015/01/25/A214500322-125489.png')" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/A214500322-125489.png" border="0">
+<h5><span style="font-family:Courier New">&nbsp; <span style="color:#993399">－－2.3 Activity代码</span></span></h5>
+<h5>&nbsp;&nbsp;&nbsp; <pre code_snippet_id="588734" snippet_file_name="blog_20150125_7_9469967" name="code" class="cpp">&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" &gt;
+    &lt;TextView
+        android:id="@+id/personView"
+        android:layout_width="260dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp" /&gt;
+
+    &lt;Button
+        android:id="@+id/exit"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/run"
+        android:layout_alignBottom="@+id/run"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/run"
+        android:text="EXIT" /&gt;
+
+    &lt;Button
+        android:id="@+id/run"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/personView"
+        android:layout_below="@+id/personView"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="22dp"
+        android:text="RUN" /&gt;
+
+&lt;/RelativeLayout&gt;</pre><br>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_8_1312349" name="code" class="java">package com.zuoshaohua;
+
+import com.zuoshaohua.ndk.ManPerson;
+import com.zuoshaohua.ndk.NativeExec;
+import com.zuoshaohua.ndk.Person;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends Activity implements OnClickListener{
+    private Button runbtn;
+    private Button exitbtn;
+    private ManPerson manPerson;
+    private TextView  personView;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+       exitbtn = (Button) this.findViewById(R.id.exit);
+       runbtn = (Button) this.findViewById(R.id.run);
+       personView = (TextView) this.findViewById(R.id.personView);
+       manPerson = new ManPerson("zuoshaohua",33,"男");
+       runbtn.setOnClickListener(MainActivity.this);
+       exitbtn.setOnClickListener(this);
+    } 
+    
+	@Override
+	public void onClick(View arg0) {
+		int id = arg0.getId();
+		switch (id) {
+		case R.id.run:
+			Person p = (Person)NativeExec.nativeExec();　　　//获取c代码生成对象．
+			personView.setText("name ="+ p.getName()+ "age="+p.getAge()+"gender="+p.getGender());　//输出这个对象的值．
+			break;
+		case R.id.exit:
+			this.finish();
+			break;
+		default:
+			this.finish();
+			break;
+		}
+	}
+}</pre><br>
+<br>
+</h5>
+<h5><span style="font-family:Courier New; color:#993399">　－－2.4 jni代码 </span></h5>
+<p>&nbsp;</p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_9_8727646" name="code" class="cpp">package com.zuoshaohua.ndk;
+
+public class ManPerson {
+	
+	private String name;
+	private int age; 
+	private String gender;
+
+	static
+	{
+		System.loadLibrary("HelloNdk");　　　　　　　　　//加载动态库文件．
+	}
+
+	public ManPerson(String name, int age, String gender){
+		this.name = name;
+		this.age = age;
+		this.gender =gender;
+		nativeSetup();
+	}
+	
+	private native void nativeSetup();
+}
+</pre><br>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_10_2762637" name="code" class="java">package com.zuoshaohua.ndk;
+
+public class NativeExec {
+	public static native Object nativeExec();
+}
+</pre><br>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_11_1922039" name="code" class="java">package com.zuoshaohua.ndk;
+
+public class Person {
+	private String name;
+	private int age; 
+	private String gender;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+}
+</pre><br>
+<h5><span style="font-family:Courier New; color:#6600CC">--2.5 c层代码</span><br>
+</h5>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_12_4528570" name="code" class="cpp">#include "com_zuoshaohua_ndk_ManPerson.h"
+#include "com_zuoshaohua_ndk_NativeExec.h"
+/*
+ * Class:     com_zuoshaohua_ndk_ManPerson
+ * Method:    nativeSetup
+ * Signature: ()V
+ */
+
+jobject m_obj, p_obj; 
+jfieldID name_id,age_id,gender_id;
+
+jmethodID pname_mid,page_mid,pgender_mid;
+
+JNIEXPORT void JNICALL Java_com_zuoshaohua_ndk_ManPerson_nativeSetup
+  (JNIEnv *env, jobject this)
+{		
+
+#if 1
+
+	jclass clz = (*env)-&gt;GetObjectClass(env,this); 　　//通过ManPerson的对象获取ManPerson字节码对象．
+
+	m_obj = (*env)-&gt;NewGlobalRef(env,this); 　　　　　　//将这个对象设置为全局引用．
+　
+	name_id = (*env)-&gt;GetFieldID(env,clz,"name","Ljava/lang/Object;");　//获取ManPerson对象的属性．	
+
+    age_id = (*env)-&gt;GetFieldID(env,clz,"age","I");
+
+    gender_id = (*env)-&gt;GetFieldID(env,clz,"gender","Ljava/lang/Object;");		
+	
+	jclass personclz = (*env)-&gt;FindClass(env,"com/zuoshaohua/ndk/Person"); //通过FindClass方法获取Person类的字节码对象．
+	
+	jmethodID  constr =(*env)-&gt;GetMethodID(env,personclz,"&lt;init&gt;", "()V");　//获取这个对象无参的构造函数．
+	
+	jobject ref = (*env)-&gt;NewObject(env,personclz,constr);　　　　　　　　　　　//生成Person对象．
+
+	p_obj = (*env)-&gt;NewGlobalRef(env, ref); 　　　　　　　　　　　　　　　　　　　//将Person对象设置为全局引用．
+	
+	pname_mid = (*env)-&gt;GetMethodID(env,personclz,"setName","(Ljava/lang/Object;)V"); //获取Person的Setxxx()方法的ID.
+	
+    page_mid = (*env)-&gt;GetMethodID(env,personclz,"setAge", "(I)V"); 
+
+   pgender_mid = (*env)-&gt;GetMethodID(env,personclz,"setGender","(Ljava/lang/Object;)V");	
+#endif
+}
+
+/*
+ * Class:     com_zuoshaohua_ndk_NativeExec
+ * Method:    nativeExec
+ * Signature: ()Ljava/lang/Object;
+ */
+JNIEXPORT jobject JNICALL Java_com_zuoshaohua_ndk_NativeExec_nativeExec
+  (JNIEnv *env, jclass this)
+{
+#if 1
+	jint age = 0; 
+	jstring name,gender;
+
+	name = (*env)-&gt;GetObjectField(env,m_obj,name_id);         //获取ManPerson属性的值．
+	gender = (*env)-&gt;GetObjectField(env,m_obj,gender_id);
+	age = (*env)-&gt;GetIntField(env,m_obj,age_id);
+
+	(*env)-&gt;CallVoidMethod(env, p_obj,pname_mid,name);	　//调用Person的Setxxx()方法给Person对象赋值．
+	(*env)-&gt;CallVoidMethod(env, p_obj,page_mid,age);	
+	(*env)-&gt;CallVoidMethod(env, p_obj,pgender_mid,gender);	
+	//(*env)-&gt;SetIntField(env,p_obj,age_id,10);　　　　　　　　　//返回Person对象．
+	return p_obj; 
+#endif	
+}
+</pre><br>
+<p><span style="font-family:Courier New; color:#3333FF">转载请注明出处: http://blog.csdn.net/shaohuazuo/article/details/42932813<br>
+</span></p>
+<h2><span style="font-family:Courier New; color:#3333FF">3.3 java反射相关模块</span></h2>
+<p><span style="font-family:Courier New">jmethodID (JNICALL *FromReflectedMethod)(JNIEnv *env, jobject method);</span></p>
+<p><span style="font-family:Courier New">jfieldID (JNICALL *FromReflectedField) (JNIEnv *env, jobject field);</span></p>
+<p><span style="font-family:Courier New">jobject (JNICALL *ToReflectedMethod)(JNIEnv *env, jclass cls, jmethodID methodID, jboolean isStatic);</span></p>
+<p><span style="font-family:Courier New">jobject (JNICALL *ToReflectedField) (JNIEnv *env, jclass cls, jfieldID fieldID, jboolean isStatic);</span></p>
+<p>&nbsp;<span style="background-color:rgb(102,0,204)">函数背景知识介绍:　请看博客(Java反射机制) 　<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></span></p>
+<p><span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm">java.lang.reflect<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">：</span></span></span></span></a></span></span></span></span></span></p>
+<p><span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">提供类和接口，以获得关于类和对象的反射信息。在安全限制内，</span></span></span></span></a></span></span></span></span></span></p>
+<p><span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">反射允许编程访问关于加载类的字段、方法和构造方法的信息，</span></span></span></span></a></span></span></span></span></span></p>
+<p><span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">并允许使用反射字段、方法和构造方法对其底层对等项进行操作。<br>
+</span></span></span></span></a></span></span></span></span></span></p>
+<p><span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">更多相关知识可以参考http://www.javaweb.cc/help/JavaAPI1.6/</span></span></span></span></a></span></span></span></span></span></p>
+<p><span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">也可以进入博客：?????????????<br>
+</span></span></span></span></a></span></span></span></span></span></p>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">&nbsp;一：FromReflectedMethod</span><br>
+</span></span></span></span></h3>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">函数原型:　jmethodID (JNICALL *FromReflectedMethod)(JNIEnv *env, jobject method);<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　描　述: 通过<a target="_blank" href="http://baike.baidu.com/view/1007969.htm">java.lang.reflect</a>中Method类的对象获取一个函数的MethodID．
+ 就可以调用Java中某个方法．<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　参　数:　env 　　　java native interface porint,(java本地接口指针)</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　　　　method&nbsp;&nbsp; 　这个是jva.lang.reflect.Method对象．</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要获取Method对象第一步．需要获取Class对象．再通过Class对象获取Method.</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.获取Class对象的三种方法是：<br>
+</span></span></span></span></p>
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"></span></span></span></span></span><span style="color:#ff0000">　　　　　　　<span style="color:#3333FF">&nbsp;<span style="font-family:Courier New">1.1)
+ 类名.class，例如　Class pclass =&nbsp; Person.class</span></span></span><span style="color:#3333FF"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span></span></span></span></span></span></span></span></span></span>
+<p><span style="font-family:Courier New; color:#3333FF">　　　　　　　 1.2) 对象.getClass()，例如，Class&nbsp; pclass = new Person().getClass()</span></p>
+<p><span style="font-family:Courier New; color:#3333FF">　　　　　　　 1.3) Class.forName(“类名”)，例如，Class pclass = Class.forName(“com.zuoshaohua.Person”);</span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family:Courier New">2．获取Method对象，详细方法介绍可以参考<span style="background-color:rgb(102,0,204)"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)">http://www.javaweb.cc/help/JavaAPI1.6/</span></span></a></span></span></span>手册</span><br>
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family:Courier New">&nbsp;&nbsp; <a target="_blank" href="http://www.javaweb.cc/help/JavaAPI1.6/java/lang/Class.html#getMethods%28%29">
+2.1)Class.getMethods()</a>,</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span style="font-family:Courier New"><a target="_blank" href="http://www.javaweb.cc/help/JavaAPI1.6/java/lang/Class.html#getMethod%28java.lang.String,%20java.lang.Class...%29">2.2)Class.getMethod(String,
+ Class[])</a>,</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:Courier New"><span style="font-family:Courier New"><a target="_blank" href="http://www.javaweb.cc/help/JavaAPI1.6/java/lang/Class.html#getDeclaredMethods%28%29">2.3)Class.getDeclaredMethods()</a>,</span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span>&nbsp;<span></span></span>&nbsp;&nbsp;&nbsp; 　　　&nbsp;&nbsp;<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><a target="_blank" href="http://www.javaweb.cc/help/JavaAPI1.6/java/lang/Class.html#getDeclaredMethod%28java.lang.String,%20java.lang.Class...%29"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></span></span></span></span></a><span style="font-family:Courier New"><span style="font-family:Courier New"><a target="_blank" href="http://www.javaweb.cc/help/JavaAPI1.6/java/lang/Class.html#getDeclaredMethod%28java.lang.String,%20java.lang.Class...%29"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></span></span></span></span></a><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="font-family:Courier New"><a target="_blank" href="http://www.javaweb.cc/help/JavaAPI1.6/java/lang/Class.html#getDeclaredMethod%28java.lang.String,%20java.lang.Class...%29">2.4)Class.getDeclaredMethod(String,
+ Class[])</a></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <span style="background-color:rgb(0,153,0)"><span style="font-family:Courier New">1.5) ToReflectedMethod()通过C中的JNI标准获取Methdod对象.</span></span><br>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 返回值:返回一个方法的MethodID指针．<br>
+</span></span></span></span></p>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">&nbsp;二：FromReflectedField</span><br>
+</span></span></span></span></h3>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">函数原型:　jfieldID (JNICALL *FromReflectedField) (JNIEnv *env, jobject field);<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　描　述:<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">通过<a target="_blank" href="http://baike.baidu.com/view/1007969.htm">java.lang.reflect</a>中Field类的对象获取字段对象．可以获取这个字段的jfieldID了．</span></span></span></span><br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　参　数:&nbsp; env<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;
+ java native interface porint,(java本地接口指针)</span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ field 　 Field对象,这个对象主要用来描述java中的字段信息．通过这个类对象．我们可以获得</span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　　　　　　　　　　这个字段的名称,类型等等信息.</span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　　　　　<span style="color:#CC0000">
+ 1<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">.获取这个对象由如下5种方法:</span></span></span></span></span></span></span></span></span><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></span></span></span></span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#3333FF"> 1.1)Class.getDeclaredField(String name);<br>
+</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 返回一个 Field 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明字段。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; <span style="color:#3333FF">1.2)Class.getDeclaredFields();</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 返回 Field 对象的一个数组，这些对象反映此 Class 对象所表示的类或接口所声明的所有字段。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#3333FF">1.3)Class.getField(String name);</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 返回一个 Field 对象，它反映此 Class 对象所表示的类或接口的指定公共成员字段。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;<span style="color:#3333FF"> 1.4)Class.getField();</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 返回一个包含某些 Field 对象的数组，这些对象反映此 Class 对象所表示的类或接口的所有可访问公共字段。　</span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp; <span style="background-color:rgb(0,153,0)">1.6)ToReflectedFile()</span><br>
+</span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 通过C中JNI标准中提供的上面的函数，也可以获取Field对象．</span></span></span></span><br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 返回值:返回一个字段的jfieldID指针.<br>
+</span></span></span></span></p>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">&nbsp;三：ToReflectedMethod</span><br>
+</span></span></span></span></h3>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">函数原型:　jobject (JNICALL *ToReflectedMethod)(JNIEnv *env, jclass cls, jmethodID methodID,
+ jboolean isStatic);<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　描　述: 这个方法是通过方法的methodId返回一个java.lang.reflect.Method对象,是</span></span></span></span><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">FromReflectedMethod</span></span></span></span></span><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">的反操作.</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 参　数: env&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">java
+ native interface porint,(java本地接口指针)</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ cls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 该方法的类对象.可以通过<span style="color:#FF0000">FindClass()</span>获取.如果知道对象的话可以使用<span style="color:#FF0000">GetObjectClass()</span>来获取这个jclass对象.</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;methodID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 这个对象是jmethodID指针.可以通过GetMethodID方法获取.</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;
+ 　isStatic&nbsp; 　　　该方法是不是静态的,JNI标准中提供了两个宏表示<span style="background-color:rgb(255,0,0)">.JNI_FALSE,和JNI_TRUE.</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 返回值:返回一个Method对象.也就是说再</span></span></span></span><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">FromReflectedMethod
+ 中多了一种方法可以获取Method对象的方法.</span></span></span></span></span><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span></p>
+<span style="background-color:rgb(255,255,255)"></span><br>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">&nbsp;四：ToReflectedField</span><br>
+</span></span></span></span></h3>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">函数原型:　jobject (JNICALL *ToReflectedField) (JNIEnv *env, jclass cls, jfieldID fieldID,
+ jboolean isStatic);<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　描　述:　通过filedID可以返回一个<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><a target="_blank" href="http://baike.baidu.com/view/1007969.htm">java.lang.reflect</a></span></span></span></span></span></span></span></span>.Field对象．<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">　参　数:　env&nbsp;<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">java
+ native interface porint,(java本地接口指针)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cls&nbsp;&nbsp;<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">该方法的类对象.可以通过<span style="color:#FF0000">FindClass()</span>获取.如果知道对象的话可以使用<span style="color:#FF0000">GetObjectClass()</span>来获取这个jclass对象.</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">methodID&nbsp;
+ 这个对象是jField指针.可以通过GetFieldID方法获取.</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp;&nbsp;&nbsp;<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">isStatic&nbsp;
+ 该方法是不是静态的,JNI标准中提供了两个宏表示<span style="background-color:rgb(255,0,0)">.JNI_FALSE,和JNI_TRUE.</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</span></span></span></span></p>
+<p><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)">&nbsp; 返回值:　返回一个Field对象．<br>
+</span></span></span></span></p>
+<span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"></span></span></span></span>
+<p></p>
+<h3><span style="background-color:rgb(255,255,255)"><span style="font-family:Courier New"><span style="font-family:Courier New"><span style="background-color:rgb(255,255,255)"><span style="color:#6600CC">&nbsp;五：例程</span></span></span></span></span></h3>
+<h5>　　<span style="color:#993399">1.1　流程</span>　　　　　</h5>
+<p>　　　<span style="font-family:Courier New; color:#663366">1. 定义一个Person类．这个Person类三个属性．name, age, gender.还有getxxx()和setxxx()方法.<br>
+</span></p>
+<p><span style="font-family:Courier New; color:#663366">&nbsp;&nbsp;&nbsp;&nbsp; 2. 定义一个Android的界面．它的MainActivity类关联了一个Person对象．也就是，Person类是Activity的一个属性．<br>
+</span></p>
+<p><span style="font-family:Courier New; color:#663366">&nbsp;&nbsp;&nbsp;&nbsp; 3. 在MainActivity中，静态初始化这个Person对象．我们使用该静态对象．p.getClass()获取类Class对象clz.　<br>
+</span></p>
+<p><span style="font-family:Courier New; color:#663366">&nbsp;&nbsp;&nbsp;&nbsp; 4. 我们需要获取这个Class中的Method对象和Field对象．clz.getMethod(); clz.getField对象．</span></p>
+<p><span style="font-family:Courier New; color:#663366">　　　　　通过 ReflectMethodDeom本地方法和ReflectFieldDemo本地方法传入到C层．<br>
+</span></p>
+<p><span style="font-family:Courier New; color:#663366">　　　5. c通过这两个对象获取到对象的jfieldID对象和jmethodID．并进行相应的操作．</span></p>
+<p></p>
+<h5>　　<span style="color:#993399">1.2&nbsp;&nbsp;&nbsp; 类图</span></h5>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img alt="" style="cursor:pointer" onclick="window.open('/picture/addon/2015/01/25/A214502603-125489.png')" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/A214502603-125489.png" border="0"><br>
+</p>
+<h5>　　<span style="color:#6600CC"><span style="color:#993399">1.3&nbsp;&nbsp; 代码</span>　</span>　</h5>
+<p>　　<span style="font-family:Courier New">　1. MainActivity代码</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_13_7799410" name="code" class="java">package com.zuoshaohua.reflect;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends Activity implements OnClickListener {
+	private static Person  p = new Person("zuoshaohua",33,"男");
+	private Button runBtn;
+	private Button exitBtn;
+	TextView textView;
+	static {
+	    System.loadLibrary("reflect");
+    }
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+       
+    	super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        runBtn  = (Button)this.findViewById(R.id.run);
+        exitBtn = (Button)this.findViewById(R.id.exit);
+        textView = (TextView)this.findViewById(R.id.personView);
+      
+        this.runBtn.setOnClickListener(this);
+        this.exitBtn.setOnClickListener(this);
+        
+    }
+    
+    private void refelectTest(){
+    	Class&lt;? extends Person&gt; c =  p.getClass();
+    	try {
+    		
+    		StringBuffer sb = new StringBuffer();
+    		
+    		Method method = c.getMethod("setAge", int.class);
+		    
+    		//Field field = c.getField("age");
+    		
+    		Field field = c.getDeclaredField("age");
+    		sb.append("oldName ="+p.getName()+"oldAge="+p.getAge()+ "oldGender="+p.getGender()+"\n");
+    		
+    		
+		    Field field1 = ReflectFieldDemo(p,field);   //调用本地方法．将描述age字段的Field对象传进去．
+		    
+		    //field1.set(p, "shaohuazuo");
+		    
+		    Method m1 = ReflectMethodDemo(p,method);    //调用本地方法．将描述setAge()方法的Method对象传入到C层代码．
+		   
+		    sb.append("oldName1 ="+p.getName()+"oldAge1="+p.getAge()+ "oldGender1="+p.getGender()+"\n");
+		   
+		    Object args[] = new Object[1];
+		    
+			args[0] = new  String("shaohuazuo");
+			
+			m1.invoke(p, args);                         //调用返回的方法．
+			
+			field1.setAccessible(true);
+		   
+		    String name =(String)field1.get(p);
+		    
+		    sb.append("newName ="+name+"newAge="+p.getAge()+"newGender="+p.getGender());
+		    
+		    textView.setText(sb.toString());    
+		    
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    private  static native Field ReflectFieldDemo(Person p,Field f);
+    private  static native Method ReflectMethodDemo(Person p, Method m);
+
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		switch(arg0.getId())
+		{
+		case R.id.run:
+			refelectTest();
+			break;
+		case R.id.exit:
+			this.finish();
+			break; 
+			default:
+				this.finish();
+				break;
+		}
+	} 
+}
+</pre>
+<p></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; 2. Person.java代码</span></p>
+<p><span style="font-family:Courier New"></span></p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_14_1626658" name="code" class="java">package com.zuoshaohua.reflect;
+
+public class Person {
+	
+	private String name;
+	private int age;
+	private String gender;
+
+	public Person(String string, int age, String gender) {
+		this.name = name;
+		this.age = age; 
+		this.gender = gender;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}	
+
+}
+</pre>&nbsp;<br>
+<p></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; 3. 生成.h头文件．<br>
+</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; zshh@HP:~/work/android/jni/Reflect/jni$<br>
+</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ javah -o reflect.h -classpath ../bin/classes 
+com.zuoshaohua.reflect.MainActivity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; 4. reflect.h代码</span></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_15_9008936" name="code" class="cpp">/* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+/* Header for class com_zuoshaohua_reflect_MainActivity */
+
+#ifndef _Included_com_zuoshaohua_reflect_MainActivity
+#define _Included_com_zuoshaohua_reflect_MainActivity
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     com_zuoshaohua_reflect_MainActivity
+ * Method:    ReflectFieldDemo
+ * Signature: (Lcom/zuoshaohua/reflect/Person;Ljava/lang/reflect/Field;)Ljava/lang/reflect/Field;
+ */
+JNIEXPORT jobject JNICALL Java_com_zuoshaohua_reflect_MainActivity_ReflectFieldDemo
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     com_zuoshaohua_reflect_MainActivity
+ * Method:    ReflectMethodDemo
+ * Signature: (Lcom/zuoshaohua/reflect/Person;Ljava/lang/reflect/Method;)Ljava/lang/reflect/Method;
+ */
+JNIEXPORT jobject JNICALL Java_com_zuoshaohua_reflect_MainActivity_ReflectMethodDemo
+  (JNIEnv *, jclass, jobject, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif</pre>
+<p></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; 5. reflect.c代码</span></p>
+<p></p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_16_535672" name="code" class="cpp">#include "reflect.h"
+#include &lt;android/log.h&gt;
+#include &lt;stdio.h&gt;
+
+#if 0
+
+jmethodID (JNICALL *FromReflectedMethod) (JNIEnv *env, jobject method);
+jfieldID (JNICALL *FromReflectedField) (JNIEnv *env, jobject field);
+
+jobject (JNICALL *ToReflectedMethod) (JNIEnv *env, jclass cls, jmethodID methodID, jboolean isStatic);
+
+jobject (JNICALL *ToReflectedField) (JNIEnv *env, jclass cls, jfieldID fieldID, jboolean isStatic);
+
+
+#endif
+jclass clazz;
+/*
+ * Class:     com_zuoshaohua_reflect_MainActivity
+ * Method:    ReflectFieldDemo
+ * Signature: (Lcom/zuoshaohua/reflect/Person;Ljava/lang/reflect/Field;)Ljava/lang/reflect/Field;
+ */
+
+
+JNIEXPORT jobject JNICALL Java_com_zuoshaohua_reflect_MainActivity_ReflectFieldDemo
+  (JNIEnv * env, jclass this, jobject pthis, jobject fthis)
+{
+	jint age =0;	
+	jclass clz =(*env)-&gt;GetObjectClass(env,pthis);     //通过Person对象获取他的Class对象信息,从而得到一个jclass对象.
+	
+	jfieldID age_id = (*env)-&gt;FromReflectedField(env,fthis); //通过Field对象获取Person属性的jfieldID指针．
+
+	age = (*env)-&gt;GetIntField(env,pthis,age_id);               //通过这个对象和age_id获取这个属性的值．
+
+
+	__android_log_print(ANDROID_LOG_INFO, "ReFlectFieldDemo", "age: %d", age);
+			
+
+	jfieldID name_id = (*env)-&gt;GetFieldID(env,clz,"name","Ljava/lang/String;");  //获取name字段的jfieldID.
+    
+    __android_log_print(ANDROID_LOG_INFO, "ReFlectFieldDemo", "end!!!!!");
+
+	return (*env)-&gt;ToReflectedField(env,clz,name_id,JNI_FALSE);    //通过jfieldID生成一个Java的Field对象.并返回.
+	
+}
+
+/*
+ * Class:     com_zuoshaohua_reflect_MainActivity
+ * Method:    ReflectMethodDemo
+ * Signature: (Lcom/zuoshaohua/reflect/Person;Ljava/lang/reflect/Method;)Ljava/lang/reflect/Method;
+ */
+JNIEXPORT jobject JNICALL Java_com_zuoshaohua_reflect_MainActivity_ReflectMethodDemo
+  (JNIEnv *env , jclass this, jobject pthis, jobject mthis)
+{
+	//我们使用mthis.来获取jmethodID指针.并通过该指针调用到set方法.来改变Person属性的值. 
+	jclass pclazz = (*env)-&gt;GetObjectClass(env,pthis); 
+
+	jmethodID setAgeId = (*env)-&gt;FromReflectedMethod(env,mthis); 
+
+	(*env) -&gt;CallVoidMethod(env,pthis,setAgeId,100);  
+	
+	__android_log_print(ANDROID_LOG_INFO,"ReflectMethodDemo","is callVoidMethod Done!!!!\n"); 
+
+	jmethodID setName_id = (*env)-&gt;GetMethodID(env,pclazz,"setName","(Ljava/lang/String;)V"); 
+
+
+	return (*env)-&gt;ToReflectedMethod(env, pclazz,setName_id, JNI_FALSE);
+}</pre><br>
+<p></p>
+<p><span style="font-family:Courier New">&nbsp;&nbsp;&nbsp;&nbsp; 6. Android.mk代码</span></p>
+<p><span style="font-family:Courier New"></span></p>
+<pre code_snippet_id="588734" snippet_file_name="blog_20150125_17_5442715" name="code" class="cpp">  SRC_PATH_ROOT:=$(LOCAL_PATH)/../../src  
+  LOCAL_PATH := $(call my-dir)
+  
+  include $(CLEAR_VARS)
+  
+  LOCAL_MODULE    := reflect
+  LOCAL_SRC_FILES := reflect.c 
+  LOCAL_LDLIBS := -llog
+  #LOCAL_SHARED_LIBRARIES :=libc
+  include $(BUILD_SHARED_LIBRARY)                                                                                                                                                      
+  
+</pre><br>
+<br>
+<p></p>
+<h5>　<span style="color:#993399">　1.4&nbsp; 测试结果</span></h5>
+<p><img alt="" style="cursor:pointer" onclick="window.open('/picture/addon/2015/01/25/A214505275-125489.png')" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/A214505275-125489.png" border="0"></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+转载请注明出处: http://blog.csdn.net/shaohuazuo/article/details/42932813<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+</div><div class="srcurl">原文链接:<a href="http://blog.csdn.net/shaohuazuo/article/details/42932813" target="_blank">http://blog.csdn.net/shaohuazuo/article/details/42932813</a></div></div><br>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-4159669282587342";
+/* 728x90, 创建于 09-4-19 */
+google_ad_slot = "9400561186";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/show_ads.js">
+</script>
+</div>
+
+</div>
+</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+	<div id="sideBarMain">
+<div style="margin-left:-5px;margin-top:15px;">
+<script type="text/javascript"><!--
+ google_ad_client = "ca-pub-4159669282587342";
+ /* 250x250正方形图片 */
+ google_ad_slot = "7109094950";
+ google_ad_width = 250;
+ google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/show_ads.js">
+</script>
+</div>
+<h3>文摘归档</h3>
+        <ul>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/monthposts/201507.html">2015年07月(1)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/monthposts/201506.html">2015年06月(1)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/monthposts/201502.html">2015年02月(1)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/monthposts/201501.html">2015年01月(2)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/monthposts/201412.html">2014年12月(2)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/monthposts/201409.html">2014年09月(1)</a></li>
+        </ul>
+
+<h3>阅读排行榜</h3>
+        <ul>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/125489.html">jni.h头文件详解(二) (2039)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/119944.html">Ndk开发笔记 (467)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/127772.html">JNI头文件详解(三)对象操作 (87)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/126476.html">JNI线程模式 (86)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/117309.html">ubuntu14.04 配置．linux 查看源代码神器，ctags+vim (42)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/154662.html">Ubuntu14.10上搭建Android应用开发环境和系统编译环境 (38)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/101033.html">F4107单进程处理多个usart中断接收到的数据 (36)</a></li>
+            <li><a href="http://doc.okbase.net/shaohuazuo/archive/164207.html">基础算法 (20)</a></li>
+        </ul>
+
+</div>
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+<div id="sitefoot">
+<a href="http://www.okbase.net/" target="_blank">好库首页</a> | <a href="http://www.okbase.net/site/about" target="_blank">好库简介</a> | <a href="http://www.okbase.net/site/map" target="_blank">网站地图</a> | <a href="http://www.okbase.net/support/help" target="_blank">帮助中心</a> | <a href="http://www.okbase.net/site/copyright" target="_blank">版权说明</a><br> 
+Copyright© 2009-2013 OKBASE.NET All Rights Reserved 好库网 版权所有 <script src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/stat.php" language="JavaScript"></script><script src="jni.h%E5%A4%B4%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3%28%E4%BA%8C%29%20-%20%E5%A5%BD%E5%BA%93%E6%96%87%E6%91%98_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=5102735" target="_blank" title="站长统计">站长统计</a>
+</div>
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+</body></html>

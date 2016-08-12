@@ -1,0 +1,782 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="360doc" name="classification">
+    
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="http://www.360doc.cn/article/79028_25212156.html">
+    <meta content="chm,windows,文件" name="keywords">
+    <meta content="解决CHM文件打开无法显示网页的问题" name="description">
+    <meta name="mobile-agent" content="format=html5;url=http://www.360doc.cn/article/79028_25212156.html">
+
+    <meta content="www.360doc.com" name="author">
+
+    <title>
+        解决CHM文件打开无法显示网页的问题
+    </title>
+    <link href="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/bdsstyle.css" rel="stylesheet" type="text/css">
+    <script src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/hm.js"></script><script type="text/javascript" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/jquery1.js"></script>
+    <script type="text/javascript" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/jQuery.js"></script>
+    
+    <script type="text/javascript" language="javascript">
+        window.onerror = ignoreError;
+        function ignoreError() {
+            return true;
+        }
+    </script>
+
+    <link href="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/wzhead-cleaned.css" rel="stylesheet" type="text/css">
+    <link href="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/wz20130912-cleaned.css" rel="stylesheet" type="text/css">
+   
+
+    
+
+    <script type="text/javascript" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/indexhead.js"></script><script src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/chat.js" type="text/javascript"></script><script src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/chatuserlist.js" type="text/javascript"></script><link href="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/chat.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/showarticlefollow20130912.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?d86954201130d615136257dde062a503";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+<link type="text/css" rel="stylesheet" href="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/bdsstyle_002.css"><script src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/EssayforIE120425.js" type="text/javascript"></script></head>
+<body style="font-family: Arial, Helvetica, sans-serif;" onmouseup="setDragEnd()" onmousemove="DragDiv();" onclick="delAllDiv(event)"><iframe style="display: none;" frameborder="0"></iframe><div style="display: block;" id="bdshare_s"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div style="display: none;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+
+
+    <span id="LayerLogin"></span>
+    <div style="position: fixed; width: 100%; z-index: 1000;">
+        <div style="width: 1100px;" class="mainnav">
+            <div style="margin-left: 43.5px;" class="mainnav1">
+                <div class="lf360" style="padding-left: 5px;">
+                    <a href="http://www.360doc.com/index.html">
+                        <img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/logoo.gif"></a>
+                </div>
+                <div style="width: 625px; padding-top: 0px; padding-left: 4px; position: absolute;">
+                    <table height="34" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr id="daohangtr">
+                                <td style="width: 185px; _width: 0px; *width: 0px !important;"></td>
+                                <td class="navwz1" width="95">
+                                    <a href="http://www.360doc.com/index.html">首&nbsp;页</a>
+                                </td>
+                                <td class="  navwz1" width="100">
+                                    <a href="http://www.360doc.com/readroom.html">阅览室</a>
+                                </td>
+                                <td class="  navwz1" width="88">
+                                    <a href="http://www.360doc.com/weekstar.html">馆友</a>
+                                </td>
+                                <td class="  navwz1" width="132">
+                                    <a href="http://www.360doc.com/my360doc.aspx">我的图书馆</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="rt360" style="padding-top: 6px; width: 133px; padding-left: 38px;" id="outerdiv"><div class="denglbj lan2"><div style=" width:43px; float:left; text-align:center;" onmouseover="this.style.backgroundColor='#e5e5e5';this.parentNode.className='denglbj2 lan2'" onmouseout="this.style.backgroundColor='#fcfcfc';this.parentNode.className='denglbj lan2'"><a href="javascript:void(0)" onclick="loginnew()">登录</a></div><div style=" width:1px; float:left; "></div><div style="width:46px; float:left;text-align:center; margin-left:1px;*margin-left:0px;" onmouseover="this.style.backgroundColor='#e5e5e5';this.parentNode.className='denglbj3 lan2'" onmouseout="this.style.backgroundColor='#fcfcfc';this.parentNode.className='denglbj lan2'" id="regdiv"><a href="http://www.360doc.com/register.aspx?refer=800" target="_blank">注册</a></div><div class="boxwid xinngdui" id="bfdiv"><a href="#"><img id="imgbfabc" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/5.gif"></a></div><div style=" position: absolute; margin-left:35px; *margin-left:-95px;_margin-left:-93px; width:96px;display:none;z-index:200;" id="func"><div class="tugduo3" id="divfunc" style="cursor:pointer;float:right; width:41px;"><div style=" height:26px; width:39px; border:1px solid #d4d4d4; border-bottom:none; background-color:#fff;"></div></div><div class="tipzhu3  right hui2" id="layerdiv"><ul><li><a href="http://www.360doc.com/advice.html" target="_blank">留言交流</a></li><li><a href="http://www.360doc.com/helpnew.html" target="_blank">网文摘手</a></li><li><a href="http://www.360doc.com/mobilapp.htm" target="_blank">手机客户端</a></li><li style=" border:none;"><a href="http://www.360doc.com/help.html" target="_blank">帮助</a></li></ul></div></div></div></div>
+                <div class=" rt360" style="padding-top: 6px; padding-right: 0px;">
+                    <div class="lf360 serch">
+                        <input name="input2" class="serchpt" id="txtSearchword" onkeydown="ongosearch()" onkeyup="showIntelliSense()" onfocus="if(this.value=='搜文章 找馆友') this.value='';this.style.color='#272727'" onblur="if(!this.value) {this.value='搜文章 找馆友';this.style.color='#b2b2b2';}" onpaste="showIntelliSense1()" value="搜文章 找馆友" type="text">
+                    </div>
+                    <div class="lf360 ssuo">
+                        <a id="searchlinkid" href="javascript:gosearch();"></a>
+                    </div>
+                    <div id="divsearch" style="margin-top: 25px; margin-left: 1px; display: none; position: absolute; z-index: 100;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 1100px;" class="navxt">
+        </div>
+    </div>
+    <div style="height: 44px; _height: 0px; width: 100%;"></div>
+
+    <div class="both">
+    </div>
+    <div style="width: 1047px;" id="docTotalInfo" class="mainzt">
+        <table class="index_main" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="left" valign="top" width="727px">
+                        <div id="ADAboveArtContent"><iframe marginwidth="0" marginheight="0" scrolling="no" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/aboveConentAD2.htm" width="728" frameborder="0" height="90"></iframe></div>
+                        <div style="height: 7px;">
+                        </div>
+                        <table class="mainbj6" id="docArtClass" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table style="width: 100%; text-align: center;" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table style="width: 100%; text-align: left;" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="biaoti">
+                                                                        <div class="biaoti2 lf360">
+                                                                            解决CHM文件打开无法显示网页的问题
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height: 32px;">
+
+
+                                                                        <div style="width: 670px; height: 28px; padding-left: 26px; color: #777b7a;">
+                                                                            <table>
+                                                                                <tbody><tr>
+                                                                                    <td>收藏人：<span class="name" onclick="wzhitnew(1);"><a href="http://www.360doc.com/userhome/79028" target="_blank">轻心</a></span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="btzctsg" id="spanfollowstatus"><div class="gzbt1"><a onclick="gzuser(79028);wzhitnew(2);" href="javascript:void(0)"></a></div></div>
+                                                                                        <script>isfollow(79028);</script>
+
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="ytdh1"><a onclick="doctalk();wzhitnew(106);" href="javascript:void(0)"></a></div>
+
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody></table>
+                                                                        </div>
+
+
+
+
+                                                                        <div class="wztopxx">
+                                                                            <div style="float: left; height: 28px; padding-top: 7px;">
+                                                                                <table style="position: relative; z-index: 4" cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+
+                                                                                            <td>
+                                                                                                2010-04-28&nbsp;|&nbsp;阅：<span id="360doc_Readnum">3521</span>&nbsp;&nbsp;<span style="position: relative;">转：<span onclick="wzhitnew(3)" id="360doc_saverNum"><span style="cursor:pointer;" onclick="javascript:ShowSaverUser();">28</span></span><span id="360doc_saverUser"><div id="sameArtOuter" style="display:none;position: absolute; height:305px;width:144px;left:0px;margin-top:15px;z-index:100000;"><div id="sameArt" style=" overflow-y: auto;  height:300px;overflow-x: hidden; z-index: 100;right:0px;margin-top:-10px;" onclick="event.cancelBubble=true;"></div></div></span></span>&nbsp;&nbsp;
+
+
+
+                                                                                            </td>
+
+                                                                                            <td>
+                                                                                                <div style="position: relative;">
+                                                                                                    &nbsp;|&nbsp;<span id="docsource">&nbsp;&nbsp;<a onclick="wzhitnew(14);" href="http://www.360doc.com/userhome/79028" target="_blank">来源</a></span>
+                                                                                                </div>
+                                                                                                <div class="sekuaibox" style="display: none; margin-left: 48px;" id="zihaoboxID">
+                                                                                                    <div style="padding-top: 10px; padding-left: 5px;">
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont3" onclick="ChangeArtSize(3, this); wzhitnew(15); " name="radio" value="1" type="radio">
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(3,this);wzhitnew(15); " style="cursor: pointer;">
+                                                                                                            大
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont2" onclick="ChangeArtSize(2, this); wzhitnew(16); " name="radio" value="2" type="radio">
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(2,this);wzhitnew(16); " style="cursor: pointer;">
+                                                                                                            中
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont1" onclick="ChangeArtSize(1, this); wzhitnew(17); " name="radio" value="3" type="radio">
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(1,this);wzhitnew(17); " style="cursor: pointer;">
+                                                                                                            小
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="sekuaibox" style="margin-left: 76px; display: none;" id="sekuaiboxID">
+                                                                                                    <div style="padding-top: 10px; padding-left: 5px;">
+                                                                                                        <img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/cr1.gif" id="docArtC1" onclick="ChangeArtClass(1,this);wzhitnew(18);" style="cursor: pointer;"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/cr2.gif" id="docArtC2" onclick="ChangeArtClass(2,this);wzhitnew(19);" style="cursor: pointer;"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/cr3.gif" id="docArtC3" onclick="ChangeArtClass(3,this);wzhitnew(20);" style="cursor: pointer;"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/cr4.gif" id="docArtC4" onclick="ChangeArtClass(4,this);wzhitnew(21);" style="cursor: pointer;"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/cr5.gif" id="docArtC5" onclick="ChangeArtClass(5,this);wzhitnew(22);" style="cursor: pointer;"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/cr6-1.gif" id="docArtC6" onclick="ChangeArtClass(6,this);wzhitnew(23);" style="cursor: pointer;">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div style="padding-left: 10px;">
+                                                                                                    <a href="javascript:void(0)">
+                                                                                                        <img onmouseover="changedivdisplay(1);" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/wz1.gif"></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div style="padding-left: 10px;" onmouseover="changedivdisplay(2);">
+                                                                                                    <a href="javascript:void(0)">
+                                                                                                        <img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/wz2.gif"></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" onclick=" setTimeout(showShareLayer, 10);wzhitnew(4);">分享</a>&nbsp;</td>
+                                                                                            <td>
+                                                                                                <a href="#" onclick="  setTimeout(showShareLayer, 10);wzhitnew(5);">
+                                                                                                    <img style="cursor: pointer;" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/tb10.gif"></a><div class="fenxiang" id="fenxiangLayer" style="display: none; border: none; width: 110px; margin-left: -28px; _margin-left: -40px;"><div style="border:1px solid #cbcbcb; height:240px; width:108px;"><div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare share-bar-btn"><table style=" background-color:#fff; " width="108" cellpadding="0" cellspacing="0"><tbody><tr><td width="12"></td><td onclick="wzhitnew(6);" height="29"><a href="javascript:void(0);" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ好友</a></td></tr> <tr><td width="12"></td><td onclick="wzhitnew(6);" height="29"><a class="bds_qzone" href="javascript:void(0);" title="分享到QQ空间">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ空间</a></td></tr><tr><td width="12"></td><td onclick="wzhitnew(9);" height="29"><a class="bds_tsina" href="javascript:void(0);" title="分享到新浪微博">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新浪微博</a></td></tr><tr><td width="12"></td><td onclick="wzhitnew(10);" height="29"><a class="bds_tqq" href="javascript:void(0);" title="分享到腾讯微博">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;腾讯微博</a></td></tr><tr><td width="12"></td><td onclick="wzhitnew(7);" height="29"><a class="bds_renren" href="javascript:void(0);" title="分享到人人网">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人人网</a></td></tr><tr><td width="12"></td><td onclick="wzhitnew(8);" height="29"><a class="bds_kaixin001" href="javascript:void(0);" title="分享到开心网">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开心网</a></td></tr><tr><td width="12"></td><td height="29"><a href="javascript:void(0);" onclick="showdivemail();wzhitnew(12);"><div class="bds_py">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;推荐给朋友</div></a></td></tr><tr><td width="12"></td><td height="29"><a href="javascript:void(0);"><div class="bds_jubao" onclick="showAlertLayer();wzhitnew(13);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;举报</div></a></td></tr></tbody></table></div></div></div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div id="resavelayer1" class="rt360"><div class="zswdbtn1"><a href="javascript:void(0);" onclick="SaveArt();wzhitnew(24);"></a></div><div style="position: absolute;display:none;z-index:100000;" id="fuzhitishidiv"></div></div>
+
+
+                                                                            <div id="shareweixinabove" class="rt360"> <div class="fxwx2bt"><a href="javascript:void(0);" onclick="shareWeixin();wzhitnew(65);"></a></div></div>
+
+
+                                                                            <table style="text-align: center; margin: 0px auto;" cellpadding="0" cellspacing="0">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <div id="AlertArt1" style="display: none; position: absolute;">
+                                                                                            </div>
+                                                                                            <div id="SendToFriends1" style="display: none; position: absolute; z-index: 100;">
+                                                                                            </div>
+                                                                                            <div class="lf360 zcbutton" style="margin-left: 100px;">
+                                                                                            </div>
+                                                                                            <div class="lf360">
+                                                                                                &nbsp;&nbsp;
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <table class="wenzhangcss" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="xiantao">
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height: 200px;" align="left" valign="top" width="670px">
+                                                                        <span id="articlecontent" onmousedown="newhighlight = true;" onmouseup="NewHighlight(event)">
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td style="position: relative;" width="670px">
+
+                                                                                            <div id="blog_text" class="cnt">
+<div class="articleTitle">
+<div style="display: inline;"><font face="黑体" color="#074284" size="5">解决CHM文件打开无法显示网页的问题</font><span class="time"><font color="#585858" size="1">(2009-04-11 12:58:11)</font></span></div>
+</div>
+<div class="articleTag">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td>
+            标签：<a class="tag" href="http://uni.sina.com.cn/c.php?t=blog&amp;k=%D0%DD%CF%D0&amp;ts=bpost&amp;stype=tag" target="_blank"><font color="#912525">休闲</font></a><wbr> </td>
+            <td align="right" valign="top" width="250">分类：<a href="http://blog.sina.com.cn/s/articlelist_1316246495_1_1.html"><font color="#912525">我的电脑</font></a></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div class="articleContent">
+<p>【转载】解决CHM文件打开无法显示网页的问题<br>
+chm的设计者的初衷是用来做帮助文档，其本质是一堆html网页文件的组合。后来有了专门的编</p>
+<p>译器、反编译器，人们发现chm这东西具有的html的特性，使其用来做电子书实在是又好又方便</p>
+<p>，连html里面的脚本特效什么的都能保留下来。所以现在有很多资料采用这种格式。</p>
+<p>1、系统将chm默认关联到“windows\hh.exe”，正常时双击即可打开。本文不涉及chm打不开</p>
+<p>的情况，打不开的请参考<a href="http://zhidao.baidu.com/question/17011349.html?fr=qrl3"><font color="#912525">http://zhidao.baidu.com/question/17011349.html?fr=qrl3</font></a></p>
+<p>2、当chm文件的路径中含有“#”“%”等字符时，chm文件能够打开，但是却无法正常看到内容</p>
+<p>,显示无法显示网页.<br>
+原因是：打开chm文件，相当于输入一条包含文件路径的命令行语句并执行。当路径中插入“#</p>
+<p>”“%”等字符后，将使命令行的语义发生变化，导致无法正常使用chm，而此时系统又不会有</p>
+<p>出错的提示，所以很多人被困扰了。解决办法：删除路径中的特殊字符。</p>
+<p>3、安装微软的安全更新 896358 或 890175 后，该补丁对chm的itss协议做了限制。有的chm</p>
+<p>使用了该协议，所以导致chm无法显示。</p>
+<p>解决办法：可以修改注册表、修改安全级别、改itss.dll（这个是听说的）；或者最简便的办</p>
+<p>法：右键点chm—&gt;选属性—&gt;选解除锁定，ok！</p>
+<p> <wbr></p>
+<p>如何解决下载的CHM文件无法显示网页问题　<br>
+问题症状：打开CHM文件，左边目录齐全，可右边边框里却是无法显示网页。</p>
+<p>解决方法：<br>
+方法一：修改注册表<br>
+1）新建一个文本文件<br>
+2）添加如下内容：<br>
+REGEDIT4<br>
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\HTMLHelp]<br>
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\HTMLHelp\1.x\ItssRestrictions]<br>
+"MaxAllowedZone"=dword:00000003<br>
+另存为HTMLHelp.reg（或其它名称，只要是reg格式就行）<br>
+3）双击刚刚新建的reg文件，将它导入注册表，OK，问题搞定<br>
+不过这种方法不安全，因为它将将浏览区域等级调整为3了，存在安全隐患，故不推荐。</p>
+<p>方法二：查找目录名称是否有问题，目录名称中有 "#" 字符，去掉有 CHM 文件就显示正常了</p>
+<p>。</p>
+<p>方法三：有时候如果CHM是中文也会打不开，改成英文字符试验下。</p>
+<p>方法四.：双击此 .chm 文件， 在“打开文件安全警告”对话框，单击以清除“打开此文件前</p>
+<p>始终询问”复选框。</p>
+<p>方法五： 右键单击该 CHM 文件，然后单击“属性”， 单击“解除锁定”，. 双击此 .chm</p>
+<p>文件以打开此文件。</p>
+<p>本人遇到的问题是部分CHM文件不能打开，利用方法五，顺利解决。</p>
+<p>小知识： CHM 意为 Compiled HTML。以CHM为扩展名的文件图标通常为一个带问号的文档图标</p>
+<p>，表示帮助文档，是 Microsoft 自 Windows 98 以来提供的一种帮助文档格式的文件，用于</p>
+<p>替代 Windows 95 下的 HLP(Help) 文件。Microsoft 自 Windows 98 以来，操作系统中都自</p>
+<p>带解释器(打开 CHM 文件的工具)，即 Windows 安装目录下的 HH.EXE。CHM 文件可以通过官</p>
+<p>方免费提供了 HTML Help Workshop 生成，它的源文件是 HTML 文件。现在网络上很多电子书</p>
+<p>籍都被制作成 CHM 格式。<br>
+====================================================================</p>
+<p>================================================================================</p>
+<p>=====<br>
+方法 1<br>
+1. 双击此 .chm 文件。<br>
+2. 在“打开文件安全警告”对话框，单击以清除“打开此文件前始终询问”复选框。<br>
+3. 单击“打开”。</p>
+<p>方法 2<br>
+1. 右键单击该 CHM 文件，然后单击“属性”。<br>
+2. 单击“取消阻止”。<br>
+3. 双击此 .chm 文件以打开此文件。</p>
+<p><br>
+chm文件无法打开问题的解决</p>
+<p><br>
+刚从家回来，重新安装了系统，发现原来可以正常打开的chm文件无法打开了，自己试着解决了</p>
+<p>，发出来共享一下。</p>
+<p>系统版本 xp sp2专业版本。<br>
+问题：chm文件打开无法显示</p>
+<p>“CHM格式的文件无法显示，而且windows 2000上正常，windows xp上打开后显示无法找到页</p>
+<p>面。</p>
+<p>在某些CHM文件中可能会使用到InfoTech协议，而它包含3种协议：ms-its 、its、</p>
+<p>mk:@msitstore 。利用这些协议，恶意攻击者或者恶意代码将可能导致帮助产生溢出漏洞，从</p>
+<p>而控制计算机。而MS最新公布的安全更新MS05-026 KB896358修正了这一情况，并屏蔽了远程</p>
+<p>链接，这就导致了使用了远程链接的一些CHM页面开启失败。趋势安全站点对此漏洞作出了如下</p>
+<p>描述：</p>
+<p>这个安全问题来自于早先公布的微软HTML Help漏洞。HTML Help是Windows平台上的标准帮助</p>
+<p>系统。作者可以使用它为程序或者多媒体主题或者Web站点创建在线的帮助文件。<br>
+由于HTML Help并不会完全校验输入数据的特性，导致这一点可能被利用。一个特殊的CHM文件</p>
+<p>可以导致帮助系统溢出，这个溢出如果被利用，就可以用于执行恶意代码。<br>
+这样的恶意CHM文件可以使用“ms-its”协议，通过IE开启。开启后的CHM文件不再需要用户的</p>
+<p>参与，就能够自动执行恶意CHM文件和附随的代码。“ms-its”协议是InfoTech 协议的一部分</p>
+<p>，该协议能够 为ITSS.DLL或者微软InfoTech Storage System Library所执行。当然，这些恶</p>
+<p>意的程序无法靠自身传播，仍然需要用户在特定的位置，通过IE和“ms-its”协议访问恶意的</p>
+<p>CHM文件。<br>
+这种情况一旦发生，如果受影响的用户当前登录身份是管理员，远程代码执行的漏洞可以允许</p>
+<p>恶意用户或者恶意软件，获得受影响系统的完全控制权限。<br>
+从而这个恶意用户或者恶意程序得以在此系统上执行代码，并使用完全控制权限安装或者运行</p>
+<p>程序，并能够察看或者编辑数据。因此，这个漏洞同样也能够被用于复制。</p>
+<p>受影响的系统：</p>
+<p>Microsoft Windows 2000 Service Pack 3<br>
+Microsoft Windows 2000 Service Pack 4<br>
+Microsoft Windows 98<br>
+Microsoft Windows 98 Second Edition<br>
+Microsoft Windows Millennium Edition<br>
+Microsoft Windows Server 2003<br>
+Microsoft Windows XP Service Pack 1<br>
+Microsoft Windows XP Service Pack 2<br>
+Microsoft Windows Server 2003 for Itanium-based Systems<br>
+Microsoft Windows XP -Bit Edition Service Pack 1 (Itanium)<br>
+Microsoft Windows XP -Bit Edition Version 2003 (Itanium)<br>
+Microsoft Windows XP Professional x Edition<br>
+Microsoft Windows Server 2003 Service Pack 1<br>
+Microsoft Windows Server 2003 with SP1 for Itanium-based Systems<br>
+Microsoft Windows Server 2003 x Edition</p>
+<p>解决方法如下：</p>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\HTMLHelp\1.x\ItssRestrictions]<br>
+"UrlAllowList"="<a><u><font color="#912525">\\\helpfiles\;file://\\\helpfiles</font></u></a>"</p>
+<p>需要提到一点的是，默认情况下，子健1.x 下可能并不存在 ItssRestrictions子健，您需要</p>
+<p>手动创建它，然后在其下创建字符串键值 UrlAllowList 。</p>
+</div>
+</div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <div id="viewerPlaceHolder" style="width: 717px; height: 700px; display: none;">
+                                                                            </div>
+                                                                        </span>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <a name="anchordoc1" id="anchordoc1"></a>
+                                                                        <div style="height: 28px">
+                                                                            <div style="font-size: 14px; color: #797b7a; float: left;">
+                                                                                来自：<span class="name" onclick="wzhitnew(59)"><a href="http://www.360doc.com/userhome/79028" target="_blank">轻心</a></span>&nbsp;&gt;&nbsp;<span id="cname" onclick="wzhitnew(60)"><a href="http://www.360doc.com/userhome.aspx?userid=79028&amp;cid=31" target="_blank">《我的图书馆》</a></span>
+                                                                            </div>
+                                                                            <div style="float: left;">
+                                                                                <div class="btzctsg" id="spanfollowstatus1"><div class="gzbt1"><a onclick="gzuser(79028);wzhitnew(61);" href="javascript:void(0)"></a></div></div>
+                                                                                <script>isfollow(79028);</script>
+
+                                                                            </div>
+                                                                            <div style="float: left;">
+                                                                                <div class="ytdh1"><a onclick="doctalk();wzhitnew(107);" href="javascript:void(0)"></a></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <div class="modlist lf360 list" style="padding-top: 0px;">
+                                                                                <ul>
+                                                                                    <div id="lastart"><div class="shangyp">上一篇：<a href="http://www.360doc.com/content/10/0422/15/79028_24364925.shtml" target="_blank" onclick="wzhitnew(57);">如何向weka中添加新算法(Eclipse weka 3.5.5)</a></div></div>
+                                                                                    <div id="nextart">下一篇：<a href="http://www.360doc.com/content/10/0428/01/79028_25213173.shtml" target="_blank" onclick="wzhitnew(58);">在eclipse下使用java调用weka</a></div>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <div style="padding-top: 12px;">
+                                                                            <div id="docAdBelowContent"><iframe marginwidth="0" marginheight="0" scrolling="no" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/docAdBelowContent1.htm" width="650" frameborder="0" height="120"></iframe></div>
+
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align: left;">
+                                                                        <div style="padding-top: 15px; width: 670px;">
+                                                                            <table style="width: 670px;" cellpadding="0" cellspacing="0">
+                                                                                <tbody>
+                                                                                    <tr>
+
+                                                                                        <td style="width: 530px;">
+                                                                                            <div class=" lf360" style="cursor: pointer" onmouseover="ChangeBtnStyle(1);" onmouseout="ChangeBtnStyle(2);">
+                                                                                                <div class="zscbt">
+                                                                                                    <a href="javascript:void(0);" onclick="SaveArt();wzhitnew(26);">
+                                                                                                        <div id="zscbtword" class="lf360 xianhua" style="padding-left: 38px;">
+                                                                                                            转藏到我的图书馆
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div style="margin-left: 10px; cursor: pointer;" class="lf360 xhmainbox" id="sendflowerdiv" onclick='Showflowerlayer("sendedLayer1");wzhitnew(27)' onmouseover="ChangeFlowerBtnStyle(1);" onmouseout="ChangeFlowerBtnStyle(2);">
+
+                                                                                                <div id="flowimg2" class="lf360">
+                                                                                                    <div style="padding-left: 10px; padding-top: 10px;">
+                                                                                                        <img id="flowimg3" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/huahuanew.gif">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div id="flowimg5" class=" lf360 xianhua">
+                                                                                                    献花(<span id="articleflowernum">0</span>)<div id="flowernumadd" class="addtionone">
+                                                                                                        +1
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+
+
+
+
+                                                                                            <div class="lf360" style="cursor: pointer; padding-left: 10px;" onmouseover="ChangeBtnStyle(3);" onmouseout="ChangeBtnStyle(4);">
+                                                                                                <div class="fxwxbt">
+
+                                                                                                    <a href="javascript:void(0);" onclick="shareWeixin();wzhitnew(64);">
+                                                                                                        <div id="fxwxword" class="lf360 xianhua" style="padding-left: 38px;">
+                                                                                                            分享到微信
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="lf360" style="cursor: pointer; padding-left: 10px;" onmouseover="ChangeBtnStyle(5);" onmouseout="ChangeBtnStyle(6);">
+                                                                                                <div class="ywzwbt">
+
+                                                                                                    <a id="ywzwa" href="http://www.baidu.com/s?wd=chm+windows+%e6%96%87%e4%bb%b6&amp;tn=SE_hldp01010_6r0gix1f" onclick="wzhitnew(100);" target="_blank">
+                                                                                                        <div id="ywzwword" class="lf360 xianhua" style="padding-left: 44px;">
+                                                                                                            以文找文
+                                                                                                        </div>
+                                                                                                    </a>
+
+                                                                                                </div>
+                                                                                            </div>
+
+
+
+                                                                                        </td>
+                                                                                        <td style="vertical-align: bottom; font-size: 12px;" width="140">
+                                                                                            <div class="rt360" id="sharediv2"><table style=" vertical-align: text-bottom;" border="0" cellpadding="0" cellspacing="0"> <tbody><tr><td><div style="height:20px; width:105px;"><div style="float:left;"><span style="font-size:12px; line-height:16px; color:#959595;">分享：</span></div><div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare share-bar-btn2" style="float:left;"><span onclick="wzhitnew(28);"><a class="bds_qzone" title="分享到QQ空间" href="javascript:void(0);"></a></span><span onclick="wzhitnew(31);"><a class="bds_tsina" title="分享到新浪微博" href="javascript:void(0);"></a></span><span onclick="wzhitnew(32);"><a class="bds_tqq" title="分享到腾讯微博" href="javascript:void(0);"></a></span></div></div></td><td width="24"><a><img style="cursor:pointer;" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/tb10.gif" onclick="setTimeout(showShareLayer2, 10);wzhitnew(34);"></a><div id="fenxiangLayer1" class="fenxiang" style=" margin-left:-100px;*margin-left:-120px!important; margin-top:5px;*margin-top:16px!important;display:none;z-index:1000;"><div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare share-bar-btn"><table style=" background-color:#fff; " width="108" cellpadding="0" cellspacing="0"><tbody><tr><td width="12"></td><td onclick="wzhitnew(29);" height="29"><a class="bds_renren" href="javascript:void(0);" title="分享到人人网">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人人网</a></td></tr><tr><td width="12"></td><td onclick="wzhitnew(30);" height="29"><a class="bds_kaixin001" href="javascript:void(0);" title="分享到开心网">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开心网</a></td></tr><tr><td width="12"></td><td onclick="wzhitnew(33);" height="29"><a class="bds_tsohu" href="javascript:void(0);" title="分享到搜狐微博">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜狐微博</a></td></tr><tr><td width="12"></td><td height="29"><a href="javascript:void(0);" onclick="showdivemail1();wzhitnew(35);"><div class="bds_py">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;推荐给朋友</div></a></td></tr><tr><td width="12"></td><td height="29"><a href="javascript:void(0);"><div class="bds_jubao" onclick="showAlertLayer1();wzhitnew(36);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;举报</div></a></td></tr></tbody></table></div></div></td></tr></tbody></table><div id="AlertArt2" style="display:none; position:absolute;"></div><div id="SendToFriends2" style="display:none;position:absolute;z-index:1000;"></div></div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="lswzbox" style="padding-top: 10px;">
+                            <div>
+                                <table cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" width="330">
+                                                <div class="lswz" style="height: 300px;">
+                                                    <div class="lstwtop">
+                                                        <div class="lswztit">
+                                                            <div class=" lf360">
+                                                                <div class="titwx1">
+                                                                    类似文章
+                                                                </div>
+                                                            </div>
+                                                            <div class="rt360" style="padding-top: 5px; padding-right: 9px;">
+                                                                <a href="http://www.360doc.com/relevant/25212156_more.shtml" target="_blank" onclick="wzhitnew(38)">更多</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modlist2 list">
+                                                            <ul>
+                                                                
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/07/0218/13/1806_369368.shtml" target="_blank" onclick="wzhitnew(37)">把Firefox变成最棒的CHM阅读器！</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/11/0925/14/80921_151100096.shtml" target="_blank" onclick="wzhitnew(37)">請問WIN7 64位下CHM格式書打不開怎麼解決....</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/11/0513/11/80921_116398093.shtml" target="_blank" onclick="wzhitnew(37)">无法打开chm文件怎么办</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/11/1213/18/3103339_171995064.shtml" target="_blank" onclick="wzhitnew(37)">jd2chm(加htmlhelp) javadoc转换成chm必...</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/06/0914/00/10671_206816.shtml" target="_blank" onclick="wzhitnew(37)">如何解决chm格式文件无法显示问题</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/11/0720/22/7197864_134796543.shtml" target="_blank" onclick="wzhitnew(37)">CHMFactory 2.20.0</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/07/0802/11/10521_649267.shtml" target="_blank" onclick="wzhitnew(37)">超简单方法反编译CHM文件</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href="http://www.360doc.com/content/11/0720/22/7197864_134802241.shtml" target="_blank" onclick="wzhitnew(37)">EasyCHM(chm制作软件)V3.84.545特别版</a></span></li>
+                                                                    
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td valign="top" width="330">
+                                                <div class="lswz" style="margin-left: 9px; height: 300px;">
+                                                    <div class="lstwtop">
+                                                        <div class="lswztit">
+                                                            <div class=" lf360">
+                                                                <div class="titwx1">
+                                                                    热门推广
+                                                                </div>
+                                                            </div>
+                                                            <div class="rt360" style="padding-top: 5px; padding-right: 9px;">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modlist2 list" id="dochotartabovecontent"><iframe marginwidth="0" marginheight="0" scrolling="no" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/hotartbelowcontent.htm" allowtransparency="true" width="298" frameborder="0" height="242"></iframe></div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="background-color: #fafafa; width: 670px; height: 317px; margin-top: 10px;">
+                                    <div style=" padding-top:7px; padding-left:12px; "> <div style=" height:30px;"><div class="titwx3 lf360">猜你喜欢</div><div class=" rt360" style=" padding-right:18px;"><img onclick='changefiveart2("19999","19999");wzhitnew(62);' src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/hyz.gif" onmouseover='this.src="http://pubimage.360doc.com/wz/hyza.gif"' onmouseout='this.src="http://pubimage.360doc.com/wz/hyz.gif"' style="cursor:pointer;" width="76" height="24"></div></div><table cellpadding="0" cellspacing="0"><tbody><tr id="fivearttdid" style="height:138px"><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/13/1205/17/535749_334744532.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/535749_201312150010020746.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/13/1205/17/535749_334744532.shtml" target="_blank">25本改变世界的书 4本中国古书上榜</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/13/0404/00/8413713_275857352.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/275857352_201310271456410748.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/13/0404/00/8413713_275857352.shtml" target="_blank">中国象棋教程</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/14/0203/21/357856_349629387.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/349629387_201402181711200022.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/14/0203/21/357856_349629387.shtml" target="_blank">喜欢吃饺子的人必须要知道的</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/13/0123/21/605353_262026108.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/605353_201308301256120750_a262026108.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/13/0123/21/605353_262026108.shtml" target="_blank">别对这世界绝望，治愈心灵的感人画面</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/14/0103/15/4240596_342335883.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/4240596_201401100010130461.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/14/0103/15/4240596_342335883.shtml" target="_blank">情侣对唱舞曲</a></div></td></tr><tr id="fivearttdidtwo"><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/14/1103/12/19828857_422145764.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/422145764_201411131851360713.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/14/1103/12/19828857_422145764.shtml" target="_blank">小明又把老师逼疯了，看完笑哭了</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/15/1029/16/19153654_509237654.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/509237654_201511142041060482.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/15/1029/16/19153654_509237654.shtml" target="_blank">为什么你偏偏遇不到"好男人"？</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/15/1225/07/535749_522935821.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/535749_201512290450340365.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/15/1225/07/535749_522935821.shtml" target="_blank">你不要成为那样的姑娘</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/15/0112/03/2253722_440023699.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/440023699_201501240924060593.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/15/0112/03/2253722_440023699.shtml" target="_blank">台媒选十大国民女神,高圆圆夺魁</a></div></td><td valign="top" width="131"><div><a onclick="wzhitnew(39);" href="http://www.360doc.com/content/13/0917/21/13075110_315247013.shtml" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/13075110_201309240921440765.jpg" width="114" height="86"></a></div><div class="lan twentit"><a onclick="wzhitnew(40);" href="http://www.360doc.com/content/13/0917/21/13075110_315247013.shtml" target="_blank">中国最经典风水</a></div></td></tr></tbody></table></div>
+
+                                    <div style="display: none;" id="adabtest">
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div id="Reflction" style="padding-top: 15px; padding-left: 15px;">
+                                    <div id="360docRefTN"><div class="titwx pltit">共&nbsp;2&nbsp;条评论</div></div>
+                                    <div id="360docRefCT"><div class="wenzhang_pl_box"><table style="table-layout:fixed" cellpadding="0" cellspacing="0"><tbody><tr><td valign="top" width="55px"><div class="wenzhang_pl_left"><a onclick="wzhitnew(41);" href="http://www.360doc.com/UserHome/10705647" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/001_50.gif" width="55px"></a></div></td><td valign="top"><div class="wenzhang_pl_right" style="padding-left:8px;"><div class="name plskuai"><div class="lf360"><span class="mzbodl "><a onclick="wzhitnew(42);" href="http://www.360doc.com/UserHome/10705647" target="_blank">BaoshanBazi</a></span><span class="timewenzi">12-09-06 14:32</span></div> <div class="rt360 pingrig"> <table cellpadding="0" cellspacing="0"><tbody><tr><td class="nochu" id="39080_up">0</td><td width="4"></td><td> <img onclick="zancai(0,39080,'39080_up');wzhitnew(43);" style="cursor:pointer;" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/zhanyes.gif" title="顶" width="20" height="19"></td><td> <img onclick="zancai(1,39080,'39080_down');wzhitnew(44);" title="踩" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/zhanno.gif" style="cursor:pointer;" width="17" height="19"></td><td width="4"></td> <td class="yeschu" id="39080_down">0</td></tr></tbody></table> </div></div><div class="pl_con "><span id="SpanRef360docCg1">是我看到过的最华丽的解决方案了！</span></div><table cellpadding="0" cellspacing="0"><tbody><tr><td class="iehight" colspan="2"> </td></tr><tr><td><div class="revacediv" id="SubReply39080"><div><table cellpadding="0" cellspacing="0"><tbody><tr><td class="revlace"><a href="javascript:void(0);" onclick="if(document.getElementById('TrId39080').style.display=='none'){document.getElementById('TrId39080').style.display='';}else{document.getElementById('TrId39080').style.display='none';}">回复</a> </td> </tr><tr id="TrId39080" style="display:none;"><td><div class="huifuxt"><div style=" padding:23px 26px 7px 26px;"><textarea name="txtComments" id="textareaOfReplay39080" style=" width:100%; height:75px; border:1px solid #e7e7e7; background-color:#fff; overflow:auto;"></textarea></div><div style=" text-align:right; padding-right:30px;"><div class="huifubt2"><a id="btnOfReply39080" onclick="ReplyReflection(39080,1);return false;" href="javascript:void(0);"></a></div></div></div></td></tr><tr><td class="iehight"> </td></tr></tbody></table></div></div></td></tr></tbody></table></div></td></tr></tbody></table></div><div class="wenzhang_pl_box"><table style="table-layout:fixed" cellpadding="0" cellspacing="0"><tbody><tr><td valign="top" width="55px"><div class="wenzhang_pl_left"><a onclick="wzhitnew(41);" href="http://www.360doc.com/UserHome/3915435" target="_blank"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/001_50.gif" width="55px"></a></div></td><td valign="top"><div class="wenzhang_pl_right" style="padding-left:8px;"><div class="name plskuai"><div class="lf360"><span class="mzbodl "><a onclick="wzhitnew(42);" href="http://www.360doc.com/UserHome/3915435" target="_blank">gfmtd</a></span><span class="timewenzi">10-12-18 22:06</span></div> <div class="rt360 pingrig"> <table cellpadding="0" cellspacing="0"><tbody><tr><td class="nochu" id="29490_up">0</td><td width="4"></td><td> <img onclick="zancai(0,29490,'29490_up');wzhitnew(43);" style="cursor:pointer;" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/zhanyes.gif" title="顶" width="20" height="19"></td><td> <img onclick="zancai(1,29490,'29490_down');wzhitnew(44);" title="踩" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/zhanno.gif" style="cursor:pointer;" width="17" height="19"></td><td width="4"></td> <td class="yeschu" id="29490_down">0</td></tr></tbody></table> </div></div><div class="pl_con "><span id="SpanRef360docCg2">谢谢，对我帮助很大！<br></span></div><table cellpadding="0" cellspacing="0"><tbody><tr><td class="iehight" colspan="2"> </td></tr><tr><td><div class="revacediv" id="SubReply29490"><div><table cellpadding="0" cellspacing="0"><tbody><tr><td class="revlace"><a href="javascript:void(0);" onclick="if(document.getElementById('TrId29490').style.display=='none'){document.getElementById('TrId29490').style.display='';}else{document.getElementById('TrId29490').style.display='none';}">回复</a> </td> </tr><tr id="TrId29490" style="display:none;"><td><div class="huifuxt"><div style=" padding:23px 26px 7px 26px;"><textarea name="txtComments" id="textareaOfReplay29490" style=" width:100%; height:75px; border:1px solid #e7e7e7; background-color:#fff; overflow:auto;"></textarea></div><div style=" text-align:right; padding-right:30px;"><div class="huifubt2"><a id="btnOfReply29490" onclick="ReplyReflection(29490,1);return false;" href="javascript:void(0);"></a></div></div></div></td></tr><tr><td class="iehight"> </td></tr></tbody></table></div></div></td></tr></tbody></table></div></td></tr></tbody></table></div></div>
+                                    <div style="display: none;" id="360docRefPB" align="center"></div>
+                                </div>
+                                <a name="sf"></a>
+                                
+                                <div id="ReflectionPart"><div style=" height:206px; margin:0px 0px;"><div class="plbox"><div class="plmain"><div class="titwx" style=" height:23px;">发表评论：</div><div class="deluwx">您好，请&nbsp;<span><a href="javascript:void(0);" onclick="ReflectionLoginform();wzhitnew(45);">登录</a></span>&nbsp;或者&nbsp;<span><a href="http://www.360doc.com/register.aspx?refer=53&amp;reurl=showweb/0/0/25212156.aspx" onclick="InsertLogData(4);wzhitnew(46);">注册</a></span>&nbsp;后再进行评论 </div><div class=" rt360" style="height: 26px;"><span class="dsfwz">社交帐号登录：</span><a class="dsftb sf1" href="javascript:void(0);" onclick="toSNSLogin('smb');wzhitnew(47);_hmt.push(['_trackEvent','loginsina','clicknum','wenzhangyeremark']);" "=""></a><a class="dsftb sf2" href="javascript:void(0);" onclick="toSNSLogin('qq');wzhitnew(48);_hmt.push(['_trackEvent','loginqq','clicknum','wenzhangyeremark']);" "=""></a><a class="dsftb sf3" href="javascript:void(0);" onclick="toSNSLogin('wx');wzhitnew(49);_hmt.push(['_trackEvent','loginrenren','clicknum','wenzhangyeremark']);" "=""></a></div> </div></div></div></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="center" valign="top" width="18px"></td>
+                    <td align="left" valign="top" width="252px">
+                        
+
+
+<div style="height: 98px" id="artrightad1"><iframe marginwidth="0" id="Iframeadabtest" marginheight="0" scrolling="no" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/ad1_300.htm" allowtransparency="true" width="300" frameborder="0" height="90"></iframe></div>
+
+
+    <div id="artrightnewarticle" class="remenwz" style="height: 219px; width: 300px;"><div class="rementop"><div class="titwx" style=" padding-top:10px; padding-left:24px;">最新文章</div></div><div class="modlist3 list" style=" padding-left:15px;"><ul><li><span><a href="http://www.360doc.com/content/08/0318/13/10610_1126739.shtml" target="_blank" onclick="wzhitnew(51)">介绍一下短信平台接口</a></span></li><li><span><a href="http://www.360doc.com/content/10/1121/14/79028_71151482.shtml" target="_blank" onclick="wzhitnew(51)">希望这篇文章改变了你</a></span></li><li><span><a href="http://www.360doc.com/content/10/0529/16/79028_30166363.shtml" target="_blank" onclick="wzhitnew(51)">WORD中文档结构图不能正确显示项目编...</a></span></li><li><span><a href="http://www.360doc.com/content/10/0520/09/79028_28507322.shtml" target="_blank" onclick="wzhitnew(51)">在 Excel中作ROC曲线</a></span></li><li><span><a href="http://www.360doc.com/content/09/0106/11/96202_2273343.shtml" target="_blank" onclick="wzhitnew(51)">Cumulative gains chart and lift cha...</a></span></li><li><span><a href="http://www.360doc.com/content/10/0519/11/79028_28359677.shtml" target="_blank" onclick="wzhitnew(51)">分类模型的性能评估——以SAS Logisti...</a></span></li></ul> <div class=" rt360" style=" padding-right:23px;"><a href="http://www.360doc.com/userhome/79028" target="_blank" onclick="wzhitnew(52);">更多</a></div></div></div>
+
+
+<div class="both" style="padding-top: 10px; height: 260px;">
+   <iframe src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/ad2_300.htm" id="ifartad1" scrolling="no" width="300px" frameborder="0" height="250px"></iframe>
+    <div style="height: 10px;">
+    </div>
+</div>
+
+<div style="width: 300px;" class="remenwz" id="artrighthotarticle">
+    <div class="rementop">
+        <div class="titwx" style="padding-top: 10px; padding-left: 24px;">
+            热门文章</div>
+    </div>
+    <div class="modlist3 list" style="padding-left: 15px;">
+        <ul>
+            
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1212/16/7809447_519869770.shtml" target="_blank" onclick="wzhitnew(55)">七大军区结束历史使命</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/0823/13/22556257_494239445.shtml" target="_blank" onclick="wzhitnew(55)">助力成长 ---高中高效率学习时间可以...</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1124/10/1410309_515417397.shtml" target="_blank" onclick="wzhitnew(55)">什么人害怕毛泽东</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1223/04/6956316_522424048.shtml" target="_blank" onclick="wzhitnew(55)">千里挑一的绝色风景（下）</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/16/0101/23/6858155_524718022.shtml" target="_blank" onclick="wzhitnew(55)">中药类：黄芪党参加红枣，男女永远不...</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1025/10/28404407_508197169.shtml" target="_blank" onclick="wzhitnew(55)">【育儿】有了这7个好习惯，孩子不成才...</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1014/10/8191503_505535224.shtml" target="_blank" onclick="wzhitnew(55)">【爆笑】哈哈哈笑得从床上滚下来~</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1026/07/4503649_508392488.shtml" target="_blank" onclick="wzhitnew(55)">图文：治腰痛效宏力速的验方</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/16/0122/11/3716472_529740630.shtml" target="_blank" onclick="wzhitnew(55)">春节，这6种微信红包千万别碰</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/16/0103/15/8413713_525150315.shtml" target="_blank" onclick="wzhitnew(55)">钢笔、硬笔书法系列书籍荟萃·五十五册</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/1017/18/8546441_506323614.shtml" target="_blank" onclick="wzhitnew(55)">简单药方 - 太神奇！我媽媽試了一週，...</a></span></li>
+                
+                    <li><span>
+                        <a href="http://www.360doc.com/content/15/0816/19/15748423_492143597.shtml" target="_blank" onclick="wzhitnew(55)">这些段子被称为最搞笑的笑话，到底是...</a></span></li>
+                
+        </ul>
+        
+        <div style="padding-right: 23px;text-align: right;">
+            <a href="http://www.360doc.com/readroom.html" target="_blank" onclick="wzhitnew(56)">更多&gt;&gt;</a></div>
+        
+    </div>
+</div>
+
+<div class="both" style="padding-top: 10px;">
+    <iframe src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/ad3_300.htm" id="ifartad2" scrolling="no" width="300px" frameborder="0" height="250px"></iframe>
+</div>
+<br>
+
+
+ <iframe src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/artrightadsogou300.htm" id="ifartrightsogou" scrolling="no" width="300px" frameborder="0" height="328px"></iframe>
+
+
+
+<script>
+    function change(pro_name, i) {
+        var pro = document.getElementById(pro_name); 
+        var pro_arr = pro.getElementsByTagName("span");
+
+        for (var m = 0; m < pro_arr.length; m++) {
+            pro_arr[m].className = "unclecked link_black";
+        }
+        pro_arr[i].className = "checked link_bai";
+
+        if (i == 1) {
+            document.getElementById("qh_ul_1").style.display = "";
+            document.getElementById("qh_ul_0").style.display = "none";
+        }
+        else if (i == 0) {
+            document.getElementById("qh_ul_1").style.display = "none";
+            document.getElementById("qh_ul_0").style.display = "";
+        }
+    }
+</script>
+
+                        <div class="both" id="divad5" style="padding-top: 11px; top: 55px; left: 798px;">
+                            <div id="divad4" style="">
+                                <div>
+                                    <iframe src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/ad4_300.htm" id="ifartad" scrolling="no" width="300px" frameborder="0" height="250px"></iframe>
+                                </div>
+                                <div class="ggwz">
+                                    <a href="javascript:void(0);" onclick="closead(2);">关闭</a>
+                                </div>
+                                <div style="height: 13px;">
+                                </div>
+                            </div>
+                            <div style="clear: both;" id="divad6">
+                                <div id="adfloatbaidu">
+                                    <iframe src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/ad5_300.htm" id="ifartadfloadbaidu" scrolling="no" width="300px" frameborder="0" height="250px"></iframe>
+                                </div>
+                                <div class="ggwz">
+                                    <a href="javascript:void(0);" onclick="closead(3);">关闭</a>
+                                </div>
+                                <div style="height: 13px;">
+                                </div>
+                            </div>
+
+                            <div style="clear: both;" id="divDwnloadDocApp"><div style="position: relative; width: 300px;"><div id="artweixinDiv" class="appma" style="display: none;"></div><div style="cursor: pointer;" class="appcha" onclick="closead(8);"><img src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/artpage_appcha.gif"></div><img onmouseover="HideShowArtWeixinDiv(1);" onmouseout="HideShowArtWeixinDiv(2);" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/artpage_app.gif" width="300"></div></div>
+                             <div style="height: 75px;">
+                              </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input id="docarttitle" value="%e8%a7%a3%e5%86%b3CHM%e6%96%87%e4%bb%b6%e6%89%93%e5%bc%80%e6%97%a0%e6%b3%95%e6%98%be%e7%a4%ba%e7%bd%91%e9%a1%b5%e7%9a%84%e9%97%ae%e9%a2%98" type="hidden">
+    <input id="artreadroomid" value="0" type="hidden">
+    <script>var asw='%e8%a7%a3%e5%86%b3CHM%e6%96%87%e4%bb%b6%e6%89%93%e5%bc%80%e6%97%a0%e6%b3%95%e6%98%be%e7%a4%ba%e7%bd%91%e9%a1%b5%e7%9a%84%e9%97%ae%e9%a2%98'</script>
+    <div id="docdiviframe"></div>
+
+
+    <script language="javascript" type="text/javascript">
+        var appName = navigator.appName.toLowerCase(); 
+        if (appName.indexOf("microsoft internet explorer") > -1) {
+            document.write("<scr" + "ipt type='text/javascript' src='http://www.360doc.com/js/StickySystemIE20130911.js?t=2016020101'></sc" + "ript>");
+        }
+        else {
+
+            document.write("<scr" + "ipt type='text/javascript' src='http://www.360doc.com/js/StickySystemOther20130911.js?t=2016020101'></sc" + "ript>");
+        }
+    </script><script type="text/javascript" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/StickySystemOther20130911.js"></script>
+
+    <script>GerLookingUserInfo(1,79028,1,0,'-1',-1,10,0);OutputSource('http%3a%2f%2fwww.360doc.com%2fuserhome%2f79028');OutputCategory(79028,31,'%e3%80%8a%e6%88%91%e7%9a%84%e5%9b%be%e4%b9%a6%e9%a6%86%e3%80%8b');OutputLastNextArt('%e5%a6%82%e4%bd%95%e5%90%91weka%e4%b8%ad%e6%b7%bb%e5%8a%a0%e6%96%b0%e7%ae%97%e6%b3%95(Eclipse+weka+3.5.5)','http://www.360doc.com/content/10/0422/15/79028_24364925.shtml',0);OutputLastNextArt('%e5%9c%a8eclipse%e4%b8%8b%e4%bd%bf%e7%94%a8java%e8%b0%83%e7%94%a8weka','http://www.360doc.com/content/10/0428/01/79028_25213173.shtml',1);</script>
+
+  
+
+    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6857724" src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/bds_s_v2.js"></script>
+
+    <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date() / 3600000);
+    </script>
+    <!-- Baidu Button END -->
+    <script src="%E8%A7%A3%E5%86%B3CHM%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E7%BD%91%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98_files/logger.js"></script>
+
+
+
+
+<div style="left: 1139.5px; display: none;" id="goTop2"><div id="goTop"><a href="#" id="go_top"></a></div><div id="goTop1"><a href="javascript:void(0);" id="go_top1"></a></div><div></div></div></body></html>

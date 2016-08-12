@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)http://music.163.com/outchain/player?type=2&id=29378283&auto=0&height=66 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>网易云音乐</title>
+<link rel="stylesheet" type="text/css" href="./base.css">
+<link rel="stylesheet" type="text/css" href="./outchain-player.css">
+<style type="text/css">
+#player{margin:10px 0 0 10px;}
+</style>
+<!--[if lt IE 9]>
+<style>
+.player{border:1px solid #ccc;}
+</style>
+<![endif]-->
+<script type="text/javascript" async="" src="./ga.js"></script><script>var GEnc = true;</script>
+</head>
+<body marginwidth="0" marginheight="0">
+<div id="player" style="width: 310px; height: 66px;"><div class="player player-mid f-cb f-pr">
+<div class="cover cover-sm f-pr">
+<img id="cover" src="./6655343883472092.jpg">
+<div class="mask"></div>
+<div id="play" class="bg play-bg" data-action="play"></div>
+<div id="pause" class="bg pause-bg f-hide" data-action="pause"></div>
+</div>
+<div id="mid-ctrl" class="ctrlBox" style="width: 224px;">
+<h2 class="f-pr"><i data-action="home" class="bg logo"></i><div id="title" class="title" style="width: 200px;">待我长发及腰<span class="sub"> - 尚雯婕</span></div></h2>
+<div id="bar" class="bar" style="width: 180px;">
+<div class="played j-flag" style="width: 0%;"><span class="bg thumb j-flag" id="auto-id-NFZssr8WLFudH55B"></span></div>
+</div>
+</div>
+<span id="time" class="time">- 00:00</span>
+</div>
+</div>
+
+<script src="./core.js"></script><iframe frameborder="0" id="auto-id-TN42oa4Ta9HNAk5y" style="display: none;" src="./proxy.html"></iframe>
+<script src="./pt_outchain_player.js"></script>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-38766552-1'],['_setLocalGifPath', '/UA-38766552-1/__utm.gif'],['_setLocalRemoteServerMode']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script');
+ga.type = 'text/javascript';
+ga.async = true;
+ga.src = '//wr.da.netease.com/ga.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ga, s);
+})();//fix ipad下的一个bug
+if (navigator.userAgent.indexOf('iPad') != -1) {
+iframeHeight = Math.max(
+Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+Math.max(document.body.offsetHeight, document.documentElement.offsetHeight),
+Math.max(document.body.clientHeight, document.documentElement.clientHeight)
+);
+top.document.body.style.height = iframeHeight + 20 + 'px';
+}</script>
+</body></html>

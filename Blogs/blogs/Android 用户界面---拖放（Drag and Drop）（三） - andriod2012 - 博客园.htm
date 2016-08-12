@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script async="" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ex_003"></script><script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ex_002.js" charset="gbk"></script><script async="" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ex_002"></script><script async="" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ex"></script><script mod_name="tanxssp-main" async="" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/main.js"></script><script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ex.js" charset="gbk"></script><script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/tanxssp.js" async="" charset="utf-8"></script><script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ex_003.js" charset="gbk"></script><script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/gpt.js" type="text/javascript" async=""></script><script mod_name="inf-main" async="" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/main_002.js"></script>
+<meta charset="utf-8">
+<title>Android 用户界面---拖放（Drag and Drop）（三） - andriod2012 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-LessIsMoreRight.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/andriod-html5/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/andriod-html5/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/andriod-html5/wlwmanifest.xml">
+<script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'andriod-html5', cb_enable_mathjax=false;</script>
+<script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js" type="text/javascript"></script>
+<script async="" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/pubads_impl_78.js"></script></head>
+<body><iframe src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/acbeacon2.htm" style="width: 0px; height: 0px; display: none;"></iframe>
+<a name="top"></a>
+<div id="page_begin_html">
+
+
+<div id="tanxssp_con_mm_10002723_2390296_9317862" style="overflow:hidden;display:inline-block;position:relative;width:950px;height:90px;*display:inline;*zoom:1;"><iframe scrolling="no" marginheight="0" marginwidth="0" border="0" style="width:950px;height:90px;" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1zPmGIFXXXXbHXFXXO04pFXXX.htm" frameborder="0"></iframe><a id="iconmm_10002723_2390296_9317862" title="我也要申请橱窗推广" target="_blank" href="http://pro.taobao.com/index.htm?spm=a2320.7388781.1998051528.5.JOvNkN" style="overflow:hidden;width:15px;height:13px;right:0px;bottom:0px;display:block;position:absolute;cursor:pointer;z-index:250;">   <span id="icon_smallmm_10002723_2390296_9317862" style="border-right:2px solid #eee;float:none;width:13px;display:block;height:13px;"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1DmcoJXXXXXavXpXXXXXXXXXX-26-26.png" border="0" width="13"></span>   <span id="icon_bigmm_10002723_2390296_9317862" style="float:none;width:60px;height:13px;display: none;"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1Lt7aJXXXXXcjXVXXXXXXXXXX-117-26.png" border="0/" width="60"></span></a></div><iframe style="display:none" id="tanx-a-mm_10002723_2390296_9317862" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe></div><script>load_page_begin_html();</script>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/andriod-html5/">andriod2012</a></div>
+<div class="subtitle"></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/andriod-html5/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/andriod2012">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/andriod-html5/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/andriod-html5/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-513&nbsp;
+文章-0&nbsp;
+评论-13&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/andriod-html5/archive/2012/03/29/2539440.html">Android 用户界面---拖放（Drag and Drop）（三）</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><strong><span style="font-size:16px">设计拖放操作</span></strong></p>
+<p><span style="font-size:16px">本节主要内容如下：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;&nbsp;<span style="font-size:16px">如何开始拖拽；</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;&nbsp;<span style="font-size:16px">在拖拽期间如何响应事件；</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">3.</span>&nbsp;&nbsp;<span style="font-size:16px">如何响应落下事件；</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">4.</span>&nbsp;&nbsp;<span style="font-size:16px">如何结束拖放操作。</span></p>
+<p><strong><span style="font-size:16px">开始拖拽</span></strong></p>
+<p><span style="font-size:16px">用户使用一个拖拽手势开始拖拽，通常是在<span style="font-family:Times New Roman">View</span>对象上长按。在响应中，应该做下列事情：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;&nbsp;<span style="font-size:16px">必要时，给要移动的数据创建一个<span style="font-family:Times New Roman">ClipData</span>和<span style="font-family:Times New Roman">ClipData.Item</span>对象，作为<span style="font-family:Times New Roman">ClipData</span>对象的一部分，在<span style="font-family:Times New Roman">ClipData</span>对象内部的<span style="font-family:Times New Roman">ClipDescription</span>对象中保存了元数据。因为拖放操作不代表数据的移动，因此可以使用<span style="font-family:Times New Roman">null</span>来代替实际的对象。</span></p>
+<p><span style="font-size:16px">例如，以下代码段显示了如何在<span style="font-family:Times New Roman">ImageView</span>对象的长按事件上创建一个包含<span style="font-family:Times New Roman">ImageView</span>对象标签的<span style="font-family:Times New Roman">ClipData</span>对象。</span></p>
+<p><span style="font-size:16px; color:#880000">// Create a string for the ImageView label</span><span style="color:black"><br>
+</span><span style="font-size:16px; color:#000088">private</span> <span style="color:#000088">
+static</span> <span style="color:#000088">final</span> <span style="color:#660066">
+String</span> IMAGEVIEW_TAG <span style="color:#666600">=</span> <span style="color:#008800">
+"icon bitmap"</span><span style="color:black"><br>
+<br>
+</span><span style="font-size:16px; color:#880000">// Creates a new ImageView</span><span style="color:black"><br>
+</span><span style="font-size:16px; color:#660066">ImageView</span> imageView <span style="color:#666600">
+=</span> <span style="color:#000088">new</span> <span style="color:#660066">ImageView</span><span style="color:#666600">(</span><span style="color:#000088">this</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+</span><span style="font-size:16px; color:#880000">// Sets the bitmap for the ImageView from an icon bit map (defined elsewhere)</span><span style="color:black"><br>
+<span style="font-size:16px">imageView</span></span><span style="font-size:16px; color:#666600">.</span>setImageBitmap<span style="color:#666600">(</span>mIconBitmap<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+</span><span style="font-size:16px; color:#880000">// Sets the tag</span><span style="color:black"><br>
+<span style="font-size:16px">imageView</span></span><span style="font-size:16px; color:#666600">.</span>setTag<span style="color:#666600">(</span>IMAGEVIEW_TAG<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#666600">...</span><span style="color:black"><br>
+<br>
+</span><span style="font-size:16px; color:#880000">// Sets a long click listener for the ImageView using an anonymous listener object that</span><span style="color:black"><br>
+</span><span style="font-size:16px; color:#880000">// implements the OnLongClickListener interface</span><span style="color:black"><br>
+<span style="font-size:16px">imageView</span></span><span style="font-size:16px; color:#666600">.</span>setOnLongClickListener<span style="color:#666600">(</span><span style="color:#000088">new</span><span style="color:#660066">View</span><span style="color:#666600">.</span><span style="color:#660066">OnLongClickListener</span><span style="color:#666600">()</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Defines the one method for the interface, which is called when the View is long-clicked</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">public</span><span style="color:#000088">boolean</span> onLongClick<span style="color:#666600">(</span><span style="color:#660066">View</span> v<span style="color:#666600">)</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Create a new ClipData.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// This is done in two steps to provide clarity. The convenience method</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// ClipData.newPlainText() can create a plain text ClipData in one step.</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Create a new ClipData.Item from the ImageView object's tag</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#660066">ClipData</span><span style="color:#666600">.</span><span style="color:#660066">Item</span> item<span style="color:#666600">=</span>
+<span style="color:#000088">new</span> <span style="color:#660066">ClipData</span><span style="color:#666600">.</span><span style="color:#660066">Item</span><span style="color:#666600">(</span>v<span style="color:#666600">.</span>getTag<span style="color:#666600">());</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Create a new ClipData using the tag as a label, the plain text MIME type, and</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// the already-created item. This will create a new ClipDescription object within the</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// ClipData, and set its MIME type entry to "text/plain"</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#660066">ClipData</span> dragData<span style="color:#666600">=</span>
+<span style="color:#000088">new</span> <span style="color:#660066">ClipData</span><span style="color:#666600">(</span>v<span style="color:#666600">.</span>getTag<span style="color:#666600">(),</span><span style="color:#660066">ClipData</span><span style="color:#666600">.</span>MIMETYPE_TEXT_PLAIN<span style="color:#666600">,</span>item<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Instantiates the drag shadow builder.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#660066">View</span><span style="color:#666600">.</span><span style="color:#660066">DrawShadowBuilder</span> myShadow<span style="color:#666600">=</span>
+<span style="color:#000088">new</span> <span style="color:#660066">MyDragShadowBuilder</span><span style="color:#666600">(</span>imageView<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Starts the drag</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-size:16px; color:#666600">.</span>startDrag<span style="color:#666600">(</span>dragData<span style="color:#666600">,</span> &nbsp;<span style="color:#880000">// the data to be dragged</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; myShadow</span></span><span style="font-size:16px; color:#666600">,</span> &nbsp;<span style="color:#880000">// the drag shadow builder</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">null</span><span style="color:#666600">,</span> &nbsp; &nbsp; &nbsp;<span style="color:#880000">// no need to use local data</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#006666">0</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color:#880000">// flags (not currently used, set to 0)</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#666600">);</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">}</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">}</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px"></span>&nbsp;</p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;<span style="font-size:16px">以下代码段定义了一个<span style="font-family:Times New Roman">myDragShadowBuilder</span>类，它创建一个用于拖拽<span style="font-family:Times New Roman">TextView</span>对象的小的灰色的矩形作为拖拽影子：</span></p>
+<p><span style="font-size:16px; color:#000088">private</span> <span style="color:#000088">
+static</span> <span style="color:#000088">class</span> <span style="color:#660066">
+MyDragShadowBuilder</span> <span style="color:#000088">extends</span> <span style="color:#660066">
+View</span><span style="color:#666600">.</span><span style="color:#660066">DragShadowBuilder</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// The drag shadow image, defined as a drawable thing</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">private</span><span style="color:#000088">static</span>
+<span style="color:#660066">Drawable</span> shadow<span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Defines the constructor for myDragShadowBuilder</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">public</span><span style="color:#660066">MyDragShadowBuilder</span><span style="color:#666600">(</span><span style="color:#660066">View</span> v<span style="color:#666600">)</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Stores the View parameter passed to myDragShadowBuilder.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">super</span><span style="color:#666600">(</span>v<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Creates a draggable image that will fill the Canvas provided by the system.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; shadow </span></span><span style="font-size:16px; color:#666600">=</span><span style="color:#000088">new</span>
+<span style="color:#660066">ColorDrawable</span><span style="color:#666600">(</span><span style="color:#660066">Color</span><span style="color:#666600">.</span>LTGRAY<span style="color:#666600">);</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#666600">}</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Defines a callback that sends the drag shadow dimensions and touch point back to the</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// system.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#006666">@Override</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">public</span><span style="color:#000088">void</span> onProvideShadowMetrics
+<span style="color:#666600">(</span><span style="color:#660066">Point</span> size<span style="color:#666600">,</span><span style="color:#660066">Point</span> touch<span style="color:#666600">)</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Defines local variables</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">private</span><span style="color:#000088">int</span> width<span style="color:#666600">,</span> height<span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Sets the width of the shadow to half the width of the original View</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; width </span></span><span style="font-size:16px; color:#666600">=</span> getView<span style="color:#666600">().</span>getWidth<span style="color:#666600">()</span><span style="color:#666600">/</span>
+<span style="color:#006666">2</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Sets the height of the shadow to half the height of the original View</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; height </span></span><span style="font-size:16px; color:#666600">=</span> getView<span style="color:#666600">().</span>getHeight<span style="color:#666600">()</span><span style="color:#666600">/</span>
+<span style="color:#006666">2</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// The drag shadow is a ColorDrawable. This sets its dimensions to be the same as the</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Canvas that the system will provide. As a result, the drag shadow will fill the</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Canvas.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; shadow</span></span><span style="font-size:16px; color:#666600">.</span>setBounds<span style="color:#666600">(</span><span style="color:#006666">0</span><span style="color:#666600">,</span><span style="color:#006666">0</span><span style="color:#666600">,</span>
+ width<span style="color:#666600">,</span> height<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Sets the size parameter's width and height values. These get back to the system</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// through the size parameter.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size</span></span><span style="font-size:16px; color:#666600">.</span><span style="color:#000088">set</span><span style="color:#666600">(</span>width<span style="color:#666600">,</span> height<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Sets the touch point's position to be in the middle of the drag shadow</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; touch</span></span><span style="font-size:16px; color:#666600">.</span><span style="color:#000088">set</span><span style="color:#666600">(</span>width<span style="color:#666600">/</span>
+<span style="color:#006666">2</span><span style="color:#666600">,</span> height<span style="color:#666600">/</span>
+<span style="color:#006666">2</span><span style="color:#666600">);</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#666600">}</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Defines a callback that draws the drag shadow in a Canvas that the system constructs</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// from the dimensions passed in onProvideShadowMetrics().</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#006666">@Override</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#000088">public</span><span style="color:#000088">void</span> onDrawShadow<span style="color:#666600">(</span><span style="color:#660066">Canvas</span> canvas<span style="color:#666600">)</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-size:16px; color:#880000">// Draws the ColorDrawable in the Canvas passed in from the system.</span><span style="color:black"><br>
+<span style="font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; shadow</span></span><span style="font-size:16px; color:#666600">.</span>draw<span style="color:#666600">(</span>canvas<span style="color:#666600">);</span></p>
+<p><span style="font-size:16px; color:#000088">&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">}</span></p>
+<p><span style="font-size:16px">注意：不必扩展<span style="font-family:Times New Roman">View.DragShadowBuilder</span>类，因为构造器<span style="font-family:Times New Roman">View.DragShadowBuilder(View)</span>会创建一个默认的跟传递给它的<span style="font-family:Times New Roman">View</span>对象相同尺寸的拖拽影子，而且触点在拖拽影子的中心。</span></p>
+<p><strong><span style="font-size:16px">对拖拽开始的响应</span></strong></p>
+<p><span style="font-size:16px">在拖拽操作期间，系统会分发拖拽事件给当前布局中<span style="font-family:Times New Roman">View</span>对象的拖拽事件监听器。监听器应该通过调用<span style="font-family:Times New Roman">getAction()</span>方法对获得的操作类型做出反应。在拖拽开始时，这个方法返回<span style="font-family:Times New Roman">ACTION_DRAG_STARTED.</span></span></p>
+<p><span style="font-size:16px">在对<span style="font-family:Times New Roman">ACTION_DRAG_STARTED</span>操作类型做出的响应中，监听器应该做下列事情：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;&nbsp;<span style="font-size:16px">调用<span style="font-family:Times New Roman">getClipDescription()</span>方法来获得<span style="font-family:Times New Roman">ClipDescription</span>对象，使用<span style="font-family:Times New Roman">ClipDescription</span>对象中的<span style="font-family:Times New Roman">MIME</span>类型方法来判断监听器是否能够接收被拖拽的数据。</span></p>
+<p><span style="font-size:16px">如果拖拽操作不代表要移动的数据，这个判断就不是必须的了。</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;&nbsp;<span style="font-size:16px">如果监听器能够接受落下事件，它应该返回<span style="font-family:Times New Roman">true</span>。这样就告诉系统可以继续给这个监听器发送拖拽事件。如果不能够接收落下事件，它应该返回<span style="font-family:Times New Roman">false</span>，系统就不再会给这个监听器发送拖拽事件了。</span></p>
+<p><span style="font-size:16px">要注意的是针对<span style="font-family:Times New Roman">ACTION_DRAG_STARTED</span>事件，下列<span style="font-family:Times New Roman">DragEvent</span>对象方法不能获取有效的数据：<span style="font-family:Times New Roman">getClipData()</span>、<span style="font-family:Times New Roman">getX()</span>、<span style="font-family:Times New Roman">getY()</span>和<span style="font-family:Times New Roman">getResult()</span>。</span></p>
+<p><strong><span style="font-size:16px">在拖拽期间处理事件</span></strong></p>
+<p><span style="font-size:16px">在拖拽期间，在响应<span style="font-family:Times New Roman">ACTION_DARG_STARTED</span>拖拽事件中返回<span style="font-family:Times New Roman">true</span>的监听器会继续接收拖拽事件。这种类型的拖拽监听器会依赖拖拽期间拖拽影子的位置和监听器的<span style="font-family:Times New Roman">View</span>对象的可见性来接收拖拽事件。</span></p>
+<p><span style="font-size:16px">在拖拽期间，监听器主要使用拖拽事件来判断是否应该改变<span style="font-family:Times New Roman">View</span>对象的外观。</span></p>
+<p><span style="font-size:16px">拖拽期间，<span style="font-family:Times New Roman">getAction</span>方法会返回下列三个值之一：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;<span style="font-size:16px">ACTION_DRAG_ENTERED</span><span style="font-size:16px">：当触点（触屏上手指下方的点）进入监听器<span style="font-family:Times New Roman">View</span>对象的边框时，<span style="font-family:Times New Roman">View</span>对象的拖拽监听器就会收到这个事件。</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;<span style="font-size:16px">ACTION_DRAG_LOCATION</span><span style="font-size:16px">：一旦拖拽监听器收到一个<span style="font-family:Times New Roman">ACTION_DRAG_ENTERED</span>事件，并且在收到<span style="font-family:Times New Roman">ACTION_DRAG_EXITED</span>事件之前，每次移动触点时都会收到一个新的<span style="font-family:Times New Roman">ACTION_DRAG_LOCATION</span>事件。<span style="font-family:Times New Roman">getX</span>和<span style="font-family:Times New Roman">getY()</span>方法会返回触点的<span style="font-family:Times New Roman">X</span>和<span style="font-family:Times New Roman">Y</span>轴坐标。</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">3.</span>&nbsp;<span style="font-size:16px">ACTION_DRAG_EXITED</span><span style="font-size:16px">：在拖拽影子离开监听器<span style="font-family:Times New Roman">View</span>对象的边框之后，这个事件会发送给之前收到<span style="font-family:Times New Roman">ACTION_DRAG_ENTERED</span>事件的那个监听器。</span></p>
+<p><span style="font-size:16px"></span>&nbsp;</p>
+<p><span style="font-size:16px">监听器不需要对这些操作类型都做出反应，如果监听器给系统返回了一个值，它就会被忽略。以下是响应这些操作类型的一些指南：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;&nbsp;<span style="font-size:16px">在对<span style="font-family:Times New Roman">ACTION_DRAG_ENTERED</span>或<span style="font-family:Times New Roman">ACTION_DRAG_LOCATION</span>事件的响应中，监听器能够改变<span style="font-family:Times New Roman">View</span>对象的外观来指示<span style="font-family:Times New Roman">View</span>对象能够接受放下事件。</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;<span style="font-size:16px">ACTION_DRAG_LOCATION</span><span style="font-size:16px">事件包含了对<span style="font-family:Times New Roman">getX()</span>和<span style="font-family:Times New Roman">getY()</span>方法有效的数据，这两个方法的返回值对应了触点的位置。监听器可以使用这个信息来修改触点所在的<span style="font-family:Times New Roman">View</span>对象的外观，也能使用这个信息来判断用户拖放阴影的准确位置。</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">3.</span>&nbsp;<span style="font-size:16px">在对<span style="font-family:Times New Roman">ACTION_DRAG_EXITED</span>事件的响应中，监听器应该重设在响应<span style="font-family:Times New Roman">ACTION_DRAG_ENTERED</span>或<span style="font-family:Times New Roman">ACTION_DRAG_LOCATION</span>事件对外观的任何改变。这个事件指示拖放对象已经离开准备放下的目标。</span></p>
+<p><strong><span style="font-size:16px">响应放下事件</span></strong></p>
+<p><span style="font-size:16px">当用户在应用中的一个<span style="font-family:Times New Roman">View</span>对象上释放了拖拽影子，并且这个<span style="font-family:Times New Roman">View</span>对象是之前报告的能够接收被拖拽内容的那个<span style="font-family:Times New Roman">View</span>对象，系统就会给这个<span style="font-family:Times New Roman">View</span>对象发送一个<span style="font-family:Times New Roman">ACTION_DROP</span>类型的拖拽事件。监听器应该做下列事情：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;&nbsp;<span style="font-size:16px">调用<span style="font-family:Times New Roman">getClipData()</span>方法获得<span style="font-family:Times New Roman">ClipData</span>对象，这个对象在调用<span style="font-family:Times New Roman">startDrag()</span>方法时被初始化并保存在拖拽监听器中。如果拖放操作不移动数据，那么就不需要做这件事；</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;&nbsp;<span style="font-size:16px">返回<span style="font-family:Times New Roman">true</span>，指示放下事件被成功处理，否则返回<span style="font-family:Times New Roman">false</span>。对于<span style="font-family:Times New Roman">ACTION_DRAG_ENDED</span>事件，这个返回值就是通过<span style="font-family:Times New Roman">getResult()</span>方法返回的值。</span></p>
+<p><span style="font-size:16px">要注意的是，如果系统不发送<span style="font-family:Times New Roman">ACTION_DROP</span>事件，针对对<span style="font-family:Times New Roman">ACTION_DRAG_ENDED</span>事件的<span style="font-family:Times New Roman">getResult()</span>方法调用的返回值是<span style="font-family:Times New Roman">false</span>。</span></p>
+<p><span style="font-size:16px">系统允许用户在监听器不接收拖放事件的<span style="font-family:Times New Roman">View</span>对象之上释放拖拽影子，也允许用户在应用程序<span style="font-family:Times New Roman">UI</span>的空白区域或应用程序以外的区域释放拖拽影子，这样系统就不会发出<span style="font-family:Times New Roman">ACTION_DROP</span>类型的事件，直接会发出一个<span style="font-family:Times New Roman">ACTION_DRAG_ENDED</span>事件。</span></p>
+<p><strong><span style="font-size:16px">响应拖拽结束事件</span></strong></p>
+<p><span style="font-size:16px">用户释放了拖拽影子后，系统会立即给应用程序中所有的拖拽事件监听器发送<span style="font-family:Times New Roman">ACTION_DRAG_ENDED</span>类型的拖拽事件，指示拖拽操作结束了。</span></p>
+<p><span style="font-size:16px">每个监听器都应该做下列事情：</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">1.</span>&nbsp;&nbsp;<span style="font-size:16px">如果监听器在操作期间改变了<span style="font-family:Times New Roman">View</span>对象的外观，那么应该把<span style="font-family:Times New Roman">View</span>对象重设为默认的外观。这是对用户可见的操作结束的指示；</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">2.</span>&nbsp;&nbsp;<span style="font-size:16px">监听器能够可选的调用<span style="font-family:Times New Roman">getResult()</span>方法来查找更多的相关操作。如果在响应<span style="font-family:Times New Roman">ACTION_DROP</span>类型的事件中监听器返回了<span style="font-family:Times New Roman">true</span>，那么<span style="font-family:Times New Roman">getResult()</span>方法也会返回<span style="font-family:Times New Roman">true</span>。在其他的情况中，<span style="font-family:Times New Roman">getResult()</span>方法会返回<span style="font-family:Times New Roman">false</span>，包括系统没有发出<span style="font-family:Times New Roman">ACTION_DROP</span>事件的情况；</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px">3.</span>&nbsp;&nbsp;<span style="font-size:16px">监听器应该给系统返回<span style="font-family:Times New Roman">true</span>。</span></p>
+<p><strong><span style="font-size:16px">响应拖拽事件的一个例子：</span></strong></p>
+<p><span style="font-size:16px">所有的拖拽事件都会被拖拽事件的回调方法或监听器接收。以下代码片段是一个简单的在监听器中对拖拽事件作出反应的示例。</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Creates a new drag event listener</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">mDragListen </span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">=</span><span style="color:#000088">new</span> myDragEventListener<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#660066">View</span> imageView<span style="color:#666600">=</span>
+<span style="color:#000088">new</span> <span style="color:#660066">ImageView</span><span style="color:#666600">(</span><span style="color:#000088">this</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Sets the drag event listener for the View</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">imageView</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>setOnDragListener<span style="color:#666600">(</span>mDragListen<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#666600">...</span><span style="color:black"><br>
+<br>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">protected</span><span style="color:#000088">class</span> myDragEventListener
+<span style="color:#000088">implements</span> <span style="color:#660066">View</span><span style="color:#666600">.</span><span style="color:#660066">OnDragEventListener</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// This is the method that the system calls when it dispatches a drag event to the</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// listener.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#000088">public</span><span style="color:#000088">boolean</span> onDrag<span style="color:#666600">(</span><span style="color:#660066">View</span>
+ v<span style="color:#666600">,</span><span style="color:#660066">DragEvent</span>
+<span style="color:#000088">event</span><span style="color:#666600">)</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Defines a variable to store the action type for the incoming event</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#000088">final</span><span style="color:#000088">int</span> action
+<span style="color:#666600">=</span><span style="color:#000088">event</span><span style="color:#666600">.</span>getAction<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Handles each of the expected events</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#000088">switch</span><span style="color:#666600">(</span>action<span style="color:#666600">)</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#000088">case</span><span style="color:#660066">DragEvent</span><span style="color:#666600">.</span>ACTION_DRAG_STARTED<span style="color:#666600">:</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Determines if this View can accept the dragged data</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">if</span><span style="color:#666600">(</span><span style="color:#000088">event</span><span style="color:#666600">.</span>getClipDescription<span style="color:#666600">().</span>hasMimeType<span style="color:#666600">(</span><span style="color:#660066">ClipDescription</span><span style="color:#666600">.</span>MIMETYPE_TEXT_PLAIN<span style="color:#666600">))</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// As an example of what your application might do,</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// applies a blue color tint to the View to indicate that it can accept</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// data.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>setColorFilter<span style="color:#666600">(</span><span style="color:#660066">Color</span><span style="color:#666600">.</span>BLUE<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Invalidate the view to force a redraw in the new tint</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>invalidate<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// returns true to indicate that the View can accept the dragged data.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">true</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#666600">}</span><span style="color:#000088">else</span>
+<span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Returns false. During the current drag and drop operation, this View will</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// not receive events again until ACTION_DRAG_ENDED is sent.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">false</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#666600">}</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#000088">case</span><span style="color:#660066">DragEvent</span><span style="color:#666600">.</span>ACTION_DRAG_ENTERED<span style="color:#666600">:</span><span style="color:#666600">{</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Applies a green tint to the View. Return true; the return value is ignored.</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>setColorFilter<span style="color:#666600">(</span><span style="color:#660066">Color</span><span style="color:#666600">.</span>GREEN<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Invalidate the view to force a redraw in the new tint</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>invalidate<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">true</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">case</span><span style="color:#660066">DragEvent</span><span style="color:#666600">.</span>ACTION_DRAG_LOCATION<span style="color:#666600">:</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Ignore the event</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">true</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">case</span><span style="color:#660066">DragEvent</span><span style="color:#666600">.</span>ACTION_DRAG_EXITED<span style="color:#666600">:</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Re-sets the color tint to blue. Returns true; the return value is ignored.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>setColorFilter<span style="color:#666600">(</span><span style="color:#660066">Color</span><span style="color:#666600">.</span>BLUE<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Invalidate the view to force a redraw in the new tint</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>invalidate<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">true</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">case</span><span style="color:#660066">DragEvent</span><span style="color:#666600">.</span>ACTION_DROP<span style="color:#666600">:</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Gets the item containing the dragged data</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#660066">ClipData</span><span style="color:#666600">.</span><span style="color:#660066">Item</span> item<span style="color:#666600">=</span>
+<span style="color:#000088">event</span><span style="color:#666600">.</span>getClipData<span style="color:#666600">().</span>getItemAt<span style="color:#666600">(</span><span style="color:#006666">0</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Gets the text data from the item.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dragData</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">=</span> item<span style="color:#666600">.</span>getText<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Displays a message containing the dragged data.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#660066">Toast</span><span style="color:#666600">.</span>makeText<span style="color:#666600">(</span><span style="color:#000088">this</span><span style="color:#666600">,</span><span style="color:#008800">"Dragged
+ data is "</span> <span style="color:#666600">+</span> dragData<span style="color:#666600">,</span>
+<span style="color:#660066">Toast</span><span style="color:#666600">.</span>LENGTH_LONG<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Turns off any color tints</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>clearColorFilter<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Invalidates the view to force a redraw</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>invalidate<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Returns true. DragEvent.getResult() will return true.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">true</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">case</span><span style="color:#660066">DragEvent</span><span style="color:#666600">.</span>ACTION_DRAG_ENDED<span style="color:#666600">:</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Turns off any color tinting</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>clearColorFilter<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Invalidates the view to force a redraw</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v</span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">.</span>invalidate<span style="color:#666600">();</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// Does a getResult(), and displays what happened.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">if</span><span style="color:#666600">(</span><span style="color:#000088">event</span><span style="color:#666600">.</span>getResult<span style="color:#666600">())</span><span style="color:#666600">{</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></span><span style="font-family:Times New Roman; font-size:16px; color:#660066">Toast</span><span style="color:#666600">.</span>makeText<span style="color:#666600">(</span><span style="color:#000088">this</span><span style="color:#666600">,</span><span style="color:#008800">"The
+ drop was handled."</span><span style="color:#666600">,</span><span style="color:#660066">Toast</span><span style="color:#666600">.</span>LENGTH_LONG<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#666600">}</span><span style="color:#000088">else</span>
+<span style="color:#666600">{</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></span><span style="font-family:Times New Roman; font-size:16px; color:#660066">Toast</span><span style="color:#666600">.</span>makeText<span style="color:#666600">(</span><span style="color:#000088">this</span><span style="color:#666600">,</span><span style="color:#008800">"The
+ drop didn't work."</span><span style="color:#666600">,</span><span style="color:#660066">Toast</span><span style="color:#666600">.</span>LENGTH_LONG<span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#666600">};</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// returns true; the value is ignored.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">return</span><span style="color:#666600">(</span><span style="color:#000088">true</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#880000">// An unknown action type was received.</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">default</span><span style="color:#666600">:</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#660066">Log</span><span style="color:#666600">.</span>e<span style="color:#666600">(</span><span style="color:#008800">"DragDrop Example"</span><span style="color:#666600">,</span><span style="color:#008800">"Unknown
+ action type received by OnDragListener."</span><span style="color:#666600">);</span><span style="color:black"><br>
+<br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+</span><span style="font-family:Times New Roman; font-size:16px; color:#000088">break</span><span style="color:#666600">;</span><span style="color:black"><br>
+<span style="font-family:Times New Roman; font-size:16px">&nbsp; &nbsp; &nbsp; &nbsp; </span></span><span style="font-family:Times New Roman; font-size:16px; color:#666600">};</span></p>
+<p><span style="font-family:Times New Roman; font-size:16px; color:#666600">&nbsp;&nbsp; }</span>；</p>
+<p><span style="font-family:Times New Roman; font-size:16px; color:#666600">}</span>；</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2539440,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/andriod2012" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/andriod-html5/" target="_blank"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/sample_face.gif" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/andriod-html5/">andriod2012</a><br>
+<a href="http://home.cnblogs.com/u/andriod-html5/followees">关注 - 0</a><br>
+<a href="http://home.cnblogs.com/u/andriod-html5/followers">粉丝 - 18</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(2539440,'Digg')">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(2539440,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/29/2539335.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/29/2539335.html" title="发布于2012-03-29 17:36">Ubuntu12.04Beta版我在用的软件</a><br><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/30/2539439.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/30/2539439.html" title="发布于2012-03-30 19:52">Android 用户界面---样式和主题（Styles and Themes）（一）</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-03-29 19:09</span> <a href="http://www.cnblogs.com/andriod-html5/">andriod2012</a> 阅读(<span id="post_view_count">923</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2539440" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2539440);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=119491,cb_entryId=2539440,cb_blogApp=currentBlogApp,cb_blogUserGuid='529df803-6faf-e111-aa3f-842b2b196315',cb_entryCreatedDate='2012/3/29 19:09:00';loadViewCount(cb_entryId);</script>
+<script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/syntax_highlighter_csdn.js" type="text/javascript"></script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jpush.cn/" target="_blank">【推荐】极光推送30多万开发者的选择，SDK接入量超过30亿了，你还没注册？</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://q.cnblogs.com/" target="_blank"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/not-to-stop-questioning.jpg" alt="博问" title="博问" height="250" width="300"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/536687/" target="_blank">尴尬新三板：2895家公司零交易</a><br> ·  <a href="http://news.cnblogs.com/n/536686/" target="_blank">Windows 10 Mobile概念图：小调整可让系统更易被人们接受</a><br> ·  <a href="http://news.cnblogs.com/n/536684/" target="_blank">国家自然科学一等奖的“量子纠缠”到底是个啥?</a><br> ·  <a href="http://news.cnblogs.com/n/536671/" target="_blank">不管庄辰超去哪儿，去哪儿依旧是去哪儿</a><br> ·  <a href="http://news.cnblogs.com/n/536672/" target="_blank">如果快播庭审是部电影，该如何评价各方表现</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/536387/" target="_blank">Docker简介</a><br> ·  <a href="http://kb.cnblogs.com/page/536115/" target="_blank">Docker简明教程</a><br> ·  <a href="http://kb.cnblogs.com/page/535581/" target="_blank">Git协作流程</a><br> ·  <a href="http://kb.cnblogs.com/page/535355/" target="_blank">企业计算的终结</a><br> ·  <a href="http://kb.cnblogs.com/page/535278/" target="_blank">软件开发的核心</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news">
+<div id="tanxssp_con_mm_10002723_2390296_9334223" style="overflow:hidden;display:inline-block;position:relative;width:950px;height:90px;*display:inline;*zoom:1;"><iframe scrolling="no" marginheight="0" marginwidth="0" border="0" style="width:950px;height:90px;" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1zPmGIFXXXXbHXFXXO04pFXXX_002.htm" frameborder="0"></iframe><a id="iconmm_10002723_2390296_9334223" title="我也要申请橱窗推广" target="_blank" href="http://pro.taobao.com/index.htm?spm=a2320.7388781.1998051528.5.JOvNkN" style="overflow:hidden;width:15px;height:13px;right:0px;bottom:0px;display:block;position:absolute;cursor:pointer;z-index:250;">   <span id="icon_smallmm_10002723_2390296_9334223" style="border-right:2px solid #eee;float:none;width:13px;display:block;height:13px;"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1DmcoJXXXXXavXpXXXXXXXXXX-26-26.png" border="0" width="13"></span>   <span id="icon_bigmm_10002723_2390296_9334223" style="float:none;width:60px;height:13px;display: none;"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1Lt7aJXXXXXcjXVXXXXXXXXXX-117-26.png" border="0/" width="60"></span></a></div><iframe style="display:none" id="tanx-a-mm_10002723_2390296_9334223" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+<div style="display: none" id="__document_write_ajax_div-3"></div>
+<div style="display: none" id="__document_write_ajax_div-4"></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/andriod-html5/">andriod2012</a><br>园龄：<a href="http://home.cnblogs.com/u/andriod-html5/" title="入园时间：2012-06-06">3年7个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/andriod-html5/followers/">18</a><br>关注：<a href="http://home.cnblogs.com/u/andriod-html5/followees/">0</a><div id="p_b_follow"></div><div style="display: none" id="__document_write_ajax_div-5"></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" title="Calendar" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2012/02/01');return false;">&lt;</a></td><td align="center">2012年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2012/04/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/01.html"><u>1</u></a></td><td align="center">2</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/03.html"><u>3</u></a></td></tr><tr><td class="CalWeekendDay" align="center">4</td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/05.html"><u>5</u></a></td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td class="CalWeekendDay" align="center">10</td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/13.html"><u>13</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/14.html"><u>14</u></a></td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center">17</td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/19.html"><u>19</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/20.html"><u>20</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/21.html"><u>21</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/22.html"><u>22</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/23.html"><u>23</u></a></td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/25.html"><u>25</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/26.html"><u>26</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/27.html"><u>27</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/28.html"><u>28</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/29.html"><u>29</u></a></td><td align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/30.html"><u>30</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/31.html"><u>31</u></a></td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/andriod-html5/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/andriod-html5/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/andriod-html5/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/andriod-html5/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/andriod-html5/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/andriod-html5/category/386694.html">.Net Framework(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/andriod-html5/category/386728.html">ActiveMQ(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/andriod-html5/category/386695.html">Android(60)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/andriod-html5/category/386763.html">Android 仿 Iphone 滑动按钮(SlipButton)(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/andriod-html5/category/386764.html">Android 仿 Iphone 自定义滚条视图(wheelview)(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/andriod-html5/category/386769.html">Android 屏幕旋转 Activity 生命周期(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/andriod-html5/category/386768.html">Android 屏幕旋转 时 Activity 的 生命周期</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/andriod-html5/category/386692.html">android开发(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/andriod-html5/category/386772.html">Android应用设计提示(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/andriod-html5/category/386709.html">ApiDemo(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/andriod-html5/category/386746.html">Architecture(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/andriod-html5/category/386739.html">Auth-code</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/andriod-html5/category/386781.html">AVI(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/andriod-html5/category/386723.html">bada(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/andriod-html5/category/386711.html">Biztalk</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/andriod-html5/category/386696.html">Blackberry(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/andriod-html5/category/386710.html">Brew</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/andriod-html5/category/386716.html">C/C++(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/andriod-html5/category/386782.html">C++(20)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/andriod-html5/category/386712.html">cocos2d(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/andriod-html5/category/386717.html">cocos3d(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/andriod-html5/category/386733.html">CXF(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/andriod-html5/category/386783.html">DSP(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/andriod-html5/category/386761.html">FLex(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/andriod-html5/category/386718.html">Framework- Hibernate</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/andriod-html5/category/386719.html">Framework- Spring(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/andriod-html5/category/386720.html">Framework- Struts(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/andriod-html5/category/386697.html">iOS(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/andriod-html5/category/386713.html">iPhone/iPad(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/andriod-html5/category/386778.html">IT书架</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/andriod-html5/category/386721.html">java(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/andriod-html5/category/386698.html">Java ME(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/andriod-html5/category/386699.html">Java SE(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/andriod-html5/category/386729.html">JMS(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/andriod-html5/category/386722.html">JS(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/andriod-html5/category/386740.html">JSP</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/andriod-html5/category/386714.html">LAMP(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/andriod-html5/category/386765.html">LinearGradient(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/andriod-html5/category/386742.html">linux(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_39" href="http://www.cnblogs.com/andriod-html5/category/386776.html">Linux编程(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_40" href="http://www.cnblogs.com/andriod-html5/category/386693.html">Linux开发(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_41" href="http://www.cnblogs.com/andriod-html5/category/386700.html">LWUIT(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_42" href="http://www.cnblogs.com/andriod-html5/category/386756.html">Mac(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_43" href="http://www.cnblogs.com/andriod-html5/category/386730.html">Messaging(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_44" href="http://www.cnblogs.com/andriod-html5/category/386701.html">MonoTouch(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_45" href="http://www.cnblogs.com/andriod-html5/category/386750.html">Myeclipse</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_46" href="http://www.cnblogs.com/andriod-html5/category/386751.html">Myeclipse插件</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_47" href="http://www.cnblogs.com/andriod-html5/category/386752.html">nodejs(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_48" href="http://www.cnblogs.com/andriod-html5/category/386758.html">Object-C(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_49" href="http://www.cnblogs.com/andriod-html5/category/386759.html">objective-c(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_50" href="http://www.cnblogs.com/andriod-html5/category/386707.html">OpenGL ES(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_51" href="http://www.cnblogs.com/andriod-html5/category/386755.html">php(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_52" href="http://www.cnblogs.com/andriod-html5/category/386734.html">REST(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_53" href="http://www.cnblogs.com/andriod-html5/category/386715.html">RIA(Javascript/Flex)(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_54" href="http://www.cnblogs.com/andriod-html5/category/386708.html">Roboguice</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_55" href="http://www.cnblogs.com/andriod-html5/category/386749.html">Ruby(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_56" href="http://www.cnblogs.com/andriod-html5/category/386736.html">Servlet容器</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_57" href="http://www.cnblogs.com/andriod-html5/category/386743.html">Shell(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_58" href="http://www.cnblogs.com/andriod-html5/category/386702.html">Silverlight(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_59" href="http://www.cnblogs.com/andriod-html5/category/386745.html">SOA(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_60" href="http://www.cnblogs.com/andriod-html5/category/386735.html">Tomcat7</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_61" href="http://www.cnblogs.com/andriod-html5/category/386741.html">Ubuntu(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_62" href="http://www.cnblogs.com/andriod-html5/category/386747.html">Ubuntu Tools(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_63" href="http://www.cnblogs.com/andriod-html5/category/386737.html">Web</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_64" href="http://www.cnblogs.com/andriod-html5/category/386731.html">Web service(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_65" href="http://www.cnblogs.com/andriod-html5/category/386784.html">WinCE(20)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_66" href="http://www.cnblogs.com/andriod-html5/category/386785.html">Windows(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_67" href="http://www.cnblogs.com/andriod-html5/category/386703.html">Windows Phone(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_68" href="http://www.cnblogs.com/andriod-html5/category/386762.html">WP7(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_69" href="http://www.cnblogs.com/andriod-html5/category/386732.html">WS(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_70" href="http://www.cnblogs.com/andriod-html5/category/386760.html">xcode(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_71" href="http://www.cnblogs.com/andriod-html5/category/386726.html">编程(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_72" href="http://www.cnblogs.com/andriod-html5/category/386796.html">编码规范(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_73" href="http://www.cnblogs.com/andriod-html5/category/386795.html">程序设计(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_74" href="http://www.cnblogs.com/andriod-html5/category/386770.html">代码分析(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_75" href="http://www.cnblogs.com/andriod-html5/category/386773.html">代码技巧(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_76" href="http://www.cnblogs.com/andriod-html5/category/386704.html">地图开发(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_77" href="http://www.cnblogs.com/andriod-html5/category/386753.html">概念解释</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_78" href="http://www.cnblogs.com/andriod-html5/category/386748.html">工具(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_79" href="http://www.cnblogs.com/andriod-html5/category/386787.html">计算机基础(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_80" href="http://www.cnblogs.com/andriod-html5/category/386786.html">技巧(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_81" href="http://www.cnblogs.com/andriod-html5/category/386766.html">渐变效果(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_82" href="http://www.cnblogs.com/andriod-html5/category/386706.html">教程(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_83" href="http://www.cnblogs.com/andriod-html5/category/386744.html">截图(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_84" href="http://www.cnblogs.com/andriod-html5/category/386797.html">进阶教程</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_85" href="http://www.cnblogs.com/andriod-html5/category/386774.html">开发日记(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_86" href="http://www.cnblogs.com/andriod-html5/category/386790.html">开源项目地址(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_87" href="http://www.cnblogs.com/andriod-html5/category/386793.html">框架研究(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_88" href="http://www.cnblogs.com/andriod-html5/category/386754.html">内核</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_89" href="http://www.cnblogs.com/andriod-html5/category/386757.html">苹果(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_90" href="http://www.cnblogs.com/andriod-html5/category/386727.html">三星(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_91" href="http://www.cnblogs.com/andriod-html5/category/386794.html">设计模式(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_92" href="http://www.cnblogs.com/andriod-html5/category/386775.html">实践思考(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_93" href="http://www.cnblogs.com/andriod-html5/category/386705.html">手机平台(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_94" href="http://www.cnblogs.com/andriod-html5/category/386789.html">随笔(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_95" href="http://www.cnblogs.com/andriod-html5/category/386792.html">问题小结(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_96" href="http://www.cnblogs.com/andriod-html5/category/386788.html">项目管理(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_97" href="http://www.cnblogs.com/andriod-html5/category/386777.html">心情驿站(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_98" href="http://www.cnblogs.com/andriod-html5/category/386771.html">学习笔记(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_99" href="http://www.cnblogs.com/andriod-html5/category/386738.html">验证码</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_100" href="http://www.cnblogs.com/andriod-html5/category/386724.html">移动开发(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_101" href="http://www.cnblogs.com/andriod-html5/category/386725.html">智能手机(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_102" href="http://www.cnblogs.com/andriod-html5/category/386791.html">资料储备(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_103" href="http://www.cnblogs.com/andriod-html5/category/386767.html">自定义 垂直 竖型 Seekbar(1)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/andriod-html5/archive/2012/06.html">2012年6月 (43)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/andriod-html5/archive/2012/05.html">2012年5月 (52)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/andriod-html5/archive/2012/04.html">2012年4月 (53)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/andriod-html5/archive/2012/03.html">2012年3月 (44)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/andriod-html5/archive/2012/02.html">2012年2月 (39)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/andriod-html5/archive/2012/01.html">2012年1月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/andriod-html5/archive/2011/12.html">2011年12月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/andriod-html5/archive/2011/11.html">2011年11月 (19)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/andriod-html5/archive/2011/10.html">2011年10月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/andriod-html5/archive/2011/09.html">2011年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/andriod-html5/archive/2011/08.html">2011年8月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/andriod-html5/archive/2011/07.html">2011年7月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/andriod-html5/archive/2011/06.html">2011年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/andriod-html5/archive/2011/05.html">2011年5月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/andriod-html5/archive/2011/04.html">2011年4月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/andriod-html5/archive/2011/03.html">2011年3月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/andriod-html5/archive/2011/02.html">2011年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/andriod-html5/archive/2010/12.html">2010年12月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/andriod-html5/archive/2010/11.html">2010年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/andriod-html5/archive/2010/10.html">2010年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/andriod-html5/archive/2010/09.html">2010年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/andriod-html5/archive/2010/08.html">2010年8月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/andriod-html5/archive/2010/07.html">2010年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/andriod-html5/archive/2010/06.html">2010年6月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/andriod-html5/archive/2010/05.html">2010年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/andriod-html5/archive/2010/04.html">2010年4月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/andriod-html5/archive/2010/03.html">2010年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/andriod-html5/archive/2010/02.html">2010年2月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/andriod-html5/archive/2010/01.html">2010年1月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/andriod-html5/archive/2009/12.html">2009年12月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/andriod-html5/archive/2009/11.html">2009年11月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/andriod-html5/archive/2009/10.html">2009年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/andriod-html5/archive/2009/09.html">2009年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/andriod-html5/archive/2009/04.html">2009年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/andriod-html5/archive/2009/03.html">2009年3月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/andriod-html5/archive/2009/02.html">2009年2月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/andriod-html5/archive/2009/01.html">2009年1月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/andriod-html5/archive/2008/12.html">2008年12月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/andriod-html5/archive/2008/11.html">2008年11月 (5)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/andriod-html5/archive/2011/12/20/2539247.html#3318203">1. Re:android onclick事件和ontouch事件发生先后顺序和关联</a></li>
+    <li class="recent_comment_body">这么好的文章咋没人评论，mark</li>
+    <li class="recent_comment_author">--自信go__ahead</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/06/06/2539397.html#3312634">2. Re:Android类参考---Fragment（七）</a></li>
+    <li class="recent_comment_body">前篇一律 不知道谁才是真真的孙悟空...</li>
+    <li class="recent_comment_author">--苦逼的程序员。</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/04/25/2539431.html#3203440">3. Re:Android应用资源---绘制资源类型（Drawable）（六）</a></li>
+    <li class="recent_comment_body">说得太好，！！</li>
+    <li class="recent_comment_author">--eieihihi</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/07/2539224.html#3185307">4. Re:Linux三大共享文件的方法</a></li>
+    <li class="recent_comment_body">samba可以用了<br><br>但是mac作为客户端，没有写权限</li>
+    <li class="recent_comment_author">--itfanr</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/30/2539327.html#3104707">5. Re:Objective-C 编程语言官网文档（三）-如何定义类</a></li>
+    <li class="recent_comment_body">四哪儿去了。。。</li>
+    <li class="recent_comment_author">--txl263</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/07/2539224.html">1. Linux三大共享文件的方法(27111)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/06/06/2537850.html">2. Android and HTML5 开发手机应用(16151)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/02/08/2539242.html">3. AutoCompleteTextView的使用(15517)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/08/2539533.html">4. svn中的revert和update(15293)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/21/2539418.html">5. AndroidManifest.xml文件详解（supports-screens）(13836)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/04/17/2539687.html">1. Activity和Service的生命周期（图）(4)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/03/21/2539706.html">2. 获取AndroidManifest里的信息(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/02/08/2539242.html">3. AutoCompleteTextView的使用(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2011/12/20/2539247.html">4. android onclick事件和ontouch事件发生先后顺序和关联(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2011/07/31/2539572.html">5. 编译android kernel遇到的问题(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/06/06/2539375.html">1. Android屏幕旋转时Activity的生命周期(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/06/05/2539376.html">2. Android 垂直Seekbar(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/31/2539405.html">3. Android类参考---Fragment（一）(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/30/2539272.html">4. 引路蜂地图API:Gis.Location包定义(1)</a></li><li><a href="http://www.cnblogs.com/andriod-html5/archive/2012/05/24/2539414.html">5. AndroidManifest.xml文件详解（uses-feature）(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 andriod2012
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">
+alimama_pid="mm_10002723_2390296_9334263";
+alimama_width=728;
+alimama_height=90;
+</script>
+<script src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/inf.js" type="text/javascript"></script><iframe style="visibility: hidden; display: none;" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/container.htm"></iframe><div id="tanxssp_con_mm_10002723_2390296_9334263" style="overflow:hidden;display:inline-block;position:relative;width:728px;height:90px;*display:inline;*zoom:1;"><iframe scrolling="no" marginheight="0" marginwidth="0" border="0" style="width:728px;height:90px;" src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1tOqVIFXXXXXDXXXXO04pFXXX.htm" frameborder="0"></iframe><a id="iconmm_10002723_2390296_9334263" title="我也要申请橱窗推广" target="_blank" href="http://pro.taobao.com/index.htm?spm=a2320.7388781.1998051528.5.JOvNkN" style="overflow:hidden;width:15px;height:13px;right:0px;bottom:0px;display:block;position:absolute;cursor:pointer;z-index:250;">   <span id="icon_smallmm_10002723_2390296_9334263" style="border-right:2px solid #eee;float:none;width:13px;display:block;height:13px;"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1DmcoJXXXXXavXpXXXXXXXXXX-26-26.png" border="0" width="13"></span>   <span id="icon_bigmm_10002723_2390296_9334263" style="float:none;width:60px;height:13px;display: none;"><img src="Android%20%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2---%E6%8B%96%E6%94%BE%EF%BC%88Drag%20and%20Drop%EF%BC%89%EF%BC%88%E4%B8%89%EF%BC%89%20-%20andriod2012%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/TB1Lt7aJXXXXXcjXVXXXXXXXXXX-117-26.png" border="0/" width="60"></span></a></div><iframe style="display:none" id="tanx-a-mm_10002723_2390296_9334263" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

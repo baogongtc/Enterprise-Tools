@@ -1,0 +1,732 @@
+@import "../fonts/font-awesome/less/font-awesome.css";
+/* Table of Contents
+------------------------------------------------------- *
+
+	0. Bootstrap Fixes
+	1. Less Variables & Mixins
+	2. Top Bar
+	3. Header
+	4. Links
+	5. Navigation Menu
+	6. Slider
+	7. Content
+		7.1. Primary
+		7.2. Secondary
+	8. Pagination
+	9. Footer
+	10. HTML Markup and Formatting
+	11. Widgets Style
+	12. Comments
+	
+/* 0. Bootstrap Fixes
+-------------------------------------------------------	*/
+body {
+  background: #E3E3E3;
+}
+#main {
+  width: 100%;
+}
+.container {
+  margin: auto;
+}
+code {
+  white-space: pre-wrap !important;
+}
+.navbar-default .navbar-nav > li > a {
+  color: none;
+}
+.navbar-default .navbar-nav > li > a:hover {
+  color: none;
+}
+/* 1. Less Variables & Mixins
+-------------------------------------------------------	*/
+.font {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+#parallax-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+#page {
+  position: relative;
+  z-index: 888;
+}
+/* 2. Top Bar
+------------------------------------------------------- */
+#top-bar {
+  background: #dfdfdf;
+  padding: 5px 0px;
+  position: relative;
+  z-index: 99999;
+  opacity: 0.5;
+}
+#top-bar:hover {
+  opacity: 1.0;
+}
+#social-icons {
+  float: right;
+  text-align: right;
+}
+.social-icon {
+  color: #78757a;
+  font-size: 28px;
+  margin-right: 2px;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  transition: ease 0.4s all;
+}
+.social-icon:hover {
+  color: #89db52;
+  text-shadow: 3px 3px 1px #918f93;
+  top: -2px;
+  left: -2px;
+}
+a:hover .social-icon {
+  text-decoration: none;
+}
+#top-search {
+  position: relative;
+  top: 2px;
+  left: -15px;
+  z-index: 999;
+}
+#top-search input[type=text] {
+  background: #dadada;
+  outline: none;
+  border: none;
+  box-shadow: inset 0px -1px 1px #c6c6c6;
+  width: 300px;
+  padding-left: 30px;
+}
+#top-search input[type=text]:hover,
+#top-search input[type=text]:focus {
+  background: #c6c6c6;
+}
+#top-search ::-webkit-input-placeholder {
+  color: #78757a;
+}
+#top-search :-moz-placeholder {
+  /* Firefox 18- */
+
+  color: #78757a;
+}
+#top-search ::-moz-placeholder {
+  /* Firefox 19+ */
+
+  color: #78757a;
+}
+#top-search :-ms-input-placeholder {
+  color: red;
+}
+#top-search button {
+  position: relative;
+  padding: 2px 5px;
+  background: none;
+  border: none;
+  -webkit-linear-gradient: none;
+  top: -2px;
+  box-shadow: none;
+  right: -30px;
+  color: #6b696d;
+}
+/* 3. Header
+------------------------------------------------------- */
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+#masthead {
+  margin: 40px auto;
+}
+.site-title {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  position: relative;
+  top: -10px;
+}
+.site-title a {
+  color: #fff;
+}
+.site-title a:hover {
+  text-decoration: none;
+  color: #ddd;
+}
+.main_logo {
+  max-width: 360px;
+}
+@media screen and (max-width: 992px) {
+  .site-title,
+  #top-search,
+  #social-icons {
+    text-align: center;
+    float: none;
+    padding: 15px 5px;
+  }
+  .site-title {
+    margin-top: -5px;
+  }
+  #social-icons,
+  #top-search {
+    padding: 10px 5px;
+  }
+}
+/* 4. Links
+------------------------------------------------------- */
+a {
+  color: #918f93;
+}
+a:hover,
+a:focus,
+a:active {
+  color: #89db52;
+}
+/* 5. Navigation Menu 
+-------------------------------------------------------	*/
+/* Default Navigation */
+#site-navigation {
+  clear: both;
+  display: block;
+  float: right;
+  display: inline-block;
+  background: #222;
+  margin-bottom: 30px;
+  padding-bottom: 0px;
+}
+#site-navigation .menu li > a:after {
+  content: '\f0da';
+  font-family: "FontAwesome";
+  padding: 5px 0;
+  font-size: 10px;
+  float: right;
+}
+#site-navigation .menu li a:before {
+  content: "";
+  font-family: "FontAwesome";
+}
+#site-navigation .menu > li > a:after {
+  content: '\f0d7';
+  font-family: "FontAwesome";
+  padding: 5px;
+  font-size: 10px;
+}
+#site-navigation div.menu > ul > li > a:after {
+  content: '\f0d7';
+  font-family: "FontAwesome";
+  padding: 5px;
+  font-size: 10px;
+}
+#site-navigation .menu li > a:only-child:after {
+  content: '';
+}
+#site-navigation .current_page_item > a {
+  background: #333;
+  border-top: solid 3px #222;
+  padding-top: 12px;
+}
+#site-navigation ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  padding-bottom: 0px;
+}
+#site-navigation ul li:hover > ul {
+  /* Dropdown*/
+
+  display: block;
+}
+#site-navigation ul ul {
+  display: none;
+  float: left;
+  position: absolute;
+  top: 3.4em;
+  left: 0;
+  z-index: 99999;
+  background: #eeeeee;
+}
+#site-navigation ul ul ul {
+  border: solid 1px #d5d5d5;
+  left: 100%;
+  top: 0;
+}
+#site-navigation ul ul a {
+  min-width: 200px;
+  max-width: 255px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #555;
+  padding: 8px 20px;
+}
+#site-navigation ul ul a:hover {
+  border-top: none;
+  background: #333;
+  color: #eee;
+  padding: 8px 20px;
+}
+#site-navigation li {
+  float: left;
+  position: relative;
+  clear: right;
+}
+#site-navigation a {
+  display: block;
+  color: #ccc; /* #918f93; */
+  text-decoration: none;
+  padding: 16px 15px;
+  font-weight: normal;
+}
+#site-navigation a:hover {
+  background: #f3f3f3;
+  border-top: #0C9 solid 4px;
+}
+#site-navigation li:hover > a {
+  background: #eeeeee;
+  border-top: #89db52 solid 4px;
+  padding-top: 12px;
+  color: black;
+}
+#site-navigation ul ul li:hover > a {
+  background: #ffffff;
+  border-top: none;
+  padding: 8px 20px;
+  color: black;
+}
+/* Small menu */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .menu-toggle,
+  .main-navigation.toggled .nav-menu {
+    display: block;
+    font-size: 14px;
+    height: 40px;
+    clear: none;
+  }
+  .menu-toggle ul:before,
+  .main-navigation.toggled .nav-menu ul:before {
+    content: "";
+  }
+  .menu-toggle:before {
+    content: "\f0ca";
+    font-family: "FontAwesome";
+    float: right;
+    font-size: 27px;
+    padding: 0px 30px 10px 10px;
+  }
+  .td_mobile_menu_wrap {
+    text-align: center;
+    float: left;
+    margin-top: -46px;
+    width: 80%;
+    display: none;
+  }
+  .mobileMenu {
+    margin-bottom: 10px;
+    text-align: left;
+    width: 80%;
+  }
+}
+@media screen and (max-width: 1100px) {
+  #site-navigation {
+    float: none;
+    width: 100%;
+    margin: auto;
+  }
+}
+/* 6. Slider
+-------------------------------------------------*/
+.slider-wrapper {
+  margin: auto;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  padding-top: 15px;
+  margin-bottom: 40px;
+}
+.slide-title {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  color: #ddd;
+}
+.nivo-caption {
+  max-width: 750px;
+  min-width: 200px;
+  overflow: hidden;
+  bottom: 15px;
+  left: 10px;
+}
+.nivo-html-caption {
+  display: none;
+}
+div.slide-title {
+  font-size: 36px;
+  display: block;
+}
+div.slide-description {
+  font-family: Helvetica, Arial, sans-serif;
+}
+.nivo-imageLink {
+  z-index: 99999;
+}
+@media screen and (max-width: 768px) {
+  div.slide-title {
+    font-size: 18px;
+  }
+  div.slide-description {
+    font-size: 13px;
+  }
+}
+/* 7. Content 
+------------------------------------------------------- */
+#content {
+  background: white;
+  border-top: solid 4px #dfdfdf;
+  padding: none;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+/* 7.1 Primary 
+------------------------------------------------------- */
+#primary {
+  padding: 0 15px;
+}
+#primary .icon-time:before,
+#primary .icon-user:before {
+  color: #918f93 !important;
+}
+#primary .byline {
+  display: inline;
+}
+article.archive .article-rest {
+  margin: auto;
+}
+.featured-thumb {
+  margin: auto;
+  margin-top: 35px;
+  overflow: hidden;
+  width: 95%;
+  padding: 0px;
+}
+.featured-thumb .img-meta {
+  position: absolute;
+  z-index: 9999;
+  background: rgba(137, 219, 82, 0);
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  display: none;
+  text-align: center;
+}
+.featured-thumb .img-meta .meta-icon {
+  display: inline-block;
+  font-size: 24px;
+  width: 36px;
+  background: #4c901e;
+  border-radius: 4px;
+  margin-top: 100px;
+}
+.featured-thumb .img-meta .meta-link {
+  padding: 15px 25px;
+  color: #5e5c60;
+}
+.featured-thumb .img-meta .meta-link:hover {
+  color: #89db52;
+  text-decoration: none;
+}
+.featured-thumb .img-meta .meta-link i {
+  position: relative;
+  left: -19px;
+}
+.featured-thumb .img-meta .meta-link .icon-link {
+  left: -17px;
+}
+.featured-thumb:hover .img-meta {
+  background: rgba(137, 219, 82, 0.65);
+}
+.featured-thumb:hover img {
+  -webkit-transform: scale(1.05);
+  opacity: 0.8;
+}
+.featured-thumb img {
+  box-shadow: 0px 1px 2px #444;
+  border-top: solid 5px rgba(137, 219, 82, 0.8);
+  margin-bottom: 0px;
+  transition: 0.4s all ease;
+  min-width: 100%;
+  height: auto;
+}
+.archive .entry-title a {
+	display: block;
+	font-size: 26px;
+	color: #00ac97;
+	line-height: 1.4em;
+	font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+}
+.archive .entry-title a:hover {
+	color: #00c6ad;
+}
+.archive .entry-meta {
+  font-size: small;
+  color: #918f93;
+}
+.archive .entry-meta .posted-on {
+  margin-right: 6px;
+}
+.featured-image-single {
+  text-align: center;
+}
+.featured-image-single img {
+  max-width: 100%;
+  border: solid 5px #ffffff;
+  box-shadow: 0px 2px 2px #888;
+  margin-bottom: 30px;
+  margin-left: -10px;
+}
+@media screen and (max-width: 480px) {
+  .featured-thumb .img-meta .meta-icon {
+    margin-top: 30px;
+  }
+}
+/* 7.2 Secondary 
+------------------------------------------------------- */
+#secondary {
+  padding: 20px 10px;
+}
+#secondary ul {
+  list-style: none;
+  margin-left: 5px;
+}
+#secondary ul li:before {
+  margin-right: 5px;
+  content: "\f0da";
+  font-family: "FontAwesome";
+  color: #918f93;
+}
+#secondary ul ul {
+  margin-left: 15px;
+}
+#secondary ul ul li:before {
+  content: "\f111";
+  font-size: 5px;
+  position: relative;
+  top: -3px;
+}
+#secondary ul ul ul {
+  margin-left: 5px;
+}
+#secondary .widget_recent_entries li:before {
+  content: "\f0f6";
+}
+#secondary .widget_recent_entries li {
+  border-bottom: solid 1px #f7f7f7;
+  padding: 5px 0px;
+}
+#secondary .widget_recent_comments li:before {
+  content: "\f075";
+  font-size: 12px;
+  position: relative;
+  top: -2px;
+}
+#secondary .widget_calendar caption {
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+#secondary .widget_calendar table {
+  padding: 5px;
+  text-align: center;
+  background: #fff;
+}
+#secondary .widget_calendar thead {
+  border-bottom: solid 1px #89db52;
+}
+#secondary .widget_calendar thead th {
+  background: #ddd;
+  padding: 5px;
+  text-align: center;
+}
+#secondary .widget_calendar tr td {
+  padding: 8px !important;
+  background: #eee;
+  margin: 4px;
+  text-align: center;
+}
+#secondary .widget_calendar #prev {
+  text-align: left;
+}
+#secondary .widget_calendar #next {
+  text-align: right;
+}
+#secondary h1.widget-title {
+  font-size: 20px;
+  font-weight: normal;
+  border-bottom: solid 4px #89db52;
+  background: #fafafa;
+  padding: 5px;
+  margin-top: 0px;
+}
+#secondary .widget_search form {
+  padding: 10px 5px;
+}
+#secondary .widget_search input[type=submit] {
+  display: inline-block;
+}
+#secondary .widget_search input[type=text] {
+  display: block;
+  width: 250px !important;
+  position: relative;
+  left: 30px;
+}
+#secondary select#cat {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+#secondary .widget {
+  background: #fafafa;
+  border: solid 1px #eee;
+  margin-top: 15px;
+  padding-top: 0px;
+}
+#secondary .widget > div {
+  padding: 7px;
+}
+/* 8. Pagination
+-----------------------------------------------*/
+.pagination {
+  margin: 20px 0;
+  width: 100%;
+  margin-left: -20px;
+  text-align: center;
+  clear: both;
+}
+.pagination ul {
+  list-style: none;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 0;
+}
+.pagination ul > li {
+  display: inline;
+}
+.pagination ul > li > a {
+  color: #eeeeee;
+  transition: all 0.4s ease;
+}
+.pagination ul > li > a .next {
+  float: right;
+}
+.pagination ul > li > a:hover {
+  color: #918f93;
+  background: #eee;
+}
+.pagination .current {
+  background: #88e04d;
+}
+.pagination ul  > li  > a,
+.pagination ul  > li  > span {
+  float: left;
+  padding: 4px 12px;
+  line-height: 20px;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: solid 1px #f1f1f1;
+  border-left-width: 0;
+  display: inline-block;
+  color: #919191;
+}
+.pagination ul  > li:first-child  > a,
+.pagination ul  > li:first-child  > span {
+  border-left-width: 1px;
+}
+.pagination ul  > li:last-child  > a,
+.pagination ul  > li:last-child  > span {
+  border-rigth-width: 1px;
+}
+/* 9. Footer 
+------------------------------------------------------- */
+#colophon {
+  background: #ffffff;
+  padding: 10px;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 4px #ddd;
+  width: auto;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#footertext {
+  float: right;
+  text-align: right;
+}
+/* 9. HTML Markup & Formatting
+--------------------------------------------------- */
+article table {
+  background: #f7f7f7;
+}
+article table td {
+  padding: 5px;
+  border: solid 1px #eee;
+}
+article table th {
+  padding: 5px;
+  background: #ccc;
+  border: solid 1px #ccc;
+}
+/* 11. Widgets Style
+---------------------------------------------------- */
+.rp-item {
+  display: block;
+  clear: both;
+  overflow: auto;
+  margin-bottom: 5px;
+  border-bottom: solid 1px #f7f7f7;
+  padding-bottom: 5px;
+}
+.rp-item:before {
+  content: none !important;
+}
+.rp-thumb {
+  float: left;
+  width: 64px;
+  margin-right: -5px;
+  margin-top: 3px;
+}
+.rp-thumb img {
+  width: 48px;
+  border: solid 2px #eee;
+  border-radius: 2px;
+}
+.rp-thumb rp-title {
+  clear: none;
+}
+.rp-thumb rp-title a {
+  display: block;
+}
+/* 12. Comments
+---------------------------------------------------------- */
+#respond input[type=text] {
+  max-width: 450px;
+}
+#comments ol.comment-list {
+  list-style: none;
+}
+#comments li.comment {
+  border: solid 1px #eee;
+  padding: 10px;
+  margin-top: 15px;
+  list-style: none;
+  background: #f9f9f9;
+}
+#comments .vcard img {
+  border: solid 4px #ffffff;
+  border-radius: 5px;
+  margin: 0 10px 10px 0;
+}
+#comments .comment-metadata {
+  font-weight: bold;
+}
+@media screen and (max-width: 480px) {
+  li.comment {
+    margin-left: -5%;
+  }
+}

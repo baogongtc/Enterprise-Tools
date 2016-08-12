@@ -1,0 +1,1460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0057)http://blog.csdn.net/shichaosong/article/details/22050029 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/rczm"></script><script type="text/javascript" async="" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/rczm(1)"></script>   
+   
+
+    <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script><script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/repoAddr2.js"></script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/shichaosong/article/details/22050029#">
+
+    <title>Android JNI以及打包so文件到apk中 - 学习记录
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="Hello world Android环境准备首先我们要用SDK Manager安装Android SDK 22,也就是5.1,还要Android SDK Build-tools 和 Android Support Repository.如下图勾选的三个组件:添加local.properties文件在文件中设置sdk路径，例如我的文件中信息如下:sdk.dir=/Users/wuxian/Doc">
+    <script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/jquery-version.js"></script>
+    <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/tracking(1).js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/song_shi_chao/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/share.js"></script><link rel="stylesheet" type="text/css" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/job_reco.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/get_ads.php" type="text/javascript"></script><script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/logger.js"></script><link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+<body data-pinterest-extension-installed="cr1.39.2"><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><iframe frameborder="0" style="display: none;" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe>
+    <!-- 广告位开始 -->
+        <div class="J_adv" data-view="true" data-mod="ad_popu_149" data-mtp="30" data-order="180" data-con="ad_content_1012"><script id="popuLayer_js_q" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/popuLayer.js" defer="" async="" type="text/javascript"></script><div id="fulln1pze" style="width: 1170px; overflow: hidden; margin: 0px auto; display: block; height: 0px;"><a href="http://mdcc.csdn.net/" target="_blank"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/201607200924166603.jpg"></a></div><script>  document.getElementById('popuLayer_js_q').onload=function(){      window.CSDN.Layer.FullAdv('#fulln1pze',{storageName:'fulln1pze',total:-1});  }</script></div>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/shichaosong">学习记录</a></h2>
+            <h3>记录一些东西</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/shichaosong?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/shichaosong?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/shichaosong/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "song_shi_chao";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/shichaosong";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/51919935" target="_blank">
+<font color="blue">【公告】博客系统优化升级</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://lib.csdn.net/base/html5/resource" target="_blank">
+<font color="red">【收藏】Html5 精品资源汇集
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/51984275" target="_blank">
+<font color="blue">博乐招募开始啦
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_72" data-mtp="40" data-order="40" data-con="ad_content_217" style="width: 1px; height: 1px; position: fixed; right: 10px; bottom: 10px; z-index: 999; background-color: transparent;"><div id="location_parent"></div><script>document.getElementById('location_parent').parentNode.style.height='1px';document.getElementById('location_parent').parentNode.style.width='1px';document.getElementById('location_parent').parentNode.style.position='fixed';document.getElementById('location_parent').parentNode.style.right='10px';document.getElementById('location_parent').parentNode.style.bottom='10px';document.getElementById('location_parent').parentNode.style.zIndex=999;document.getElementById('location_parent').parentNode.style.backgroundColor='transparent';</script><!-- 广告占位容器 --><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] || {})['u2392861']={at:'3',rsi0:'300',rsi1:'250',pat:'17',tn:'baiduCustNativeAD_xuanfu',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'14',rss2:'#000000',titSU:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u2392861'});  </script>  <script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/f.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->
+
+  
+<link href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/main.js"></script>
+<link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/markdown_views.css">
+<link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/category.css">
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/MathJax.js"></script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/shichaosong/article/details/22050029">
+        Android JNI以及打包so文件到apk中            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/android%20so%20jni%20apk" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">android so jni apk</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2014-03-25 11:51</span>
+            <span class="link_view" title="阅读次数">6844人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/shichaosong/article/details/22050029#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;Android JNI以及打包so文件到apk中&#39;,&#39;22050029&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/shichaosong/article/details/22050029#report" onclick="javascript:report(22050029,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;1287893&#39;,&#39;song_shi_chao&#39;,&#39;top&#39;,&#39;22050029&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">jni<em>（9）</em></span>
+                      <img class="arrow-down" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/song_shi_chao/article/category/1287893" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1287893">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label onclick="GetCategoryArticles(&#39;1434723&#39;,&#39;song_shi_chao&#39;,&#39;top&#39;,&#39;22050029&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">浏览器开发<em>（50）</em></span>
+                      <img class="arrow-down" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;" data-pin-nopin="true">
+                      <img class="arrow-up" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/song_shi_chao/article/category/1434723" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1434723">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label onclick="GetCategoryArticles(&#39;829192&#39;,&#39;song_shi_chao&#39;,&#39;top&#39;,&#39;22050029&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Android基础<em>（389）</em></span>
+                      <img class="arrow-down" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/song_shi_chao/article/category/829192" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_829192">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/category.js"></script>  
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<div><span style="font-size:14px"><br clear="none" style="">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">Android JNI 的使用，之前很少使用这个，所以这次用到占用了很多时间搞，不熟悉C++好痛苦的说啊～<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">Android JNI如何用呢？<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div><span style="font-size:14px">下面这段拷贝别人的，是没问题的：</span></div>
+<div><span style="font-size:14px"></span>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+常用有<strong>两种</strong>方法：</p>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+1、在windows/linux下，首先把so动态库<strong>文件</strong>&nbsp;编译出来(通过NDK)，然后再 拷贝到<a href="http://lib.csdn.net/base/15" class="replace_word" title="Android知识库" target="_blank" style="color:#df3434; font-weight:bold;">Android</a>的工程里 libs/armeabi/下，如果libs/armeabi&nbsp;不存在，那就自己创建，最后用eclipse编译本项目，这样将自动把so<strong>文件打包</strong>到apk里；eclipse在<strong>打包</strong>的时候会根据<strong>文件</strong>名的命名规则（lib****.so）去<strong>打包</strong>so<strong>文件</strong>，开头和结尾必须分别为“lib”和“.so”，否则是不会<strong>打包</strong>到apk<strong>文件</strong>中的。</p>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+2、在android源码里，使用mm命令编译apk工程。<br>
+</p>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+&nbsp;&nbsp;&nbsp;在project根目录下创建一个Android.mk，<strong>文件</strong>内容如：<br>
+</p>
+<span style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px"></span><span style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px"></span>
+<ol class="dp-c" start="1" style="margin:0px; padding:0px; list-style:none; font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+<li class="alt" style="margin:0px; padding:0px">LOCAL_PATH:=&nbsp;$(call&nbsp;my-dir)&nbsp;&nbsp;&nbsp;</li><li style="margin:0px; padding:0px">include&nbsp;$(CLEAR_VARS)&nbsp;&nbsp;&nbsp;</li><li class="alt" style="margin:0px; padding:0px">LOCAL_MODULE_TAGS&nbsp;:=&nbsp;user&nbsp;&nbsp;</li><li style="margin:0px; padding:0px">LOCAL_SRC_FILES&nbsp;:=&nbsp;$(call&nbsp;all-subdir-java-files)&nbsp;&nbsp;&nbsp;</li><li class="alt" style="margin:0px; padding:0px">LOCAL_PACKAGE_NAME&nbsp;:=&nbsp;jnisample&nbsp;&nbsp;&nbsp;</li><li style="margin:0px; padding:0px">LOCAL_JNI_SHARED_LIBRARIES&nbsp;:=&nbsp;libtest&nbsp;&nbsp;&nbsp;</li><li class="alt" style="margin:0px; padding:0px">include&nbsp;$(BUILD_PACKAGE)&nbsp;&nbsp;&nbsp;</li><li style="margin:0px; padding:0px">include&nbsp;$(LOCAL_PATH)/jni/Android.mk&nbsp;&nbsp;&nbsp;</li><li style="margin:0px; padding:0px"><span class="preprocessor"></span>#include&nbsp;$(call&nbsp;all-makefiles-under,$(LOCAL_PATH))&nbsp;<br>
+</li></ol>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+<strong>LOCAL_JNI_SHARED_LIBRARIES := libtest 就是把so<strong>文件</strong>放到apk<strong>文件</strong>里的libs/armeabi里</strong>，而include $(LOCAL_PATH)/jni/Android.mk为了编译so<strong>文件</strong>。</p>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+<br>
+</p>
+<p style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">
+把工程<strong>文件</strong>放到<strong>SDK platform/</strong>packages/apps目录下,然后进入该目录,命令里输入mm,进行该工程的编译,这样编译出来的apk，在libs/armeabi<strong>文件</strong>夹里面包含so<strong>文件</strong>。</p>
+<br>
+</div>
+<div><span style="font-size:14px">分割线----------////////////////////////////////////////////////////////////////</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">说说我知道的两种：<br clear="none">
+</span></div>
+<div><span style="font-size:14px; color:#ff00">1.</span><span style="font-size:14px"> 在jni目录下放置你的.c等源文件，在Android.mk文件中标注好源文件，生成的lib文件名称等，然后在NDK中 ndb-build编译so文件，这种适合大多数的单独的第三方应用，就是在应用市场发布的那种第三方应用，缺点是比较麻烦，需要手动生成so文件到libs/armeabi下（我发现最后其实在lib/armeabi-v7a/ 下，可以自行查阅armeabi&amp;armeabi-v7a的区别），不过生成一次，后面无需再生成，也还算好;<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div>
+<div><span style="font-size:14px">http://blog.sina.com.cn/s/blog_9026a07a010179uj.html</span></div>
+<div><span style="font-size:14px">jni基础知识</span></div>
+<div><span style="font-size:14px">http://www.cnblogs.com/yejiurui/archive/2012/11/21/2780959.html</span></div>
+<div>
+<h1><span style="font-size:14px; color:#000000"><a target="_blank" href="http://www.cnblogs.com/yejiurui/archive/2012/11/21/2780940.html" shape="rect"><span style="color:#000000">NDK入门项目实战（转载）</span></a></span><span style="font-size:14px"><br clear="none">
+</span></h1>
+</div>
+<div><span style="font-size:14px"><a target="_blank" shape="rect">http://www.cnblogs.com/yejiurui/archive/2012/11/21/2780940.html</a><br clear="none">
+</span></div>
+<div><span style="font-size:14px">http://blog.csdn.net/muyu114/article/details/7841283</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+</div>
+<div><span style="font-size:14px; color:#ff00">2.</span><span style="font-size:14px"> 就是做rom开发的厂商，可以基于Android源码开发，比如在packages/app/Video 路径下，需要写一个jni文件，那么怎么操作呢？这种操作利用Android.mk文件，无需手动编译so文件，会使用脚本自动编译so文件，比较方便，但是只适合基于Android源码开发的厂商。<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">第一种方法，网上有很多文章，我下载也转载了一些，重点说第二种，因为我就是在第二种方式上遇到了麻烦。<br clear="none">
+如何把so文件打包到apk中呢？</span></div>
+<div><span style="font-size:14px">这两篇文章帮助了我～感谢作者<br clear="none">
+</span></div>
+<div>
+<div><span style="font-size:14px">.so 打包到apk中的方法：</span></div>
+<div><span style="font-size:14px">http://blog.chinaunix.net/uid-26524139-id-3161753.html<br>
+</span></div>
+<span style="font-size:14px"><a target="_blank" href="http://www.android100.org/html/201308/20/4008.html" shape="rect">http://www.android100.org/html/201308/20/4008.html</a><br>
+</span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://www.360doc.com/content/11/0511/00/4154133_115845654.shtml" shape="rect">http://www.360doc.com/content/11/0511/00/4154133_115845654.shtml</a><br clear="none">
+</span></div>
+<div><span style="font-size:14px"><a>http://wangjianfei1016.blog.163.com/blog/static/20244096201212825258706/<br>
+http://blog.csdn.net/koko7958/article/details/7955046 (在这个网址里搜索：</a></span>LOCAL_JNI_SHARED_LIBRARIES ，这个参数非常重要）<br>
+</div>
+<div><span style="font-size:14px"><br>
+<span style="color:#FF0000">===》</span><span style="font-size:14px"><strong>LOCAL_REQUIRED_MODULES</strong></span><br>
+要注意一下这个参数：Android原生浏览器也有这行，后面的网址有解释。<br>
+<strong>LOCAL_REQUIRED_MODULES</strong> := SoundRecorder&nbsp; <br>
+http://blog.chinaunix.net/uid-29535415-id-4144835.html<br>
+Gallery和Camera共用了一个Android.mk文件<br>
+LOCAL_SRC_FILES是指定java文件,LOCAL_RESOURCE_DIR是指定资源文件，然后通过include $(BUILD_PACKAGE)来编译apk，其中LOCAL_REQUIRED_MODULES指定了libjni_mosaic，所以会优先编译Camera的这个c库。<br>
+<br>
+include $(call all-makefiles-under, jni)<br>
+是编译Gallery的jni<br>
+<br>
+剩下的就是编译测试apk<br>
+34 # Use the following include to make gallery test apk.<br>
+35 include $(call all-makefiles-under, $(LOCAL_PATH))<br>
+36 <br>
+37 # Use the following include to make camera test apk.<br>
+38 include $(call all-makefiles-under, ../Camera)<br>
+<br>
+别的没什么了，比较简单<br>
+<span style="color:#FF0000"><br>
+===》</span><br>
+<br>
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">如何让jni下的文件自动编译生成so文件呢？开始总是不执行，我一直找不到原因，后来认真看了看其它项目的Android.mk文件，发现最后一行都有这句：<br clear="none">
+# additionally, build tests in sub-folders in a separate .apk<br clear="none">
+include $(call all-makefiles-under,$(LOCAL_PATH))</span></div>
+<div><span style="font-size:14px">看这样就知道是把项目所有子文件下的Android.mk文件执行，加上这句果然OK了。<br clear="none">
+</span></div>
+<div><span style="font-size:14px">还有人建议说这样搞：就是在项目的Android.mk文件中引用jni的mk文件，让它去编译，应该是都可以的，只不过如果有很多mk文件，上面的办法更方便一点。<br clear="none">
+</span></div>
+<div><span style="font-size:14px">#include $(LOCAL_PATH)/jni/Android.mk</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">使用so文件就相当容易了，可以参照网上的文章即可～<br clear="none">
+</span></div>
+<div><span style="font-size:14px">&nbsp;</span></div>
+<div><span style="font-size:14px">-------------------------------------------------------------------------------------------------------<br>
+</span></div>
+<div><span style="font-size:14px">编译时候的信息：<br clear="none">
+</span></div>
+<div><span style="font-size:14px">&nbsp; adding: lib/ (stored 0%)<br clear="none">
+&nbsp; adding: lib/armeabi-v7a/ (stored 0%)<br clear="none">
+&nbsp; adding: lib/armeabi-v7a/libpatcher_jni.so (deflated 47%)<br clear="none">
+<br clear="none">
+</span></div>
+<div><span style="font-size:14px">最后在应用的 data/data/com.lices.book/lib 会有 libpatcher_jni.so 这个文件<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px"><strong><span style="color:#000000">&nbsp;<span style="font-family:simsun; font-style:normal; font-variant:normal; letter-spacing:normal; line-height:21px; text-align:left; text-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; background-color:rgb(244,245,231); display:inline!important; float:none">armeabi和armeabi-v7a</span>区别</span></strong><br clear="none">
+</span></div>
+<div><span style="">&nbsp;</span><span style="">armeabi和armeabi-v7a是表示cpu的类型，不同的cpu的特性不一样，armeabi就是针对普通的或旧的arm cpu，armeabi-v7a是针对有浮点运算或高级扩展功能的arm cpu。</span></div>
+<div>
+<p style=""><span style="font-size:14px; word-wrap:normal; word-break:normal; line-height:24px">问：编译时候生成多个.so文件，有时会在armeabi和armeabi-v7a中分别放置一份，为什么？</span></p>
+<p style=""><span style="font-size:14px">&nbsp;</span></p>
+<p style=""><span style="font-size:14px; word-wrap:normal; word-break:normal; line-height:24px">答：该设置一般能在jni下的Application.mk中或Android.mk中找到。这个需要看你的Native Code要做什么事情，armeabi是指的该so库用于Arm的通用CPU，而v7a的CPU支持硬件浮点运算。因此armeabi通用性强，但速度慢，而v7a能充分发挥v7a<span>&nbsp;</span>CPU的能力。具体v7a的优势可以参见<a target="_blank" shape="rect">http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0344c/Cacciced.html</a></span><span style="font-size:14px"><br clear="none">
+</span></p>
+<p style=""><span style="font-size:14px; word-wrap:normal; word-break:normal; line-height:24px"><br clear="none">
+</span></p>
+<p style=""><span style="font-size:14px; word-wrap:normal; word-break:normal; line-height:24px">介绍<br clear="none">
+</span></p>
+<p style=""><span style="font-size:14px; word-wrap:normal; word-break:normal; line-height:24px">http://www.myexception.cn/android/1594360.html</span></p>
+</div>
+<div><span style="font-size:14px">&nbsp;<br clear="none">
+</span></div>
+<div><span style="font-size:14px">--------------------------------------------------------------------------------------------------------<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+<div><span style="font-size:14px">背景：对于Android工程 Eclipse里编译好的.so文件放到 libs\armeabi下以后， 这样.so文件就可以打包到apk文件里，在apk装到手机上以后&nbsp;</span>
+<div><span style="font-size:14px">在libs\armeabi下的.so文件应该就会解压到/data/data/这里是你project的包名(比如com.first.second)/lib下。<br clear="none">
+</span><span style="font-size:14px"><br clear="none">
+问题：写了个测试的android JNI app，.so已经放到了libs\armeabi下 而且从编译的apk里也能看到.so已经打包进去（解压apk文件，里边应该有lib文件夹） 但是在/data/data/com.test.test/lib下就是没有相应的.so文件<br clear="none">
+</span><span style="font-size:14px"><br clear="none">
+解决方法：原来是因为我的.so没有按照android标准命名，.so的名字必须有'lib'前缀 否则apk解压/安装到手机的时候不会把libs\armeabi下的.so拷贝到/data/data/com.test.test/lib下。原来我用的so名字是JNITest.so， 改为libJNITest.so后一切正常。<br clear="none">
+</span><span style="font-size:14px"><br clear="none">
+补充：<br clear="none">
+a) 用loadLibrary调用的时候需要去掉lib前缀 System.loadLibrary("JNITest");&nbsp;<br clear="none">
+b) 用load调用的时候需要写全路径名 且不能去掉lib前缀 因为这里是当成一个普通文件读取的 System.load("/data/data/com.test.test/libJNITest.so"); 其实这个是错误的，因为正规的使用根本不是引用在data/data/com.xxx/lib下的这个so文件，而是引用在libs/armeabi下的so文件，只用通过System.load("JNITest.so"); 调用即可。当然这样调用也是可以的～只不过不规范，不推荐<br>
+</span></div>
+<span style="font-size:14px">&nbsp;</span></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div>
+<div><span style="font-size:14px">参考链接：<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://blog.csdn.net/leer168/article/details/7239641" shape="rect">http://blog.csdn.net/leer168/article/details/7239641</a><br clear="none">
+</span></div>
+<div><span style="font-size:14px"><a target="_blank" shape="rect">http://bbs.51cto.com/thread-948244-1.html</a><br clear="none">
+</span></div>
+<div><span style="font-size:14px">Android.mk文件的介绍，挺好<br clear="none">
+</span></div>
+<div><span style="font-size:14px"><a>http://blog.chinaunix.net/uid-25885064-id-3364408.html</a><br clear="none">
+</span></div>
+<div>
+<div><span style="font-size:14px"><a target="_blank" href="http://blog.chinaunix.net/uid-25885064-id-3364407.html" shape="rect">http://blog.chinaunix.net/uid-25885064-id-3364407.html</a><br>
+</span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://blog.chinaunix.net/uid-25885064-id-3364408.html%C3%AF%C2%BC%CB%86%C3%A8%C2%BF%E2%84%A2" shape="rect">http://blog.chinaunix.net/uid-25885064-id-3364408.html（这</a>篇文章写的非常棒～）</span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://blog.sina.com.cn/s/blog_602f8770010148ce.html">http://blog.sina.com.cn/s/blog_602f8770010148ce.html</a><br>
+</span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://dengzhangtao.iteye.com/blog/1750782">http://dengzhangtao.iteye.com/blog/1750782</a><br>
+</span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://www.linuxidc.com/Linux/2011-03/33354.htm">http://www.linuxidc.com/Linux/2011-03/33354.htm<br>
+</a></span></div>
+</div>
+<div><span style="font-size:14px"><a target="_blank" href="http://www.linuxidc.com/Linux/2011-03/33354.htm"><br>
+</a></span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://www.linuxidc.com/Linux/2011-03/33354.htm"><br>
+</a></span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://www.linuxidc.com/Linux/2011-03/33354.htm"><br>
+</a></span></div>
+<div><span style="font-size:14px"><a target="_blank" href="http://www.linuxidc.com/Linux/2011-03/33354.htm">-</a>----------------------------------------------------------------------------------------------------------------</span></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div><strong><span style="font-size:24px">2014-3-26号补充：</span></strong></div>
+<div><span style="font-size:14px"><br>
+</span></div>
+<div><span style="font-size:14px"></span>
+<div>最近3天，在使用JNI的地方懂了很多，遇到一个有意思的问题，这里必须总结一下，肯定很多人没遇见过，或者不知道。<br clear="none">
+</div>
+<div><br clear="none">
+</div>
+<div>以下所有步骤都是基于Android原生代码开发：(下面的Test代表我的项目名称)<br>
+</div>
+<div>比如你的应用用到了JNI，那么你可以在packages/app/Test下这样建立目录：<br clear="none">
+</div>
+<div>Test <br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; src<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; res<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; jni<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; libs<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <span style="color:rgb(255,0,0)">Android.mk</span><br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; AndroidManifest.xml<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; -&gt; README<br>
+</div>
+<div><br>
+</div>
+<div><span style="font-size:14pt"><strong>第一种情况：</strong></span><br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 你用的是第三方的so文件或者别人编译好的so文件，你可以直接放到 libs/armeabi 下，<span style="color:#33cc00">这样在标红色的Android.mk中只需要加上：</span></div>
+<div><span style="color:#33cc00">#patch libpatcher_jni into apk file: <br>
+LOCAL_JNI_SHARED_LIBRARIES := libuserbookpatcher_jni</span></div>
+<div>即可把so文件打包到apk中，然后你可以 adb install -r Test.apk，然后运行程序，即可使用so文件了。<br>
+</div>
+<div><strong><span style="color:#ff0000">补充：</span></strong><span style="font-family:&#39;Microsoft YaHei&#39;,微软雅黑,Lucida,Verdana,&#39;Hiragino Sans GB&#39;,STHeiti,&#39;WenQuanYi Micro Hei&#39;,SimSun,sans-serif; font-size:14px; line-height:24px">LOCAL_JNI_SHARED_LIBRARIES := libtest
+ 就是把so<strong>文件</strong>放到apk<strong>文件</strong>里的libs/armeabi里， 但是我们已经把so文件放到libs/armeabi目录下了，所以加这句完全没用，我已经测试通过了。可以忽略标为绿色的文字。</span></div>
+<div><br>
+</div>
+<div><span style="font-size:14pt"><strong>第二种情况：</strong></span><br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 你用的是第三方的so文件或者别人编译好的so文件，或者你自己写的源代码文件，你也可以不在libs下放任何东西，你需要在jni目录下放置源文件和负责编译的Android.mk，像下面这样：<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; jni</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; -&gt; Android.mk</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; -&gt; call.c<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; -&gt; call.h</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; -&gt; ... ...<br>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 你需要放入源文件和Android.mk文件，Android.mk文件是对源文件的一个配置，打包的时候按照这个规则打。你需要在标红色的Android.mk中只需要加上：<br>
+</div>
+<div>#patch libpatcher_jni into apk file<br>
+LOCAL_JNI_SHARED_LIBRARIES := libuserbookpatcher_jni</div>
+<div>这样你可以把so文件打包到apk中，然后你可以 adb install -r Test.apk，然后运行程序，即可使用so文件了。<br>
+</div>
+<div><br>
+</div>
+<div><span style="font-size:14pt"><strong>第三种情况：</strong></span><br>
+</div>
+<div>你可以利用上面第二种情况编译了一个APK，利用这个命令：mm -B, 然后可以看到在编译的最后有这样的命令：<br>
+</div>
+<div>Install: out/target/product/xxx/system/app/xxxbook.apk<br>
+Install: out/target/product/xxx/system/lib/libxxxbook_jni.so</div>
+<div>发现第二条命令把我们需要的so文件打到了out的system/lib下<br>
+</div>
+<div><br>
+</div>
+<div>如果你push apk /system/app/，就是说你的应用是系统应用，那么你在使用这个so文件的时候，会先去系统的 system/lib 下找，如果没找到，就会报下面的错误：<br>
+</div>
+<div>W/dalvikvm( 5177): Exception Ljava/lang/UnsatisfiedLinkError; thrown while initializing Lcom/miui/userbook/util/Patcher;<br>
+W/dalvikvm( 5177): threadid=12: thread exiting with uncaught exception (group=0x41566930)<br>
+E/AndroidRuntime( 5177): FATAL EXCEPTION: AsyncTask #3<br>
+E/AndroidRuntime( 5177): java.lang.RuntimeException: An error occured while executing doInBackground()<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at android.os.AsyncTask$3.done(AsyncTask.java:299)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:352)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.util.concurrent.FutureTask.setException(FutureTask.java:219)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.util.concurrent.FutureTask.run(FutureTask.java:239)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:230)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1080)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:573)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.lang.Thread.run(Thread.java:856)<br>
+E/AndroidRuntime( 5177): Caused by: java.lang.ExceptionInInitializerError<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.UserbookUpdateManager.update(UserbookUpdateManager.java:394)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.UserbookUpdateManager.doUpgrade(UserbookUpdateManager.java:283)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.UserbookUpdate.update(UserbookUpdate.java:104)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.UserbookUpdate.access$000(UserbookUpdate.java:15)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.UserbookUpdate$1.doInBackground(UserbookUpdate.java:57)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.UserbookUpdate$1.doInBackground(UserbookUpdate.java:54)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at android.os.AsyncTask$2.call(AsyncTask.java:287)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.util.concurrent.FutureTask.run(FutureTask.java:234)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;... 4 more<br>
+E/AndroidRuntime( 5177): Caused by: java.lang.UnsatisfiedLinkError: Couldn't load xxxbook_jni from loader dalvik.system.PathClassLoader[dexPath=/system/app/xxxbook.apk,libraryPath=/data/app-lib/xxxbook]: findLibrary returned null<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.lang.Runtime.loadLibrary(Runtime.java:365)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at java.lang.System.loadLibrary(System.java:535)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;at com.xxx.util.Patcher.&lt;clinit&gt;(Patcher.java:32)<br>
+E/AndroidRuntime( 5177): &nbsp;&nbsp; &nbsp;... 12 more<br>
+W/ActivityManager( 1171):&nbsp;&nbsp; Force finishing activity com.xxx/.ListActivity<br>
+V/PhoneStatusBar( 2411): setLightsOn(true)<br>
+I/RenderThread( 4536): RenderThread resumed<br>
+<br>
+</div>
+<div>当然，首先需要确认你的语法及逻辑没有问题，如果都排除了，那么问题就处在so文件的位置上了， 也是我遇到的问题。<br>
+</div>
+<div><br>
+</div>
+<div><strong><span style="font-size:18pt">理一理思路：</span></strong><br>
+</div>
+<div>1.如果你是adb install xxx.apk按装的，那么按装后，我们的so文件会被拷贝到：/data/data/com.xxx.book/lib<br>
+</div>
+<div>-rwxr-xr-x system&nbsp;&nbsp; system&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 73916 2008-05-16 06:40 libuserbookpatcher_jni.so</div>
+<div><br>
+</div>
+<div>用命令ll可以看到如下：<br>
+</div>
+<div>/data/data/com.xxx.book # ll<br>
+drwxrwx--x u0_a60&nbsp;&nbsp; u0_a60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2014-03-26 09:38 app_cache<br>
+drwxrwx--x u0_a60&nbsp;&nbsp; u0_a60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2014-03-26 09:38 app_database<br>
+drwxrwx--x u0_a60&nbsp;&nbsp; u0_a60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2014-03-26 09:38 cache<br>
+drwxrwx--x u0_a60&nbsp;&nbsp; u0_a60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2014-03-26 09:38 databases<br>
+lrwxrwxrwx install&nbsp; install&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2014-03-26 10:54 lib -&gt; /data/app-lib/com.xxx.book-1<br>
+drwxrwx--x u0_a60&nbsp;&nbsp; u0_a60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2014-03-26 09:38 shared_prefs</div>
+<div><br>
+</div>
+<div>这样我们在使用so文件的时候，会默认到应用的data/data目录的lib文件夹下找，如果找不到就会报错误。当前前提是你的系统system/lib下没有同样的so文件<br>
+</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>2.如果你是adb push xxx.apk /system/app/下，那么你的so文件就必须使用上面的第二种方法打包，然后so文件会打到system/lib 下，这样你刷机后，系统的system/lib下就有你需要的so文件了。<br>
+</div>
+<div>如果你不想刷机，你也可以<span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; float:none; display:inline!important">通过adb push *.so \system\lib的方式，将*.so放到system\lib下，以供调用</span>。<br>
+</div>
+<div>在你需要使用so文件的时候，会默认到system/lib 下找这个so文件，如果找不到，就会报错误，像下面这样：<br>
+</div>
+<div>Caused by: java.lang.UnsatisfiedLinkError: Couldn't load xxxbook_jni from loader dalvik.system.PathClassLoader[dexPath=/system/app/xxxbook.apk,libraryPath=/data/app-lib/xxxbook]: findLibrary returned null</div>
+<div><br clear="none">
+</div>
+<div><br clear="none">
+</div>
+<div>OK，暂且到这～有问题欢迎讨论交流，前提是你自己做过超过5个小时以上的思考和实践之后。<br clear="none">
+</div>
+<div><br clear="none">
+</div>
+<div><br>
+</div>
+</div>
+<div><span style="font-size:14px"><br clear="none">
+</span></div>
+</div>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1469758483913">
+<a href="http://blog.csdn.net/shichaosong/article/details/22050029#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/shichaosong/article/details/22050029#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/shichaosong/article/details/22050029#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/shichaosong/article/details/22050029#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/shichaosong/article/details/22050029#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/shichaosong/article/details/22050029#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/blog_detail.css">
+
+    
+<!--172.16.140.11-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" articleid="22050029">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/shichaosong/article/details/22044125&#39;;">上一篇</span><a href="http://blog.csdn.net/shichaosong/article/details/22044125" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">Android assets, raw</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/shichaosong/article/details/22067529&#39;;">下一篇</span><a href="http://blog.csdn.net/shichaosong/article/details/22067529" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">git reflog命令</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article" style="">
+                <h4>我的同类文章</h4>
+                <div class="similar_c" style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;1287893&#39;,&#39;song_shi_chao&#39;,&#39;foot&#39;,&#39;22050029&#39;);">jni<em>（9）</em></span>
+                                </label>
+                                <label class="">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;1434723&#39;,&#39;song_shi_chao&#39;,&#39;foot&#39;,&#39;22050029&#39;);">浏览器开发<em>（50）</em></span>
+                                </label>
+                                <label class="">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;829192&#39;,&#39;song_shi_chao&#39;,&#39;foot&#39;,&#39;22050029&#39;);">Android基础<em>（389）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141" style="max-height:195px;">
+                        <a href="http://blog.csdn.net/" style="display:none" target="_blank">http://blog.csdn.net</a>
+                        <ul class="similar_list fl"><li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8972206" id="foot_aritcle_8972206undefined3607962547367447" target="_blank" title="传智播客JNI第七讲 - JNI中的全局引用/局部引用/弱全局引用、缓存jfieldID和jmethodID的两种方式">传智播客JNI第七讲 - JNI中的全局引用/局部引用/弱全局引用、缓存jfieldID和jmethodID的两种方式</a><span>2013-05-24</span><label><i>阅读</i><b>866</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8952262" id="foot_aritcle_8952262undefined6021198570255824" target="_blank" title="传智播客JNI视频第五讲">传智播客JNI视频第五讲</a><span>2013-05-20</span><label><i>阅读</i><b>563</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8921866" id="foot_aritcle_8921866undefined5292590289874959" target="_blank" title="传智播客第三讲">传智播客第三讲</a><span>2013-05-13</span><label><i>阅读</i><b>517</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8901667" id="foot_aritcle_8901667undefined17010927575925838" target="_blank" title="jni学习专栏博客">jni学习专栏博客</a><span>2013-05-08</span><label><i>阅读</i><b>526</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8216694" id="foot_aritcle_8216694undefined28587215996778026" target="_blank" title="Android Jni基础学习">Android Jni基础学习</a><span>2012-11-23</span><label><i>阅读</i><b>657</b></label></li> </ul>
+
+                        <ul class="similar_list fr"><li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8971328" id="foot_aritcle_8971328undefined47282269898153917" target="_blank" title="传智播客JNI视频第六讲 - 如何在本地方法中处理数组？">传智播客JNI视频第六讲 - 如何在本地方法中处理数组？</a><span>2013-05-24</span><label><i>阅读</i><b>568</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8931067" id="foot_aritcle_8931067undefined596674615887739" target="_blank" title="传智播客JNI视频第四讲">传智播客JNI视频第四讲</a><span>2013-05-15</span><label><i>阅读</i><b>608</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8921224" id="foot_aritcle_8921224undefined7572916967361292" target="_blank" title="传智播客学习笔记：第一、二讲">传智播客学习笔记：第一、二讲</a><span>2013-05-13</span><label><i>阅读</i><b>521</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/song_shi_chao/article/details/8900762" id="foot_aritcle_8900762undefined04414556995447971" target="_blank" title="深入研究jni">深入研究jni</a><span>2013-05-08</span><label><i>阅读</i><b>446</b></label></li> </ul>
+                    </div>
+                </div>
+            </div>    
+    <script type="text/javascript">
+        $(function () {
+            GetCategoryArticles('1287893', 'song_shi_chao','foot','22050029');
+        });
+    </script>
+      
+</div>
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/song_shi_chao/svc/GetSuggestContent/22050029",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/replace.css">
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: block;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c"><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/15"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/1455589744328_328.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/15">Android知识库</a></h4><p><label><span>11873</span><em>关注</em><i>|</i><span>1149</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/17"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/1456818035722_722.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/17">Java EE知识库</a></h4><p><label><span>1055</span><em>关注</em><i>|</i><span>581</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/12"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/1453169124297_297.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/12">Java SE知识库</a></h4><p><label><span>9344</span><em>关注</em><i>|</i><span>454</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/13"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/1453701371636_636.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/13">Java Web知识库</a></h4><p><label><span>9629</span><em>关注</em><i>|</i><span>1017</span><em>收录</em></label></p></dd></dl></div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "22050029",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    <div class="tracking-ad" data-mod="popu_84"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/330" title="iOS8开发技术（Swift版）：iOS基础知识" strategy="v3:content" target="_blank">iOS8开发技术（Swift版）：iOS基础知识</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/545" title="Android入门实战教程" strategy="v3:content" target="_blank">Android入门实战教程</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/768" title="嵌入式工程师养成计划之——嵌入式软件工程师完全学习指南" strategy="v3:content" target="_blank">嵌入式工程师养成计划之——嵌入式软件工程师完全学习指南</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/381" title="软件测试基础" strategy="v3:content" target="_blank">软件测试基础</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/357" title="全能项目经理训练营" strategy="v3:hot" target="_blank">全能项目经理训练营</a></dd></div></div>  
+
+    
+     <div id="res" data-mod="popu_36" class="tracking-ad" style="width: 42%; float: left; margin-right: 30px; display: block;"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/ice_bin123/article/details/39347271" title="Eclipse与Android源码编译过程针对如何将第三方so文件打包进apk中" strategy="SearchAlgorithm" target="_blank">Eclipse与Android源码编译过程针对如何将第三方so文件打包进apk中</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/wag2765/article/details/50611474" title="Android 打包so动态库文件到APK" strategy="SearchAlgorithm" target="_blank">Android 打包so动态库文件到APK</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/BingKing88/article/details/7011099" title="android打包so文件到apk" strategy="SearchAlgorithm" target="_blank">android打包so文件到apk</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/shanghaibao123/article/details/42708015" title="android打包so文件到apk" strategy="SearchAlgorithm" target="_blank">android打包so文件到apk</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/android_xiaozhou/article/details/22407811" title="Android 打包so动态库文件到APK" strategy="SearchAlgorithm" target="_blank">Android 打包so动态库文件到APK</a></dd></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Android JNI以及打包so文件到apk中' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<div class="J_adv" data-view="true" data-mod="ad_popu_71" data-mtp="36" data-order="40" data-con="ad_content_216" style="width: 728px; height: 90px;"><!-- 广告占位容器 --><div id="cpro_u1607657"><iframe id="iframeu1607657_0" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/rczm.html" width="728" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div><!-- 投放代码 --><script type="text/javascript">(window['cproStyleApi'] = window['cproStyleApi'] ||{})['u1607657']={at:'3',rsi0:'728',rsi1:'90',pat:'6',tn:'baiduCustNativeAD',rss1:'#FFFFFF',conBW:'1',adp:'1',ptt:'0',titFF:'%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91',titFS:'',rss2:'#000000',titSU:'0',ptbg:'90',piw:'0',pih:'0',ptp:'0'};/*服务器频道首页置顶Banner960*90，创建于2014-7-3*/(window.cproArray = window.cproArray || []).push({id:'u1607657'});  </script>  <script src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/c.js" type="text/javascript"></script></div>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><br>&nbsp;&nbsp;暂无评论<br><br><div class="clear"></div></div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fshichaosong%2Farticle%2Fdetails%2F22050029">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '22050029';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script language="javascript" type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/song_shi_chao/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/song_shi_chao" target="_blank">
+    <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/1_song_shi_chao.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/song_shi_chao" class="user_name" target="_blank">还是很孤独很沉默</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=song_shi_chao&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1011015次</span></li>
+    <li>积分：<span>17055</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/blog7.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：17055 </div>
+        </span>  </li>
+    <li>排名：<span>第350名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>700篇</span></li>
+    <li>转载：<span>115篇</span></li>
+    <li>译文：<span>12篇</span></li>
+    <li>评论：<span>101条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/2685673" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">android telephony</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1387384" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">算法</a><span>(44)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1434723" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">浏览器开发</a><span>(51)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1405694" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">面试和招聘</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/954033" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android动画</a><span>(35)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/954032" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">学习方法及工作感悟</a><span>(25)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1379789" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Python</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/829192" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Android基础</a><span>(390)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/958688" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">毕设涉及到资料</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/954928" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">java基础</a><span>(57)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/954259" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Eclipse基础及快捷方式</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/820550" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">设计模式</a><span>(17)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1059716" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">ubuntu使用技巧</a><span>(54)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1191894" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">关于互联网</a><span>(41)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/958687" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">移动应用及广告开发</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1211243" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">源码分析</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1234770" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">android打包</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1247573" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Facebook开放平台</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1235940" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">twitter开放平台学习</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1263122" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">自定义view</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1271616" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">开放平台</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1287893" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">jni</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1345443" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Sina SAE</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1345449" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">阿里云</a><span>(18)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1345758" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">腾讯云计算</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1346217" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">亚马逊Web Service</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/song_shi_chao/article/category/1436805" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Git &amp; Github</a><span>(14)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/11">2014年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/06">2014年06月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/05">2014年05月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/04">2014年04月</a><span>(22)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/03">2014年03月</a><span>(23)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/02">2014年02月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2014/01">2014年01月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/12">2013年12月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/11">2013年11月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/10">2013年10月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/09">2013年09月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/08">2013年08月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/07">2013年07月</a><span>(31)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/06">2013年06月</a><span>(49)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/05">2013年05月</a><span>(31)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/04">2013年04月</a><span>(91)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/03">2013年03月</a><span>(73)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/02">2013年02月</a><span>(30)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2013/01">2013年01月</a><span>(24)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/12">2012年12月</a><span>(46)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/11">2012年11月</a><span>(38)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/10">2012年10月</a><span>(47)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/09">2012年09月</a><span>(35)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/08">2012年08月</a><span>(25)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/07">2012年07月</a><span>(29)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/05">2012年05月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/04">2012年04月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/03">2012年03月</a><span>(18)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/02">2012年02月</a><span>(17)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2012/01">2012年01月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2011/12">2011年12月</a><span>(77)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2011/06">2011年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/song_shi_chao/article/month/2011/05">2011年05月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/33716741#comments">TextView 上下默认有padding</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/langjian2012" class="user_name">langjian2012</a>:
+你好，推荐1个经验公式：margin=margin-字体大小*0.1。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/djialin0418/article/details/51071739#comments">Telephony MO CALL/IMS CALL</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/song_shi_chao" class="user_name">还是很孤独很沉默</a>:
+楼主分析的挺不错的. 请问楼主是在哪个公司工作啊, 可以联系下我么, 我也是做 telephnoy ...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/22916345#comments">Android res.getFraction()</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/ZHOU452840622" class="user_name">燃烧那滴泪</a>:
+没明白
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/7437736#comments">怎么使点击一个popupwindow窗口之外的区域popupwindow消失呢？</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u014736978" class="user_name">jc小金金</a>:
+楼主你太棒了，Bitmap..一行搞定了。。。。。。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/7437736#comments">Android res.getFraction()</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/iplayvs2008" class="user_name">西西弗斯丶</a>:
+胡扯！（约等于0.25，然后转为int就是0.25）,转为int怎么是0.25，应该是0
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/7863227#comments">ViewDebug</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/guiying712" class="user_name">guiying712</a>:
+原来如此
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/7863227#comments">TextView 上下默认有padding</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/z191726501" class="user_name">曾博文</a>:
+如果行数固定的话可以android:includeFontPadding="false"的基础上指定...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/7863227#comments">TextView 上下默认有padding</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Loyean" class="user_name">Loyean</a>:
+同表示无效。。。。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/9126471#comments">Android 一张图理解getWidth和getMeasuredWidth</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/postxx" class="user_name">postxx</a>:
+我测试了根本就不是这么一回事
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/shichaosong/article/details/7949580#comments">Android中清楚Cookie和WebView的缓存</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/b87936260" class="user_name">b87936260</a>:
+cookieManager.removeSessionCookie();//移除      cook...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/JavaScript1.js"></script><link rel="stylesheet" type="text/css" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏乐知网络技术有限公司 提供商务支持</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/notify.js"></script>
+
+    <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div><input type="hidden" id="aa_g_data_ids">
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+   
+    <link href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/wmd.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/showdown.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/prettify.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ask_float_block.js"></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   <div><iframe src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/skip.html" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></div></div>
+
+    <link rel="stylesheet" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/blog_code.css">
+    <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/saveToCode.js"></script>
+      <script type="text/javascript" src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/main(1).js"></script>
+
+   
+ <div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="tracking-ad" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:381px"></a><a id="com-d-top-a" style="top: 419px; display: block;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/shichaosong/article/details/22050029#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/shichaosong/article/details/22050029#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/shichaosong/article/details/22050029#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./Android JNI以及打包so文件到apk中 - 学习记录 - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/shichaosong/article/details/22050029#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/shichaosong/article/details/22050029#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="Android JNI以及打包so文件到apk中" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="Android JNI以及打包so文件到apk中： http://blog.csdn.net/shichaosong/article/details/22050029"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>android so jni apk</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="android" so="" jni="" apk,=""><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><span style="border-radius: 2px; text-indent: 20px; width: auto; padding: 0px 4px 0px 0px; text-align: center; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: 20px; font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; color: rgb(255, 255, 255); position: absolute; opacity: 1; z-index: 8675309; display: none; cursor: pointer; border: none; -webkit-font-smoothing: antialiased; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjYmQwODFjIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(189, 8, 28);">Save</span></body></html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>NDK开发历程（一）：android native code的调试方法 - ychellboy - 博客园</title>
+<link type="text/css" rel="stylesheet" href="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-summerGarden.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/ychellboy/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/ychellboy/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/ychellboy/wlwmanifest.xml">
+<script src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'ychellboy', cb_enable_mathjax=false;</script>
+<script src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/ychellboy/"><img id="blogLogo" src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/ychellboy/">一个壮族小伙的技术博客</a></h1>
+<h2>嘿嘿嘿嘿
+</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+	<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/ychellboy/">首页</a></li>
+	<li><a href="http://news.cnblogs.com/">新闻</a></li>
+	<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/ychellboy">联系</a></li>
+	<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+	<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/ychellboy/rss">订阅</a>
+	<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/ychellboy/rss"><img src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/xml.gif" alt="订阅"></a></li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔- 35&nbsp;
+文章- 0&nbsp;
+评论- 183&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/ychellboy/archive/2013/02/22/2922683.html">NDK开发历程（一）：android native code的调试方法</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;&nbsp;&nbsp; 
+使用NDK在android上做开发是一件“痛并快乐着”的差事，之所以“快乐”是因为可以将一些原有的C/C++库直接移植到android上，而不需
+要用java再开发一套功能相同的库。然而这同时也是一件“痛苦”的事件，因为android本身是裁减过的linux，好些system 
+call不能使用，另外由于没有采用glibc（用的是Bionic libc，原因见<a href="http://en.wikipedia.org/wiki/Bionic_%28software%29">wiki</a>），好些函数所在的头文件位置也有变化，这都给移植工作带来困难。更为坑爹的是一些函数在头文件里能找到定义在具体库里确没有实现（比如：pthread_mutex_timedlock）。</p>
+<p>&nbsp;&nbsp;&nbsp; android 
+native开发在编译链接阶段会遇到上述“惨痛”经历，但更为痛苦的是好不容易变成可执行文件，一运行就crash没有任何信息。遇到这种情况，在排除
+了代码有低级错误的情况后，最终只能想办法做debug。（本文余下篇幅在不特殊注明的情况下都是指使用NDK在android上做native 
+code的开发）。</p>
+<p>&nbsp;&nbsp;&nbsp; 在android上NDK开发的程序进行查错主要有两种方法：</p>
+<p>（1）使用log进行查错：在程序源代码上加log，根据log信息来排查错误。这种方式应该是最为常用的，因为其普适性很高。不过作为在
+VxWorks上移植过网络库的苦逼，深知用log排错的效率是多么的低，特别是在排查底层库时。而遇到多线程的程序，log排错是多么的无力。</p>
+<p>（2）使用ndk-gdb调试程序：用过gdb的都知道它多么的强大，但是想要使用ndk-gdb需要做很多的配置，还会碰到很多坑，因此想真正使用起来也不是件容易的事（毕竟是开源项目，和VxWorks这种高富帅是没法比的）。</p>
+<p>&nbsp;&nbsp;&nbsp; 本文主要介绍如何配置使用ndk-gdb进行debug，所使用android-ndk-r8d/samples/hello-jni作为入口调用一个static library。 ——&nbsp; Here we go！</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: large;">一、开发环境</span></strong></p>
+<blockquote>
+<p>1. ubuntu 12.04 x86_64</p>
+<p>2. eclipse 3.7（只是为了方便启动android模拟器）</p>
+<p>3. android NDK r8d</p>
+<p>4. android SDK 2.2 ~ 4.2</p>
+<p>5. ant （打包程序使用）</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp; 在windows环境下可以配置cygwin来实现ndk-gdb，本人在windows上使用相同方法也达到了效果，对cygwin的配置这里不再讨论，有疑问可以找google老师。</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: large;">二、准备阶段</span></strong></p>
+<p>&nbsp;&nbsp;&nbsp; 1. 下载linux平台的<a href="https://developer.android.com/tools/sdk/ndk/index.html#Revisions">NDK</a>，
+并解压到相应目录。这里需要注意的是：虽然google网站上写着NDK for Linux 
+32/64-bit（x86），但是ndk中的一些工具（比如NDK自带的awk，make，sed）在64bit的ubuntu上并不能直接运行，因为
+这些工具是32bit的程序，需要32bit的运行时库。解决方法是：sudo apt-get install libc6-i386， sudo 
+apt-get install lib32asound2 lib32z1 lib32stdc++6 lib32bz2-1.0&nbsp; 
+安装这些常用的32位库。如果是CentOS则需要：yum install libgcc.i686 yum install 
+glibc-static.i686 yum install glibc-devel.i686</p>
+<p>&nbsp;&nbsp;&nbsp; 2. 下载SDK，在<a href="https://developer.android.com/sdk/index.html">下载页面</a>的”DOWNLOAD
+ FOR OTHER PLATFORMS“ –&gt;“ADT 
+Bundle”找到对应的版本下载，并解压到相应的目录。这时SDK下的platforms会有最新版本的android，下载历史版本的android
+就要使用tools下的工具：./android list sdk 根据列举出来的编号执行如下： ./android update sdk –t 1
+ –u 则更新编号是1的包。使用android update把所需要的历史版本都下载下来。</p>
+<p>&nbsp;&nbsp;&nbsp; 3. 根据实际情况在~/.profile（或~/.bash_profile）中设置如下环境变量，设置完毕后执行source ~/.profile使之生效：</p>
+<blockquote>
+<p># ---- NDK ---- <br>NDK_ROOT=~/mysoftware/NDK/android-ndk-r8d       <br>PATH=$PATH:$NDK_ROOT       <br>export NDK_ROOT</p>
+<p># ---- android-SDK ----      <br>ANDROID_SDK_ROOT=~/mysoftware/SDK/adt-bundle-linux-x86_64/sdk       <br>PATH=$PATH:$ANDROID_SDK_ROOT       <br>export ANDROID_SDK_ROOT</p>
+<p># ---- adb ----      <br>ADB_PATH=~/mysoftware/SDK/adt-bundle-linux-x86_64/sdk/platform-tools       <br>PATH=$PATH:$ADB_PATH</p>
+<p># ---- tools/android ----      <br>PATH=$PATH:~/mysoftware/SDK/adt-bundle-linux-x86_64/sdk/tools</p>
+<p>export PATH</p>
+
+
+ </blockquote>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: large;">三、修改hello-jni</span></strong></p>
+<p>&nbsp;&nbsp;&nbsp; 由于项目使用c++编程，做这个实验的时候就将jni/hello-jni.c 改为hello-jni.cpp，代码如下：</p>
+<div id="codeSnippetWrapper">
+<div id="codeSnippet" style="text-align: left; line-height: 12pt; background-color: #f4f4f4; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;">
+<pre><span id="lnum1" style="color: #606060;">   1:</span> <span style="color: #cc6633;">#include</span> &lt;string.h&gt;</pre>
+<!--CRLF-->
+<pre><span id="lnum2" style="color: #606060;">   2:</span> <span style="color: #cc6633;">#include</span> &lt;jni.h&gt;</pre>
+<!--CRLF-->
+<pre><span id="lnum3" style="color: #606060;">   3:</span> <span style="color: #cc6633;">#include</span> &lt;unistd.h&gt;</pre>
+<!--CRLF-->
+<pre><span id="lnum4" style="color: #606060;">   4:</span> <span style="color: #cc6633;">#include</span> <span style="color: #006080;">"shared/thread.h"</span></pre>
+<!--CRLF-->
+<pre><span id="lnum5" style="color: #606060;">   5:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum6" style="color: #606060;">   6:</span> <span style="color: #008000;">/* This is a trivial JNI example where we use a native method</span></pre>
+<!--CRLF-->
+<pre><span id="lnum7" style="color: #606060;">   7:</span> <span style="color: #008000;"> * to return a new VM String. See the corresponding Java source</span></pre>
+<!--CRLF-->
+<pre><span id="lnum8" style="color: #606060;">   8:</span> <span style="color: #008000;"> * file located at:</span></pre>
+<!--CRLF-->
+<pre><span id="lnum9" style="color: #606060;">   9:</span> <span style="color: #008000;"> *</span></pre>
+<!--CRLF-->
+<pre><span id="lnum10" style="color: #606060;">  10:</span> <span style="color: #008000;"> *   apps/samples/hello-jni/project/src/com/example/hellojni/HelloJni.java</span></pre>
+<!--CRLF-->
+<pre><span id="lnum11" style="color: #606060;">  11:</span> <span style="color: #008000;"> */</span></pre>
+<!--CRLF-->
+<pre><span id="lnum12" style="color: #606060;">  12:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum13" style="color: #606060;">  13:</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span> shared;</pre>
+<!--CRLF-->
+<pre><span id="lnum14" style="color: #606060;">  14:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum15" style="color: #606060;">  15:</span> <span style="color: #0000ff;">extern</span> <span style="color: #006080;">"C"</span>  {</pre>
+<!--CRLF-->
+<pre><span id="lnum16" style="color: #606060;">  16:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum17" style="color: #606060;">  17:</span> <span style="color: #0000ff;">void</span>* StartThread(<span style="color: #0000ff;">void</span>* obj)</pre>
+<!--CRLF-->
+<pre><span id="lnum18" style="color: #606060;">  18:</span> {   </pre>
+<!--CRLF-->
+<pre><span id="lnum19" style="color: #606060;">  19:</span>     <span style="color: #0000ff;">return</span> NULL;</pre>
+<!--CRLF-->
+<pre><span id="lnum20" style="color: #606060;">  20:</span> }   </pre>
+<!--CRLF-->
+<pre><span id="lnum21" style="color: #606060;">  21:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum22" style="color: #606060;">  22:</span> jstring</pre>
+<!--CRLF-->
+<pre><span id="lnum23" style="color: #606060;">  23:</span> Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,</pre>
+<!--CRLF-->
+<pre><span id="lnum24" style="color: #606060;">  24:</span>                                                   jobject thiz )</pre>
+<!--CRLF-->
+<pre><span id="lnum25" style="color: #606060;">  25:</span> {       </pre>
+<!--CRLF-->
+<pre><span id="lnum26" style="color: #606060;">  26:</span>     <span style="color: #0000ff;">volatile</span> <span style="color: #0000ff;">int</span> bGo = 0;</pre>
+<!--CRLF-->
+<pre><span id="lnum27" style="color: #606060;">  27:</span>     <span style="color: #0000ff;">while</span>(!bGo) {</pre>
+<!--CRLF-->
+<pre><span id="lnum28" style="color: #606060;">  28:</span>         sleep(1);</pre>
+<!--CRLF-->
+<pre><span id="lnum29" style="color: #606060;">  29:</span>     }   </pre>
+<!--CRLF-->
+<pre><span id="lnum30" style="color: #606060;">  30:</span>     </pre>
+<!--CRLF-->
+<pre><span id="lnum31" style="color: #606060;">  31:</span>     Thread mythread(&amp;StartThread, NULL);</pre>
+<!--CRLF-->
+<pre><span id="lnum32" style="color: #606060;">  32:</span>     mythread.Start();</pre>
+<!--CRLF-->
+<pre><span id="lnum33" style="color: #606060;">  33:</span>     </pre>
+<!--CRLF-->
+<pre><span id="lnum34" style="color: #606060;">  34:</span>     <span style="color: #0000ff;">return</span> env-&gt;NewStringUTF(<span style="color: #006080;">"Hello from JNI !"</span>);</pre>
+<!--CRLF-->
+<pre><span id="lnum35" style="color: #606060;">  35:</span>     <span style="color: #008000;">//return (*env)-&gt;NewStringUTF(env, "Hello from JNI !");</span></pre>
+<!--CRLF-->
+<pre><span id="lnum36" style="color: #606060;">  36:</span> }   </pre>
+<!--CRLF-->
+<pre><span id="lnum37" style="color: #606060;">  37:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum38" style="color: #606060;">  38:</span> }</pre>
+<!--CRLF--></div>
+</div>
+<p>&nbsp;&nbsp;&nbsp; 注意需要用extern “C”{ } 
+把Java_com_example_hellojni_HelloJni_stringFromJNI函数包起来，while 
+(!bGo)是为了方便调试，因为ndk-gdb会先把程序run起来后再attach上去，这里需要一个while让程序等一会。上述代码中的
+Thread类是在libshared.a的静态库中，因此需要修改hello-jni目录下的jni/Android.mk文件。如下：</p>
+<div id="codeSnippetWrapper">
+<div id="codeSnippet" style="text-align: left; line-height: 12pt; background-color: #f4f4f4; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;">
+<pre><span id="lnum1" style="color: #606060;">   1:</span> LOCAL_PATH := $(call my-dir)</pre>
+<!--CRLF-->
+<pre><span id="lnum2" style="color: #606060;">   2:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum3" style="color: #606060;">   3:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">include $(CLEAR_VARS)</span></pre>
+<!--CRLF-->
+<pre><span id="lnum4" style="color: #606060;">   4:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">LOCAL_MODULE := shared</span></pre>
+<!--CRLF-->
+<pre><span id="lnum5" style="color: #606060;">   5:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">LOCAL_SRC_FILES := ../shared/obj/local/armeabi/libshared.a</span></pre>
+<!--CRLF-->
+<pre><span id="lnum6" style="color: #606060;">   6:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/shared</span></pre>
+<!--CRLF-->
+<pre><span id="lnum7" style="color: #606060;">   7:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">include $(PREBUILT_STATIC_LIBRARY)</span></pre>
+<!--CRLF-->
+<pre><span id="lnum8" style="color: #606060;">   8:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum9" style="color: #606060;">   9:</span> include $(CLEAR_VARS)</pre>
+<!--CRLF-->
+<pre><span id="lnum10" style="color: #606060;">  10:</span> LOCAL_MODULE    := hello-jni</pre>
+<!--CRLF-->
+<pre><span id="lnum11" style="color: #606060;">  11:</span> LOCAL_SRC_FILES := hello-jni.cpp</pre>
+<!--CRLF-->
+<pre><span id="lnum12" style="color: #606060;">  12:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">LOCAL_STATIC_LIBRARIES := shared</span></pre>
+<!--CRLF-->
+<pre><span id="lnum13" style="color: #606060;">  13:</span> <span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">LOCAL_C_INCLUDES := $(LOCAL_PATH)/../</span></pre>
+<!--CRLF-->
+<pre><span id="lnum14" style="color: #606060;">  14:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum15" style="color: #606060;">  15:</span> include $(BUILD_SHARED_LIBRARY)</pre>
+<!--CRLF--></div>
+</div>
+<p>&nbsp;&nbsp;&nbsp; 红色部分为添加或修改项，编译前需要在环境变量C_INCLUDE_PATH中加入jni.h的路径，比如：</p>
+<div id="codeSnippetWrapper">
+<div id="codeSnippet" style="text-align: left; line-height: 12pt; background-color: #f4f4f4; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;">
+<pre><span id="lnum1" style="color: #606060;">   1:</span> C_INCLUDE_PATH=$C_INCLUDE_PATH:~/mysoftware/NDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include</pre>
+<!--CRLF-->
+<pre><span id="lnum2" style="color: #606060;">   2:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre><span id="lnum3" style="color: #606060;">   3:</span> <span style="color: #0000ff;">export</span> C_INCLUDE_PATH</pre>
+<!--CRLF--></div>
+</div>
+<p>PS：libshared.a在build时需要加NDK_DEBUG=1的参数，即：ndk-build NDK_DEBUG=1，这么编译才能带上debug信息。</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: large;">四、万事俱备</span></strong></p>
+<p>1. shell进入ndk/samples/目录，运行android update project --path 
+hello-jni，生成build.xml用于apk打包。（也可以在hello-jni目录里运行：android update project 
+-t 1 -p . --subprojects）</p>
+<p>2. 进入ndk/samples/hello-jni，修改AndroidManifest.xml文件</p>
+<div id="codeSnippetWrapper">
+<div id="codeSnippet" style="text-align: left; line-height: 12pt; background-color: #f4f4f4; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;">
+<pre><span id="lnum1" style="color: #606060;">   1:</span> &lt;application android:label=<span style="color: #006080;">"@string/app_name"<br><br></span><span id="lnum2" style="color: #606060;">   2:      </span><span style="color: #ff0000; font-family: 'Courier New', courier, monospace; font-size: 8pt; line-height: 12pt;">android:debuggable=</span><span style="color: #006080;">"true"</span>&gt;</pre>
+<!--CRLF--></div>
+</div>
+<p>3. 运行ndk-build</p>
+<p>4. 运行ant debug</p>
+<p>5. 启动android的模拟器（可以从eclipse启动）</p>
+<p>6. 运行adb install –r bin/HelloJni-debug.apk</p>
+<p>7. 运行ndk-gdb –start 开始debug，后续和使用gdb一样</p>
+<p>8. 需要图形化界面进行debug，可以参考[2]</p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;&nbsp;&nbsp; 几点重要说明：</strong></p>
+<p>1. ndk-gdb用的是client/server形式对目标机器进行debug， gdb 调试器 与 gdbserver 的关系，就是 gdb 与 stub的关系，如下图所示[3] ：</p>
+<p><a href="http://images.cnitblog.com/blog/105996/201302/22174733-705c7e6dd27246958cd60c6c8d3682a5.png"><img style="background-image: none; padding-left: 0px; padding-right: 0px; display: block; float: none; margin-left: auto; margin-right: auto; padding-top: 0px; border: 0px;" title="image" src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/22174733-0eb65003f87e4472be167996692387a0.png" alt="image" border="0" height="261" width="494"></a></p>
+<p>2. ndk-gdb<strong><span style="color: #ff0000;">最坑爹</span></strong>的是：gdb和gdbserver的版本必须是匹配的才能debug：</p>
+<p>&nbsp;&nbsp;&nbsp; 每一个模拟器在system/bin下都有gdbserver，这些gdbserver是和模拟器本身的android版本有关的，而下载的NDK的ndk-gdb一般都是最新的gdb，因此gdb和gdbserver的版本常常匹配不了。这时需要把对应版本的gdbserver push到emulator上，然后指定./gdbserver，必须指定“./”因为在linux下默认优先查找system目录。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>References：</p>
+<p>[1] <a href="http://www.chinavideo.org/viewthread.php?tid=10866">使用eclipse/ndk-gdb对java/native code联合调试</a></p>
+<p>[2] <a href="http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html">Eclipse+CDT+GDB调试android NDK程序</a></p>
+<p>[3] <a href="http://www.cnblogs.com/yaozhongxiao/archive/2012/03/13/2393959.html">ndk-gdb对java/native code联合调试</a></p>
+<p>[4] <a href="http://www.devdiv.com/thread-32770-1-1.html">使用eclipse/ndk-gdb对java/native code联合调试</a></p>
+<p>[5] <a href="http://www.eoeandroid.com/thread-3877-1-1.html">把hello-jni的.c后缀改成.cpp后出错</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/ychellboy/category/454072.html">Android开发</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/ychellboy/tag/NDK/">NDK</a>, <a href="http://www.cnblogs.com/ychellboy/tag/android/">android</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2922683,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/ychellboy" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ychellboy/" target="_blank"><img src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/u105996.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ychellboy/">ychellboy</a><br>
+<a href="http://home.cnblogs.com/u/ychellboy/followees">关注 - 3</a><br>
+<a href="http://home.cnblogs.com/u/ychellboy/followers">粉丝 - 117</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(2922683,'Digg')">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(2922683,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/ychellboy/archive/2012/10/15/2723470.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/ychellboy/archive/2012/10/15/2723470.html" title="发布于2012-10-15 20:06">网络游戏服务器构架设计（四）：云风的轨迹</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-02-22 17:48</span> <a href="http://www.cnblogs.com/ychellboy/">ychellboy</a> 阅读(<span id="post_view_count">17766</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2922683" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2922683);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=64765,cb_entryId=2922683,cb_blogApp=currentBlogApp,cb_blogUserGuid='ddeac1c8-11f2-de11-ba8f-001cf0cd104b',cb_entryCreatedDate='2013/2/22 17:48:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jpush.cn/" target="_blank">【推荐】极光推送30多万开发者的选择，SDK接入量超过30亿了，你还没注册？</a><br><a href="http://click.aliyun.com/m/3037/" target="_blank">【阿里云SSD云盘】速度行业领先</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.cnblogs.com/onepixel/p/5062456.html" target="_blank"><img src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/explain-it-simply.jpg" alt="explain it simply" title="explain it simply" height="250" width="300"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/537253/" target="_blank">马云受邀担任联合国“可持续发展目标”倡导者</a><br> ·  <a href="http://news.cnblogs.com/n/537251/" target="_blank">2015年企业服务领域盘点：看BAT是如何布局的</a><br> ·  <a href="http://news.cnblogs.com/n/537250/" target="_blank">2.5亿到0，比Facebook还大4岁的Friends Reunited倒闭</a><br> ·  <a href="http://news.cnblogs.com/n/537249/" target="_blank">微软专利：Surface Pen触控笔将支持充电！</a><br> ·  <a href="http://news.cnblogs.com/n/537248/" target="_blank">获取过世丈夫的 Apple ID？要出示法院文件</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/536387/" target="_blank">Docker简介</a><br> ·  <a href="http://kb.cnblogs.com/page/536115/" target="_blank">Docker简明教程</a><br> ·  <a href="http://kb.cnblogs.com/page/535581/" target="_blank">Git协作流程</a><br> ·  <a href="http://kb.cnblogs.com/page/535355/" target="_blank">企业计算的终结</a><br> ·  <a href="http://kb.cnblogs.com/page/535278/" target="_blank">软件开发的核心</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p><img style="width: 219px; height: 265px" alt="" src="NDK%E5%BC%80%E5%8F%91%E5%8E%86%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9Aandroid%20native%20code%E7%9A%84%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95%20-%20ychellboy%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/vdsf.jpg" border="0" height="265" width="219"></p>
+<p>&nbsp;ALL Things Distributed！</p>
+<p>&nbsp;weibo：壮族小伙_杨</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/ychellboy/">ychellboy</a><br>园龄：<a href="http://home.cnblogs.com/u/ychellboy/" title="入园时间：2009-12-26">6年</a><br>粉丝：<a href="http://home.cnblogs.com/u/ychellboy/followers/">117</a><br>关注：<a href="http://home.cnblogs.com/u/ychellboy/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('ddeac1c8-11f2-de11-ba8f-001cf0cd104b')">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" title="日历" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2013/01/01');return false;">&lt;</a></td><td align="center">2013年2月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2013/03/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center"><a href="http://www.cnblogs.com/ychellboy/archive/2013/02/22.html"><u>22</u></a></td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/ychellboy/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/ychellboy/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/ychellboy/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/ychellboy/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/ychellboy/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/ychellboy/tag/mangos/">mangos</a>(5)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/paxos/">paxos</a>(5)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>(4)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/%E4%B8%80%E8%87%B4%E6%80%A7/">一致性</a>(4)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/realmd/">realmd</a>(3)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/unity/">unity</a>(2)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/mangosd/">mangosd</a>(2)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/mangos-zero/">mangos-zero</a>(2)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/%E7%BC%96%E7%A8%8B%E7%94%9F%E6%B4%BB/">编程生活</a>(2)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF/">服务器端</a>(2)</li><li><a href="http://www.cnblogs.com/ychellboy/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(35)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/ychellboy/category/454072.html">Android开发(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/ychellboy/category/323252.html">mangos(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/ychellboy/category/226022.html">memcached</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/ychellboy/category/226023.html">paxos算法(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/ychellboy/category/400717.html">Unity3D(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/ychellboy/category/226024.html">分布式</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/ychellboy/category/226026.html">经典转载(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/ychellboy/category/226025.html">美文共赏(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/ychellboy/category/241987.html">数据库相关(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/ychellboy/category/236199.html">算法研究(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/ychellboy/category/226027.html">随便写写(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/ychellboy/category/353710.html">网游服务器端设计思考(8)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(35)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/ychellboy/archive/2013/02.html">2013年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/ychellboy/archive/2012/10.html">2012年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/ychellboy/archive/2012/09.html">2012年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/ychellboy/archive/2012/08.html">2012年8月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/ychellboy/archive/2012/07.html">2012年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/ychellboy/archive/2012/05.html">2012年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/ychellboy/archive/2012/03.html">2012年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/ychellboy/archive/2012/02.html">2012年2月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/ychellboy/archive/2012/01.html">2012年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/ychellboy/archive/2011/12.html">2011年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/ychellboy/archive/2011/11.html">2011年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/ychellboy/archive/2011/10.html">2011年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/ychellboy/archive/2011/09.html">2011年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/ychellboy/archive/2011/06.html">2011年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/ychellboy/archive/2010/04.html">2010年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/ychellboy/archive/2010/03.html">2010年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/ychellboy/archive/2010/01.html">2010年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/ychellboy/archive/2009/12.html">2009年12月 (9)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListImageCategory">
+<h3 class="catListTitle">相册</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/ychellboy/gallery/226143.html" rel="nofollow">paxos算法</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ychellboy/archive/2012/05/14/2499549.html#3309832">1. Re:VPS和云主机的选购指南</a></li>
+    <li class="recent_comment_body">PPPCloud是国内首家全SSD磁盘的云主机供应商，实惠的价格，优质的服务，强劲的性能， 是追求极致的开发者的不二选择。</li>
+    <li class="recent_comment_author">--xiaozhu_ok</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ychellboy/archive/2009/12/29/1634801.html#3300934">2. Re:分布式一致性Paxos算法学习笔记（二）：算法详解</a></li>
+    <li class="recent_comment_body">@iceworldvip可以理解为发给所有的acceptors，但是由于网络的不确定性，并不是所有的acceptors都能收到这个prepare，所以这里写的是“多数派”...</li>
+    <li class="recent_comment_author">--ychellboy</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ychellboy/archive/2009/12/29/1634801.html#3300928">3. Re:分布式一致性Paxos算法学习笔记（二）：算法详解</a></li>
+    <li class="recent_comment_body">你好！ 楼主，这个算法已经困扰我很久了，读了您的文章让我有了一定的了解。请问下面这段话中的“一个多数派”指的是什么意思？ (a)proposer 选择一个提案编号 n 并将 pre......</li>
+    <li class="recent_comment_author">--冯冰</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ychellboy/archive/2012/02/10/2345879.html#3196047">4. Re:网游服务器端设计思考：心跳设计</a></li>
+    <li class="recent_comment_body">@zozoiiiiii这篇说的不是连接心跳tick, 而是逻辑tick...</li>
+    <li class="recent_comment_author">--bpoint</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ychellboy/archive/2012/10/15/2723470.html#3158886">5. Re:网络游戏服务器构架设计（四）：云风的轨迹</a></li>
+    <li class="recent_comment_body">@贺瑞斯网络编程我做了很多年，游戏服务器做了快五年吧。游戏服务器这块资料很少，主要还是靠自己多想，或者加入大公司见见世面。已经上面也提到：“天龙泄露出来的code应该是比较早期的版本，其实参考价值不大......</li>
+    <li class="recent_comment_author">--ychellboy</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/08/01/2615751.html">1. Unity模型导入的若干问题(27166)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/10/15/2723470.html">2. 网络游戏服务器构架设计（四）：云风的轨迹(26012)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2009/12/29/1634685.html">3. 分布式一致性Paxos算法学习笔记（一）：paxos大杂烩(19580)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2010/04/16/1713884.html">4. OCI编程历程(18200)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2013/02/22/2922683.html">5. NDK开发历程（一）：android native code的调试方法(17767)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/ychellboy/archive/2010/04/16/1713884.html">1. OCI编程历程(25)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2010/04/05/1704883.html">2. 分布式一致性Paxos算法学习笔记（四）：算法回顾(23)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/05/14/2499549.html">3. VPS和云主机的选购指南(19)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/09/17/2675347.html">4. 网络游戏服务器构架设计（三）：刀剑Online - 总控服务器、场景服务器(17)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/08/20/2648073.html">5. 网络游戏服务器构架设计（二）：刀剑Online - 连接负载服务器CLS(17)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/ychellboy/archive/2010/04/16/1713884.html">1. OCI编程历程(8)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/09/17/2675347.html">2. 网络游戏服务器构架设计（三）：刀剑Online - 总控服务器、场景服务器(5)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/07/19/2594020.html">3. 魔兽争霸war3：模型相关细节介绍(5)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/05/14/2499549.html">4. VPS和云主机的选购指南(5)</a></li><li><a href="http://www.cnblogs.com/ychellboy/archive/2012/02/10/2345879.html">5. 网游服务器端设计思考：心跳设计(5)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 ychellboy
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
